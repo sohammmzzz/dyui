@@ -1,4 +1,4 @@
-# @dyui/react
+# dyui-react
 
 The React runtime for [**DyUI**](../python) — render live, pluggable UI cards
 emitted by any LangGraph agent. Zero runtime dependencies (React is a peer),
@@ -7,12 +7,12 @@ themeable via CSS variables, and works in Next.js, Vite, or any React app.
 ## Install
 
 ```bash
-npm install @dyui/react
+npm install dyui-react
 ```
 
 ```tsx
-import { useDyUIAgent, DyUISurface, createRegistry } from "@dyui/react";
-import "@dyui/react/styles.css";
+import { useDyUIAgent, DyUISurface, createRegistry } from "dyui-react";
+import "dyui-react/styles.css";
 ```
 
 ## Use

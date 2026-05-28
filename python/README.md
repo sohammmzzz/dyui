@@ -2,7 +2,7 @@
 
 A **dynamic-UI layer for any LangGraph agent.** Emit rich, live UI "cards" from
 inside any LangGraph node or tool — with any LLM, or none — and render them on
-the frontend with the companion [`@dyui/react`](../react) package.
+the frontend with the companion [`dyui-react`](../react) package.
 
 DyUI rides LangGraph's first-class `custom` stream channel, so it is
 transport-, model-, and framework-agnostic. No voice, no vendor lock-in.
@@ -72,12 +72,12 @@ That's the whole "one Python file + HTML templates → dynamic UI" path. See
 [`examples/html_agent.py`](examples/html_agent.py) and [`examples/cards/`](examples/cards).
 
 > The served UI renders the built-in card types and `html` cards. Bespoke
-> *React* card components live in `@dyui/react`; for the no-frontend path, model
+> *React* card components live in `dyui-react`; for the no-frontend path, model
 > custom cards as HTML templates instead.
 
 ## Connect a React frontend (optional)
 
-`POST /dyui/stream` is a plain SSE endpoint the `@dyui/react` `useDyUIAgent` hook
+`POST /dyui/stream` is a plain SSE endpoint the `dyui-react` `useDyUIAgent` hook
 consumes directly. Or mount onto an existing app:
 
 ```python

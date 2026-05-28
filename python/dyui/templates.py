@@ -8,7 +8,7 @@ Drop ``.html`` files in a folder, then emit them by name with props filled in::
 Each ``{{ key }}`` placeholder in the template is replaced with the matching
 prop, HTML-escaped by default. Use ``{{& key }}`` (or ``{{{ key }}}``) to inject
 raw, pre-trusted HTML. The filled markup is emitted as a DyUI ``html`` card, so
-the built-in served UI (or ``@dyui/react``) renders it with no extra wiring.
+the built-in served UI (or ``dyui-react``) renders it with no extra wiring.
 """
 
 from __future__ import annotations

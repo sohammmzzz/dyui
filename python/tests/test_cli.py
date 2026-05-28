@@ -36,7 +36,7 @@ def test_export_scaffold_writes_project(tmp_path):
 
 def test_export_default_uses_npm_version(tmp_path):
     write_react_project(tmp_path / "p", project_name="p", stream_url="u")
-    assert '"@dyui/react": "^0.1.0"' in (tmp_path / "p" / "package.json").read_text()
+    assert '"dyui-react": "^0.1.0"' in (tmp_path / "p" / "package.json").read_text()
 
 
 def test_cmd_export_refuses_nonempty(tmp_path, monkeypatch, capsys):

@@ -1,4 +1,4 @@
-/** Public API of @dyui/react. */
+/** Public API of dyui-react. */
 export { streamAgent } from "./client";
 export type { StreamOptions } from "./client";
 

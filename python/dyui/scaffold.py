@@ -1,4 +1,4 @@
-"""Generate an editable React project that consumes ``@dyui/react``.
+"""Generate an editable React project that consumes ``dyui-react``.
 
 Used by ``dyui export <name>``. Everything is emitted from string templates so
 the package ships no extra data files. The result is a standard Vite + React +
@@ -22,7 +22,7 @@ _PACKAGE_JSON = """{{
     "preview": "vite preview"
   }},
   "dependencies": {{
-    "@dyui/react": "{dyui_dep}",
+    "dyui-react": "{dyui_dep}",
     "react": "^19.0.0",
     "react-dom": "^19.0.0"
   }},
@@ -78,7 +78,7 @@ _INDEX_HTML = """<!doctype html>
 _MAIN_TSX = """import React from "react";
 import ReactDOM from "react-dom/client";
 import App from "./App";
-import "@dyui/react/styles.css";
+import "dyui-react/styles.css";
 import "./index.css";
 
 ReactDOM.createRoot(document.getElementById("root")!).render(
@@ -93,7 +93,7 @@ VITE_DYUI_URL={stream_url}
 """
 
 _APP_TSX = '''import {{ useMemo, useState }} from "react";
-import {{ useDyUIAgent, DyUISurface, createRegistry }} from "@dyui/react";
+import {{ useDyUIAgent, DyUISurface, createRegistry }} from "dyui-react";
 import {{ ExampleCard }} from "./cards/ExampleCard";
 
 const STREAM_URL = import.meta.env.VITE_DYUI_URL ?? "{stream_url}";
@@ -157,7 +157,7 @@ export default function App() {{
 }}
 '''
 
-_EXAMPLE_CARD = '''import type {{ CardComponentProps }} from "@dyui/react";
+_EXAMPLE_CARD = '''import type {{ CardComponentProps }} from "dyui-react";
 
 /**
  * A sample CUSTOM card. Register it in App.tsx:
@@ -247,7 +247,7 @@ def write_react_project(
 ) -> list[str]:
     """Write the project files under ``dest``; return the relative paths written.
 
-    ``local_react`` points the ``@dyui/react`` dependency at a local build
+    ``local_react`` points the ``dyui-react`` dependency at a local build
     (``file:<path>``) instead of the published npm package -- useful before the
     package is published, or for working against a checkout.
     """

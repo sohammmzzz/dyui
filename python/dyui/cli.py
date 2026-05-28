@@ -11,7 +11,7 @@ Commands
   (uvicorn under the hood). ``target`` is a ``file.py`` or ``module:attr``;
   auto-discovered when omitted.
 * ``dyui export <name>`` -- scaffold the whole dynamic UI as an editable React
-  project (``@dyui/react``) in ``./<name>``.
+  project (``dyui-react``) in ``./<name>``.
 """
 
 from __future__ import annotations
@@ -327,7 +327,7 @@ def build_parser() -> argparse.ArgumentParser:
     ep = sub.add_parser("export", help="export the dynamic UI as a React project")
     ep.add_argument("name", help="project directory name")
     ep.add_argument("--stream-url", default="http://localhost:8000/dyui/stream")
-    ep.add_argument("--local", help="use a local @dyui/react build path instead of the npm package")
+    ep.add_argument("--local", help="use a local dyui-react build path instead of the npm package")
     ep.add_argument("--force", action="store_true")
     return p
 

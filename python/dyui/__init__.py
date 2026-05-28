@@ -1,7 +1,7 @@
 """DyUI -- a dynamic-UI layer for any LangGraph agent.
 
 Emit rich, live UI "cards" from inside any LangGraph node or tool, with any LLM
-(or none). The companion ``@dyui/react`` package renders those cards on the
+(or none). The companion ``dyui-react`` package renders those cards on the
 frontend via a pluggable registry that also supports raw custom HTML.
 
 Quick start (agent side)::

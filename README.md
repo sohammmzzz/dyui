@@ -5,10 +5,11 @@
 <br/>
 
 [![PyPI](https://img.shields.io/pypi/v/dyui?style=flat-square&color=f5b544&logo=pypi&logoColor=white&label=PyPI)](https://pypi.org/project/dyui/)
+[![npm](https://img.shields.io/npm/v/dyui-react?style=flat-square&color=ff8a6b&logo=npm&logoColor=white&label=npm)](https://www.npmjs.com/package/dyui-react)
 [![Python](https://img.shields.io/pypi/pyversions/dyui?style=flat-square&color=5eead4&logo=python&logoColor=white)](https://pypi.org/project/dyui/)
-[![Downloads](https://img.shields.io/pypi/dm/dyui?style=flat-square&color=ff8a6b&label=installs)](https://pypi.org/project/dyui/)
+[![Downloads](https://img.shields.io/pypi/dm/dyui?style=flat-square&color=a78bfa&label=installs)](https://pypi.org/project/dyui/)
 [![License](https://img.shields.io/badge/license-MIT-eef1f5?style=flat-square)](LICENSE)
-[![Built for LangGraph](https://img.shields.io/badge/built%20for-LangGraph-a78bfa?style=flat-square)](https://langchain-ai.github.io/langgraph/)
+[![Built for LangGraph](https://img.shields.io/badge/built%20for-LangGraph-5eead4?style=flat-square)](https://langchain-ai.github.io/langgraph/)
 
 ### Stream beautiful, live UI **cards** from any LangGraph agent — with any LLM, or none.
 
@@ -20,7 +21,7 @@ From *one Python file* to an animated generative-UI chat app, **without writing 
 pip install "dyui[server]"
 ```
 
-**[Install](#-install) · [Quickstart](#-quickstart) · [Zero-frontend UI](#-zero-frontend-bring-your-own-html) · [CLI](#%EF%B8%8F-cli) · [React](#-prefer-react) · [PyPI ↗](https://pypi.org/project/dyui/)**
+**[Install](#-install) · [Quickstart](#-quickstart) · [Zero-frontend UI](#-zero-frontend-bring-your-own-html) · [CLI](#%EF%B8%8F-cli) · [React](#%EF%B8%8F-the-react-runtime--dyui-react) · [PyPI ↗](https://pypi.org/project/dyui/) · [npm ↗](https://www.npmjs.com/package/dyui-react)**
 
 </div>
 
@@ -75,7 +76,7 @@ Ships a polished, animated chat UI. Run one command, open the browser. Bring you
 
 ```bash
 pip install "dyui[server]"     # Python package + built-in served UI
-npm install @dyui/react        # optional: the React runtime
+npm install dyui-react        # optional: the React runtime
 ```
 
 ---
@@ -166,7 +167,7 @@ flowchart LR
     A["🧠 LangGraph agent<br/>(any LLM / any node)"] -- "emit() · ui_tool · Card" --> B(["📡 LangGraph<br/>custom stream"])
     B --> C["⚡ dyui.server<br/>(SSE endpoint)"]
     C --> D["✨ Built-in animated UI<br/>(zero frontend code)"]
-    C --> E["⚛️ @dyui/react app<br/>(dyui export)"]
+    C --> E["⚛️ dyui-react app<br/>(dyui export)"]
     style A fill:#1d2128,stroke:#f5b544,color:#eef1f5
     style B fill:#1d2128,stroke:#a78bfa,color:#eef1f5
     style C fill:#1d2128,stroke:#5eead4,color:#eef1f5
@@ -190,23 +191,52 @@ stateDiagram-v2
 
 ---
 
-## ⚛️ Prefer React?
+## ⚛️ The React runtime — [`dyui-react`](https://www.npmjs.com/package/dyui-react)
+
+DyUI gives you **two ways to render** the exact same agent event stream:
+
+| | Use it when |
+|---|---|
+| **Built-in served UI** (`dyui serve`) | You want a polished result *now* with zero frontend code — demos, internal tools, prototypes, or shipping a chat app straight from Python. Customise with HTML cards. |
+| **`dyui-react`** (npm) | You're embedding the cards in your **own React/Next.js app**, need **bespoke React card components**, or want full control over layout, routing, and styling. |
+
+```bash
+npm install dyui-react
+```
 
 ```tsx
-import { useDyUIAgent, DyUISurface, createRegistry } from "@dyui/react";
-import "@dyui/react/styles.css";
+import { useDyUIAgent, DyUISurface, createRegistry } from "dyui-react";
+import "dyui-react/styles.css";
 
-function App() {
-  const registry = createRegistry({ my_card: MyCard });  // custom + built-ins
+// A custom React card for events your agent emits as `emit("my_card", {...})`.
+function MyCard({ props }) {
+  return <div>{props.title}</div>;
+}
+
+export default function App() {
+  // Register custom cards by key; built-ins (table, stat, progress, …) stay available.
+  const registry = createRegistry({ my_card: MyCard });
+
+  // Connect to your running `dyui serve` (or any create_dyui_app) endpoint.
   const { cards, tokens, status, run, dismiss } = useDyUIAgent({ url: "/dyui/stream" });
+
   return (
     <>
       <button onClick={() => run("hello")}>Ask</button>
       <DyUISurface cards={cards} registry={registry} onDismiss={dismiss} />
+      <pre>{tokens}</pre>
     </>
   );
 }
 ```
+
+**What you get:** `useDyUIAgent` (connects to the SSE endpoint, manages live card
+state + streamed tokens), `<DyUISurface>` / `<DyUICard>` (renderers with built-in
+lifecycle skeletons), `createRegistry` (custom + built-in cards), and a low-level
+`streamAgent` client. Zero runtime deps, themeable via CSS variables.
+
+> 💡 `dyui export <name>` scaffolds a complete `dyui-react` app for you — pre-wired
+> to your agent, ready to `npm install && npm run dev`.
 
 ---
 
@@ -218,7 +248,7 @@ dyui/
 │  ├─ dyui/       #   emit · server · cli · scaffold · html templates + the served UI
 │  ├─ examples/   #   runnable agents (search demo, HTML-templates demo)
 │  └─ tests/      #   pytest suite
-└─ react/         # the `@dyui/react` npm package (hook · surface · card registry)
+└─ react/         # the `dyui-react` npm package (hook · surface · card registry)
 ```
 
 ---

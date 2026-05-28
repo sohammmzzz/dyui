@@ -1,0 +1,260 @@
+/**
+ * Default DyUI theme. Everything is driven by CSS custom properties so you can
+ * restyle the whole system by overriding a handful of variables, or target the
+ * `dyui-*` classes directly. Import once: `import "@dyui/react/styles.css"`.
+ */
+.dyui-surface,
+.dyui-card {
+  --dyui-bg: #0e1117;
+  --dyui-surface-bg: #161b22;
+  --dyui-elevated: #21262d;
+  --dyui-border: #2d333b;
+  --dyui-text: #e6edf3;
+  --dyui-muted: #8b949e;
+  --dyui-accent: #38bdf8; /* overridden per-card via inline style */
+  --dyui-radius: 14px;
+  --dyui-font: ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
+  --dyui-mono: ui-monospace, "SF Mono", "Cascadia Code", Menlo, monospace;
+}
+
+.dyui-surface {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  font-family: var(--dyui-font);
+  color: var(--dyui-text);
+}
+.dyui-surface-empty {
+  align-items: center;
+  justify-content: center;
+  min-height: 120px;
+  color: var(--dyui-muted);
+  font-size: 13px;
+}
+
+.dyui-card {
+  position: relative;
+  background: var(--dyui-surface-bg);
+  border: 1px solid var(--dyui-border);
+  border-left: 3px solid var(--dyui-accent);
+  border-radius: var(--dyui-radius);
+  padding: 12px 14px;
+  font-family: var(--dyui-font);
+  color: var(--dyui-text);
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.25);
+  animation: dyui-in 0.32s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+@keyframes dyui-in {
+  from {
+    opacity: 0;
+    transform: translateY(8px) scale(0.98);
+    filter: blur(3px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+    filter: none;
+  }
+}
+
+.dyui-card-header {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 8px;
+}
+.dyui-card-icon {
+  width: 14px;
+  height: 14px;
+  border-radius: 4px;
+  background: var(--dyui-accent);
+  opacity: 0.85;
+  flex: 0 0 auto;
+}
+.dyui-card-title {
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.01em;
+}
+.dyui-card-badge {
+  font-size: 9px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  padding: 2px 7px;
+  border-radius: 999px;
+  background: color-mix(in srgb, var(--dyui-accent) 14%, transparent);
+  color: var(--dyui-accent);
+}
+.dyui-badge-pending,
+.dyui-badge-active {
+  background: rgba(250, 204, 21, 0.12);
+  color: #facc15;
+  animation: dyui-pulse 1.4s ease-in-out infinite;
+}
+.dyui-badge-done {
+  background: rgba(52, 211, 153, 0.12);
+  color: #34d399;
+}
+.dyui-badge-error {
+  background: rgba(248, 113, 113, 0.12);
+  color: #f87171;
+}
+@keyframes dyui-pulse {
+  0%, 100% { opacity: 0.55; }
+  50% { opacity: 1; }
+}
+.dyui-card-close {
+  margin-left: auto;
+  background: none;
+  border: none;
+  color: var(--dyui-muted);
+  font-size: 16px;
+  line-height: 1;
+  cursor: pointer;
+  padding: 0 2px;
+}
+.dyui-card-close:hover {
+  color: var(--dyui-text);
+}
+.dyui-card-header:has(.dyui-card-close) .dyui-card-badge {
+  margin-left: auto;
+}
+.dyui-card-header .dyui-card-badge + .dyui-card-close {
+  margin-left: 6px;
+}
+
+.dyui-card-body {
+  font-size: 12px;
+  line-height: 1.5;
+}
+
+/* Skeleton (pending) */
+.dyui-skeleton {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding: 2px 0;
+}
+.dyui-skeleton-line {
+  height: 12px;
+  border-radius: 6px;
+  background: var(--dyui-elevated);
+  animation: dyui-shimmer 1.6s ease-in-out infinite;
+}
+@keyframes dyui-shimmer {
+  0%, 100% { opacity: 0.4; }
+  50% { opacity: 0.75; }
+}
+
+.dyui-error {
+  color: #f87171;
+  font-size: 12px;
+}
+
+/* Text / markdown */
+.dyui-text { margin: 0; }
+.dyui-md > * { margin: 0 0 6px; }
+.dyui-md > *:last-child { margin-bottom: 0; }
+.dyui-md-h { font-size: 13px; font-weight: 700; }
+.dyui-md-list { margin: 0; padding-left: 18px; }
+.dyui-code,
+.dyui-json {
+  font-family: var(--dyui-mono);
+  background: var(--dyui-elevated);
+  border-radius: 6px;
+}
+.dyui-code { padding: 1px 5px; font-size: 11px; }
+.dyui-json {
+  margin: 0;
+  padding: 10px;
+  font-size: 11px;
+  overflow: auto;
+  max-height: 280px;
+  white-space: pre-wrap;
+  word-break: break-word;
+}
+
+/* Table */
+.dyui-table-wrap { overflow-x: auto; }
+.dyui-table { width: 100%; border-collapse: collapse; font-size: 11px; }
+.dyui-table th,
+.dyui-table td {
+  text-align: left;
+  padding: 5px 8px;
+  border-bottom: 1px solid var(--dyui-border);
+}
+.dyui-table th {
+  color: var(--dyui-muted);
+  font-weight: 600;
+  text-transform: uppercase;
+  font-size: 9px;
+  letter-spacing: 0.05em;
+}
+
+/* Stat */
+.dyui-stat-value { font-size: 26px; font-weight: 700; line-height: 1.1; }
+.dyui-stat-unit { font-size: 13px; font-weight: 500; color: var(--dyui-muted); }
+.dyui-stat-label { font-size: 11px; color: var(--dyui-muted); margin-top: 2px; }
+.dyui-stat-delta { font-size: 11px; color: var(--dyui-accent); margin-top: 4px; }
+
+/* Progress */
+.dyui-progress { display: flex; flex-direction: column; gap: 6px; }
+.dyui-progress-track {
+  height: 8px;
+  border-radius: 999px;
+  background: var(--dyui-elevated);
+  overflow: hidden;
+}
+.dyui-progress-fill {
+  height: 100%;
+  background: var(--dyui-accent);
+  border-radius: 999px;
+  transition: width 0.4s ease;
+}
+.dyui-progress-label { font-size: 10px; color: var(--dyui-muted); }
+
+/* List */
+.dyui-list { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 6px; }
+.dyui-list-item { display: flex; align-items: center; gap: 8px; }
+.dyui-list-main { display: flex; flex-direction: column; min-width: 0; flex: 1; }
+.dyui-list-title { font-size: 12px; }
+.dyui-list-sub { font-size: 10px; color: var(--dyui-muted); }
+.dyui-badge {
+  font-size: 10px;
+  padding: 1px 7px;
+  border-radius: 999px;
+  background: color-mix(in srgb, var(--dyui-accent) 14%, transparent);
+  color: var(--dyui-accent);
+  white-space: nowrap;
+}
+
+/* Key/value */
+.dyui-kv { margin: 0; display: flex; flex-direction: column; gap: 4px; }
+.dyui-kv-row { display: flex; justify-content: space-between; gap: 12px; }
+.dyui-kv-row dt { color: var(--dyui-muted); font-size: 11px; }
+.dyui-kv-row dd { margin: 0; font-size: 11px; font-family: var(--dyui-mono); }
+
+/* Alert */
+.dyui-alert { border-radius: 8px; padding: 8px 10px; font-size: 12px; }
+.dyui-alert-title { font-weight: 600; margin-bottom: 2px; }
+.dyui-alert-info { background: rgba(56, 189, 248, 0.1); color: #38bdf8; }
+.dyui-alert-success { background: rgba(52, 211, 153, 0.1); color: #34d399; }
+.dyui-alert-warning { background: rgba(250, 204, 21, 0.1); color: #facc15; }
+.dyui-alert-error { background: rgba(248, 113, 113, 0.1); color: #f87171; }
+
+/* Image */
+.dyui-image { margin: 0; }
+.dyui-image img { max-width: 100%; border-radius: 8px; display: block; }
+.dyui-image figcaption { font-size: 10px; color: var(--dyui-muted); margin-top: 4px; }
+
+/* Light theme override helper: add class `dyui-light` on an ancestor. */
+.dyui-light .dyui-surface,
+.dyui-light .dyui-card {
+  --dyui-bg: #ffffff;
+  --dyui-surface-bg: #ffffff;
+  --dyui-elevated: #f1f3f5;
+  --dyui-border: #e3e8ee;
+  --dyui-text: #1a1f26;
+  --dyui-muted: #6b7280;
+}

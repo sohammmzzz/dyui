@@ -1,0 +1,11 @@
+<!-- A second HTML card template, showing a styled summary block. -->
+<div style="border-radius:10px;overflow:hidden">
+  <div style="display:flex;justify-content:space-between;font-size:12px;color:#8b949e">
+    <span>Invoice #{{ number }}</span><span>{{ date }}</span>
+  </div>
+  <div style="display:flex;justify-content:space-between;align-items:baseline;margin-top:8px">
+    <span style="font-size:13px">{{ customer }}</span>
+    <span style="font-size:24px;font-weight:800;color:#34d399">{{ total }}</span>
+  </div>
+  <div style="margin-top:6px;font-size:11px;color:#8b949e">{{ items }} line items · {{ status }}</div>
+</div>

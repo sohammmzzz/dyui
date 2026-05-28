@@ -74,10 +74,19 @@ Ships a polished, animated chat UI. Run one command, open the browser. Bring you
 
 ## 📦 Install
 
+> **Which do I need?** The **Python package (`pip`) is always required** — it runs your
+> agent and ships the built-in UI. The **npm package is optional** — add it *only* if you're
+> building your own React frontend.
+
 ```bash
-pip install "dyui[server]"     # Python package + built-in served UI
-npm install dyui-react        # optional: the React runtime
+pip install "dyui[server]"     # ✅ required — the agent side + built-in served UI (pip)
+npm install dyui-react         # ⚛️ optional — only to embed cards in your own React app (npm)
 ```
+
+| Your goal | What to install | Package |
+|---|---|---|
+| A working dynamic-UI app straight from Python, **zero frontend code** (`dyui serve`) | `pip install "dyui[server]"` | [`dyui`](https://pypi.org/project/dyui/) (PyPI) |
+| Embed the cards in **your own React / Next.js app** with custom components | `pip install dyui` **+** `npm install dyui-react` | [`dyui`](https://pypi.org/project/dyui/) + [`dyui-react`](https://www.npmjs.com/package/dyui-react) (npm) |
 
 ---
 

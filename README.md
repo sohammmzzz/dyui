@@ -18,7 +18,7 @@ From *one Python file* to an animated generative-UI chat app, **without writing 
 <br/>
 
 ```bash
-pip install "dyui[server]"
+pip install "dyui[server]" && dyui demo      # ✨ opens an animated UI in your browser — no API key
 ```
 
 **[Install](#-install) · [Quickstart](#-quickstart) · [Zero-frontend UI](#-zero-frontend-bring-your-own-html) · [CLI](#%EF%B8%8F-cli) · [React](#%EF%B8%8F-the-react-runtime--dyui-react) · [PyPI ↗](https://pypi.org/project/dyui/) · [npm ↗](https://www.npmjs.com/package/dyui-react)**
@@ -64,7 +64,7 @@ Ships a polished, animated chat UI. Run one command, open the browser. Bring you
 <td width="33%" valign="top">
 
 ### 🤖 AI-assisted setup
-`dyui claude init agent.py` hands your code to a coding agent that designs custom cards for you.
+`dyui init` teaches Claude Code, Codex & Gemini about DyUI; `dyui claude init agent.py` builds the cards for you.
 
 </td>
 </tr>
@@ -92,6 +92,17 @@ npm install dyui-react         # ⚛️ optional — only to embed cards in your
 
 ## 🚀 Quickstart
 
+**Fastest path — see it now (no code, no API key):**
+
+```bash
+pip install "dyui[server]"
+dyui demo                 # animated UI showcasing every card type, opens the browser
+dyui new agent.py         # scaffold a runnable starter agent
+dyui serve agent.py       # run *your* agent's dynamic UI
+```
+
+**Add it to your own agent in 3 steps:**
+
 **1 — Emit cards** from any node or tool:
 
 ```python
@@ -117,13 +128,18 @@ from dyui.server import create_dyui_app
 app = create_dyui_app(graph)        # graph = your compiled LangGraph
 ```
 
+> **Plug-and-play input.** `create_dyui_app` inspects your graph's state schema and
+> automatically maps the browser's text onto the right field — `{"messages": [...]}`,
+> `{"query": ...}`, `{"city": ...}`, etc. No `input_adapter` needed for most agents
+> (pass one to override).
+
 **3 — Run it:**
 
 ```bash
-dyui serve agent.py                 # or: uvicorn agent:app
+dyui serve agent.py                 # or: uvicorn agent:app  ·  add --open to launch the browser
 ```
 
-Open the browser → an animated chat that renders your cards live, with a “thinking” indicator while the agent works.
+Open the browser → an animated chat that renders your cards live, with a “thinking” indicator, a **Stop** button, smart auto-scroll, and copy buttons on JSON cards.
 
 ---
 
@@ -175,11 +191,18 @@ The bundled UI renders it instantly. That's the whole *“one Python file + HTML
 
 | Command | What it does |
 |---|---|
+| `dyui demo` | Instantly run an **animated showcase** of every card type — no API key, no files. Opens the browser. |
+| `dyui new [agent.py]` | Scaffold a **runnable starter agent** wired to DyUI. |
+| `dyui init [agent.py]` | Write a DyUI guide into **`AGENTS.md` / `CLAUDE.md` / `GEMINI.md`** so *any* coding agent (Claude Code, Codex, Gemini CLI, Cursor…) knows how to build cards. Idempotent. |
 | `dyui claude init agent.py` | Hand your agent file to **Claude Code** — it reads your graph, proposes a card plan, **asks you to confirm**, then builds + wires the cards. |
 | `dyui gemini init agent.py` | Same, via the **Gemini CLI**. |
 | `dyui codex init agent.py` | Same, via the **Codex CLI**. |
-| `dyui serve [target]` | Run the served dynamic UI (auto-discovers `app`/`graph`). |
+| `dyui serve [target]` | Run the served dynamic UI (auto-discovers `app`/`graph`). `--open` launches the browser, `--reload` hot-reloads a `module:attr` target. |
 | `dyui export <name>` | Eject the whole UI as an editable **Vite + React** project. |
+
+> 🤝 **Works with your coding agent.** Run `dyui init` once and any assistant that
+> reads `AGENTS.md`/`CLAUDE.md`/`GEMINI.md` can add DyUI cards to your agent on
+> request — just ask *"add a dynamic UI to my agent with DyUI."*
 
 ---
 

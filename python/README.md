@@ -14,6 +14,15 @@ pip install dyui            # core (langgraph + pydantic)
 pip install "dyui[server]"  # + FastAPI SSE server
 ```
 
+## Try it in one command
+
+```bash
+dyui demo          # animated showcase of every card type — no API key, opens the browser
+dyui new agent.py  # scaffold a runnable starter agent
+dyui serve         # run your agent's dynamic UI (auto-discovers app.py/agent.py)
+dyui init          # write a DyUI guide into AGENTS.md/CLAUDE.md/GEMINI.md for coding agents
+```
+
 ## Emit cards from your agent
 
 ```python
@@ -51,6 +60,11 @@ from dyui.server import create_dyui_app
 app = create_dyui_app(my_compiled_graph)   # uvicorn my_module:app --port 8008
 # open http://localhost:8008  -> a live dynamic-UI screen, no frontend code
 ```
+
+`create_dyui_app` is **plug-and-play**: it inspects your graph's state schema and
+maps the browser's plain-text input onto the right field automatically
+(`{"messages": [...]}`, `{"query": ...}`, a single custom field, …). Pass
+`input_adapter=...` only if you need a custom shape.
 
 ### Use your own HTML files as cards
 

@@ -108,9 +108,10 @@ export default function App() {{
     []
   );
 
-  const {{ cards, tokens, status, error, run, dismiss }} = useDyUIAgent({{
+  const {{ cards, tokens, status, error, run, stop, dismiss }} = useDyUIAgent({{
     url: STREAM_URL,
   }});
+  const streaming = status === "streaming";
 
   return (
     <div className="page">
@@ -121,15 +122,15 @@ export default function App() {{
 
       <form
         className="ask"
-        onSubmit={{(e) => {{ e.preventDefault(); run(query); }}}}
+        onSubmit={{(e) => {{ e.preventDefault(); streaming ? stop() : run(query); }}}}
       >
         <input
           value={{query}}
           onChange={{(e) => setQuery(e.target.value)}}
           placeholder="Message the agent…"
         />
-        <button disabled={{status === "streaming"}}>
-          {{status === "streaming" ? "…" : "Send"}}
+        <button type="submit" className={{streaming ? "stop" : ""}}>
+          {{streaming ? "Stop" : "Send"}}
         </button>
       </form>
 
@@ -194,6 +195,7 @@ header p { margin: 0 0 24px; color: #9aa3b0; }
   background: linear-gradient(135deg, #f5b544, #ff8a6b); color: #1a1206;
   border: none; border-radius: 12px; padding: 12px 20px; font-weight: 700; cursor: pointer;
 }
+.ask button.stop { background: linear-gradient(135deg, #ff8a6b, #ef5a5a); color: #fff; }
 .error { color: #ff8a6b; margin-bottom: 16px; }
 main { display: flex; flex-direction: column; gap: 28px; }
 h2 { font-size: 12px; text-transform: uppercase; letter-spacing: 0.08em; color: #9aa3b0; }

@@ -36,6 +36,78 @@ _STATIC_DIR = Path(__file__).parent / "static"
 # oversized POST can't exhaust memory on the (dev) server.
 _MAX_BODY_BYTES = 2 * 1024 * 1024  # 2 MiB
 
+# Candidate state fields a bare user string is mapped onto, most-likely first.
+_TEXT_FIELDS = (
+    "messages", "input", "query", "question", "prompt", "text", "message", "task",
+)
+
+
+def _graph_input_keys(graph: Any) -> Optional[set[str]]:
+    """Best-effort discovery of a compiled graph's top-level input field names.
+
+    Returns ``None`` when nothing can be determined. Used only to make the
+    default input handling plug-and-play; never raises.
+    """
+    # 1) The builder's state-schema annotations are the cleanest source.
+    builder = getattr(graph, "builder", None)
+    state_schema = getattr(builder, "state_schema", None)
+    ann = getattr(state_schema, "__annotations__", None)
+    if isinstance(ann, dict) and ann:
+        return set(ann)
+    # 2) Pydantic input schema (can raise on some Python/typing combos).
+    getter = getattr(graph, "get_input_schema", None)
+    if getter is not None:
+        try:
+            model_fields = getattr(getter(), "model_fields", None)
+            if isinstance(model_fields, dict) and model_fields:
+                return set(model_fields)
+        except Exception:
+            pass
+    # 3) Channels, minus LangGraph's internal bookkeeping keys.
+    channels = getattr(graph, "channels", None)
+    if isinstance(channels, dict):
+        keys = {
+            k for k in channels
+            if isinstance(k, str) and not k.startswith("__") and ":" not in k
+        }
+        if keys:
+            return keys
+    return None
+
+
+def make_smart_input_adapter(graph: Any) -> Callable[[dict[str, Any]], Any]:
+    """Build a forgiving ``(body) -> graph_input`` adapter for *any* graph.
+
+    This is what makes DyUI plug-and-play: the browser only ever sends a plain
+    string, and most LangGraph agents expect a state dict (``{"messages": ...}``,
+    ``{"query": ...}``, etc.). The adapter inspects the graph's input schema once
+    and maps a bare string onto the right field:
+
+    * a structured ``input`` (dict/list) is passed through untouched;
+    * a string is wrapped into the first matching well-known field
+      (``messages`` becomes ``[("user", text)]``), or into the graph's sole input
+      field when it has exactly one, or finally into the ubiquitous
+      ``{"messages": [("user", text)]}`` chat shape.
+
+    Pass your own ``input_adapter`` to ``create_dyui_app`` to override this.
+    """
+    keys = _graph_input_keys(graph)
+
+    def adapter(body: dict[str, Any]) -> Any:
+        raw = body.get("input")
+        if isinstance(raw, (dict, list)) or raw is None:
+            return raw  # already structured (or empty) -> trust the caller
+        text = raw if isinstance(raw, str) else str(raw)
+        if keys:
+            for field in _TEXT_FIELDS:
+                if field in keys:
+                    return {"messages": [("user", text)]} if field == "messages" else {field: text}
+            if len(keys) == 1:
+                return {next(iter(keys)): text}
+        return {"messages": [("user", text)]}
+
+    return adapter
+
 
 def _format_sse(event: str, data: dict[str, Any]) -> str:
     return f"event: {event}\ndata: {json.dumps(data, default=str)}\n\n"
@@ -121,6 +193,7 @@ def add_dyui_routes(
     stream_tokens: bool = True,
     input_adapter: Optional[Callable[[dict[str, Any]], Any]] = None,
     config_adapter: Optional[Callable[[dict[str, Any]], dict[str, Any]]] = None,
+    smart_input: bool = True,
     allow_client_config: bool = False,
     api_token: Optional[str] = None,
     debug_errors: bool = False,
@@ -132,8 +205,12 @@ def add_dyui_routes(
         graph: A compiled LangGraph graph.
         path: Route to expose (POST).
         stream_tokens: Forward LLM tokens as ``token`` events too.
-        input_adapter: Optional ``(body) -> graph_input`` hook. By default the
-            request body's ``"input"`` field is passed straight to the graph.
+        input_adapter: Optional ``(body) -> graph_input`` hook. Overrides the
+            default handling entirely when given.
+        smart_input: When True (default) and no ``input_adapter`` is given, a
+            schema-aware adapter (:func:`make_smart_input_adapter`) maps the
+            browser's plain-string input onto the graph's expected state shape.
+            Set False to fall back to passing ``body["input"]`` straight through.
         config_adapter: Optional ``(body) -> run_config`` hook. When given it is
             fully trusted and overrides the default config handling.
         allow_client_config: When False (the default) the request body's
@@ -150,9 +227,13 @@ def add_dyui_routes(
     from fastapi import HTTPException, Request
     from fastapi.responses import StreamingResponse
 
+    _default_input = make_smart_input_adapter(graph) if smart_input else None
+
     def _to_input(body: dict[str, Any]) -> Any:
         if input_adapter is not None:
             return input_adapter(body)
+        if _default_input is not None:
+            return _default_input(body)
         return body.get("input")
 
     def _to_config(body: dict[str, Any]) -> dict[str, Any]:

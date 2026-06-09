@@ -76,8 +76,10 @@ export function MarkdownCard({ props }: CardComponentProps) {
   return <div className="dyui-md">{out}</div>;
 
   function inline(s: string): React.ReactNode[] {
-    // Split on **bold** and `code`, keeping the delimiters.
-    const parts = s.split(/(\*\*[^*]+\*\*|`[^`]+`)/g).filter(Boolean);
+    // Split on **bold**, `code`, and [text](http(s)://url), keeping delimiters.
+    const parts = s
+      .split(/(\*\*[^*]+\*\*|`[^`]+`|\[[^\]]+\]\(https?:\/\/[^\s)]+\))/g)
+      .filter(Boolean);
     return parts.map((p, i) => {
       if (p.startsWith("**") && p.endsWith("**"))
         return <strong key={i}>{p.slice(2, -2)}</strong>;
@@ -86,6 +88,13 @@ export function MarkdownCard({ props }: CardComponentProps) {
           <code className="dyui-code" key={i}>
             {p.slice(1, -1)}
           </code>
+        );
+      const link = /^\[([^\]]+)\]\((https?:\/\/[^\s)]+)\)$/.exec(p);
+      if (link)
+        return (
+          <a key={i} href={link[2]} target="_blank" rel="noopener noreferrer">
+            {link[1]}
+          </a>
         );
       return <React.Fragment key={i}>{p}</React.Fragment>;
     });

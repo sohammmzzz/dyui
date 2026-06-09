@@ -173,6 +173,28 @@
   .send:active{transform:scale(.95)}
   .send:disabled{filter:grayscale(.6) brightness(.7);cursor:default;transform:none}
   .send svg{width:18px;height:18px}
+  .send.is-stop{background:linear-gradient(135deg,var(--accent-2),#ef5a5a);color:#fff}
+
+  /* scroll-to-latest pill */
+  .to-bottom{position:absolute;left:50%;bottom:104px;transform:translate(-50%,8px);z-index:4;
+    width:38px;height:38px;border-radius:50%;border:1px solid var(--border-strong);cursor:pointer;
+    background:var(--panel-solid);color:var(--text);display:grid;place-items:center;
+    box-shadow:0 8px 24px -8px rgba(0,0,0,.7);backdrop-filter:blur(8px);
+    opacity:0;pointer-events:none;transition:opacity .25s,transform .25s cubic-bezier(.2,.8,.2,1)}
+  .to-bottom.show{opacity:1;pointer-events:auto;transform:translate(-50%,0)}
+  .to-bottom:hover{border-color:var(--accent);color:var(--accent)}
+  .to-bottom svg{width:18px;height:18px}
+
+  /* json copy button */
+  .copy-wrap{position:relative}
+  .copybtn{position:absolute;top:8px;right:8px;z-index:1;font-family:var(--mono);font-size:10px;
+    color:var(--muted);background:rgba(255,255,255,.06);border:1px solid var(--border);
+    border-radius:7px;padding:3px 8px;cursor:pointer;transition:color .2s,border-color .2s,background .2s}
+  .copybtn:hover{color:var(--text);border-color:var(--accent);background:rgba(245,181,68,.12)}
+
+  /* markdown links */
+  .md a,.prose a{color:var(--accent);text-decoration:none;border-bottom:1px solid color-mix(in srgb,var(--accent) 40%,transparent)}
+  .md a:hover,.prose a:hover{border-bottom-color:var(--accent)}
 
   /* ---------- keyframes ---------- */
   @keyframes spin{to{transform:rotate(360deg)}}
@@ -207,6 +229,10 @@
       </div>
     </div>
   </div>
+
+  <button class="to-bottom" id="toBottom" type="button" aria-label="Scroll to latest">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg>
+  </button>
 
   <div class="composer-wrap">
     <form class="composer" id="composer">
@@ -263,7 +289,10 @@ function sanitize(h){if(typeof h!=="string"||h==="")return "";let doc;
   if(!doc.body)return "";_sNode(doc.body);return doc.body.innerHTML;}
 function miniMd(t){const lines=String(t??"").split("\n");let o="",li=[];
   const fl=()=>{if(li.length){o+="<ul>"+li.map(x=>"<li>"+inl(x)+"</li>").join("")+"</ul>";li=[];}};
-  const inl=(s)=>esc(s).replace(/\*\*([^*]+)\*\*/g,"<strong>$1</strong>").replace(/`([^`]+)`/g,"<code>$1</code>");
+  const inl=(s)=>esc(s)
+    .replace(/\*\*([^*]+)\*\*/g,"<strong>$1</strong>")
+    .replace(/`([^`]+)`/g,"<code>$1</code>")
+    .replace(/\[([^\]]+)\]\((https?:\/\/[^\s)]+)\)/g,'<a href="$2" target="_blank" rel="noopener noreferrer">$1</a>');
   for(const l of lines){const h=/^(#{1,3})\s+(.*)$/.exec(l);
     if(h){fl();const lv=Math.min(h[1].length+1,4);o+=`<h${lv}>`+inl(h[2])+`</h${lv}>`;}
     else if(/^\s*-\s+/.test(l))li.push(l.replace(/^\s*-\s+/,""));
@@ -274,7 +303,7 @@ const renderers={
   text:p=>`<p>${esc(p.text??"")}</p>`,
   markdown:p=>`<div class="md">${miniMd(p.text)}</div>`,
   html:p=>`<div>${sanitize(p.html)}</div>`,
-  json:p=>`<pre class="json">${esc(JSON.stringify(p.value??p,null,2))}</pre>`,
+  json:p=>`<div class="copy-wrap"><button class="copybtn" type="button" aria-label="Copy">copy</button><pre class="json">${esc(JSON.stringify(p.value??p,null,2))}</pre></div>`,
   alert:p=>`<div class="alert a-${esc(p.level||"info")}">${p.title?`<strong>${esc(p.title)}</strong><br>`:""}${esc(p.text??p.message)}</div>`,
   image:p=>`<figure style="margin:0"><img src="${esc(p.src)}" alt="${esc(p.alt||"")}" style="max-width:100%;border-radius:10px"/>${p.caption?`<figcaption style="font-size:11px;color:var(--muted);margin-top:5px">${esc(p.caption)}</figcaption>`:""}</figure>`,
   stat:p=>`<div class="stat-v">${esc(p.value)}${p.unit?`<span class="stat-u"> ${esc(p.unit)}</span>`:""}</div>${p.label?`<div class="stat-l">${esc(p.label)}</div>`:""}`,
@@ -342,21 +371,42 @@ function renderCard(turn,id){
   if(existing){fresh.style.animation="none";existing.replaceWith(fresh);}
   else{turn.cards.appendChild(fresh);}
 }
-function autoscroll(){scroll.scrollTo({top:scroll.scrollHeight,behavior:"smooth"});}
+// Only stick to the bottom when the user is already near it, so reading older
+// cards isn't yanked away mid-stream. A floating pill offers a manual jump.
+function nearBottom(){return scroll.scrollHeight-scroll.scrollTop-scroll.clientHeight<140;}
+function autoscroll(){if(nearBottom())scroll.scrollTo({top:scroll.scrollHeight,behavior:"smooth"});}
+const toBottom=$("toBottom");
+function updateToBottom(){toBottom.classList.toggle("show",!nearBottom());}
+scroll.addEventListener("scroll",updateToBottom,{passive:true});
+toBottom.addEventListener("click",()=>scroll.scrollTo({top:scroll.scrollHeight,behavior:"smooth"}));
+
+// Swap the send button between "send" and "stop" so a run can be cancelled.
+const SEND_SVG=sendEl.innerHTML;
+const STOP_SVG='<svg viewBox="0 0 24 24" fill="currentColor"><rect x="6" y="6" width="12" height="12" rx="3"/></svg>';
+let abortCtl=null;
+function setBusy(b){busy=b;sendEl.classList.toggle("is-stop",b);sendEl.innerHTML=b?STOP_SVG:SEND_SVG;sendEl.setAttribute("aria-label",b?"Stop":"Send");}
+function stopRun(){if(abortCtl){abortCtl.abort();abortCtl=null;}}
+
+// Copy buttons on json cards (event-delegated so re-rendered cards keep working).
+thread.addEventListener("click",e=>{const b=e.target.closest(".copybtn");if(!b)return;
+  const pre=b.parentElement.querySelector("pre");
+  if(pre&&navigator.clipboard){navigator.clipboard.writeText(pre.innerText).then(()=>{
+    b.textContent="copied";setTimeout(()=>b.textContent="copy",1200);});}});
 
 function parseBlock(b){let e="message";const d=[];for(const l of b.split("\n")){if(l.startsWith("event:"))e=l.slice(6).trim();else if(l.startsWith("data:"))d.push(l.slice(5).replace(/^ /,""));}if(!d.length)return null;try{return{event:e,data:JSON.parse(d.join("\n"))};}catch{return{event:e,data:{}};}}
 
 async function run(input){
   if(busy||!input||!String(input).trim())return;
-  busy=true;sendEl.disabled=true;setConn("busy","working");
+  setBusy(true);setConn("busy","working");
   if(hero){hero.style.transition="opacity .4s, transform .4s";hero.style.opacity="0";hero.style.transform="translateY(-10px)";setTimeout(()=>hero.remove(),400);}
   // user turn
   const u=document.createElement("div");u.className="turn user";
   u.innerHTML=`<div class="bubble">${esc(input)}</div>`;thread.appendChild(u);
   const turn=newAssistantTurn();startKeywords(turn);autoscroll();
 
+  abortCtl=new AbortController();
   try{
-    const resp=await fetch(STREAM_PATH,{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({input})});
+    const resp=await fetch(STREAM_PATH,{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({input}),signal:abortCtl.signal});
     if(!resp.ok||!resp.body)throw new Error("HTTP "+resp.status);
     const reader=resp.body.getReader(),dec=new TextDecoder();let buf="",gotContent=false;
     while(true){const{done,value}=await reader.read();if(done)break;
@@ -374,14 +424,20 @@ async function run(input){
     if(!gotContent)stopKeywords(turn);
     const c=turn.prose.querySelector(".caret");if(c)c.remove();
     setConn("live","done");
-  }catch(e){stopKeywords(turn);setConn("err","error: "+e.message);
-    turn.cards.insertAdjacentHTML("beforeend",`<div class="card"><div class="card-b err">${esc(e.message)}</div></div>`);}
-  finally{busy=false;sendEl.disabled=false;autoscroll();}
+  }catch(e){
+    const c=turn.prose.querySelector(".caret");if(c)c.remove();
+    stopKeywords(turn);
+    if(e.name==="AbortError"){setConn("live","stopped");
+      turn.cards.insertAdjacentHTML("beforeend",`<div class="card"><div class="card-b err">Stopped.</div></div>`);}
+    else{setConn("err","error: "+e.message);
+      turn.cards.insertAdjacentHTML("beforeend",`<div class="card"><div class="card-b err">${esc(e.message)}</div></div>`);}
+  }
+  finally{abortCtl=null;setBusy(false);autoscroll();}
 }
 
 /* composer behaviour */
 qEl.addEventListener("input",()=>{qEl.style.height="auto";qEl.style.height=Math.min(qEl.scrollHeight,140)+"px";});
-composer.addEventListener("submit",e=>{e.preventDefault();const v=qEl.value;qEl.value="";qEl.style.height="auto";run(v);});
+composer.addEventListener("submit",e=>{e.preventDefault();if(busy){stopRun();return;}const v=qEl.value;qEl.value="";qEl.style.height="auto";run(v);});
 qEl.addEventListener("keydown",e=>{if(e.key==="Enter"&&!e.shiftKey){e.preventDefault();composer.requestSubmit();}});
 
 /* suggestion chips */

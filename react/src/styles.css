@@ -158,6 +158,12 @@
 .dyui-md > *:last-child { margin-bottom: 0; }
 .dyui-md-h { font-size: 13px; font-weight: 700; }
 .dyui-md-list { margin: 0; padding-left: 18px; }
+.dyui-md a {
+  color: var(--dyui-accent);
+  text-decoration: none;
+  border-bottom: 1px solid color-mix(in srgb, var(--dyui-accent) 40%, transparent);
+}
+.dyui-md a:hover { border-bottom-color: var(--dyui-accent); }
 .dyui-code,
 .dyui-json {
   font-family: var(--dyui-mono);

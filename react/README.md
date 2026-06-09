@@ -56,7 +56,22 @@ export default function App() {
 ## Built-in cards
 
 `text` · `markdown` · `table` · `stat` · `progress` · `list` · `keyvalue` ·
-`json` · `alert` · `image` · `html` (sanitized custom markup).
+`json` · `alert` · `image` · `html` (custom markup).
+
+The `html` card runs its markup through `sanitizeHtml`, a parser-based allowlist
+sanitizer (keeps known-safe tags/attributes; strips event handlers and
+`javascript:`/`data:` URLs). It's a sane default, **not** a hardened security
+boundary — for hostile/untrusted input, override the `html` key with a
+[DOMPurify](https://github.com/cure53/DOMPurify)-backed component:
+
+```tsx
+import DOMPurify from "dompurify";
+const registry = createRegistry({
+  html: ({ props }) => (
+    <div dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(String(props.html ?? "")) }} />
+  ),
+});
+```
 
 ## Card component contract
 

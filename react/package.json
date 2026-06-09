@@ -27,14 +27,26 @@
     "./styles.css": "./dist/styles.css",
     "./src/styles.css": "./src/styles.css"
   },
-  "files": ["dist", "src"],
-  "sideEffects": ["*.css"],
+  "files": [
+    "dist",
+    "src"
+  ],
+  "sideEffects": [
+    "*.css"
+  ],
   "scripts": {
     "build": "tsup && node -e \"require('fs').copyFileSync('src/styles.css','dist/styles.css')\"",
     "typecheck": "tsc --noEmit",
     "test": "vitest run"
   },
-  "keywords": ["langgraph", "generative-ui", "agents", "react", "sse", "dynamic-ui"],
+  "keywords": [
+    "langgraph",
+    "generative-ui",
+    "agents",
+    "react",
+    "sse",
+    "dynamic-ui"
+  ],
   "peerDependencies": {
     "react": ">=18",
     "react-dom": ">=18"
@@ -42,6 +54,7 @@
   "devDependencies": {
     "@types/react": "^19.0.0",
     "@types/react-dom": "^19.0.0",
+    "happy-dom": "^20.10.2",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
     "tsup": "^8.0.0",

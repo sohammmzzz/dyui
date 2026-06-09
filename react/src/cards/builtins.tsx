@@ -142,7 +142,10 @@ export function ProgressCard({ props }: CardComponentProps) {
   const p = props as any;
   const max = Number(p.max ?? 100) || 1;
   const value = Number(p.value ?? 0);
-  const pct = Math.max(0, Math.min(100, (value / max) * 100));
+  // Guard against a non-numeric value: NaN would render a literal "NaN%".
+  const pct = Number.isFinite(value)
+    ? Math.max(0, Math.min(100, (value / max) * 100))
+    : 0;
   return (
     <div className="dyui-progress">
       <div className="dyui-progress-track">

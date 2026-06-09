@@ -15,6 +15,7 @@ from __future__ import annotations
 
 import html as _html
 import re
+import warnings
 from pathlib import Path
 from typing import Any, Optional
 
@@ -25,15 +26,30 @@ from .events import UIEvent
 _PLACEHOLDER = re.compile(r"\{\{\{\s*(\w+)\s*\}\}\}|\{\{\s*(&)?\s*(\w+)\s*\}\}")
 
 
-def render_template(template: str, props: dict[str, Any]) -> str:
-    """Fill ``{{ key }}`` / ``{{& key }}`` / ``{{{ key }}}`` placeholders."""
+def render_template(template: str, props: dict[str, Any], *, strict: bool = False) -> str:
+    """Fill ``{{ key }}`` / ``{{& key }}`` / ``{{{ key }}}`` placeholders.
+
+    ``{{ key }}`` is HTML-escaped; ``{{& key }}`` and ``{{{ key }}}`` inject the
+    value raw -- only pass *pre-trusted* HTML there, never agent/LLM/user data,
+    because raw output bypasses escaping (the served UI's `html`-card sanitizer
+    is a defence-in-depth fallback, not a license to inject untrusted markup).
+
+    A placeholder with no matching prop is rendered empty -- but, to avoid
+    silently shipping a blank card, a missing key raises ``KeyError`` when
+    ``strict=True`` and otherwise emits a :class:`UserWarning`.
+    """
 
     def repl(m: re.Match) -> str:
-        triple_key = m.group(1)
-        if triple_key is not None:  # {{{ key }}} -> raw
-            return str(props.get(triple_key, ""))
-        raw = m.group(2) == "&"  # {{& key }} -> raw
-        key = m.group(3)
+        key = m.group(1) if m.group(1) is not None else m.group(3)
+        raw = m.group(1) is not None or m.group(2) == "&"
+        if key not in props:
+            if strict:
+                raise KeyError(f"template placeholder {{{{ {key} }}}} has no value")
+            warnings.warn(
+                f"template placeholder {{{{ {key} }}}} has no value; rendering empty",
+                UserWarning,
+                stacklevel=2,
+            )
         value = props.get(key, "")
         return str(value) if raw else _html.escape(str(value))
 
@@ -45,13 +61,21 @@ class HtmlTemplates:
 
     def __init__(self, directory: str | Path, *, cache: bool = True) -> None:
         self.directory = Path(directory)
+        self._base = self.directory.resolve()
         self._cache: dict[str, str] = {}
         self._use_cache = cache
 
     def _load(self, name: str) -> str:
         if self._use_cache and name in self._cache:
             return self._cache[name]
-        path = self.directory / f"{name}.html"
+        # Reject path separators / traversal before touching the filesystem, then
+        # confirm the resolved path stays inside the templates directory so a name
+        # like "../../secrets" can't read an arbitrary .html file.
+        if not name or "/" in name or "\\" in name or name in (".", "..") or "\x00" in name:
+            raise ValueError(f"invalid template name: {name!r}")
+        path = (self._base / f"{name}.html").resolve()
+        if path.parent != self._base:
+            raise ValueError(f"template name escapes the templates directory: {name!r}")
         if not path.exists():
             raise FileNotFoundError(f"No card template '{name}.html' in {self.directory}")
         text = path.read_text(encoding="utf-8")
@@ -59,9 +83,9 @@ class HtmlTemplates:
             self._cache[name] = text
         return text
 
-    def render(self, name: str, **props: Any) -> str:
+    def render(self, name: str, *, strict: bool = False, **props: Any) -> str:
         """Return the filled HTML string for template ``name``."""
-        return render_template(self._load(name), props)
+        return render_template(self._load(name), props, strict=strict)
 
     def emit(
         self,
@@ -75,6 +99,7 @@ class HtmlTemplates:
         icon: Optional[str] = None,
         accent: Optional[str] = None,
         ttl_ms: Optional[int] = None,
+        strict: bool = False,
         **extra_values: Any,
     ) -> UIEvent:
         """Render template ``name`` and emit it as an ``html`` card.
@@ -86,7 +111,7 @@ class HtmlTemplates:
         put it in the ``values`` dict so it isn't mistaken for card config.
         """
         props = {**(values or {}), **extra_values}
-        markup = self.render(name, **props)
+        markup = self.render(name, strict=strict, **props)
         return emit(
             "html",
             {"html": markup},

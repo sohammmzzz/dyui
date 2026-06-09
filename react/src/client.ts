@@ -25,7 +25,9 @@ function parseBlock(block: string): StreamFrame | null {
   const dataLines: string[] = [];
   for (const line of block.split("\n")) {
     if (line.startsWith("event:")) event = line.slice(6).trim();
-    else if (line.startsWith("data:")) dataLines.push(line.slice(5).trim());
+    // Per the SSE spec, only a single leading space after "data:" is stripped;
+    // trimming the whole value would drop meaningful leading whitespace.
+    else if (line.startsWith("data:")) dataLines.push(line.slice(5).replace(/^ /, ""));
   }
   if (dataLines.length === 0) return null;
   let data: unknown = {};

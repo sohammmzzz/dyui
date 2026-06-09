@@ -151,7 +151,21 @@ The bundled UI renders it instantly. That's the whole *“one Python file + HTML
 | `table` | `{columns, rows}` | | `json` | any |
 | `stat` | `{label, value, unit?, delta?}` | | `alert` | `{text, level?, title?}` |
 | `progress` | `{value, max?, label?}` | | `image` | `{src, alt?, caption?}` |
-| `html` | `{html}` *(sanitized, fully custom)* | | | |
+| `html` | `{html}` *(fully custom — sanitized, see below)* | | | |
+
+> **Security — `html` cards.** Both runtimes pass `html`-card markup through a
+> parser-based, allowlist sanitizer (known-safe tags/attributes only; event
+> handlers and `javascript:`/`data:` URLs are stripped). It is a sane default,
+> **not** a hardened security boundary. For hostile/untrusted input (e.g. raw
+> tool output or LLM text that an attacker can influence), override the `html`
+> card with a [DOMPurify](https://github.com/cure53/DOMPurify)-backed component
+> in `dyui-react`. Raw template placeholders (`{{{ key }}}` / `{{& key }}`)
+> inject **unescaped** — only pass pre-trusted HTML there.
+>
+> The `dyui serve` / `create_dyui_app` server is a **development** convenience:
+> CORS defaults to localhost-only, and you can require a bearer token with
+> `create_dyui_app(graph, api_token="…")`. Put it behind real auth before
+> exposing it beyond your machine.
 
 ---
 

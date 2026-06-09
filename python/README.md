@@ -96,8 +96,16 @@ for ev in collect_events(my_graph, {"query": "berlin"}):
 ## Built-in card components (frontend)
 
 `text`, `markdown`, `table`, `stat`, `progress`, `list`, `keyvalue`, `json`,
-`alert`, `image`, and `html` (sanitized custom markup). Register your own React
-components for any `component` key to fully customise — see the React package.
+`alert`, `image`, and `html` (custom markup, run through a parser-based allowlist
+sanitizer — a sane default, not a hardened boundary; override the `html` card
+with DOMPurify for hostile input, and never feed untrusted data to the raw
+`{{{ }}}` template placeholders). Register your own React components for any
+`component` key to fully customise — see the React package.
+
+> The `create_dyui_app` / `dyui serve` server is a development convenience:
+> CORS defaults to localhost-only; pass `api_token="…"` to require a bearer
+> token, and `allow_client_config=True` only if you trust callers with the run
+> config. Put it behind real auth before exposing it beyond your machine.
 
 ## Development
 

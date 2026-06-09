@@ -219,7 +219,7 @@
 </div>
 
 <script>
-const STREAM_PATH = "__DYUI_STREAM_PATH__";
+const STREAM_PATH = __DYUI_STREAM_PATH__;
 const SHOW_INPUT  = __DYUI_SHOW_INPUT__;
 const AUTO_INPUT  = __DYUI_AUTO_INPUT__;
 const KEYWORDS = ["Thinking","Reasoning","Planning","Composing","Creating","Rendering"];
@@ -233,11 +233,34 @@ if(!SHOW_INPUT) document.querySelector(".composer-wrap").style.display="none";
 
 const esc=(s)=>String(s??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
 const asText=(v)=>v==null?"":(typeof v==="object"?JSON.stringify(v):String(v));
-function sanitize(h){return String(h??"")
-  .replace(/<\s*(script|style|iframe|object|embed|link|meta|base)\b[^>]*>[\s\S]*?<\s*\/\s*\1\s*>/gi,"")
-  .replace(/<\s*(script|style|iframe|object|embed|link|meta|base)\b[^>]*\/?>/gi,"")
-  .replace(/\son\w+\s*=\s*("[^"]*"|'[^']*'|[^\s>]+)/gi,"")
-  .replace(/(href|src)\s*=\s*("|')\s*javascript:[^"']*\2/gi,"");}
+/* Parser-based, allowlist sanitizer for `html` cards. A regex stripper is
+   trivially bypassed (e.g. `<svg/onload=>`, unquoted `javascript:`, entity
+   tricks); parsing into a detached DOM lets the browser normalise entities
+   before we walk the tree and keep only known-safe tags/attributes. Not a full
+   security product -- use dyui-react's `html` override (DOMPurify) for hostile
+   input. */
+const SAN_ALLOW=new Set(["a","abbr","address","article","aside","b","bdi","bdo","blockquote","br","caption","cite","code","col","colgroup","data","dd","del","details","dfn","div","dl","dt","em","figcaption","figure","footer","h1","h2","h3","h4","h5","h6","header","hgroup","hr","i","img","ins","kbd","li","main","mark","nav","ol","p","picture","pre","q","rp","rt","ruby","s","samp","section","small","source","span","strong","sub","summary","sup","table","tbody","td","tfoot","th","thead","time","tr","u","ul","var","wbr"]);
+const SAN_DROP=new Set(["script","style","iframe","object","embed","link","meta","base","form","input","button","select","option","optgroup","textarea","template","noscript","svg","math","head","title","frame","frameset","applet","param","audio","video","track","portal"]);
+const SAN_URL=new Set(["href","src","xlink:href","action","formaction","poster","background","cite","data","ping","longdesc","usemap","srcset","manifest","codebase","profile","lowsrc","dynsrc"]);
+const _sNorm=v=>String(v).replace(/[\u0000-\u0020\u007f]+/g,"").toLowerCase();
+function _sUrl(v,img){const s=_sNorm(v);if(s==="")return true;if(s.startsWith("data:"))return img&&/^data:image\/(png|jpe?g|gif|webp|avif|bmp);/.test(s);return !/^(javascript|vbscript|data|file|blob|about):/.test(s);}
+const _sSrcset=(v,img)=>String(v).split(",").every(p=>_sUrl((p.trim().split(/\s+/)[0]||""),img));
+const _sStyle=v=>!/(expression\(|javascript:|vbscript:|-moz-binding|behavior:|@import)/.test(_sNorm(v));
+function _sAttrs(el){const tag=el.tagName.toLowerCase(),media=tag==="img"||tag==="source"||tag==="picture";
+  for(const a of Array.from(el.attributes)){const n=a.name.toLowerCase();
+    if(n.startsWith("on")||n==="is"||n==="srcdoc"){el.removeAttribute(a.name);continue;}
+    if(n==="style"){if(!_sStyle(a.value))el.removeAttribute(a.name);continue;}
+    if(SAN_URL.has(n)){const ok=n==="srcset"?_sSrcset(a.value,media):_sUrl(a.value,media);if(!ok)el.removeAttribute(a.name);}}}
+function _sNode(node){for(const ch of Array.from(node.childNodes)){
+    if(ch.nodeType===8){ch.parentNode&&ch.parentNode.removeChild(ch);continue;}
+    if(ch.nodeType!==1)continue;
+    const el=ch,tag=el.tagName.toLowerCase();
+    if(SAN_DROP.has(tag)){el.remove();continue;}
+    if(!SAN_ALLOW.has(tag)){_sNode(el);const p=el.parentNode;if(p){while(el.firstChild)p.insertBefore(el.firstChild,el);p.removeChild(el);}continue;}
+    _sAttrs(el);_sNode(el);}}
+function sanitize(h){if(typeof h!=="string"||h==="")return "";let doc;
+  try{doc=new DOMParser().parseFromString(h,"text/html");}catch(e){return "";}
+  if(!doc.body)return "";_sNode(doc.body);return doc.body.innerHTML;}
 function miniMd(t){const lines=String(t??"").split("\n");let o="",li=[];
   const fl=()=>{if(li.length){o+="<ul>"+li.map(x=>"<li>"+inl(x)+"</li>").join("")+"</ul>";li=[];}};
   const inl=(s)=>esc(s).replace(/\*\*([^*]+)\*\*/g,"<strong>$1</strong>").replace(/`([^`]+)`/g,"<code>$1</code>");
@@ -255,7 +278,7 @@ const renderers={
   alert:p=>`<div class="alert a-${esc(p.level||"info")}">${p.title?`<strong>${esc(p.title)}</strong><br>`:""}${esc(p.text??p.message)}</div>`,
   image:p=>`<figure style="margin:0"><img src="${esc(p.src)}" alt="${esc(p.alt||"")}" style="max-width:100%;border-radius:10px"/>${p.caption?`<figcaption style="font-size:11px;color:var(--muted);margin-top:5px">${esc(p.caption)}</figcaption>`:""}</figure>`,
   stat:p=>`<div class="stat-v">${esc(p.value)}${p.unit?`<span class="stat-u"> ${esc(p.unit)}</span>`:""}</div>${p.label?`<div class="stat-l">${esc(p.label)}</div>`:""}`,
-  progress:p=>{const m=Number(p.max??100)||1,v=Number(p.value??0),pc=Math.max(0,Math.min(100,v/m*100));
+  progress:p=>{const m=Number(p.max??100)||1,rv=Number(p.value??0),v=Number.isFinite(rv)?rv:0,pc=Math.max(0,Math.min(100,v/m*100));
     return `<div class="prog"><div style="width:${pc}%"></div></div><div class="prog-l">${esc(p.label??Math.round(pc)+"%")}</div>`;},
   table:p=>{const c=p.columns||[],r=p.rows||[];return `<table>${c.length?`<thead><tr>${c.map(x=>`<th>${esc(x)}</th>`).join("")}</tr></thead>`:""}<tbody>${r.map(row=>`<tr>${(Array.isArray(row)?row:[row]).map(x=>`<td>${esc(asText(x))}</td>`).join("")}</tr>`).join("")}</tbody></table>`;},
   list:p=>`<ul class="list">${(p.items||[]).map(it=>{const o=(typeof it==="object"&&it)?it:{title:it};return `<li><span>${esc(o.title)}</span>${o.badge!=null?`<code>${esc(o.badge)}</code>`:""}</li>`;}).join("")}</ul>`,
@@ -308,22 +331,20 @@ function upsertCard(turn,ev){
   ev.props=(cur&&!replace)?Object.assign({},cur.props,ev.props):ev.props;
   turn.map[ev.id]=Object.assign({},cur,ev);
   if(!cur)turn.order.push(ev.id);
-  drawCards(turn);
-}
-function drawCards(turn){
-  // re-render only what changed to keep entrance animations crisp
-  const ids=turn.order;
-  ids.forEach(id=>{
-    const data=turn.map[id];const existing=turn.cards.querySelector(`[data-id="${CSS.escape(id)}"]`);
-    if(existing){const tmp=document.createElement("div");tmp.innerHTML=cardHTML(data);const fresh=tmp.firstElementChild;
-      fresh.style.animation="none";existing.replaceWith(fresh);}
-    else{const tmp=document.createElement("div");tmp.innerHTML=cardHTML(data);turn.cards.appendChild(tmp.firstElementChild);}
-  });
+  // Only (re)build the card that changed -- not every card on every frame --
+  // so progress() updates don't tear down/rebuild unrelated cards' DOM.
+  renderCard(turn,ev.id);
   autoscroll();
+}
+function renderCard(turn,id){
+  const data=turn.map[id];const existing=turn.cards.querySelector(`[data-id="${CSS.escape(id)}"]`);
+  const tmp=document.createElement("div");tmp.innerHTML=cardHTML(data);const fresh=tmp.firstElementChild;
+  if(existing){fresh.style.animation="none";existing.replaceWith(fresh);}
+  else{turn.cards.appendChild(fresh);}
 }
 function autoscroll(){scroll.scrollTo({top:scroll.scrollHeight,behavior:"smooth"});}
 
-function parseBlock(b){let e="message";const d=[];for(const l of b.split("\n")){if(l.startsWith("event:"))e=l.slice(6).trim();else if(l.startsWith("data:"))d.push(l.slice(5).trim());}if(!d.length)return null;try{return{event:e,data:JSON.parse(d.join("\n"))};}catch{return{event:e,data:{}};}}
+function parseBlock(b){let e="message";const d=[];for(const l of b.split("\n")){if(l.startsWith("event:"))e=l.slice(6).trim();else if(l.startsWith("data:"))d.push(l.slice(5).replace(/^ /,""));}if(!d.length)return null;try{return{event:e,data:JSON.parse(d.join("\n"))};}catch{return{event:e,data:{}};}}
 
 async function run(input){
   if(busy||!input||!String(input).trim())return;

@@ -211,8 +211,10 @@ class Card:
     def __exit__(self, exc_type, exc, tb) -> bool:
         if exc_type is not None:
             self.error(str(exc))
-        elif self._event.status == "pending":
-            # Block exited cleanly but caller never resolved -> mark done.
+        elif self._event.status in ("pending", "active"):
+            # Block exited cleanly but caller never resolved -> mark done. This
+            # covers cards left ``active`` by progress() too, so they don't spin
+            # forever in the UI when done()/error() was forgotten.
             self.done()
         return False  # never suppress exceptions
 

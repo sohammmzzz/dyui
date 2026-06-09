@@ -205,6 +205,12 @@ def cmd_init(agent: str, file: str) -> int:
 # `dyui serve`
 # --------------------------------------------------------------------------- #
 def _load_module_from_path(path: Path) -> Any:
+    # SECURITY: this imports and executes ``path`` (and, via the sys.path insert
+    # below, lets it import sibling modules from its own directory). ``dyui
+    # serve`` is a developer tool meant to run *your own* trusted agent file from
+    # your project; only point it at code you trust, just as with ``python
+    # file.py``. Auto-discovery (``_discover_target``) only looks in the current
+    # working directory for the same reason.
     # Make sibling imports (e.g. `from calculator import ...`) resolve.
     sys.path.insert(0, str(path.resolve().parent))
     spec = importlib.util.spec_from_file_location(path.stem, path)

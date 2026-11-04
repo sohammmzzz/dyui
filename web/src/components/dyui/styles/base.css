@@ -1,0 +1,298 @@
+/*
+ * DyUI component library — base layer.
+ * Self-contained: tokens + bundled fonts + primitives, all scoped under `dy-` classes.
+ * No global resets: everything below targets `.dy-root` / `.dy-c` subtrees only.
+ */
+@import "../../../styles/tokens.css";
+@import "@fontsource-variable/instrument-sans/standard.css";
+@import "@fontsource/instrument-serif/400.css";
+@import "@fontsource/instrument-serif/400-italic.css";
+@import "@fontsource-variable/geist-mono";
+
+/* ---------- roots ---------- */
+.dy-root {
+  font-family: var(--dy-font);
+  font-size: var(--dy-text-base);
+  line-height: var(--dy-leading-ui);
+  color: var(--dy-text);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+}
+.dy-root *,
+.dy-root *::before,
+.dy-root *::after,
+.dy-c,
+.dy-c *,
+.dy-c *::before,
+.dy-c *::after {
+  box-sizing: border-box;
+}
+
+/* every component root */
+.dy-c {
+  --dy-violet: #7c5cd6;
+  --dy-c-pad: 16px;
+  --dy-prose: var(--dy-text-chat);
+  font-family: var(--dy-font);
+  font-size: var(--dy-text-base);
+  line-height: var(--dy-leading-ui);
+  color: var(--dy-text);
+  min-width: 0;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  font-kerning: normal;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) .dy-c { --dy-violet: #b3a2ff; }
+}
+:root[data-theme="dark"] .dy-c { --dy-violet: #b3a2ff; }
+
+.dy-c :where(h1, h2, h3, h4, h5, h6, p, ul, ol, dl, dd, figure, blockquote, pre) { margin: 0; }
+.dy-c :where(button, input, select, textarea) { font: inherit; color: inherit; }
+.dy-c :where(img, svg, video, canvas, iframe) { display: block; max-width: 100%; }
+.dy-c :where(a) { color: inherit; }
+
+.dy-c :focus-visible {
+  outline: 2px solid color-mix(in oklab, var(--dy-accent) 75%, transparent);
+  outline-offset: 2px;
+}
+.dy-c :focus:not(:focus-visible) { outline: none; }
+
+/* vertical stack of child nodes */
+.dy-stack { display: flex; flex-direction: column; gap: 12px; min-width: 0; }
+.dy-stack > * { min-width: 0; }
+
+/* ---------- type primitives ---------- */
+.dy-eyebrow {
+  font-family: var(--dy-font);
+  font-size: var(--dy-eyebrow-size);
+  font-weight: var(--dy-eyebrow-weight);
+  letter-spacing: var(--dy-eyebrow-tracking);
+  text-transform: uppercase;
+  line-height: 1.3;
+  color: var(--dy-text-faint);
+  font-stretch: 100%;
+}
+.dy-display {
+  font-family: var(--dy-font-display);
+  font-weight: 400;
+  letter-spacing: var(--dy-tracking-display);
+  line-height: var(--dy-leading-tight);
+}
+.dy-title { font-size: 15px; font-weight: 600; letter-spacing: -0.006em; line-height: 1.35; color: var(--dy-text); }
+.dy-sub { font-size: var(--dy-text-sm); color: var(--dy-text-muted); line-height: 1.45; }
+.dy-mono { font-family: var(--dy-font-mono); font-size: 0.92em; }
+.dy-num { font-variant-numeric: tabular-nums; }
+.dy-faint { color: var(--dy-text-faint); }
+.dy-muted { color: var(--dy-text-muted); }
+.dy-sr {
+  position: absolute !important; width: 1px; height: 1px; padding: 0; margin: -1px;
+  overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; border: 0;
+}
+.dy-clamp-1, .dy-clamp-2, .dy-clamp-3 { display: -webkit-box; -webkit-box-orient: vertical; overflow: hidden; }
+.dy-clamp-1 { -webkit-line-clamp: 1; line-clamp: 1; }
+.dy-clamp-2 { -webkit-line-clamp: 2; line-clamp: 2; }
+.dy-clamp-3 { -webkit-line-clamp: 3; line-clamp: 3; }
+.dy-ellipsis { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; min-width: 0; }
+
+/* ---------- surfaces ---------- */
+.dy-panel {
+  background: var(--dy-surface);
+  border: 1px solid var(--dy-border);
+  border-radius: var(--dy-radius-lg);
+  box-shadow: var(--dy-shadow-sm), var(--dy-highlight);
+}
+.dy-well {
+  background: color-mix(in oklab, var(--dy-bg-subtle) 55%, var(--dy-surface));
+  border: 1px solid var(--dy-border);
+  border-radius: var(--dy-radius);
+}
+.dy-hair { height: 1px; background: var(--dy-border); border: 0; margin: 0; }
+
+/* ---------- buttons ---------- */
+.dy-btn {
+  appearance: none;
+  -webkit-tap-highlight-color: transparent;
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 7px;
+  height: 36px;
+  padding: 0 15px;
+  border-radius: 10px;
+  border: 1px solid transparent;
+  background: transparent;
+  font-family: var(--dy-font);
+  font-size: 13.5px;
+  font-weight: 500;
+  letter-spacing: -0.003em;
+  line-height: 1;
+  white-space: nowrap;
+  cursor: pointer;
+  user-select: none;
+  text-decoration: none;
+  transition:
+    background-color var(--dy-dur-1) var(--dy-ease),
+    border-color var(--dy-dur-1) var(--dy-ease),
+    color var(--dy-dur-1) var(--dy-ease),
+    box-shadow var(--dy-dur-2) var(--dy-ease),
+    opacity var(--dy-dur-2) var(--dy-ease),
+    transform var(--dy-dur-1) var(--dy-ease);
+}
+.dy-btn svg { width: 15px; height: 15px; flex: none; }
+.dy-btn:active:not(:disabled):not([aria-disabled="true"]) { transform: scale(0.97); }
+.dy-btn--sm { height: 30px; padding: 0 11px; font-size: 13px; border-radius: 9px; }
+.dy-btn--sm svg { width: 14px; height: 14px; }
+.dy-btn--icon { width: 32px; height: 32px; padding: 0; border-radius: 9px; }
+
+.dy-btn--primary {
+  background: var(--dy-accent);
+  color: var(--dy-accent-text);
+  box-shadow: inset 0 1px 0 rgb(255 255 255 / 0.16), 0 1px 2px color-mix(in oklab, var(--dy-accent) 35%, transparent),
+    0 4px 12px -6px color-mix(in oklab, var(--dy-accent) 55%, transparent);
+}
+.dy-btn--primary:hover:not(:disabled) { background: color-mix(in oklab, var(--dy-accent) 88%, var(--dy-text)); }
+.dy-btn--secondary {
+  background: var(--dy-surface);
+  border-color: var(--dy-border-strong);
+  color: var(--dy-text);
+  box-shadow: var(--dy-shadow-sm);
+}
+.dy-btn--secondary:hover:not(:disabled) {
+  background: var(--dy-surface-2);
+  border-color: color-mix(in oklab, var(--dy-border-strong) 65%, var(--dy-text-faint));
+}
+.dy-btn--ghost { color: var(--dy-text-muted); }
+.dy-btn--ghost:hover:not(:disabled) { background: color-mix(in oklab, var(--dy-text) 6%, transparent); color: var(--dy-text); }
+.dy-btn--danger {
+  background: var(--dy-danger);
+  color: var(--dy-accent-text);
+  box-shadow: inset 0 1px 0 rgb(255 255 255 / 0.14), 0 1px 2px color-mix(in oklab, var(--dy-danger) 35%, transparent);
+}
+.dy-btn--danger:hover:not(:disabled) { background: color-mix(in oklab, var(--dy-danger) 88%, var(--dy-text)); }
+.dy-btn:disabled, .dy-btn[aria-disabled="true"] { cursor: default; }
+.dy-btn:disabled:not([data-state]) { opacity: 0.5; }
+.dy-btn[data-state="dim"] { opacity: 0.38; }
+.dy-btn[data-state="chosen"] {
+  background: var(--dy-accent-soft);
+  border-color: var(--dy-accent-border);
+  color: var(--dy-accent-strong);
+  box-shadow: none;
+}
+.dy-btn[data-state="sending"] { opacity: 1; }
+
+/* ---------- inputs ---------- */
+.dy-input {
+  width: 100%;
+  min-width: 0;
+  height: 40px;
+  padding: 0 12px;
+  border-radius: 10px;
+  border: 1px solid var(--dy-border-strong);
+  background: color-mix(in oklab, var(--dy-bg) 35%, var(--dy-surface));
+  color: var(--dy-text);
+  font-family: var(--dy-font);
+  font-size: 14px;
+  line-height: 1.4;
+  outline: none;
+  transition: border-color var(--dy-dur-1) var(--dy-ease), box-shadow var(--dy-dur-2) var(--dy-ease),
+    background-color var(--dy-dur-1) var(--dy-ease);
+}
+.dy-input::placeholder { color: var(--dy-text-faint); }
+.dy-input:hover:not(:disabled) { border-color: color-mix(in oklab, var(--dy-border-strong) 55%, var(--dy-text-faint)); }
+.dy-input:focus, .dy-input:focus-visible {
+  outline: none;
+  border-color: var(--dy-accent);
+  background: var(--dy-surface);
+  box-shadow: 0 0 0 3px color-mix(in oklab, var(--dy-accent) 18%, transparent);
+}
+.dy-input[aria-invalid="true"] {
+  border-color: var(--dy-danger);
+  box-shadow: 0 0 0 3px color-mix(in oklab, var(--dy-danger) 14%, transparent);
+}
+.dy-input:disabled { opacity: 0.6; cursor: default; }
+textarea.dy-input { height: auto; min-height: 92px; padding: 10px 12px; resize: vertical; line-height: 1.5; }
+
+/* ---------- chips ---------- */
+.dy-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  height: 26px;
+  padding: 0 10px;
+  border-radius: var(--dy-radius-pill);
+  font-size: 12.5px;
+  font-weight: 500;
+  white-space: nowrap;
+}
+
+/* ---------- skeleton shimmer ---------- */
+.dy-skel {
+  position: relative;
+  display: block;
+  overflow: hidden;
+  border-radius: 6px;
+  background: color-mix(in oklab, var(--dy-text) 6.5%, transparent);
+  min-height: 10px;
+}
+.dy-skel::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  transform: translateX(-100%);
+  background: linear-gradient(90deg, transparent, color-mix(in oklab, var(--dy-text) 5%, transparent) 45%,
+    color-mix(in oklab, var(--dy-surface) 30%, transparent) 55%, transparent);
+  animation: dy-shimmer var(--dy-shimmer) var(--dy-ease-in-out) infinite;
+}
+.dy-skel--text { height: 0.8em; border-radius: 5px; }
+.dy-skel--line { height: 12px; }
+.dy-skel--round { border-radius: 999px; }
+.dy-skel-inline { display: inline-block; vertical-align: middle; }
+
+/* ---------- spinner / dots ---------- */
+.dy-spin { animation: dy-spin 0.9s linear infinite; }
+.dy-breathe { animation: dy-breathe var(--dy-breathe) var(--dy-ease-in-out) infinite; }
+
+/* shimmering text — for "running"/"thinking" labels */
+.dy-text-shimmer {
+  background: linear-gradient(90deg, var(--dy-text-muted) 0%, var(--dy-text-muted) 40%, var(--dy-text) 50%,
+    var(--dy-text-muted) 60%, var(--dy-text-muted) 100%);
+  background-size: 250% 100%;
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: dy-text-sweep 2.4s var(--dy-ease-in-out) infinite;
+}
+
+/* ---------- CSS entrance utilities (cheap, for rows/marks) ---------- */
+.dy-a-rise { animation: dy-rise var(--dy-dur-3) var(--dy-ease) both; animation-delay: calc(min(var(--i, 0), 8) * 40ms + var(--d, 0ms)); }
+.dy-a-bloom { animation: dy-bloom var(--dy-dur-3) var(--dy-ease) both; animation-delay: calc(min(var(--i, 0), 8) * 40ms + var(--d, 0ms)); }
+.dy-a-fade { animation: dy-fade var(--dy-dur-3) var(--dy-ease) both; animation-delay: calc(min(var(--i, 0), 8) * 40ms + var(--d, 0ms)); }
+.dy-a-pop { animation: dy-pop var(--dy-dur-2) var(--dy-ease) both; animation-delay: var(--d, 0ms); }
+
+@keyframes dy-rise { from { opacity: 0; transform: translateY(5px); } }
+@keyframes dy-bloom { from { opacity: 0; transform: translateY(6px) scale(0.985); filter: blur(6px); } }
+@keyframes dy-fade { from { opacity: 0; } }
+@keyframes dy-pop { from { opacity: 0; transform: scale(0.6); } }
+@keyframes dy-shimmer { from { transform: translateX(-100%); } to { transform: translateX(100%); } }
+@keyframes dy-breathe { 0%, 100% { opacity: 0.45; } 50% { opacity: 1; } }
+@keyframes dy-spin { to { transform: rotate(360deg); } }
+@keyframes dy-text-sweep { from { background-position: 100% 0; } to { background-position: -150% 0; } }
+@keyframes dy-grow-y { from { transform: scaleY(0); } }
+@keyframes dy-grow-x { from { transform: scaleX(0); } }
+@keyframes dy-draw { from { stroke-dashoffset: 1; } to { stroke-dashoffset: 0; } }
+
+@media (prefers-reduced-motion: reduce) {
+  .dy-c [class*="dy-a-"],
+  .dy-c[class*="dy-a-"] {
+    animation-name: dy-fade !important;
+    animation-duration: 120ms !important;
+    animation-delay: 0ms !important;
+  }
+  .dy-skel::after, .dy-text-shimmer { animation: none; }
+  .dy-text-shimmer { -webkit-text-fill-color: currentColor; background: none; }
+  .dy-c .dy-btn:active { transform: none !important; }
+  .dy-spin { animation-duration: 2.4s; }
+}

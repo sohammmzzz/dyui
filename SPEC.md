@@ -499,6 +499,30 @@ machine over arbitrary chunk boundaries: `TEXT` → (line starting with ```` ```
 - Also accept a JSON array on one line, and tolerate `json` as the fence tag if the object has `"ui"`.
 - IDs: `c_<8 hex>` assigned by the parser (an LLM-supplied `"id"` is kept if it's unique).
 
+### 5.0 Two rendering modes — pydantic is the single source of truth
+Every component is a pydantic model. The same model produces (a) its prompt signature line,
+(b) its strict JSON Schema, and (c) the validator for whatever the LLM sends.
+- **Fence mode (default, `ui_mode="fence"`)** — the format above. Works with every provider and
+  local model; prose and components interleave in one stream; validated with pydantic.
+- **Structured mode (`ui_mode="tools"`, opt-in)** — `dyui.llm.stream(..., components=catalog,
+  ui_mode="tools")` registers one tool per component, `render_<name>`, whose parameters are the
+  component's strict JSON Schema (`additionalProperties: false`, all fields required with
+  nullable optionals, per provider strict-mode rules). On OpenAI (`strict: true`) and Anthropic
+  (strict tool use) the provider's constrained decoding guarantees schema-valid props. DyUI runs
+  the tool loop internally: each completed render call is yielded as a `{"ui": name, ...args}`
+  dict (rendered like any component), the tool result `"rendered"` is returned to the model, and
+  generation continues — so prose and components still interleave. Max 8 loop iterations.
+  The catalog prompt in this mode omits the fence instructions and says "call render_* tools to
+  show UI; keep prose in normal text".
+- **Auto-repair (planned, post-0.2)** — re-asking the model once with the pydantic error
+  (`genui.repair_message(error)` → `{"error": "VALIDATION_FAILED", "component", "path", "message"}`)
+  when a fenced component fails validation. The helper ships in 0.2; the automatic loop does not.
+
+Catalog API additions: `Component.json_schema(strict=True) -> dict`,
+`catalog.json_schema() -> dict` (name → schema), `catalog.tool_schemas(provider: "openai" |
+"anthropic") -> list[dict]` (ready-to-send tool definitions named `render_<name>`, description =
+component description + usage hint), `catalog.prompt(mode="fence" | "tools")`.
+
 ### 5.1 Validation
 - Unknown `ui` name → error node. Props validated by the component's pydantic model in lax
   mode; unknown props dropped; values coerced where safe (numbers in strings, etc.).

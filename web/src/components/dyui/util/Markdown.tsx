@@ -54,7 +54,7 @@ const components: Components = {
 
 const urlTransform = (url: string) => safeUrl(url) ?? "";
 
-export const Markdown = memo(function Markdown({ text, className }: { text: string; className?: string }) {
+export const Prose = memo(function Prose({ text, className }: { text: string; className?: string }) {
   return (
     <div className={cx("dy-md", className)}>
       <ReactMarkdown remarkPlugins={[remarkGfm]} skipHtml urlTransform={urlTransform} components={components}>

@@ -296,3 +296,28 @@ textarea.dy-input { height: auto; min-height: 92px; padding: 10px 12px; resize: 
   .dy-c .dy-btn:active { transform: none !important; }
   .dy-spin { animation-duration: 2.4s; }
 }
+
+/* ---------- resolved note (interactive components after use) ---------- */
+.dy-resolved {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--dy-text-muted);
+  min-height: 24px;
+}
+.dy-resolved-icon {
+  flex: none;
+  display: grid;
+  place-items: center;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  color: var(--dy-success);
+  background: color-mix(in oklab, var(--dy-success) 14%, transparent);
+}
+.dy-resolved-icon > span { display: inline-flex; }
+.dy-resolved--muted .dy-resolved-icon { color: var(--dy-text-muted); background: color-mix(in oklab, var(--dy-text) 7%, transparent); }
+.dy-resolved--danger .dy-resolved-icon { color: var(--dy-danger); background: color-mix(in oklab, var(--dy-danger) 13%, transparent); }
+.dy-resolved-label { color: var(--dy-text); }

@@ -76,22 +76,22 @@ function isNode(v: unknown): v is UINode {
 }
 
 /** Replace the node with `next.id` anywhere inside `value` (children, props arrays). Same ref if absent. */
-function replaceDeep<T>(value: T, next: UINode, depth = 0): T {
+function replaceDeep<T>(value: T, next: UINode, depth = 0, merge = true): T {
   if (depth > 12 || !value || typeof value !== "object") return value;
   if (Array.isArray(value)) {
     let changed = false;
     const arr = value.map((v) => {
-      const r = replaceDeep(v, next, depth + 1);
+      const r = replaceDeep(v, next, depth + 1, merge);
       if (r !== v) changed = true;
       return r;
     });
     return (changed ? arr : value) as T;
   }
-  if (isNode(value) && value.id === next.id) return mergeNode(value, next) as T;
+  if (isNode(value) && value.id === next.id) return (merge ? mergeNode(value, next) : next) as T;
   let changed = false;
   const out: Record<string, unknown> = {};
   for (const [k, v] of Object.entries(value as Record<string, unknown>)) {
-    const r = typeof v === "object" ? replaceDeep(v, next, depth + 1) : v;
+    const r = typeof v === "object" ? replaceDeep(v, next, depth + 1, merge) : v;
     if (r !== v) changed = true;
     out[k] = r;
   }
@@ -323,7 +323,7 @@ function setResolved(node: UINode, componentId: string, resolved: Resolution | u
   };
   walk(node);
   if (!found) return node;
-  return replaceDeep(node, apply(found));
+  return replaceDeep(node, apply(found), 0, false);
 }
 
 /* ---------------------------------------------------------------- reducer */

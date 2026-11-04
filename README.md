@@ -44,7 +44,11 @@ dyui run app.py          # → http://127.0.0.1:8000
 
 No API key yet? `pip install dyui && dyui demo` opens a guided tour that needs none.
 
-<!-- SCREENSHOTS: app hero (light/dark) is added at release time from the real app. -->
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="brand/screenshots/chat-dark.png">
+  <img alt="A DyUI chatbot answering with stats, a chart, a table and a callout" src="brand/screenshots/chat-light.png" width="100%">
+</picture>
+<p align="center"><sub>The real app, from <code>dyui demo</code> — every card was streamed by the (simulated) LLM.</sub></p>
 
 ## Why DyUI
 

@@ -10,38 +10,30 @@
 |---|---|---|
 | Spec | `SPEC.md` | ✅ complete (brand, API, protocol §4, fence format §5, structured "tools" mode §5.0, 39 components §6) |
 | Brand | `brand/` | ✅ placeholder logo, wordmark (+dark), README hero (light/dark, outlined text). `brand/tools/` regenerates them. Logo redesign **paused** — see `brand/LOGO_RESEARCH.md` |
-| README | `README.md` | ✅ launch-ready copy. ⏳ needs real app screenshots + code samples verified against the final API |
+| README | `README.md` | ✅ launch-ready copy + real app screenshots (light/dark). ⏳ re-check code samples against the final API |
 | CI | `.github/workflows/` | ✅ written (ci, release → PyPI trusted publishing, docs → GitHub Pages). ⚠️ see "CI fixes" |
 | LLM layer | `python/dyui/llm/` | ✅ `dyui.llm.stream` (OpenAI, Anthropic, Ollama, Groq, OpenRouter, Together, DeepSeek, Gemini, Mistral, xAI), fence + `ui_mode="tools"` strict render loop. 24 offline tests pass |
 | LangGraph | `python/dyui/integrations/langgraph.py` | ✅ `emit()` + `stream()`; tested with a real tiny graph |
-| Templates / examples | `python/dyui/templates/`, `examples/` | ✅ written against SPEC; **not yet run** (core app missing) |
+| Templates / examples | `python/dyui/templates/`, `examples/` | ✅ written against SPEC; `dyui new --template basic` tested; LLM examples not run (need API keys) |
 | Components (Python) | `python/dyui/ui/` | ✅ 38 pydantic models, positional ctors, `to_node()`, prompt signatures, strict `json_schema()`. ⏳ no tests yet |
 | genui | `python/dyui/genui/` | ✅ `Catalog` (`prompt(mode)`, `only/without`, `tool_schemas(provider)`, `validate`), streaming `FenceParser` (smoke-tested char-by-char), partial JSON, history serialization. ⏳ no tests yet |
 | Store | `python/dyui/store/` | ✅ `Store` protocol, `SQLiteStore`, `MemoryStore`. ⏳ no tests yet |
-| **Core runtime** | `python/dyui/` | ❌ **not written**: `__init__.py`, `app.py`, `chat.py`, `server/`, `html.py`, `cli.py`, `demo.py`, `pyproject.toml`, `hatch_build.py`, core tests |
-| Web shell | `web/src/{App,main}.tsx`, `web/src/shell/`, `web/src/lib/` | ✅ all SPEC §7 shell features, mock transport (`?mock=1`, 5 scripted demos), 31 vitest tests pass. ⏳ never visually verified in a browser |
-| Web components | `web/src/components/dyui/`, `web/src/fixtures/`, `web/src/gallery.tsx` | 🟡 written for all groups; at hand-off the build had errors (`NodeView.tsx` imports a missing `./registry`; type errors in `interactive/Choice.tsx`, `interactive/Form.tsx` — passing a `(v, fallback?)` helper straight to `.map`). Check `npx tsc --noEmit` first |
+| **Core runtime** | `python/dyui/` | ✅ `App`, `Chat` (history/session/send/step/ask/set_title), server (all SPEC §4 routes + SSE), `html.py`, CLI (`run`/`demo`/`new`/`catalog`/`init`/`version`), `demo.py`, `pyproject.toml`, `hatch_build.py`. 44 tests pass (`cd python && pytest -q`) |
+| Web shell | `web/src/{App,main}.tsx`, `web/src/shell/`, `web/src/lib/` | ✅ all SPEC §7 shell features, mock transport (`?mock=1`), 31 vitest tests pass. E2E-verified against `dyui demo` in Chromium (light + dark, zero console errors) |
+| Web components | `web/src/components/dyui/`, `web/src/fixtures/`, `web/src/gallery.tsx` | ✅ all 39 + `invalid`; `tsc` + `vite build` pass; stats/chart/table/callout/card/keyvalue/buttons/timeline/quick_replies verified in the E2E run. ⏳ gallery + remaining components not visually reviewed |
 | Docs site | `docs/` | ❌ not started (Astro Starlight, SPEC §8) |
 
 ## Backlog (in order)
 
-### P0 — make it run
-1. **Web build green**: `cd web && npx tsc --noEmit && npx vite build`. Fix the component-library errors above (add `components/dyui/registry.ts(x)` mapping every `ui` name → component; fix the `.map` helper calls).
-2. **Finish py-core** (SPEC §3, §4, §9):
-   - `dyui/__init__.py`: public re-exports (`App`, `Chat`, `Message`, `Action`, `Feedback`, `File`, `Starter`, `Component`, `Reasoning`, `ui`, `catalog`), `dyui.llm` exposed lazily via module `__getattr__`.
-   - `chat.py`: `Message`, `File`, `Action`, `Feedback`, `Chat` (`history`, `messages`, `session`, `send`, `step`, `ask`, `set_title`), `Step` context manager.
-   - `app.py`: `App(...)` options, decorators (`on_message`, `on_chat_start`, `on_action`, `on_feedback`, `component`), all handler shapes (async gen / sync gen / coroutine / sync), yield types (str → `FenceParser`, components, `Reasoning`, `{"ui":…}` dicts), live `app.catalog`, ASGI `__call__`.
-   - `server/`: every route + SSE event in SPEC §4. The shell already speaks it: new threads arrive via `POST /api/chat` with `thread_id: null` (run `on_chat_start` there); `ctx.interactive` is only true for the latest assistant message; actions resolve optimistically client-side, server persists `props.__resolved__` and emits a `ui` upsert; timestamps in **seconds**. Heartbeat, disconnect → cancel → `cancelled`, regenerate/edit, auto-title, `dyui_uid` cookie, password gate, uploads, SPA static serving from `dyui/_static` with a friendly fallback page.
-   - `html.py` (traversal-safe templates → sandboxed `html` node), `cli.py` (`run`, `new`, `demo`, `catalog`, `claude|gemini|codex init`, `version`), `demo.py` (no-API-key showcase streaming fenced text through the real parser).
-   - `pyproject.toml` (hatchling, extras `openai`/`anthropic`/`langgraph`/`all`/`dev`, script `dyui`, wheel artifacts `dyui/_static/**`) + `hatch_build.py` (skip with `DYUI_SKIP_WEB_BUILD`; build `../web` and copy `dist` → `dyui/_static`).
-   - Contracts other code already relies on: `catalog.tool_schemas("openai"|"anthropic")` and `catalog.prompt(mode="fence"|"tools")` (exist), tool names prefixed `render_`; examples/templates assume `ui.Stats(items=[…])`, `ui.Plan(title=, items=[…])`, `ui.Sources(items=[…])`, `ui.Form(fields=[…])`, `ui.Choice(question, options)`, `ui.Callout(text, level=, title=)`, `ui.Confirm(title, text=, confirm_label=)`, `ui.Chart(kind=, labels=, series=)`, `ui.Card(…, subtitle=, actions=[…])`, `ui.Button(…, style=)`.
-   - Tests: ui/genui (chunk-boundary fuzz for the parser), store, server routes via httpx ASGITransport (SSE, ask round-trip, forged action → 400, regenerate/edit, auth, upload), CLI.
-3. **Integrate & verify**: `cd web && npm run build:py` → `pip install -e "python[all,dev]"` → `dyui demo` → Playwright E2E (send, components stream, action, regenerate, threads, reload persists, light/dark, mobile). Run every example/template once.
+### P0 — done in this run
+Web build green · core runtime written and tested (44 tests) · `dyui demo` verified end to end in a browser.
+Remaining checks: run each `examples/*.py` with a real API key; click through `ask()`/form/rating flows in
+the browser (covered by API tests, not yet by Playwright); review `web/gallery.html` visually.
 
 ### P1 — launch
 4. **Docs site** (`docs/`, Astro Starlight, SPEC §8): brand theme (Instrument Serif/Sans, tokens from `web/src/styles/tokens.css`), landing page with a live mock chat, one page per component using `web/src/fixtures/nodes.ts` + `NodeView`, API reference generated with griffe. Slugs the README links to: `/components/`, `/changelog/`, `/deploy/production/`. For GitHub Pages: `site: "https://sohammmzzz.github.io"`, `base: "/dyui"` (make base env-configurable for other hosts).
 5. **README**: add real screenshots (light/dark `<picture>`) under the hero; re-check every code sample against the final API.
-6. **CI fixes**: `pytest` from the repo root fails collection — run `cd python && pytest -q` in `ci.yml`, or set `[tool.pytest.ini_options] pythonpath = ["."]`, `asyncio_mode = "auto"` in `pyproject.toml`.
+6. **CI**: `ci.yml` now runs `cd python && pytest -q` (pytest config lives in `python/pyproject.toml`). Confirm the first CI run is green.
 7. **Release 0.2.0**: tag `v0.2.0` after configuring the PyPI trusted publisher for `release.yml`.
 
 ### P2 — polish
@@ -59,7 +51,8 @@ Auto-repair loop for invalid fenced components (`genui.repair_message` helper ex
 python3 -m venv .venv && .venv/bin/pip install fastapi "uvicorn[standard]" pydantic watchfiles python-multipart pytest pytest-asyncio httpx openai anthropic langgraph griffe
 cd web && npm install && npm run dev          # http://localhost:5173/?mock=1 (shell with mock backend)
 #                                    gallery:  http://localhost:5173/gallery.html
-cd python && ../.venv/bin/python -m pytest -q # LLM + LangGraph tests today
+cd python && pip install -e ".[all,dev]" && pytest -q   # 44 tests
+cd web && npm run build:py && cd .. && dyui demo    # full app at http://localhost:8000
 ```
 
 Suggested approach: one agent per area with strict file ownership (as in this run), all building

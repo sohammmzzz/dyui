@@ -12,3 +12,10 @@ Pick a model with `DYUI_MODEL`, e.g. `DYUI_MODEL=anthropic/claude-sonnet-5-5`.
 | `langgraph_agent.py` | LangGraph agent streaming text and `emit()`ed components. |
 | `bring_your_own_sdk.py` | Raw `openai` client + `app.catalog.prompt()`; yield raw text and DyUI parses the fences. |
 | `local_ollama.py` | A fully local bot via Ollama. |
+
+## Structured mode
+
+By default the model writes ```` ```dyui ```` fences, which works with every provider. For OpenAI and
+Anthropic you can opt into schema-guaranteed components: `dyui.llm.stream(..., ui_mode="tools")`
+registers a strict `render_<name>` tool per component and runs the tool loop for you. Try it with
+`DYUI_UI_MODE=tools dyui run examples/data_analyst.py`.

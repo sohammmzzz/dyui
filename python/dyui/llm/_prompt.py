@@ -6,7 +6,19 @@ from typing import Any
 PLACEHOLDER = "{dyui_components}"
 
 
-def build_system(system: str | None, components: Any = None) -> str | None:
+def catalog_prompt(components: Any, mode: str = "fence") -> str:
+    """``components.prompt(mode=...)``, falling back to ``.prompt()`` if ``mode`` isn't accepted."""
+    if not hasattr(components, "prompt"):
+        return str(components)
+    if mode == "fence":
+        return components.prompt()
+    try:
+        return components.prompt(mode=mode)
+    except TypeError:
+        return components.prompt()
+
+
+def build_system(system: str | None, components: Any = None, mode: str = "fence") -> str | None:
     """Merge ``system`` with ``components.prompt()``.
 
     * ``{dyui_components}`` in ``system`` is replaced by the catalog prompt;
@@ -15,7 +27,7 @@ def build_system(system: str | None, components: Any = None) -> str | None:
     """
     if components is None:
         return system
-    prompt = components.prompt() if hasattr(components, "prompt") else str(components)
+    prompt = catalog_prompt(components, mode)
     if system is None or not system.strip():
         return prompt
     if PLACEHOLDER in system:

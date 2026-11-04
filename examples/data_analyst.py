@@ -6,6 +6,8 @@ import os
 import dyui
 
 MODEL = os.getenv("DYUI_MODEL", "openai/gpt-5")
+# "fence" (default, works everywhere) or "tools": strict structured outputs via render_* tools.
+UI_MODE = os.getenv("DYUI_UI_MODE", "fence")
 
 DATA = """month,region,revenue,orders
 Jan,EU,41200,310
@@ -37,5 +39,6 @@ app = dyui.App(
 @app.on_message
 async def reply(msg: dyui.Message, chat: dyui.Chat):
     # "{dyui_components}" in SYSTEM is replaced with the live component catalog.
-    async for part in dyui.llm.stream(MODEL, chat.history, system=SYSTEM, components=app.catalog):
+    async for part in dyui.llm.stream(MODEL, chat.history, system=SYSTEM, components=app.catalog,
+                                      ui_mode=UI_MODE):
         yield part

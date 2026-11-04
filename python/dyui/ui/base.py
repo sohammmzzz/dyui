@@ -42,7 +42,7 @@ _MODEL_CONFIG = ConfigDict(
     protected_namespaces=(),
 )
 
-_CONFIG_KEYS = ("name", "group", "description", "examples", "llm", "positional", "varargs")
+_CONFIG_KEYS = ("name", "group", "description", "examples", "llm", "positional", "varargs", "hint")
 
 _REGISTRY: dict[str, type["Component"]] = {}
 
@@ -86,6 +86,7 @@ class ComponentInfo:
         render_as: The built-in ``ui`` name nodes are emitted as.
         positional: Prop names bound to leading positional constructor args.
         varargs: Prop that collects remaining positional args (e.g. ``children``).
+        hint: Extra usage hint appended to tool descriptions (structured mode).
     """
 
     name: str
@@ -98,6 +99,7 @@ class ComponentInfo:
     render_as: str
     positional: tuple[str, ...]
     varargs: Optional[str]
+    hint: str = ""
 
 
 def _namespace_annotations(namespace: Mapping[str, Any]) -> dict[str, Any]:
@@ -117,8 +119,10 @@ def _namespace_annotations(namespace: Mapping[str, Any]) -> dict[str, Any]:
 
 def _meta_property(key: str) -> property:
     def getter(cls: type) -> Any:
+        if key in cls.__dict__:  # a field default being collected by pydantic
+            return cls.__dict__[key]
         info = cls.__dict__.get("__dyui__")
-        if info is None or key in (getattr(cls, "__pydantic_fields__", None) or {}):
+        if info is None or not info.name or key in (getattr(cls, "__pydantic_fields__", None) or {}):
             raise AttributeError(key)
         return getattr(info, key)
 
@@ -203,6 +207,7 @@ def _build_info(cls: type, bases: tuple[type, ...], config: dict[str, Any]) -> C
         render_as=render_as,
         positional=tuple(config.get("positional", parent.positional if parent.name else ())),
         varargs=config.get("varargs", parent.varargs if parent.name else None),
+        hint=" ".join(str(config.get("hint") or "").split()),
     )
 
 
@@ -280,7 +285,15 @@ class Model(BaseModel):
     def _from_scalar(cls, data: Any) -> Any:
         if isinstance(data, (str, int, float)) and not isinstance(data, bool) and cls.__str_field__:
             return {cls.__str_field__: data}
-        return data
+        return _strip_nulls(cls, data)
+
+
+def _strip_nulls(cls: type[BaseModel], data: Any) -> Any:
+    """Treat explicit ``null`` for optional props as "not provided" (tool-call args)."""
+    if isinstance(data, dict) and any(v is None for v in data.values()):
+        fields = cls.model_fields
+        return {k: v for k, v in data.items() if v is not None or (k in fields and fields[k].is_required())}
+    return data
 
 
 class Component(BaseModel, metaclass=ComponentMeta):
@@ -326,6 +339,11 @@ class Component(BaseModel, metaclass=ComponentMeta):
         if node_id is not None:
             self._node_id = str(node_id)
 
+    @model_validator(mode="before")
+    @classmethod
+    def _null_is_missing(cls, data: Any) -> Any:
+        return _strip_nulls(cls, data)
+
     # ------------------------------------------------------------------ API
     def render(self) -> Any:
         """Return the built-in component tree for a custom component.
@@ -358,6 +376,24 @@ class Component(BaseModel, metaclass=ComponentMeta):
         from .signature import render_signature
 
         return render_signature(cls)
+
+    @classmethod
+    def json_schema(cls, strict: bool = True) -> dict[str, Any]:
+        """Return the JSON Schema of this component's props (SPEC §5.0).
+
+        Args:
+            strict: Produce a provider strict-mode compatible schema
+                (``additionalProperties: false`` everywhere, every property
+                required, optionals nullable, free-form JSON and child
+                components encoded as JSON strings, no ``default``).
+
+        Returns:
+            A JSON Schema ``object`` dict (no ``"ui"`` key — the tool name
+            identifies the component).
+        """
+        from .schema import component_schema
+
+        return component_schema(cls, strict=strict)
 
     @classmethod
     def declared_actions(cls, props: Mapping[str, Any]) -> list[tuple[str, Optional[dict[str, Any]]]]:
@@ -531,6 +567,14 @@ def coerce_child(value: Any, context: Mapping[str, Any] | None) -> Component:
     if isinstance(value, Component):
         return value
     if isinstance(value, str):
+        text = value.strip()
+        if text.startswith("{") and text.endswith("}") and '"ui"' in text:
+            try:  # strict tool schemas carry children as JSON text
+                decoded = json.loads(text)
+            except ValueError:
+                decoded = None
+            if isinstance(decoded, dict) and "ui" in decoded:
+                return coerce_child(decoded, context)
         return Markdown(text=value)
     if isinstance(value, Mapping):
         name = value.get("ui")

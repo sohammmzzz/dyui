@@ -23,6 +23,10 @@ __all__ = [
     "Scalar",
     "Children",
     "lax_enum",
+    "ChildList",
+    "FreeJson",
+    "JsonValue",
+    "JsonObject",
 ]
 
 
@@ -133,7 +137,12 @@ def _coerce_children(value: Any, info: ValidationInfo) -> list[Any]:
     return out
 
 
-Children = Annotated[list[Any], BeforeValidator(_coerce_children), TS("component[]")]
+@dataclass(frozen=True)
+class ChildList:
+    """Annotation marker: a list of child components."""
+
+
+Children = Annotated[list[Any], BeforeValidator(_coerce_children), ChildList(), TS("component[]")]
 """A list of child components. Dicts are validated by ``"ui"`` name, strings
 become ``markdown`` children, and anything invalid becomes an ``invalid`` node."""
 

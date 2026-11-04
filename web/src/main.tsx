@@ -1,3 +1,12 @@
-// Placeholder — replaced by the shell build.
+import { StrictMode } from "react";
 import { createRoot } from "react-dom/client";
-createRoot(document.getElementById("root")!).render(<div>DyUI</div>);
+import "./styles/tokens.css";
+import "./styles/base.css";
+import "./shell/shell.css";
+import { App } from "./App";
+
+createRoot(document.getElementById("root")!).render(
+  <StrictMode>
+    <App />
+  </StrictMode>,
+);

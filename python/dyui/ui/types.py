@@ -138,6 +138,37 @@ Children = Annotated[list[Any], BeforeValidator(_coerce_children), TS("component
 become ``markdown`` children, and anything invalid becomes an ``invalid`` node."""
 
 
+@dataclass(frozen=True)
+class FreeJson:
+    """Annotation marker: free-form JSON. Strict JSON Schema encodes it as a
+    JSON string (strict provider modes can't express arbitrary objects)."""
+
+
+def _maybe_json(value: Any) -> Any:
+    if isinstance(value, str):
+        s = value.strip()
+        if (s.startswith("{") and s.endswith("}")) or (s.startswith("[") and s.endswith("]")):
+            try:
+                return json.loads(s)
+            except ValueError:
+                return value
+    return value
+
+
+def _json_object(value: Any) -> Any:
+    value = _maybe_json(value)
+    if isinstance(value, str) and not value.strip():
+        return None
+    return value
+
+
+JsonValue = Annotated[Any, BeforeValidator(_maybe_json), FreeJson(), TS("any")]
+"""Any JSON value. JSON text (``"{...}"``) is decoded."""
+
+JsonObject = Annotated[Optional[dict[str, Any]], BeforeValidator(_json_object), FreeJson(), TS("object")]
+"""An optional JSON object (static action ``data``). JSON text is decoded."""
+
+
 def to_json_text(value: Any) -> str:
     """Compact, safe JSON dump used for ``invalid`` raw payloads."""
     try:

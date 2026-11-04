@@ -1,284 +1,250 @@
 <div align="center">
 
-<img src="assets/banner.svg" alt="DyUI — Dynamic UI for any LangGraph agent" width="100%" />
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="brand/readme-hero-dark.svg">
+  <img alt="DyUI — Chatbots that answer in interfaces." src="brand/readme-hero-light.svg" width="100%">
+</picture>
 
 <br/>
 
-[![PyPI](https://img.shields.io/pypi/v/dyui?style=flat-square&color=f5b544&logo=pypi&logoColor=white&label=PyPI)](https://pypi.org/project/dyui/)
-[![npm](https://img.shields.io/npm/v/dyui-react?style=flat-square&color=ff8a6b&logo=npm&logoColor=white&label=npm)](https://www.npmjs.com/package/dyui-react)
-[![Python](https://img.shields.io/pypi/pyversions/dyui?style=flat-square&color=5eead4&logo=python&logoColor=white)](https://pypi.org/project/dyui/)
-[![Downloads](https://img.shields.io/pypi/dm/dyui?style=flat-square&color=a78bfa&label=installs)](https://pypi.org/project/dyui/)
-[![License](https://img.shields.io/badge/license-MIT-eef1f5?style=flat-square)](LICENSE)
-[![Built for LangGraph](https://img.shields.io/badge/built%20for-LangGraph-5eead4?style=flat-square)](https://langchain-ai.github.io/langgraph/)
+[![PyPI](https://img.shields.io/pypi/v/dyui?style=flat-square&color=5B4FE0&label=pypi)](https://pypi.org/project/dyui/)
+[![Python](https://img.shields.io/pypi/pyversions/dyui?style=flat-square&color=5B4FE0)](https://pypi.org/project/dyui/)
+[![CI](https://img.shields.io/github/actions/workflow/status/sohammmzzz/dyui/ci.yml?style=flat-square&label=ci&color=14A394)](https://github.com/sohammmzzz/dyui/actions/workflows/ci.yml)
+[![Docs](https://img.shields.io/badge/docs-dyui-14A394?style=flat-square)](https://sohammmzzz.github.io/dyui/)
+[![License: MIT](https://img.shields.io/badge/license-MIT-8E8C94?style=flat-square)](LICENSE)
 
-### Stream beautiful, live UI **cards** from any LangGraph agent — with any LLM, or none.
+**[Documentation](https://sohammmzzz.github.io/dyui/)** · **[Quickstart](#quickstart)** · **[Components](#39-components-ready-to-render)** · **[Examples](examples/)** · **[Changelog](https://sohammmzzz.github.io/dyui/changelog/)**
 
-From *one Python file* to an animated generative-UI chat app, **without writing any frontend code.**
-
-<br/>
-
-```bash
-pip install "dyui[server]"
-```
-
-**[Install](#-install) · [Quickstart](#-quickstart) · [Zero-frontend UI](#-zero-frontend-bring-your-own-html) · [CLI](#%EF%B8%8F-cli) · [React](#%EF%B8%8F-the-react-runtime--dyui-react) · [PyPI ↗](https://pypi.org/project/dyui/) · [npm ↗](https://www.npmjs.com/package/dyui-react)**
-
-</div>
-
-<br/>
-
-<div align="center">
-<img src="assets/gallery.svg" alt="DyUI rendered cards: markdown, stat, progress, and a custom HTML invoice card" width="100%" />
-<sub><i>The same agent event stream, rendered as animated cards — built-in components and your own HTML.</i></sub>
 </div>
 
 ---
 
-## ✨ Why DyUI
-
-LLM agents do interesting work — but `print()` and plain text throw most of it away. **DyUI lets the agent say *what to render*** — a table, a stat, a progress bar, your own HTML — and streams those instructions to a frontend that animates them into a chat.
-
-It rides LangGraph's native `custom` stream channel, so it works with **any model and any graph**. No voice, no vendor lock-in, no glue code.
+**DyUI is the Python framework for professional chatbots that answer in interfaces.**
+Write one Python file, run `dyui run app.py`, and get a calm, beautifully animated chat app —
+frontend and backend — where **your LLM replies with tables, charts, cards, forms and buttons**,
+not just text.
 
 ```python
-from dyui import emit
+import dyui
 
-emit("stat", {"label": "Revenue", "value": "$48.2k", "delta": "+12%"},
-     title="This month", accent="emerald")
+app = dyui.App(title="Travel Bot", starters=["Plan a weekend in Lisbon"])
+
+@app.on_message
+async def reply(msg: dyui.Message, chat: dyui.Chat):
+    async for part in dyui.llm.stream("openai/gpt-5", chat.history,
+                                      system="You are a calm, expert travel agent.",
+                                      components=app.catalog):   # ← the LLM can now render UI
+        yield part
 ```
+
+```bash
+pip install "dyui[openai]"
+dyui run app.py          # → http://127.0.0.1:8000
+```
+
+No API key yet? `pip install dyui && dyui demo` opens a guided tour that needs none.
+
+<!-- SCREENSHOTS: app hero (light/dark) is added at release time from the real app. -->
+
+## Why DyUI
 
 <table>
 <tr>
 <td width="33%" valign="top">
 
-### 🧩 Plug into any agent
-One line in any node or tool. Works with OpenAI, Anthropic, Groq, local models — or no LLM at all.
+**The LLM renders UI.**
+DyUI teaches your model a component catalog through an auto-generated system prompt, parses
+its output *while it streams*, validates it, and renders it — inline, between sentences.
 
 </td>
 <td width="33%" valign="top">
 
-### 🎨 Zero frontend code
-Ships a polished, animated chat UI. Run one command, open the browser. Bring your own HTML cards.
+**Professional out of the box.**
+Conversation history, streaming with stop, regenerate and edit, file uploads, feedback,
+light and dark themes, mobile layout, password gate — calm motion at every interaction.
 
 </td>
 <td width="33%" valign="top">
 
-### 🤖 AI-assisted setup
-`dyui claude init agent.py` hands your code to a coding agent that designs custom cards for you.
+**Any model. Any framework.**
+OpenAI, Anthropic, Ollama, Groq, OpenRouter, Gemini, Mistral, DeepSeek, xAI, LangGraph —
+or your own SDK. DyUI parses raw text, so anything that streams works.
+
+</td>
+</tr>
+<tr>
+<td valign="top">
+
+**Your own components, in pure Python.**
+Define a pydantic model with a `render()`; the LLM learns it automatically. The system prompt
+grows with your app.
+
+</td>
+<td valign="top">
+
+**Interfaces that talk back.**
+Buttons, forms, choices and approvals route to Python handlers — or straight back to the LLM.
+`await chat.ask(...)` pauses an agent for human approval.
+
+</td>
+<td valign="top">
+
+**Safe by design.**
+The model only ever sends data. No model HTML, sanitized links, verified actions, sandboxed
+developer templates.
 
 </td>
 </tr>
 </table>
 
----
-
-## 📦 Install
-
-> **Which do I need?** The **Python package (`pip`) is always required** — it runs your
-> agent and ships the built-in UI. The **npm package is optional** — add it *only* if you're
-> building your own React frontend.
+## Quickstart
 
 ```bash
-pip install "dyui[server]"     # ✅ required — the agent side + built-in served UI (pip)
-npm install dyui-react         # ⚛️ optional — only to embed cards in your own React app (npm)
+pip install dyui
+dyui new my-bot --template openai     # or: basic · anthropic · langgraph
+cd my-bot && dyui run
 ```
 
-| Your goal | What to install | Package |
-|---|---|---|
-| A working dynamic-UI app straight from Python, **zero frontend code** (`dyui serve`) | `pip install "dyui[server]"` | [`dyui`](https://pypi.org/project/dyui/) (PyPI) |
-| Embed the cards in **your own React / Next.js app** with custom components | `pip install dyui` **+** `npm install dyui-react` | [`dyui`](https://pypi.org/project/dyui/) + [`dyui-react`](https://www.npmjs.com/package/dyui-react) (npm) |
+`dyui run` serves the app and reloads it whenever you save. `app` is a standard ASGI app, so
+`uvicorn app:app` works in production too.
 
----
+## How the LLM writes UI
 
-## 🚀 Quickstart
+DyUI adds a short, generated section to your system prompt that lists the components your bot
+may use. The model writes ordinary Markdown, and puts components in fenced `dyui` blocks — one
+JSON object per line:
 
-**1 — Emit cards** from any node or tool:
-
-```python
-from dyui import emit, ui_tool, Card
-
-# imperative
-emit("table", {"columns": ["city", "temp"], "rows": [["Berlin", 21]]}, title="Weather")
-
-# decorator: auto "pending → done/error" around a tool
-@ui_tool("stat", title="Sum", icon="calculator", accent="emerald")
-def add(a, b): return {"label": f"{a}+{b}", "value": a + b}
-
-# context manager: long work, one card updated in place
-with Card("progress", title="Indexing") as card:
-    for i in range(1, 4): card.progress({"value": i, "max": 3})
-    card.done({"value": 3, "max": 3, "label": "Done"})
+````text
+Here are two options for this weekend.
+```dyui
+{"ui":"flight","airline":"TAP","depart":"Fri 18:05","price":189}
+{"ui":"quick_replies","options":["Check hotels too","Book the cheaper one"]}
 ```
+Want me to hold a seat?
+````
 
-**2 — Expose it** (one line):
-
-```python
-from dyui.server import create_dyui_app
-app = create_dyui_app(graph)        # graph = your compiled LangGraph
-```
-
-**3 — Run it:**
-
-```bash
-dyui serve agent.py                 # or: uvicorn agent:app
-```
-
-Open the browser → an animated chat that renders your cards live, with a “thinking” indicator while the agent works.
-
----
-
-## 🖥️ Zero-frontend: bring your own HTML
-
-No React, no npm. Drop `.html` files in a folder and emit them by name — `{{ key }}` is escaped, `{{{ key }}}` is raw:
-
-```python
-from dyui import HtmlTemplates
-cards = HtmlTemplates("cards")      # ./cards/invoice.html, ...
-
-cards.emit("invoice", {"number": 42, "total": "$1,200"}, title="Invoice", accent="emerald")
-```
-
-The bundled UI renders it instantly. That's the whole *“one Python file + HTML templates → dynamic UI”* path.
-
----
-
-## 🃏 Built-in cards
-
-| component | props | | component | props |
-|---|---|---|---|---|
-| `text` | `{text}` | | `list` | `{items}` |
-| `markdown` | `{text}` | | `keyvalue` | `{data}` |
-| `table` | `{columns, rows}` | | `json` | any |
-| `stat` | `{label, value, unit?, delta?}` | | `alert` | `{text, level?, title?}` |
-| `progress` | `{value, max?, label?}` | | `image` | `{src, alt?, caption?}` |
-| `html` | `{html}` *(sanitized, fully custom)* | | | |
-
----
-
-## 🛠️ CLI
-
-`pip install dyui` installs the `dyui` command:
-
-| Command | What it does |
-|---|---|
-| `dyui claude init agent.py` | Hand your agent file to **Claude Code** — it reads your graph, proposes a card plan, **asks you to confirm**, then builds + wires the cards. |
-| `dyui gemini init agent.py` | Same, via the **Gemini CLI**. |
-| `dyui codex init agent.py` | Same, via the **Codex CLI**. |
-| `dyui serve [target]` | Run the served dynamic UI (auto-discovers `app`/`graph`). |
-| `dyui export <name>` | Eject the whole UI as an editable **Vite + React** project. |
-
----
-
-## 🔭 How it works
+The server parses that stream incrementally. A component appears as a soft skeleton the moment
+its type is known, fills in as its props arrive, and blooms into place when the line completes.
+Invalid output degrades to a quiet "couldn't display" chip — the prose is never lost.
 
 ```mermaid
 flowchart LR
-    A["🧠 LangGraph agent<br/>(any LLM / any node)"] -- "emit() · ui_tool · Card" --> B(["📡 LangGraph<br/>custom stream"])
-    B --> C["⚡ dyui.server<br/>(SSE endpoint)"]
-    C --> D["✨ Built-in animated UI<br/>(zero frontend code)"]
-    C --> E["⚛️ dyui-react app<br/>(dyui export)"]
-    style A fill:#1d2128,stroke:#f5b544,color:#eef1f5
-    style B fill:#1d2128,stroke:#a78bfa,color:#eef1f5
-    style C fill:#1d2128,stroke:#5eead4,color:#eef1f5
-    style D fill:#1d2128,stroke:#ff8a6b,color:#eef1f5
-    style E fill:#1d2128,stroke:#ff8a6b,color:#eef1f5
+    H["Your handler<br/>(any LLM · any SDK)"] -- "text stream" --> P["DyUI fence parser<br/>+ validation"]
+    H -- "ui.Table(...) · chat.step(...)" --> S
+    P --> S["SSE stream"]
+    S --> W["DyUI web app<br/>(39 animated components)"]
+    W -- "clicks · forms · approvals" --> A["@app.on_action<br/>or back to the LLM"]
+    A --> H
 ```
 
-Each card is **one event**: a `component` key (which card), `props` (the data), a lifecycle `status`, and an optional `id` to update it in place. The Python `UIEvent` model and the TypeScript `DyUIEvent` type are identical, so the wire format never drifts.
+## Your component library — the prompt grows with your app
 
-```mermaid
-stateDiagram-v2
-    direction LR
-    [*] --> pending: emit(status="pending")
-    pending --> active: card.progress()
-    active --> done: card.done()
-    pending --> done
-    active --> error: exception
-    done --> [*]
-    error --> [*]
+```python
+from dyui import ui
+
+@app.component
+class Flight(dyui.Component):
+    """A bookable flight option. Use when listing specific flights."""
+    airline: str
+    depart: str
+    price: float
+
+    def render(self):
+        return ui.Card(self.airline, ui.Stat("Price", f"${self.price:.0f}"),
+                       actions=[ui.Button("Book", action="book_flight", data=self.model_dump())])
+
+@app.on_action("book_flight")
+async def book(action: dyui.Action, chat: dyui.Chat):
+    confirm = await chat.ask(ui.Confirm("Book this flight?", text=action.data["airline"]))
+    if confirm.values.get("confirmed"):
+        yield ui.Callout("Booked — your confirmation is on its way.", level="success")
 ```
 
----
+Register a component and the next turn's system prompt includes it. Change a field or the
+docstring and the prompt changes with it. Choose what each bot — or each turn — may use:
 
-## ⚛️ The React runtime — [`dyui-react`](https://www.npmjs.com/package/dyui-react)
+```python
+dyui.App(components=["table", "chart", "stat", "buttons"])   # a subset of built-ins
+app.catalog.only("flight", "confirm", "quick_replies")        # per turn, e.g. at checkout
+```
 
-DyUI gives you **two ways to render** the exact same agent event stream:
+`dyui catalog app.py` prints the exact prompt DyUI will send, with a token estimate.
 
-| | Use it when |
+## 39 components, ready to render
+
+| group | components |
 |---|---|
-| **Built-in served UI** (`dyui serve`) | You want a polished result *now* with zero frontend code — demos, internal tools, prototypes, or shipping a chat app straight from Python. Customise with HTML cards. |
-| **`dyui-react`** (npm) | You're embedding the cards in your **own React/Next.js app**, need **bespoke React card components**, or want full control over layout, routing, and styling. |
+| **Content** | `markdown` · `callout` · `code` · `quote` · `sources` · `badges` · `divider` |
+| **Data** | `table` · `stat` · `stats` · `keyvalue` · `chart` (bar · line · area · pie · donut · scatter) · `progress` · `timeline` · `json` |
+| **Media** | `image` · `gallery` · `video` · `audio` · `file` · `link_preview` |
+| **Interactive** | `buttons` · `quick_replies` · `choice` · `form` · `confirm` · `rating` |
+| **Layout** | `card` · `grid` · `tabs` · `accordion` · `carousel` · `list` |
+| **Agent** | `step` · `reasoning` · `plan` |
+
+Every component blooms in, streams gracefully while the model is still writing it, works in
+light and dark, respects reduced-motion, and is keyboard accessible.
+[Browse them all with live demos →](https://sohammmzzz.github.io/dyui/components/)
+
+## Works with
+
+| | |
+|---|---|
+| **Built-in streaming** | `openai/…` · `anthropic/…` · `ollama/…` · `groq/…` · `openrouter/…` · `gemini/…` · `mistral/…` · `deepseek/…` · `together/…` · `xai/…` |
+| **Agent frameworks** | LangGraph (`dyui.integrations.langgraph`) — emit components from any node |
+| **Anything else** | Yield raw text from any SDK and add `app.catalog.prompt()` to your system prompt |
+
+## Steps, reasoning and human-in-the-loop
+
+```python
+@app.on_message
+async def reply(msg, chat):
+    async with chat.step("Searching flights", type="search") as step:
+        step.output = await search_flights(msg.text)          # live status + duration
+    yield ui.Table(columns=["Airline", "Depart", "Price"], rows=to_rows(step.output))
+```
+
+Reasoning models stream their thinking into a collapsible block automatically.
+
+## CLI
+
+| command | |
+|---|---|
+| `dyui run [app.py]` | Serve your app with hot reload (`--host`, `--port`, `--open`) |
+| `dyui new <dir>` | Scaffold a project (`basic`, `openai`, `anthropic`, `langgraph`) |
+| `dyui demo` | A guided tour — no API key needed |
+| `dyui catalog [app.py]` | Print the generated UI prompt and its token cost |
+| `dyui claude init` | Hand your app to Claude Code to design custom components (`gemini` / `codex` too) |
+
+## Deploy
 
 ```bash
-npm install dyui-react
+uvicorn app:app --host 0.0.0.0 --port 8000
 ```
 
-```tsx
-import { useDyUIAgent, DyUISurface, createRegistry } from "dyui-react";
-import "dyui-react/styles.css";
+DyUI stores conversations in SQLite (`./.dyui/dyui.db`) by default. Pass `persist=False` for
+memory-only, or plug in your own `Store`. See [Deploy](https://sohammmzzz.github.io/dyui/deploy/production/)
+for Docker, reverse proxies and hosting guides.
 
-// A custom React card for events your agent emits as `emit("my_card", {...})`.
-function MyCard({ props }) {
-  return <div>{props.title}</div>;
-}
+## Roadmap
 
-export default function App() {
-  // Register custom cards by key; built-ins (table, stat, progress, …) stay available.
-  const registry = createRegistry({ my_card: MyCard });
+- `dyui-react` — the same components for your own React / Next.js app (npm)
+- Tool-calling render mode (one `render_<component>` tool per component)
+- Conversation branching, voice, and a side panel for long artifacts
+- Auth providers (OAuth) and multi-user workspaces
 
-  // Connect to your running `dyui serve` (or any create_dyui_app) endpoint.
-  const { cards, tokens, status, run, dismiss } = useDyUIAgent({ url: "/dyui/stream" });
+## Repository
 
-  return (
-    <>
-      <button onClick={() => run("hello")}>Ask</button>
-      <DyUISurface cards={cards} registry={registry} onDismiss={dismiss} />
-      <pre>{tokens}</pre>
-    </>
-  );
-}
-```
+| path | |
+|---|---|
+| [`python/`](python/) | the `dyui` package (framework, server, CLI) |
+| [`web/`](web/) | the chat app and component library (React, bundled into the wheel) |
+| [`docs/`](docs/) | the documentation site (Astro Starlight) |
+| [`examples/`](examples/) | runnable example bots |
+| [`SPEC.md`](SPEC.md) | the engineering spec: protocol, component catalog, brand |
 
-**What you get:** `useDyUIAgent` (connects to the SSE endpoint, manages live card
-state + streamed tokens), `<DyUISurface>` / `<DyUICard>` (renderers with built-in
-lifecycle skeletons), `createRegistry` (custom + built-in cards), and a low-level
-`streamAgent` client. Zero runtime deps, themeable via CSS variables.
+Contributions are welcome — start with [`SPEC.md`](SPEC.md), then
+`cd web && npm install && npm run build:py` and `pip install -e "python[all,dev]"`.
 
-> 💡 `dyui export <name>` scaffolds a complete `dyui-react` app for you — pre-wired
-> to your agent, ready to `npm install && npm run dev`.
+## License
 
----
-
-## 🗂️ Repository layout
-
-```
-dyui/
-├─ python/        # the `dyui` pip package
-│  ├─ dyui/       #   emit · server · cli · scaffold · html templates + the served UI
-│  ├─ examples/   #   runnable agents (search demo, HTML-templates demo)
-│  └─ tests/      #   pytest suite
-└─ react/         # the `dyui-react` npm package (hook · surface · card registry)
-```
-
----
-
-## 🧪 Development
-
-```bash
-# Python
-cd python && python -m venv .venv && . .venv/Scripts/activate    # Windows
-pip install -e ".[dev]" && pytest
-
-# React
-cd react && npm install && npm run build && npm test
-```
-
----
-
-<div align="center">
-
-**MIT Licensed** · Built with ❤️ for the LangGraph community
-
-<sub>If DyUI makes your agents prettier, consider giving it a ⭐</sub>
-
-</div>
+[MIT](LICENSE) © DyUI contributors

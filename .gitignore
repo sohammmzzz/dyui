@@ -6,14 +6,26 @@ __pycache__/
 build/
 dist/
 
+# Built web app copied into the Python package (produced by hatch_build.py / npm run build:py)
+python/dyui/_static/
+
 # Node
 node_modules/
-react/dist/
+web/dist/
+docs/dist/
+docs/.astro/
 *.tsbuildinfo
 
-# DyUI CLI scratch + exports
+# Generated docs API reference
+docs/src/content/docs/reference/api/
+
+# Playwright / screenshots scratch
+test-results/
+playwright-report/
+
+# DyUI runtime data
 .dyui/
-build_out/
 
 # Env
 .env
+.DS_Store

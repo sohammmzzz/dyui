@@ -1,0 +1,173 @@
+/*
+ * DyUI design tokens — canonical source (see SPEC.md §1).
+ * Light = "dawn" (warm paper), dark = "midnight" (deep water). Accent = indigo dye.
+ * Theme selection: <html data-theme="light|dark">; absent → follows the OS.
+ * Accent override: set --dy-accent (and optionally --dy-accent-strong) on :root;
+ * soft/derived shades are computed with color-mix().
+ */
+
+:root {
+  /* ---- type ----
+   * Three voices (SPEC §1.4):
+   *   display — Instrument Serif: headlines, welcome, hero, markdown h1/h2, big stat values
+   *   text    — Instrument Sans (variable wght+wdth): all UI and body copy
+   *   mono    — Geist Mono: code, data, ids
+   * Plus the "eyebrow" label style (small caps feel) for structure.
+   */
+  --dy-font: "Instrument Sans Variable", "Instrument Sans", ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
+  --dy-font-display: "Instrument Serif", ui-serif, "Iowan Old Style", Georgia, serif;
+  --dy-font-mono: "Geist Mono Variable", ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+
+  --dy-text-xs: 12px;
+  --dy-text-sm: 13px;
+  --dy-text-base: 14px;
+  --dy-text-chat: 15.5px;
+  --dy-text-md: 17px;
+  --dy-text-lg: 20px;
+  --dy-text-xl: 24px;
+  --dy-text-2xl: 32px;
+  --dy-text-3xl: 44px;
+  --dy-text-4xl: 60px;
+
+  --dy-leading-tight: 1.15;   /* display */
+  --dy-leading-ui: 1.4;
+  --dy-leading-prose: 1.65;   /* chat prose */
+  --dy-tracking-display: -0.015em;
+  --dy-tracking-tight: -0.01em;
+
+  /* eyebrow labels: stat labels, captions, sidebar groups, section kickers */
+  --dy-eyebrow-size: 11.5px;
+  --dy-eyebrow-weight: 600;
+  --dy-eyebrow-tracking: 0.08em;   /* uppercase */
+
+  /* Instrument Sans width axis: slightly condensed for dense UI chrome */
+  --dy-wdth-ui: 96;
+  --dy-wdth-text: 100;
+
+  /* ---- shape ---- */
+  --dy-radius-sm: 8px;
+  --dy-radius: 12px;
+  --dy-radius-lg: 16px;
+  --dy-radius-xl: 22px;
+  --dy-radius-pill: 999px;
+
+  /* ---- layout ---- */
+  --dy-chat-width: 760px;
+  --dy-sidebar-width: 272px;
+
+  /* ---- motion ---- */
+  --dy-ease: cubic-bezier(0.22, 1, 0.36, 1);
+  --dy-ease-in-out: cubic-bezier(0.65, 0, 0.35, 1);
+  --dy-dur-1: 120ms;
+  --dy-dur-2: 220ms;
+  --dy-dur-3: 380ms;
+  --dy-dur-4: 640ms;
+  --dy-breathe: 2s;
+  --dy-shimmer: 1.8s;
+
+  /* ---- light (dawn) — default palette ---- */
+  --dy-bg: #f7f6f3;
+  --dy-bg-subtle: #f1efea;
+  --dy-surface: #ffffff;
+  --dy-surface-2: #fafaf8;
+  --dy-border: #e6e3dc;
+  --dy-border-strong: #d6d2c8;
+  --dy-text: #1a1a1f;
+  --dy-text-muted: #5f5e66;
+  --dy-text-faint: #8e8c94;
+
+  --dy-accent: #5b4fe0;
+  --dy-accent-text: #ffffff;
+  --dy-teal: #14a394;
+  --dy-success: #1f9d6b;
+  --dy-warning: #c27c0e;
+  --dy-danger: #d64545;
+  --dy-info: #2f6fde;
+
+  --dy-shadow-sm: 0 1px 2px rgb(26 26 31 / 0.04), 0 1px 1px rgb(26 26 31 / 0.03);
+  --dy-shadow: 0 1px 2px rgb(26 26 31 / 0.04), 0 4px 16px -4px rgb(26 26 31 / 0.08);
+  --dy-shadow-lg: 0 2px 4px rgb(26 26 31 / 0.04), 0 16px 40px -12px rgb(26 26 31 / 0.16);
+  --dy-highlight: inset 0 1px 0 rgb(255 255 255 / 0.6);
+
+  color-scheme: light;
+}
+
+/* ---- dark (midnight) ---- */
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --dy-bg: #0b0c10;
+    --dy-bg-subtle: #101117;
+    --dy-surface: #14151c;
+    --dy-surface-2: #1a1b23;
+    --dy-border: #24252f;
+    --dy-border-strong: #323442;
+    --dy-text: #ececf1;
+    --dy-text-muted: #a2a3b1;
+    --dy-text-faint: #6b6d7c;
+    --dy-accent: #8b80ff;
+    --dy-accent-text: #0b0c10;
+    --dy-teal: #3dd6c3;
+    --dy-success: #4ade9b;
+    --dy-warning: #f5b544;
+    --dy-danger: #ff7a7a;
+    --dy-info: #7aa7ff;
+    --dy-shadow-sm: 0 0 0 1px rgb(255 255 255 / 0.02);
+    --dy-shadow: 0 0 0 1px rgb(255 255 255 / 0.02), 0 8px 24px -8px rgb(0 0 0 / 0.5);
+    --dy-shadow-lg: 0 0 0 1px rgb(255 255 255 / 0.03), 0 24px 48px -16px rgb(0 0 0 / 0.6);
+    --dy-highlight: inset 0 1px 0 rgb(255 255 255 / 0.04);
+    color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --dy-bg: #0b0c10;
+  --dy-bg-subtle: #101117;
+  --dy-surface: #14151c;
+  --dy-surface-2: #1a1b23;
+  --dy-border: #24252f;
+  --dy-border-strong: #323442;
+  --dy-text: #ececf1;
+  --dy-text-muted: #a2a3b1;
+  --dy-text-faint: #6b6d7c;
+  --dy-accent: #8b80ff;
+  --dy-accent-text: #0b0c10;
+  --dy-teal: #3dd6c3;
+  --dy-success: #4ade9b;
+  --dy-warning: #f5b544;
+  --dy-danger: #ff7a7a;
+  --dy-info: #7aa7ff;
+  --dy-shadow-sm: 0 0 0 1px rgb(255 255 255 / 0.02);
+  --dy-shadow: 0 0 0 1px rgb(255 255 255 / 0.02), 0 8px 24px -8px rgb(0 0 0 / 0.5);
+  --dy-shadow-lg: 0 0 0 1px rgb(255 255 255 / 0.03), 0 24px 48px -16px rgb(0 0 0 / 0.6);
+  --dy-highlight: inset 0 1px 0 rgb(255 255 255 / 0.04);
+  color-scheme: dark;
+}
+
+/* ---- derived accent shades (work for any accent, both themes) ---- */
+:root {
+  --dy-accent-soft: color-mix(in oklab, var(--dy-accent) 12%, var(--dy-surface));
+  --dy-accent-softer: color-mix(in oklab, var(--dy-accent) 6%, var(--dy-surface));
+  --dy-accent-border: color-mix(in oklab, var(--dy-accent) 35%, var(--dy-border));
+  --dy-accent-strong: color-mix(in oklab, var(--dy-accent) 82%, var(--dy-text));
+  --dy-focus-ring: 0 0 0 2px var(--dy-bg), 0 0 0 4px color-mix(in oklab, var(--dy-accent) 70%, transparent);
+  --dy-bloom: linear-gradient(135deg, var(--dy-accent), var(--dy-teal));
+
+  /* categorical chart palette (SPEC §1.3) */
+  --dy-chart-1: var(--dy-accent);
+  --dy-chart-2: var(--dy-teal);
+  --dy-chart-3: #e3809b;
+  --dy-chart-4: #e7a33e;
+  --dy-chart-5: #5aa6e8;
+  --dy-chart-6: #9a8cf0;
+  --dy-chart-7: #6cc08b;
+  --dy-chart-8: #b08968;
+}
+
+/* ---- reduced motion: collapse durations; components also check motion.ts ---- */
+@media (prefers-reduced-motion: reduce) {
+  :root {
+    --dy-dur-1: 1ms;
+    --dy-dur-2: 120ms;
+    --dy-dur-3: 120ms;
+    --dy-dur-4: 120ms;
+  }
+}

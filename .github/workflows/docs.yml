@@ -1,0 +1,51 @@
+name: Deploy docs
+
+# Builds the Astro Starlight site in docs/ and deploys it to GitHub Pages.
+# Enable Pages → "GitHub Actions" as the source in the repo settings.
+# (The site is static: you can also host docs/dist on Vercel or Netlify.)
+on:
+  push:
+    branches: [main]
+    paths: ["docs/**", "web/src/**", "python/dyui/**", ".github/workflows/docs.yml"]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: true
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v5
+      - uses: actions/setup-python@v6
+        with:
+          python-version: "3.12"
+      - run: pip install griffe && pip install -e python
+        env:
+          DYUI_SKIP_WEB_BUILD: "1"
+      - uses: actions/setup-node@v5
+        with:
+          node-version: 22
+      - run: npm ci
+        working-directory: web
+      - run: npm ci && npm run build
+        working-directory: docs
+      - uses: actions/upload-pages-artifact@v4
+        with:
+          path: docs/dist
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - id: deployment
+        uses: actions/deploy-pages@v4

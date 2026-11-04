@@ -1,0 +1,668 @@
+# DyUI 0.2 — Engineering Spec
+
+> The single source of truth for the DyUI rewrite. Every package (Python, web, docs)
+> builds against this file. If code and spec disagree, fix one of them in the same change.
+
+---
+
+## 0. Product in one paragraph
+
+**DyUI is the Python framework for professional chatbots that answer with interfaces.**
+`pip install dyui`, write one Python file, run `dyui run app.py`, and you get a calm,
+beautifully animated, production-grade chat app (frontend + backend). The headline
+feature: **the LLM itself renders UI** — tables, charts, cards, forms, buttons — inline in
+its replies. DyUI describes a component catalog to the model (auto-generated from Python
+definitions), parses the model's output while it streams, validates it, and renders it.
+Developers extend the catalog with their own components in pure Python; the system prompt
+updates automatically. Works with any LLM SDK, any agent framework, or no LLM at all.
+
+Tagline: **"Chatbots that answer in interfaces."**
+
+---
+
+## 1. Brand
+
+### 1.1 Concept — *dye in water*
+"DyUI" reads as **dye** + UI. The brand metaphor is a drop of dye blooming in still
+water: interfaces *bloom* out of text, softly and calmly. Everything should feel
+**calm, precise, quietly premium** — never flashy, never bouncy, never neon.
+
+### 1.2 Logo
+`brand/logo.svg` — a soft droplet whose lower half blooms into concentric rings.
+`brand/wordmark.svg` — logo + "DyUI" set in Instrument Serif, tight tracking.
+Favicon: `brand/favicon.svg` (logo only).
+
+### 1.3 Color (CSS custom properties; canonical file: `web/src/styles/tokens.css`)
+Neutrals are warm in light mode ("paper") and blue-ink in dark mode ("deep water").
+Accent is **Indigo dye**. A secondary **Teal** is used only in the bloom gradient
+and data viz.
+
+| token | light ("dawn") | dark ("midnight") | use |
+|---|---|---|---|
+| `--dy-bg` | `#F7F6F3` | `#0B0C10` | app background |
+| `--dy-bg-subtle` | `#F1EFEA` | `#101117` | sidebar, wells |
+| `--dy-surface` | `#FFFFFF` | `#14151C` | cards, composer |
+| `--dy-surface-2` | `#FAFAF8` | `#1A1B23` | nested surfaces, hover |
+| `--dy-border` | `#E6E3DC` | `#24252F` | hairlines |
+| `--dy-border-strong` | `#D6D2C8` | `#323442` | inputs, focus-adjacent |
+| `--dy-text` | `#1A1A1F` | `#ECECF1` | primary text |
+| `--dy-text-muted` | `#5F5E66` | `#A2A3B1` | secondary |
+| `--dy-text-faint` | `#8E8C94` | `#6B6D7C` | tertiary, placeholders |
+| `--dy-accent` | `#5B4FE0` | `#8B80FF` | primary actions, focus |
+| `--dy-accent-soft` | `#ECEAFD` | `#1F1D3A` | accent backgrounds |
+| `--dy-accent-text` | `#FFFFFF` | `#0B0C10` | text on accent |
+| `--dy-teal` | `#14A394` | `#3DD6C3` | bloom gradient, charts |
+| `--dy-success` | `#1F9D6B` | `#4ADE9B` | |
+| `--dy-warning` | `#C27C0E` | `#F5B544` | |
+| `--dy-danger` | `#D64545` | `#FF7A7A` | |
+| `--dy-info` | `#2F6FDE` | `#7AA7FF` | |
+
+Named accents selectable from Python (`accent=`): `indigo` (default), `teal`, `rose`,
+`amber`, `emerald`, `slate`, or any hex. The web app derives `--dy-accent-soft` etc.
+from the chosen accent with `color-mix()`.
+
+Chart palette (categorical, in order): accent, teal, `#E3809B` rose, `#E7A33E` amber,
+`#5AA6E8` sky, `#9A8CF0` lavender, `#6CC08B` green, `#B08968` clay.
+
+### 1.4 Type — three voices ("design is everything")
+Typography is a primary brand surface. Never default to a single generic sans.
+- **Display — Instrument Serif** (`@fontsource/instrument-serif`, regular + italic):
+  welcome/hero headings (italic accent word in the accent color or bloom gradient), page
+  titles, empty states, markdown `h1`/`h2` in chat answers, large stat values (≥ 28px),
+  docs headings. Tracking −0.015em, leading 1.15. Never for body or small UI text.
+- **Text/UI — Instrument Sans Variable** (`@fontsource-variable/instrument-sans`, wght + wdth axes):
+  all UI and body copy. Chat prose 15.5px / 1.65. Dense UI chrome may use `font-stretch: 96%`.
+  Weights: 400 body, 500 UI labels/buttons, 600 titles. Card titles 15px/600.
+- **Mono — Geist Mono Variable** (`@fontsource-variable/geist-mono`): code, data, ids, kbd.
+- **Eyebrow labels**: Instrument Sans 11.5px, weight 600, uppercase, tracking 0.08em,
+  `--dy-text-faint` — stat labels, table captions, chart titles, sidebar date groups,
+  section kickers. Gives every component a consistent typographic structure.
+- Numbers: `font-variant-numeric: tabular-nums` in tables, stats (sans), progress, durations.
+- Scale (px): 12 / 13 / 14 (UI) / 15.5 (chat) / 17 / 20 / 24 / 32 / 44 / 60.
+- Fonts are bundled (no external font CDN at runtime). Tokens: `--dy-font`, `--dy-font-display`,
+  `--dy-font-mono`, `--dy-eyebrow-*`, `--dy-leading-*`, `--dy-tracking-*` in `tokens.css`.
+
+### 1.5 Shape, depth, space
+- Radius: `--dy-radius-sm: 8px`, `--dy-radius: 12px`, `--dy-radius-lg: 16px`, `--dy-radius-xl: 22px`, pills `999px`.
+- Shadows are soft and low-contrast (`--dy-shadow-sm`, `--dy-shadow`, `--dy-shadow-lg`);
+  in dark mode shadows are replaced by 1px inner highlights + border.
+- 4px spacing grid. Chat column max-width 760px. Comfortable whitespace.
+
+### 1.6 Motion — "bloom, settle, breathe"
+Motion is a core brand feature: **every element has an entrance and every interaction
+has feedback**, but all of it is *subtle and calm*.
+
+Tokens (canonical: `web/src/styles/tokens.css` + `web/src/lib/motion.ts`):
+- Easing: `--dy-ease: cubic-bezier(0.22, 1, 0.36, 1)` (settle), `--dy-ease-in-out: cubic-bezier(0.65, 0, 0.35, 1)`.
+- Spring (Motion): `{ type: "spring", stiffness: 260, damping: 30, mass: 0.9 }` — no visible overshoot.
+- Durations: `--dy-dur-1: 120ms` (hover/press), `--dy-dur-2: 220ms` (small enter),
+  `--dy-dur-3: 380ms` (component bloom), `--dy-dur-4: 640ms` (charts/draw).
+- **Bloom** (default entrance): opacity 0→1, `translateY(6px)`→0, `filter: blur(6px)`→0, scale 0.985→1.
+- **Stagger**: children 35–45ms apart, capped at 8 items (rest enter together).
+- **Breathe**: idle/thinking indicators pulse opacity 0.45↔1 over 1.6–2.4s.
+- **Shimmer**: skeletons use a slow (1.8s) low-contrast gradient sweep.
+- Press feedback: scale 0.97 for 120ms. Hover: background/border tint, never jumps.
+- Numbers count up (stat), bars grow from baseline, lines draw left→right, progress fills.
+- `prefers-reduced-motion: reduce` → no transforms/blur; opacity fades ≤120ms only.
+- Never animate layout-shifting properties on long lists; never loop anything attention-grabbing.
+
+### 1.7 Voice
+Calm, precise, friendly. Short sentences. No exclamation-mark spam, no emoji in UI chrome.
+
+---
+
+## 2. Repository layout
+
+```
+/SPEC.md                 this file
+/README.md               brand README (hero, quickstart, features, links)
+/brand/                  logo.svg, wordmark.svg, favicon.svg, og.png (social card)
+/python/                 the pip package (project root for hatch)
+  pyproject.toml
+  hatch_build.py         custom build hook: builds ../web and copies to dyui/_static
+  dyui/
+    __init__.py          public API re-exports
+    __version__.py       "0.2.0"
+    app.py               App, decorators, ASGI entry
+    chat.py              Chat, Message, Action, Feedback, File, Step context
+    ui/                  component models (one module per group) + Component base + registry
+    genui/               catalog, prompt generation, streaming fence parser, partial JSON, validation
+    llm/                 dyui.llm.stream(...) provider helpers (openai-compatible, anthropic)
+    integrations/        langgraph.py (emit + stream adapter)
+    server/              FastAPI app factory, routes, SSE, auth, static
+    store/               Store protocol, SQLite store, memory store
+    templates/           `dyui new` project templates
+    cli.py               `dyui` command
+    html.py              developer HTML templates (sandboxed iframe component)
+    _static/             BUILT web app (gitignored; produced by hatch_build.py or `npm run build:py`)
+  tests/
+/web/                    React 19 + Vite + TS chat app (later becomes the npm package)
+  src/
+    main.tsx, App.tsx
+    lib/        protocol types (types.ts), api client (api.ts), sse parser, store, motion.ts, mock transport
+    shell/      layout, sidebar, thread list, header, composer, message list, welcome, markdown, code
+    components/dyui/   the component library: NodeView + one file per component
+    styles/     tokens.css, base.css
+  gallery.html + src/gallery.tsx   dev page rendering every component with fixture data
+/docs/                   Astro Starlight docs site (static; live React demos import ../web/src)
+/examples/               runnable example apps
+/.github/workflows/      ci.yml, release.yml (PyPI), docs.yml (GitHub Pages)
+```
+
+---
+
+## 3. Python API (package `dyui`)
+
+Python ≥ 3.10. Core deps: `fastapi>=0.110`, `uvicorn[standard]>=0.29`, `pydantic>=2.6`,
+`watchfiles>=0.21`, `python-multipart>=0.0.9`. Optional extras:
+`openai` → `openai>=1.40`; `anthropic` → `anthropic>=0.40`; `langgraph` → `langgraph>=0.2.60`;
+`all` → all of them; `dev` → `pytest`, `pytest-asyncio`, `httpx`.
+
+### 3.1 Minimal app
+
+```python
+import dyui
+from dyui import ui
+
+app = dyui.App(
+    title="Travel Bot",
+    description="Plans trips and books flights.",   # welcome subtitle
+    starters=["Plan a weekend in Lisbon", dyui.Starter("Compare flights", "Compare flights to Tokyo", icon="plane")],
+)
+
+@app.on_message
+async def reply(msg: dyui.Message, chat: dyui.Chat):
+    async for part in dyui.llm.stream("openai/gpt-5", chat.history,
+                                      system="You are a travel agent.",
+                                      components=app.catalog):
+        yield part
+```
+
+`dyui run app.py` → serves on http://127.0.0.1:8000 with auto-reload.
+`app` is an ASGI app (`uvicorn app:app` also works).
+
+### 3.2 `dyui.App(...)`
+
+```python
+App(
+    title: str = "DyUI",
+    *,
+    description: str | None = None,       # shown under the welcome heading
+    welcome: str | None = None,           # welcome heading (default: "How can I help?")
+    placeholder: str = "Message {title}…",
+    logo: str | None = None,              # URL or local file path (served by the app)
+    theme: Literal["system", "light", "dark"] = "system",
+    accent: str = "indigo",               # named accent or hex
+    starters: list[str | Starter] = [],
+    components: Literal["all"] | Sequence[str | type[Component]] | None = "all",
+                                           # which BUILT-IN components the LLM may use
+    persist: bool | str | Store = True,   # True → SQLite at ./.dyui/dyui.db; str → path; False → memory
+    password: str | None = None,          # simple shared-password gate
+    uploads: bool = True,
+    feedback: bool = True,
+    history: bool = True,                 # show the conversation sidebar
+    max_upload_mb: int = 20,
+)
+```
+
+Decorators (all accept sync or async functions; message/action handlers may be
+**async generators, sync generators, or coroutines**):
+
+| decorator | signature | purpose |
+|---|---|---|
+| `@app.on_message` | `(msg: Message, chat: Chat)` | required; produce the assistant reply |
+| `@app.on_chat_start` | `(chat: Chat)` | thread created; may `await chat.send(...)` a greeting |
+| `@app.on_action(name)` | `(action: Action, chat: Chat)` | a component action fired; may yield a reply |
+| `@app.on_feedback` | `(feedback: Feedback, chat: Chat)` | thumbs up/down |
+| `@app.component` | class decorator | register a custom component (see 3.5) |
+
+Handler **yield** values:
+- `str` → assistant text delta. **Parsed for ` ```dyui ` fences** (see §5) — so raw LLM text works.
+- a `ui.*` component instance (built-in or custom) → rendered as a component part.
+- `dyui.Reasoning("...")` → reasoning delta (collapsible "thinking").
+- `dict` with `{"ui": ...}` → validated like LLM output.
+- anything yielded by `dyui.llm.stream(...)` (these are just `str` and `Reasoning`).
+- `None` is ignored.
+A coroutine handler may `return` any of the above (or a list of them).
+
+### 3.3 `Chat` (per thread, per request)
+
+```python
+chat.thread_id: str
+chat.user_id: str
+chat.history: list[dict]       # OpenAI-style [{"role","content"}], text only; components are
+                               # serialized as compact ```dyui blocks so the LLM sees what it showed
+chat.messages: list[Message]   # rich messages (parts)
+chat.session: dict             # per-thread scratch state, persisted with the thread (JSON-serializable)
+await chat.send(*items)        # append text/components to the CURRENT assistant message
+                               # (outside a turn, e.g. on_chat_start: starts a new assistant message)
+chat.step(title, type="tool")  # async context manager → Step; also usable as decorator
+await chat.ask(component, timeout=None) -> Action   # render an interactive component and WAIT
+                               # for the user's action (human-in-the-loop); returns the Action
+await chat.set_title(str)
+```
+
+`Step`: `async with chat.step("Search flights", type="search") as s:` — renders a live
+step (pending→running→done/error with duration). `s.input = ...`, `s.output = ...`,
+`await s.log("...")`. An exception inside marks it `error` and re-raises.
+
+### 3.4 Messages & actions
+
+```python
+class Message:          # user message passed to on_message
+    id: str
+    text: str
+    files: list[File]
+    action: Action | None   # set when this turn was created from an unhandled action
+
+class File:  id, name, type (mime), size (bytes), path (local Path), url
+class Action:
+    name: str               # e.g. "book_flight", "form_submit", "confirm", "choice", "rating"
+    data: dict              # static data declared on the button/component
+    values: dict            # user-entered values (form fields, choice selections, rating)
+    label: str              # human-readable label of what was clicked ("Book", "Approve")
+    message_id: str
+    component_id: str
+class Feedback: message_id, value (1 | -1), comment: str | None
+```
+
+**Action routing.** `POST /api/action` → if `ask()` is awaiting that component → resolve it
+(no new message). Else if `@app.on_action(name)` exists → run it (it may yield a new
+assistant reply). Else → **fallback**: create a user message whose visible text is the
+action label (e.g. "Book · TAP 18:05") and whose `text` passed to `on_message` is the
+LLM-friendly form `"[action:book_flight] {json of data+values}"`, with `msg.action` set.
+Before routing, the server verifies the component id exists in that message and that the
+action name was declared by it (forged actions → 400).
+`quick_replies` never call the server action route: the client sends the option as a
+normal user message.
+
+### 3.5 Components (`dyui.ui`)
+
+Every built-in is a pydantic model class in `dyui.ui` (PascalCase) with an LLM name
+(snake_case). Construct positionally-friendly: `ui.Stat("Revenue", "$48k", delta="+12%")`,
+`ui.Table(columns=[...], rows=[...])`, `ui.Card("Title", ui.Stat(...), ui.Button(...))`.
+Layout components accept children positionally.
+
+Custom components:
+
+```python
+@app.component
+class Flight(dyui.Component):
+    """A bookable flight option. Use when listing specific flights."""   # → prompt description
+    airline: str
+    depart: str
+    arrive: str | None = None
+    price: float
+
+    examples = [{"airline": "TAP", "depart": "Fri 18:05", "price": 189}]   # optional, validated at import
+
+    def render(self):
+        return ui.Card(self.airline, ui.Stat("Price", f"${self.price:.0f}"),
+                       actions=[ui.Button("Book", action="book_flight", data=self.model_dump())])
+```
+
+- LLM name = snake_case of class name (override: `name = "flight"` class var).
+- `render()` returns a built-in component tree; **custom components are expanded
+  server-side**, so the frontend only ever renders built-ins.
+- A custom component may also be a plain HTML template: `ui.Html(template="cards/flight.html", props=...)`
+  — rendered in a **sandboxed iframe** (developer-authored only; never from the LLM).
+
+### 3.6 Catalog & prompt (`app.catalog`)
+
+```python
+app.catalog                       # Catalog of: enabled built-ins + registered custom components
+app.catalog.prompt()              # str — the UI section to add to a system prompt
+app.catalog.only("flight", "confirm", ui.QuickReplies)   # new Catalog subset
+app.catalog.without("chart")
+app.catalog.names                 # list[str]
+app.catalog.token_estimate()      # int (≈ chars/4)
+dyui.catalog("data", "interactive")   # built-in groups: content, data, media, interactive, layout, agent
+```
+
+The prompt is **generated from the live registry every time** → adding/removing/editing a
+component changes the prompt on the next turn (and on hot reload). Ordering is
+deterministic (built-ins in spec order, then customs in registration order) so provider
+prompt caching keeps hitting. `dyui.llm.stream(..., components=catalog)` appends
+`catalog.prompt()` to the system prompt, or substitutes it at a `{dyui_components}`
+placeholder if present. Warn (logging) if `token_estimate() > 1800`.
+
+Prompt shape (exact wording may be refined, structure may not):
+
+````
+## UI components
+You can show UI components inside your reply. To do so, write a fenced code block
+tagged `dyui` containing one JSON object per line: {"ui": "<name>", ...props}.
+Put prose outside the block. Use plain text when a component isn't clearly better.
+Layout components take "children": [ ...component objects... ].
+Interactive components ("action" props) send the user's choice back to you as a message.
+
+Components:
+table(columns: string[], rows: (string|number)[][], caption?: string) — Tabular data; use for 3+ rows.
+stat(label: string, value: string|number, unit?: string, delta?: string, trend?: "up"|"down"|"flat") — One headline number.
+flight(airline: string, depart: string, arrive?: string, price: number) — A bookable flight option. Use when listing specific flights.
+...
+
+Example:
+```dyui
+{"ui":"stat","label":"Revenue","value":"$48.2k","delta":"+12%","trend":"up"}
+```
+````
+
+### 3.7 `dyui.llm.stream(model, messages, *, system=None, components=None, **kwargs)`
+Async iterator of `str` deltas and `dyui.Reasoning` deltas. `model` is `"provider/model"`:
+- `openai/…` → OpenAI SDK (`OPENAI_API_KEY`, optional `OPENAI_BASE_URL`).
+- `anthropic/…` → Anthropic SDK Messages streaming (`ANTHROPIC_API_KEY`); thinking deltas → Reasoning.
+- `ollama/…` → OpenAI-compatible at `OLLAMA_BASE_URL` or `http://localhost:11434/v1`.
+- `groq/…`, `openrouter/…`, `together/…`, `deepseek/…`, `gemini/…` → OpenAI-compatible with
+  the provider's documented base URL and `<PROVIDER>_API_KEY`.
+- `base_url=` / `api_key=` kwargs override. Unknown kwargs pass through to the SDK.
+SDKs are imported lazily; a missing SDK raises a friendly error naming the pip extra.
+
+### 3.8 LangGraph (`dyui.integrations.langgraph`)
+
+```python
+from dyui.integrations.langgraph import stream as lg_stream, emit
+# inside any node/tool:  emit(ui.Table(...))     (uses langgraph get_stream_writer)
+@app.on_message
+async def reply(msg, chat):
+    async for part in lg_stream(graph, {"messages": chat.history}, config={"configurable": {"thread_id": chat.thread_id}}):
+        yield part
+```
+Streams `stream_mode=["messages","custom"]`: AI message chunks → text deltas (parsed for
+fences), `emit()`ed components → component parts. `emit()` outside a run logs a warning.
+
+### 3.9 CLI (`dyui`)
+
+| command | does |
+|---|---|
+| `dyui run [app.py] [--host 127.0.0.1] [--port 8000] [--no-reload] [--open]` | serve the app; auto-discovers `app.py`/`main.py`/`bot.py`; reloads on change |
+| `dyui new <dir> [--template basic\|openai\|anthropic\|langgraph]` | scaffold a project (app.py, README, requirements) |
+| `dyui demo` | run the built-in showcase bot (no API key needed) |
+| `dyui catalog [app.py] [--json]` | print the exact generated UI prompt + token estimate |
+| `dyui claude\|gemini\|codex init [app.py]` | hand the app to a coding agent to design custom components (writes `.dyui/INIT_PROMPT.md`, launches the CLI) |
+| `dyui version` | print version |
+
+---
+
+## 4. HTTP + SSE protocol (server ⇄ web)
+
+All JSON. Base path `/api`. Identity: an anonymous `dyui_uid` cookie (random, httpOnly,
+SameSite=Lax) scopes threads per browser. If `password` is set: `POST /api/login {password}`
+sets a signed `dyui_auth` cookie; every other `/api/*` route returns 401 without it.
+No wildcard CORS (same-origin app). Error bodies: `{"error": "message"}`; never leak tracebacks.
+
+| method & path | body | response |
+|---|---|---|
+| `GET /api/config` | – | `AppConfig` |
+| `POST /api/login` | `{password}` | `{ok:true}` |
+| `GET /api/threads` | – | `{threads: ThreadSummary[]}` (most recent first) |
+| `POST /api/threads` | – | SSE stream (runs `on_chat_start`; first event `thread`) |
+| `GET /api/threads/{id}` | – | `Thread` |
+| `PATCH /api/threads/{id}` | `{title}` | `ThreadSummary` |
+| `DELETE /api/threads/{id}` | – | `{ok:true}` |
+| `POST /api/chat` | `ChatRequest` | **SSE stream** |
+| `POST /api/action` | `ActionRequest` | **SSE stream** (may be empty besides `done`) |
+| `POST /api/feedback` | `{thread_id, message_id, value: 1\|-1\|0, comment?}` | `{ok:true}` |
+| `POST /api/upload` | multipart `file` | `FileRef` |
+| `GET /api/files/{id}` | – | file bytes |
+| `GET /` and any non-`/api` path | – | the web app (`dyui/_static/index.html`, SPA fallback) |
+
+```ts
+type AppConfig = {
+  title: string; description: string | null; welcome: string; placeholder: string;
+  logo: string | null; theme: "system" | "light" | "dark"; accent: string;
+  starters: { label: string; message: string; icon: string | null }[];
+  features: { history: boolean; uploads: boolean; feedback: boolean; auth: boolean };
+  authenticated: boolean; version: string;
+};
+type ThreadSummary = { id: string; title: string; created_at: number; updated_at: number };
+type Thread = ThreadSummary & { messages: Message[] };
+type Message = {
+  id: string; role: "user" | "assistant"; created_at: number;
+  parts: Part[]; feedback?: 1 | -1 | 0; status?: "streaming" | "done" | "cancelled" | "error";
+  action?: { name: string; label: string } | null;     // user messages created from an action
+};
+type Part =
+  | { type: "text"; text: string }                      // markdown
+  | { type: "ui"; node: UINode }
+  | { type: "step"; step: Step }
+  | { type: "reasoning"; text: string; duration_ms?: number }
+  | { type: "file"; file: FileRef };
+type UINode = {
+  id: string; ui: string; props: Record<string, any>;
+  children?: UINode[];                                  // for layout components
+  status?: "streaming" | "done" | "error";              // streaming = partial props
+  error?: string;
+};
+// nested node arrays may also appear INSIDE props for tabs[].children / accordion items[].children
+type Step = { id: string; title: string; type: string; status: "pending" | "running" | "done" | "error";
+  input?: any; output?: any; logs?: string[]; started_at: number; duration_ms?: number; parent_id?: string | null };
+type FileRef = { id: string; name: string; type: string; size: number; url: string };
+type ChatRequest = {
+  thread_id?: string | null;                 // null → server creates a thread (emits `thread` first)
+  message?: { text: string; files?: string[] };   // file ids from /api/upload
+  regenerate?: boolean;                      // re-run on the last user message (drops last assistant msg)
+  edit?: { message_id: string; text: string };   // replace a user message, drop everything after, re-run
+};
+type ActionRequest = { thread_id: string; message_id: string; component_id: string;
+  action: string; label?: string; data?: Record<string, any>; values?: Record<string, any> };
+```
+
+### SSE events (`event: <name>\ndata: <json>\n\n`; LF framing; one JSON per data line)
+| event | data | client effect |
+|---|---|---|
+| `thread` | `ThreadSummary` | set/insert current thread |
+| `user_message` | `Message` | append the persisted user message (server ids) |
+| `message_start` | `{id, role:"assistant", created_at}` | append empty assistant message (status streaming) |
+| `text` | `{message_id, delta}` | append to last text part (create one if last part isn't text) |
+| `ui` | `{message_id, node: UINode}` | upsert ui part by `node.id` (keeps position of first insert) |
+| `step` | `{message_id, step: Step}` | upsert step part by `step.id` |
+| `reasoning` | `{message_id, delta}` | append to reasoning part (create if absent) |
+| `message_end` | `{id, status:"done"\|"cancelled"\|"error", duration_ms?}` | finalize |
+| `title` | `{thread_id, title}` | update thread title in sidebar |
+| `error` | `{message, message_id?}` | show inline error with Retry |
+| `done` | `{}` | stream complete |
+
+Cancellation: the client aborts the fetch; the server detects disconnect, cancels the
+handler task, persists the partial message with status `cancelled`.
+Heartbeat: server sends `: ping\n\n` comments every 15s during long silences.
+Auto-title: after the first exchange the server sets the title from the first user
+message (first ~6 words) unless the app called `chat.set_title`.
+
+---
+
+## 5. Generative-UI wire format (LLM → DyUI)
+
+The model writes Markdown. Components go in fenced blocks tagged `dyui`, **one JSON object
+per line**, `{"ui": "<name>", ...props}`; layout components carry `"children": [...]`.
+
+````
+Here are two options for this weekend.
+```dyui
+{"ui":"flight","airline":"TAP","depart":"Fri 18:05","price":189}
+{"ui":"quick_replies","options":["Check hotels too","Book the cheaper one"]}
+```
+Want me to hold a seat?
+````
+
+**Streaming parser (server-side, `dyui.genui.parser.FenceParser`)** — incremental state
+machine over arbitrary chunk boundaries: `TEXT` → (line starting with ```` ```dyui ````) →
+`BLOCK` → (line ```` ``` ````) → `TEXT`.
+- Emits `TextDelta(str)` for prose (never emits the fence lines themselves).
+- For the in-progress JSON line: once `"ui"` is known, emit `ComponentStart(id, ui)`; as more
+  arrives, emit `ComponentUpdate(id, partial_props)` using a tolerant partial-JSON parser
+  (close open strings/arrays/objects; drop incomplete numbers/keys) — throttled to at most
+  one update per ~60ms of input or per 24 new chars.
+- On line end: `json.loads` → validate (§5.1) → `ComponentEnd(id, node)` or
+  `ComponentError(id, error, raw)`.
+- Unterminated block at stream end → finalize any complete line, error the partial one.
+- Also accept a JSON array on one line, and tolerate `json` as the fence tag if the object has `"ui"`.
+- IDs: `c_<8 hex>` assigned by the parser (an LLM-supplied `"id"` is kept if it's unique).
+
+### 5.1 Validation
+- Unknown `ui` name → error node. Props validated by the component's pydantic model in lax
+  mode; unknown props dropped; values coerced where safe (numbers in strings, etc.).
+- Custom components → validate → `render()` → expanded built-in tree; the outer node keeps
+  the custom name in `node.props.__component__` for debugging only.
+- On error the client receives `{ui:"invalid", props:{raw, error}}` with status `error` —
+  rendered as a quiet, collapsible "Couldn't display this component" chip. Prose is never lost.
+- Security: the model only supplies data. URLs must be `http(s):`, `mailto:`, or app-relative
+  `/api/files/...`; anything else is dropped. No HTML from the model, ever. Markdown is rendered
+  without raw HTML. External links open in a new tab with `rel="noopener noreferrer"`.
+
+### 5.2 History serialization
+`chat.history` gives the LLM back what it rendered: assistant parts → text, with each ui part
+re-serialized as a one-line compact ```` ```dyui ```` block (props only, no ids/status), so the
+model keeps context of the UI it showed. Steps/reasoning are omitted. User action messages use
+the LLM-friendly `[action:name] {...}` text.
+
+---
+
+## 6. Component catalog (built-ins)
+
+Names are what the LLM writes; Python classes are PascalCase in `dyui.ui`.
+`?` = optional. "action" props name an action routed per §3.4. Groups drive `dyui.catalog(group)`.
+**Bold** props are positional in Python constructors (in order).
+
+### content
+| ui | props | notes |
+|---|---|---|
+| `markdown` | **text** | rich text inside layouts |
+| `callout` | **text**, level?: `info`\|`success`\|`warning`\|`error` (info), title? | soft tinted box with icon |
+| `code` | **code**, language?, filename? | highlighted, copy button |
+| `quote` | **text**, author?, source? | |
+| `sources` | **items**: [{title, url, snippet?}] | favicon chips; numbered |
+| `badges` | **items**: [{label, color?: `gray`\|`accent`\|`green`\|`amber`\|`red`\|`blue`\|`violet`}] | |
+| `divider` | label? | |
+
+### data
+| ui | props | notes |
+|---|---|---|
+| `table` | **columns**: string[], **rows**: (string\|number\|bool\|null)[][], caption? | sortable headers, numeric right-align, sticky header, ≤ 400px tall then scroll |
+| `stat` | **label**, **value**, unit?, delta?, trend?: `up`\|`down`\|`flat`, help? | value counts up |
+| `stats` | **items**: stat[] | responsive row of stats |
+| `keyvalue` | **items**: [{key, value}] (also accepts `data: {k: v}`) | |
+| `chart` | **kind**: `bar`\|`line`\|`area`\|`pie`\|`donut`\|`scatter`, labels?: string[], **series**: [{name, data: number[] \| [x,y][]}], title?, unit?, stacked?: bool | hand-built SVG; animated; hover tooltip; legend |
+| `progress` | **value**, max? (100), label? | |
+| `timeline` | **items**: [{title, time?, text?, status?: `done`\|`active`\|`pending`}] | |
+| `json` | **data**, title? | collapsible tree |
+
+### media
+| ui | props | notes |
+|---|---|---|
+| `image` | **src**, alt?, caption? | fade+blur-in on load; click → lightbox |
+| `gallery` | **images**: [{src, alt?, caption?}] | grid + lightbox |
+| `video` | **src**, poster?, caption? | YouTube/Vimeo URLs → privacy embed iframe |
+| `audio` | **src**, title? | custom calm player |
+| `file` | **name**, **url**, size?, type? | download card |
+| `link_preview` | **url**, title?, description?, image?, site? | |
+
+### interactive
+| ui | props | notes |
+|---|---|---|
+| `buttons` | **items**: [{label, action, data?, style?: `primary`\|`secondary`\|`ghost`\|`danger`}] | Python: `ui.Buttons(ui.Button("Book", action="book"), ...)` |
+| `quick_replies` | **options**: string[] | click sends the text as a user message |
+| `choice` | **question**, **options**: string[], multiple?: bool, allow_other?: bool, action? ("choice"), submit_label? | values: `{selected: string[] , other?: string}` |
+| `form` | title?, **fields**: Field[], submit_label? ("Submit"), action? ("form_submit") | values: `{<name>: value}` |
+| `confirm` | **title**, text?, confirm_label? ("Confirm"), cancel_label? ("Cancel"), action? ("confirm"), data?, danger?: bool | values: `{confirmed: bool}` |
+| `rating` | label?, max? (5), style?: `stars`\|`thumbs`, action? ("rating") | values: `{rating: number}` |
+
+`Field = {name, label, type: text|textarea|number|email|select|multiselect|date|time|checkbox|radio|slider, options?: string[], required?: bool, placeholder?, default?, min?, max?, step?}`
+
+After an interactive component is used it becomes **resolved**: the client shows the chosen
+value inline (e.g., a check + "Approved") and disables it. Resolution is persisted in the
+node as `props.__resolved__ = {label, values}` via the action route.
+
+### layout
+| ui | props | notes |
+|---|---|---|
+| `card` | title?, subtitle?, image?, badge?, **children**, actions?: button[] | the default container |
+| `grid` | columns? (2; 1–4), **children** | collapses to 1 column < 560px |
+| `tabs` | **tabs**: [{label, children}] | animated indicator |
+| `accordion` | **items**: [{title, children}] | |
+| `carousel` | **children** | scroll-snap; arrows; dots |
+| `list` | **items**: [{title, subtitle?, image?, meta?, action?, data?}] | rows clickable if action |
+
+### agent
+| ui | props | notes |
+|---|---|---|
+| `step` | **title**, status (`pending`\|`running`\|`done`\|`error`), type?, input?, output?, duration_ms? | also produced by `chat.step()` |
+| `reasoning` | **text**, duration_ms? | also produced by `Reasoning` deltas |
+| `plan` | title?, **items**: [{title, status: `pending`\|`active`\|`done`\|`error`\|`skipped`}] | live checklist |
+
+### developer-only (never in the LLM catalog)
+| ui | props | notes |
+|---|---|---|
+| `html` | **html**, height? | sandboxed `<iframe sandbox="allow-scripts">` with `srcdoc`, no same-origin; auto-height via postMessage |
+| `invalid` | raw, error | produced by validation failures |
+
+---
+
+## 7. Web app (`/web`)
+
+React 19 + TypeScript + Vite. Runtime deps (keep lean): `react`, `react-dom`, `motion`,
+`react-markdown`, `remark-gfm`, `lucide-react`, `@fontsource-variable/instrument-sans`,
+`@fontsource/instrument-serif` (400 + 400-italic), `@fontsource-variable/geist-mono`, a small highlighter
+(`highlight.js` core + ~20 common languages, or `prism-react-renderer`).
+No UI kit; all components are hand-built against the tokens.
+
+- `npm run dev` → Vite dev server proxying `/api` to `http://127.0.0.1:8000`.
+  `?mock=1` (or no backend reachable in dev) → **mock transport** that streams a scripted
+  showcase conversation so the UI is developable/demoable without Python.
+- `npm run build` → `web/dist/`. `npm run build:py` → build + copy to `../python/dyui/_static/`.
+- `gallery.html` → every component rendered with fixture data, light/dark toggle (used for
+  visual QA and screenshots; also the source of truth for docs demos).
+- Component library entry: `web/src/components/dyui/index.ts` exports
+  `NodeView({ node, ctx })` where `ctx: { messageId, threadId, onAction(req), onReply(text), resolved?, interactive: boolean }`
+  plus each component. Unknown `ui` → `invalid` rendering.
+- Accessibility: semantic landmarks, focus-visible rings (accent, 2px offset), aria-live
+  polite on the streaming message, all interactive components keyboard-operable,
+  reduced-motion respected, color contrast AA.
+- Responsive: sidebar becomes a drawer < 900px; composer sticky; safe-area insets.
+
+### Shell features (v1)
+Sidebar (logo, New chat, thread list grouped Today/Yesterday/Previous 7 days/Older, rename,
+delete with confirm, collapse) · header (title, theme toggle) · welcome screen (logo bloom,
+serif-accented heading, description, starter cards with stagger) · message list (user
+bubbles right, assistant full-width prose with avatar mark; parts rendered in order; streaming
+caret; "thinking" breathe indicator before first token; auto-scroll with "Jump to latest"
+pill) · message actions on hover (copy, regenerate on last assistant, edit on last user,
+thumbs up/down) · composer (autosize textarea, Enter/Shift+Enter, attach files with chips +
+upload progress, drag-and-drop, Stop button while streaming, send button morphs) · inline
+error with Retry · code blocks with language label + copy · toasts (subtle) · password gate
+screen when `features.auth && !authenticated`.
+
+---
+
+## 8. Docs site (`/docs`)
+
+Astro + Starlight, static output, deployable to GitHub Pages / Vercel / Netlify.
+Branded to match §1 (custom CSS over Starlight, same fonts/colors, logo, dark/light).
+Live component demos import React components from `../web/src/components/dyui` and render
+them with fixture data inside MDX. Python API reference generated by `docs/scripts/gen_api.py`
+(griffe → MDX) at build time (prebuild script), committed output not required.
+
+Information architecture:
+1. **Home** (custom landing): hero "Chatbots that answer in *interfaces*.", animated live
+   chat demo (mock stream rendering components), 3-step quickstart, feature grid, component
+   marquee, CTA.
+2. **Get started**: Installation · Quickstart (10-line app) · Your first LLM bot · Project structure.
+3. **Concepts**: How DyUI works · Messages & streaming · Generative UI (the fence format, the
+   catalog, the system prompt that grows with your app) · Custom components · Actions &
+   human-in-the-loop · Steps & reasoning · Sessions & persistence · Theming & branding · Auth.
+4. **Components**: overview gallery + one page per component (live demo, Python usage, LLM JSON, props table).
+5. **Integrations**: OpenAI · Anthropic · Ollama & local models · Groq/OpenRouter/others · LangGraph · Bring-your-own SDK.
+6. **Deploy**: Production server · Docker · Render/Fly/Railway · Behind a reverse proxy.
+7. **CLI reference** · **Python API reference** (generated) · **Protocol reference** (§4–5) · **Changelog**.
+8. **Cookbook/Examples**: travel bot, data analyst, support bot, LangGraph agent, no-LLM bot.
+
+---
+
+## 9. Quality bar & testing
+- Python: pytest; parser fuzz-style chunking tests (every split point), validation, prompt
+  generation snapshot, server routes via httpx ASGI transport incl. SSE parsing, store, CLI.
+- Web: `tsc --noEmit` clean; vitest for store/SSE parser/protocol reducers; gallery renders
+  every component without console errors (Playwright smoke).
+- End-to-end: `dyui demo` + Playwright: load, send, see components stream, click an action,
+  regenerate, switch threads, reload persists, light/dark screenshots.
+- No secrets, no network calls at import, no telemetry.

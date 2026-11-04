@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 220 64" fill="none" role="img" aria-label="DyUI">
+  <defs>
+    <linearGradient id="dyui-dye-w" x1="14" y1="6" x2="52" y2="60" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#7B6FF2"/>
+      <stop offset="0.55" stop-color="#5B4FE0"/>
+      <stop offset="1" stop-color="#14A394"/>
+    </linearGradient>
+  </defs>
+  <path d="M32 5C32 5 11 25.5 11 39a21 21 0 0 0 42 0C53 25.5 32 5 32 5Z" fill="url(#dyui-dye-w)"/>
+  <circle cx="32" cy="40" r="5" fill="#FFFFFF" fill-opacity="0.92"/>
+  <circle cx="32" cy="40" r="10.5" stroke="#FFFFFF" stroke-opacity="0.55" stroke-width="2"/>
+  <circle cx="32" cy="40" r="16" stroke="#FFFFFF" stroke-opacity="0.22" stroke-width="1.5"/>
+  <text x="66" y="45" font-family="'Instrument Serif', ui-serif, Georgia, serif" font-size="42" font-weight="400" letter-spacing="-0.8" fill="#1A1A1F">DyUI</text>
+</svg>

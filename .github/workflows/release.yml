@@ -1,0 +1,51 @@
+name: Release to PyPI
+
+# Push a tag like v0.2.0 to build the wheel (with the compiled web app inside)
+# and publish it with PyPI trusted publishing (configure the publisher on PyPI first).
+on:
+  push:
+    tags: ["v*"]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v5
+      - uses: actions/setup-node@v5
+        with:
+          node-version: 22
+          cache: npm
+          cache-dependency-path: web/package-lock.json
+      - uses: actions/setup-python@v6
+        with:
+          python-version: "3.12"
+      - run: npm ci
+        working-directory: web
+      - run: pip install build
+      - name: Build sdist + wheel (hatch hook compiles web/ into dyui/_static)
+        run: python -m build python --outdir dist
+        env:
+          DYUI_FORCE_WEB_BUILD: "1"
+      - name: Smoke-test the wheel in a clean venv
+        run: |
+          python -m venv /tmp/smoke
+          /tmp/smoke/bin/pip install dist/*.whl
+          /tmp/smoke/bin/dyui version
+          /tmp/smoke/bin/python -c "import dyui, pathlib; p = pathlib.Path(dyui.__file__).parent / '_static' / 'index.html'; assert p.exists(), p"
+      - uses: actions/upload-artifact@v4
+        with:
+          name: dist
+          path: dist/
+
+  publish:
+    needs: build
+    runs-on: ubuntu-latest
+    environment: pypi
+    permissions:
+      id-token: write
+    steps:
+      - uses: actions/download-artifact@v4
+        with:
+          name: dist
+          path: dist/
+      - uses: pypa/gh-action-pypi-publish@release/v1

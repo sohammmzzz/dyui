@@ -58,7 +58,6 @@ export function Html({ node }: DyProps) {
           style={{ height: h, display: loaded ? "block" : "block", opacity: loaded ? 1 : 0, position: loaded ? "static" : "absolute" }}
         />
       )}
-      {srcdoc === null && <span ref={ref as any} />}
     </Bloom>
   );
 }

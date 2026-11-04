@@ -1,3 +1,45 @@
-// TEMPORARY STUB — replaced by the component-library build (SPEC.md §6–7).
-// Contract: export NodeView({ node, ctx }) that renders any UINode, plus each component.
-export { NodeView } from "./NodeView";
+// DyUI component library (SPEC §6–7). Self-contained: imports tokens, fonts and its own CSS.
+import "./styles/base.css";
+export { NodeView, NodeList, staticContext } from "./NodeView";
+export { registry, GROUPS } from "./registry";
+export type { DyProps, DyComponent } from "./util/types";
+export { Markdown } from "./content/Markdown";
+export { Callout } from "./content/Callout";
+export { Code } from "./content/Code";
+export { CodeBlock } from "./content/CodeBlock";
+export { Quote } from "./content/Quote";
+export { Sources } from "./content/Sources";
+export { Badges } from "./content/Badges";
+export { Divider } from "./content/Divider";
+export { Table } from "./data/Table";
+export { Stat } from "./data/Stat";
+export { Stats } from "./data/Stats";
+export { KeyValue } from "./data/KeyValue";
+export { Chart } from "./data/Chart";
+export { Progress } from "./data/Progress";
+export { Timeline } from "./data/Timeline";
+export { Json } from "./data/Json";
+export { Image } from "./media/Image";
+export { Gallery } from "./media/Gallery";
+export { Video } from "./media/Video";
+export { Audio } from "./media/Audio";
+export { File } from "./media/File";
+export { LinkPreview } from "./media/LinkPreview";
+export { Buttons } from "./interactive/Buttons";
+export { QuickReplies } from "./interactive/QuickReplies";
+export { Choice } from "./interactive/Choice";
+export { Form } from "./interactive/Form";
+export { Confirm } from "./interactive/Confirm";
+export { Rating } from "./interactive/Rating";
+export { Card } from "./layout/Card";
+export { Grid } from "./layout/Grid";
+export { Tabs } from "./layout/Tabs";
+export { Accordion } from "./layout/Accordion";
+export { Carousel } from "./layout/Carousel";
+export { List } from "./layout/List";
+export { Step } from "./agent/Step";
+export { Reasoning } from "./agent/Reasoning";
+export { Plan } from "./agent/Plan";
+export { Html } from "./developer/Html";
+export { Invalid } from "./developer/Invalid";
+export { Prose } from "./util/Markdown";

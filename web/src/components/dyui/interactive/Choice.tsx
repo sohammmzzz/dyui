@@ -51,7 +51,7 @@ export function Choice({ node, ctx }: DyProps) {
   const groupRef = useRef<HTMLDivElement>(null);
 
   const r = ia.resolved ?? ia.pending;
-  const rSel: string[] = r ? arr(r.values?.selected).map(str) : [];
+  const rSel: string[] = r ? arr(r.values?.selected).map((x) => str(x)) : [];
   const rOther = r ? optStr(r.values?.other) : undefined;
   const selected = r ? [...rSel, ...(rOther ? [OTHER] : [])] : sel;
   const otherText = r ? rOther ?? "" : other;

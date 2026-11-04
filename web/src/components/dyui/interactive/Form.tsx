@@ -52,9 +52,9 @@ function initial(f: Field): any {
   const d = f.default;
   switch (f.type) {
     case "multiselect":
-      return Array.isArray(d) ? d.map(str) : [];
+      return Array.isArray(d) ? d.map((x) => str(x)) : [];
     case "checkbox":
-      return f.options.length ? (Array.isArray(d) ? d.map(str) : []) : bool(d);
+      return f.options.length ? (Array.isArray(d) ? d.map((x) => str(x)) : []) : bool(d);
     case "slider":
       return num(d) ?? f.min ?? 0;
     case "number":

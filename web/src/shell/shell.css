@@ -654,6 +654,14 @@
 .sh-bloom-mark {
   position: relative;
 }
+.sh-bloom-logo.is-mark .sh-bloom-glow {
+  inset: -95% -30%; /* keep the glow round around the 2:1 mark */
+}
+.sh-mark {
+  display: block;
+  flex: none;
+  overflow: visible;
+}
 
 .sh-welcome-title {
   margin: 30px 0 0;
@@ -957,14 +965,28 @@
   border-radius: 8px;
 }
 .sh-avatar-mark {
-  width: 86%;
-  height: 86%;
-  background: var(--dy-bloom);
-  -webkit-mask: var(--sh-logo-url) center / contain no-repeat;
-  mask: var(--sh-logo-url) center / contain no-repeat;
+  width: 100%;
+  height: 100%;
+  overflow: visible;
 }
-.sh-avatar.is-thinking .sh-avatar-mark {
+/* thinking: the mark's dots "type" and its card breathes */
+.sh-avatar.is-thinking .sh-mark-dot {
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: sh-mark-type 1.2s var(--dy-ease-in-out) infinite;
+}
+.sh-avatar.is-thinking .sh-mark-dot + .sh-mark-dot {
+  animation-delay: 0.16s;
+}
+.sh-avatar.is-thinking .sh-mark-card {
   animation: sh-breathe var(--dy-breathe) var(--dy-ease-in-out) infinite;
+}
+.sh-avatar.is-mark.is-thinking::after {
+  display: none; /* the typing dots are the thinking cue; no ring */
+}
+@keyframes sh-mark-type {
+  0%, 100% { opacity: 0.35; transform: translateY(0); }
+  40% { opacity: 1; transform: translateY(-6px); }
 }
 .sh-avatar.is-thinking::after {
   content: "";
@@ -2281,7 +2303,8 @@
 
 @media (prefers-reduced-motion: reduce) {
   .sh-breathe,
-  .sh-avatar.is-thinking .sh-avatar-mark,
+  .sh-avatar.is-thinking .sh-mark-dot,
+  .sh-avatar.is-thinking .sh-mark-card,
   .sh-thinking-dots i,
   .sh-md.is-streaming > :last-child::after,
   .sh-md.is-streaming > :is(ul, ol):last-child > li:last-child::after {

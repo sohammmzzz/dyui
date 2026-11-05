@@ -1,18 +1,4 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" fill="none" role="img" aria-label="DyUI">
-  <defs>
-    <linearGradient id="dyui-dye" x1="14" y1="6" x2="52" y2="60" gradientUnits="userSpaceOnUse">
-      <stop offset="0" stop-color="#7B6FF2"/>
-      <stop offset="0.55" stop-color="#5B4FE0"/>
-      <stop offset="1" stop-color="#14A394"/>
-    </linearGradient>
-    <radialGradient id="dyui-glow" cx="32" cy="40" r="20" gradientUnits="userSpaceOnUse">
-      <stop offset="0" stop-color="#FFFFFF" stop-opacity="0.28"/>
-      <stop offset="1" stop-color="#FFFFFF" stop-opacity="0"/>
-    </radialGradient>
-  </defs>
-  <path d="M32 5C32 5 11 25.5 11 39a21 21 0 0 0 42 0C53 25.5 32 5 32 5Z" fill="url(#dyui-dye)"/>
-  <path d="M32 5C32 5 11 25.5 11 39a21 21 0 0 0 42 0C53 25.5 32 5 32 5Z" fill="url(#dyui-glow)"/>
-  <circle cx="32" cy="40" r="5" fill="#FFFFFF" fill-opacity="0.92"/>
-  <circle cx="32" cy="40" r="10.5" stroke="#FFFFFF" stroke-opacity="0.55" stroke-width="2"/>
-  <circle cx="32" cy="40" r="16" stroke="#FFFFFF" stroke-opacity="0.22" stroke-width="1.5"/>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" fill="none">
+  <style>path{fill:#5B4FE0}@media (prefers-color-scheme:dark){path{fill:#8B80FF}}</style>
+  <path d="M2 50A9 9 0 1 0 20 50A9 9 0 1 0 2 50ZM26 50A9 9 0 1 0 44 50A9 9 0 1 0 26 50ZM66 25H84A14 14 0 0 1 98 39V61A14 14 0 0 1 84 75H56A4 4 0 0 1 52 71V39A14 14 0 0 1 66 25Z"/>
 </svg>

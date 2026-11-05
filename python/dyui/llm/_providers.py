@@ -22,7 +22,7 @@ PROVIDERS: dict[str, Provider] = {
         Provider("ollama", "openai", "http://localhost:11434/v1", "OLLAMA_BASE_URL", ("OLLAMA_API_KEY",), False),
         Provider("groq", "openai", "https://api.groq.com/openai/v1", "GROQ_BASE_URL", ("GROQ_API_KEY",)),
         Provider("openrouter", "openai", "https://openrouter.ai/api/v1", "OPENROUTER_BASE_URL", ("OPENROUTER_API_KEY",)),
-        Provider("together", "openai", "https://api.together.xyz/v1", "TOGETHER_BASE_URL", ("TOGETHER_API_KEY",)),
+        Provider("together", "openai", "https://api.together.ai/v1", "TOGETHER_BASE_URL", ("TOGETHER_API_KEY",)),
         Provider("deepseek", "openai", "https://api.deepseek.com", "DEEPSEEK_BASE_URL", ("DEEPSEEK_API_KEY",)),
         Provider(
             "gemini", "openai", "https://generativelanguage.googleapis.com/v1beta/openai/",

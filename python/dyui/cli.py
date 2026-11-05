@@ -62,11 +62,41 @@ def _factory() -> Any:
     return load_target(os.environ[TARGET_ENV])
 
 
+def _can_encode(text: str, stream: Any = None) -> bool:
+    """Whether ``stream`` (default stdout) can print ``text`` without replacement."""
+    enc = getattr(stream or sys.stdout, "encoding", None) or "ascii"
+    try:
+        text.encode(enc)
+        return True
+    except (UnicodeEncodeError, LookupError):
+        return False
+
+
+def _safe_console() -> None:
+    """Never crash on a console that can't encode a character (e.g. Windows cp1252).
+
+    Unencodable characters print as ``?`` instead of raising ``UnicodeEncodeError``.
+    """
+    for stream in (sys.stdout, sys.stderr):
+        reconfigure = getattr(stream, "reconfigure", None)
+        if reconfigure is None:
+            continue
+        try:
+            if (getattr(stream, "errors", "strict") or "strict") == "strict":
+                reconfigure(errors="replace")
+        except (ValueError, OSError):  # pragma: no cover - detached / closed streams
+            pass
+
+
+_GLYPHS = "◉·"  # the banner's mark and separator
+
+
 def _banner(title: str, url: str) -> None:
     dim, ind, bold, reset = "\033[2m", "\033[38;5;105m", "\033[1m", "\033[0m"
     if not sys.stdout.isatty():
         dim = ind = bold = reset = ""
-    print(f"\n  {ind}◉{reset}  {bold}{title}{reset} {dim}· DyUI {__version__}{reset}\n")
+    mark, sep = (_GLYPHS[0], _GLYPHS[1]) if _can_encode(_GLYPHS) else ("*", "-")
+    print(f"\n  {ind}{mark}{reset}  {bold}{title}{reset} {dim}{sep} DyUI {__version__}{reset}\n")
     print(f"     {dim}Local{reset}   {ind}{url}{reset}")
     print(f"     {dim}Stop{reset}    Ctrl+C\n")
 
@@ -249,6 +279,7 @@ def build_parser() -> argparse.ArgumentParser:
 
 
 def main(argv: Optional[list[str]] = None) -> int:
+    _safe_console()
     parser = build_parser()
     args = parser.parse_args(argv)
     if not getattr(args, "func", None):

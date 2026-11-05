@@ -45,9 +45,10 @@ class PyOnly:
 def is_safe_url(url: Any) -> bool:
     """Return True if ``url`` is allowed in component props.
 
-    Allowed: ``http(s)://host...``, ``mailto:...`` and app-relative
-    ``/api/files/...``. Everything else (``javascript:``, ``data:``,
-    protocol-relative ``//host``, relative paths) is rejected.
+    Allowed: ``http(s)://host...``, ``mailto:...`` and app files
+    ``/api/files/...`` or ``api/files/...`` (the relative form uploads use, so
+    apps work under a path prefix). Everything else (``javascript:``, ``data:``,
+    protocol-relative ``//host``, other relative paths) is rejected.
 
     Args:
         url: The candidate value.
@@ -60,8 +61,10 @@ def is_safe_url(url: Any) -> bool:
     u = url.strip()
     if not u or any(ord(c) < 32 or ord(c) == 127 for c in u):
         return False
-    if u.startswith("/api/files/"):
-        return ".." not in u and "\\" not in u
+    if u.startswith(("/api/files/", "api/files/")):
+        rest = u.split("api/files/", 1)[1]
+        return (bool(rest) and not rest.startswith("/") and ".." not in u and "\\" not in u
+                and "//" not in rest and ":" not in rest)
     low = u.lower()
     if low.startswith(("http://", "https://")):
         try:

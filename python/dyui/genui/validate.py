@@ -11,6 +11,7 @@ from typing import TYPE_CHECKING, Any, Mapping, Optional
 
 from pydantic import ValidationError
 
+from .._jsonsafe import finite, has_nonfinite
 from ..ui.base import Component, format_errors, invalid_node, validate_component
 from ..ui.types import is_safe_url, to_json_text
 from .partial_json import JSONObject, PartialStr
@@ -71,6 +72,9 @@ def validate_instance(obj: Any, catalog: "Catalog") -> Component:
         ValidationFailure: If the object is not a valid component.
     """
     cls, data = _check(obj, catalog)
+    if has_nonfinite(data):
+        raise ValidationFailure("numbers must be finite (NaN / Infinity aren't valid JSON)",
+                                component=cls.__dyui__.name, raw=to_json_text(finite(obj)))
     try:
         return validate_component(cls, data, {"catalog": catalog})
     except ValidationError as exc:

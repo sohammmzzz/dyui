@@ -1,2 +1,3 @@
 dyui[langgraph]
+langchain
 langchain-openai

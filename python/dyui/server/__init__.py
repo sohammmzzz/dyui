@@ -14,6 +14,7 @@ from typing import TYPE_CHECKING, Any, AsyncIterator, Awaitable, Callable
 from fastapi import FastAPI, Request, UploadFile
 from fastapi.responses import FileResponse, HTMLResponse, JSONResponse, Response, StreamingResponse
 
+from .._jsonsafe import finite
 from ..chat import Turn
 
 if TYPE_CHECKING:  # pragma: no cover
@@ -27,6 +28,14 @@ STATIC_DIR = Path(__file__).resolve().parent.parent / "_static"
 UID_COOKIE = "dyui_uid"
 AUTH_COOKIE = "dyui_auth"
 HEARTBEAT_S = 15.0
+MAX_JSON_BYTES = 1024 * 1024          # JSON API bodies (a chat message is far smaller)
+LOGIN_WINDOW_S = 300.0                # failed-login throttle window...
+LOGIN_MAX_FAILURES = 10               # ...and how many failures it allows per client
+
+# Uploaded files are served same-origin; anything a browser could execute is
+# forced to download and sandboxed, so an uploaded .html/.svg can't run as the app.
+_INLINE_SAFE = ("image/png", "image/jpeg", "image/gif", "image/webp", "image/avif", "image/bmp",
+                "audio/", "video/", "application/pdf", "text/plain", "text/csv", "application/json")
 
 FALLBACK_PAGE = """<!doctype html><html lang="en"><head><meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1"><title>{title}</title>
@@ -50,6 +59,7 @@ class _IdentityMiddleware:
         if scope["type"] != "http":
             await self.app(scope, receive, send)
             return
+        secure = "; Secure" if scope.get("scheme") == "https" else ""
         cookies = _parse_cookies(scope)
         uid = cookies.get(UID_COOKIE)
         new = not (uid and len(uid) <= 64 and uid.replace("_", "").isalnum())
@@ -60,11 +70,102 @@ class _IdentityMiddleware:
         async def send_wrapper(message: Any) -> None:
             if new and message["type"] == "http.response.start":
                 headers = list(message.get("headers", []))
-                headers.append((b"set-cookie", f"{UID_COOKIE}={uid}; Path=/; Max-Age=31536000; HttpOnly; SameSite=Lax".encode()))
+                headers.append((b"set-cookie", f"{UID_COOKIE}={uid}; Path=/; Max-Age=31536000; HttpOnly; SameSite=Lax{secure}".encode()))
                 message = {**message, "headers": headers}
             await send(message)
 
         await self.app(scope, receive, send_wrapper)
+
+
+class _BodyLimitMiddleware:
+    """Pure-ASGI middleware: reject request bodies over a size limit with 413.
+
+    Checks ``Content-Length`` up front and also counts streamed (chunked) bytes,
+    so an oversized body is never buffered in memory or spooled to disk.
+    """
+
+    def __init__(self, app: Any, limit_for: Callable[[str], int]) -> None:
+        self.app = app
+        self.limit_for = limit_for
+
+    async def __call__(self, scope: Any, receive: Any, send: Any) -> None:
+        if scope["type"] != "http" or scope.get("method") in ("GET", "HEAD", "OPTIONS"):
+            await self.app(scope, receive, send)
+            return
+        limit = self.limit_for(scope.get("path", ""))
+        for k, v in scope.get("headers", []):
+            if k == b"content-length":
+                try:
+                    declared = int(v)
+                except ValueError:
+                    await _send_json(send, 400, {"error": "Bad Content-Length."})
+                    return
+                if declared > limit:
+                    await _send_json(send, 413, {"error": "Request is too large."})
+                    return
+        seen = 0
+        exceeded = False
+        started = False
+
+        async def limited_receive() -> Any:
+            nonlocal seen, exceeded
+            message = await receive()
+            if message["type"] == "http.request":
+                seen += len(message.get("body", b""))
+                if seen > limit:
+                    exceeded = True
+                    return {"type": "http.disconnect"}
+            return message
+
+        async def guarded_send(message: Any) -> None:
+            nonlocal started
+            if exceeded:
+                return  # the 413 below replaces whatever the app tries to say
+            if message["type"] == "http.response.start":
+                started = True
+            await send(message)
+
+        try:
+            await self.app(scope, limited_receive, guarded_send)
+        except Exception:
+            if not exceeded:
+                raise
+        if exceeded and not started:
+            await _send_json(send, 413, {"error": "Request is too large."})
+
+
+async def _send_json(send: Any, status: int, body: Any) -> None:
+    raw = json.dumps(body).encode()
+    await send({"type": "http.response.start", "status": status,
+                "headers": [(b"content-type", b"application/json"), (b"content-length", str(len(raw)).encode())]})
+    await send({"type": "http.response.body", "body": raw})
+
+
+class _LoginThrottle:
+    """Failed-login counter per client address (in memory, sliding window)."""
+
+    def __init__(self) -> None:
+        self._fails: dict[str, list[float]] = {}
+
+    def _recent(self, key: str, now: float) -> list[float]:
+        hits = [t for t in self._fails.get(key, []) if now - t < LOGIN_WINDOW_S]
+        if hits:
+            self._fails[key] = hits
+        else:
+            self._fails.pop(key, None)
+        return hits
+
+    def blocked(self, key: str, now: float) -> bool:
+        return len(self._recent(key, now)) >= LOGIN_MAX_FAILURES
+
+    def fail(self, key: str, now: float) -> None:
+        self._recent(key, now)
+        self._fails.setdefault(key, []).append(now)
+        if len(self._fails) > 10_000:  # bound memory under a spray of addresses
+            self._fails.pop(next(iter(self._fails)))
+
+    def clear(self, key: str) -> None:
+        self._fails.pop(key, None)
 
 
 def _parse_cookies(scope: Any) -> dict[str, str]:
@@ -108,7 +209,7 @@ def _authed(app: "App", request: Request) -> bool:
     if not app.password:
         return True
     token = request.cookies.get(AUTH_COOKIE, "")
-    return hmac.compare_digest(token, _auth_token(app))
+    return hmac.compare_digest(token.encode("utf-8", "replace"), _auth_token(app).encode())
 
 
 def _err(status: int, message: str) -> JSONResponse:
@@ -117,7 +218,8 @@ def _err(status: int, message: str) -> JSONResponse:
 
 # ------------------------------------------------------------------ SSE
 def _frame(event: str, data: Any) -> str:
-    return f"event: {event}\ndata: {json.dumps(data, separators=(',', ':'), default=str)}\n\n"
+    payload = json.dumps(finite(data), separators=(",", ":"), default=str, allow_nan=False)
+    return f"event: {event}\ndata: {payload}\n\n"
 
 
 def _sse(app: "App", run: Callable[[Turn], Awaitable[Any]]) -> StreamingResponse:
@@ -173,6 +275,7 @@ def _summary(t: dict[str, Any]) -> dict[str, Any]:
 def create_server(app: "App") -> Any:
     """Build the FastAPI app for ``app`` (wrapped in the identity middleware)."""
     api = FastAPI(title=app.title, docs_url=None, redoc_url=None, openapi_url=None)
+    throttle = _LoginThrottle()
 
     async def guard(request: Request) -> JSONResponse | None:
         if not _authed(app, request):
@@ -185,14 +288,26 @@ def create_server(app: "App") -> Any:
 
     @api.post("/api/login")
     async def login(request: Request) -> Any:
+        import time
+
+        client = request.client.host if request.client else "unknown"
+        now = time.monotonic()
+        if throttle.blocked(client, now):
+            return _err(429, "Too many attempts. Try again in a few minutes.")
         try:
             body = await request.json()
+            if not isinstance(body, dict):
+                raise ValueError
         except Exception:
             return _err(400, "Invalid JSON.")
-        if not app.password or not hmac.compare_digest(str(body.get("password", "")), app.password):
+        given = str(body.get("password", "")).encode("utf-8", "replace")
+        if not app.password or not hmac.compare_digest(given, app.password.encode("utf-8")):
+            throttle.fail(client, now)
             return _err(401, "Wrong password.")
+        throttle.clear(client)
         resp = JSONResponse({"ok": True})
-        resp.set_cookie(AUTH_COOKIE, _auth_token(app), max_age=60 * 60 * 24 * 30, httponly=True, samesite="lax")
+        resp.set_cookie(AUTH_COOKIE, _auth_token(app), max_age=60 * 60 * 24 * 30, httponly=True,
+                        samesite="lax", secure=request.url.scheme == "https")
         return resp
 
     @api.get("/api/threads")
@@ -217,7 +332,7 @@ def create_server(app: "App") -> Any:
         if t is None or t.get("user_id") != _uid(request):
             return _err(404, "Conversation not found.")
         msgs = await app.store.get_messages(thread_id)
-        return {**_summary(t), "messages": [_public(m) for m in msgs]}
+        return finite({**_summary(t), "messages": [_public(m) for m in msgs]})
 
     @api.patch("/api/threads/{thread_id}")
     async def rename_thread(thread_id: str, request: Request) -> Any:
@@ -228,6 +343,8 @@ def create_server(app: "App") -> Any:
             return _err(404, "Conversation not found.")
         try:
             body = await request.json()
+            if not isinstance(body, dict):
+                raise ValueError
         except Exception:
             return _err(400, "Invalid JSON.")
         title = str(body.get("title", "")).strip()[:120] or t["title"]
@@ -268,23 +385,10 @@ def create_server(app: "App") -> Any:
         except Exception:
             return _err(400, "Invalid request body.")
         uid = _uid(request)
-        # verify before opening the stream so forged actions get a real 400
-        from ..chat import declared_actions, find_node
-
-        thread = await app.store.get_thread(body.get("thread_id", ""))
-        if thread is None or thread.get("user_id") != uid:
-            return _err(404, "Conversation not found.")
-        pending = app._pending.get((thread["id"], body.get("component_id", "")))
-        if pending is None:
-            stored = await app.store.get_message(thread["id"], body.get("message_id", ""))
-            node = find_node(stored["parts"], body.get("component_id", "")) if stored else None
-            if node is None or str(body.get("action", "")) not in declared_actions(node):
-                return _err(400, "Unknown action.")
-        else:
-            live = pending[1].message
-            node = find_node(live["parts"], body.get("component_id", "")) if live else None
-            if node is None or str(body.get("action", "")) not in declared_actions(node):
-                return _err(400, "Unknown action.")
+        # verify before opening the stream so forged/replayed actions get a real 4xx
+        status, problem, _ = await app.check_action(uid, body)
+        if status:
+            return _err(status, problem)
         return _sse(app, lambda turn: app.handle_action(turn, uid, body))
 
     @api.post("/api/feedback")
@@ -293,6 +397,8 @@ def create_server(app: "App") -> Any:
             return denied
         try:
             body = await request.json()
+            if not isinstance(body, dict):
+                raise ValueError
         except Exception:
             return _err(400, "Invalid JSON.")
         problem = await app.handle_feedback(_uid(request), body)
@@ -331,9 +437,12 @@ def create_server(app: "App") -> Any:
         rec = await app.store.get_file(file_id)
         if rec is None or rec.get("user_id") != _uid(request) or not Path(rec["path"]).is_file():
             return _err(404, "File not found.")
-        return FileResponse(rec["path"], media_type=rec.get("type") or "application/octet-stream",
-                            filename=rec.get("name"), content_disposition_type="inline",
-                            headers={"X-Content-Type-Options": "nosniff"})
+        ctype = (rec.get("type") or "application/octet-stream").split(";")[0].strip().lower()
+        inline = ctype.startswith(_INLINE_SAFE)
+        return FileResponse(rec["path"], media_type=ctype if inline else "application/octet-stream",
+                            filename=rec.get("name"), content_disposition_type="inline" if inline else "attachment",
+                            headers={"X-Content-Type-Options": "nosniff",
+                                     "Content-Security-Policy": "sandbox; default-src 'none'; img-src 'self'; media-src 'self'"})
 
     @api.get("/api/logo")
     async def logo() -> Any:
@@ -358,7 +467,12 @@ def create_server(app: "App") -> Any:
         html = index.read_text(encoding="utf-8").replace("<title>DyUI</title>", f"<title>{_html_escape(app.title)}</title>")
         return HTMLResponse(html, headers={"Cache-Control": "no-cache"})
 
-    return _IdentityMiddleware(api)
+    upload_limit = app.max_upload_mb * 1024 * 1024 + 64 * 1024  # multipart overhead
+
+    def limit_for(path: str) -> int:
+        return upload_limit if path.rstrip("/").endswith("/api/upload") else MAX_JSON_BYTES
+
+    return _IdentityMiddleware(_BodyLimitMiddleware(api, limit_for))
 
 
 def _html_escape(s: str) -> str:

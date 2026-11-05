@@ -29,3 +29,7 @@ playwright-report/
 # Env
 .env
 .DS_Store
+
+# Local tooling
+.codegraphx/
+.codegraphx.db

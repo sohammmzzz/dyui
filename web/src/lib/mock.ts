@@ -965,7 +965,7 @@ class MockTransport implements Transport {
       ],
       features: { history: flag("history"), uploads: flag("uploads"), feedback: flag("feedback"), auth: !!this.opts.auth },
       authenticated: !this.opts.auth || this.authed,
-      version: "0.2.0",
+      version: "1.0.0",
     };
   }
 

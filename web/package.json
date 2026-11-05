@@ -1,7 +1,7 @@
 {
   "name": "dyui-web",
   "private": true,
-  "version": "0.2.0",
+  "version": "1.0.0",
   "type": "module",
   "description": "DyUI chat app frontend — bundled into the dyui Python package.",
   "scripts": {

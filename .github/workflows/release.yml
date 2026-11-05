@@ -1,6 +1,6 @@
 name: Release to PyPI
 
-# Push a tag like v0.2.0 to build the wheel (with the compiled web app inside)
+# Push a tag like v1.0.0 to build the wheel (with the compiled web app inside)
 # and publish it with PyPI trusted publishing (configure the publisher on PyPI first).
 on:
   push:

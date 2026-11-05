@@ -90,7 +90,9 @@ test("support ticket form submit → plan + stars rating", async ({ page, proble
   await page.screenshot(shot("06-form"));
   await stream(page, () => submit.click());
   await expect(page.getByText("Routed to Exports")).toBeVisible();
-  const reply = lastAssistant(page);
+  // pin the reply by index: rating has no handler in the demo, so it starts a new turn
+  const n = await page.getByRole("article", { name: "Assistant message" }).count();
+  const reply = page.getByRole("article", { name: "Assistant message" }).nth(n - 1);
   await expect(reply.locator("[data-dy-ui='rating']")).toBeVisible();
   await stream(page, () => reply.getByRole("radio", { name: /^4/ }).click());
   await expect(reply.locator("[data-dy-ui='rating']")).toContainText(/thanks/i);
@@ -137,7 +139,7 @@ test("edit last user message re-runs the turn", async ({ page, problems }) => {
 test("threads: create, switch, rename, delete, reload persistence", async ({ page, problems }) => {
   await fresh(page);
   await send(page, "Plan a weekend in Lisbon");
-  const list = page.getByRole("list", { name: "Conversations" }).first();
+  const list = page.getByRole("navigation", { name: "Conversations" });
   const thread = (name: string) => list.getByRole("button", { name, exact: true });
   await expect(thread("Plan a weekend in Lisbon")).toBeVisible();
 

@@ -58,6 +58,8 @@ export const lastAssistant = (page: Page) => page.getByRole("article", { name: "
 
 /** Wait until no assistant message is streaming. */
 export async function settled(page: Page) {
+  // the thread view mounts after the welcome screen's exit animation (AnimatePresence mode="wait")
+  await expect(page.locator(".sh-welcome-wrap")).toHaveCount(0);
   await expect(page.locator(".sh-assistant.is-streaming")).toHaveCount(0, { timeout: 30_000 });
   await expect(page.getByRole("button", { name: "Send message" })).toBeVisible();
 }

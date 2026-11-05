@@ -11,6 +11,7 @@ import inspect
 import json
 import re
 import secrets
+from contextvars import ContextVar
 from dataclasses import dataclass
 from typing import Any, ClassVar, Iterable, Mapping, Optional
 
@@ -40,6 +41,7 @@ _MODEL_CONFIG = ConfigDict(
     populate_by_name=True,
     validate_assignment=False,
     protected_namespaces=(),
+    allow_inf_nan=False,  # NaN / Infinity aren't valid JSON; they'd break the stream and storage
 )
 
 _CONFIG_KEYS = ("name", "group", "description", "examples", "llm", "positional", "varargs", "hint")
@@ -469,6 +471,18 @@ def _dump(value: Any, root: str, path: tuple[str, ...]) -> Any:
 
 
 # ----------------------------------------------------------------- validation
+# pydantic drops ``context`` when a model has a custom ``__init__`` (Component and
+# Model do, for positional args), so nested children would be validated against the
+# global registry instead of the restricting catalog. validate_component() also
+# publishes the context here; child coercion reads it as a fallback.
+_VALIDATION_CONTEXT: ContextVar[Optional[Mapping[str, Any]]] = ContextVar("dyui_validation_context", default=None)
+
+
+def current_context(context: Mapping[str, Any] | None = None) -> Mapping[str, Any] | None:
+    """The validation context in effect (explicit, else the one validate_component set)."""
+    return context if context else _VALIDATION_CONTEXT.get()
+
+
 def registry() -> dict[str, type[Component]]:
     """Return a snapshot of every known component class keyed by LLM name."""
     return dict(_REGISTRY)
@@ -545,13 +559,19 @@ def validate_component(
         if isinstance(k, str) and k != "ui" and not k.startswith("__") and (k != "id" or "id" in fields)
     }
     last: ValidationError | None = None
-    for _ in range(6):
-        try:
-            return cls.model_validate(payload, context=dict(context) if context else None)
-        except ValidationError as exc:
-            last = exc
-            if not _drop_invalid(cls, payload, exc):
-                break
+    ctx = dict(context) if context else None
+    token = _VALIDATION_CONTEXT.set(ctx) if ctx else None
+    try:
+        for _ in range(6):
+            try:
+                return cls.model_validate(payload, context=ctx)
+            except ValidationError as exc:
+                last = exc
+                if not _drop_invalid(cls, payload, exc):
+                    break
+    finally:
+        if token is not None:
+            _VALIDATION_CONTEXT.reset(token)
     assert last is not None
     raise last
 
@@ -564,6 +584,7 @@ def coerce_child(value: Any, context: Mapping[str, Any] | None) -> Component:
     from .content import Markdown
     from .developer import Invalid
 
+    context = current_context(context)
     if isinstance(value, Component):
         return value
     if isinstance(value, str):

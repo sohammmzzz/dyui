@@ -156,8 +156,19 @@ class App:
 
     @property
     def render_catalog(self) -> Catalog:
-        """Everything this app can render (all built-ins + custom), used for validation."""
+        """Everything this app can render (all built-ins + custom)."""
         return Catalog([*BUILTINS, *self._custom])
+
+    @property
+    def untrusted_catalog(self) -> Catalog:
+        """What *model-written* UI may use: every LLM built-in + custom components.
+
+        Used for fenced ``dyui`` blocks in text and ``{"ui": ...}`` dicts (which is
+        what tools-mode LLM calls produce). Developer-only components (``html``,
+        ``invalid``) are excluded — the LLM can never produce HTML. Developers
+        render ``ui.Html`` by yielding the component instance.
+        """
+        return Catalog([*LLM_BUILTINS, *self._custom])
 
     # ------------------------------------------------------------ store
     @property
@@ -308,19 +319,48 @@ class App:
         await self.store.update_thread(thread["id"], title=title, updated_at=now_ms())
         turn.emit("title", {"thread_id": thread["id"], "title": title})
 
+    async def check_action(self, user_id: str, req: dict[str, Any]) -> tuple[int, str, Any]:
+        """Verify an action request without side effects.
+
+        Returns ``(status, error, data)``: ``status`` is 0 when the action is valid
+        (``data`` is then the server-side static data to use), else an HTTP status.
+        """
+        from .chat import find_node, is_forged, trusted_action_data
+
+        thread = await self.store.get_thread(str(req.get("thread_id") or ""))
+        if thread is None or thread.get("user_id") != user_id:
+            return 404, "Conversation not found.", None
+        component_id = str(req.get("component_id") or "")
+        name = str(req.get("action") or "")
+        pending = self._pending.get((thread["id"], component_id))
+        if pending is not None:
+            live = pending[1].message
+            node = find_node(live["parts"], component_id) if live else None
+        else:
+            stored = await self.store.get_message(thread["id"], str(req.get("message_id") or ""))
+            node = find_node(stored["parts"], component_id) if stored and stored.get("role") == "assistant" else None
+        if node is None:
+            return 400, "Unknown action.", None
+        data = trusted_action_data(node, name, req.get("data"))
+        if is_forged(data):
+            return 400, "Unknown action.", None
+        if (node.get("props") or {}).get("__resolved__") is not None:
+            return 409, "This has already been answered.", None
+        return 0, "", data
+
     async def handle_action(self, turn: Turn, user_id: str, req: dict[str, Any]) -> Optional[str]:
         """Run one ``POST /api/action`` request. Returns an error string for 4xx."""
-        from .chat import declared_actions, find_node, top_level_node
+        from .chat import find_node, top_level_node
 
-        thread = await self.store.get_thread(req.get("thread_id", ""))
-        if thread is None or thread.get("user_id") != user_id:
-            return "Conversation not found."
+        status, problem, data = await self.check_action(user_id, req)
+        if status:
+            return problem
+        thread = await self.store.get_thread(str(req.get("thread_id") or ""))
         turn.thread = thread
-        message_id, component_id = req.get("message_id", ""), req.get("component_id", "")
-        name = str(req.get("action", ""))
-        label = str(req.get("label") or name)
-        data = req.get("data") or {}
-        values = req.get("values") or {}
+        message_id, component_id = str(req.get("message_id") or ""), str(req.get("component_id") or "")
+        name = str(req.get("action") or "")
+        label = str(req.get("label") or name)[:200]
+        values = req.get("values") if isinstance(req.get("values"), dict) else {}
         resolved = {"label": label, "values": values}
         action = Action(name=name, data=data, values=values, label=label,
                         message_id=message_id, component_id=component_id)
@@ -328,18 +368,13 @@ class App:
         pending = self._pending.get((thread["id"], component_id))
         if pending is not None:
             fut, live_turn = pending
-            live_node = find_node(live_turn.message["parts"], component_id) if live_turn.message else None
-            if live_node is None or name not in declared_actions(live_node):
-                return "Unknown action."
             live_turn.resolve(component_id, resolved)
             if not fut.done():
                 fut.set_result(action)
             return None
 
         stored = await self.store.get_message(thread["id"], message_id)
-        node = find_node(stored["parts"], component_id) if stored else None
-        if node is None or name not in declared_actions(node):
-            return "Unknown action."
+        node = find_node(stored["parts"], component_id)
         node.setdefault("props", {})["__resolved__"] = resolved
         await self.store.put_message(thread["id"], stored)
         turn.emit("ui", {"message_id": message_id, "node": top_level_node(stored["parts"], component_id)})
@@ -368,17 +403,22 @@ class App:
         thread = await self.store.get_thread(req.get("thread_id", ""))
         if thread is None or thread.get("user_id") != user_id:
             return "Conversation not found."
-        msg = await self.store.get_message(thread["id"], req.get("message_id", ""))
-        if msg is None:
+        msg = await self.store.get_message(thread["id"], str(req.get("message_id") or ""))
+        if msg is None or msg.get("role") != "assistant":
             return "Message not found."
-        value = int(req.get("value") or 0)
+        try:
+            value = int(req.get("value") or 0)
+        except (TypeError, ValueError):
+            value = 0
         msg["feedback"] = value if value in (-1, 0, 1) else 0
+        comment = req.get("comment")
+        comment = str(comment)[:2000] if comment is not None else None
         await self.store.put_message(thread["id"], msg)
         if self._on_feedback is not None:
             q: asyncio.Queue = asyncio.Queue()
             turn = Turn(self, thread, q)
             chat = self._chat(turn, thread, await self._messages(thread["id"]))
-            fb = Feedback(message_id=msg["id"], value=msg["feedback"], comment=req.get("comment"))
+            fb = Feedback(message_id=msg["id"], value=msg["feedback"], comment=comment)
             async for _ in iterate(self._on_feedback, fb, chat):
                 pass
         return None

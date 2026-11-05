@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { AnimatePresence, motion } from "motion/react";
 import { ArrowDown, Paperclip } from "lucide-react";
 import type { Transport } from "@/lib/api";
@@ -106,6 +106,24 @@ export function AppShell({
     },
     [actions, toBottom],
   );
+
+  // Anything the user does inside the conversation that starts a reply (component
+  // actions, quick replies, regenerate, edit, retry) follows the new reply down,
+  // just like sending from the composer.
+  const listActions = useMemo(() => {
+    const follow = <A extends unknown[]>(fn: (...a: A) => void) => (...a: A) => {
+      fn(...a);
+      requestAnimationFrame(() => toBottom(true));
+    };
+    return {
+      ...actions,
+      action: follow(actions.action),
+      reply: follow(actions.reply),
+      regenerate: follow(actions.regenerate),
+      edit: follow(actions.edit),
+      retry: follow(actions.retry),
+    };
+  }, [actions, toBottom]);
 
   // keyboard: ⌘/Ctrl ⇧ O new chat · Esc closes the drawer
   useEffect(() => {
@@ -244,7 +262,7 @@ export function AppShell({
                 </motion.div>
               ) : (
                 <motion.div key={`thread-${viewKey}`} initial={{ opacity: 1 }} exit={{ opacity: 0, transition: { duration: 0.12 } }}>
-                  <MessageList state={state} busy={busy} config={config} actions={actions} onPin={pin} />
+                  <MessageList state={state} busy={busy} config={config} actions={listActions} onPin={pin} />
                 </motion.div>
               )}
             </AnimatePresence>

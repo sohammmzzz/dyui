@@ -3,6 +3,7 @@ import { AnimatePresence, motion } from "motion/react";
 import { Check, Copy, FileCode2 } from "lucide-react";
 import { dur, ease } from "../../../lib/motion";
 import { highlight, languageLabel } from "../util/highlight";
+import { useHljs } from "../../../lib/hljs";
 import { useCopy } from "../util/hooks";
 import { cx } from "../util/props";
 import "../styles/base.css";
@@ -37,7 +38,8 @@ export function CopyButton({ text, label = true, className }: { text: string; la
 
 /** Highlighted code with header (filename / language) and copy. Used by `code` and markdown fences. */
 export function CodeBlock({ code, language, filename, streaming, className }: { code: string; language?: string; filename?: string; streaming?: boolean; className?: string }) {
-  const { nodes, language: lang } = useMemo(() => highlight(code, language), [code, language]);
+  const hljs = useHljs();
+  const { nodes, language: lang } = useMemo(() => highlight(hljs, code, language), [hljs, code, language]);
   const lines = code.split("\n").length;
   const label = languageLabel(language || lang);
   const gutter = lines >= 3;

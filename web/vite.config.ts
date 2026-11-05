@@ -18,10 +18,24 @@ export default defineConfig({
     outDir: "dist",
     assetsDir: "assets",
     sourcemap: false,
-    rollupOptions: {
+    rolldownOptions: {
       input: {
         main: resolve(__dirname, "index.html"),
         gallery: resolve(__dirname, "gallery.html"),
+      },
+      output: {
+        // Long-lived vendor chunks (cache well across releases); highlight.js stays a
+        // lazy chunk of its own (see src/lib/hljs.ts).
+        codeSplitting: {
+          groups: [
+            { name: "react", test: /[\\/]node_modules[\\/](react|react-dom|scheduler)[\\/]/ },
+            { name: "motion", test: /[\\/]node_modules[\\/](motion|motion-dom|motion-utils|framer-motion)[\\/]/ },
+            {
+              name: "markdown",
+              test: /[\\/]node_modules[\\/](react-markdown|remark-[^\\/]+|rehype-[^\\/]+|micromark[^\\/]*|mdast-[^\\/]+|hast-[^\\/]+|unist-[^\\/]+|unified|vfile[^\\/]*|property-information|space-separated-tokens|comma-separated-tokens|html-url-attributes|decode-named-character-reference|character-entities[^\\/]*|devlop|bail|trough|is-plain-obj|ccount|escape-string-regexp|markdown-table|longest-streak|zwitch|trim-lines|estree-util-[^\\/]+|style-to-js|style-to-object|inline-style-parser|extend)[\\/]/,
+            },
+          ],
+        },
       },
     },
   },

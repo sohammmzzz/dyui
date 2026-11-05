@@ -1,4 +1,4 @@
-import { useEffect, useLayoutEffect, useRef, useState, type RefObject } from "react";
+import { useCallback, useEffect, useLayoutEffect, useRef, useState, type RefObject } from "react";
 import { motion } from "motion/react";
 import { CircleAlert, RotateCcw } from "lucide-react";
 import type { AppConfig } from "@/lib/types";
@@ -50,18 +50,22 @@ export function useStickToBottom(scrollRef: RefObject<HTMLElement | null>, conte
     };
   }, [scrollRef, contentRef]);
 
-  const toBottom = (smooth = true) => {
-    const el = scrollRef.current;
-    if (!el) return;
-    stick.current = true;
-    el.scrollTo({ top: el.scrollHeight, behavior: smooth && !kit.reduced ? "smooth" : "auto" });
-  };
+  const reduced = kit.reduced;
+  const toBottom = useCallback(
+    (smooth = true) => {
+      const el = scrollRef.current;
+      if (!el) return;
+      stick.current = true;
+      el.scrollTo({ top: el.scrollHeight, behavior: smooth && !reduced ? "smooth" : "auto" });
+    },
+    [scrollRef, reduced],
+  );
 
-  const pin = () => {
+  const pin = useCallback(() => {
     stick.current = true;
     const el = scrollRef.current;
     if (el) el.scrollTop = el.scrollHeight;
-  };
+  }, [scrollRef]);
 
   return { away, scrolled, toBottom, pin };
 }

@@ -62,7 +62,9 @@ Named accents selectable from Python (`accent=`): `indigo` (default), `teal`, `r
 from the chosen accent with `color-mix()`.
 
 Chart palette (categorical, in order): accent, teal, `#E3809B` rose, `#E7A33E` amber,
-`#5AA6E8` sky, `#9A8CF0` lavender, `#6CC08B` green, `#B08968` clay.
+`#4F7FB8` steel, `#A65468` berry, `#6CC08B` green, `#B08968` clay. Slots 5–6 are chosen for
+colour-blind separation (ΔE2000 ≥ 9.5 from every other slot under protan/deutan/tritan
+simulation, light and dark accents); `web/src/styles/palette.test.ts` guards it.
 
 ### 1.4 Type — three voices ("design is everything")
 Typography is a primary brand surface. Never default to a single generic sans.

@@ -7,6 +7,7 @@ import ReactMarkdown, { type Components } from "react-markdown";
 import remarkGfm from "remark-gfm";
 import { CopyButton } from "./CopyButton";
 import { highlight, languageLabel } from "./highlight";
+import { useHljs } from "@/lib/hljs";
 import { cx } from "./anim";
 
 type HastNode = { type: string; value?: string; tagName?: string; properties?: Record<string, unknown>; children?: HastNode[] };
@@ -28,7 +29,8 @@ export function safeUrl(url: string): string {
 
 export const CodeBlock = memo(function CodeBlock({ code, language }: { code: string; language?: string | null }) {
   const source = code.replace(/\n$/, "");
-  const html = useMemo(() => highlight(source, language), [source, language]);
+  const hljs = useHljs();
+  const html = useMemo(() => highlight(hljs, source, language), [hljs, source, language]);
   const label = languageLabel(language);
   return (
     <div className="sh-code">

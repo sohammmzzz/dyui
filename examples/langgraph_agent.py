@@ -1,5 +1,6 @@
 """A LangGraph agent whose tool emits DyUI components while the model streams text."""
 import os
+from functools import lru_cache
 
 import dyui
 from dyui import ui
@@ -8,7 +9,7 @@ from langchain_core.tools import tool
 from langgraph.checkpoint.memory import InMemorySaver
 from langgraph.prebuilt import ToolRuntime, create_react_agent
 
-MODEL = os.getenv("DYUI_LANGCHAIN_MODEL", "openai:gpt-5")
+MODEL = os.getenv("DYUI_LANGCHAIN_MODEL", "openai:gpt-5")  # pip install langchain langchain-openai
 
 app = dyui.App(title="Weather Agent", starters=["Compare the weather in Paris and Rome"])
 
@@ -23,12 +24,14 @@ def forecast(city: str, runtime: ToolRuntime) -> str:
     return f"{city}: {temps} C"
 
 
-graph = create_react_agent(MODEL, tools=[forecast], checkpointer=InMemorySaver(),
-                           prompt="You are a weather assistant. Be brief.")
+@lru_cache(maxsize=1)
+def graph():  # built on first use, so the app starts without an API key
+    return create_react_agent(MODEL, tools=[forecast], checkpointer=InMemorySaver(),
+                              prompt="You are a weather assistant. Be brief.")
 
 
 @app.on_message
 async def reply(msg: dyui.Message, chat: dyui.Chat):
     config = {"configurable": {"thread_id": chat.thread_id}}
-    async for part in lg_stream(graph, {"messages": [{"role": "user", "content": msg.text}]}, config=config):
+    async for part in lg_stream(graph(), {"messages": [{"role": "user", "content": msg.text}]}, config=config):
         yield part

@@ -1,5 +1,6 @@
 """{{title}} - a DyUI bot driven by a LangGraph agent. Run it with:  dyui run"""
 import os
+from functools import lru_cache
 
 import dyui
 from dyui import ui
@@ -8,7 +9,7 @@ from langchain_core.tools import tool
 from langgraph.checkpoint.memory import InMemorySaver
 from langgraph.prebuilt import ToolRuntime, create_react_agent
 
-MODEL = os.getenv("DYUI_LANGCHAIN_MODEL", "openai:gpt-5")  # needs langchain-openai (see requirements)
+MODEL = os.getenv("DYUI_LANGCHAIN_MODEL", "openai:gpt-5")  # "<provider>:<model>" (langchain + langchain-openai)
 
 app = dyui.App(title="{{title}}", description="A LangGraph agent that shows its work.")
 
@@ -22,17 +23,20 @@ def get_weather(city: str, runtime: ToolRuntime) -> str:
     return f"It is 21C and sunny in {city}."
 
 
-graph = create_react_agent(
-    MODEL,
-    tools=[get_weather],
-    prompt="You are a helpful assistant.\n\n" + app.catalog.prompt(),
-    checkpointer=InMemorySaver(),
-)
+@lru_cache(maxsize=1)
+def graph():
+    # Built on first use, so `dyui run` starts even before the API key is set.
+    return create_react_agent(
+        MODEL,
+        tools=[get_weather],
+        prompt="You are a helpful assistant.\n\n" + app.catalog.prompt(),
+        checkpointer=InMemorySaver(),
+    )
 
 
 @app.on_message
 async def reply(msg: dyui.Message, chat: dyui.Chat):
     config = {"configurable": {"thread_id": chat.thread_id}}
     # The checkpointer remembers earlier turns, so we only send the new message.
-    async for part in lg_stream(graph, {"messages": [{"role": "user", "content": msg.text}]}, config=config):
+    async for part in lg_stream(graph(), {"messages": [{"role": "user", "content": msg.text}]}, config=config):
         yield part

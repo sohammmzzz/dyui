@@ -108,3 +108,32 @@ source/current-brand/            current SVGs + textpath.py / brand_svgs.py (tex
 To re-render a board: open `source/build/x-c<N>.html` in a browser. Or run
 `NODE_PATH=$(npm root -g) node shoot.cjs`; it needs Playwright, and the fonts from `web/node_modules`.
 The scripts reference absolute paths from the original session, so adjust them to your checkout.
+
+## 6. v1 — chosen mark (2026-11-05)
+Fresh exploration on the brief "dynamic UI, no water drop, keep the colours, relatable".
+- **Explored:** 8 candidates in round 1: Typing → Card, Rising reply, Window bubble,
+  Prompt → Card, D-bubble, Switch bubble, Unfold, Caret → Card (`screenshots/v1/r1-*.png`).
+  Rejected:
+  - Window bubble: generic, and the tail seam is crude.
+  - Unfold: reads as the "copy" icon.
+  - Caret: reads as "align left" or a sidebar icon.
+  - Rising reply: mushy at 16px.
+  - Prompt: reads as a terminal or media "next" icon.
+- **Shortlist** (refined in round 2): Typing → Card, Switch bubble and D-bubble. See
+  `screenshots/v1/contact-sheet.png` and the `board-*.png` files.
+- **Chosen: Typing → Card.**
+  - It is the moment every chat user knows (the typing dots), and the answer arrives as an
+    interface: DyUI's whole promise in one glance.
+  - It has three flat elements, reads at 16px, and is outside every avoided territory.
+  - It doubles as the product's own motion: the avatar "types" while thinking, and the
+    welcome mark assembles.
+- **Why the other two lost:**
+  - Switch bubble is witty, but a toggle drifts toward "settings app".
+  - D-bubble has the strongest silhouette, but D-shaped chat bubbles are a crowded,
+    generic territory.
+- **Swap-ready alternates:** `brand/alternates/{typing-card,switch-bubble,d-bubble}.svg`.
+  To switch, change `MARK_D` in `brand/tools/brand_svgs.py` and the three shapes in
+  `web/src/shell/Logo.tsx`.
+- **Tools:** `source/v1/explore.py` (candidates and boards) and `source/v1/shoot.mjs`
+  (Playwright renderer):
+  `python source/v1/explore.py <out>`, then `node shoot.mjs <out>`.

@@ -6,7 +6,7 @@ from dyui import ui
 from dyui.integrations.langgraph import emit, stream as lg_stream
 from langchain_core.tools import tool
 from langgraph.checkpoint.memory import InMemorySaver
-from langgraph.prebuilt import create_react_agent
+from langgraph.prebuilt import ToolRuntime, create_react_agent
 
 MODEL = os.getenv("DYUI_LANGCHAIN_MODEL", "openai:gpt-5")  # needs langchain-openai (see requirements)
 
@@ -14,10 +14,11 @@ app = dyui.App(title="{{title}}", description="A LangGraph agent that shows its 
 
 
 @tool
-def get_weather(city: str) -> str:
+def get_weather(city: str, runtime: ToolRuntime) -> str:
     """Get the current weather for a city."""
     # emit() sends a DyUI component straight to the chat from inside any node or tool.
-    emit(ui.Stat(f"Weather in {city}", "21", unit="C"))
+    # Passing the injected runtime makes it work on every Python version (3.10 needs it).
+    emit(ui.Stat(f"Weather in {city}", "21", unit="C"), writer=runtime)
     return f"It is 21C and sunny in {city}."
 
 

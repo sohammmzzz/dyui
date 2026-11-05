@@ -173,7 +173,7 @@ Calm, precise, friendly. Short sentences. No exclamation-mark spam, no emoji in 
 
 Python ≥ 3.10. Core deps: `fastapi>=0.110`, `uvicorn[standard]>=0.29`, `pydantic>=2.6`,
 `watchfiles>=0.21`, `python-multipart>=0.0.9`. Optional extras:
-`openai` → `openai>=1.40`; `anthropic` → `anthropic>=0.40`; `langgraph` → `langgraph>=0.2.60`;
+`openai` → `openai>=1.40`; `anthropic` → `anthropic>=0.40`; `langgraph` → `langgraph>=1.0`;
 `all` → all of them; `dev` → `pytest`, `pytest-asyncio`, `httpx`.
 
 ### 3.1 Minimal app
@@ -388,6 +388,11 @@ async def reply(msg, chat):
 ```
 Streams `stream_mode=["messages","custom"]`: AI message chunks → text deltas (parsed for
 fences), `emit()`ed components → component parts. `emit()` outside a run logs a warning.
+
+Signature: `emit(item, writer=None, *, config=None)`. On Python 3.11+ `emit(item)` finds the
+run by itself. On **Python 3.10** LangGraph can't propagate its run context into nodes, so pass
+it explicitly — `emit(x, config=config)` in a node that takes `config: RunnableConfig`, or
+`emit(x, writer=runtime)` in a tool that takes `runtime: ToolRuntime` (requires `langgraph>=1.0`).
 
 ### 3.9 CLI (`dyui`)
 

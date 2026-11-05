@@ -46,6 +46,7 @@ _DYUI_FENCE = re.compile(r"^`{3,}\s*dyui\s*$", re.I)
 _JSON_FENCE = re.compile(r"^`{3,}\s*json\s*$", re.I)
 _UI_START = re.compile(r'^\[?\s*\{\s*"ui"\s*:')
 _INCOMPLETE = "incomplete component (the reply ended before it was finished)"
+_SAFE_ID = re.compile(r"[A-Za-z0-9_-]{1,64}")  # LLM-supplied ids end up in the DOM
 
 
 @dataclass
@@ -225,7 +226,7 @@ class FenceParser:
             keys = obj.key_order if isinstance(obj, JSONObject) else list(obj)
             if "id" in keys and "ui" in keys and keys.index("id") < keys.index("ui"):
                 value = obj.get("id")
-                if isinstance(value, str) and 0 < len(value) <= 64:
+                if isinstance(value, str) and _SAFE_ID.fullmatch(value):
                     cand = value
         if cand is None or cand in self.used_ids:
             cand = self._new_id()

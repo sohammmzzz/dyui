@@ -26,6 +26,7 @@ from .genui import (
     TextDelta,
     serialize_history,
 )
+from ._jsonsafe import finite
 from .parts import Reasoning
 from .store.base import now_ms
 from .ui.base import Component, new_id
@@ -144,7 +145,7 @@ class Turn:
         if self.message is None:
             self.message = {"id": new_id("m"), "role": "assistant", "created_at": now_ms(), "parts": [], "status": "streaming"}
             self._started = time.monotonic()
-            self._parser = FenceParser(self.app.render_catalog, used_ids=self._used_ids)
+            self._parser = FenceParser(self.app.untrusted_catalog, used_ids=self._used_ids)
             self.emit("message_start", {"id": self.message["id"], "role": "assistant", "created_at": self.message["created_at"]})
         return self.message
 
@@ -179,6 +180,7 @@ class Turn:
         self.emit("text", {"message_id": self.message["id"], "delta": delta})  # type: ignore[index]
 
     def upsert_node(self, node: dict[str, Any]) -> None:
+        node = finite(node)
         parts = self._parts()
         for part in parts:
             if part["type"] == "ui" and part["node"]["id"] == node["id"]:
@@ -189,6 +191,7 @@ class Turn:
         self.emit("ui", {"message_id": self.message["id"], "node": node})  # type: ignore[index]
 
     def upsert_step(self, step: dict[str, Any]) -> None:
+        step = finite(step)
         parts = self._parts()
         for part in parts:
             if part["type"] == "step" and part["step"]["id"] == step["id"]:
@@ -230,7 +233,7 @@ class Turn:
     def _flush_parser(self) -> None:
         if self._parser is not None:
             self._apply(self._parser.close())
-            self._parser = FenceParser(self.app.render_catalog, used_ids=self._used_ids)
+            self._parser = FenceParser(self.app.untrusted_catalog, used_ids=self._used_ids)
 
     # ---- items yielded by handlers
     def add(self, item: Any) -> Optional[dict[str, Any]]:
@@ -256,7 +259,7 @@ class Turn:
         if isinstance(item, Component):
             node = item.to_node()
         elif isinstance(item, dict) and "ui" in item:
-            node = self.app.render_catalog.validate(item)
+            node = self.app.untrusted_catalog.validate(item)
         else:
             log.warning("dyui: don't know how to render %r; showing it as text", type(item).__name__)
             self._text(str(item))
@@ -315,26 +318,67 @@ def top_level_node(parts: list[dict[str, Any]], node_id: str) -> Optional[dict[s
 _DEFAULT_ACTIONS = {"choice": "choice", "form": "form_submit", "confirm": "confirm", "rating": "rating"}
 
 
-def declared_actions(node: dict[str, Any]) -> set[str]:
-    """Every action name a rendered node may legitimately send."""
-    names: set[str] = set()
+def declared_action_entries(node: dict[str, Any]) -> list[tuple[str, Optional[dict[str, Any]]]]:
+    """Every ``(action, static data)`` pair a rendered node may legitimately send."""
+    entries: list[tuple[str, Optional[dict[str, Any]]]] = []
 
     def scan(value: Any) -> None:
         if isinstance(value, dict):
             act = value.get("action")
             if isinstance(act, str) and act:
-                names.add(act)
+                data = value.get("data")
+                entries.append((act, data if isinstance(data, dict) else None))
             for v in value.values():
                 scan(v)
         elif isinstance(value, list):
             for v in value:
                 scan(v)
 
-    scan(node.get("props") or {})
+    props = node.get("props") or {}
+    scan(props)
     default = _DEFAULT_ACTIONS.get(str(node.get("ui")))
-    if default:
-        names.add(default)
-    return names
+    if default and not any(name == default for name, _ in entries):
+        data = props.get("data")
+        entries.append((default, data if isinstance(data, dict) else None))
+    return entries
+
+
+def declared_actions(node: dict[str, Any]) -> set[str]:
+    """Every action name a rendered node may legitimately send."""
+    return {name for name, _ in declared_action_entries(node)}
+
+
+_FORGED = object()
+
+
+def trusted_action_data(node: dict[str, Any], name: str, client_data: Any) -> Any:
+    """The server-side static ``data`` for an action, never the client's copy.
+
+    The client echoes the data of the button it clicked; it's only used to tell
+    several same-named buttons apart. Returns ``_FORGED`` if ``name`` isn't declared,
+    or if the node declares different data for it and the client's matches none.
+    """
+    options = [data or {} for act, data in declared_action_entries(node) if act == name]
+    if not options:
+        return _FORGED
+    claimed = client_data if isinstance(client_data, dict) else {}
+    for data in options:
+        if data == claimed:
+            return dict(data)
+    distinct = {to_key(d) for d in options}
+    if len(distinct) == 1:
+        return dict(options[0])  # one possible payload: the server's copy wins
+    return _FORGED
+
+
+def to_key(data: dict[str, Any]) -> str:
+    import json
+
+    return json.dumps(data, sort_keys=True, default=str)
+
+
+def is_forged(value: Any) -> bool:
+    return value is _FORGED
 
 
 # --------------------------------------------------------------------- step

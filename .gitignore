@@ -33,3 +33,6 @@ playwright-report/
 # Local tooling
 .codegraphx/
 .codegraphx.db
+
+# Playwright e2e output
+web/e2e/.results/

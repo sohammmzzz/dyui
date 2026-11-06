@@ -147,6 +147,9 @@ class Turn:
             self._started = time.monotonic()
             self._parser = FenceParser(self.app.untrusted_catalog, used_ids=self._used_ids)
             self.emit("message_start", {"id": self.message["id"], "role": "assistant", "created_at": self.message["created_at"]})
+            live = getattr(self.app, "_live_messages", None)
+            if live is not None:
+                live.add(self.message["id"])
         return self.message
 
     async def persist(self) -> None:
@@ -162,8 +165,15 @@ class Turn:
         await self.persist()
         self.emit("message_end", {"id": self.message["id"], "status": status,
                                   "duration_ms": int((time.monotonic() - self._started) * 1000)})
-        self.message = None
+        self.forget()
         self._parser = None
+
+    def forget(self) -> None:
+        """Drop the current message without finishing it (no longer live)."""
+        live = getattr(self.app, "_live_messages", None)
+        if live is not None and self.message is not None:
+            live.discard(self.message["id"])
+        self.message = None
 
     # ---- parts
     def _parts(self) -> list[dict[str, Any]]:
@@ -549,6 +559,10 @@ class Chat:
 
     async def _save_session(self) -> None:
         await self._app.store.update_thread(self.thread_id, session=self.session)
+        # Later handlers in the same request (e.g. on_message right after
+        # on_chat_start) build their Chat from this same thread dict: keep it current
+        # so they don't start from a stale session and overwrite what was saved.
+        self._thread["session"] = dict(self.session)
 
 
 async def iterate(fn: Callable[..., Any], *args: Any) -> AsyncIterator[Any]:

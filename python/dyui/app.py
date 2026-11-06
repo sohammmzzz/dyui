@@ -11,6 +11,7 @@ from __future__ import annotations
 
 import asyncio
 import logging
+import re
 from pathlib import Path
 from typing import Any, Callable, Literal, Optional, Sequence, Union
 
@@ -29,6 +30,8 @@ __all__ = ["App"]
 Handler = Callable[..., Any]
 
 NAMED_ACCENTS = {"indigo", "teal", "rose", "amber", "emerald", "slate"}
+_CLAIM_TTL_S = 120.0
+_ORIGIN = re.compile(r"https?://(\*\.)?[A-Za-z0-9.-]+(:\d{1,5})?")
 
 
 class App:
@@ -53,6 +56,10 @@ class App:
         history: Show the conversation sidebar.
         max_upload_mb: Upload size limit.
         data_dir: Where DyUI keeps its database and uploads (default ``./.dyui``).
+        embed_origins: Sites allowed to show this app in an ``<iframe>``
+            (e.g. ``["https://example.com"]``). By default only the app itself may frame it.
+        csp: The Content-Security-Policy sent with the app's HTML: ``True`` (DyUI's
+            strict default), a policy string of your own, or ``False`` to send none.
     """
 
     def __init__(
@@ -74,6 +81,8 @@ class App:
         history: bool = True,
         max_upload_mb: int = 20,
         data_dir: Union[str, Path, None] = None,
+        embed_origins: Sequence[str] = (),
+        csp: Union[bool, str] = True,
     ) -> None:
         self.title = title
         self.description = description
@@ -90,6 +99,14 @@ class App:
         self.history = history
         self.max_upload_mb = max_upload_mb
         self.data_dir = Path(data_dir) if data_dir else Path.cwd() / ".dyui"
+        for origin in embed_origins:
+            if not _ORIGIN.fullmatch(str(origin)):
+                raise ValueError(f"embed_origins: {origin!r} is not an origin like 'https://example.com'")
+        self.embed_origins = tuple(str(o) for o in embed_origins)
+        if not isinstance(csp, (bool, str)) or (isinstance(csp, str) and ("\r" in csp or "\n" in csp)):
+            raise ValueError("csp must be True, False or a policy string")
+        self.csp = csp
+        _register_caller_dir()
         self._persist = persist
         self._store: Any = None
         self._custom: list[type[Component]] = []
@@ -98,6 +115,8 @@ class App:
         self._on_feedback: Optional[Handler] = None
         self._actions: dict[str, Handler] = {}
         self._pending: dict[tuple[str, str], tuple[asyncio.Future, Turn]] = {}
+        self._claims: dict[tuple[str, str], float] = {}
+        self._live_messages: set[str] = set()   # assistant messages a turn is still streaming
         self._asgi: Any = None
 
     # ------------------------------------------------------------ decorators
@@ -196,6 +215,7 @@ class App:
                          "feedback": self.feedback, "auth": bool(self.password)},
             "authenticated": authenticated,
             "version": __version__,
+            "max_upload_mb": self.max_upload_mb if self.uploads else None,
         }
 
     # ------------------------------------------------------------ turns
@@ -348,8 +368,43 @@ class App:
             return 409, "This has already been answered.", None
         return 0, "", data
 
-    async def handle_action(self, turn: Turn, user_id: str, req: dict[str, Any]) -> Optional[str]:
+    def claim_action(self, req: dict[str, Any]) -> Optional[tuple[str, str]]:
+        """Claim a component for one action request (synchronous: call right after
+        :meth:`check_action`, with no ``await`` in between).
+
+        Returns the claim key, or ``None`` if another request already holds it (a
+        concurrent double-click). Released by :meth:`handle_action` once the
+        resolution is recorded; stale claims expire after ``_CLAIM_TTL_S``.
+        """
+        import time
+
+        key = (str(req.get("thread_id") or ""), str(req.get("component_id") or ""))
+        now = time.monotonic()
+        held = self._claims.get(key)
+        if held is not None and now - held < _CLAIM_TTL_S:
+            return None
+        if len(self._claims) > 10_000:  # bound memory; drop expired claims
+            self._claims = {k: t for k, t in self._claims.items() if now - t < _CLAIM_TTL_S}
+        self._claims[key] = now
+        return key
+
+    def _release_claim(self, claim: Optional[tuple[str, str]]) -> None:
+        if claim is not None:
+            self._claims.pop(claim, None)
+
+    async def handle_action(self, turn: Turn, user_id: str, req: dict[str, Any], *,
+                            claim: Optional[tuple[str, str]] = None) -> Optional[str]:
         """Run one ``POST /api/action`` request. Returns an error string for 4xx."""
+        try:
+            problem = await self._handle_action(turn, user_id, req, claim)
+        finally:
+            self._release_claim(claim)
+        if problem:
+            turn.emit("error", {"message": problem})
+        return problem
+
+    async def _handle_action(self, turn: Turn, user_id: str, req: dict[str, Any],
+                             claim: Optional[tuple[str, str]]) -> Optional[str]:
         from .chat import find_node, top_level_node
 
         status, problem, data = await self.check_action(user_id, req)
@@ -368,15 +423,19 @@ class App:
         pending = self._pending.get((thread["id"], component_id))
         if pending is not None:
             fut, live_turn = pending
+            if fut.done():  # lost a race with another request for the same ask()
+                return "This has already been answered."
             live_turn.resolve(component_id, resolved)
-            if not fut.done():
-                fut.set_result(action)
+            fut.set_result(action)
             return None
 
         stored = await self.store.get_message(thread["id"], message_id)
         node = find_node(stored["parts"], component_id)
+        if (node.get("props") or {}).get("__resolved__") is not None:
+            return "This has already been answered."
         node.setdefault("props", {})["__resolved__"] = resolved
         await self.store.put_message(thread["id"], stored)
+        self._release_claim(claim)  # resolution is persisted: the 409 check now covers it
         turn.emit("ui", {"message_id": message_id, "node": top_level_node(stored["parts"], component_id)})
 
         messages = await self._messages(thread["id"])
@@ -419,8 +478,18 @@ class App:
             turn = Turn(self, thread, q)
             chat = self._chat(turn, thread, await self._messages(thread["id"]))
             fb = Feedback(message_id=msg["id"], value=msg["feedback"], comment=comment)
-            async for _ in iterate(self._on_feedback, fb, chat):
-                pass
+            sent = False
+            try:
+                async for item in iterate(self._on_feedback, fb, chat):
+                    sent = sent or item is not None
+            except Exception:  # a buggy feedback handler must not turn the click into a 500
+                log.exception("dyui: on_feedback handler failed")
+            finally:
+                await chat._save_session()
+            if sent or turn.message is not None:
+                turn.forget()
+                log.warning("dyui: @app.on_feedback can't send messages (there is no reply stream); "
+                            "yielded items / chat.send() calls were ignored.")
         return None
 
     # ------------------------------------------------------------ ASGI
@@ -434,6 +503,20 @@ class App:
 
     async def __call__(self, scope: Any, receive: Any, send: Any) -> None:
         await self.asgi()(scope, receive, send)
+
+
+def _register_caller_dir() -> None:
+    """Let ``ui.Html(template=...)`` find templates next to the app's own file."""
+    import sys
+
+    from .html import register_template_root
+
+    try:
+        caller = sys._getframe(2).f_globals.get("__file__")
+    except (AttributeError, ValueError):  # pragma: no cover - exotic interpreters
+        return
+    if caller:
+        register_template_root(Path(caller).resolve().parent)
 
 
 def _mid() -> str:

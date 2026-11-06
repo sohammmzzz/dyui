@@ -70,7 +70,47 @@ FIXTURES = {
     "unknown_and_bad": '```dyui\n{"ui":"nope"}\nnot json at all\n{"ui":"stat"}\n```\ntail',
     "unicode": 'Café ☕\n```dyui\n{"ui":"callout","text":"Ünïcödé — ok ✓","level":"success"}\n```\n日本語',
     "crlf": 'a\r\n```dyui\r\n{"ui":"divider"}\r\n```\r\nb',
+    # code-review findings: inline opener, tilde fences, fence lengths, stray fence after a bare line
+    "inline_opener": 'Hi ```dyui\n{"ui":"divider","label":"x"}\n```\nmiddle\n```dyui\n{"ui":"stat","label":"A","value":1}\n```\nend',
+    "tilde_fence": 'Look:\n~~~dyui\n{"ui":"divider","label":"t"}\n~~~\nafter',
+    "long_code_fence": 'Code:\n````md\n```dyui\n{"ui":"divider"}\n```\n````\n```dyui\n{"ui":"stat","label":"B","value":2}\n```\nok',
+    "long_dyui_fence": '````dyui\n{"ui":"divider","label":"four"}\n````\nafter',
+    "bare_then_fence": 'Here:\n{"ui":"divider","label":"bare"}\n```\nstill prose\n```dyui\n{"ui":"stat","label":"C","value":3}\n```\n',
+    "mixed_fences": '~~~python\nprint("```")\n```\n~~~\n```dyui\n{"ui":"divider"}\n```\ndone',
 }
+
+
+def test_inline_opener_renders_and_does_not_swallow_the_rest():
+    prose, finals = summarize(run_chunks(FIXTURES["inline_opener"], [FIXTURES["inline_opener"]]))
+    assert [f["ui"] for f in finals] == ["divider", "stat"]
+    assert "```" not in prose and "Hi" in prose and "middle" in prose and "end" in prose
+
+
+def test_tilde_fences_render_without_leaking():
+    prose, finals = summarize(run_chunks(FIXTURES["tilde_fence"], [FIXTURES["tilde_fence"]]))
+    assert [f["ui"] for f in finals] == ["divider"] and "~~~" not in prose and "after" in prose
+
+
+def test_only_a_matching_fence_closes_a_code_block():
+    prose, finals = summarize(run_chunks(FIXTURES["long_code_fence"], [FIXTURES["long_code_fence"]]))
+    assert [f["ui"] for f in finals] == ["stat"]  # the ```dyui inside the ````md block is just code
+    assert '```dyui\n{"ui":"divider"}\n```' in prose and "ok" in prose
+    prose, finals = summarize(run_chunks(FIXTURES["long_dyui_fence"], [FIXTURES["long_dyui_fence"]]))
+    assert [f["ui"] for f in finals] == ["divider"] and "`" not in prose
+    prose, finals = summarize(run_chunks(FIXTURES["mixed_fences"], [FIXTURES["mixed_fences"]]))
+    assert [f["ui"] for f in finals] == ["divider"] and 'print("```")' in prose and "done" in prose
+
+
+def test_stray_fence_after_bare_component_is_swallowed():
+    prose, finals = summarize(run_chunks(FIXTURES["bare_then_fence"], [FIXTURES["bare_then_fence"]]))
+    assert [f["ui"] for f in finals] == ["divider", "stat"]
+    assert "still prose" in prose and "```" not in prose
+
+
+def test_backticks_in_prose_still_stream():
+    text = "Use `x` and ``y`` or ~approx~ values.\nNext line with a fence word: ```dyui is the tag.\n"
+    prose, finals = summarize(run_chunks(text, list(text)))
+    assert prose == text and finals == []
 
 
 @pytest.mark.parametrize("name", sorted(FIXTURES))

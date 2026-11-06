@@ -1,4 +1,4 @@
-# DyUI 0.2 — Engineering Spec
+# DyUI 1.0 — Engineering Spec
 
 > The single source of truth for the DyUI rewrite. Every package (Python, web, docs)
 > builds against this file. If code and spec disagree, fix one of them in the same change.

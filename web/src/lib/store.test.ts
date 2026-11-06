@@ -112,13 +112,21 @@ describe("applyMessageEvent", () => {
     expect(p.type === "step" && p.step).toMatchObject({ status: "done", duration_ms: 1200, input: { q: 1 } });
   });
 
-  it("appends reasoning to the reasoning part, creating it if absent", () => {
+  it("appends consecutive reasoning deltas to one part, creating it if absent", () => {
     let m = applyMessageEvent(base, { event: "reasoning", data: { message_id: "a1", delta: "Think" } });
-    m = applyMessageEvent(m, { event: "text", data: { message_id: "a1", delta: "Answer" } });
     m = applyMessageEvent(m, { event: "reasoning", data: { message_id: "a1", delta: "ing" } });
+    expect(m[0].parts).toEqual([{ type: "reasoning", text: "Thinking" }]);
+  });
+
+  it("starts a new reasoning part per thinking round, like the server (think → text → think)", () => {
+    let m = applyMessageEvent(base, { event: "reasoning", data: { message_id: "a1", delta: "Round 1" } });
+    m = applyMessageEvent(m, { event: "text", data: { message_id: "a1", delta: "Answer" } });
+    m = applyMessageEvent(m, { event: "reasoning", data: { message_id: "a1", delta: "Round " } });
+    m = applyMessageEvent(m, { event: "reasoning", data: { message_id: "a1", delta: "2" } });
     expect(m[0].parts).toEqual([
-      { type: "reasoning", text: "Thinking" },
+      { type: "reasoning", text: "Round 1" },
       { type: "text", text: "Answer" },
+      { type: "reasoning", text: "Round 2" },
     ]);
   });
 

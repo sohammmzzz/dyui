@@ -147,14 +147,16 @@ function appendText(parts: Part[], delta: string): Part[] {
   return [...parts, { type: "text", text: delta }];
 }
 
+/**
+ * Mirrors the server (Turn._reasoning, SPEC §4): extend the last part only if it is
+ * reasoning; otherwise a new thinking round starts a new block (think → text → think).
+ */
 function appendReasoning(parts: Part[], delta: string): Part[] {
-  for (let i = parts.length - 1; i >= 0; i--) {
-    const p = parts[i];
-    if (p.type === "reasoning") {
-      const out = parts.slice();
-      out[i] = { ...p, text: p.text + delta };
-      return out;
-    }
+  const last = parts[parts.length - 1];
+  if (last && last.type === "reasoning") {
+    const out = parts.slice();
+    out[out.length - 1] = { ...last, text: last.text + delta };
+    return out;
   }
   return [...parts, { type: "reasoning", text: delta }];
 }

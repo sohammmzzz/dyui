@@ -19,6 +19,8 @@ export type AppConfig = {
   features: { history: boolean; uploads: boolean; feedback: boolean; auth: boolean };
   authenticated: boolean;
   version: string;
+  /** upload size limit in MB (optional: older servers don't send it) */
+  max_upload_mb?: number | null;
 };
 
 export type ThreadSummary = { id: string; title: string; created_at: number; updated_at: number };

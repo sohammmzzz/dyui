@@ -21,7 +21,7 @@
 
 /* ---------- tabs ---------- */
 .dy-tabs { display: flex; flex-direction: column; gap: 12px; min-width: 0; }
-.dy-tablist-scroll { overflow-x: auto; scrollbar-width: none; margin: -3px; padding: 3px; }
+.dy-tablist-scroll { overflow-x: auto; scrollbar-width: none; margin: -3px 0; padding: 3px 0; } /* vertical room only: tab focus rings are inset */
 .dy-tablist-scroll::-webkit-scrollbar { display: none; }
 .dy-tablist {
   position: relative;
@@ -104,7 +104,7 @@
   scroll-padding: 0 2px;
   scrollbar-width: none;
   padding: 2px 2px 6px;
-  margin: -2px -2px -6px;
+  margin: -2px 0 -6px; /* vertical bleed only: a horizontal one overflows the chat column */
   overscroll-behavior-x: contain;
 }
 .dy-carousel-track::-webkit-scrollbar { display: none; }

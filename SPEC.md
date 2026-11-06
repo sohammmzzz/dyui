@@ -80,7 +80,9 @@ Named accents selectable from Python (`accent=`): `indigo` (default), `teal`, `r
 from the chosen accent with `color-mix()`.
 
 Chart palette (categorical, in order): accent, teal, `#E3809B` rose, `#E7A33E` amber,
-`#5AA6E8` sky, `#9A8CF0` lavender, `#6CC08B` green, `#B08968` clay.
+`#4F7FB8` steel, `#A65468` berry, `#6CC08B` green, `#B08968` clay. Slots 5–6 are chosen for
+colour-blind separation (ΔE2000 ≥ 9.5 from every other slot under protan/deutan/tritan
+simulation, light and dark accents); `web/src/styles/palette.test.ts` guards it.
 
 ### 1.4 Type — three voices ("design is everything")
 Typography is a primary brand surface. Never default to a single generic sans.
@@ -666,6 +668,17 @@ No UI kit; all components are hand-built against the tokens.
   polite on the streaming message, all interactive components keyboard-operable,
   reduced-motion respected, color contrast AA.
 - Responsive: sidebar becomes a drawer < 900px; composer sticky; safe-area insets.
+- URLs from props/markdown go through `web/src/lib/url.ts` (same policy as §5.1): http(s), mailto, and
+  the app's files (`api/files/<id>` or `/api/files/<id>`, resolved against the app base so sub-path
+  mounts work); javascript:/data:/vbscript:/`//host`/backslash tricks are rejected client-side too.
+  Uploads whose type the server won't serve inline (HTML, SVG, scripts…) render as download links.
+- Error responses: 409 on `/api/action` keeps the component resolved with a quiet info toast;
+  413 → "too large" (names the upload limit when `AppConfig.max_upload_mb` is sent); 429 on login →
+  "Too many attempts. Wait a moment and try again."; 401 → password gate.
+- Bundle: highlight.js loads lazily on first code block (`lib/hljs.ts`); vendor chunks for
+  react / motion / markdown. No chunk over 500 kB.
+- `npm run e2e` (`web/e2e/`, Playwright) drives `dyui demo` + fixture apps through every shell flow
+  and renders the gallery in light/dark; not part of CI.
 
 ### Shell features (v1)
 Sidebar (logo, New chat, thread list grouped Today/Yesterday/Previous 7 days/Older, rename,

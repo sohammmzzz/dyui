@@ -34,3 +34,6 @@ playwright-report/
 .codegraphx/
 .codegraphx.db
 .claude/
+
+# Playwright e2e output
+web/e2e/.results/

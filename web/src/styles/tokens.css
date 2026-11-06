@@ -156,8 +156,8 @@
   --dy-chart-2: var(--dy-teal);
   --dy-chart-3: #e3809b;
   --dy-chart-4: #e7a33e;
-  --dy-chart-5: #5aa6e8;
-  --dy-chart-6: #9a8cf0;
+  --dy-chart-5: #4f7fb8; /* steel; slots 5/6 picked for colour-blind separation */
+  --dy-chart-6: #a65468; /* berry */
   --dy-chart-7: #6cc08b;
   --dy-chart-8: #b08968;
 }

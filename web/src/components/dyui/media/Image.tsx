@@ -47,13 +47,19 @@ export function BlurImage({ src, alt, className, onLoaded, cover }: { src: strin
   );
 }
 
+/** Matches `.dy-image-frame { max-height }` in media.css. */
+const MAX_H = 440;
+
 /** `image` — blur-up on load; click to open a lightbox. */
 export function Image({ node }: DyProps) {
   const p = node.props;
   const src = safeMediaUrl(p.src ?? p.url);
   const alt = optStr(p.alt);
   const caption = optStr(p.caption);
-  const [ratio, setRatio] = useState<number | null>(null);
+  // natural size once loaded; the frame is sized from it (the <img> is absolutely
+  // positioned for the blur-up, so the frame can't shrink-wrap it)
+  const [size, setSize] = useState<{ w: number; h: number } | null>(null);
+  const ratio = size ? size.w / size.h : null;
   const [open, setOpen] = useState<number | null>(null);
   const streaming = node.status === "streaming";
   return (
@@ -64,11 +70,11 @@ export function Image({ node }: DyProps) {
             type="button"
             className="dy-image-frame"
             data-loaded={ratio ? "" : undefined}
-            style={ratio ? { aspectRatio: String(ratio) } : undefined}
+            style={size && ratio ? { aspectRatio: String(ratio), width: `min(100%, ${size.w}px, ${Math.round(MAX_H * ratio)}px)` } : undefined}
             onClick={() => ratio && setOpen(0)}
             aria-label={alt ? `Open image: ${alt}` : "Open image"}
           >
-            <BlurImage src={src} alt={alt} onLoaded={(w, h) => setRatio(w / h)} cover />
+            <BlurImage src={src} alt={alt} onLoaded={(w, h) => w > 0 && h > 0 && setSize({ w, h })} cover />
             <span className="dy-image-zoom" aria-hidden>
               <Maximize2 width={14} height={14} />
             </span>

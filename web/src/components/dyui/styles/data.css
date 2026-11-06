@@ -61,7 +61,7 @@
 .dy-th-btn:hover .dy-th-sort, .dy-th-btn:focus-visible .dy-th-sort { opacity: 1; }
 .dy-th-btn[data-active] .dy-th-sort { opacity: 1; color: var(--dy-accent); }
 .dy-th-btn[data-dir="-1"] .dy-th-sort { transform: rotate(180deg); }
-.dy-table th.is-num .dy-th-btn { justify-content: flex-end; flex-direction: row-reverse; }
+.dy-table th.is-num .dy-th-btn { justify-content: flex-start; flex-direction: row-reverse; } /* row-reverse: start = right edge */
 .dy-table td {
   padding: 10px 14px;
   border-bottom: 1px solid var(--dy-border);

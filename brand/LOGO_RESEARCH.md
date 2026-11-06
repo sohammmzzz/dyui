@@ -1,7 +1,7 @@
 # DyUI logo research
 
-> Research notes for the DyUI logo redesign (paused to focus on the build). The current
-> droplet mark in `brand/` is a placeholder until a concept is chosen.
+> Research notes for the DyUI logo redesign. **Resolved in v1 (2026-11-05):** the mark is
+> "Typing → Card" (see SPEC §1.2 and `brand/logo_design_handover/logo_design_handover.md` §6).
 
 # DyUI logo research (2026-11-04)
 

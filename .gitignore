@@ -33,3 +33,4 @@ playwright-report/
 # Local tooling
 .codegraphx/
 .codegraphx.db
+.claude/

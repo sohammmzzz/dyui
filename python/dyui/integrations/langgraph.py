@@ -13,20 +13,68 @@ __all__ = ["emit", "stream"]
 _KEY = "__dyui__"
 
 
-def emit(item: Any) -> None:
-    """Send a component (or ``{"ui": ...}`` dict) to the chat from inside a node/tool."""
+_HINT = ("On Python 3.10 pass the run explicitly: emit(item, config=config) in a node that takes "
+         "`config: RunnableConfig`, or emit(item, writer=runtime) in a tool that takes "
+         "`runtime: ToolRuntime`.")
+
+
+def emit(item: Any, writer: Any = None, *, config: Any = None) -> None:
+    """Send a component (or ``{"ui": ...}`` dict) to the chat from inside a node or tool.
+
+    On Python 3.11+ ``emit(item)`` finds the current LangGraph run by itself. On
+    **Python 3.10** LangGraph can't propagate its run context into nodes, so pass the run
+    explicitly; these forms work on every version::
+
+        from langchain_core.runnables import RunnableConfig
+        from langgraph.prebuilt import ToolRuntime
+
+        async def search(state, config: RunnableConfig):          # a graph node
+            emit(ui.Table(...), config=config)
+
+        @tool
+        def forecast(city: str, runtime: ToolRuntime) -> str:     # a tool
+            emit(ui.Chart(...), writer=runtime)
+
+    Args:
+        item: A ``ui.*`` component instance or a ``{"ui": ...}`` dict.
+        writer: A LangGraph ``StreamWriter``, or a ``Runtime`` / ``ToolRuntime`` (its
+            ``stream_writer`` and ``config`` are used).
+        config: The node's ``RunnableConfig``; makes the writer usable on Python 3.10.
+    """
+    if writer is not None and not callable(writer):  # Runtime / ToolRuntime
+        runtime = writer
+        writer = getattr(runtime, "stream_writer", None)
+        if config is None:
+            config = getattr(runtime, "config", None)
     try:
         from langgraph.config import get_stream_writer
     except ImportError:
         log.warning('dyui emit(): langgraph is not installed (pip install "dyui[langgraph]").')
         return
-    try:
-        writer = get_stream_writer()
-    except Exception:
-        log.warning("dyui emit() was called outside a LangGraph run; the component was dropped.")
-        return
-    writer({_KEY: item})
 
+    token = None
+    var = None
+    if config is not None:
+        from langchain_core.runnables.config import var_child_runnable_config as var
+
+        token = var.set(config)
+    try:
+        if writer is None:
+            try:
+                writer = get_stream_writer()
+            except Exception:
+                writer = None
+        if writer is None or not callable(writer):
+            log.warning("dyui emit() was called outside a LangGraph run; the component was dropped. %s", _HINT)
+            return
+        try:
+            writer({_KEY: item})
+        except RuntimeError as exc:  # LangGraph's writer needs the run context (Python 3.10)
+            log.warning("dyui emit(): LangGraph couldn't find the current run (%s); the component "
+                        "was dropped. %s", exc, _HINT)
+    finally:
+        if token is not None and var is not None:
+            var.reset(token)
 
 
 def _parts_of(content: Any) -> list[str | Reasoning]:

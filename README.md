@@ -13,7 +13,7 @@
 [![Docs](https://img.shields.io/badge/docs-dyui-14A394?style=flat-square)](https://sohammmzzz.github.io/dyui/)
 [![License: MIT](https://img.shields.io/badge/license-MIT-8E8C94?style=flat-square)](LICENSE)
 
-**[Documentation](https://sohammmzzz.github.io/dyui/)** · **[Quickstart](#quickstart)** · **[Components](#39-components-ready-to-render)** · **[Examples](examples/)** · **[Changelog](https://sohammmzzz.github.io/dyui/changelog/)**
+**[Documentation](https://sohammmzzz.github.io/dyui/)** · **[Quickstart](#quickstart)** · **[Components](#36-components-ready-to-render)** · **[Examples](examples/)** · **[Changelog](https://sohammmzzz.github.io/dyui/changelog/)**
 
 </div>
 
@@ -136,7 +136,7 @@ flowchart LR
     H["Your handler<br/>(any LLM · any SDK)"] -- "text stream" --> P["DyUI fence parser<br/>+ validation"]
     H -- "ui.Table(...) · chat.step(...)" --> S
     P --> S["SSE stream"]
-    S --> W["DyUI web app<br/>(39 animated components)"]
+    S --> W["DyUI web app<br/>(36 animated components)"]
     W -- "clicks · forms · approvals" --> A["@app.on_action<br/>or back to the LLM"]
     A --> H
 ```
@@ -174,7 +174,7 @@ app.catalog.only("flight", "confirm", "quick_replies")        # per turn, e.g. a
 
 `dyui catalog app.py` prints the exact prompt DyUI will send, with a token estimate.
 
-## 39 components, ready to render
+## 36 components, ready to render
 
 | group | components |
 |---|---|
@@ -231,8 +231,8 @@ for Docker, reverse proxies and hosting guides.
 
 ## Roadmap
 
+- Auto-repair loop for invalid components, and streamed tool-call arguments in `ui_mode="tools"`
 - `dyui-react` — the same components for your own React / Next.js app (npm)
-- Tool-calling render mode (one `render_<component>` tool per component)
 - Conversation branching, voice, and a side panel for long artifacts
 - Auth providers (OAuth) and multi-user workspaces
 

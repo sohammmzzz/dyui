@@ -1,0 +1,25 @@
+---
+title: Support bot
+description: Collect details with a form, report progress with live steps, then show a plan and cite sources.
+sidebar:
+  order: 3
+---
+
+import { Code } from "@astrojs/starlight/components";
+import source from "../../../../../examples/support_bot.py?raw";
+
+A scripted support flow, with no API key needed:
+
+1. A **form** collects the order number and the issue.
+2. The submission arrives in `@app.on_action("open_ticket")` with the field values in `action.values`.
+3. Two **live steps** show the lookup.
+4. A **plan** and **sources** close the turn.
+
+```bash
+pip install dyui
+dyui run examples/support_bot.py
+```
+
+To put a model in charge, replace the scripted parts with `dyui.llm.stream(...)`. The model can render the same form itself, and an unhandled `form_submit` comes back to it as a message.
+
+<Code code={source} lang="python" title="examples/support_bot.py" />

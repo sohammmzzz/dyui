@@ -1,0 +1,26 @@
+---
+title: No-LLM bot
+description: A scripted bot with components, actions, steps and approvals — no API key needed.
+sidebar:
+  order: 5
+---
+
+import { Code } from "@astrojs/starlight/components";
+import source from "../../../../../examples/no_llm.py?raw";
+
+DyUI is useful without a model too: guided flows, internal tools, demos and tests. This pizza desk uses a table, a choice, an approval, a live step and a plan.
+
+```bash
+pip install dyui
+dyui run examples/no_llm.py
+```
+
+What to look at:
+
+- **`@app.on_action("choice")`** handles the `choice` component's default action. Its `values["selected"]` is a list.
+- **`chat.ask()` inside an action handler** waits for a second click before doing the work.
+- Everything is plain Python control flow. There's no state machine to declare.
+
+<Code code={source} lang="python" title="examples/no_llm.py" />
+
+For a bigger tour, `dyui demo` runs the built-in showcase bot.

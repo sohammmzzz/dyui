@@ -1,0 +1,170 @@
+---
+import StarlightPage from "@astrojs/starlight/components/StarlightPage.astro";
+import { Code, Tabs, TabItem, Aside } from "@astrojs/starlight/components";
+import ComponentDemo from "../../components/ComponentDemo.tsx";
+import data from "../../data/components.json";
+import { inline, plain } from "../../lib/inline";
+
+export function getStaticPaths() {
+  return data.components.map((c) => ({ params: { name: c.name }, props: { c } }));
+}
+
+type Comp = (typeof data.components)[number];
+const { c } = Astro.props as { c: Comp };
+const base = import.meta.env.BASE_URL.replace(/\/?$/, "/");
+
+// default action names and the `values` each interactive component sends (web/src/components/dyui/interactive)
+const ACTIONS: Record<string, { action: string; values: string }> = {
+  choice: { action: "choice", values: '{"selected": ["…"], "other": "…"}' },
+  form: { action: "form_submit", values: '{"<field name>": <value>, …}' },
+  confirm: { action: "confirm", values: '{"confirmed": true | false}' },
+  rating: { action: "rating", values: '{"rating": 4}  (thumbs: 1 or -1)' },
+};
+
+const llmLines = (c.llm_examples.length ? c.llm_examples : []).map((e) => JSON.stringify({ ui: c.name, ...e }));
+const fence = llmLines.length ? "```dyui\n" + llmLines.join("\n") + "\n```" : "";
+const python = `from dyui import ui\n\n${c.python.map((p) => `yield ${p}`).join("\n")}`;
+const prompt = c.signature;
+const fmtDefault = (f: Comp["fields"][number]) => {
+  if (f.required) return "required";
+  if (f.default === null || f.default === undefined) return "—";
+  return JSON.stringify(f.default);
+};
+const groupLabel = { content: "Content", data: "Data", media: "Media", interactive: "Interactive", layout: "Layout", agent: "Agent", developer: "Developer-only" }[c.group];
+const all = data.components;
+const idx = all.findIndex((x) => x.name === c.name);
+const prev = all[idx - 1];
+const next = all[idx + 1];
+---
+
+<StarlightPage
+  frontmatter={{ title: c.name, description: plain(c.description) }}
+  headings={[
+    { depth: 2, slug: "preview", text: "Preview" },
+    { depth: 2, slug: "usage", text: "Usage" },
+    { depth: 2, slug: "props", text: "Props" },
+    ...(ACTIONS[c.name] || c.group === "interactive" ? [{ depth: 2, slug: "actions", text: "Actions" }] : []),
+  ]}
+  prev={prev ? { label: prev.name, link: `${base}components/${prev.name}/` } : undefined}
+  next={next ? { label: next.name, link: `${base}components/${next.name}/` } : undefined}
+>
+  <p class="cp-lede" set:html={inline(c.details ? `${c.description} ${c.details}` : c.description)} />
+  <p class="cp-meta">
+    <span>Python: <code>ui.{c.class}</code></span>
+    <span>Group: <a href={`${base}components/#${c.group}`}>{groupLabel}</a></span>
+    {!c.llm && <span>Never offered to the model</span>}
+  </p>
+
+  <h2 id="preview">Preview</h2>
+  <ComponentDemo name={c.name} client:visible />
+
+  <h2 id="usage">Usage</h2>
+  <Tabs syncKey="usage">
+    <TabItem label="Python">
+      <p>Yield it from any handler (<code>@app.on_message</code>, <code>@app.on_action</code>…) or pass it to <code>chat.send()</code>.</p>
+      <Code code={python} lang="python" />
+    </TabItem>
+    {
+      c.llm && (
+        <TabItem label="What the model writes">
+          <p>Inside a reply, the model writes one JSON object per line in a <code>dyui</code> fence. DyUI validates it with the same pydantic model.</p>
+          {fence ? <Code code={fence} lang="md" /> : <Code code={`\`\`\`dyui\n{"ui":"${c.name}", …}\n\`\`\``} lang="md" />}
+        </TabItem>
+      )
+    }
+    {
+      c.llm && (
+        <TabItem label="Prompt line">
+          <p>This is the line DyUI adds to the system prompt for this component. <code>dyui catalog app.py</code> prints the whole section.</p>
+          <Code code={prompt} lang="ts" wrap />
+        </TabItem>
+      )
+    }
+  </Tabs>
+
+  <h2 id="props">Props</h2>
+  <div class="cp-table-wrap">
+    <table class="cp-props">
+      <thead>
+        <tr><th scope="col">Prop</th><th scope="col">Type</th><th scope="col">Default</th></tr>
+      </thead>
+      <tbody>
+        {
+          c.fields.map((f) => (
+            <tr>
+              <td>
+                <code>{f.name}</code>
+                {f.positional && <span class="cp-tag" title="Can be passed positionally in Python">positional</span>}
+              </td>
+              <td><code class="cp-type">{f.type}</code></td>
+              <td class={f.required ? "cp-req" : ""}>{fmtDefault(f)}</td>
+            </tr>
+          ))
+        }
+      </tbody>
+    </table>
+  </div>
+  {
+    (c.positional.length > 0 || c.varargs) && (
+      <p class="cp-note">
+        In Python,{" "}
+        {c.positional.length > 0 && (
+          <>
+            {c.positional.map((p, i) => (
+              <>
+                {i > 0 && ", "}
+                <code>{p}</code>
+              </>
+            ))}{" "}
+            {c.positional.length === 1 ? "is" : "are"} accepted positionally
+          </>
+        )}
+        {c.positional.length > 0 && c.varargs && "; "}
+        {c.varargs && (
+          <>
+            remaining positional arguments are collected into <code>{c.varargs}</code>
+          </>
+        )}
+        .
+      </p>
+    )
+  }
+
+  {
+    ACTIONS[c.name] && (
+      <>
+        <h2 id="actions">Actions</h2>
+        <p>
+          When the user responds, the component sends the action <code>{ACTIONS[c.name].action}</code> (override it with the{" "}
+          <code>action</code> prop) with these values:
+        </p>
+        <Code code={ACTIONS[c.name].values} lang="json" />
+        <p>
+          Handle it with <code>@app.on_action("{ACTIONS[c.name].action}")</code>, wait for it with <code>await chat.ask(...)</code>, or leave it
+          unhandled and the model receives it as a message. See <a href={`${base}concepts/actions/`}>Actions &amp; human-in-the-loop</a>.
+        </p>
+      </>
+    )
+  }
+  {
+    !ACTIONS[c.name] && c.group === "interactive" && (
+      <>
+        <h2 id="actions">Actions</h2>
+        <p>
+          {c.name === "quick_replies"
+            ? "Tapping an option sends its text as a normal user message — no action route is involved."
+            : "Each button sends its own action name with its static data."}{" "}
+          See <a href={`${base}concepts/actions/`}>Actions &amp; human-in-the-loop</a>.
+        </p>
+      </>
+    )
+  }
+  {
+    c.name === "html" && (
+      <Aside type="caution" title="Developer-only">
+        The model can never produce <code>html</code>. It renders in an <code>&lt;iframe sandbox="allow-scripts"&gt;</code> without
+        same-origin access. To render a template file, use <code>dyui.html_template("cards/flight.html", airline="TAP")</code>.
+      </Aside>
+    )
+  }
+</StarlightPage>

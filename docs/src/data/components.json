@@ -1,0 +1,1743 @@
+{
+  "version": "1.0.0",
+  "components": [
+    {
+      "name": "markdown",
+      "class": "Markdown",
+      "group": "content",
+      "llm": true,
+      "description": "Rich text (Markdown) inside layouts.",
+      "details": "Use it to place prose inside a `card`, `grid`, `tabs` or `accordion`. Raw HTML in the Markdown is never rendered.",
+      "signature": "markdown(text: string) — Rich text (Markdown) inside layouts.",
+      "positional": [
+        "text"
+      ],
+      "varargs": null,
+      "fields": [
+        {
+          "name": "text",
+          "type": "string",
+          "required": true,
+          "default": null,
+          "positional": true,
+          "description": ""
+        }
+      ],
+      "python": [
+        "ui.Markdown(\"**Two nights** in Alfama, then a day in Sintra.\")"
+      ],
+      "llm_examples": [
+        {
+          "text": "**Note:** prices include taxes."
+        }
+      ]
+    },
+    {
+      "name": "callout",
+      "class": "Callout",
+      "group": "content",
+      "llm": true,
+      "description": "A tinted note for tips, warnings and outcomes.",
+      "details": "",
+      "signature": "callout(text: string, level?: \"info\"|\"success\"|\"warning\"|\"error\", title?: string) — A tinted note for tips, warnings and outcomes.",
+      "positional": [
+        "text"
+      ],
+      "varargs": null,
+      "fields": [
+        {
+          "name": "text",
+          "type": "string",
+          "required": true,
+          "default": null,
+          "positional": true,
+          "description": ""
+        },
+        {
+          "name": "level",
+          "type": "\"info\"|\"success\"|\"warning\"|\"error\"",
+          "required": false,
+          "default": "info",
+          "positional": false,
+          "description": ""
+        },
+        {
+          "name": "title",
+          "type": "string",
+          "required": false,
+          "default": null,
+          "positional": false,
+          "description": ""
+        }
+      ],
+      "python": [
+        "ui.Callout(\"Your booking is confirmed.\", level=\"success\", title=\"Done\")"
+      ],
+      "llm_examples": [
+        {
+          "text": "Prices may change before checkout.",
+          "level": "warning"
+        }
+      ]
+    },
+    {
+      "name": "code",
+      "class": "Code",
+      "group": "content",
+      "llm": true,
+      "description": "A code snippet with syntax highlighting and a copy button.",
+      "details": "",
+      "signature": "code(code: string, language?: string, filename?: string) — A code snippet with syntax highlighting and a copy button.",
+      "positional": [
+        "code"
+      ],
+      "varargs": null,
+      "fields": [
+        {
+          "name": "code",
+          "type": "string",
+          "required": true,
+          "default": null,
+          "positional": true,
+          "description": ""
+        },
+        {
+          "name": "language",
+          "type": "string",
+          "required": false,
+          "default": null,
+          "positional": false,
+          "description": ""
+        },
+        {
+          "name": "filename",
+          "type": "string",
+          "required": false,
+          "default": null,
+          "positional": false,
+          "description": ""
+        }
+      ],
+      "python": [
+        "ui.Code(\"pip install dyui\", language=\"bash\")"
+      ],
+      "llm_examples": [
+        {
+          "code": "pip install dyui",
+          "language": "bash"
+        }
+      ]
+    },
+    {
+      "name": "quote",
+      "class": "Quote",
+      "group": "content",
+      "llm": true,
+      "description": "A quotation with attribution.",
+      "details": "",
+      "signature": "quote(text: string, author?: string, source?: string) — A quotation with attribution.",
+      "positional": [
+        "text"
+      ],
+      "varargs": null,
+      "fields": [
+        {
+          "name": "text",
+          "type": "string",
+          "required": true,
+          "default": null,
+          "positional": true,
+          "description": ""
+        },
+        {
+          "name": "author",
+          "type": "string",
+          "required": false,
+          "default": null,
+          "positional": false,
+          "description": ""
+        },
+        {
+          "name": "source",
+          "type": "string",
+          "required": false,
+          "default": null,
+          "positional": false,
+          "description": ""
+        }
+      ],
+      "python": [
+        "ui.Quote(\"Simplicity is the ultimate sophistication.\", author=\"Leonardo da Vinci\")"
+      ],
+      "llm_examples": []
+    },
+    {
+      "name": "sources",
+      "class": "Sources",
+      "group": "content",
+      "llm": true,
+      "description": "Numbered source citations.",
+      "details": "",
+      "signature": "sources(items: {title?: string, url: string, snippet?: string}[]) — Numbered source citations.",
+      "positional": [],
+      "varargs": "items",
+      "fields": [
+        {
+          "name": "items",
+          "type": "{title?: string, url: string, snippet?: string}[]",
+          "required": true,
+          "default": null,
+          "positional": true,
+          "description": ""
+        }
+      ],
+      "python": [
+        "ui.Sources(ui.Source(\"DyUI docs\", \"https://example.com/docs\"))"
+      ],
+      "llm_examples": [
+        {
+          "items": [
+            {
+              "title": "Lisbon travel guide",
+              "url": "https://example.com/lisbon"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "badges",
+      "class": "Badges",
+      "group": "content",
+      "llm": true,
+      "description": "A row of small labels or tags.",
+      "details": "",
+      "signature": "badges(items: {label: string, color?: \"gray\"|\"accent\"|\"green\"|\"amber\"|\"red\"|\"blue\"|\"violet\"}[]) — A row of small labels or tags.",
+      "positional": [],
+      "varargs": "items",
+      "fields": [
+        {
+          "name": "items",
+          "type": "{label: string, color?: \"gray\"|\"accent\"|\"green\"|\"amber\"|\"red\"|\"blue\"|\"violet\"}[]",
+          "required": true,
+          "default": null,
+          "positional": true,
+          "description": ""
+        }
+      ],
+      "python": [
+        "ui.Badges(\"Beta\", ui.Badge(\"Paid\", color=\"green\"))"
+      ],
+      "llm_examples": []
+    },
+    {
+      "name": "divider",
+      "class": "Divider",
+      "group": "content",
+      "llm": true,
+      "description": "A horizontal separator, optionally labeled.",
+      "details": "",
+      "signature": "divider(label?: string) — A horizontal separator, optionally labeled.",
+      "positional": [
+        "label"
+      ],
+      "varargs": null,
+      "fields": [
+        {
+          "name": "label",
+          "type": "string",
+          "required": false,
+          "default": null,
+          "positional": true,
+          "description": ""
+        }
+      ],
+      "python": [
+        "ui.Divider(\"Results\")"
+      ],
+      "llm_examples": []
+    },
+    {
+      "name": "table",
+      "class": "Table",
+      "group": "data",
+      "llm": true,
+      "description": "Tabular data; use for 3+ rows.",
+      "details": "Rows may also be given as a list of dicts (columns are taken from the keys).",
+      "signature": "table(columns: string[], rows: (string|number)[][], caption?: string) — Tabular data; use for 3+ rows.",
+      "positional": [
+        "columns",
+        "rows"
+      ],
+      "varargs": null,
+      "fields": [
+        {
+          "name": "columns",
+          "type": "string[]",
+          "required": true,
+          "default": null,
+          "positional": true,
+          "description": ""
+        },
+        {
+          "name": "rows",
+          "type": "(string|number)[][]",
+          "required": true,
+          "default": null,
+          "positional": true,
+          "description": ""
+        },
+        {
+          "name": "caption",
+          "type": "string",
+          "required": false,
+          "default": null,
+          "positional": false,
+          "description": ""
+        }
+      ],
+      "python": [
+        "ui.Table([\"City\", \"Temp\"], [[\"Lisbon\", 24], [\"Porto\", 21]])"
+      ],
+      "llm_examples": [
+        {
+          "columns": [
+            "Plan",
+            "Price"
+          ],
+          "rows": [
+            [
+              "Starter",
+              "$9"
+            ],
+            [
+              "Pro",
+              "$29"
+            ]
+          ]
+        }
+      ]
+    },
+    {
+      "name": "stat",
+      "class": "Stat",
+      "group": "data",
+      "llm": true,
+      "description": "One headline number.",
+      "details": "`trend` is inferred from a signed `delta` (`+12%` → up) when omitted.",
+      "signature": "stat(label: string, value: string|number, unit?: string, delta?: string, trend?: \"up\"|\"down\"|\"flat\", help?: string) — One headline number.",
+      "positional": [
+        "label",
+        "value"
+      ],
+      "varargs": null,
+      "fields": [
+        {
+          "name": "label",
+          "type": "string",
+          "required": true,
+          "default": null,
+          "positional": true,
+          "description": ""
+        },
+        {
+          "name": "value",
+          "type": "string|number",
+          "required": true,
+          "default": null,
+          "positional": true,
+          "description": ""
+        },
+        {
+          "name": "unit",
+          "type": "string",
+          "required": false,
+          "default": null,
+          "positional": false,
+          "description": ""
+        },
+        {
+          "name": "delta",
+          "type": "string",
+          "required": false,
+          "default": null,
+          "positional": false,
+          "description": ""
+        },
+        {
+          "name": "trend",
+          "type": "\"up\"|\"down\"|\"flat\"",
+          "required": false,
+          "default": null,
+          "positional": false,
+          "description": ""
+        },
+        {
+          "name": "help",
+          "type": "string",
+          "required": false,
+          "default": null,
+          "positional": false,
+          "description": ""
+        }
+      ],
+      "python": [
+        "ui.Stat(\"Revenue\", \"$48.2k\", delta=\"+12%\")"
+      ],
+      "llm_examples": [
+        {
+          "label": "Revenue",
+          "value": "$48.2k",
+          "delta": "+12%",
+          "trend": "up"
+        }
+      ]
+    },
+    {
+      "name": "stats",
+      "class": "Stats",
+      "group": "data",
+      "llm": true,
+      "description": "A responsive row of headline numbers.",
+      "details": "",
+      "signature": "stats(items: stat[]) — A responsive row of headline numbers.",
+      "positional": [],
+      "varargs": "items",
+      "fields": [
+        {
+          "name": "items",
+          "type": "stat[]",
+          "required": true,
+          "default": null,
+          "positional": true,
+          "description": ""
+        }
+      ],
+      "python": [
+        "ui.Stats(ui.Stat(\"Orders\", 1284), ui.Stat(\"AOV\", \"$37.50\"))"
+      ],
+      "llm_examples": [
+        {
+          "items": [
+            {
+              "label": "Orders",
+              "value": 1284
+            },
+            {
+              "label": "Churn",
+              "value": "2.1%",
+              "delta": "-0.4pt"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "keyvalue",
+      "class": "KeyValue",
+      "group": "data",
+      "llm": true,
+      "description": "Labeled facts as key/value pairs.",
+      "details": "Accepts `items=[{key, value}]`, a plain dict, or `data={k: v}`.",
+      "signature": "keyvalue(items: {key: string, value?: string|number|boolean}[]) — Labeled facts as key/value pairs.",
+      "positional": [
+        "items"
+      ],
+      "varargs": null,
+      "fields": [
+        {
+          "name": "items",
+          "type": "{key: string, value?: string|number|boolean}[]",
+          "required": true,
+          "default": null,
+          "positional": true,
+          "description": ""
+        }
+      ],
+      "python": [
+        "ui.KeyValue({\"Status\": \"Open\", \"Priority\": \"High\"})"
+      ],
+      "llm_examples": [
+        {
+          "items": [
+            {
+              "key": "Status",
+              "value": "Open"
+            },
+            {
+              "key": "Owner",
+              "value": "Ana"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "chart",
+      "class": "Chart",
+      "group": "data",
+      "llm": true,
+      "description": "A chart: bar/line/area for trends and comparisons, pie/donut for shares, scatter for x/y.",
+      "details": "",
+      "signature": "chart(kind: \"bar\"|\"line\"|\"area\"|\"pie\"|\"donut\"|\"scatter\", labels?: string[], series: {name?: string, data: number[]|[number,number][]}[], title?: string, unit?: string, stacked?: boolean) — A chart: bar/line/area for trends and comparisons, pie/donut for shares, scatter for x/y.",
+      "positional": [
+        "kind",
+        "series"
+      ],
+      "varargs": null,
+      "fields": [
+        {
+          "name": "kind",
+          "type": "\"bar\"|\"line\"|\"area\"|\"pie\"|\"donut\"|\"scatter\"",
+          "required": true,
+          "default": null,
+          "positional": true,
+          "description": ""
+        },
+        {
+          "name": "labels",
+          "type": "string[]",
+          "required": false,
+          "default": null,
+          "positional": false,
+          "description": ""
+        },
+        {
+          "name": "series",
+          "type": "{name?: string, data: number[]|[number,number][]}[]",
+          "required": true,
+          "default": null,
+          "positional": true,
+          "description": ""
+        },
+        {
+          "name": "title",
+          "type": "string",
+          "required": false,
+          "default": null,
+          "positional": false,
+          "description": ""
+        },
+        {
+          "name": "unit",
+          "type": "string",
+          "required": false,
+          "default": null,
+          "positional": false,
+          "description": ""
+        },
+        {
+          "name": "stacked",
+          "type": "boolean",
+          "required": false,
+          "default": null,
+          "positional": false,
+          "description": ""
+        }
+      ],
+      "python": [
+        "ui.Chart(\"bar\", [ui.Series(\"Revenue\", [12, 18, 24])], labels=[\"Jul\", \"Aug\", \"Sep\"])"
+      ],
+      "llm_examples": [
+        {
+          "kind": "bar",
+          "labels": [
+            "Jul",
+            "Aug",
+            "Sep"
+          ],
+          "series": [
+            {
+              "name": "Revenue",
+              "data": [
+                42,
+                51,
+                58
+              ]
+            }
+          ],
+          "unit": "$k"
+        }
+      ]
+    },
+    {
+      "name": "progress",
+      "class": "Progress",
+      "group": "data",
+      "llm": true,
+      "description": "Progress toward a goal.",
+      "details": "",
+      "signature": "progress(value: number, max?: number, label?: string) — Progress toward a goal.",
+      "positional": [
+        "value"
+      ],
+      "varargs": null,
+      "fields": [
+        {
+          "name": "value",
+          "type": "number",
+          "required": true,
+          "default": null,
+          "positional": true,
+          "description": ""
+        },
+        {
+          "name": "max",
+          "type": "number",
+          "required": false,
+          "default": 100,
+          "positional": false,
+          "description": ""
+        },
+        {
+          "name": "label",
+          "type": "string",
+          "required": false,
+          "default": null,
+          "positional": false,
+          "description": ""
+        }
+      ],
+      "python": [
+        "ui.Progress(64, label=\"Upload\")"
+      ],
+      "llm_examples": [
+        {
+          "value": 64,
+          "label": "Profile complete"
+        }
+      ]
+    },
+    {
+      "name": "timeline",
+      "class": "Timeline",
+      "group": "data",
+      "llm": true,
+      "description": "Events or steps in time order.",
+      "details": "",
+      "signature": "timeline(items: {title: string, time?: string, text?: string, status?: \"done\"|\"active\"|\"pending\"}[]) — Events or steps in time order.",
+      "positional": [],
+      "varargs": "items",
+      "fields": [
+        {
+          "name": "items",
+          "type": "{title: string, time?: string, text?: string, status?: \"done\"|\"active\"|\"pending\"}[]",
+          "required": true,
+          "default": null,
+          "positional": true,
+          "description": ""
+        }
+      ],
+      "python": [
+        "ui.Timeline(ui.TimelineItem(\"Ordered\", \"Mon\"), ui.TimelineItem(\"Shipped\", \"Tue\"))"
+      ],
+      "llm_examples": [
+        {
+          "items": [
+            {
+              "title": "Order placed",
+              "time": "Mon 09:12",
+              "status": "done"
+            },
+            {
+              "title": "Out for delivery",
+              "time": "Today",
+              "status": "active"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "json",
+      "class": "Json",
+      "group": "data",
+      "llm": true,
+      "description": "Raw structured data as a collapsible tree.",
+      "details": "",
+      "signature": "json(data: any, title?: string) — Raw structured data as a collapsible tree.",
+      "positional": [
+        "data"
+      ],
+      "varargs": null,
+      "fields": [
+        {
+          "name": "data",
+          "type": "any",
+          "required": true,
+          "default": null,
+          "positional": true,
+          "description": ""
+        },
+        {
+          "name": "title",
+          "type": "string",
+          "required": false,
+          "default": null,
+          "positional": false,
+          "description": ""
+        }
+      ],
+      "python": [
+        "ui.Json({\"id\": 42, \"tags\": [\"a\", \"b\"]}, title=\"Response\")"
+      ],
+      "llm_examples": []
+    },
+    {
+      "name": "image",
+      "class": "Image",
+      "group": "media",
+      "llm": true,
+      "description": "A single image.",
+      "details": "",
+      "signature": "image(src: string, alt?: string, caption?: string) — A single image.",
+      "positional": [
+        "src"
+      ],
+      "varargs": null,
+      "fields": [
+        {
+          "name": "src",
+          "type": "string",
+          "required": true,
+          "default": null,
+          "positional": true,
+          "description": ""
+        },
+        {
+          "name": "alt",
+          "type": "string",
+          "required": false,
+          "default": null,
+          "positional": false,
+          "description": ""
+        },
+        {
+          "name": "caption",
+          "type": "string",
+          "required": false,
+          "default": null,
+          "positional": false,
+          "description": ""
+        }
+      ],
+      "python": [
+        "ui.Image(\"https://example.com/lisbon.jpg\", alt=\"Lisbon at dusk\")"
+      ],
+      "llm_examples": [
+        {
+          "src": "https://example.com/photo.jpg",
+          "alt": "Tram 28 in Alfama"
+        }
+      ]
+    },
+    {
+      "name": "gallery",
+      "class": "Gallery",
+      "group": "media",
+      "llm": true,
+      "description": "A grid of images.",
+      "details": "",
+      "signature": "gallery(images: {src: string, alt?: string, caption?: string}[]) — A grid of images.",
+      "positional": [],
+      "varargs": "images",
+      "fields": [
+        {
+          "name": "images",
+          "type": "{src: string, alt?: string, caption?: string}[]",
+          "required": true,
+          "default": null,
+          "positional": true,
+          "description": ""
+        }
+      ],
+      "python": [
+        "ui.Gallery(\"https://example.com/a.jpg\", \"https://example.com/b.jpg\")"
+      ],
+      "llm_examples": []
+    },
+    {
+      "name": "video",
+      "class": "Video",
+      "group": "media",
+      "llm": true,
+      "description": "A video; YouTube/Vimeo links are embedded.",
+      "details": "",
+      "signature": "video(src: string, poster?: string, caption?: string) — A video; YouTube/Vimeo links are embedded.",
+      "positional": [
+        "src"
+      ],
+      "varargs": null,
+      "fields": [
+        {
+          "name": "src",
+          "type": "string",
+          "required": true,
+          "default": null,
+          "positional": true,
+          "description": ""
+        },
+        {
+          "name": "poster",
+          "type": "string",
+          "required": false,
+          "default": null,
+          "positional": false,
+          "description": ""
+        },
+        {
+          "name": "caption",
+          "type": "string",
+          "required": false,
+          "default": null,
+          "positional": false,
+          "description": ""
+        }
+      ],
+      "python": [
+        "ui.Video(\"https://www.youtube.com/watch?v=dQw4w9WgXcQ\")"
+      ],
+      "llm_examples": []
+    },
+    {
+      "name": "audio",
+      "class": "Audio",
+      "group": "media",
+      "llm": true,
+      "description": "An audio player.",
+      "details": "",
+      "signature": "audio(src: string, title?: string) — An audio player.",
+      "positional": [
+        "src"
+      ],
+      "varargs": null,
+      "fields": [
+        {
+          "name": "src",
+          "type": "string",
+          "required": true,
+          "default": null,
+          "positional": true,
+          "description": ""
+        },
+        {
+          "name": "title",
+          "type": "string",
+          "required": false,
+          "default": null,
+          "positional": false,
+          "description": ""
+        }
+      ],
+      "python": [
+        "ui.Audio(\"https://example.com/episode.mp3\", title=\"Episode 12\")"
+      ],
+      "llm_examples": []
+    },
+    {
+      "name": "file",
+      "class": "File",
+      "group": "media",
+      "llm": true,
+      "description": "A downloadable file.",
+      "details": "",
+      "signature": "file(name: string, url: string, size?: number|string, type?: string) — A downloadable file.",
+      "positional": [
+        "name",
+        "url"
+      ],
+      "varargs": null,
+      "fields": [
+        {
+          "name": "name",
+          "type": "string",
+          "required": true,
+          "default": null,
+          "positional": true,
+          "description": ""
+        },
+        {
+          "name": "url",
+          "type": "string",
+          "required": true,
+          "default": null,
+          "positional": true,
+          "description": ""
+        },
+        {
+          "name": "size",
+          "type": "number|string",
+          "required": false,
+          "default": null,
+          "positional": false,
+          "description": ""
+        },
+        {
+          "name": "type",
+          "type": "string",
+          "required": false,
+          "default": null,
+          "positional": false,
+          "description": ""
+        }
+      ],
+      "python": [
+        "ui.File(\"report.pdf\", \"/api/files/f_123\", size=48213, type=\"application/pdf\")"
+      ],
+      "llm_examples": []
+    },
+    {
+      "name": "link_preview",
+      "class": "LinkPreview",
+      "group": "media",
+      "llm": true,
+      "description": "A rich preview card for one link.",
+      "details": "",
+      "signature": "link_preview(url: string, title?: string, description?: string, image?: string, site?: string) — A rich preview card for one link.",
+      "positional": [
+        "url"
+      ],
+      "varargs": null,
+      "fields": [
+        {
+          "name": "url",
+          "type": "string",
+          "required": true,
+          "default": null,
+          "positional": true,
+          "description": ""
+        },
+        {
+          "name": "title",
+          "type": "string",
+          "required": false,
+          "default": null,
+          "positional": false,
+          "description": ""
+        },
+        {
+          "name": "description",
+          "type": "string",
+          "required": false,
+          "default": null,
+          "positional": false,
+          "description": ""
+        },
+        {
+          "name": "image",
+          "type": "string",
+          "required": false,
+          "default": null,
+          "positional": false,
+          "description": ""
+        },
+        {
+          "name": "site",
+          "type": "string",
+          "required": false,
+          "default": null,
+          "positional": false,
+          "description": ""
+        }
+      ],
+      "python": [
+        "ui.LinkPreview(\"https://example.com\", title=\"Example\", site=\"example.com\")"
+      ],
+      "llm_examples": []
+    },
+    {
+      "name": "buttons",
+      "class": "Buttons",
+      "group": "interactive",
+      "llm": true,
+      "description": "Action buttons; the click is sent back to you.",
+      "details": "",
+      "signature": "buttons(items: {label: string, action: string, data?: object, style?: \"primary\"|\"secondary\"|\"ghost\"|\"danger\"}[]) — Action buttons; the click is sent back to you.",
+      "positional": [],
+      "varargs": "items",
+      "fields": [
+        {
+          "name": "items",
+          "type": "{label: string, action: string, data?: object, style?: \"primary\"|\"secondary\"|\"ghost\"|\"danger\"}[]",
+          "required": true,
+          "default": null,
+          "positional": true,
+          "description": ""
+        }
+      ],
+      "python": [
+        "ui.Buttons(ui.Button(\"Approve\", action=\"approve\", style=\"primary\"), ui.Button(\"Reject\", action=\"reject\"))"
+      ],
+      "llm_examples": [
+        {
+          "items": [
+            {
+              "label": "Approve",
+              "action": "approve",
+              "style": "primary"
+            },
+            {
+              "label": "Reject",
+              "action": "reject"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "quick_replies",
+      "class": "QuickReplies",
+      "group": "interactive",
+      "llm": true,
+      "description": "Suggested follow-up replies the user can tap.",
+      "details": "Tapping sends the option text as a normal user message.",
+      "signature": "quick_replies(options: string[]) — Suggested follow-up replies the user can tap.",
+      "positional": [],
+      "varargs": "options",
+      "fields": [
+        {
+          "name": "options",
+          "type": "string[]",
+          "required": true,
+          "default": null,
+          "positional": true,
+          "description": ""
+        }
+      ],
+      "python": [
+        "ui.QuickReplies(\"Show hotels\", \"Book the cheaper one\")"
+      ],
+      "llm_examples": [
+        {
+          "options": [
+            "Show hotels too",
+            "Book the cheaper one"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "choice",
+      "class": "Choice",
+      "group": "interactive",
+      "llm": true,
+      "description": "A single- or multiple-choice question.",
+      "details": "Values sent back: `{\"selected\": [...], \"other\": \"...\"}`.",
+      "signature": "choice(question: string, options: string[], multiple?: boolean, allow_other?: boolean, action?: string, submit_label?: string) — A single- or multiple-choice question.",
+      "positional": [
+        "question",
+        "options"
+      ],
+      "varargs": null,
+      "fields": [
+        {
+          "name": "question",
+          "type": "string",
+          "required": true,
+          "default": null,
+          "positional": true,
+          "description": ""
+        },
+        {
+          "name": "options",
+          "type": "string[]",
+          "required": true,
+          "default": null,
+          "positional": true,
+          "description": ""
+        },
+        {
+          "name": "multiple",
+          "type": "boolean",
+          "required": false,
+          "default": null,
+          "positional": false,
+          "description": ""
+        },
+        {
+          "name": "allow_other",
+          "type": "boolean",
+          "required": false,
+          "default": null,
+          "positional": false,
+          "description": ""
+        },
+        {
+          "name": "action",
+          "type": "string",
+          "required": false,
+          "default": "choice",
+          "positional": false,
+          "description": ""
+        },
+        {
+          "name": "submit_label",
+          "type": "string",
+          "required": false,
+          "default": null,
+          "positional": false,
+          "description": ""
+        }
+      ],
+      "python": [
+        "ui.Choice(\"Which seat?\", [\"Window\", \"Aisle\"])"
+      ],
+      "llm_examples": [
+        {
+          "question": "Which seat do you prefer?",
+          "options": [
+            "Window",
+            "Aisle"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "form",
+      "class": "Form",
+      "group": "interactive",
+      "llm": true,
+      "description": "A form to collect structured input.",
+      "details": "Values sent back: `{<field name>: value}`.",
+      "signature": "form(title?: string, fields: {name: string, label?: string, type?: \"text\"|\"textarea\"|\"number\"|\"email\"|\"select\"|\"multiselect\"|\"date\"|\"time\"|\"checkbox\"|\"radio\"|\"slider\", options?: string[], required?: boolean, placeholder?: string, default?: string|number|boolean|string[], min?: number, max?: number, step?: number}[], submit_label?: string, action?: string) — A form to collect structured input.",
+      "positional": [
+        "title"
+      ],
+      "varargs": "fields",
+      "fields": [
+        {
+          "name": "title",
+          "type": "string",
+          "required": false,
+          "default": null,
+          "positional": true,
+          "description": ""
+        },
+        {
+          "name": "fields",
+          "type": "{name: string, label?: string, type?: \"text\"|\"textarea\"|\"number\"|\"email\"|\"select\"|\"multiselect\"|\"date\"|\"time\"|\"checkbox\"|\"radio\"|\"slider\", options?: string[], required?: boolean, placeholder?: string, default?: string|number|boolean|string[], min?: number, max?: number, step?: number}[]",
+          "required": true,
+          "default": null,
+          "positional": true,
+          "description": ""
+        },
+        {
+          "name": "submit_label",
+          "type": "string",
+          "required": false,
+          "default": "Submit",
+          "positional": false,
+          "description": ""
+        },
+        {
+          "name": "action",
+          "type": "string",
+          "required": false,
+          "default": "form_submit",
+          "positional": false,
+          "description": ""
+        }
+      ],
+      "python": [
+        "ui.Form(ui.Field(\"name\"), ui.Field(\"email\", type=\"email\"), title=\"Contact\", action=\"contact\")"
+      ],
+      "llm_examples": [
+        {
+          "title": "Contact details",
+          "fields": [
+            {
+              "name": "email",
+              "label": "Email",
+              "type": "email",
+              "required": true
+            }
+          ],
+          "submit_label": "Send"
+        }
+      ]
+    },
+    {
+      "name": "confirm",
+      "class": "Confirm",
+      "group": "interactive",
+      "llm": true,
+      "description": "Ask the user to confirm or cancel an action.",
+      "details": "Values sent back: `{\"confirmed\": true|false}`.",
+      "signature": "confirm(title: string, text?: string, confirm_label?: string, cancel_label?: string, action?: string, data?: object, danger?: boolean) — Ask the user to confirm or cancel an action.",
+      "positional": [
+        "title"
+      ],
+      "varargs": null,
+      "fields": [
+        {
+          "name": "title",
+          "type": "string",
+          "required": true,
+          "default": null,
+          "positional": true,
+          "description": ""
+        },
+        {
+          "name": "text",
+          "type": "string",
+          "required": false,
+          "default": null,
+          "positional": false,
+          "description": ""
+        },
+        {
+          "name": "confirm_label",
+          "type": "string",
+          "required": false,
+          "default": "Confirm",
+          "positional": false,
+          "description": ""
+        },
+        {
+          "name": "cancel_label",
+          "type": "string",
+          "required": false,
+          "default": "Cancel",
+          "positional": false,
+          "description": ""
+        },
+        {
+          "name": "action",
+          "type": "string",
+          "required": false,
+          "default": "confirm",
+          "positional": false,
+          "description": ""
+        },
+        {
+          "name": "data",
+          "type": "object",
+          "required": false,
+          "default": null,
+          "positional": false,
+          "description": ""
+        },
+        {
+          "name": "danger",
+          "type": "boolean",
+          "required": false,
+          "default": null,
+          "positional": false,
+          "description": ""
+        }
+      ],
+      "python": [
+        "ui.Confirm(\"Book TAP 18:05 for $189?\", confirm_label=\"Book\", data={\"flight\": \"TP123\"})"
+      ],
+      "llm_examples": [
+        {
+          "title": "Cancel the subscription?",
+          "text": "You keep access until May 31.",
+          "danger": true
+        }
+      ]
+    },
+    {
+      "name": "rating",
+      "class": "Rating",
+      "group": "interactive",
+      "llm": true,
+      "description": "Ask the user for a rating.",
+      "details": "Values sent back: `{\"rating\": n}` (`1`/`-1` for thumbs).",
+      "signature": "rating(label?: string, max?: number, style?: \"stars\"|\"thumbs\", action?: string) — Ask the user for a rating.",
+      "positional": [
+        "label"
+      ],
+      "varargs": null,
+      "fields": [
+        {
+          "name": "label",
+          "type": "string",
+          "required": false,
+          "default": null,
+          "positional": true,
+          "description": ""
+        },
+        {
+          "name": "max",
+          "type": "number",
+          "required": false,
+          "default": 5,
+          "positional": false,
+          "description": ""
+        },
+        {
+          "name": "style",
+          "type": "\"stars\"|\"thumbs\"",
+          "required": false,
+          "default": null,
+          "positional": false,
+          "description": ""
+        },
+        {
+          "name": "action",
+          "type": "string",
+          "required": false,
+          "default": "rating",
+          "positional": false,
+          "description": ""
+        }
+      ],
+      "python": [
+        "ui.Rating(\"How was this answer?\")"
+      ],
+      "llm_examples": []
+    },
+    {
+      "name": "card",
+      "class": "Card",
+      "group": "layout",
+      "llm": true,
+      "description": "A container with a title, children and action buttons.",
+      "details": "The default container. Leading string arguments set the title; component arguments become children (extra strings become markdown children).",
+      "signature": "card(title?: string, subtitle?: string, image?: string, badge?: string, children?: component[], actions?: {label: string, action: string, data?: object, style?: \"primary\"|\"secondary\"|\"ghost\"|\"danger\"}[]) — A container with a title, children and action buttons.",
+      "positional": [
+        "title"
+      ],
+      "varargs": "children",
+      "fields": [
+        {
+          "name": "title",
+          "type": "string",
+          "required": false,
+          "default": null,
+          "positional": true,
+          "description": ""
+        },
+        {
+          "name": "subtitle",
+          "type": "string",
+          "required": false,
+          "default": null,
+          "positional": false,
+          "description": ""
+        },
+        {
+          "name": "image",
+          "type": "string",
+          "required": false,
+          "default": null,
+          "positional": false,
+          "description": ""
+        },
+        {
+          "name": "badge",
+          "type": "string",
+          "required": false,
+          "default": null,
+          "positional": false,
+          "description": ""
+        },
+        {
+          "name": "children",
+          "type": "component[]",
+          "required": false,
+          "default": [],
+          "positional": true,
+          "description": ""
+        },
+        {
+          "name": "actions",
+          "type": "{label: string, action: string, data?: object, style?: \"primary\"|\"secondary\"|\"ghost\"|\"danger\"}[]",
+          "required": false,
+          "default": null,
+          "positional": false,
+          "description": ""
+        }
+      ],
+      "python": [
+        "ui.Card(\"TAP · Fri 18:05\", ui.Stat(\"Price\", \"$189\"), actions=[ui.Button(\"Book\", action=\"book\")])"
+      ],
+      "llm_examples": [
+        {
+          "title": "Lisbon · 3 nights",
+          "subtitle": "Fri – Mon",
+          "children": [
+            {
+              "ui": "stat",
+              "label": "Total",
+              "value": "$642"
+            }
+          ],
+          "actions": [
+            {
+              "label": "Book",
+              "action": "book_trip"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "grid",
+      "class": "Grid",
+      "group": "layout",
+      "llm": true,
+      "description": "Lay children out in columns (1–4).",
+      "details": "",
+      "signature": "grid(columns?: number, children?: component[]) — Lay children out in columns (1–4).",
+      "positional": [
+        "columns"
+      ],
+      "varargs": "children",
+      "fields": [
+        {
+          "name": "columns",
+          "type": "number",
+          "required": false,
+          "default": 2,
+          "positional": true,
+          "description": ""
+        },
+        {
+          "name": "children",
+          "type": "component[]",
+          "required": false,
+          "default": [],
+          "positional": true,
+          "description": ""
+        }
+      ],
+      "python": [
+        "ui.Grid(ui.Stat(\"A\", 1), ui.Stat(\"B\", 2), columns=2)"
+      ],
+      "llm_examples": []
+    },
+    {
+      "name": "tabs",
+      "class": "Tabs",
+      "group": "layout",
+      "llm": true,
+      "description": "Group children into tabs.",
+      "details": "",
+      "signature": "tabs(tabs: {label: string, children: component[]}[]) — Group children into tabs.",
+      "positional": [],
+      "varargs": "tabs",
+      "fields": [
+        {
+          "name": "tabs",
+          "type": "{label: string, children: component[]}[]",
+          "required": true,
+          "default": null,
+          "positional": true,
+          "description": ""
+        }
+      ],
+      "python": [
+        "ui.Tabs(ui.Tab(\"Overview\", ui.Markdown(\"A relaxed long weekend.\")), ui.Tab(\"Budget\", ui.Stat(\"Total\", \"€1,208\")))"
+      ],
+      "llm_examples": []
+    },
+    {
+      "name": "accordion",
+      "class": "Accordion",
+      "group": "layout",
+      "llm": true,
+      "description": "Collapsible sections.",
+      "details": "",
+      "signature": "accordion(items: {title: string, children: component[]}[]) — Collapsible sections.",
+      "positional": [],
+      "varargs": "items",
+      "fields": [
+        {
+          "name": "items",
+          "type": "{title: string, children: component[]}[]",
+          "required": true,
+          "default": null,
+          "positional": true,
+          "description": ""
+        }
+      ],
+      "python": [
+        "ui.Accordion(ui.AccordionItem(\"Can I change my flight?\", ui.Markdown(\"Yes, free up to **24 hours** before departure.\")), ui.AccordionItem(\"How do refunds work?\", ui.Markdown(\"Refunds arrive in 3–5 business days.\")))"
+      ],
+      "llm_examples": []
+    },
+    {
+      "name": "carousel",
+      "class": "Carousel",
+      "group": "layout",
+      "llm": true,
+      "description": "A horizontally scrolling row of children.",
+      "details": "",
+      "signature": "carousel(children?: component[]) — A horizontally scrolling row of children.",
+      "positional": [],
+      "varargs": "children",
+      "fields": [
+        {
+          "name": "children",
+          "type": "component[]",
+          "required": false,
+          "default": [],
+          "positional": true,
+          "description": ""
+        }
+      ],
+      "python": [
+        "ui.Carousel(ui.Card(\"One\"), ui.Card(\"Two\"), ui.Card(\"Three\"))"
+      ],
+      "llm_examples": []
+    },
+    {
+      "name": "list",
+      "class": "List",
+      "group": "layout",
+      "llm": true,
+      "description": "A list of rows (title, subtitle, image); rows with an action are clickable.",
+      "details": "",
+      "signature": "list(items: {title: string, subtitle?: string, image?: string, meta?: string, action?: string, data?: object}[]) — A list of rows (title, subtitle, image); rows with an action are clickable.",
+      "positional": [],
+      "varargs": "items",
+      "fields": [
+        {
+          "name": "items",
+          "type": "{title: string, subtitle?: string, image?: string, meta?: string, action?: string, data?: object}[]",
+          "required": true,
+          "default": null,
+          "positional": true,
+          "description": ""
+        }
+      ],
+      "python": [
+        "ui.List(ui.ListItem(\"Hotel Avenida\", \"4.6 ★ · $180/night\", action=\"pick_hotel\"))"
+      ],
+      "llm_examples": [
+        {
+          "items": [
+            {
+              "title": "Hotel Avenida",
+              "subtitle": "4.6 ★ · $180/night",
+              "action": "pick_hotel",
+              "data": {
+                "id": "h1"
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "step",
+      "class": "Step",
+      "group": "agent",
+      "llm": true,
+      "description": "A tool or agent step with a status.",
+      "details": "Usually produced by `chat.step(...)`; usable directly too.",
+      "signature": "step(title: string, status?: \"pending\"|\"running\"|\"done\"|\"error\", type?: string, input?: any, output?: any, duration_ms?: number) — A tool or agent step with a status.",
+      "positional": [
+        "title",
+        "status"
+      ],
+      "varargs": null,
+      "fields": [
+        {
+          "name": "title",
+          "type": "string",
+          "required": true,
+          "default": null,
+          "positional": true,
+          "description": ""
+        },
+        {
+          "name": "status",
+          "type": "\"pending\"|\"running\"|\"done\"|\"error\"",
+          "required": false,
+          "default": "done",
+          "positional": true,
+          "description": ""
+        },
+        {
+          "name": "type",
+          "type": "string",
+          "required": false,
+          "default": null,
+          "positional": false,
+          "description": ""
+        },
+        {
+          "name": "input",
+          "type": "any",
+          "required": false,
+          "default": null,
+          "positional": false,
+          "description": ""
+        },
+        {
+          "name": "output",
+          "type": "any",
+          "required": false,
+          "default": null,
+          "positional": false,
+          "description": ""
+        },
+        {
+          "name": "duration_ms",
+          "type": "number",
+          "required": false,
+          "default": null,
+          "positional": false,
+          "description": ""
+        }
+      ],
+      "python": [
+        "ui.Step(\"Search flights\", \"done\", type=\"search\", duration_ms=840)"
+      ],
+      "llm_examples": []
+    },
+    {
+      "name": "reasoning",
+      "class": "Reasoning",
+      "group": "agent",
+      "llm": true,
+      "description": "A collapsible block of reasoning.",
+      "details": "Usually produced by yielding `dyui.Reasoning` deltas.",
+      "signature": "reasoning(text: string, duration_ms?: number) — A collapsible block of reasoning.",
+      "positional": [
+        "text"
+      ],
+      "varargs": null,
+      "fields": [
+        {
+          "name": "text",
+          "type": "string",
+          "required": true,
+          "default": null,
+          "positional": true,
+          "description": ""
+        },
+        {
+          "name": "duration_ms",
+          "type": "number",
+          "required": false,
+          "default": null,
+          "positional": false,
+          "description": ""
+        }
+      ],
+      "python": [
+        "ui.Reasoning(\"Friday departures keep Saturday free, so I prioritised evening flights.\")"
+      ],
+      "llm_examples": []
+    },
+    {
+      "name": "plan",
+      "class": "Plan",
+      "group": "agent",
+      "llm": true,
+      "description": "A live checklist plan with per-item status.",
+      "details": "",
+      "signature": "plan(title?: string, items: {title: string, status?: \"pending\"|\"active\"|\"done\"|\"error\"|\"skipped\"}[]) — A live checklist plan with per-item status.",
+      "positional": [],
+      "varargs": "items",
+      "fields": [
+        {
+          "name": "title",
+          "type": "string",
+          "required": false,
+          "default": null,
+          "positional": false,
+          "description": ""
+        },
+        {
+          "name": "items",
+          "type": "{title: string, status?: \"pending\"|\"active\"|\"done\"|\"error\"|\"skipped\"}[]",
+          "required": true,
+          "default": null,
+          "positional": true,
+          "description": ""
+        }
+      ],
+      "python": [
+        "ui.Plan(ui.PlanItem(\"Find flights\", \"done\"), ui.PlanItem(\"Book hotel\", \"active\"), title=\"Trip plan\")"
+      ],
+      "llm_examples": [
+        {
+          "title": "Plan",
+          "items": [
+            {
+              "title": "Find flights",
+              "status": "done"
+            },
+            {
+              "title": "Book hotel",
+              "status": "active"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "html",
+      "class": "Html",
+      "group": "developer",
+      "llm": false,
+      "description": "Developer-authored HTML rendered in a sandboxed iframe.",
+      "details": "The browser renders it in `<iframe sandbox=\"allow-scripts\" srcdoc=...>` without same-origin access. Pass raw `html`, or a `template` path (relative to your app's directory) plus `props`; `{{ key }}` is escaped and `{{{ key }}}` inserted raw (see `dyui.html`). Never produced by the LLM.",
+      "signature": "html(html?: string, height?: number) — Developer-authored HTML rendered in a sandboxed iframe.",
+      "positional": [
+        "html"
+      ],
+      "varargs": null,
+      "fields": [
+        {
+          "name": "html",
+          "type": "string",
+          "required": false,
+          "default": "",
+          "positional": true,
+          "description": ""
+        },
+        {
+          "name": "height",
+          "type": "number",
+          "required": false,
+          "default": null,
+          "positional": false,
+          "description": ""
+        }
+      ],
+      "python": [
+        "ui.Html(\"<b>Boarding pass</b> · Gate B32 · Boards 17:35\", height=120)"
+      ],
+      "llm_examples": []
+    },
+    {
+      "name": "invalid",
+      "class": "Invalid",
+      "group": "developer",
+      "llm": false,
+      "description": "A component that failed validation.",
+      "details": "Rendered as a quiet \"Couldn't display this component\" chip with the raw payload and error available on expand.",
+      "signature": "invalid(raw?: string, error?: string) — A component that failed validation.",
+      "positional": [],
+      "varargs": null,
+      "fields": [
+        {
+          "name": "raw",
+          "type": "string",
+          "required": false,
+          "default": "",
+          "positional": false,
+          "description": ""
+        },
+        {
+          "name": "error",
+          "type": "string",
+          "required": false,
+          "default": "",
+          "positional": false,
+          "description": ""
+        }
+      ],
+      "python": [
+        "ui.Invalid(raw='{\"ui\":\"chart\",\"kind\":\"radar\"}', error=\"Unknown chart kind\")"
+      ],
+      "llm_examples": []
+    }
+  ]
+}

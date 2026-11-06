@@ -1,0 +1,25 @@
+---
+title: Data analyst
+description: The model answers questions about a dataset with stats, charts and tables — in fence or structured mode.
+sidebar:
+  order: 2
+---
+
+import { Code } from "@astrojs/starlight/components";
+import source from "../../../../../examples/data_analyst.py?raw";
+
+The model reads a small CSV that's embedded in the system prompt, and answers with a `stats` row, a `chart` or a `table`.
+
+```bash
+pip install "dyui[openai]"
+dyui run examples/data_analyst.py
+DYUI_UI_MODE=tools dyui run examples/data_analyst.py     # schema-guaranteed components
+```
+
+What to look at:
+
+- **`{dyui_components}`** in the system prompt marks where the catalog section goes, so the dataset and the instructions stay together.
+- **Steering in plain words** ("Prefer a `stats` row for headline numbers…") works better than restricting the catalog.
+- **`ui_mode="tools"`** switches to strict `render_*` tools on OpenAI and Anthropic, with no other code changes.
+
+<Code code={source} lang="python" title="examples/data_analyst.py" />

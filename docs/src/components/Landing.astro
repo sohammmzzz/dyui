@@ -1,0 +1,97 @@
+---
+import { Code } from "@astrojs/starlight/components";
+import LiveChat from "./LiveChat.tsx";
+import Marquee from "./Marquee.tsx";
+import data from "../data/components.json";
+
+const base = import.meta.env.BASE_URL.replace(/\/?$/, "/");
+const href = (p: string) => base + p.replace(/^\//, "");
+const llmCount = data.components.filter((c) => c.llm).length;
+
+const appPy = `import dyui
+
+app = dyui.App(title="Travel Bot", starters=["Plan a weekend in Lisbon"])
+
+@app.on_message
+async def reply(msg: dyui.Message, chat: dyui.Chat):
+    async for part in dyui.llm.stream("openai/gpt-5", chat.history,
+                                      system="You are a calm, expert travel agent.",
+                                      components=app.catalog):
+        yield part`;
+
+const features = [
+  ["The model renders the interface", "DyUI writes the component section of your system prompt, parses the model's reply while it streams, validates every component and renders it between sentences."],
+  ["A finished chat app", "History, stop and regenerate, editing, uploads, feedback, light and dark themes, a mobile layout and an optional password — with calm motion on every interaction."],
+  ["Any model, any framework", "OpenAI, Anthropic, Ollama, Groq, OpenRouter, Gemini, Mistral, DeepSeek, Together, xAI and LangGraph — or your own SDK. Anything that streams text works."],
+  ["Components in pure Python", "Describe a component as a pydantic model with a render() method. The model learns it on the next turn; the prompt grows with your app."],
+  ["Interfaces that answer back", "Buttons, forms, choices and approvals reach your Python handlers or go straight back to the model. await chat.ask(...) pauses for a human decision."],
+  ["The model only sends data", "No HTML from the model, filtered links, verified actions, and developer HTML rendered in a sandboxed iframe."],
+];
+---
+
+<div class="lp">
+  <section class="lp-hero" aria-labelledby="lp-title">
+    <div class="lp-hero-copy">
+      <h1 id="lp-title" class="lp-title">Chatbots that answer in <em>interfaces</em>.</h1>
+      <p class="lp-lede">
+        DyUI is a Python framework for professional chat apps. Write one file, run
+        <code>dyui run</code>, and your model replies with tables, charts, cards, forms and buttons — not just text.
+      </p>
+      <div class="lp-actions">
+        <a class="lp-btn lp-btn--primary" href={href("get-started/quickstart/")}>Start the quickstart</a>
+        <a class="lp-btn" href={href("components/")}>Browse components</a>
+      </div>
+      <p class="lp-install"><code>pip install dyui</code><span>Python 3.10+ · MIT licensed</span></p>
+    </div>
+    <div class="lp-hero-demo">
+      <LiveChat client:load />
+    </div>
+  </section>
+
+  <section class="lp-section lp-steps" aria-labelledby="lp-steps-title">
+    <h2 id="lp-steps-title" class="lp-h2">From one file to a chat app</h2>
+    <ol class="lp-steplist">
+      <li>
+        <h3>Install</h3>
+        <Code code={'pip install "dyui[openai]"'} lang="bash" />
+        <p>The <code>openai</code> extra adds the SDK; <code>anthropic</code>, <code>langgraph</code> and <code>all</code> work the same way.</p>
+      </li>
+      <li>
+        <h3>Write <code>app.py</code></h3>
+        <Code code={appPy} lang="python" title="app.py" />
+      </li>
+      <li>
+        <h3>Run it</h3>
+        <Code code={"dyui run app.py"} lang="bash" />
+        <p>Open <code>http://localhost:8000</code>. The app reloads when you save.</p>
+      </li>
+    </ol>
+  </section>
+
+  <section class="lp-section" aria-labelledby="lp-features-title">
+    <h2 id="lp-features-title" class="lp-h2">What you get</h2>
+    <dl class="lp-features">
+      {features.map(([title, body]) => (
+        <div>
+          <dt>{title}</dt>
+          <dd>{body}</dd>
+        </div>
+      ))}
+    </dl>
+  </section>
+
+  <section class="lp-section lp-components" aria-labelledby="lp-comp-title">
+    <div class="lp-row">
+      <h2 id="lp-comp-title" class="lp-h2">{llmCount} components the model can use</h2>
+      <a class="lp-link" href={href("components/")}>See every component</a>
+    </div>
+    <p class="lp-sub">Each one streams in while the model is still writing it, works in light and dark, and is keyboard accessible.</p>
+  </section>
+  <Marquee client:visible />
+
+  <section class="lp-section lp-cta" aria-labelledby="lp-cta-title">
+    <h2 id="lp-cta-title" class="lp-h2">Try it without an API key</h2>
+    <p>The built-in demo walks through components, actions, steps and approvals with a simulated model.</p>
+    <Code code={"pip install dyui\ndyui demo"} lang="bash" />
+  </section>
+</div>

@@ -1,0 +1,24 @@
+---
+title: LangGraph agent
+description: A ReAct agent whose tool emits a chart while the model streams its answer.
+sidebar:
+  order: 4
+---
+
+import { Code } from "@astrojs/starlight/components";
+import source from "../../../../../examples/langgraph_agent.py?raw";
+
+A prebuilt LangGraph ReAct agent with one tool. While the model writes its answer, the tool calls `emit(ui.Chart(...))`, and the chart appears in the reply as soon as the tool runs.
+
+```bash
+pip install "dyui[langgraph,openai]" langchain-openai
+dyui run examples/langgraph_agent.py
+```
+
+What to look at:
+
+- **`emit()` works from inside tools and nodes.** There's nothing to return or thread through state.
+- **The checkpointer owns the history**, so the handler sends only the new message, plus the thread id DyUI gives the conversation.
+- **`lg_stream` turns the run into DyUI parts:** text chunks, reasoning and emitted components.
+
+<Code code={source} lang="python" title="examples/langgraph_agent.py" />

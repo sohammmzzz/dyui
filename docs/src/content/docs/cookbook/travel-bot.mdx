@@ -1,0 +1,29 @@
+---
+title: Travel bot
+description: An LLM agent with custom Flight and Hotel components, button handlers and a booking confirmation.
+sidebar:
+  order: 1
+---
+
+import { Code } from "@astrojs/starlight/components";
+import source from "../../../../../examples/travel_bot.py?raw";
+
+This example shows the core DyUI loop:
+
+- the model renders **your** components (`flight`, `hotel`);
+- their buttons reach `@app.on_action` handlers;
+- a booking waits for the user's approval with `chat.ask(ui.Confirm(...))`.
+
+```bash
+pip install "dyui[openai]"
+dyui run examples/travel_bot.py        # DYUI_MODEL=anthropic/claude-sonnet-5-5 to switch
+```
+
+What to look at:
+
+- **The docstrings are prompts.** "Use when listing specific flights" tells the model *when* to reach for the component.
+- **`examples` are validated at import**, so a field rename that breaks an example fails immediately.
+- **`render()` returns built-ins.** The browser never needs to know what a `Flight` is.
+- **`book_flight` mixes all three response styles:** an approval (`chat.ask`), a live step and a closing callout with quick replies.
+
+<Code code={source} lang="python" title="examples/travel_bot.py" />

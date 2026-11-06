@@ -1,0 +1,53 @@
+---
+import StarlightPage from "@astrojs/starlight/components/StarlightPage.astro";
+import { Code } from "@astrojs/starlight/components";
+import data from "../../data/components.json";
+import { inline } from "../../lib/inline";
+
+const base = import.meta.env.BASE_URL.replace(/\/?$/, "/");
+const GROUPS: Array<[string, string, string]> = [
+  ["content", "Content", "Prose, notes, code and citations."],
+  ["data", "Data", "Numbers, tables, charts and structured facts."],
+  ["media", "Media", "Images, video, audio, files and link previews."],
+  ["interactive", "Interactive", "Inputs that send the user's answer back to your app."],
+  ["layout", "Layout", "Containers that hold other components."],
+  ["agent", "Agent", "Steps, reasoning and plans for agents at work."],
+  ["developer", "Developer-only", "Rendered by your code; never offered to the model."],
+];
+const llm = data.components.filter((c) => c.llm).length;
+const total = data.components.length;
+---
+
+<StarlightPage
+  frontmatter={{ title: "Components", description: `The ${llm} built-in components DyUI's model can render, plus ${total - llm} developer-only ones.` }}
+  headings={GROUPS.map(([g, label]) => ({ depth: 2, slug: g, text: label }))}
+>
+  <p class="cp-lede">
+    DyUI ships {llm} components the model can use and {total - llm} that only your code can produce. Every one is a pydantic model in
+    <code>dyui.ui</code>; the same model generates its prompt line, its JSON schema and the validator for what the model sends.
+  </p>
+  <Code
+    code={`app = dyui.App(components="all")                       # the default\napp = dyui.App(components=["table", "chart", "stat"])  # a subset\ndyui.catalog("data", "interactive")                     # built-ins by group`}
+    lang="python"
+  />
+  {
+    GROUPS.map(([g, label, blurb]) => (
+      <section class="cg">
+        <h2 id={g}>{label}</h2>
+        <p class="cg-blurb">{blurb}</p>
+        <ul class="cg-list">
+          {data.components
+            .filter((c) => c.group === g)
+            .map((c) => (
+              <li>
+                <a href={`${base}components/${c.name}/`}>
+                  <code class="cg-name">{c.name}</code>
+                  <span class="cg-desc" set:html={inline(c.description)} />
+                </a>
+              </li>
+            ))}
+        </ul>
+      </section>
+    ))
+  }
+</StarlightPage>

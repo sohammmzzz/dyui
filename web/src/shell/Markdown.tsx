@@ -8,6 +8,7 @@ import remarkGfm from "remark-gfm";
 import { CopyButton } from "./CopyButton";
 import { highlight, languageLabel } from "./highlight";
 import { useHljs } from "@/lib/hljs";
+import { safeMarkdownHref } from "@/lib/url";
 import { cx } from "./anim";
 
 type HastNode = { type: string; value?: string; tagName?: string; properties?: Record<string, unknown>; children?: HastNode[] };
@@ -18,13 +19,9 @@ function hastText(n: HastNode | undefined): string {
   return (n.children ?? []).map(hastText).join("");
 }
 
-/** Allow http(s), mailto, and app-relative URLs; drop everything else. */
+/** Allow http(s), mailto, app files, anchors and app-relative paths; drop everything else (see lib/url). */
 export function safeUrl(url: string): string {
-  const u = url.trim();
-  if (/^(https?:|mailto:)/i.test(u)) return u;
-  if (/^(\/(?!\/)|#|\.\/|\?)/.test(u)) return u;
-  if (!/^[a-z][a-z0-9+.-]*:/i.test(u) && !u.startsWith("//")) return u; // relative path
-  return "";
+  return safeMarkdownHref(url);
 }
 
 export const CodeBlock = memo(function CodeBlock({ code, language }: { code: string; language?: string | null }) {

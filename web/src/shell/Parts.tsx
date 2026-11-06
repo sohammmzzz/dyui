@@ -2,6 +2,8 @@
  * Shell-rendered parts: live steps, collapsible reasoning, file chips, and the
  * wrapper that blooms every `ui` part into place through the component library.
  */
+import { isInlineSafe } from "@/lib/api";
+import { safeLink } from "@/lib/url";
 import { Component, memo, useEffect, useId, useMemo, useRef, useState, type ReactNode } from "react";
 import { AnimatePresence, motion } from "motion/react";
 import { Brain, ChevronRight, FileText, FileImage, FileArchive, FileCode, FileSpreadsheet, File as FileIcon, X, Check, CircleAlert } from "lucide-react";
@@ -236,9 +238,18 @@ export const Reasoning = memo(function Reasoning({
 
 export function FileChip({ file, compact = false }: { file: FileRef; compact?: boolean }) {
   const Icon = fileIcon(file.type, file.name);
-  const isImage = file.type.startsWith("image/") && !!file.url;
+  // Only types the server serves inline open in a tab (and get a thumbnail);
+  // HTML/SVG/scripts/etc. are served as attachments, so they download.
+  const inline = isInlineSafe(file.type);
+  const isImage = inline && file.type.startsWith("image/") && !!file.url;
+  const href = safeLink(file.url) ?? undefined;
   return (
-    <a className={cx("sh-file", compact && "is-compact")} href={file.url} target="_blank" rel="noopener noreferrer" title={file.name}>
+    <a
+      className={cx("sh-file", compact && "is-compact")}
+      href={href}
+      {...(inline ? { target: "_blank", rel: "noopener noreferrer" } : { download: file.name })}
+      title={inline ? file.name : `Download ${file.name}`}
+    >
       <span className="sh-file-icon">
         {isImage ? <img src={file.url} alt="" loading="lazy" /> : <Icon size={16} strokeWidth={1.8} aria-hidden="true" />}
       </span>

@@ -2,6 +2,7 @@ import { Download, File as FileIcon, FileArchive, FileAudio, FileCode2, FileImag
 import { Bloom } from "../util/motion";
 import { formatBytes, optStr, safeUrl, str } from "../util/props";
 import { Skel } from "../util/ui";
+import { isFileUrl } from "../../../lib/url";
 import type { DyProps } from "../util/types";
 import "../styles/media.css";
 
@@ -48,7 +49,13 @@ export function File({ node }: DyProps) {
   return (
     <Bloom className="dy-c dy-file-wrap" data-dy-ui="file">
       {url ? (
-        <a className="dy-file dy-panel" href={url} target="_blank" rel="noopener noreferrer" download={name} aria-label={`Download ${name}${meta ? ` (${meta})` : ""}`}>
+        <a
+          className="dy-file dy-panel"
+          href={url}
+          // the app's own files download in place; external URLs open in a new tab
+          {...(isFileUrl(p.url) ? {} : { target: "_blank", rel: "noopener noreferrer" })}
+          download={name}
+          aria-label={`Download ${name}${meta ? ` (${meta})` : ""}`}>
           {inner}
         </a>
       ) : (

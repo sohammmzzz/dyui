@@ -47,7 +47,7 @@
   box-shadow: var(--dy-shadow-sm);
   transition: box-shadow var(--dy-dur-2) var(--dy-ease), border-color var(--dy-dur-2) var(--dy-ease);
 }
-.dy-image-frame[data-loaded] { width: auto; height: auto; max-height: 440px; }
+.dy-image-frame[data-loaded] { height: auto; max-height: 440px; } /* width set inline from the natural size */
 .dy-image-frame[data-loaded] .dy-img { position: absolute; }
 .dy-image-frame:hover { box-shadow: var(--dy-shadow); border-color: var(--dy-border-strong); }
 .dy-image-frame:hover .dy-img.is-loaded { transform: scale(1.012); }

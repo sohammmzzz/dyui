@@ -8,7 +8,7 @@
  * server, which persists them; reopening the thread reloads it.
  */
 import { useCallback, useEffect, useMemo, useReducer, useRef, useState } from "react";
-import { ApiError, describeError, isAbortError, type Transport } from "@/lib/api";
+import { ApiError, actionFailure, describeError, isAbortError, type Transport } from "@/lib/api";
 import {
   chatReducer,
   initialChatState,
@@ -96,7 +96,7 @@ export function useChat(
 
   const fail = useCallback((e: unknown) => {
     if (e instanceof ApiError && e.status === 401) return optsRef.current.onUnauthorized();
-    dispatch({ type: "error/set", error: { message: describeError(e) } });
+    dispatch({ type: "error/set", error: { message: describeError(e, { kind: "message" }) } });
   }, []);
 
   const run = useCallback(
@@ -245,9 +245,10 @@ export function useChat(
         { producing: false },
       ).then((r) => {
         if (!r.failed) return;
-        dispatch({ type: "resolve", messageId, componentId: req.component_id, resolved: undefined });
-        if (r.failed instanceof ApiError && r.failed.status === 401) return optsRef.current.onUnauthorized();
-        optsRef.current.toast(describeError(r.failed), "error");
+        const plan = actionFailure(r.failed);
+        if (!plan.keepResolved) dispatch({ type: "resolve", messageId, componentId: req.component_id, resolved: undefined });
+        if (plan.unauthorized) return optsRef.current.onUnauthorized();
+        optsRef.current.toast(plan.message, plan.tone);
       });
     },
     [run, transport],

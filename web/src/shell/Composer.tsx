@@ -1,7 +1,8 @@
 import { useCallback, useEffect, useImperativeHandle, useRef, useState, type Ref } from "react";
 import { AnimatePresence, motion } from "motion/react";
 import { ArrowUp, CircleAlert, Paperclip, X } from "lucide-react";
-import { describeError, isAbortError, type Transport } from "@/lib/api";
+import { ApiError, describeError, isAbortError, type Transport } from "@/lib/api";
+import { useToast } from "./Toasts";
 import type { FileRef } from "@/lib/types";
 import { cx, useMotionKit } from "./anim";
 import { fileKind, formatBytes } from "./Parts";
@@ -27,6 +28,7 @@ export function Composer({
   busy,
   disabled,
   uploads,
+  maxUploadMb,
   autoFocusKey,
   onSend,
   onStop,
@@ -37,12 +39,15 @@ export function Composer({
   busy: boolean;
   disabled?: boolean;
   uploads: boolean;
+  /** server upload limit, when known: oversized files are rejected before uploading */
+  maxUploadMb?: number | null;
   /** refocus the textarea when this changes (new chat, thread switch) */
   autoFocusKey: string | number;
   onSend: (text: string, files: FileRef[]) => void;
   onStop: () => void;
 }) {
   const kit = useMotionKit();
+  const toast = useToast();
   const [text, setText] = useState("");
   const [atts, setAtts] = useState<Attachment[]>([]);
   const ta = useRef<HTMLTextAreaElement>(null);
@@ -75,7 +80,16 @@ export function Composer({
         preview: file.type.startsWith("image/") ? URL.createObjectURL(file) : undefined,
       }));
       setAtts((a) => [...a, ...next].slice(0, MAX_FILES));
+      const fail = (att: Attachment, e: unknown) => {
+        const message = describeError(e, { kind: "upload", maxUploadMb });
+        setAtts((a) => a.map((x) => (x.key === att.key ? { ...x, error: message } : x)));
+        toast(`${att.file.name}: ${message}`, "error");
+      };
       for (const att of next) {
+        if (maxUploadMb && att.file.size > maxUploadMb * 1024 * 1024) {
+          fail(att, new ApiError("", 413));
+          continue;
+        }
         transport
           .upload(att.file, {
             signal: att.ctrl.signal,
@@ -84,12 +98,12 @@ export function Composer({
           .then((ref) => setAtts((a) => a.map((x) => (x.key === att.key ? { ...x, progress: 1, ref } : x))))
           .catch((e) => {
             if (isAbortError(e)) return;
-            setAtts((a) => a.map((x) => (x.key === att.key ? { ...x, error: describeError(e) } : x)));
+            fail(att, e);
           });
       }
       ta.current?.focus();
     },
-    [transport, uploads],
+    [transport, uploads, maxUploadMb, toast],
   );
 
   useImperativeHandle(handle, () => ({ addFiles, focus: () => ta.current?.focus() }), [addFiles]);

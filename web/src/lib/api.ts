@@ -44,11 +44,30 @@ export class ApiError extends Error {
   }
 }
 
+/** What the failed request was doing — picks the right wording for 401/413/429. */
+export type ErrorContext = {
+  kind?: "message" | "upload" | "login" | "action" | "other";
+  /** upload limit in MB, when known (AppConfig.max_upload_mb) */
+  maxUploadMb?: number | null;
+};
+
 /** Human copy for any failure the shell surfaces. */
-export function describeError(e: unknown): string {
+export function describeError(e: unknown, ctx: ErrorContext = {}): string {
   if (e instanceof ApiError) {
-    if (e.status === 401) return "Your session has expired. Sign in again to continue.";
-    if (e.status === 413) return "That file is too large to upload.";
+    if (e.status === 401)
+      return ctx.kind === "login"
+        ? e.message || "That password isn’t right. Try again."
+        : "Your session has expired. Sign in again to continue.";
+    if (e.status === 409) return e.message || "This was already answered.";
+    if (e.status === 413) {
+      if (ctx.kind === "upload") {
+        if (ctx.maxUploadMb) return `That file is too large. The limit is ${ctx.maxUploadMb} MB.`;
+        // the server names the limit in its own message ("File is larger than 20 MB.")
+        return e.message && /\d/.test(e.message) ? e.message : "That file is too large to upload.";
+      }
+      return "That message is too long to send. Try shortening it.";
+    }
+    if (e.status === 429) return "Too many attempts. Wait a moment and try again.";
     if (e.status >= 500 && !e.message) return "The server ran into a problem. Try again in a moment.";
     return e.message || `Request failed (${e.status}).`;
   }
@@ -58,6 +77,27 @@ export function describeError(e: unknown): string {
 }
 
 export { isAbortError };
+
+/**
+ * What to do when POST /api/action fails.
+ * - 401 → the session ended: show the gate.
+ * - 409 → someone (another tab, a retry) already answered: keep the component
+ *   resolved and say so quietly.
+ * - anything else → undo the optimistic resolution and show an error.
+ */
+export function actionFailure(e: unknown): { unauthorized: boolean; keepResolved: boolean; tone: "info" | "error"; message: string } {
+  if (e instanceof ApiError && e.status === 401) return { unauthorized: true, keepResolved: false, tone: "error", message: describeError(e) };
+  if (e instanceof ApiError && e.status === 409)
+    return { unauthorized: false, keepResolved: true, tone: "info", message: describeError(e, { kind: "action" }) };
+  return { unauthorized: false, keepResolved: false, tone: "error", message: describeError(e, { kind: "action" }) };
+}
+
+/** Upload MIME types the server serves inline; everything else is a download. */
+const INLINE_SAFE = ["image/png", "image/jpeg", "image/gif", "image/webp", "image/avif", "image/bmp", "audio/", "video/", "application/pdf", "text/plain", "text/csv", "application/json"];
+export function isInlineSafe(type: string | null | undefined): boolean {
+  const t = (type || "").toLowerCase().split(";")[0].trim();
+  return !!t && INLINE_SAFE.some((p) => t.startsWith(p));
+}
 
 async function toApiError(res: Response): Promise<ApiError> {
   let message = "";

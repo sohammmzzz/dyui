@@ -294,6 +294,7 @@ export function AppShell({
               busy={busy}
               disabled={loading}
               uploads={config.features.uploads}
+              maxUploadMb={config.max_upload_mb}
               autoFocusKey={viewKey}
               onSend={send}
               onStop={actions.stop}

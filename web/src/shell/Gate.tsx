@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { motion } from "motion/react";
 import { ArrowRight, Lock, RotateCcw } from "lucide-react";
-import { ApiError, describeError, type Transport } from "@/lib/api";
+import { describeError, type Transport } from "@/lib/api";
 import type { AppConfig } from "@/lib/types";
 import { BloomLogo, Logo } from "./Logo";
 import { useMotionKit } from "./anim";
@@ -21,7 +21,7 @@ export function PasswordGate({ config, transport, onSuccess }: { config: AppConf
       await transport.login(password);
       onSuccess();
     } catch (e) {
-      setError(e instanceof ApiError && e.status === 401 ? e.message || "That password isn’t right. Try again." : describeError(e));
+      setError(describeError(e, { kind: "login" }));
       setPending(false);
     }
   };

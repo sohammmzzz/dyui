@@ -668,6 +668,17 @@ No UI kit; all components are hand-built against the tokens.
   polite on the streaming message, all interactive components keyboard-operable,
   reduced-motion respected, color contrast AA.
 - Responsive: sidebar becomes a drawer < 900px; composer sticky; safe-area insets.
+- URLs from props/markdown go through `web/src/lib/url.ts` (same policy as §5.1): http(s), mailto, and
+  the app's files (`api/files/<id>` or `/api/files/<id>`, resolved against the app base so sub-path
+  mounts work); javascript:/data:/vbscript:/`//host`/backslash tricks are rejected client-side too.
+  Uploads whose type the server won't serve inline (HTML, SVG, scripts…) render as download links.
+- Error responses: 409 on `/api/action` keeps the component resolved with a quiet info toast;
+  413 → "too large" (names the upload limit when `AppConfig.max_upload_mb` is sent); 429 on login →
+  "Too many attempts. Wait a moment and try again."; 401 → password gate.
+- Bundle: highlight.js loads lazily on first code block (`lib/hljs.ts`); vendor chunks for
+  react / motion / markdown. No chunk over 500 kB.
+- `npm run e2e` (`web/e2e/`, Playwright) drives `dyui demo` + fixture apps through every shell flow
+  and renders the gallery in light/dark; not part of CI.
 
 ### Shell features (v1)
 Sidebar (logo, New chat, thread list grouped Today/Yesterday/Previous 7 days/Older, rename,

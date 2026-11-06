@@ -60,14 +60,38 @@ test("file upload: chip, send, file part, download", async ({ page, problems }) 
   await expect(lastAssistant(page)).toContainText("notes.txt (15 B)");
   const user = page.locator(".sh-user").last();
   await expect(user).toContainText("notes.txt");
-  // the file is served back to its owner
-  const href = await user.locator("a").first().getAttribute("href");
-  if (href) {
-    const res = await page.request.get(new URL(href, url("extras")).toString());
-    expect(res.status()).toBe(200);
-    expect(await res.text()).toBe("hello from e2e\n");
-  }
+  // the file is served back to its owner; text opens in a tab (inline-safe type)
+  const link = user.locator("a.sh-file").first();
+  await expect(link).toHaveAttribute("target", "_blank");
+  const href = await link.getAttribute("href");
+  expect(href).toMatch(/^\/api\/files\/f_/);
+  const res = await page.request.get(new URL(href!, url("extras")).toString());
+  expect(res.status()).toBe(200);
+  expect(await res.text()).toBe("hello from e2e\n");
   await page.screenshot(shot("24-upload-sent"));
+});
+
+test("uploaded HTML/SVG download instead of rendering inline", async ({ page, problems }) => {
+  await fresh(page, "extras");
+  const chooser = page.waitForEvent("filechooser");
+  await page.getByRole("button", { name: "Attach files" }).click();
+  await (await chooser).setFiles([
+    { name: "page.html", mimeType: "text/html", buffer: Buffer.from("<script>parent.pwned=1</script>") },
+    { name: "logo.svg", mimeType: "image/svg+xml", buffer: Buffer.from('<svg xmlns="http://www.w3.org/2000/svg" onload="parent.pwned=1"/>') },
+  ]);
+  await expect(page.getByRole("button", { name: /Remove logo.svg/ })).toBeVisible();
+  await send(page, "files?");
+  const user = page.locator(".sh-user").last();
+  for (const name of ["page.html", "logo.svg"]) {
+    const link = user.locator("a.sh-file", { hasText: name });
+    await expect(link).toHaveAttribute("download", name);
+    await expect(link).not.toHaveAttribute("target", "_blank");
+    const res = await page.request.get(new URL((await link.getAttribute("href"))!, url("extras")).toString());
+    expect(res.headers()["content-disposition"] ?? "").toMatch(/attachment/);
+  }
+  // no inline <img> preview for the SVG
+  await expect(user.locator("img")).toHaveCount(0);
+  expect(await page.evaluate(() => (window as any).pwned)).toBeUndefined();
 });
 
 test("handler error shows inline error with Retry", async ({ page }) => {
@@ -116,4 +140,21 @@ test("password gate: wrong then right password", async ({ page, problems }) => {
   const res = await page.request.fetch(url("gate", "/api/threads"), { headers: { cookie: "" } });
   expect([200, 401]).toContain(res.status());
   problems.length = 0;
+});
+
+// keep last: the login limiter is per client and would block later logins
+test("password gate: repeated failures are rate limited (429)", async ({ page, problems }) => {
+  await page.goto(url("gate"));
+  const pw = page.getByLabel(/password/i);
+  await expect(pw).toBeVisible();
+  let limited = false;
+  for (let i = 0; i < 15 && !limited; i++) {
+    await pw.fill(`wrong-${i}`);
+    const res = page.waitForResponse((r) => r.url().endsWith("/api/login"));
+    await pw.press("Enter");
+    limited = (await res).status() === 429;
+  }
+  expect(limited, "login is rate limited").toBe(true);
+  await expect(page.getByText("Too many attempts. Wait a moment and try again.")).toBeVisible();
+  problems.length = 0; // the 401/429 responses are expected
 });

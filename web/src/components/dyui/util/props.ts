@@ -2,6 +2,7 @@
  * Defensive prop readers. Props come from an LLM (validated server-side, but
  * possibly partial while streaming), so every reader tolerates anything.
  */
+import { safeLink, safeMedia } from "../../../lib/url";
 import type { UINode } from "../../../lib/types";
 
 export const isObj = (v: unknown): v is Record<string, any> =>
@@ -73,24 +74,14 @@ export function childNodes(raw: unknown, parentId: string, parentStatus?: UINode
 
 /* ------------------------------------------------------------------ URLs */
 
-/** Links: http(s), mailto, and app-relative /api/files/. Anything else → null. */
+/** Links: http(s), mailto, and the app's own files (api/files/…, resolved against the app base). Anything else → null. */
 export function safeUrl(v: unknown): string | null {
-  const s = str(v).trim();
-  if (!s) return null;
-  if (/^\/api\/files\/[^\s]*$/.test(s) && !s.startsWith("//")) return s;
-  try {
-    const u = new URL(s);
-    if (u.protocol === "http:" || u.protocol === "https:" || u.protocol === "mailto:") return u.href;
-  } catch {
-    /* not absolute */
-  }
-  return null;
+  return safeLink(v);
 }
 
-/** Media sources: http(s) and /api/files/ only. */
+/** Media sources: http(s) and the app's own files only. */
 export function safeMediaUrl(v: unknown): string | null {
-  const u = safeUrl(v);
-  return u && !u.startsWith("mailto:") ? u : null;
+  return safeMedia(v);
 }
 
 export function domainOf(url: string | null | undefined): string {

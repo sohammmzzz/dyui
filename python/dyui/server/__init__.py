@@ -7,9 +7,11 @@ import hmac
 import json
 import logging
 import mimetypes
+import os
+import re
 import secrets
 from pathlib import Path
-from typing import TYPE_CHECKING, Any, AsyncIterator, Awaitable, Callable
+from typing import TYPE_CHECKING, Any, AsyncIterator, Awaitable, Callable, Sequence
 
 from fastapi import FastAPI, Request, UploadFile
 from fastapi.responses import FileResponse, HTMLResponse, JSONResponse, Response, StreamingResponse
@@ -134,6 +136,126 @@ class _BodyLimitMiddleware:
             await _send_json(send, 413, {"error": "Request is too large."})
 
 
+_SAFE_METHODS = ("GET", "HEAD", "OPTIONS")
+_EMBED_HOSTS = "https://www.youtube-nocookie.com https://player.vimeo.com"
+
+
+def build_csp(script_hashes: Sequence[str] = (), frame_ancestors: Sequence[str] = (),
+              nonce: str | None = None) -> str:
+    """The Content-Security-Policy for the web app's HTML.
+
+    Scripts: only the bundle (``'self'``) plus our own inline scripts, allowed by
+    hash or by a per-response nonce. Images/media may come from any http(s) host
+    (the model shows pictures and favicons from the web), but nothing can be
+    *executed* from there.
+    """
+    scripts = " ".join(["'self'", *(f"'sha256-{h}'" for h in script_hashes),
+                        *([f"'nonce-{nonce}'"] if nonce else [])])
+    ancestors = " ".join(["'self'", *frame_ancestors])
+    return "; ".join([
+        "default-src 'self'",
+        f"script-src {scripts}",
+        "style-src 'self' 'unsafe-inline'",
+        "img-src 'self' data: blob: https: http:",
+        "media-src 'self' data: blob: https: http:",
+        "font-src 'self' data:",
+        "connect-src 'self'",
+        f"frame-src 'self' {_EMBED_HOSTS}",
+        "worker-src 'self' blob:",
+        "object-src 'none'",
+        "base-uri 'self'",
+        "form-action 'self'",
+        f"frame-ancestors {ancestors}",
+    ])
+
+
+def inline_script_hashes(html: str) -> list[str]:
+    """Base64 SHA-256 of every inline ``<script>`` in ``html`` (for the CSP)."""
+    import base64
+
+    out = []
+    for m in re.finditer(r"<script(?![^>]*\bsrc=)[^>]*>(.*?)</script>", html, re.S | re.I):
+        out.append(base64.b64encode(hashlib.sha256(m.group(1).encode("utf-8")).digest()).decode())
+    return out
+
+
+class _SecurityMiddleware:
+    """Pure-ASGI middleware: CSRF defence for ``/api`` writes + hardening headers.
+
+    - Browsers tag every request with ``Sec-Fetch-Site``; state-changing API calls
+      from another origin (``cross-site`` *or* ``same-site``, e.g. another port on
+      localhost or a sibling subdomain, where ``SameSite=Lax`` cookies are still
+      sent) are refused with 403. Without that header, a mismatching ``Origin`` is
+      refused too.
+    - JSON routes require ``Content-Type: application/json``, which a page on
+      another origin can only send after a CORS preflight that DyUI never grants.
+    - Every response gets ``nosniff``, a referrer policy and framing protection;
+      HTML gets a Content-Security-Policy; ``/api`` responses are ``no-store``.
+    """
+
+    def __init__(self, app: Any, *, csp: Callable[[], str | None], frame_ancestors: Sequence[str] = ()) -> None:
+        self.app = app
+        self.csp = csp
+        self.xfo = None if frame_ancestors else b"SAMEORIGIN"
+
+    async def __call__(self, scope: Any, receive: Any, send: Any) -> None:
+        if scope["type"] != "http":
+            await self.app(scope, receive, send)
+            return
+        path = scope.get("path", "")
+        is_api = "/api/" in path
+        if is_api and scope.get("method") not in _SAFE_METHODS:
+            problem = _csrf_problem(scope, path)
+            if problem:
+                await _send_json(send, problem[0], {"error": problem[1]})
+                return
+
+        async def send_wrapper(message: Any) -> None:
+            if message["type"] == "http.response.start":
+                headers = list(message.get("headers", []))
+                present = {k.lower() for k, _ in headers}
+                ctype = next((v for k, v in headers if k.lower() == b"content-type"), b"")
+
+                def add(name: bytes, value: bytes | None) -> None:
+                    if value is not None and name not in present:
+                        headers.append((name, value))
+
+                add(b"x-content-type-options", b"nosniff")
+                add(b"referrer-policy", b"same-origin")
+                add(b"x-frame-options", self.xfo)
+                add(b"cross-origin-opener-policy", b"same-origin")
+                add(b"permissions-policy", b"camera=(), microphone=(self), geolocation=(), payment=(), usb=()")
+                if is_api:
+                    add(b"cache-control", b"no-store")
+                elif ctype.startswith(b"text/html"):
+                    policy = self.csp()
+                    if policy:
+                        add(b"content-security-policy", policy.encode())
+                message = {**message, "headers": headers}
+            await send(message)
+
+        await self.app(scope, receive, send_wrapper)
+
+
+def _csrf_problem(scope: Any, path: str) -> tuple[int, str] | None:
+    headers = {k.decode("latin-1").lower(): v.decode("latin-1") for k, v in scope.get("headers", [])}
+    site = headers.get("sec-fetch-site")
+    if site in ("cross-site", "same-site"):
+        return 403, "Cross-origin requests are not allowed."
+    if site is None:
+        origin = headers.get("origin")
+        if origin is not None:
+            host = headers.get("x-forwarded-host") or headers.get("host") or ""
+            if origin == "null" or origin.split("://", 1)[-1].rstrip("/").lower() != host.split(",")[0].strip().lower():
+                return 403, "Cross-origin requests are not allowed."
+    if not path.rstrip("/").endswith("/api/upload"):
+        has_body = headers.get("content-length", "0") not in ("", "0") or "transfer-encoding" in headers
+        ctype = headers.get("content-type", "").split(";")[0].strip().lower()
+        if has_body and ctype != "application/json":
+            return 415, "Send JSON (Content-Type: application/json)."
+    return None
+
+
 async def _send_json(send: Any, status: int, body: Any) -> None:
     raw = json.dumps(body).encode()
     await send({"type": "http.response.start", "status": status,
@@ -185,19 +307,31 @@ def _uid(request: Request) -> str:
 
 # ------------------------------------------------------------------ auth
 def _secret(app: "App") -> bytes:
-    import os
-
     env = os.environ.get("DYUI_SECRET")
     if env:
         return env.encode()
     path = app.data_dir / "secret"
     try:
-        return path.read_bytes()
+        value = path.read_bytes().strip()
+        if len(value) >= 32:
+            return value
     except FileNotFoundError:
-        path.parent.mkdir(parents=True, exist_ok=True)
-        value = secrets.token_hex(32).encode()
-        path.write_bytes(value)
-        return value
+        pass
+    path.parent.mkdir(parents=True, exist_ok=True)
+    value = secrets.token_hex(32).encode()
+    # Create atomically and owner-only (0600): concurrent workers must not end up
+    # with different secrets, and other local users must not read it.
+    try:
+        fd = os.open(path, os.O_WRONLY | os.O_CREAT | os.O_EXCL | getattr(os, "O_BINARY", 0), 0o600)
+    except FileExistsError:
+        existing = path.read_bytes().strip()
+        if len(existing) >= 32:
+            return existing
+        path.unlink(missing_ok=True)  # truncated / corrupt: replace it
+        fd = os.open(path, os.O_WRONLY | os.O_CREAT | os.O_EXCL | getattr(os, "O_BINARY", 0), 0o600)
+    with os.fdopen(fd, "wb") as fh:
+        fh.write(value)
+    return value
 
 
 def _auth_token(app: "App") -> str:
@@ -300,8 +434,10 @@ def create_server(app: "App") -> Any:
                 raise ValueError
         except Exception:
             return _err(400, "Invalid JSON.")
-        given = str(body.get("password", "")).encode("utf-8", "replace")
-        if not app.password or not hmac.compare_digest(given, app.password.encode("utf-8")):
+        given = hashlib.sha256(str(body.get("password", "")).encode("utf-8", "replace")).digest()
+        expected = hashlib.sha256((app.password or "").encode("utf-8")).digest()
+        # compare fixed-length digests so response timing can't reveal the password length
+        if not app.password or not hmac.compare_digest(given, expected):
             throttle.fail(client, now)
             return _err(401, "Wrong password.")
         throttle.clear(client)
@@ -332,6 +468,12 @@ def create_server(app: "App") -> Any:
         if t is None or t.get("user_id") != _uid(request):
             return _err(404, "Conversation not found.")
         msgs = await app.store.get_messages(thread_id)
+        live = getattr(app, "_live_messages", set())
+        for m in msgs:
+            # persisted mid-stream (e.g. while chat.ask() waited) and no turn is producing
+            # it any more (the server restarted / crashed): don't show it streaming forever
+            if m.get("status") == "streaming" and m.get("id") not in live:
+                m["status"] = "cancelled"
         return finite({**_summary(t), "messages": [_public(m) for m in msgs]})
 
     @api.patch("/api/threads/{thread_id}")
@@ -389,7 +531,12 @@ def create_server(app: "App") -> Any:
         status, problem, _ = await app.check_action(uid, body)
         if status:
             return _err(status, problem)
-        return _sse(app, lambda turn: app.handle_action(turn, uid, body))
+        # check-and-claim with no await in between: concurrent clicks on the same
+        # component can't both pass the "already answered" check
+        claim = app.claim_action(body)
+        if claim is None:
+            return _err(409, "This has already been answered.")
+        return _sse(app, lambda turn: app.handle_action(turn, uid, body, claim=claim))
 
     @api.post("/api/feedback")
     async def feedback(request: Request) -> Any:
@@ -465,14 +612,43 @@ def create_server(app: "App") -> Any:
                 cache = "public, max-age=31536000, immutable" if path.startswith("assets/") else "no-cache"
                 return FileResponse(target, headers={"Cache-Control": cache})
         html = index.read_text(encoding="utf-8").replace("<title>DyUI</title>", f"<title>{_html_escape(app.title)}</title>")
-        return HTMLResponse(html, headers={"Cache-Control": "no-cache"})
+        headers = {"Cache-Control": "no-cache"}
+        if app.csp is True:
+            # A fresh nonce per page load: our inline scripts carry it, and the web app
+            # reads it from <meta name="dyui-csp-nonce"> to run the scripts of developer
+            # ``html`` components (their srcdoc iframes inherit this policy).
+            nonce = secrets.token_urlsafe(18)
+            html = re.sub(r"<script(?![^>]*\bsrc=)(?![^>]*\bnonce=)", f'<script nonce="{nonce}"', html, flags=re.I)
+            html = html.replace("<head>", f'<head>\n    <meta name="dyui-csp-nonce" content="{nonce}">', 1)
+            headers["Content-Security-Policy"] = build_csp(frame_ancestors=embed, nonce=nonce)
+        return HTMLResponse(html, headers=headers)
 
     upload_limit = app.max_upload_mb * 1024 * 1024 + 64 * 1024  # multipart overhead
 
     def limit_for(path: str) -> int:
         return upload_limit if path.rstrip("/").endswith("/api/upload") else MAX_JSON_BYTES
 
-    return _IdentityMiddleware(_BodyLimitMiddleware(api, limit_for))
+    embed = tuple(getattr(app, "embed_origins", ()) or ())
+    cached: dict[str, Any] = {}
+
+    def csp() -> str | None:
+        policy = getattr(app, "csp", True)
+        if policy is False or policy is None:
+            return None
+        if isinstance(policy, str):
+            return policy
+        index = STATIC_DIR / "index.html"
+        try:
+            stamp = index.stat().st_mtime_ns
+        except OSError:
+            stamp = 0
+        if cached.get("stamp") != stamp:
+            html = index.read_text(encoding="utf-8") if stamp else ""
+            cached.update(stamp=stamp, value=build_csp(inline_script_hashes(html), embed))
+        return cached["value"]
+
+    inner = _BodyLimitMiddleware(api, limit_for)
+    return _IdentityMiddleware(_SecurityMiddleware(inner, csp=csp, frame_ancestors=embed))
 
 
 def _html_escape(s: str) -> str:

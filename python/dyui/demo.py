@@ -183,6 +183,22 @@ async def ticket(action: dyui.Action, chat: dyui.Chat):
         yield chunk
 
 
+@app.on_action("rating")
+async def rated(action: dyui.Action, chat: dyui.Chat):
+    try:
+        score = float(action.values.get("rating", 0))
+    except (TypeError, ValueError):
+        score = 0
+    if score >= 4:  # the demo's rating is 1–5 stars
+        text = f"Thank you for the {score:.0f}/5 — glad that helped. I've passed it on to the team."
+    elif score > 0:
+        text = f"Thanks for the honest {score:.0f}/5. I've flagged this ticket so a teammate follows up personally."
+    else:
+        text = "Thanks for the feedback — it goes straight to the support team."
+    async for chunk in type_out(text):
+        yield chunk
+
+
 ROUTES = [
     (("what can you do", "show me", "tour", "hello", "hi"), tour),
     (("sales", "revenue", "q3", "analy"), sales),

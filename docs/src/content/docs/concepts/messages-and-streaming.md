@@ -31,7 +31,7 @@ Any of these shapes works for `on_message`, `on_action` and `on_chat_start`:
 | `str` | Markdown text, appended to the reply. It is **parsed for ```` ```dyui ```` fences**, so raw model output works. |
 | a component (`ui.Table(...)`, your `@app.component` classes) | A rendered component part |
 | `dyui.Reasoning("...")` | A delta for the collapsible reasoning block |
-| `{"ui": "stat", ...}` | Validated exactly like model output |
+| `{"ui": "stat", ...}` | Validated exactly like model output (so never the developer-only `html`) |
 | a list or tuple | Each item in order |
 | `None` | Ignored |
 

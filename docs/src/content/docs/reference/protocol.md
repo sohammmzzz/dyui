@@ -14,19 +14,25 @@ All bodies are JSON, and every route is under `/api`. Errors look like `{"error"
 | Method & path | Body | Response |
 |---|---|---|
 | `GET /api/config` | – | `AppConfig` |
-| `POST /api/login` | `{password}` | `{ok: true}` and sets the auth cookie |
+| `POST /api/login` | `{password}` | `{ok: true}` and sets the auth cookie (`401` wrong password, `429` after 10 failures in 5 minutes) |
 | `GET /api/threads` | – | `{threads: ThreadSummary[]}`, most recent first |
 | `POST /api/threads` | – | SSE stream: creates a thread and runs `on_chat_start` |
 | `GET /api/threads/{id}` | – | `Thread` |
 | `PATCH /api/threads/{id}` | `{title}` | `ThreadSummary` |
 | `DELETE /api/threads/{id}` | – | `{ok: true}` |
 | `POST /api/chat` | `ChatRequest` | SSE stream |
-| `POST /api/action` | `ActionRequest` | SSE stream (`400` for an unknown component or action) |
+| `POST /api/action` | `ActionRequest` | SSE stream (`400` unknown component, action or data; `404` unknown thread; `409` already answered) |
 | `POST /api/feedback` | `{thread_id, message_id, value: 1 \| -1 \| 0, comment?}` | `{ok: true}` |
 | `POST /api/upload` | multipart `file` | `FileRef` (`413` over `max_upload_mb`) |
-| `GET /api/files/{id}` | – | the file's bytes |
+| `GET /api/files/{id}` | – | the file's bytes: images, audio, video, PDF, plain text, CSV and JSON inline; everything else as an `attachment` download. Sent with `X-Content-Type-Options: nosniff` and a sandboxing `Content-Security-Policy`. |
 | `GET /api/logo` | – | the app's local logo file |
 | `GET /*` | – | the web app (SPA fallback) |
+
+### Limits
+
+- JSON request bodies are capped at **1 MB**, and uploads at `max_upload_mb` (plus multipart overhead). Larger requests get `413 Request is too large.` before the body is buffered.
+- Action `label`s are truncated to 200 characters and feedback comments to 2,000.
+- Non-finite numbers (`NaN`, `Infinity`) in component props are replaced with `null`, so every event is valid JSON.
 
 ## Types
 

@@ -56,4 +56,15 @@ location /assistant/ {
 
 ## HTTPS
 
-Terminate TLS at the proxy and run Uvicorn with `--proxy-headers`, so that it trusts `X-Forwarded-*` from your proxy. The `dyui_uid` and `dyui_auth` cookies are `HttpOnly` and `SameSite=Lax`. Serve the app **only** over HTTPS in production.
+Terminate TLS at the proxy and run Uvicorn so that it trusts the proxy's `X-Forwarded-*` headers:
+
+```bash
+uvicorn app:app --host 127.0.0.1 --port 8000 --proxy-headers --forwarded-allow-ips 127.0.0.1
+```
+
+This matters for two security features:
+
+- **`Secure` cookies.** The `dyui_uid` and `dyui_auth` cookies are always `HttpOnly` and `SameSite=Lax`, and are marked `Secure` when DyUI sees the request as HTTPS. Behind a TLS-terminating proxy, it only sees that through `X-Forwarded-Proto`.
+- **The login throttle** (10 failed passwords per 5 minutes) is keyed on the client address. Without forwarded headers, every user shares the proxy's address.
+
+Serve the app **only** over HTTPS in production.

@@ -14,7 +14,7 @@ sidebar:
 | `ollama/` | `http://localhost:11434/v1` | not required (`OLLAMA_API_KEY` if set) | `OLLAMA_BASE_URL` |
 | `groq/` | `https://api.groq.com/openai/v1` | `GROQ_API_KEY` | `GROQ_BASE_URL` |
 | `openrouter/` | `https://openrouter.ai/api/v1` | `OPENROUTER_API_KEY` | `OPENROUTER_BASE_URL` |
-| `together/` | `https://api.together.xyz/v1` | `TOGETHER_API_KEY` | `TOGETHER_BASE_URL` |
+| `together/` | `https://api.together.ai/v1` | `TOGETHER_API_KEY` | `TOGETHER_BASE_URL` |
 | `deepseek/` | `https://api.deepseek.com` | `DEEPSEEK_API_KEY` | `DEEPSEEK_BASE_URL` |
 | `gemini/` | `https://generativelanguage.googleapis.com/v1beta/openai/` | `GEMINI_API_KEY` or `GOOGLE_API_KEY` | `GEMINI_BASE_URL` |
 | `mistral/` | `https://api.mistral.ai/v1` | `MISTRAL_API_KEY` | `MISTRAL_BASE_URL` |

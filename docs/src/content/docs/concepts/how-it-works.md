@@ -48,5 +48,6 @@ See [Actions & human-in-the-loop](../actions/).
 
 - The model only ever sends **data**. HTML from the model is never rendered, and Markdown is rendered without raw HTML.
 - URLs must be `http(s):`, `mailto:` or app-relative `/api/files/...`; anything else is dropped. External links open in a new tab with `rel="noopener noreferrer"`.
-- Actions are verified against the component that declared them.
+- Actions are verified against the component that declared them. `action.data` comes from the server's copy, and each interactive component can be answered once (`409` after that).
+- Request bodies are size-limited, failed password attempts are throttled, and uploaded files that aren't safe to display inline are served as downloads under a sandboxing Content-Security-Policy.
 - Developer HTML (`ui.Html`, `dyui.html_template`) renders in a sandboxed iframe without same-origin access, and the model can't produce it.

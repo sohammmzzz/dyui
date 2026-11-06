@@ -72,7 +72,7 @@ dyui.catalog("data", "interactive")                        # built-ins by group
 app.catalog.names, app.catalog.token_estimate()
 ```
 
-The catalog only controls what the model is **told** about. Validation uses every built-in plus your components, so a yielded `ui.Table(...)` renders even if `table` isn't in the catalog.
+The catalog only controls what the model is **told** about. Model output (fences, and `{"ui": ...}` dicts) is validated against every model-usable built-in plus your components, so a `table` still renders even if it isn't in the catalog. The developer-only `html` and `invalid` are never accepted from model output. Component instances your code yields (`ui.Html(...)` included) always render.
 
 ## Streaming and validation
 

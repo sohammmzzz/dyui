@@ -41,7 +41,8 @@ export DYUI_SECRET="$(python -c 'import secrets; print(secrets.token_hex(32))')"
 - [ ] Disable response buffering for `/api/` so replies stream. DyUI sends `X-Accel-Buffering: no` and a 15-second heartbeat, but some proxies need explicit configuration.
 - [ ] Put `.dyui/` (or your `data_dir`) on persistent storage, and back it up.
 - [ ] Set `DYUI_SECRET` if you use `password=`.
-- [ ] Set `max_upload_mb`, or `uploads=False` if you don't need attachments.
+- [ ] Set `max_upload_mb`, or `uploads=False` if you don't need attachments. Oversized uploads, and JSON bodies over 1 MB, are refused with `413` before they're buffered.
+- [ ] Behind a proxy, pass `--proxy-headers --forwarded-allow-ips <proxy ip>`, so HTTPS is detected (`Secure` cookies) and the login throttle sees real client addresses.
 - [ ] Log at `INFO`: DyUI logs handler exceptions on the `dyui` logger, and users only see a generic error.
 
 ## Health check

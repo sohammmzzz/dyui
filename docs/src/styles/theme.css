@@ -722,7 +722,7 @@ main:has(.lp) .content-panel {
 /* ------------------------------------------------------------ responsive + motion */
 @media (max-width: 64rem) {
   .lp-hero {
-    grid-template-columns: 1fr;
+    grid-template-columns: minmax(0, 1fr);
   }
   .lp-steplist > li {
     grid-template-columns: minmax(0, 1fr);

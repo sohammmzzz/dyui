@@ -17,7 +17,8 @@ The first stable release. DyUI 1.0 is a ground-up rewrite. 0.1 streamed UI cards
 - **Any model.** `dyui.llm.stream("provider/model", ...)` for OpenAI, Anthropic, Ollama, Groq, OpenRouter, Together, DeepSeek, Gemini, Mistral and xAI. LangGraph integration through `dyui.integrations.langgraph` (`stream`, `emit`). Or yield raw text from any SDK.
 - **Persistence.** SQLite by default (`./.dyui/dyui.db`), in-memory, or your own `Store`. `chat.session` holds per-conversation state.
 - **CLI.** `dyui run`, `dyui demo` (no API key), `dyui new` (templates: basic, openai, anthropic, langgraph), `dyui catalog`, `dyui claude|gemini|codex init`, `dyui version`.
-- **Safe by design.** The model only sends data. There is no model HTML, links are filtered, uploads and threads are scoped to the browser identity, and developer HTML renders in a sandboxed iframe.
+- **Safe by design.** The model only sends data: no model HTML (developer-only components are rejected from model output), and links are filtered. Threads, uploads and actions are scoped to the browser identity, and developer HTML renders in a sandboxed iframe. Action `data` is taken from the server's copy of the component, and an interactive component can only be answered once (`409`). JSON bodies are limited to 1 MB and uploads to `max_upload_mb` (`413`), and failed logins are throttled (`429`). Cookies are `Secure` over HTTPS, and uploaded files that aren't safe to display inline are served as downloads under a sandboxing CSP.
+- **Python 3.10–3.13.** On 3.10, pass `config=` or `writer=` to `dyui.integrations.langgraph.emit(...)`; see the LangGraph docs. The `langgraph` extra requires `langgraph>=1.0`.
 - **Documentation site** with live component demos: https://sohammmzzz.github.io/dyui/
 
 ### Upgrading from 0.1

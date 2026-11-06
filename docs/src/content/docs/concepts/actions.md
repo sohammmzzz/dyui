@@ -27,7 +27,13 @@ Interactive components (`buttons`, `choice`, `form`, `confirm`, `rating`, card `
 
 ## Routing
 
-When an action arrives, DyUI first checks that the component exists in that message and declared that action name; forged actions get a `400`. It then tries three routes, in order:
+When an action arrives, DyUI verifies it before anything runs:
+
+- The component must exist in that assistant message, in the user's own conversation, and must have declared that action name. Forged actions get a `400`.
+- **`action.data` always comes from the server's copy of the component**, never from the browser, so a button's `data` (prices, ids) can be trusted. The browser's copy is only used to tell apart several buttons that share an action name; if it matches none of them, the request is rejected as forged.
+- Each interactive component can be answered **once**. A second answer, for example from another tab, gets a `409` ("This has already been answered").
+
+It then tries three routes, in order:
 
 ### 1. `chat.ask()` — wait for an answer
 

@@ -15,8 +15,11 @@ app = dyui.App(title="Internal Analyst", password=os.environ["APP_PASSWORD"])
 With `password` set:
 
 - the app shows a password screen first;
-- `POST /api/login` checks the password with a constant-time comparison and sets a signed, `HttpOnly`, `SameSite=Lax` `dyui_auth` cookie that lasts 30 days;
-- every other `/api/*` route returns `401` without that cookie.
+- `POST /api/login` checks the password with a constant-time comparison and sets a signed, `HttpOnly`, `SameSite=Lax` `dyui_auth` cookie that lasts 30 days (marked `Secure` when the request arrived over HTTPS);
+- after **10 failed attempts within 5 minutes** from one client address, login answers `429 Too many attempts` until the window passes, and a successful login resets the count;
+- every other `/api/*` route (except `/api/config` and `/api/logo`) returns `401` without that cookie.
+
+The throttle is kept in memory per process and keys on the client address the server sees. Behind a reverse proxy, run Uvicorn with `--proxy-headers` (and `--forwarded-allow-ips` set to your proxy). Otherwise every user shares the proxy's address, and HTTPS isn't detected for the `Secure` flag.
 
 The cookie is an HMAC of the password, signed with a secret. The secret comes from the `DYUI_SECRET` environment variable, or, when that isn't set, from a random key generated once in `<data_dir>/secret`. **Changing the password signs everyone out.** Set `DYUI_SECRET` explicitly when you run several instances, so they all accept the same cookie.
 

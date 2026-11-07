@@ -8,18 +8,9 @@
     <meta name="theme-color" content="#0B0C10" media="(prefers-color-scheme: dark)" />
     <link rel="icon" type="image/svg+xml" href="./favicon.svg" />
     <title>DyUI</title>
-    <script>
-      // Apply the saved theme before first paint (no flash).
-      try {
-        var t = localStorage.getItem("dyui:theme");
-        if (t === "light" || t === "dark") document.documentElement.setAttribute("data-theme", t);
-      } catch (e) {}
-    </script>
-    <style>
-      html, body { background: #F7F6F3; }
-      @media (prefers-color-scheme: dark) { html:not([data-theme="light"]), html:not([data-theme="light"]) body { background: #0B0C10; } }
-      html[data-theme="dark"], html[data-theme="dark"] body { background: #0B0C10; }
-    </style>
+    <!-- external (not inline) so the app runs under a strict script-src CSP -->
+    <script src="./boot.js"></script>
+    <link rel="stylesheet" href="./boot.css" />
   </head>
   <body>
     <div id="root"></div>

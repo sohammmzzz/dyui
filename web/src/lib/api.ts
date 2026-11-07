@@ -224,8 +224,13 @@ export function createHttpTransport(base = apiBase()): Transport {
   };
 }
 
-function wantsMock(): boolean {
-  if (typeof location === "undefined") return false;
+/**
+ * `?mock=1` is a development affordance only. In a production build it is ignored, so
+ * nobody can link a real deployment into a scripted fake conversation (UI spoofing on
+ * the app's own origin) — and the mock code is tree-shaken out of the bundle.
+ */
+export function wantsMock(dev: boolean = import.meta.env.DEV): boolean {
+  if (!dev || typeof location === "undefined") return false;
   const v = new URLSearchParams(location.search).get("mock");
   return v !== null && v !== "0" && v !== "false";
 }
@@ -242,7 +247,7 @@ async function mockConnection(): Promise<{ transport: Transport; config: AppConf
  * (`npm run dev`) an unreachable backend falls back to it as well.
  */
 export async function connect(): Promise<{ transport: Transport; config: AppConfig }> {
-  if (wantsMock()) return mockConnection();
+  if (import.meta.env.DEV && wantsMock()) return mockConnection();
   const transport = createHttpTransport();
   try {
     return { transport, config: await transport.getConfig() };

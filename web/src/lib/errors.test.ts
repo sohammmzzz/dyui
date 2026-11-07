@@ -1,5 +1,18 @@
 import { describe, expect, it } from "vitest";
-import { ApiError, actionFailure, describeError, isInlineSafe } from "./api";
+import { ApiError, actionFailure, describeError, isInlineSafe, wantsMock } from "./api";
+
+describe("wantsMock", () => {
+  const at = (search: string) => window.history.replaceState(null, "", `/${search}`);
+  it("honours ?mock=1 only in development builds", () => {
+    at("?mock=1");
+    expect(wantsMock(true)).toBe(true);
+    expect(wantsMock(false)).toBe(false); // production: a crafted link can't fake a conversation
+    at("?mock=0");
+    expect(wantsMock(true)).toBe(false);
+    at("");
+    expect(wantsMock(true)).toBe(false);
+  });
+});
 
 describe("describeError", () => {
   it("413 on upload names the limit", () => {

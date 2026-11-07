@@ -241,8 +241,9 @@ export function FileChip({ file, compact = false }: { file: FileRef; compact?: b
   // Only types the server serves inline open in a tab (and get a thumbnail);
   // HTML/SVG/scripts/etc. are served as attachments, so they download.
   const inline = isInlineSafe(file.type);
-  const isImage = inline && file.type.startsWith("image/") && !!file.url;
   const href = safeLink(file.url) ?? undefined;
+  // the thumbnail uses the vetted URL too (never the raw one)
+  const isImage = inline && file.type.startsWith("image/") && !!href;
   return (
     <a
       className={cx("sh-file", compact && "is-compact")}
@@ -251,7 +252,7 @@ export function FileChip({ file, compact = false }: { file: FileRef; compact?: b
       title={inline ? file.name : `Download ${file.name}`}
     >
       <span className="sh-file-icon">
-        {isImage ? <img src={file.url} alt="" loading="lazy" /> : <Icon size={16} strokeWidth={1.8} aria-hidden="true" />}
+        {isImage ? <img src={href} alt="" loading="lazy" /> : <Icon size={16} strokeWidth={1.8} aria-hidden="true" />}
       </span>
       <span className="sh-file-text">
         <span className="sh-file-name">{file.name}</span>

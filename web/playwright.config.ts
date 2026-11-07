@@ -20,7 +20,7 @@ const server = (cmd: string, port: number) => ({
   stderr: "pipe" as const,
 });
 
-export const PORTS = { demo: 8011, extras: 8012, gate: 8013 };
+export const PORTS = { demo: 8011, extras: 8012, gate: 8013, hostile: 8014 };
 
 export default defineConfig({
   testDir: "./e2e",
@@ -42,5 +42,6 @@ export default defineConfig({
     server("demo", PORTS.demo),
     server("run e2e/apps/extras.py --no-reload", PORTS.extras),
     server("run e2e/apps/gate.py --no-reload", PORTS.gate),
+    server("run e2e/apps/hostile.py --no-reload", PORTS.hostile),
   ],
 });

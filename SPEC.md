@@ -222,6 +222,9 @@ App(
     feedback: bool = True,
     history: bool = True,                 # show the conversation sidebar
     max_upload_mb: int = 20,
+    data_dir: str | Path | None = None,   # database, uploads, secret (default ./.dyui)
+    embed_origins: Sequence[str] = (),    # origins allowed to <iframe> the app (default: same origin only)
+    csp: bool | str = True,               # True → DyUI's strict nonce-based CSP; str → your policy; False → none
 )
 ```
 
@@ -416,6 +419,19 @@ SameSite=Lax) scopes threads per browser. If `password` is set: `POST /api/login
 sets a signed `dyui_auth` cookie; every other `/api/*` route returns 401 without it.
 No wildcard CORS (same-origin app). Error bodies: `{"error": "message"}`; never leak tracebacks.
 
+**Security rules (1.0).** State-changing requests from another site are refused with **403**
+(`Sec-Fetch-Site`, falling back to an `Origin` check); JSON routes require
+`Content-Type: application/json` (**415** otherwise). JSON bodies are capped at 1 MiB and uploads at
+`max_upload_mb` (**413**, enforced while streaming, chunked bodies included). Answering an
+already-resolved component — or a second concurrent answer — is **409**. Ten failed logins per
+client in 5 minutes → **429**. Cookies are `HttpOnly; SameSite=Lax` and `Secure` over HTTPS.
+HTML responses carry a per-request nonce CSP (nonce also exposed as
+`<meta name="dyui-csp-nonce">` for the sandboxed `html` component), `frame-ancestors`
+(from `embed_origins`), `X-Content-Type-Options: nosniff`, `Referrer-Policy`, COOP and
+`Permissions-Policy`; `/api` responses are `Cache-Control: no-store`. Model-supplied components are
+limited to 512 KiB per line and 48 nesting levels (larger/deeper → `invalid`). Uploaded HTML/SVG/JS
+are served as attachments. See `SECURITY.md` for the threat model.
+
 | method & path | body | response |
 |---|---|---|
 | `GET /api/config` | – | `AppConfig` |
@@ -438,6 +454,7 @@ type AppConfig = {
   logo: string | null; theme: "system" | "light" | "dark"; accent: string;
   starters: { label: string; message: string; icon: string | null }[];
   features: { history: boolean; uploads: boolean; feedback: boolean; auth: boolean };
+  max_upload_mb: number | null;                         // null when uploads are disabled
   authenticated: boolean; version: string;
 };
 type ThreadSummary = { id: string; title: string; created_at: number; updated_at: number };

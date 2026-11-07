@@ -68,6 +68,14 @@ export function describeError(e: unknown, ctx: ErrorContext = {}): string {
       return "That message is too long to send. Try shortening it.";
     }
     if (e.status === 429) return "Too many attempts. Wait a moment and try again.";
+    // 403: the server refused a cross-origin write (CSRF guard) — e.g. the app is open
+    // through an unexpected host or proxy; uploads may also be disabled.
+    if (e.status === 403)
+      return ctx.kind === "upload" && e.message
+        ? e.message
+        : "The server refused this request. Reload the page and try again — if it keeps happening, open the app at its own address.";
+    // 415: every JSON write sends application/json, so this means a proxy rewrote the request.
+    if (e.status === 415) return "The server couldn’t read this request (a proxy may have changed it). Reload and try again.";
     if (e.status >= 500 && !e.message) return "The server ran into a problem. Try again in a moment.";
     return e.message || `Request failed (${e.status}).`;
   }
@@ -224,8 +232,13 @@ export function createHttpTransport(base = apiBase()): Transport {
   };
 }
 
-function wantsMock(): boolean {
-  if (typeof location === "undefined") return false;
+/**
+ * `?mock=1` is a development affordance only. In a production build it is ignored, so
+ * nobody can link a real deployment into a scripted fake conversation (UI spoofing on
+ * the app's own origin) — and the mock code is tree-shaken out of the bundle.
+ */
+export function wantsMock(dev: boolean = import.meta.env.DEV): boolean {
+  if (!dev || typeof location === "undefined") return false;
   const v = new URLSearchParams(location.search).get("mock");
   return v !== null && v !== "0" && v !== "false";
 }
@@ -242,7 +255,7 @@ async function mockConnection(): Promise<{ transport: Transport; config: AppConf
  * (`npm run dev`) an unreachable backend falls back to it as well.
  */
 export async function connect(): Promise<{ transport: Transport; config: AppConfig }> {
-  if (wantsMock()) return mockConnection();
+  if (import.meta.env.DEV && wantsMock()) return mockConnection();
   const transport = createHttpTransport();
   try {
     return { transport, config: await transport.getConfig() };

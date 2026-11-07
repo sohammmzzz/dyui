@@ -28,11 +28,33 @@ All bodies are JSON, and every route is under `/api`. Errors look like `{"error"
 | `GET /api/logo` | – | the app's local logo file |
 | `GET /*` | – | the web app (SPA fallback) |
 
+### Status codes
+
+| Status | When |
+|---|---|
+| `400` | Malformed body, or an action for a component / action name the message didn't declare |
+| `401` | Password required (`features.auth`) or wrong password |
+| `403` | A state-changing request from another origin (`Sec-Fetch-Site: cross-site`/`same-site`, or a mismatching `Origin`), or uploads are disabled |
+| `404` | Unknown thread, message or file — including ones that belong to another browser |
+| `409` | The interactive component was already answered (another tab, a double click) |
+| `413` | JSON body over 1 MB, or an upload over `max_upload_mb` |
+| `415` | A JSON route received a body that isn't `Content-Type: application/json` |
+| `429` | 10 failed logins within 5 minutes from one client address |
+
+`403` and `415` together are DyUI's CSRF protection: a page on another origin — even another port on `localhost` — can't drive a user's conversations, and a JSON content type forces a CORS preflight that DyUI never grants. If you write your own client, send JSON with `Content-Type: application/json` from the app's own origin.
+
 ### Limits
 
 - JSON request bodies are capped at **1 MB**, and uploads at `max_upload_mb` (plus multipart overhead). Larger requests get `413 Request is too large.` before the body is buffered.
 - Action `label`s are truncated to 200 characters and feedback comments to 2,000.
 - Non-finite numbers (`NaN`, `Infinity`) in component props are replaced with `null`, so every event is valid JSON.
+- Model output is parsed with bounds: a single component may be at most **512 KiB** and nested at most **48** JSON levels deep (bigger or deeper ones become an `invalid` chip), and live previews of a streaming component stop above **64 KiB** (the finished component still renders). Parsing is linear in the length of the reply.
+
+### Security headers
+
+Every response carries `X-Content-Type-Options: nosniff`, `Referrer-Policy: same-origin`, `Cross-Origin-Opener-Policy: same-origin`, a restrictive `Permissions-Policy` and `X-Frame-Options: SAMEORIGIN` (or `frame-ancestors` for the origins in `App(embed_origins=...)`). `/api` responses are `Cache-Control: no-store`.
+
+The web app's HTML is sent with a strict **Content-Security-Policy**: `script-src 'self'` plus a fresh nonce per page load (exposed to the app as `<meta name="dyui-csp-nonce">`), `object-src 'none'`, `base-uri 'self'`, `form-action 'self'`, `connect-src 'self'`, and frames only from the app, `youtube-nocookie.com` and `player.vimeo.com`. Images and media may come from any `http(s)` host, because models show pictures from the web. Replace or disable it with `App(csp=...)` — see [Production](../../deploy/production/#security-headers).
 
 ## Types
 
@@ -42,6 +64,7 @@ type AppConfig = {
   logo: string | null; theme: "system" | "light" | "dark"; accent: string;
   starters: { label: string; message: string; icon: string | null }[];
   features: { history: boolean; uploads: boolean; feedback: boolean; auth: boolean };
+  max_upload_mb: number | null;                        // null when uploads are disabled
   authenticated: boolean; version: string;
 };
 type ThreadSummary = { id: string; title: string; created_at: number; updated_at: number }; // ms

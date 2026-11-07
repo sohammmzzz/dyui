@@ -41,7 +41,7 @@ Starters are suggestion cards on the welcome screen. A plain string is both the 
 
 `plane` · `map` · `search` · `chart` · `code` · `mail` · `calendar` · `shop` · `idea` · `write` · `tasks` · `user` · `food` · `music` · `news` · `rocket` · `settings` · `terminal` · `trend` · `zap`
 
-Unknown names fall back to a neutral sparkle.
+Most [lucide](https://lucide.dev/icons/) icon names work too (kebab-case, e.g. `life-buoy`); unknown names fall back to a chat bubble.
 
 ## Features
 
@@ -51,6 +51,8 @@ Unknown names fall back to a neutral sparkle.
 | `uploads` | `True` | Allow file attachments (`max_upload_mb=20`) |
 | `feedback` | `True` | Thumbs up and down on replies (see `@app.on_feedback`) |
 | `password` | `None` | Require a shared password; see [Authentication](../auth/) |
+| `embed_origins` | `()` | Sites allowed to show the app in an `<iframe>`; see [Security headers](../../deploy/production/#security-headers) |
+| `csp` | `True` | DyUI's strict Content-Security-Policy; a string replaces it, `False` sends none |
 
 ```python
 @app.on_feedback

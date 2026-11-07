@@ -13,10 +13,12 @@ type Embed = { provider: "YouTube" | "Vimeo"; src: string; host: string };
 export function toEmbed(url: string): Embed | null {
   try {
     const u = new URL(url);
+    if (u.protocol !== "https:" && u.protocol !== "http:") return null;
     const host = u.hostname.replace(/^www\.|^m\./, "");
     let id: string | null = null;
+    // exact hosts only: "evilyoutube.com" must not be treated as YouTube
     if (host === "youtu.be") id = u.pathname.slice(1).split("/")[0];
-    else if (host.endsWith("youtube.com") || host.endsWith("youtube-nocookie.com")) {
+    else if (host === "youtube.com" || host === "music.youtube.com" || host === "youtube-nocookie.com") {
       id = u.searchParams.get("v") ?? u.pathname.match(/^\/(?:embed|shorts|live|v)\/([\w-]{6,})/)?.[1] ?? null;
     }
     if (id && /^[\w-]{6,}$/.test(id)) {

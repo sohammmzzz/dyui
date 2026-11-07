@@ -1,5 +1,18 @@
 import { describe, expect, it } from "vitest";
-import { ApiError, actionFailure, describeError, isInlineSafe } from "./api";
+import { ApiError, actionFailure, describeError, isInlineSafe, wantsMock } from "./api";
+
+describe("wantsMock", () => {
+  const at = (search: string) => window.history.replaceState(null, "", `/${search}`);
+  it("honours ?mock=1 only in development builds", () => {
+    at("?mock=1");
+    expect(wantsMock(true)).toBe(true);
+    expect(wantsMock(false)).toBe(false); // production: a crafted link can't fake a conversation
+    at("?mock=0");
+    expect(wantsMock(true)).toBe(false);
+    at("");
+    expect(wantsMock(true)).toBe(false);
+  });
+});
 
 describe("describeError", () => {
   it("413 on upload names the limit", () => {
@@ -29,6 +42,12 @@ describe("describeError", () => {
   it("409 explains the component was already answered", () => {
     expect(describeError(new ApiError("This has already been answered.", 409))).toBe("This has already been answered.");
     expect(describeError(new ApiError("", 409))).toBe("This was already answered.");
+  });
+
+  it("403 (cross-origin write refused) and 415 (not JSON) get friendly copy", () => {
+    expect(describeError(new ApiError("Cross-origin requests are not allowed.", 403))).toMatch(/refused this request/);
+    expect(describeError(new ApiError("Uploads are disabled.", 403), { kind: "upload" })).toBe("Uploads are disabled.");
+    expect(describeError(new ApiError("Send JSON (Content-Type: application/json).", 415))).toMatch(/couldn’t read this request/);
   });
 
   it("network and unknown errors", () => {

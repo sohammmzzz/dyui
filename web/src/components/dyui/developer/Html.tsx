@@ -7,10 +7,29 @@ import "../styles/agent.css";
 
 const TOKENS = ["--dy-bg", "--dy-surface", "--dy-surface-2", "--dy-border", "--dy-text", "--dy-text-muted", "--dy-text-faint", "--dy-accent", "--dy-accent-text", "--dy-teal", "--dy-success", "--dy-warning", "--dy-danger"];
 
+/** The page's CSP nonce (`<meta name="dyui-csp-nonce">`, set by the server), if any. */
+export function cspNonce(doc: Document | undefined = typeof document === "undefined" ? undefined : document): string | null {
+  const v = doc?.querySelector<HTMLMetaElement>('meta[name="dyui-csp-nonce"]')?.content?.trim();
+  return v && /^[A-Za-z0-9+/_=-]+$/.test(v) ? v : null;
+}
+
+/**
+ * A srcdoc iframe inherits the page's Content-Security-Policy, so its scripts only run
+ * when they carry the page nonce. Stamp it on every `<script>` tag of the
+ * (developer-authored, trusted) HTML, replacing any nonce it already had.
+ */
+export function withNonce(html: string, nonce: string | null): string {
+  if (!nonce) return html;
+  return html
+    .replace(/<script\b([^>]*?)\s+nonce\s*=\s*("[^"]*"|'[^']*'|[^\s>]+)/gi, "<script$1")
+    .replace(/<script\b/gi, `<script nonce="${nonce}"`);
+}
+
 /**
  * `html` — developer-authored HTML in a sandboxed iframe (allow-scripts only, never
  * allow-same-origin). The iframe reports its height via postMessage. Theme tokens are
- * copied in as CSS variables so templates can match the app.
+ * copied in as CSS variables so templates can match the app. Under the server's CSP the
+ * page nonce is stamped onto the iframe's scripts (inline event handlers stay blocked).
  */
 export function Html({ node }: DyProps) {
   const p = node.props;
@@ -42,7 +61,10 @@ export function Html({ node }: DyProps) {
     if (vars === null) return null;
     const reporter = `<script>(function(){var k=${JSON.stringify(key)};function s(){parent.postMessage({__dyui_html:k,height:document.documentElement.scrollHeight},"*")}addEventListener("load",s);if(window.ResizeObserver){new ResizeObserver(s).observe(document.documentElement)}s()})()</script>`;
     const base = `<style>:root{${vars}}html,body{margin:0;background:transparent;color:var(--dy-text);font-family:var(--dy-font);font-size:14px;line-height:1.5}</style>`;
-    return `<!doctype html><html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">${base}</head><body>${html}${reporter}</body></html>`;
+    return withNonce(
+      `<!doctype html><html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">${base}</head><body>${html}${reporter}</body></html>`,
+      cspNonce(),
+    );
   }, [html, vars, key]);
 
   return (

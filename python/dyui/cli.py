@@ -33,12 +33,18 @@ def _discover(target: Optional[str]) -> str:
     raise SystemExit("dyui: no app found — pass a file (dyui run app.py) or create app.py")
 
 
+def split_target(target: str) -> tuple[str, Any]:
+    r"""Split ``path_or_module[:attr]``, keeping Windows drive letters (``C:\proj\app.py:app``) intact."""
+    has_drive = len(target) > 1 and target[1] == ":" and target[0].isalpha()
+    if target.count(":") > (1 if has_drive else 0):
+        spec, attr = target.rsplit(":", 1)
+        return spec, attr or None
+    return target, None
+
+
 def load_target(target: str) -> Any:
     """Load ``file.py`` / ``file.py:attr`` / ``module:attr`` and return the app object."""
-    attr = None
-    spec_target = target
-    if ":" in target and not (len(target) > 1 and target[1] == ":" and target[0].isalpha() and target.count(":") == 1):
-        spec_target, attr = target.rsplit(":", 1)
+    spec_target, attr = split_target(target)
     if spec_target.endswith(".py") or Path(spec_target).is_file():
         path = Path(spec_target).resolve()
         if not path.is_file():
@@ -109,12 +115,13 @@ def _serve(target: str, host: str, port: int, reload: bool, open_browser: bool, 
     if open_browser:
         threading.Timer(1.2, lambda: webbrowser.open(url)).start()
     os.environ[TARGET_ENV] = target
-    if reload and (target.endswith(".py") or ":" in target and target.split(":")[0].endswith(".py")):
-        app_dir = str(Path(target.split(":")[0]).resolve().parent)
+    spec_target, _attr = split_target(target)
+    if reload and spec_target.endswith(".py"):
+        app_dir = str(Path(spec_target).resolve().parent)
         uvicorn.run("dyui.cli:_factory", factory=True, host=host, port=port, reload=True,
-                    reload_dirs=[app_dir], log_level="warning")
+                    reload_dirs=[app_dir], log_level="warning", server_header=False)
     else:
-        uvicorn.run(load_target(target), host=host, port=port, log_level="warning")
+        uvicorn.run(load_target(target), host=host, port=port, log_level="warning", server_header=False)
 
 
 # ------------------------------------------------------------------ commands

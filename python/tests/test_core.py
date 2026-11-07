@@ -238,7 +238,9 @@ async def test_password_gate_and_bad_body():
         assert (await c.post("/api/login", json={"password": "nope"})).status_code == 401
         assert (await c.post("/api/login", json={"password": "s3cret"})).status_code == 200
         assert (await c.get("/api/threads")).status_code == 200
-        assert (await c.post("/api/chat", content=b"{not json")).status_code == 400
+        assert (await c.post("/api/chat", content=b"{not json",
+                             headers={"Content-Type": "application/json"})).status_code == 400
+        assert (await c.post("/api/chat", content=b"{not json")).status_code == 415  # JSON routes need JSON
 
 
 async def test_upload_and_file_scoping(tmp_path):

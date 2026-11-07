@@ -9,7 +9,7 @@ from __future__ import annotations
 
 from typing import Any
 
-__all__ = ["parse_partial", "PartialStr", "JSONObject", "PartialJSONError", "MISSING", "scan_depth"]
+__all__ = ["parse_partial", "PartialStr", "JSONObject", "PartialJSONError", "MISSING", "scan_depth", "ScanState"]
 
 
 class PartialJSONError(ValueError):
@@ -229,21 +229,48 @@ def parse_partial(text: str) -> Any:
 
 def scan_depth(text: str) -> tuple[int, bool]:
     """Return ``(bracket depth, inside string)`` at the end of ``text``."""
-    depth = 0
-    in_str = False
-    esc = False
-    for ch in text:
-        if in_str:
-            if esc:
-                esc = False
-            elif ch == "\\":
-                esc = True
+    state = ScanState()
+    state.feed(text)
+    return state.depth, state.in_str
+
+
+class ScanState:
+    """Incremental bracket-depth / string scanner for streamed JSON.
+
+    Feeding text chunk by chunk costs O(len(chunk)), so callers never need to
+    rescan what they already saw (the parser used to rescan the whole growing
+    component on every line, which made long components quadratic).
+    """
+
+    __slots__ = ("depth", "in_str", "esc", "max_depth")
+
+    def __init__(self) -> None:
+        self.depth = 0
+        self.in_str = False
+        self.esc = False
+        self.max_depth = 0
+
+    def copy(self) -> "ScanState":
+        other = ScanState()
+        other.depth, other.in_str, other.esc, other.max_depth = self.depth, self.in_str, self.esc, self.max_depth
+        return other
+
+    def feed(self, text: str) -> None:
+        depth, in_str, esc, max_depth = self.depth, self.in_str, self.esc, self.max_depth
+        for ch in text:
+            if in_str:
+                if esc:
+                    esc = False
+                elif ch == "\\":
+                    esc = True
+                elif ch == '"':
+                    in_str = False
             elif ch == '"':
-                in_str = False
-        elif ch == '"':
-            in_str = True
-        elif ch in "{[":
-            depth += 1
-        elif ch in "}]":
-            depth -= 1
-    return depth, in_str
+                in_str = True
+            elif ch in "{[":
+                depth += 1
+                if depth > max_depth:
+                    max_depth = depth
+            elif ch in "}]":
+                depth -= 1
+        self.depth, self.in_str, self.esc, self.max_depth = depth, in_str, esc, max_depth

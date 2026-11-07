@@ -21,11 +21,28 @@ jobs:
           python-version: "3.12"
       - run: npm ci
         working-directory: web
+      # Build the web app into python/dyui/_static FIRST: `python -m build` makes the sdist,
+      # then builds the wheel from the unpacked sdist (where ../web doesn't exist), so the UI
+      # must already be in the source tree for both artifacts to carry it.
+      - name: Build web app into the Python package
+        run: npm run build:py
+        working-directory: web
+      - name: Generate the PyPI README from the root README
+        run: python scripts/sync_pypi_readme.py
       - run: pip install build
-      - name: Build sdist + wheel (hatch hook compiles web/ into dyui/_static)
+      - name: Build sdist + wheel
         run: python -m build python --outdir dist
         env:
-          DYUI_FORCE_WEB_BUILD: "1"
+          DYUI_SKIP_WEB_BUILD: "1"
+      - name: Check both artifacts ship the web UI
+        run: |
+          python - <<'PY'
+          import glob, tarfile, zipfile
+          whl = glob.glob("dist/*.whl")[0]; sdist = glob.glob("dist/*.tar.gz")[0]
+          assert any(n.endswith("dyui/_static/index.html") for n in zipfile.ZipFile(whl).namelist()), whl
+          assert any(n.endswith("dyui/_static/index.html") for n in tarfile.open(sdist).getnames()), sdist
+          print("ok:", whl, sdist)
+          PY
       - name: Smoke-test the wheel in a clean venv
         run: |
           python -m venv /tmp/smoke

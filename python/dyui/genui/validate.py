@@ -11,7 +11,7 @@ from typing import TYPE_CHECKING, Any, Mapping, Optional
 
 from pydantic import ValidationError
 
-from .._jsonsafe import finite, has_nonfinite
+from .._jsonsafe import MAX_DEPTH, finite, has_nonfinite, too_deep
 from ..ui.base import Component, format_errors, invalid_node, validate_component
 from ..ui.types import is_safe_url, to_json_text
 from .partial_json import JSONObject, PartialStr
@@ -65,18 +65,31 @@ def _check(obj: Any, catalog: "Catalog") -> tuple[type[Component], dict[str, Any
     return cls, dict(obj)
 
 
+def _shallow_raw(obj: Any) -> str:
+    """A short, non-recursive description of an over-deep object for the invalid chip."""
+    if isinstance(obj, Mapping):
+        return "{" + ", ".join(f'"{k}": …' for k in list(obj)[:8]) + "}"
+    return "[…]" if isinstance(obj, (list, tuple)) else repr(obj)[:200]
+
+
 def validate_instance(obj: Any, catalog: "Catalog") -> Component:
     """Validate one LLM component object and return the component instance.
 
     Raises:
         ValidationFailure: If the object is not a valid component.
     """
+    if too_deep(obj):
+        name = obj.get("ui") if isinstance(obj, Mapping) and isinstance(obj.get("ui"), str) else None
+        raise ValidationFailure(f"component is nested too deeply (more than {MAX_DEPTH} levels)",
+                                component=name, raw=_shallow_raw(obj))
     cls, data = _check(obj, catalog)
     if has_nonfinite(data):
         raise ValidationFailure("numbers must be finite (NaN / Infinity aren't valid JSON)",
                                 component=cls.__dyui__.name, raw=to_json_text(finite(obj)))
     try:
         return validate_component(cls, data, {"catalog": catalog})
+    except RecursionError:  # pragma: no cover - guarded by too_deep(); belt and braces
+        raise ValidationFailure("component is nested too deeply", component=cls.__dyui__.name) from None
     except ValidationError as exc:
         err = exc.errors(include_url=False)
         path = ".".join(str(p) for p in err[0].get("loc", ())) if err else ""

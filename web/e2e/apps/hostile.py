@@ -118,6 +118,12 @@ async def reply(msg: dyui.Message, chat: dyui.Chat):
         for c in COMPONENTS:
             yield c
         return
+    if msg.text.strip() == "devhtml-clean":
+        # a well-behaved developer template: its script must run under the server CSP
+        yield ui.Html(html='<div id="ok">waiting</div><div id="tall"></div><script>'
+                           'document.getElementById("ok").textContent = "script ran";'
+                           'document.getElementById("tall").style.height = "320px";</script>')
+        return
     if msg.text.strip() == "devhtml":
         # developer-authored html: runs scripts, but must stay inside its sandbox
         yield ui.Html(html=SANDBOX_PROBE)

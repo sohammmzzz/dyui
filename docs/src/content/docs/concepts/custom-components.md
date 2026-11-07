@@ -79,9 +79,15 @@ yield ui.Html("<b>Boarding pass</b> · Gate B32", height=120)
 
 # from a template file — {{ key }} is HTML-escaped, {{{ key }}} is inserted raw
 yield dyui.html_template("cards/boarding_pass.html", passenger="Alex Morgan", gate="B32")
+# the same, as a component
+yield ui.Html(template="cards/boarding_pass.html", props={"passenger": "Alex Morgan", "gate": "B32"})
 ```
 
-`dyui.html_template` only loads files from inside its `root` (the working directory by default) and raises `ValueError` for paths that escape it.
+### HTML templates
+
+A template path is relative and is looked up in **`<root>/templates/`**, then **`<root>/`**. `root` is the `root=` you pass (`template_root=` on `ui.Html`), otherwise your app's directory, otherwise the current directory. Only `.html` / `.htm` files inside those folders are read: absolute paths, drive letters, `..` and backslash escapes, null bytes and symlinks that point outside are refused with a `ValueError`. The template path and props never reach the browser — only the rendered HTML does.
+
+Scripts in your HTML run inside the app's [Content-Security-Policy](../../deploy/production/#security-headers): DyUI adds the page's nonce to every `<script>` tag, so `<script>` blocks work, but inline event-handler attributes (`onclick="…"`) are blocked — use `addEventListener` in a script. The iframe can't reach the app's cookies, storage or DOM, open popups, submit forms or navigate the page.
 
 ## Let a coding agent design them
 

@@ -35,6 +35,29 @@ A single async worker handles many concurrent chats, because handlers spend most
 export DYUI_SECRET="$(python -c 'import secrets; print(secrets.token_hex(32))')"
 ```
 
+## Security headers
+
+DyUI sends a hardened set of headers by default, so a production deployment needs no extra configuration:
+
+- a strict **Content-Security-Policy** on the web app (`script-src 'self'` plus a per-page nonce, no `unsafe-eval`, `object-src 'none'`, `form-action 'self'`, frames only from the app and the YouTube/Vimeo privacy embeds);
+- `X-Frame-Options: SAMEORIGIN` / `frame-ancestors 'self'` against clickjacking, `X-Content-Type-Options: nosniff`, `Referrer-Policy: same-origin`, `Cross-Origin-Opener-Policy: same-origin`, a restrictive `Permissions-Policy`, and `Cache-Control: no-store` on `/api`;
+- cross-origin protection on every state-changing API call: requests from another origin (including another port on `localhost`) get `403`, and JSON routes require `Content-Type: application/json` (`415` otherwise). The bundled web app always satisfies both; see the [protocol](../../reference/protocol/#status-codes).
+
+Two `App` options adjust this:
+
+```python
+app = dyui.App(
+    title="Support",
+    embed_origins=["https://www.example.com"],  # sites allowed to show the app in an <iframe>
+    csp=True,                                    # DyUI's policy (default) | "your policy" | False
+)
+```
+
+- **`embed_origins`** — by default only the app itself may frame it. List full origins (`https://host[:port]`) to embed the chat in another site; they're added to `frame-ancestors`.
+- **`csp`** — `True` sends DyUI's policy; a string replaces it with your own (single line); `False` sends none (not recommended). Developer [`ui.Html`](../../concepts/custom-components/#html-templates) components run inside the app's policy: DyUI stamps the page nonce onto their `<script>` tags, so scripts work, but inline event handlers (`onclick="…"`) don't — attach listeners from a script instead.
+
+Read the [security policy](https://github.com/sohammmzzz/dyui/blob/main/SECURITY.md) for the threat model and how to report a vulnerability.
+
 ## Checklist
 
 - [ ] Serve over **HTTPS**, terminated at your proxy or platform; see [Behind a reverse proxy](../reverse-proxy/).

@@ -68,6 +68,14 @@ export function describeError(e: unknown, ctx: ErrorContext = {}): string {
       return "That message is too long to send. Try shortening it.";
     }
     if (e.status === 429) return "Too many attempts. Wait a moment and try again.";
+    // 403: the server refused a cross-origin write (CSRF guard) — e.g. the app is open
+    // through an unexpected host or proxy; uploads may also be disabled.
+    if (e.status === 403)
+      return ctx.kind === "upload" && e.message
+        ? e.message
+        : "The server refused this request. Reload the page and try again — if it keeps happening, open the app at its own address.";
+    // 415: every JSON write sends application/json, so this means a proxy rewrote the request.
+    if (e.status === 415) return "The server couldn’t read this request (a proxy may have changed it). Reload and try again.";
     if (e.status >= 500 && !e.message) return "The server ran into a problem. Try again in a moment.";
     return e.message || `Request failed (${e.status}).`;
   }

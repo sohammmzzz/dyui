@@ -44,6 +44,12 @@ describe("describeError", () => {
     expect(describeError(new ApiError("", 409))).toBe("This was already answered.");
   });
 
+  it("403 (cross-origin write refused) and 415 (not JSON) get friendly copy", () => {
+    expect(describeError(new ApiError("Cross-origin requests are not allowed.", 403))).toMatch(/refused this request/);
+    expect(describeError(new ApiError("Uploads are disabled.", 403), { kind: "upload" })).toBe("Uploads are disabled.");
+    expect(describeError(new ApiError("Send JSON (Content-Type: application/json).", 415))).toMatch(/couldn’t read this request/);
+  });
+
   it("network and unknown errors", () => {
     expect(describeError(new TypeError("Failed to fetch"))).toMatch(/reach the server/);
     expect(describeError(new ApiError("", 503))).toMatch(/server ran into a problem/);

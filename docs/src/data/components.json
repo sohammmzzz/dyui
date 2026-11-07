@@ -1677,7 +1677,7 @@
       "group": "developer",
       "llm": false,
       "description": "Developer-authored HTML rendered in a sandboxed iframe.",
-      "details": "The browser renders it in `<iframe sandbox=\"allow-scripts\" srcdoc=...>` without same-origin access. Pass raw `html`, or a `template` path (relative to your app's directory) plus `props`; `{{ key }}` is escaped and `{{{ key }}}` inserted raw (see `dyui.html`). Never produced by the LLM.",
+      "details": "The browser renders it in `<iframe sandbox=\"allow-scripts\" srcdoc=...>` without same-origin access. Pass inline `html` source, or a `template` file plus `props`. Template files are looked up in `templates/` and then the folder itself, first in `template_root` if given, else in your app's directory and the current directory; only `.html` files inside those folders can be read (see `dyui.html.load_template`). In the template, `{{ key }}` is HTML-escaped and `{{{ key }}}` is inserted raw. Never produced by the LLM.",
       "signature": "html(html?: string, height?: number) — Developer-authored HTML rendered in a sandboxed iframe.",
       "positional": [
         "html"

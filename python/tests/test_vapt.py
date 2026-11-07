@@ -239,6 +239,26 @@ async def test_json_routes_require_json_content_type(ctype):
 
 
 # ===================================================================== V-04 security headers / CSP
+async def test_every_shipped_html_page_gets_the_nonce(tmp_path, monkeypatch):
+    """gallery.html (and any other shipped page) must get the nonce, not be served raw."""
+    from dyui import server
+
+    static = tmp_path / "static"
+    (static / "assets").mkdir(parents=True)
+    page = "<!doctype html><html><head><title>DyUI</title><script>var a=1</script></head><body></body></html>"
+    (static / "index.html").write_text(page, encoding="utf-8")
+    (static / "gallery.html").write_text(page.replace("var a=1", "var g=1"), encoding="utf-8")
+    (static / "assets" / "m.js").write_text("export {}", encoding="utf-8")
+    monkeypatch.setattr(server, "STATIC_DIR", static)
+    app = make_app()
+    async with client(app) as c:
+        g, js = await c.get("/gallery.html"), await c.get("/assets/m.js")
+    nonce = re.search(r"'nonce-([^']+)'", g.headers["content-security-policy"]).group(1)
+    assert f'<script nonce="{nonce}">var g=1</script>' in g.text
+    assert f'<meta name="dyui-csp-nonce" content="{nonce}">' in g.text
+    assert js.headers["cache-control"].startswith("public, max-age=31536000")  # assets still served as files
+
+
 async def test_html_gets_nonce_csp_and_hardening_headers(tmp_path, monkeypatch):
     from dyui import server
 

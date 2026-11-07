@@ -53,13 +53,6 @@ for (const theme of ["light", "dark"] as const) {
     const invalid = await page.locator(".g-item:not(#c-invalid) [data-dy-ui='invalid']").count();
     expect(invalid, "no built-in fixture falls back to invalid").toBe(0);
 
-    // Known gap (backend follow-up, security/vapt-frontend.md §6): the server sends
-    // gallery.html with the hash-only CSP and no <meta name="dyui-csp-nonce">, so the
-    // `html` example's srcdoc height reporter is blocked. Tolerate exactly that, only
-    // while the page has no nonce; csp.spec.ts tracks it as an expected failure.
-    if ((await page.locator('meta[name="dyui-csp-nonce"]').count()) === 0) {
-      const keep = problems.filter((p) => !/Executing inline script violates the following Content Security Policy/.test(p));
-      problems.splice(0, problems.length, ...keep);
-    }
+    expect(await page.locator('meta[name="dyui-csp-nonce"]').count()).toBe(1);
   });
 }

@@ -2,7 +2,7 @@
 
 All notable changes to DyUI are documented here. DyUI follows [Semantic Versioning](https://semver.org/).
 
-## 1.0.0 — 2026-11-05
+## 1.0.0 — 2026-11-07
 
 The first stable release. DyUI 1.0 is a ground-up rewrite. 0.1 streamed UI cards out of LangGraph agents; 1.0 is a framework for professional chat apps whose model renders the interface.
 
@@ -17,7 +17,7 @@ The first stable release. DyUI 1.0 is a ground-up rewrite. 0.1 streamed UI cards
 - **Any model.** `dyui.llm.stream("provider/model", ...)` for OpenAI, Anthropic, Ollama, Groq, OpenRouter, Together, DeepSeek, Gemini, Mistral and xAI. LangGraph integration through `dyui.integrations.langgraph` (`stream`, `emit`). Or yield raw text from any SDK.
 - **Persistence.** SQLite by default (`./.dyui/dyui.db`), in-memory, or your own `Store`. `chat.session` holds per-conversation state.
 - **CLI.** `dyui run`, `dyui demo` (no API key), `dyui new` (templates: basic, openai, anthropic, langgraph), `dyui catalog`, `dyui claude|gemini|codex init`, `dyui version`.
-- **Safe by design.** The model only sends data: no model HTML (developer-only components are rejected from model output), and links are filtered. Threads, uploads and actions are scoped to the browser identity, and developer HTML renders in a sandboxed iframe. Action `data` is taken from the server's copy of the component, and an interactive component can only be answered once (`409`). JSON bodies are limited to 1 MB and uploads to `max_upload_mb` (`413`), and failed logins are throttled (`429`). Cookies are `Secure` over HTTPS, and uploaded files that aren't safe to display inline are served as downloads under a sandboxing CSP.
+- **Safe by design.** The model only sends data: no model HTML (developer-only components are rejected from model output), and links are filtered. Threads, uploads and actions are scoped to the browser identity, and developer HTML renders in a sandboxed iframe. Action `data` is taken from the server's copy of the component, and an interactive component can only be answered once (`409`). JSON bodies are limited to 1 MB and uploads to `max_upload_mb` (`413`), and failed logins are throttled (`429`). Cookies are `Secure` over HTTPS, and uploaded files that aren't safe to display inline are served as downloads under a sandboxing CSP. Pages ship a strict per-request nonce CSP plus framing, nosniff, referrer and permissions headers (`App(csp=..., embed_origins=...)`); cross-site writes are refused (`403`) and JSON routes require `application/json` (`415`); concurrent answers to one component are serialised. Model components are bounded (512 KiB per line, 48 nesting levels) and parsed in linear time. 1.0 was penetration-tested end to end before release — see [`SECURITY.md`](SECURITY.md) and `security/`.
 - **Python 3.10–3.13.** On 3.10, pass `config=` or `writer=` to `dyui.integrations.langgraph.emit(...)`; see the LangGraph docs. The `langgraph` extra requires `langgraph>=1.0`.
 - **Documentation site** with live component demos: https://sohammmzzz.github.io/dyui/
 

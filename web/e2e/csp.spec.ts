@@ -43,9 +43,6 @@ test("the app runs under the server CSP with zero violations", async ({ page, pr
 });
 
 test("the gallery renders every component under the server CSP", async ({ page, problems }) => {
-  // Expected to fail until the server serves gallery.html with a nonce (backend follow-up,
-  // security/vapt-frontend.md §6). Playwright reports it once that lands, so the gap can't rot.
-  test.fail(true, "gallery.html is served without <meta name=dyui-csp-nonce>");
   await watchCsp(page);
   await page.goto(url("demo", "/gallery.html"));
   await page.waitForTimeout(2500);

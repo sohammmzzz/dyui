@@ -245,9 +245,17 @@ for Docker, reverse proxies and hosting guides.
 | [`docs/`](docs/) | the documentation site (Astro Starlight) |
 | [`examples/`](examples/) | runnable example bots |
 | [`SPEC.md`](SPEC.md) | the engineering spec: protocol, component catalog, brand |
+| [`SECURITY.md`](SECURITY.md) | security policy, threat model, and how to report a vulnerability |
 
 Contributions are welcome — start with [`SPEC.md`](SPEC.md), then
 `cd web && npm install && npm run build:py` and `pip install -e "python[all,dev]"`.
+
+## Security
+
+DyUI treats model output as untrusted: components are validated against their schemas, URLs are
+sanitised, raw HTML from the model is never rendered, and the app ships with a strict CSP and
+CSRF protection. See [`SECURITY.md`](SECURITY.md) — please report vulnerabilities privately via
+[GitHub security advisories](https://github.com/sohammmzzz/dyui/security/advisories/new).
 
 ## License
 

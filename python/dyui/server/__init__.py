@@ -606,12 +606,15 @@ def create_server(app: "App") -> Any:
         index = STATIC_DIR / "index.html"
         if not index.is_file():
             return HTMLResponse(FALLBACK_PAGE.format(title=_html_escape(app.title)))
+        page = index
         if path:
             target = (STATIC_DIR / path).resolve()
             if STATIC_DIR.resolve() in target.parents and target.is_file():
-                cache = "public, max-age=31536000, immutable" if path.startswith("assets/") else "no-cache"
-                return FileResponse(target, headers={"Cache-Control": cache})
-        html = index.read_text(encoding="utf-8").replace("<title>DyUI</title>", f"<title>{_html_escape(app.title)}</title>")
+                if target.suffix.lower() != ".html":
+                    cache = "public, max-age=31536000, immutable" if path.startswith("assets/") else "no-cache"
+                    return FileResponse(target, headers={"Cache-Control": cache})
+                page = target  # shipped HTML pages (e.g. gallery.html) get the same nonce treatment
+        html = page.read_text(encoding="utf-8").replace("<title>DyUI</title>", f"<title>{_html_escape(app.title)}</title>")
         headers = {"Cache-Control": "no-cache"}
         if app.csp is True:
             # A fresh nonce per page load: our inline scripts carry it, and the web app

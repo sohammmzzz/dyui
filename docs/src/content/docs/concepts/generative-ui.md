@@ -33,7 +33,10 @@ Want me to hold a seat?
 ## UI components
 You can show UI components inside your reply. To do so, write a fenced code block
 tagged `dyui` containing one JSON object per line: {"ui": "<name>", ...props}.
-Put prose outside the block. Use plain text when a component isn't clearly better.
+Components support your written answer; they do not replace it. Always write prose
+outside the block as well: a sentence that introduces what you are showing, and a
+short takeaway or explanation after it. Never reply with components alone. Use plain
+text only when a component isn't clearly better.
 
 Components:
 table(columns: string[], rows: (string|number)[][], caption?: string) — Tabular data; use for 3+ rows.
@@ -42,9 +45,11 @@ quick_replies(options: string[]) — Suggested follow-up replies the user can ta
 flight(airline: string, depart: string, price: number) — A bookable flight option. Use when listing specific flights.
 
 Example:
+<a sentence introducing what you are showing>
 ```dyui
 {"ui":"stat","label":"Revenue","value":"$48.2k","delta":"+12%","trend":"up"}
 ```
+<one or two sentences on what it means>
 ````
 
 The prompt is rebuilt from the live registry on every access. Its order is deterministic (built-ins in catalog order, then your components in registration order), so provider prompt caching keeps hitting. The full built-in catalog is about 1,250 tokens. DyUI logs a warning when a catalog's estimate passes 1,800.
@@ -95,7 +100,7 @@ async for part in dyui.llm.stream("openai/gpt-5", chat.history, components=app.c
     yield part
 ```
 
-DyUI registers one strict tool per component, `render_<name>`, whose parameters are the component's JSON schema. The provider's constrained decoding then guarantees valid props. DyUI runs the tool loop itself, up to `max_tool_rounds=8` requests: each completed call is rendered where it happened, the tool result `"rendered"` is sent back, and generation continues. Prose and components still interleave. The catalog prompt in this mode tells the model to call `render_*` tools instead of writing fences.
+DyUI registers one strict tool per component, `render_<name>`, whose parameters are the component's JSON schema. The provider's constrained decoding then guarantees valid props. DyUI runs the tool loop itself, up to `max_tool_rounds=8` requests: each completed call is rendered where it happened, a tool result is sent back that tells the model the component is on screen and asks it to carry on in text, and generation continues. Prose and components still interleave. The catalog prompt in this mode tells the model to call `render_*` tools instead of writing fences.
 
 Use fence mode (the default) for every other provider and for local models.
 

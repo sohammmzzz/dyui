@@ -36,7 +36,7 @@ def load(path: Path, name: str):
 def test_version(capsys):
     assert cli_main(["version"]) == 0
     assert capsys.readouterr().out.strip() == f"dyui {dyui.__version__}"
-    assert dyui.__version__ == "1.0.0"
+    assert dyui.__version__ == "1.1.0"
 
 
 def test_catalog_json_and_modes(tmp_path, capsys):

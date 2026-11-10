@@ -34,6 +34,19 @@ _CLAIM_TTL_S = 120.0
 _ORIGIN = re.compile(r"https?://(\*\.)?[A-Za-z0-9.-]+(:\d{1,5})?")
 
 
+def _public_error(exc: BaseException) -> str:
+    """The error text shown in the chat. Never includes the exception message
+    (it can hold paths, keys or prompts); provider limits get a useful hint."""
+    status = getattr(exc, "status_code", None)
+    if status == 429:
+        return ("The model provider's rate limit was reached. Wait a moment and try again; "
+                "if it keeps happening, the provider plan's quota is too small for this app.")
+    if status == 413:
+        return ("The request was too large for the model provider's limits. "
+                "Start a new chat, or ask the app's developer to trim the prompt.")
+    return f"{type(exc).__name__}: something went wrong while replying."
+
+
 class App:
     """A DyUI chat application (and an ASGI app: ``uvicorn app:app`` works).
 
@@ -233,7 +246,7 @@ class App:
             raise
         except Exception as exc:  # never leak tracebacks to the client
             log.exception("dyui: handler %s failed", getattr(fn, "__name__", fn))
-            turn.emit("error", {"message": f"{type(exc).__name__}: something went wrong while replying.",
+            turn.emit("error", {"message": _public_error(exc),
                                 "message_id": turn.message["id"] if turn.message else None})
             await turn.end_message("error")
         finally:

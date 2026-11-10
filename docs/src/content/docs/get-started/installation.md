@@ -19,7 +19,7 @@ Model SDKs are optional and imported only when you use them. Install the extra f
 
 | Extra | Installs | Use it for |
 |---|---|---|
-| `dyui[openai]` | `openai` | OpenAI, plus every OpenAI-compatible provider: Ollama, Groq, OpenRouter, Together, DeepSeek, Gemini, Mistral, xAI |
+| `dyui[openai]` | `openai` | OpenAI, plus every OpenAI-compatible provider: Ollama, Groq, OpenRouter, Together, DeepSeek, Gemini, Mistral, xAI, NVIDIA NIM |
 | `dyui[anthropic]` | `anthropic` | Claude models through the Anthropic SDK |
 | `dyui[langgraph]` | `langgraph>=1.0` | Streaming LangGraph agents |
 | `dyui[all]` | all of the above | Trying everything |

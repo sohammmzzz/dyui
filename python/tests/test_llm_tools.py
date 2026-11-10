@@ -6,6 +6,7 @@ from types import SimpleNamespace as NS
 import pytest
 
 from dyui import llm
+from dyui.llm._stream import TOOL_RESULT
 from dyui.parts import Reasoning
 
 
@@ -96,8 +97,8 @@ async def test_openai_tools_loop():
     assert m[-3]["role"] == "assistant" and m[-3]["content"] == "Here: "
     assert [t["id"] for t in m[-3]["tool_calls"]] == ["c1", "c2"]
     assert m[-3]["tool_calls"][0]["function"]["arguments"] == '{"label":"Rev","value":"$4k","unit":null}'
-    assert m[-2:] == [{"role": "tool", "tool_call_id": "c1", "content": "rendered"},
-                      {"role": "tool", "tool_call_id": "c2", "content": "rendered"}]
+    assert m[-2:] == [{"role": "tool", "tool_call_id": "c1", "content": TOOL_RESULT},
+                      {"role": "tool", "tool_call_id": "c2", "content": TOOL_RESULT}]
     assert "parallel_tool_calls" in second
 
 
@@ -213,7 +214,7 @@ async def test_anthropic_tools_loop():
         {"type": "text", "text": "Look: "},
         {"type": "tool_use", "id": "tu1", "name": "render_stat", "input": {"label": "R", "value": 5, "help": None}},
     ]}
-    assert m[-1] == {"role": "user", "content": [{"type": "tool_result", "tool_use_id": "tu1", "content": "rendered"}]}
+    assert m[-1] == {"role": "user", "content": [{"type": "tool_result", "tool_use_id": "tu1", "content": TOOL_RESULT}]}
 
 
 @pytest.mark.asyncio

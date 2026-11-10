@@ -2,6 +2,18 @@
 
 All notable changes to DyUI are documented here. DyUI follows [Semantic Versioning](https://semver.org/).
 
+## 1.1.0 — 2026-11-11
+
+### Fixed
+
+- **Rate limits no longer kill the reply.** `dyui.llm.stream` retries HTTP 429 using the provider's `Retry-After` (new `rate_limit_retries=3`; waits over a minute fail fast). A 429 or 413 that does get through shows a clear message in the chat instead of `RateLimitError: something went wrong`.
+- **Replies always include text.** The catalog prompt (both modes) now tells the model to introduce and explain its components and never to answer with components alone, and the example shows prose around the block. In `ui_mode="tools"` the tool result asks the model to continue in text instead of the bare `"rendered"`.
+
+### Added
+
+- `nvidia/` provider prefix for NVIDIA NIM (`NVIDIA_API_KEY`).
+- Docs: "Rate limits and free tiers" in the providers guide. `examples/data_analyst.py` uses a trimmed catalog.
+
 ## 1.0.0 — 2026-11-07
 
 The first stable release. DyUI 1.0 is a ground-up rewrite. 0.1 streamed UI cards out of LangGraph agents; 1.0 is a framework for professional chat apps whose model renders the interface.

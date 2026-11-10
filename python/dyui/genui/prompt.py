@@ -17,13 +17,19 @@ _FENCE_INTRO = """\
 ## UI components
 You can show UI components inside your reply. To do so, write a fenced code block
 tagged `dyui` containing one JSON object per line: {"ui": "<name>", ...props}.
-Put prose outside the block. Use plain text when a component isn't clearly better."""
+Components support your written answer; they do not replace it. Always write prose
+outside the block as well: a sentence that introduces what you are showing, and a
+short takeaway or explanation after it. Never reply with components alone. Use plain
+text only when a component isn't clearly better."""
 
 _TOOLS_INTRO = """\
 ## UI components
 You can show UI components inside your reply by calling the render_<name> tools;
-each call renders one component at that point in your reply. Keep prose in normal
-text. Use plain text when a component isn't clearly better."""
+each call renders one component at that point in your reply. Components support
+your written answer; they do not replace it. Always write normal text as well: a
+sentence that introduces what you are showing, and after the tool calls a short
+takeaway or explanation. Never reply with components alone. Use plain text only
+when a component isn't clearly better."""
 
 
 def _has_children(cls: type[Component]) -> bool:
@@ -126,7 +132,9 @@ def build_prompt(catalog: "Catalog", mode: str = "fence") -> str:
         if lines:
             out.append("")
             out.append("Example:")
+            out.append("<a sentence introducing what you are showing>")
             out.append("```dyui")
             out.extend(lines)
             out.append("```")
+            out.append("<one or two sentences on what it means>")
     return "\n".join(out)

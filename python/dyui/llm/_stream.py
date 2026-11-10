@@ -1,6 +1,7 @@
 """``dyui.llm.stream`` / ``dyui.llm.complete``."""
 from __future__ import annotations
 
+import asyncio
 import json
 import logging
 import os
@@ -13,6 +14,14 @@ from ._prompt import build_system, split_system, to_anthropic_messages, to_opena
 from ._providers import Provider, parse_model
 
 DEFAULT_ANTHROPIC_MAX_TOKENS = 4096
+DEFAULT_RATE_LIMIT_RETRIES = 3
+MAX_RATE_LIMIT_WAIT = 60.0  # seconds; a longer Retry-After (daily quota) fails fast
+# Sent back to the model after each render_* call. It nudges the model to keep
+# talking: without it many models stop after the tool call and the reply has no prose.
+TOOL_RESULT = (
+    "Rendered and shown to the user. Do not render it again. Continue your reply in plain text: "
+    "say what it shows and the key takeaway (don't repeat the raw data), or render another component."
+)
 
 
 # ---------------------------------------------------------------- clients
@@ -107,6 +116,71 @@ def _warn_foreign(names: list[str]) -> None:
         "Custom tools need their own loop.", ", ".join(names))
 
 
+def _rate_limit_wait(exc: BaseException, attempt: int, retries: int) -> float | None:
+    """Seconds to wait before retrying ``exc``, or ``None`` if it shouldn't be retried.
+
+    Only HTTP 429 is retried. The provider's ``retry-after-ms`` / ``retry-after`` header
+    wins; otherwise back off 2s, 4s, 8s... A wait above ``MAX_RATE_LIMIT_WAIT`` means a
+    long-window quota (per day), so give up instead of hanging the chat.
+    """
+    if getattr(exc, "status_code", None) != 429 or attempt >= retries:
+        return None
+    headers = getattr(getattr(exc, "response", None), "headers", None)
+    wait: float | None = None
+    if headers is not None:
+        for name, scale in (("retry-after-ms", 0.001), ("retry-after", 1.0)):
+            try:
+                raw = headers.get(name)
+                if raw is not None:
+                    wait = max(0.0, float(raw) * scale)
+                    break
+            except (TypeError, ValueError):  # e.g. an HTTP-date; fall back to backoff
+                continue
+    if wait is None:
+        wait = float(min(2 ** (attempt + 1), 30))
+    if wait > MAX_RATE_LIMIT_WAIT:
+        return None
+    return wait
+
+
+async def _wait_rate_limit(wait: float, attempt: int, retries: int) -> None:
+    log.warning("dyui.llm: provider rate limit hit (HTTP 429); retrying in %.1fs (retry %d of %d).",
+                wait, attempt + 1, retries)
+    await asyncio.sleep(wait)
+
+
+async def _create_openai(client: Any, retries: int, **request: Any) -> Any:
+    attempt = 0
+    while True:
+        try:
+            return await client.chat.completions.create(**request)
+        except Exception as exc:
+            wait = _rate_limit_wait(exc, attempt, retries)
+            if wait is None:
+                raise
+            await _wait_rate_limit(wait, attempt, retries)
+            attempt += 1
+
+
+async def _anthropic_events(client: Any, retries: int, **request: Any) -> AsyncIterator[Any]:
+    """Events of one ``messages.stream`` request; a 429 before the first event is retried."""
+    attempt = 0
+    while True:
+        started = False
+        try:
+            async with client.messages.stream(**request) as s:
+                async for event in s:
+                    started = True
+                    yield event
+            return
+        except Exception as exc:
+            wait = None if started else _rate_limit_wait(exc, attempt, retries)
+            if wait is None:
+                raise
+            await _wait_rate_limit(wait, attempt, retries)
+            attempt += 1
+
+
 async def _aclose(resp: Any) -> None:
     close = getattr(resp, "close", None)
     if close is not None:
@@ -120,13 +194,14 @@ async def _aclose(resp: Any) -> None:
 
 async def _stream_openai(client: Any, model: str, messages: list[Any], system: str | None,
                          kwargs: dict[str, Any], tools: list[dict[str, Any]] | None = None,
-                         max_rounds: int = 1) -> AsyncIterator[Any]:
+                         max_rounds: int = 1,
+                         retries: int = DEFAULT_RATE_LIMIT_RETRIES) -> AsyncIterator[Any]:
     payload = to_openai_messages(messages, system)
     params = dict(kwargs)
     if tools:
         params["tools"] = tools
     for _ in range(max(1, max_rounds)):
-        resp = await client.chat.completions.create(model=model, messages=payload, stream=True, **params)
+        resp = await _create_openai(client, retries, model=model, messages=payload, stream=True, **params)
         text_parts: list[str] = []
         calls: dict[int, dict[str, Any]] = {}
         done: set[int] = set()
@@ -186,7 +261,7 @@ async def _stream_openai(client: Any, model: str, messages: list[Any], system: s
                             "function": {"name": c["name"], "arguments": c["args"] or "{}"}} for c in ordered],
         })
         for c in ordered:
-            payload.append({"role": "tool", "tool_call_id": c["id"], "content": "rendered"})
+            payload.append({"role": "tool", "tool_call_id": c["id"], "content": TOOL_RESULT})
 
 
 def _finish_openai_call(c: dict[str, Any]) -> dict[str, Any] | None:
@@ -197,7 +272,8 @@ def _finish_openai_call(c: dict[str, Any]) -> dict[str, Any] | None:
 
 async def _stream_anthropic(client: Any, model: str, messages: list[Any], system: str | None,
                             kwargs: dict[str, Any], tools: list[dict[str, Any]] | None = None,
-                            max_rounds: int = 1) -> AsyncIterator[Any]:
+                            max_rounds: int = 1,
+                            retries: int = DEFAULT_RATE_LIMIT_RETRIES) -> AsyncIterator[Any]:
     sys_text, rest = split_system(messages, system)
     params: dict[str, Any] = dict(kwargs)
     params.setdefault("max_tokens", DEFAULT_ANTHROPIC_MAX_TOKENS)
@@ -209,8 +285,9 @@ async def _stream_anthropic(client: Any, model: str, messages: list[Any], system
     for _ in range(max(1, max_rounds)):
         blocks: dict[int, dict[str, Any]] = {}
         order: list[int] = []
-        async with client.messages.stream(model=model, messages=payload, **params) as s:
-            async for event in s:
+        events = _anthropic_events(client, retries, model=model, messages=payload, **params)
+        try:
+            async for event in events:
                 etype = getattr(event, "type", None)
                 idx = getattr(event, "index", None)
                 if etype == "content_block_start":
@@ -243,6 +320,8 @@ async def _stream_anthropic(client: Any, model: str, messages: list[Any], system
                         node = _render_node(b["name"], b["json"])
                         if node:
                             yield node
+        finally:
+            await events.aclose()
         tool_blocks = [blocks[i] for i in order if blocks[i]["kind"] == "tool_use"]
         if not tool_blocks:
             return
@@ -265,7 +344,7 @@ async def _stream_anthropic(client: Any, model: str, messages: list[Any], system
                 content.append({"type": "tool_use", "id": b["id"], "name": b["name"], "input": inp})
         payload.append({"role": "assistant", "content": content})
         payload.append({"role": "user", "content": [
-            {"type": "tool_result", "tool_use_id": b["id"], "content": "rendered"} for b in tool_blocks]})
+            {"type": "tool_result", "tool_use_id": b["id"], "content": TOOL_RESULT} for b in tool_blocks]})
 
 
 async def stream(
@@ -276,6 +355,7 @@ async def stream(
     components: Any = None,
     ui_mode: str = "fence",
     max_tool_rounds: int = 8,
+    rate_limit_retries: int = DEFAULT_RATE_LIMIT_RETRIES,
     base_url: str | None = None,
     api_key: str | None = None,
     client: Any = None,
@@ -293,6 +373,10 @@ async def stream(
     requests) and yields each completed call as a ``{"ui": name, ...props}`` dict.
     A caller-supplied ``tools=`` list is merged; if the model calls one of those tools
     the loop stops (custom tools need their own loop).
+
+    Rate limits: an HTTP 429 from the provider is retried up to ``rate_limit_retries``
+    times, waiting for the provider's ``Retry-After`` (or 2s, 4s, 8s...). Waits over a
+    minute (daily quotas) are not retried. Set ``rate_limit_retries=0`` to disable.
 
     ``client`` lets you pass a pre-built async SDK client. Extra kwargs go to the SDK.
     """
@@ -312,7 +396,8 @@ async def stream(
         maker = _make_openai_client if provider.sdk == "openai" else _make_anthropic_client
         client = maker(provider, base_url, api_key)
     impl = _stream_openai if provider.sdk == "openai" else _stream_anthropic
-    async for part in impl(client, model_id, list(messages), full_system, kwargs, tools, rounds):
+    async for part in impl(client, model_id, list(messages), full_system, kwargs, tools, rounds,
+                           max(0, rate_limit_retries)):
         yield part
 
 

@@ -22,7 +22,7 @@ async def reply(msg: dyui.Message, chat: dyui.Chat):
         yield part
 ```
 
-`dyui.llm.stream(model, messages, *, system=None, components=None, ui_mode="fence", max_tool_rounds=8, base_url=None, api_key=None, client=None, **kwargs)` yields `str` text deltas and `dyui.Reasoning` deltas. With `ui_mode="tools"` it also yields `{"ui": ...}` component dicts.
+`dyui.llm.stream(model, messages, *, system=None, components=None, ui_mode="fence", max_tool_rounds=8, rate_limit_retries=3, base_url=None, api_key=None, client=None, **kwargs)` yields `str` text deltas and `dyui.Reasoning` deltas. With `ui_mode="tools"` it also yields `{"ui": ...}` component dicts.
 
 | Argument | Meaning |
 |---|---|

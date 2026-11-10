@@ -30,6 +30,7 @@ PROVIDERS: dict[str, Provider] = {
         ),
         Provider("mistral", "openai", "https://api.mistral.ai/v1", "MISTRAL_BASE_URL", ("MISTRAL_API_KEY",)),
         Provider("xai", "openai", "https://api.x.ai/v1", "XAI_BASE_URL", ("XAI_API_KEY",)),
+        Provider("nvidia", "openai", "https://integrate.api.nvidia.com/v1", "NVIDIA_BASE_URL", ("NVIDIA_API_KEY",)),
     ]
 }
 

@@ -193,7 +193,7 @@ light and dark, respects reduced-motion, and is keyboard accessible.
 
 | | |
 |---|---|
-| **Built-in streaming** | `openai/…` · `anthropic/…` · `ollama/…` · `groq/…` · `openrouter/…` · `gemini/…` · `mistral/…` · `deepseek/…` · `together/…` · `xai/…` |
+| **Built-in streaming** | `openai/…` · `anthropic/…` · `ollama/…` · `groq/…` · `openrouter/…` · `gemini/…` · `mistral/…` · `deepseek/…` · `together/…` · `xai/…` · `nvidia/…` |
 | **Agent frameworks** | LangGraph (`dyui.integrations.langgraph`) — emit components from any node |
 | **Anything else** | Yield raw text from any SDK and add `app.catalog.prompt()` to your system prompt |
 

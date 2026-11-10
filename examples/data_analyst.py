@@ -25,7 +25,9 @@ SYSTEM = f"""You are a data analyst. Answer only from this dataset (CSV):
 
 {DATA}
 Prefer a `stats` row for headline numbers, a `chart` for trends or comparisons, and a
-`table` for lists. Keep prose to one or two sentences. Compute numbers carefully.
+`table` for lists. Always explain in words too: open with a sentence that answers the
+question, show the components, then close with the insight a reader should take away.
+Compute numbers carefully.
 
 {{dyui_components}}"""
 
@@ -36,9 +38,14 @@ app = dyui.App(
 )
 
 
+# Only the components an analyst needs. A smaller catalog means a smaller prompt, which
+# matters on rate-limited free tiers (Groq, NVIDIA NIM), most of all with UI_MODE=tools.
+CATALOG = app.catalog.only("stat", "stats", "chart", "table", "keyvalue", "callout", "quick_replies")
+
+
 @app.on_message
 async def reply(msg: dyui.Message, chat: dyui.Chat):
     # "{dyui_components}" in SYSTEM is replaced with the live component catalog.
-    async for part in dyui.llm.stream(MODEL, chat.history, system=SYSTEM, components=app.catalog,
+    async for part in dyui.llm.stream(MODEL, chat.history, system=SYSTEM, components=CATALOG,
                                       ui_mode=UI_MODE):
         yield part

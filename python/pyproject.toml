@@ -4,7 +4,7 @@ build-backend = "hatchling.build"
 
 [project]
 name = "dyui"
-version = "1.0.0"
+version = "1.1.0"
 description = "Chatbots that answer in interfaces — the Python framework for professional generative-UI chat apps."
 readme = "README.md"
 license = { text = "MIT" }

@@ -355,7 +355,10 @@ Prompt shape (exact wording may be refined, structure may not):
 ## UI components
 You can show UI components inside your reply. To do so, write a fenced code block
 tagged `dyui` containing one JSON object per line: {"ui": "<name>", ...props}.
-Put prose outside the block. Use plain text when a component isn't clearly better.
+Components support your written answer; they do not replace it. Always write prose
+outside the block as well: a sentence that introduces what you are showing, and a
+short takeaway or explanation after it. Never reply with components alone. Use plain
+text only when a component isn't clearly better.
 Layout components take "children": [ ...component objects... ].
 Interactive components ("action" props) send the user's choice back to you as a message.
 
@@ -552,7 +555,7 @@ Every component is a pydantic model. The same model produces (a) its prompt sign
   nullable optionals, per provider strict-mode rules). On OpenAI (`strict: true`) and Anthropic
   (strict tool use) the provider's constrained decoding guarantees schema-valid props. DyUI runs
   the tool loop internally: each completed render call is yielded as a `{"ui": name, ...args}`
-  dict (rendered like any component), the tool result `"rendered"` is returned to the model, and
+  dict (rendered like any component), a tool result (`dyui.llm._stream.TOOL_RESULT`: "rendered; continue in plain text") is returned to the model, and
   generation continues — so prose and components still interleave. Max 8 loop iterations.
   The catalog prompt in this mode omits the fence instructions and says "call render_* tools to
   show UI; keep prose in normal text".

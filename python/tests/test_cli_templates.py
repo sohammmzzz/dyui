@@ -13,7 +13,7 @@ from dyui.cli import main as cli_main
 
 ROOT = Path(__file__).resolve().parents[2]
 EXAMPLES = sorted((ROOT / "examples").glob("*.py"))
-TEMPLATES = ["basic", "openai", "anthropic", "langgraph"]
+TEMPLATES = ["basic", "nvidia", "openai", "anthropic", "langgraph"]
 
 
 @pytest.fixture(autouse=True)

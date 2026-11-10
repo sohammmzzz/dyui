@@ -11,15 +11,17 @@ DyUI doesn't need to own your model calls. It parses **text**, so anything that 
 2. Yield the raw text deltas. DyUI finds the `dyui` fences while they stream.
 
 ```python
+import os
+
 from openai import AsyncOpenAI
 
-client = AsyncOpenAI()
+client = AsyncOpenAI(base_url="https://integrate.api.nvidia.com/v1", api_key=os.environ["NVIDIA_API_KEY"])
 
 @app.on_message
 async def reply(msg: dyui.Message, chat: dyui.Chat):
     system = "You are a data analyst.\n\n" + app.catalog.prompt()
     stream = await client.chat.completions.create(
-        model="gpt-5",
+        model="moonshotai/kimi-k2.6",
         messages=[{"role": "system", "content": system}, *chat.history],
         stream=True,
     )

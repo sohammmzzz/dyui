@@ -2,6 +2,19 @@
 
 All notable changes to DyUI are documented here. DyUI follows [Semantic Versioning](https://semver.org/).
 
+## Unreleased
+
+### Added
+
+- **`dyui agent`** opens a coding agent with the DyUI skill loaded: Claude Code, Gemini CLI, Codex, Qwen Code, Antigravity, Kimi Code, opencode and Cursor Agent (`dyui claude`, `dyui gemini`, ...), or any CLI that takes a prompt. The skill is rendered for the installed version with the live component catalog and written to the agent's project skills folder. The agent can build a new app, convert an existing project, integrate DyUI into a service, or design components. `--list`, `--print`, `--no-launch`.
+- **Loading splash.** The page opens on the DyUI mark assembling (dot, dot, card) from the first paint, then the chat fades in. It follows the theme, respects reduced motion and runs under the strict CSP.
+- `dyui new --template nvidia`.
+
+### Changed
+
+- Examples, templates and docs snippets use `nvidia/moonshotai/kimi-k2.6` (NVIDIA NIM, `NVIDIA_API_KEY`) as the model. Every other provider works as before.
+- `dyui claude|gemini|codex init` now runs through the DyUI skill instead of writing `.dyui/INIT_PROMPT.md`.
+
 ## 1.1.0 — 2026-11-11
 
 ### Fixed

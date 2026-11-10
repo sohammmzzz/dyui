@@ -5,7 +5,7 @@ import os
 
 import dyui
 
-MODEL = os.getenv("DYUI_MODEL", "openai/gpt-5")
+MODEL = os.getenv("DYUI_MODEL", "nvidia/moonshotai/kimi-k2.6")
 # "fence" (default, works everywhere) or "tools": strict structured outputs via render_* tools.
 UI_MODE = os.getenv("DYUI_UI_MODE", "fence")
 

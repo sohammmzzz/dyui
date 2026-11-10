@@ -1,4 +1,42 @@
-/* First-paint background (before the app bundle loads); external for CSP. */
-html, body { background: #F7F6F3; }
-@media (prefers-color-scheme: dark) { html:not([data-theme="light"]), html:not([data-theme="light"]) body { background: #0B0C10; } }
-html[data-theme="dark"], html[data-theme="dark"] body { background: #0B0C10; }
+/* First-paint background and loading splash (before the app bundle loads); external for CSP. */
+html { --dy-boot-bg: #F7F6F3; --dy-boot-accent: #5B4FE0; }
+@media (prefers-color-scheme: dark) { html:not([data-theme="light"]) { --dy-boot-bg: #0B0C10; --dy-boot-accent: #8B80FF; } }
+html[data-theme="dark"] { --dy-boot-bg: #0B0C10; --dy-boot-accent: #8B80FF; }
+html, body { background: var(--dy-boot-bg); }
+
+/* ---- splash: the mark assembles (dot, dot, card), then "types" while the app loads ---- */
+#dy-splash {
+  position: fixed;
+  inset: 0;
+  z-index: 2147483000;
+  display: grid;
+  place-items: center;
+  background: var(--dy-boot-bg);
+  transition: opacity 0.42s cubic-bezier(0.22, 1, 0.36, 1), visibility 0s linear 0.42s;
+}
+#dy-splash.is-leaving { opacity: 0; visibility: hidden; pointer-events: none; }
+.dy-splash-mark { overflow: visible; fill: var(--dy-accent, var(--dy-boot-accent)); transition: transform 0.42s cubic-bezier(0.22, 1, 0.36, 1); }
+#dy-splash.is-leaving .dy-splash-mark { transform: scale(1.06); }
+.dy-splash-dot {
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: dy-splash-pop 0.5s cubic-bezier(0.22, 1, 0.36, 1) both,
+             dy-splash-type 1.2s cubic-bezier(0.65, 0, 0.35, 1) 1.15s infinite;
+}
+.dy-splash-dot + .dy-splash-dot { animation-delay: 0.12s, 1.31s; }
+.dy-splash-card {
+  transform-origin: 52px 75px;
+  animation: dy-splash-bloom 0.7s cubic-bezier(0.22, 1, 0.36, 1) 0.3s both,
+             dy-splash-breathe 2s cubic-bezier(0.65, 0, 0.35, 1) 1.15s infinite;
+}
+@keyframes dy-splash-pop { from { opacity: 0; transform: scale(0.4); } to { opacity: 1; transform: scale(1); } }
+@keyframes dy-splash-bloom {
+  from { opacity: 0; transform: scale(0.55); filter: blur(6px); }
+  to { opacity: 1; transform: scale(1); filter: blur(0); }
+}
+@keyframes dy-splash-type { 0%, 60%, 100% { transform: translateY(0); } 30% { transform: translateY(-28%); } }
+@keyframes dy-splash-breathe { 0%, 100% { opacity: 1; } 50% { opacity: 0.72; } }
+@media (prefers-reduced-motion: reduce) {
+  #dy-splash, .dy-splash-mark { transition: none; }
+  .dy-splash-dot, .dy-splash-card { animation: none; }
+}

@@ -40,7 +40,7 @@ def parse_model(model: str) -> tuple[Provider, str]:
     (``openrouter/anthropic/claude-sonnet-5-5``, ``together/meta-llama/...``)."""
     if "/" not in model:
         raise ValueError(
-            f"Model {model!r} must look like 'provider/model', e.g. 'openai/gpt-5'. "
+            f"Model {model!r} must look like 'provider/model', e.g. 'nvidia/moonshotai/kimi-k2.6'. "
             f"Providers: {', '.join(PROVIDERS)}."
         )
     prefix, rest = model.split("/", 1)

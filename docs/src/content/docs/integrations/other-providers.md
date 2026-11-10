@@ -9,6 +9,7 @@ sidebar:
 
 | Prefix | Default endpoint | API key variable | Base-URL override |
 |---|---|---|---|
+| `nvidia/` | `https://integrate.api.nvidia.com/v1` (NVIDIA NIM) | `NVIDIA_API_KEY` | `NVIDIA_BASE_URL` |
 | `openai/` | SDK default | `OPENAI_API_KEY` | `OPENAI_BASE_URL` |
 | `anthropic/` | SDK default (Anthropic SDK) | `ANTHROPIC_API_KEY` | `ANTHROPIC_BASE_URL` |
 | `ollama/` | `http://localhost:11434/v1` | not required (`OLLAMA_API_KEY` if set) | `OLLAMA_BASE_URL` |
@@ -19,15 +20,14 @@ sidebar:
 | `gemini/` | `https://generativelanguage.googleapis.com/v1beta/openai/` | `GEMINI_API_KEY` or `GOOGLE_API_KEY` | `GEMINI_BASE_URL` |
 | `mistral/` | `https://api.mistral.ai/v1` | `MISTRAL_API_KEY` | `MISTRAL_BASE_URL` |
 | `xai/` | `https://api.x.ai/v1` | `XAI_API_KEY` | `XAI_BASE_URL` |
-| `nvidia/` | `https://integrate.api.nvidia.com/v1` (NVIDIA NIM) | `NVIDIA_API_KEY` | `NVIDIA_BASE_URL` |
 
 The model id may itself contain slashes:
 
 ```python
+dyui.llm.stream("nvidia/moonshotai/kimi-k2.6", chat.history, components=app.catalog)
 dyui.llm.stream("openrouter/anthropic/claude-sonnet-5-5", chat.history, components=app.catalog)
 dyui.llm.stream("together/meta-llama/Llama-3.3-70B-Instruct-Turbo", chat.history, components=app.catalog)
 dyui.llm.stream("groq/llama-3.3-70b-versatile", chat.history, components=app.catalog)
-dyui.llm.stream("nvidia/meta/llama-3.3-70b-instruct", chat.history, components=app.catalog)
 ```
 
 `base_url=` and `api_key=` arguments override the environment. The table is available in code as `dyui.llm.PROVIDERS`.

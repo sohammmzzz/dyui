@@ -31,7 +31,7 @@ app = dyui.App(title="Travel Bot", starters=["Plan a weekend in Lisbon"])
 
 @app.on_message
 async def reply(msg: dyui.Message, chat: dyui.Chat):
-    async for part in dyui.llm.stream("openai/gpt-5", chat.history,
+    async for part in dyui.llm.stream("nvidia/moonshotai/kimi-k2.6", chat.history,
                                       system="You are a calm, expert travel agent.",
                                       components=app.catalog):   # ← the LLM can now render UI
         yield part
@@ -39,6 +39,7 @@ async def reply(msg: dyui.Message, chat: dyui.Chat):
 
 ```bash
 pip install "dyui[openai]"
+export NVIDIA_API_KEY=nvapi-...   # or the key for any other provider
 dyui run app.py          # → http://127.0.0.1:8000
 ```
 
@@ -71,7 +72,7 @@ light and dark themes, mobile layout, password gate — calm motion at every int
 <td width="33%" valign="top">
 
 **Any model. Any framework.**
-OpenAI, Anthropic, Ollama, Groq, OpenRouter, Gemini, Mistral, DeepSeek, xAI, LangGraph —
+NVIDIA NIM, OpenAI, Anthropic, Ollama, Groq, OpenRouter, Gemini, Mistral, DeepSeek, xAI, LangGraph —
 or your own SDK. DyUI parses raw text, so anything that streams works.
 
 </td>
@@ -193,7 +194,7 @@ light and dark, respects reduced-motion, and is keyboard accessible.
 
 | | |
 |---|---|
-| **Built-in streaming** | `openai/…` · `anthropic/…` · `ollama/…` · `groq/…` · `openrouter/…` · `gemini/…` · `mistral/…` · `deepseek/…` · `together/…` · `xai/…` · `nvidia/…` |
+| **Built-in streaming** | `nvidia/…` · `openai/…` · `anthropic/…` · `ollama/…` · `groq/…` · `openrouter/…` · `gemini/…` · `mistral/…` · `deepseek/…` · `together/…` · `xai/…` |
 | **Agent frameworks** | LangGraph (`dyui.integrations.langgraph`) — emit components from any node |
 | **Anything else** | Yield raw text from any SDK and add `app.catalog.prompt()` to your system prompt |
 
@@ -214,10 +215,10 @@ Reasoning models stream their thinking into a collapsible block automatically.
 | command | |
 |---|---|
 | `dyui run [app.py]` | Serve your app with hot reload (`--host`, `--port`, `--open`) |
-| `dyui new <dir>` | Scaffold a project (`basic`, `openai`, `anthropic`, `langgraph`) |
+| `dyui new <dir>` | Scaffold a project (`basic`, `nvidia`, `openai`, `anthropic`, `langgraph`) |
 | `dyui demo` | A guided tour — no API key needed |
 | `dyui catalog [app.py]` | Print the generated UI prompt and its token cost |
-| `dyui claude init` | Hand your app to Claude Code to design custom components (`gemini` / `codex` too) |
+| `dyui agent` | Open your coding agent with the DyUI skill loaded, to build, convert or extend an app (`dyui claude`, `gemini`, `codex`, `qwen`, `antigravity`, `kimi`, `opencode`, `cursor`) |
 
 ## Deploy
 

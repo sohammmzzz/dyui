@@ -8,10 +8,12 @@ from openai import AsyncOpenAI
 
 @lru_cache(maxsize=1)
 def client() -> AsyncOpenAI:
-    return AsyncOpenAI()  # reads OPENAI_API_KEY (created on first use, so the app starts without one)
+    # Any OpenAI-compatible endpoint. Created on first use, so the app starts without a key.
+    return AsyncOpenAI(base_url=os.getenv("DYUI_BASE_URL", "https://integrate.api.nvidia.com/v1"),
+                       api_key=os.environ["NVIDIA_API_KEY"])
 
 
-MODEL = os.getenv("DYUI_MODEL", "gpt-5")  # a plain OpenAI model id here, no provider prefix
+MODEL = os.getenv("DYUI_MODEL", "moonshotai/kimi-k2.6")  # the endpoint model id, no dyui provider prefix
 
 app = dyui.App(title="BYO SDK", description="Raw OpenAI client, DyUI rendering.")
 

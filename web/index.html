@@ -13,6 +13,15 @@
     <link rel="stylesheet" href="./boot.css" />
   </head>
   <body>
+    <!-- Loading splash: the DyUI mark assembles (dot, dot, card) from the first paint, before the
+         app bundle arrives. Styled by boot.css; App.tsx fades it out once the app is ready. -->
+    <div id="dy-splash" aria-hidden="true">
+      <svg class="dy-splash-mark" viewBox="0 23 100 54" width="104" height="56" focusable="false">
+        <circle class="dy-splash-dot" cx="11" cy="50" r="9" />
+        <circle class="dy-splash-dot" cx="35" cy="50" r="9" />
+        <path class="dy-splash-card" d="M66 25H84A14 14 0 0 1 98 39V61A14 14 0 0 1 84 75H56A4 4 0 0 1 52 71V39A14 14 0 0 1 66 25Z" />
+      </svg>
+    </div>
     <div id="root"></div>
     <script type="module" src="/src/main.tsx"></script>
   </body>

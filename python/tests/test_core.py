@@ -279,7 +279,7 @@ def test_cli_catalog_new_and_init(tmp_path, monkeypatch, capsys):
     assert "{{title}}" not in (tmp_path / "my-bot" / "app.py").read_text()
     monkeypatch.setenv("DYUI_NO_LAUNCH", "1")
     assert cli_main(["claude", "init", "app.py"]) == 0
-    assert (tmp_path / ".dyui" / "INIT_PROMPT.md").is_file()
+    assert (tmp_path / ".claude" / "skills" / "dyui" / "SKILL.md").is_file()
 
 
 async def test_demo_app_streams_components():

@@ -15,6 +15,7 @@ This guide builds a small travel bot that uses everything that makes DyUI differ
 
 ```bash
 pip install "dyui[openai]"     # or dyui[anthropic]; any provider works
+export NVIDIA_API_KEY=nvapi-...
 ```
 
 ## The app
@@ -25,7 +26,7 @@ import os
 import dyui
 from dyui import ui
 
-MODEL = os.getenv("DYUI_MODEL", "openai/gpt-5")
+MODEL = os.getenv("DYUI_MODEL", "nvidia/moonshotai/kimi-k2.6")
 
 app = dyui.App(
     title="Travel Bot",
@@ -89,6 +90,7 @@ Run it with `dyui run app.py`.
 Change one string. Any `provider/model` works:
 
 ```bash
+DYUI_MODEL=nvidia/deepseek-ai/deepseek-v4.1-flash dyui run app.py
 DYUI_MODEL=anthropic/claude-sonnet-5-5 dyui run app.py
 DYUI_MODEL=ollama/llama3.2 dyui run app.py
 ```

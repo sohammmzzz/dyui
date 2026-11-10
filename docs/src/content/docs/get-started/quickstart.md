@@ -54,20 +54,22 @@ Install an SDK extra and stream a model instead of yielding fixed text:
 
 ```bash
 pip install "dyui[openai]"
-export OPENAI_API_KEY=sk-...
+export NVIDIA_API_KEY=nvapi-...     # free key at build.nvidia.com
 ```
 
 ```python title="app.py"
 @app.on_message
 async def reply(msg: dyui.Message, chat: dyui.Chat):
     async for part in dyui.llm.stream(
-        "openai/gpt-5",
+        "nvidia/moonshotai/kimi-k2.6",
         chat.history,
         system="You are a concise weather assistant.",
         components=app.catalog,      # teaches the model DyUI's components
     ):
         yield part
 ```
+
+The `openai` extra is the SDK that talks to every OpenAI-compatible endpoint, which is why it is the one to install here. Any `provider/model` string works; see [Integrations](../../integrations/other-providers/).
 
 `components=app.catalog` appends a generated "UI components" section to the system prompt. The model then writes components into its reply, and DyUI parses, validates and renders them while they stream. [Generative UI](../../concepts/generative-ui/) explains how.
 
@@ -76,10 +78,18 @@ async def reply(msg: dyui.Message, chat: dyui.Chat):
 `dyui new` scaffolds a project with an `app.py`, a README and a `requirements.txt`:
 
 ```bash
-dyui new my-bot --template openai    # basic · openai · anthropic · langgraph
+dyui new my-bot --template nvidia    # basic · nvidia · openai · anthropic · langgraph
 cd my-bot
 dyui run
 ```
+
+## Let a coding agent build it
+
+```bash
+dyui agent "build a weather bot with a forecast chart"
+```
+
+`dyui agent` opens Claude Code, Gemini CLI, Codex or another coding agent with the DyUI skill loaded. See [Build with a coding agent](../coding-agents/).
 
 ## Next
 

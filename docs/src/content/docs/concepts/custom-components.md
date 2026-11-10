@@ -92,7 +92,7 @@ Scripts in your HTML run inside the app's [Content-Security-Policy](../../deploy
 ## Let a coding agent design them
 
 ```bash
-dyui claude init app.py     # or: dyui gemini init / dyui codex init
+dyui claude init app.py     # or gemini, codex, qwen, antigravity, kimi, opencode, cursor
 ```
 
-This writes a brief to `.dyui/INIT_PROMPT.md` and launches the agent's CLI. The agent reads your app, proposes 3–6 components, asks you to confirm, and implements them.
+This installs the DyUI skill for that agent and launches its CLI on this job. The agent reads your app, proposes 3–6 components, asks you to confirm, and implements them. See [Build with a coding agent](../../get-started/coding-agents/) for everything else the agent can do.

@@ -14,7 +14,7 @@ my-bot/
 └── requirements.txt    dyui (plus the SDK extra for the template)
 ```
 
-The `openai`, `anthropic` and `langgraph` templates also include an `.env.example`.
+The `nvidia`, `openai`, `anthropic` and `langgraph` templates also include an `.env.example`.
 
 ## Where the app object lives
 
@@ -37,7 +37,8 @@ DyUI keeps runtime data in `./.dyui/`, relative to the working directory. Change
 | `.dyui/dyui.db` | SQLite database: conversations, messages, upload metadata |
 | `.dyui/uploads/` | Uploaded files |
 | `.dyui/secret` | Key that signs the password cookie when `password=` is set and `DYUI_SECRET` isn't |
-| `.dyui/INIT_PROMPT.md` | Written by `dyui claude init` (and the `gemini` and `codex` variants) |
+
+`dyui agent` writes the DyUI skill for your coding agent outside `.dyui/`, in that agent's own skills folder (for example `.claude/skills/dyui/`); see [Build with a coding agent](../coding-agents/).
 
 Add `.dyui/` to your `.gitignore`. In production, put it on a persistent volume; see [Production server](../../deploy/production/).
 

@@ -192,7 +192,7 @@ app = dyui.App(
 
 @app.on_message
 async def reply(msg: dyui.Message, chat: dyui.Chat):
-    async for part in dyui.llm.stream("openai/gpt-5", chat.history,
+    async for part in dyui.llm.stream("nvidia/moonshotai/kimi-k2.6", chat.history,
                                       system="You are a travel agent.",
                                       components=app.catalog):
         yield part
@@ -407,10 +407,10 @@ it explicitly — `emit(x, config=config)` in a node that takes `config: Runnabl
 | command | does |
 |---|---|
 | `dyui run [app.py] [--host 127.0.0.1] [--port 8000] [--no-reload] [--open]` | serve the app; auto-discovers `app.py`/`main.py`/`bot.py`; reloads on change |
-| `dyui new <dir> [--template basic\|openai\|anthropic\|langgraph]` | scaffold a project (app.py, README, requirements) |
+| `dyui new <dir> [--template basic\|nvidia\|openai\|anthropic\|langgraph]` | scaffold a project (app.py, README, requirements) |
 | `dyui demo` | run the built-in showcase bot (no API key needed) |
 | `dyui catalog [app.py] [--json]` | print the exact generated UI prompt + token estimate |
-| `dyui claude\|gemini\|codex init [app.py]` | hand the app to a coding agent to design custom components (writes `.dyui/INIT_PROMPT.md`, launches the CLI) |
+| `dyui agent [name] [task...]` (shortcuts: `dyui claude\|gemini\|codex\|qwen\|antigravity\|kimi\|opencode\|cursor`) | install the DyUI skill (`dyui/skill/SKILL.md`, rendered with the version and live catalog) into the agent's project skills folder and launch its CLI with it; `<agent> init [app.py]` starts it on designing custom components; `--no-launch`, `--list`, `--print` |
 | `dyui version` | print version |
 
 ---

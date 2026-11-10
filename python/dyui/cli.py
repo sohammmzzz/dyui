@@ -1,6 +1,7 @@
 """The ``dyui`` command-line interface.
 
-Commands: ``run``, ``new``, ``demo``, ``catalog``, ``claude|gemini|codex init``, ``version``.
+Commands: ``run``, ``new``, ``demo``, ``catalog``, ``agent`` (and ``claude``, ``gemini``,
+``codex``, ``qwen``, ``antigravity``, ``kimi``, ``opencode``, ``cursor``), ``version``.
 """
 from __future__ import annotations
 
@@ -183,59 +184,26 @@ def cmd_catalog(args: argparse.Namespace) -> int:
     return 0
 
 
-AGENT_BRIEF = """# DyUI — design custom components for this app
+def cmd_agent(args: argparse.Namespace) -> int:
+    from . import agents
 
-You are helping a developer give their DyUI chatbot a custom component library.
-DyUI (https://pypi.org/project/dyui/) renders UI components that the LLM emits inline.
-
-1. Read `{app}` and understand what the bot is for.
-2. Propose 3–6 custom components that would make its answers better (name, fields, when the
-   LLM should use it, which built-ins it renders to). **Ask the developer to confirm.**
-3. Implement the confirmed ones in `{app}`:
-
-```python
-from dyui import ui
-import dyui
-
-@app.component
-class Flight(dyui.Component):
-    \"\"\"A bookable flight option. Use when listing specific flights.\"\"\"   # the LLM reads this
-    airline: str
-    depart: str
-    price: float
-
-    def render(self):                       # return built-in components
-        return ui.Card(self.airline, ui.Stat("Price", f"${{self.price:.0f}}"),
-                       actions=[ui.Button("Book", action="book_flight", data=self.model_dump())])
-
-@app.on_action("book_flight")               # handle buttons/forms in Python
-async def book(action, chat):
-    yield ui.Callout("Booked!", level="success")
-```
-
-Built-ins you can compose: markdown, callout, code, quote, sources, badges, divider, table, stat,
-stats, keyvalue, chart, progress, timeline, json, image, gallery, video, audio, file, link_preview,
-buttons, quick_replies, choice, form, confirm, rating, card, grid, tabs, accordion, carousel, list,
-step, reasoning, plan. Registered components are added to the system prompt automatically
-(`dyui catalog {app}` prints it). Keep descriptions short and say *when* to use each component.
-"""
-
-
-def cmd_agent_init(args: argparse.Namespace) -> int:
-    target = _discover(args.target)
-    out = Path(".dyui") / "INIT_PROMPT.md"
-    out.parent.mkdir(parents=True, exist_ok=True)
-    out.write_text(AGENT_BRIEF.format(app=target), encoding="utf-8")
-    print(f"Wrote {out}")
-    if os.environ.get("DYUI_NO_LAUNCH"):
+    if getattr(args, "list", False):
+        for a in agents.AGENTS.values():
+            exe = agents.find_exe(a)
+            print(f"  {a.name:<12} {a.label:<16} {'installed' if exe else 'not found'}")
         return 0
-    exe = shutil.which(args.agent)
-    if exe is None:
-        print(f"dyui: `{args.agent}` CLI not found on PATH — open {out} in your coding agent instead.", file=sys.stderr)
-        return 2
-    instruction = f"Read {out.resolve()} and follow it exactly."
-    argv = [exe, "-i", instruction] if args.agent == "gemini" else [exe, instruction]
-    return subprocess.call(argv)
+    if getattr(args, "print", False):
+        print(agents.render_skill())
+        return 0
+    words = list(args.task or [])
+    name = getattr(args, "agent", None)
+    if name is None and words and (words[0] in agents.AGENTS or shutil.which(words[0])):
+        name = words.pop(0)
+    if words and words[0] == "init":  # `dyui claude init [app.py]`: design custom components
+        task = agents.INIT_TASK.format(target=_discover(words[1] if len(words) > 1 else None))
+    else:
+        task = " ".join(words)
+    return agents.run(name, task, launch=not getattr(args, "no_launch", False))
 
 
 def cmd_version(_: argparse.Namespace) -> int:
@@ -265,7 +233,7 @@ def build_parser() -> argparse.ArgumentParser:
 
     n = sub.add_parser("new", help="scaffold a project")
     n.add_argument("dir")
-    n.add_argument("--template", default="basic", choices=["basic", "openai", "anthropic", "langgraph"])
+    n.add_argument("--template", default="basic", choices=["basic", "nvidia", "openai", "anthropic", "langgraph"])
     n.set_defaults(func=cmd_new)
 
     c = sub.add_parser("catalog", help="print the generated UI prompt")
@@ -274,11 +242,23 @@ def build_parser() -> argparse.ArgumentParser:
     c.add_argument("--mode", choices=["fence", "tools"], default="fence")
     c.set_defaults(func=cmd_catalog)
 
-    for agent in ("claude", "gemini", "codex"):
-        a = sub.add_parser(agent, help=f"design custom components with the {agent} CLI")
-        a.add_argument("action", choices=["init"])
-        a.add_argument("target", nargs="?")
-        a.set_defaults(func=cmd_agent_init, agent=agent)
+    from .agents import AGENTS
+
+    def agent_opts(sp: argparse.ArgumentParser) -> None:
+        sp.add_argument("task", nargs="*", help="what the agent should do (optional)")
+        sp.add_argument("--no-launch", action="store_true", help="only write the skill file")
+
+    g = sub.add_parser("agent", help="open a coding agent preloaded with the DyUI skill",
+                       description="Install the DyUI skill into this project and start a coding-agent CLI "
+                                   "with it. Without a name, DyUI uses the agent CLI it finds on PATH.")
+    agent_opts(g)
+    g.add_argument("--list", action="store_true", help="list supported agents and whether they are installed")
+    g.add_argument("--print", action="store_true", help="print the skill to stdout")
+    g.set_defaults(func=cmd_agent, agent=None)
+    for a in AGENTS.values():
+        sp = sub.add_parser(a.name, help=f"open {a.label} preloaded with the DyUI skill")
+        agent_opts(sp)
+        sp.set_defaults(func=cmd_agent, agent=a.name)
 
     v = sub.add_parser("version", help="print the version")
     v.set_defaults(func=cmd_version)

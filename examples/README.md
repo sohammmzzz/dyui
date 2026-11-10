@@ -1,7 +1,8 @@
 # DyUI examples
 
 Run any of them with `dyui run examples/<file>.py` (install `dyui[all]` for the LLM ones).
-Pick a model with `DYUI_MODEL`, e.g. `DYUI_MODEL=anthropic/claude-sonnet-5-5`.
+The LLM examples default to `nvidia/moonshotai/kimi-k2.6` and read `NVIDIA_API_KEY`.
+Pick another model with `DYUI_MODEL`, e.g. `DYUI_MODEL=anthropic/claude-sonnet-5-5`.
 
 | file | shows |
 |---|---|

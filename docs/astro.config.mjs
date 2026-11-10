@@ -70,6 +70,7 @@ export default defineConfig({
             { label: "Quickstart", link: "/get-started/quickstart/" },
             { label: "Your first LLM bot", link: "/get-started/first-llm-bot/" },
             { label: "Project structure", link: "/get-started/project-structure/" },
+            { label: "Build with a coding agent", link: "/get-started/coding-agents/" },
           ],
         },
         {

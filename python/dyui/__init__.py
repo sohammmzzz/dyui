@@ -8,7 +8,7 @@ Example:
     >>> app = dyui.App(title="Travel Bot")
     >>> @app.on_message
     ... async def reply(msg, chat):
-    ...     async for part in dyui.llm.stream("openai/gpt-5", chat.history, components=app.catalog):
+    ...     async for part in dyui.llm.stream("nvidia/moonshotai/kimi-k2.6", chat.history, components=app.catalog):
     ...         yield part
 """
 from __future__ import annotations

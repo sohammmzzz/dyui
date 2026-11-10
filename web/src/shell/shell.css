@@ -2082,6 +2082,22 @@
     var(--dy-bg);
   overflow-y: auto;
 }
+/* loading: after the mark assembles its dots "type" and the card breathes (same cue as the avatar) */
+.sh-boot-mark .sh-mark-dot {
+  animation: sh-mark-type 1.2s var(--dy-ease-in-out) 1.15s infinite;
+}
+.sh-boot-mark .sh-mark-dot + .sh-mark-dot {
+  animation-delay: 1.31s;
+}
+.sh-boot-mark .sh-mark-card {
+  animation: sh-breathe var(--dy-breathe) var(--dy-ease-in-out) 1.15s infinite;
+}
+@media (prefers-reduced-motion: reduce) {
+  .sh-boot-mark .sh-mark-dot,
+  .sh-boot-mark .sh-mark-card {
+    animation: none;
+  }
+}
 .sh-gate-card {
   width: min(380px, 100%);
   display: flex;

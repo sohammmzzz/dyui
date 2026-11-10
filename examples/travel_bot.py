@@ -4,7 +4,7 @@ import os
 import dyui
 from dyui import ui
 
-MODEL = os.getenv("DYUI_MODEL", "openai/gpt-5")
+MODEL = os.getenv("DYUI_MODEL", "nvidia/moonshotai/kimi-k2.6")
 
 app = dyui.App(
     title="Travel Bot",

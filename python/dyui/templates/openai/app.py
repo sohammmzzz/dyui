@@ -3,7 +3,7 @@ import os
 
 import dyui
 
-# Any "provider/model" string works: openai/..., anthropic/..., ollama/..., groq/...
+# Any "provider/model" string works: openai/..., nvidia/..., anthropic/..., ollama/...
 MODEL = os.getenv("DYUI_MODEL", "openai/gpt-5")
 
 app = dyui.App(

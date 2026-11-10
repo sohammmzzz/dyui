@@ -3,7 +3,7 @@ import { motion } from "motion/react";
 import { ArrowRight, Lock, RotateCcw } from "lucide-react";
 import { describeError, type Transport } from "@/lib/api";
 import type { AppConfig } from "@/lib/types";
-import { BloomLogo, Logo } from "./Logo";
+import { BloomLogo, DyMark, Logo } from "./Logo";
 import { useMotionKit } from "./anim";
 
 /** Shared-password gate (features.auth && !authenticated). */
@@ -77,8 +77,8 @@ export function PasswordGate({ config, transport, onSuccess }: { config: AppConf
 export function BootScreen() {
   return (
     <main className="sh-boot" aria-busy="true" aria-label="Loading">
-      <div className="sh-breathe">
-        <Logo size={36} />
+      <div className="sh-boot-mark">
+        <DyMark size={104} box="wide" assemble />
       </div>
     </main>
   );

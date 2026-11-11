@@ -165,7 +165,7 @@
   border-color: color-mix(in oklab, var(--dy-border-strong) 65%, var(--dy-text-faint));
 }
 .dy-btn--ghost { color: var(--dy-text-muted); }
-.dy-btn--ghost:hover:not(:disabled) { background: color-mix(in oklab, var(--dy-text) 6%, transparent); color: var(--dy-text); }
+.dy-btn--ghost:hover:not(:disabled) { background: var(--dy-fill-2); color: var(--dy-text); }
 .dy-btn--danger {
   background: var(--dy-danger);
   color: var(--dy-accent-text);
@@ -175,6 +175,14 @@
 .dy-btn:disabled, .dy-btn[aria-disabled="true"] { cursor: default; }
 .dy-btn:disabled:not([data-state]) { opacity: 0.5; }
 .dy-btn[data-state="dim"] { opacity: 0.38; }
+/* a filled button that can't be used goes quiet and neutral instead of a washed-out accent */
+.dy-btn--primary:disabled:not([data-state]), .dy-btn--primary[data-state="dim"],
+.dy-btn--danger:disabled:not([data-state]), .dy-btn--danger[data-state="dim"] {
+  opacity: 1;
+  background: color-mix(in oklab, var(--dy-text) 7%, var(--dy-surface));
+  color: var(--dy-text-faint);
+  box-shadow: none;
+}
 .dy-btn[data-state="chosen"] {
   background: var(--dy-accent-soft);
   border-color: var(--dy-accent-border);
@@ -204,9 +212,9 @@
 .dy-input:hover:not(:disabled) { border-color: color-mix(in oklab, var(--dy-border-strong) 55%, var(--dy-text-faint)); }
 .dy-input:focus, .dy-input:focus-visible {
   outline: none;
-  border-color: var(--dy-accent);
+  border-color: color-mix(in oklab, var(--dy-accent) 70%, var(--dy-border-strong));
   background: var(--dy-surface);
-  box-shadow: 0 0 0 3px color-mix(in oklab, var(--dy-accent) 18%, transparent);
+  box-shadow: var(--dy-field-ring);
 }
 .dy-input[aria-invalid="true"] {
   border-color: var(--dy-danger);

@@ -13,7 +13,7 @@
 .dy-step-row:disabled { cursor: default; }
 .dy-step-row:hover:not(:disabled) { background: var(--dy-surface-2); }
 .dy-step-title { flex: 1; min-width: 0; font-weight: 500; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
-.dy-step-type { font-family: var(--dy-font-mono); font-size: 11px; color: var(--dy-text-faint); padding: 2px 6px; border-radius: 6px; background: color-mix(in oklab, var(--dy-text) 5%, transparent); }
+.dy-step-type { font-family: var(--dy-font-mono); font-size: 11px; color: var(--dy-text-muted); padding: 2px 6px; border-radius: 6px; background: color-mix(in oklab, var(--dy-text) 5%, transparent); }
 .dy-step-meta { font-size: 12px; color: var(--dy-text-faint); font-variant-numeric: tabular-nums; }
 .dy-step[data-status="error"] .dy-step-meta { color: var(--dy-danger); }
 .dy-step-chev { flex: none; color: var(--dy-text-faint); transition: transform var(--dy-dur-2) var(--dy-ease); }

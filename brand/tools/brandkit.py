@@ -46,7 +46,7 @@ INK, PAPER, MIDNIGHT = "#1A1A1F", "#F7F6F3", "#0B0C10"
 THEMES = {
     "light": dict(name="light", bg=PAPER, subtle="#F1EFEA", surface="#FFFFFF", border="#E6E3DC",
                   border_strong="#D6D2C8", text=INK, muted="#5F5E66", faint="#8E8C94",
-                  accent=INDIGO, teal=TEAL, wash="0.13", shadow="0.09", shadow_color="#17153A", bubble="#ECEAFB", bubble_edge="#DDD9F6"),
+                  accent=INDIGO, teal=TEAL, wash="0.16", shadow="0.09", shadow_color="#17153A", bubble="#ECEAFB", bubble_edge="#DDD9F6"),
     "dark": dict(name="dark", bg=MIDNIGHT, subtle="#101117", surface="#14151C", border="#24252F",
                  border_strong="#323442", text="#ECECF1", muted="#A2A3B1", faint="#6B6D7C",
                  accent=INDIGO_D, teal=TEAL_D, wash="0.20", shadow="0.6", shadow_color="#000000", bubble="#1D1C33", bubble_edge="#2C2A4D"),
@@ -163,19 +163,18 @@ def _centred(mark: Mark, fill: str, w: float) -> str:
     return mark.path(fill, f"translate({n(50 - mark.cx * k)} {n(50 - mark.cy * k)}) scale({k:.4f})")
 
 
-def app_icon_svg(mark: Mark, dark: bool, *, maskable: bool = False) -> str:
-    """Rounded tile (rx 22.5%), mark inside the safe area.
+def app_icon_body(mark: Mark, dark: bool, *, maskable: bool = False, uid: str = "dyui-tile") -> str:
+    """Rounded tile (rx 22.5%), mark inside the safe area — the contents of a 100×100 viewBox.
 
     Light: indigo with a quiet top-to-bottom shade (depth, not decoration), white mark.
     Dark: surface tile with a hairline edge, lifted-indigo mark.
     Maskable: full-bleed square; the mark is drawn smaller so it stays inside the 80% circle
     that Android/PWA launchers are allowed to crop to.
     """
-    uid = "dyui-tile"
     w = mark.icon_w * (0.84 if maskable else 1)
     if dark:
-        tile = (f'<rect width="100" height="100" fill="#14151C"/>' if maskable else
-                f'<rect x="0.5" y="0.5" width="99" height="99" rx="22" fill="#14151C" stroke="#2A2B37"/>')
+        tile = ('<rect width="100" height="100" fill="#14151C"/>' if maskable else
+                '<rect x="0.5" y="0.5" width="99" height="99" rx="22" fill="#14151C" stroke="#2A2B37"/>')
         defs, fill = "", INDIGO_D
     else:
         defs = (f'  <defs><linearGradient id="{uid}" x1="0" y1="0" x2="0" y2="100" gradientUnits="userSpaceOnUse">'
@@ -183,7 +182,11 @@ def app_icon_svg(mark: Mark, dark: bool, *, maskable: bool = False) -> str:
         rx = "" if maskable else ' rx="22.5"'
         tile = f'<rect width="100" height="100"{rx} fill="url(#{uid})"/>'
         fill = "#FFFFFF"
-    return svg(100, 100, f'{defs}  {tile}\n  {_centred(mark, fill, w)}')
+    return f'{defs}  {tile}\n  {_centred(mark, fill, w)}'
+
+
+def app_icon_svg(mark: Mark, dark: bool, *, maskable: bool = False) -> str:
+    return svg(100, 100, app_icon_body(mark, dark, maskable=maskable))
 
 
 # ---------------------------------------------------------------- lockups

@@ -20,6 +20,8 @@ from __future__ import annotations
 import json
 import os
 
+import textpath
+
 from brandkit import (BRAND, INDIGO, INK, MONO, ROOT, SANS, SERIF, SERIF_I, THEMES, Mark, app_icon_svg, circ,
                       favicon_svg, lockup_parts, lockup_svg, n, rrect, square_svg, stacked_svg, svg, text,
                       text_width, write)
@@ -107,6 +109,7 @@ def banner(t: dict, W: int, H: int, *, radius: float, left: float, lock_y: float
            head: float, head_y: float, sub: float, pill_y: float, scene_xy: tuple[float, float]) -> str:
     """Hero / social card: lockup, tagline, one line of what it is, the install command — and the scene."""
     uid = f'{t["name"]}{W}'
+    textpath.PRECISION = 1
     sx, sy = scene_xy
     lock, _, _, _ = lockup_parts(MARK, t, lock_size)
 
@@ -157,6 +160,7 @@ def banner(t: dict, W: int, H: int, *, radius: float, left: float, lock_y: float
     {scene(t, uid)}
   </g>
 </g>'''
+    textpath.PRECISION = 2
     return svg(W, H, body, "DyUI — Chatbots that answer in interfaces.")
 
 

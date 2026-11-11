@@ -52,9 +52,11 @@ def _kern_pairs(path: str, wght: float | None, wdth: float | None) -> dict:
     return pairs
 
 
+PRECISION = 2   # decimals in outline coordinates; banners drop to 1 (still < 0.1px at display size)
+
+
 def _num(v: float) -> str:
-    """Two decimals is far below a device pixel at any size we ship, and keeps files small."""
-    return f"{v:.2f}".rstrip("0").rstrip(".")
+    return f"{v:.{PRECISION}f}".rstrip("0").rstrip(".")
 
 
 def _layout(path, text, size, x, tracking, wght, wdth):

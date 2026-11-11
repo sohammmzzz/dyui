@@ -47,7 +47,7 @@
 .dy-md ul, .dy-md ol { padding-left: 1.35em; }
 .dy-md li + li { margin-top: 0.3em; }
 .dy-md li > ul, .dy-md li > ol { margin-top: 0.3em; }
-.dy-md li::marker { color: var(--dy-text-faint); }
+.dy-md li::marker { color: color-mix(in oklab, var(--dy-accent) 50%, var(--dy-text-faint)); }
 .dy-md ol > li::marker { font-variant-numeric: tabular-nums; font-size: 0.92em; }
 .dy-md li.task-list-item { list-style: none; margin-left: -1.35em; display: flex; gap: 8px; align-items: baseline; }
 .dy-md-check {
@@ -186,16 +186,16 @@
   color: color-mix(in oklab, var(--dy-accent) 82%, var(--dy-text));
 }
 .dy-code .hljs-string, .dy-code .hljs-regexp, .dy-code .hljs-addition, .dy-code .hljs-meta .hljs-string, .dy-code .hljs-template-tag {
-  color: color-mix(in oklab, var(--dy-teal) 78%, var(--dy-text));
+  color: color-mix(in oklab, var(--dy-teal) 62%, var(--dy-text));
 }
 .dy-code .hljs-number, .dy-code .hljs-literal, .dy-code .hljs-symbol, .dy-code .hljs-bullet {
-  color: color-mix(in oklab, var(--dy-warning) 85%, var(--dy-text));
+  color: color-mix(in oklab, var(--dy-warning) 68%, var(--dy-text));
 }
 .dy-code .hljs-title, .dy-code .hljs-title.function_, .dy-code .hljs-title.class_, .dy-code .hljs-name, .dy-code .hljs-selector-id, .dy-code .hljs-selector-class {
   color: color-mix(in oklab, var(--dy-info) 80%, var(--dy-text));
 }
 .dy-code .hljs-attr, .dy-code .hljs-attribute, .dy-code .hljs-property, .dy-code .hljs-variable, .dy-code .hljs-template-variable, .dy-code .hljs-params {
-  color: color-mix(in oklab, var(--dy-chart-3) 72%, var(--dy-text));
+  color: color-mix(in oklab, var(--dy-chart-3) 56%, var(--dy-text));
 }
 .dy-code .hljs-built_in, .dy-code .hljs-type { color: color-mix(in oklab, var(--dy-chart-6) 70%, var(--dy-text)); }
 .dy-code .hljs-meta, .dy-code .hljs-punctuation { color: var(--dy-text-muted); }
@@ -234,8 +234,8 @@
   gap: 12px;
   padding: 14px 18px 14px 14px;
   border-radius: var(--dy-radius);
-  background: color-mix(in oklab, var(--tone) 7%, var(--dy-surface));
-  border: 1px solid color-mix(in oklab, var(--tone) 22%, var(--dy-border));
+  background: color-mix(in oklab, var(--tone) 6%, var(--dy-surface));
+  border: 1px solid color-mix(in oklab, var(--tone) 20%, var(--dy-border));
 }
 .dy-callout[data-level="success"] { --tone: var(--dy-success); }
 .dy-callout[data-level="warning"] { --tone: var(--dy-warning); }

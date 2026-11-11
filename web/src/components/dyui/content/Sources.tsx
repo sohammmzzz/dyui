@@ -43,7 +43,7 @@ export function Sources({ node }: DyProps) {
     <Bloom className="dy-c dy-sources" data-dy-ui="sources">
       <div className="dy-sources-head">
         <span className="dy-eyebrow">Sources</span>
-        {items.length > 0 && <span className="dy-eyebrow" style={{ opacity: 0.7 }}>{items.length}</span>}
+        {items.length > 0 && <span className="dy-eyebrow dy-num">{items.length}</span>}
       </div>
       <ol className="dy-sources-grid" style={{ listStyle: "none", margin: 0, padding: 0 }}>
         {shown.map((it, i) => {

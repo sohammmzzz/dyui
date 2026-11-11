@@ -15,12 +15,14 @@
   --sh-code-bg: color-mix(in oklab, var(--dy-bg) 55%, var(--dy-surface));
   --sh-scrim: color-mix(in oklab, #0b0c10 34%, transparent);
   --sh-ui-stretch: 96%;
+  /* the accent word: the bloom, with its teal end pulled toward ink so large text keeps 3:1 */
+  --sh-bloom-text: linear-gradient(120deg, var(--dy-accent) 10%, color-mix(in oklab, var(--dy-teal) 80%, var(--dy-text)) 96%);
 
   /* syntax (light) */
   --sh-syn-keyword: #6a3fd6;
   --sh-syn-string: #0d7468;
   --sh-syn-number: #9c5a08;
-  --sh-syn-comment: #85838b;
+  --sh-syn-comment: #6f6d76;
   --sh-syn-title: #2b5fc0;
   --sh-syn-attr: #ad3766;
   --sh-syn-builtin: #8f5410;
@@ -37,10 +39,11 @@
     --sh-bubble-edge: color-mix(in oklab, var(--dy-accent) 16%, transparent);
     --sh-code-bg: var(--dy-bg-subtle);
     --sh-scrim: color-mix(in oklab, #000 55%, transparent);
+    --sh-bloom-text: linear-gradient(120deg, var(--dy-accent) 10%, var(--dy-teal) 96%);
     --sh-syn-keyword: #b5aaff;
     --sh-syn-string: #6fdfcd;
     --sh-syn-number: #f5c06a;
-    --sh-syn-comment: #737586;
+    --sh-syn-comment: #8a8c9b;
     --sh-syn-title: #8fb6ff;
     --sh-syn-attr: #ff9fc3;
     --sh-syn-builtin: #f0b27a;
@@ -54,10 +57,11 @@
   --sh-bubble-edge: color-mix(in oklab, var(--dy-accent) 16%, transparent);
   --sh-code-bg: var(--dy-bg-subtle);
   --sh-scrim: color-mix(in oklab, #000 55%, transparent);
+  --sh-bloom-text: linear-gradient(120deg, var(--dy-accent) 10%, var(--dy-teal) 96%);
   --sh-syn-keyword: #b5aaff;
   --sh-syn-string: #6fdfcd;
   --sh-syn-number: #f5c06a;
-  --sh-syn-comment: #737586;
+  --sh-syn-comment: #8a8c9b;
   --sh-syn-title: #8fb6ff;
   --sh-syn-attr: #ff9fc3;
   --sh-syn-builtin: #f0b27a;
@@ -383,7 +387,7 @@
   border: 1px solid var(--dy-accent-border);
   background: var(--dy-surface);
   font-size: 14px;
-  box-shadow: 0 0 0 3px color-mix(in oklab, var(--dy-accent) 14%, transparent);
+  box-shadow: var(--dy-field-ring);
 }
 .sh-item-confirm {
   overflow: hidden;
@@ -678,7 +682,7 @@
   font-style: italic;
   padding-right: 0.06em;
   margin-right: -0.06em;
-  background: var(--dy-bloom);
+  background: var(--sh-bloom-text);
   -webkit-background-clip: text;
   background-clip: text;
   color: transparent;
@@ -716,50 +720,58 @@
   position: relative;
   flex: 1;
   display: grid;
-  grid-template-columns: 32px minmax(0, 1fr);
-  grid-template-rows: auto auto;
+  grid-template-columns: 34px minmax(0, 1fr);
   column-gap: 12px;
-  row-gap: 2px;
-  align-content: start;
-  padding: 14px 34px 15px 14px;
+  row-gap: 1px;
+  align-content: center;
+  align-items: center;
+  min-height: 62px;
+  padding: 13px 38px 13px 13px;
   text-align: left;
   border-radius: var(--dy-radius-lg);
   background: var(--dy-surface);
   border: 1px solid var(--dy-border);
   box-shadow: var(--dy-shadow-sm), var(--dy-highlight);
   transition: border-color var(--dy-dur-2) var(--dy-ease), background-color var(--dy-dur-2) var(--dy-ease),
-    box-shadow var(--dy-dur-2) var(--dy-ease);
+    box-shadow var(--dy-dur-3) var(--dy-ease);
 }
 .sh-starter:hover {
   border-color: var(--dy-accent-border);
-  background: color-mix(in oklab, var(--dy-surface) 96%, var(--dy-accent));
+  background: color-mix(in oklab, var(--dy-surface) 97%, var(--dy-accent));
   box-shadow: var(--dy-shadow), var(--dy-highlight);
 }
+.sh-starter:focus-visible {
+  border-radius: var(--dy-radius-lg);
+  border-color: var(--dy-accent-border);
+}
+.sh-starter:has(.sh-starter-msg) .sh-starter-icon {
+  grid-row: 1 / span 2; /* label + message: the icon centres on both lines */
+}
 .sh-starter-icon {
-  grid-row: 1 / span 2;
-  width: 32px;
-  height: 32px;
+  width: 34px;
+  height: 34px;
   display: grid;
   place-items: center;
-  border-radius: 9px;
+  border-radius: 10px;
   background: var(--dy-accent-softer);
   color: var(--dy-accent);
-  box-shadow: inset 0 0 0 1px color-mix(in oklab, var(--dy-accent) 10%, transparent);
-  transition: background-color var(--dy-dur-2) var(--dy-ease);
+  box-shadow: inset 0 0 0 1px color-mix(in oklab, var(--dy-accent) 12%, transparent);
+  transition: background-color var(--dy-dur-2) var(--dy-ease), box-shadow var(--dy-dur-2) var(--dy-ease);
 }
 .sh-starter:hover .sh-starter-icon {
   background: var(--dy-accent-soft);
+  box-shadow: inset 0 0 0 1px color-mix(in oklab, var(--dy-accent) 22%, transparent);
 }
 .sh-starter-label {
-  align-self: end;
   font-size: 14px;
-  font-weight: 600;
+  font-weight: 550;
+  letter-spacing: -0.005em;
   color: var(--dy-text);
   line-height: 1.35;
 }
 .sh-starter-msg {
   grid-column: 2;
-  font-size: 13.5px;
+  font-size: 13px;
   line-height: 1.45;
   color: var(--dy-text-muted);
   display: -webkit-box;
@@ -769,12 +781,13 @@
 }
 .sh-starter-arrow {
   position: absolute;
-  top: 14px;
-  right: 13px;
+  top: 50%;
+  right: 14px;
+  margin-top: -7.5px;
   color: var(--dy-accent);
   opacity: 0;
-  transform: translate(-3px, 3px);
-  transition: opacity var(--dy-dur-2) var(--dy-ease), transform var(--dy-dur-2) var(--dy-ease);
+  transform: translate(-4px, 4px);
+  transition: opacity var(--dy-dur-2) var(--dy-ease), transform var(--dy-dur-3) var(--dy-ease);
 }
 .sh-starter:hover .sh-starter-arrow,
 .sh-starter:focus-visible .sh-starter-arrow {
@@ -796,6 +809,11 @@
   min-width: 0;
 }
 
+/* a question and its answer read as one exchange: pull the reply up under the bubble */
+.sh-user:not(.is-action):not(.is-editing) + .sh-assistant {
+  margin-top: -10px;
+}
+
 /* user */
 .sh-user {
   display: flex;
@@ -807,7 +825,7 @@
 .sh-bubble {
   max-width: 100%;
   padding: 10px 16px 11px;
-  border-radius: 20px;
+  border-radius: 20px 20px 6px 20px; /* one tight corner, like the mark's card */
   background: var(--sh-bubble);
   box-shadow: inset 0 0 0 1px var(--sh-bubble-edge);
   font-size: var(--dy-text-chat);
@@ -854,7 +872,7 @@
   border-radius: 18px;
   background: var(--dy-surface);
   border: 1px solid var(--dy-accent-border);
-  box-shadow: var(--dy-shadow), 0 0 0 4px color-mix(in oklab, var(--dy-accent) 10%, transparent);
+  box-shadow: var(--dy-shadow), var(--dy-field-ring);
   overflow: hidden;
 }
 .sh-edit textarea {
@@ -1163,6 +1181,7 @@
 }
 .sh-md p {
   margin: 0 0 0.85em;
+  text-wrap: pretty;
 }
 .sh-md h1,
 .sh-md h2 {
@@ -1174,12 +1193,12 @@
   color: var(--dy-text);
 }
 .sh-md h1 {
-  font-size: 32px;
+  font-size: 31px;
   margin: 1.1em 0 0.45em;
 }
 .sh-md h2 {
-  font-size: 26px;
-  margin: 1.2em 0 0.4em;
+  font-size: 25px;
+  margin: 1.25em 0 0.4em;
 }
 .sh-md h3 {
   font-size: var(--dy-text-md);
@@ -1211,7 +1230,7 @@
   margin: 0.2em 0;
 }
 .sh-md li::marker {
-  color: var(--dy-text-faint);
+  color: color-mix(in oklab, var(--dy-accent) 50%, var(--dy-text-faint));
 }
 .sh-md ol > li::marker {
   font-variant-numeric: tabular-nums;
@@ -1234,7 +1253,7 @@
 }
 .sh-md blockquote {
   margin: 1em 0;
-  padding: 2px 0 2px 16px;
+  padding: 1px 0 1px 18px;
   border-left: 2px solid var(--dy-accent-border);
   color: var(--dy-text-muted);
 }
@@ -1256,8 +1275,8 @@
   font-size: 0.86em;
   padding: 0.12em 0.38em;
   border-radius: 6px;
-  background: color-mix(in oklab, var(--dy-text) 5.5%, transparent);
-  box-shadow: inset 0 0 0 1px color-mix(in oklab, var(--dy-text) 5%, transparent);
+  background: var(--dy-fill-1);
+  box-shadow: inset 0 0 0 1px var(--dy-fill-2);
   overflow-wrap: anywhere;
 }
 .sh-md-table {
@@ -1276,9 +1295,11 @@
 }
 .sh-md th {
   text-align: left;
-  font-weight: 600;
-  font-size: 12.5px;
-  color: var(--dy-text-muted);
+  font-weight: var(--dy-eyebrow-weight);
+  font-size: var(--dy-eyebrow-size);
+  letter-spacing: var(--dy-eyebrow-tracking);
+  text-transform: uppercase;
+  color: var(--dy-text-faint);
   background: var(--dy-surface-2);
   padding: 9px 14px;
   border-bottom: 1px solid var(--dy-border);
@@ -1529,10 +1550,10 @@
 .sh-step-type {
   font-family: var(--dy-font-mono);
   font-size: 11px;
-  color: var(--dy-text-faint);
+  color: var(--dy-text-muted);
   padding: 1px 6px;
   border-radius: 5px;
-  background: color-mix(in oklab, var(--dy-text) 4.5%, transparent);
+  background: var(--dy-fill-1);
   white-space: nowrap;
 }
 .sh-step-time {
@@ -1791,9 +1812,12 @@
   box-shadow: var(--dy-shadow), var(--dy-highlight);
   transition: border-color var(--dy-dur-2) var(--dy-ease), box-shadow var(--dy-dur-3) var(--dy-ease);
 }
+.sh-composer:hover {
+  border-color: color-mix(in oklab, var(--dy-border-strong) 70%, var(--dy-text-faint));
+}
 .sh-composer:focus-within {
-  border-color: var(--dy-accent-border);
-  box-shadow: var(--dy-shadow), var(--dy-highlight), 0 0 0 4px color-mix(in oklab, var(--dy-accent) 11%, transparent);
+  border-color: color-mix(in oklab, var(--dy-accent) 48%, var(--dy-border-strong));
+  box-shadow: var(--dy-shadow), var(--dy-highlight), var(--dy-field-ring);
 }
 .sh-composer.is-disabled {
   opacity: 0.75;
@@ -1843,7 +1867,7 @@
     box-shadow var(--dy-dur-2) var(--dy-ease);
 }
 .sh-send.is-idle {
-  background: color-mix(in oklab, var(--dy-text) 8%, transparent);
+  background: var(--dy-fill-2);
   color: var(--dy-text-faint);
 }
 .sh-send.is-send {
@@ -2144,8 +2168,8 @@
   transition: border-color var(--dy-dur-2) var(--dy-ease), box-shadow var(--dy-dur-2) var(--dy-ease);
 }
 .sh-field:focus-within {
-  border-color: var(--dy-accent-border);
-  box-shadow: 0 0 0 4px color-mix(in oklab, var(--dy-accent) 12%, transparent);
+  border-color: color-mix(in oklab, var(--dy-accent) 48%, var(--dy-border-strong));
+  box-shadow: var(--dy-field-ring);
   color: var(--dy-accent);
 }
 .sh-field.is-error {
@@ -2275,7 +2299,8 @@
     gap: 8px;
   }
   .sh-starter {
-    padding: 12px 30px 12px 12px;
+    min-height: 56px;
+    padding: 10px 34px 10px 11px;
   }
   .sh-starter-msg {
     -webkit-line-clamp: 1;
@@ -2344,6 +2369,7 @@
   }
   .sh-sidebar,
   .sh-item-tools,
+  .sh-starter,
   .sh-starter-arrow,
   .sh-act,
   .sh-btn,

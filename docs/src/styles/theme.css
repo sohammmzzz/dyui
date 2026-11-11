@@ -211,6 +211,19 @@ starlight-theme-select label:hover {
   color: var(--sl-color-white);
 }
 
+/* mobile menu button: a quiet hairline circle instead of a filled one */
+starlight-menu-button button {
+  background-color: transparent;
+  color: var(--sl-color-white);
+  border: 1px solid var(--sl-color-gray-5);
+  box-shadow: none;
+}
+starlight-menu-button[aria-expanded="true"] button {
+  background-color: var(--sl-color-gray-6);
+  color: var(--sl-color-white);
+  box-shadow: none;
+}
+
 /* ------------------------------------------------------------ sidebar */
 .sidebar-pane {
   border-inline-end: 1px solid var(--dx-hair);
@@ -247,6 +260,7 @@ nav.sidebar ul ul .group-label .large {
   color: var(--sl-color-gray-2);
 }
 nav.sidebar ul ul summary {
+  padding: 0.36rem 0.65rem;
   border-radius: 8px;
   transition: background-color var(--dx-t-fast);
 }
@@ -406,10 +420,6 @@ h1#_top {
 .sl-markdown-content h4:not(:where(.not-content *)) {
   font-weight: 600;
   color: var(--sl-color-white);
-}
-.sl-markdown-content p,
-.sl-markdown-content li {
-  font-size: 1rem;
 }
 .sl-markdown-content :is(p, li):not(:where(.not-content *)) {
   text-wrap: pretty;
@@ -981,6 +991,9 @@ main:has(.lp) ~ footer {
   max-width: 37rem;
   color: var(--sl-color-gray-2);
   text-wrap: pretty;
+}
+.lp-lede code {
+  white-space: nowrap;
 }
 .lp-actions {
   display: flex;
@@ -1868,6 +1881,7 @@ main:has(.lp) ~ footer {
     padding-inline-start: 0;
   }
   .cp-meta > div {
+    padding-inline-end: 0;
     display: flex;
     align-items: baseline;
     justify-content: space-between;

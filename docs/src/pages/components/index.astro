@@ -34,7 +34,10 @@ const total = data.components.length;
     GROUPS.map(([g, label, blurb]) => (
       <section class="cg">
         <h2 id={g}>{label}</h2>
-        <p class="cg-blurb">{blurb}</p>
+        <p class="cg-blurb">
+          {blurb}
+          <span class="cg-count">{data.components.filter((c) => c.group === g).length} components</span>
+        </p>
         <ul class="cg-list">
           {data.components
             .filter((c) => c.group === g)

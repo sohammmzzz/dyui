@@ -4,7 +4,7 @@
  * are captured and shown as the action the server would receive.
  */
 import { useCallback, useState } from "react";
-import { NodeView, staticContext } from "@/components/dyui";
+import { NodeView, Prose, staticContext } from "@/components/dyui";
 import { FIXTURES } from "@/fixtures/nodes";
 import type { UINode } from "@/lib/types";
 
@@ -41,14 +41,28 @@ export default function ComponentDemo({ name, limit }: { name: string; limit?: n
 
   return (
     <figure className="dy-root dd-demo not-content" data-component={name}>
+      <div className="dd-head">
+        <span className="dd-label">
+          <span className="dd-live" aria-hidden="true" />
+          Live preview
+        </span>
+        <button type="button" className="dd-replay" onClick={replay}>
+          <svg aria-hidden="true" viewBox="0 0 16 16" width="12" height="12">
+            <path d="M2.5 8a5.5 5.5 0 1 0 1.7-4M2.5 2.5V5H5" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+          </svg>
+          Replay
+        </button>
+      </div>
       <div className="dd-stage" key={run}>
-        {nodes.map((n) => (
-          <NodeView key={n.id} node={n} ctx={ctx} />
-        ))}
+        <div className="dd-stage-inner">
+          {nodes.map((n) => (
+            <NodeView key={n.id} node={n} ctx={ctx} />
+          ))}
+        </div>
       </div>
       <figcaption className="dd-bar">
         <span className="dd-log" aria-live="polite">
-          {!sent && <span className="dd-hint">Live component, rendered by the DyUI web app.</span>}
+          {!sent && <span className="dd-hint">Rendered by the DyUI web app. Interactions are captured here instead of reaching a server.</span>}
           {sent?.kind === "action" && (
             <>
               Sent <code>{sent.action}</code> to the server{payload !== "{}" && <> with <code>{payload}</code></>}
@@ -60,10 +74,30 @@ export default function ComponentDemo({ name, limit }: { name: string; limit?: n
             </>
           )}
         </span>
-        <button type="button" className="dd-replay" onClick={replay}>
-          Replay
-        </button>
       </figcaption>
     </figure>
+  );
+}
+
+/**
+ * One component rendered from the exact props a model would send (used on the
+ * landing page's "how it works" sequence), optionally preceded by reply prose.
+ */
+export function Rendered({ ui, props, text }: { ui: string; props: Record<string, unknown>; text?: string }) {
+  const node: UINode = { id: `rendered_${ui}`, ui, props, status: "done" };
+  const ctx = staticContext({ messageId: "rendered", interactive: false });
+  return (
+    <div className="dy-root rd not-content">
+      <div className="rd-chrome" aria-hidden="true">
+        <span className="lc-dot" />
+        <span className="lc-dot" />
+        <span className="lc-dot" />
+        <span className="rd-title">What the user sees</span>
+      </div>
+      <div className="rd-body">
+        {text ? <Prose text={text} /> : null}
+        <NodeView node={node} ctx={ctx} />
+      </div>
+    </div>
   );
 }

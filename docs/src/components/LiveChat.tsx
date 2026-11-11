@@ -32,6 +32,14 @@ const withRows = (n: number): UINode => ({
   props: { ...table.props, rows: table.props.rows.slice(0, n) },
 });
 
+// what the reply demonstrates, in the order it happens
+const PHASES: Array<[string, string]> = [
+  ["A step runs", "The agent's work shows as a step while it happens."],
+  ["Prose streams", "Text arrives in chunks, rendered as Markdown."],
+  ["A table fills in", "Components render while the model is still writing them."],
+  ["Buttons answer back", "Clicks reach your Python handlers. Try one."],
+];
+
 function chunks(text: string): string[] {
   return text.match(/\S+\s*/g) ?? [text];
 }
@@ -40,6 +48,7 @@ export default function LiveChat() {
   const [turns, setTurns] = useState<Turn[]>([]);
   const [busy, setBusy] = useState(false);
   const [done, setDone] = useState(false);
+  const [phase, setPhase] = useState(-1);
   const timers = useRef<number[]>([]);
   const root = useRef<HTMLDivElement>(null);
   const body = useRef<HTMLDivElement>(null);
@@ -62,6 +71,7 @@ export default function LiveChat() {
     clear();
     setDone(false);
     setBusy(true);
+    setPhase(-1);
     const reduced = typeof matchMedia !== "undefined" && matchMedia("(prefers-reduced-motion: reduce)").matches;
     const answer: Turn = { role: "assistant", parts: [] };
     const frames: Array<[number, () => void]> = [];
@@ -75,11 +85,13 @@ export default function LiveChat() {
     at(250, () => push());
     at(500, () => {
       answer.parts.push({ kind: "node", node: step("running") });
+      setPhase(0);
       push();
     });
     at(1300, () => {
       answer.parts[0] = { kind: "node", node: step("done") };
       answer.parts.push({ kind: "text", text: "" });
+      setPhase(1);
       push();
     });
     for (const c of chunks(ANSWER)) {
@@ -92,6 +104,7 @@ export default function LiveChat() {
     const rows = table.props.rows.length;
     for (let i = 1; i <= rows; i++) {
       at(i === 1 ? 260 : 170, () => {
+        if (i === 1) setPhase(2);
         answer.parts[2] = { kind: "node", node: withRows(i) };
         push();
       });
@@ -109,6 +122,7 @@ export default function LiveChat() {
     }
     at(220, () => {
       answer.parts.push({ kind: "node", node: { ...buttons, id: "lc_buttons" } });
+      setPhase(3);
       push();
     });
     at(260, () => {
@@ -171,12 +185,37 @@ export default function LiveChat() {
   });
 
   return (
-    <div className="lc dy-root not-content" ref={root}>
+    <div className="lc-stage not-content" ref={root}>
+      <div className="lc-legend">
+        <p className="lp-eyebrow">Live demo</p>
+        <p className="lc-legend-title">One reply, as it streams.</p>
+        <ol className="lc-phases">
+          {PHASES.map(([title, body], i) => (
+            <li key={title} data-state={done || phase > i ? "done" : phase === i ? "active" : "idle"}>
+              <span className="lc-phase-n" aria-hidden="true">
+                0{i + 1}
+              </span>
+              <span className="lc-phase-copy">
+                <strong>{title}</strong>
+                <span>{body}</span>
+              </span>
+            </li>
+          ))}
+        </ol>
+        <button type="button" className="lc-replay" onClick={play} disabled={busy}>
+          <svg aria-hidden="true" viewBox="0 0 16 16" width="12" height="12">
+            <path d="M2.5 8a5.5 5.5 0 1 0 1.7-4M2.5 2.5V5H5" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+          </svg>
+          {busy ? "Streaming…" : "Replay"}
+        </button>
+      </div>
+      <div className="lc dy-root">
       <div className="lc-chrome" aria-hidden="true">
         <span className="lc-dot" />
         <span className="lc-dot" />
         <span className="lc-dot" />
         <span className="lc-title">Travel Bot</span>
+        <span className="lc-addr">localhost:8000</span>
       </div>
       <div className="lc-body" ref={body} aria-live="polite" aria-busy={busy}>
         {turns.map((turn, i) =>
@@ -194,11 +233,14 @@ export default function LiveChat() {
         )}
         {busy && turns.length < 2 && <div className="lc-thinking" aria-label="Thinking" />}
       </div>
-      <div className="lc-foot">
+      <div className="lc-foot" aria-hidden="true">
         <span className="lc-composer">Message Travel Bot…</span>
-        <button type="button" className="lc-replay" onClick={play} disabled={busy}>
-          {busy ? "Streaming…" : "Replay"}
-        </button>
+        <span className="lc-send">
+          <svg viewBox="0 0 16 16" width="14" height="14">
+            <path d="M8 12.5v-9M4 7.5l4-4 4 4" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" />
+          </svg>
+        </span>
+      </div>
       </div>
     </div>
   );

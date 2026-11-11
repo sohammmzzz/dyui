@@ -19,8 +19,8 @@ function Row({ hidden }: { hidden?: boolean }) {
     <ul className="mq-row" aria-hidden={hidden || undefined} {...(hidden ? { inert: true } : {})}>
       {items.map(({ name, node }) => (
         <li key={name} className="mq-item">
-          <NodeView node={{ ...node, id: `${hidden ? "mq2" : "mq"}_${node.id}` }} ctx={ctx} />
           <span className="mq-name">{name}</span>
+          <NodeView node={{ ...node, id: `${hidden ? "mq2" : "mq"}_${node.id}` }} ctx={ctx} />
         </li>
       ))}
     </ul>

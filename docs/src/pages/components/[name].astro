@@ -49,11 +49,20 @@ const next = all[idx + 1];
   next={next ? { label: next.name, link: `${base}components/${next.name}/` } : undefined}
 >
   <p class="cp-lede" set:html={inline(c.details ? `${c.description} ${c.details}` : c.description)} />
-  <p class="cp-meta">
-    <span>Python: <code>ui.{c.class}</code></span>
-    <span>Group: <a href={`${base}components/#${c.group}`}>{groupLabel}</a></span>
-    {!c.llm && <span>Never offered to the model</span>}
-  </p>
+  <dl class="cp-meta">
+    <div>
+      <dt>Python</dt>
+      <dd><code>ui.{c.class}</code></dd>
+    </div>
+    <div>
+      <dt>Group</dt>
+      <dd><a href={`${base}components/#${c.group}`}>{groupLabel}</a></dd>
+    </div>
+    <div>
+      <dt>Model</dt>
+      <dd>{c.llm ? "Offered to the model" : "Never offered to the model"}</dd>
+    </div>
+  </dl>
 
   <h2 id="preview">Preview</h2>
   <ComponentDemo name={c.name} client:visible />

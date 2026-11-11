@@ -1,0 +1,5 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" fill="none" role="img" aria-label="DyUI">
+  <defs><linearGradient id="dyui-tile" x1="0" y1="0" x2="0" y2="100" gradientUnits="userSpaceOnUse"><stop offset="0" stop-color="#6A5EEA"/><stop offset="1" stop-color="#5145D4"/></linearGradient></defs>
+  <rect width="100" height="100" fill="url(#dyui-tile)"/>
+  <path d="M2 50A9 9 0 1 0 20 50A9 9 0 1 0 2 50ZM26 50A9 9 0 1 0 44 50A9 9 0 1 0 26 50ZM66 25H84A14 14 0 0 1 98 39V61A14 14 0 0 1 84 75H56A4 4 0 0 1 52 71V39A14 14 0 0 1 66 25Z" fill="#FFFFFF" transform="translate(20.88 22) scale(0.5600)"/>
+</svg>

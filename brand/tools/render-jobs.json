@@ -1,0 +1,32 @@
+[
+  {
+    "src": "../social-card-light.svg",
+    "out": "../social-card-light.png",
+    "width": 1200,
+    "height": 630
+  },
+  {
+    "src": "../social-card-dark.svg",
+    "out": "../social-card-dark.png",
+    "width": 1200,
+    "height": 630
+  },
+  {
+    "src": "../app-icon-light.svg",
+    "out": "../png/app-icon-512.png",
+    "width": 512,
+    "height": 512
+  },
+  {
+    "src": "../app-icon-light.svg",
+    "out": "../png/app-icon-192.png",
+    "width": 192,
+    "height": 192
+  },
+  {
+    "src": "../app-icon-maskable.svg",
+    "out": "../png/app-icon-maskable-512.png",
+    "width": 512,
+    "height": 512
+  }
+]

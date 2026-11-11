@@ -2,7 +2,7 @@
 
 All notable changes to DyUI are documented here. DyUI follows [Semantic Versioning](https://semver.org/).
 
-## Unreleased
+## 1.2.0 — 2026-11-11
 
 ### Added
 

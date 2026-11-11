@@ -12,6 +12,7 @@ All notable changes to DyUI are documented here. DyUI follows [Semantic Versioni
 
 ### Changed
 
+- **Design refresh.** Chat app: every text tier now meets WCAG AA in both themes, a three-step elevation system, calmer focus rings, centred starters, neutral disabled buttons and real depth in dark mode. Docs site: rebuilt landing page and restyled docs chrome. Brand: new README banners, lockups, app icons, social cards and a brand sheet (`brand/BRAND.md`). The mark itself is unchanged.
 - Examples, templates and docs snippets use `nvidia/moonshotai/kimi-k2.6` (NVIDIA NIM, `NVIDIA_API_KEY`) as the model. Every other provider works as before.
 - `dyui claude|gemini|codex init` now runs through the DyUI skill instead of writing `.dyui/INIT_PROMPT.md`.
 

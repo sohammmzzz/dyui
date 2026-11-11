@@ -64,15 +64,15 @@ and data viz.
 | `--dy-border` | `#E6E3DC` | `#24252F` | hairlines |
 | `--dy-border-strong` | `#D6D2C8` | `#323442` | inputs, focus-adjacent |
 | `--dy-text` | `#1A1A1F` | `#ECECF1` | primary text |
-| `--dy-text-muted` | `#5F5E66` | `#A2A3B1` | secondary |
-| `--dy-text-faint` | `#8E8C94` | `#6B6D7C` | tertiary, placeholders |
+| `--dy-text-muted` | `#55545C` | `#A9AAB8` | secondary |
+| `--dy-text-faint` | `#696770` | `#8A8C9B` | tertiary, placeholders |
 | `--dy-accent` | `#5B4FE0` | `#8B80FF` | primary actions, focus |
 | `--dy-accent-soft` | `#ECEAFD` | `#1F1D3A` | accent backgrounds |
 | `--dy-accent-text` | `#FFFFFF` | `#0B0C10` | text on accent |
 | `--dy-teal` | `#14A394` | `#3DD6C3` | bloom gradient, charts |
 | `--dy-success` | `#1F9D6B` | `#4ADE9B` | |
 | `--dy-warning` | `#C27C0E` | `#F5B544` | |
-| `--dy-danger` | `#D64545` | `#FF7A7A` | |
+| `--dy-danger` | `#D03C3C` | `#FF7A7A` | |
 | `--dy-info` | `#2F6FDE` | `#7AA7FF` | |
 
 Named accents selectable from Python (`accent=`): `indigo` (default), `teal`, `rose`,

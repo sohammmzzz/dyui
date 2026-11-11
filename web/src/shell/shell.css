@@ -15,8 +15,6 @@
   --sh-code-bg: color-mix(in oklab, var(--dy-bg) 55%, var(--dy-surface));
   --sh-scrim: color-mix(in oklab, #0b0c10 34%, transparent);
   --sh-ui-stretch: 96%;
-  /* reading measure for prose blocks; components keep the full column */
-  --sh-measure: 43.5em;
   /* the accent word: the bloom, with its teal end pulled toward ink so large text keeps 3:1 */
   --sh-bloom-text: linear-gradient(120deg, var(--dy-accent) 10%, color-mix(in oklab, var(--dy-teal) 80%, var(--dy-text)) 96%);
 
@@ -746,8 +744,10 @@
   border-radius: var(--dy-radius-lg);
   border-color: var(--dy-accent-border);
 }
+.sh-starter:has(.sh-starter-msg) .sh-starter-icon {
+  grid-row: 1 / span 2; /* label + message: the icon centres on both lines */
+}
 .sh-starter-icon {
-  grid-row: 1 / span 2;
   width: 34px;
   height: 34px;
   display: grid;
@@ -1178,9 +1178,6 @@
 }
 .sh-md > :last-child {
   margin-bottom: 0;
-}
-.sh-md > :is(p, ul, ol, blockquote, h1, h2, h3, h4, h5, h6) {
-  max-width: var(--sh-measure);
 }
 .sh-md p {
   margin: 0 0 0.85em;

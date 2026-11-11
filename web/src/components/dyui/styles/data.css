@@ -142,6 +142,7 @@
 @container (max-width: 560px) {
   .dy-stats-grid { grid-template-columns: repeat(min(var(--cols, 3), 2), minmax(0, 1fr)); }
   .dy-stats .dy-stat-value { font-size: 29px; }
+  .dy-stats-cell:last-child:nth-child(odd) { grid-column: 1 / -1; } /* no empty cell when an odd count wraps to two columns */
 }
 @container (max-width: 260px) { .dy-stats-grid { grid-template-columns: 1fr; } }
 

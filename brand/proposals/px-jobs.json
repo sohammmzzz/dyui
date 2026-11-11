@@ -1,0 +1,130 @@
+[
+ {
+  "src": "../favicon.svg",
+  "out": "px/current-16-light.png",
+  "width": 16,
+  "height": 16,
+  "bg": "#FFFFFF",
+  "scheme": "light"
+ },
+ {
+  "src": "../favicon.svg",
+  "out": "px/current-16-dark.png",
+  "width": 16,
+  "height": 16,
+  "bg": "#202124",
+  "scheme": "dark"
+ },
+ {
+  "src": "../favicon.svg",
+  "out": "px/current-32-light.png",
+  "width": 32,
+  "height": 32,
+  "bg": "#FFFFFF",
+  "scheme": "light"
+ },
+ {
+  "src": "../favicon.svg",
+  "out": "px/current-32-dark.png",
+  "width": 32,
+  "height": 32,
+  "bg": "#202124",
+  "scheme": "dark"
+ },
+ {
+  "src": "1-refined/favicon.svg",
+  "out": "px/1-refined-16-light.png",
+  "width": 16,
+  "height": 16,
+  "bg": "#FFFFFF",
+  "scheme": "light"
+ },
+ {
+  "src": "1-refined/favicon.svg",
+  "out": "px/1-refined-16-dark.png",
+  "width": 16,
+  "height": 16,
+  "bg": "#202124",
+  "scheme": "dark"
+ },
+ {
+  "src": "1-refined/favicon.svg",
+  "out": "px/1-refined-32-light.png",
+  "width": 32,
+  "height": 32,
+  "bg": "#FFFFFF",
+  "scheme": "light"
+ },
+ {
+  "src": "1-refined/favicon.svg",
+  "out": "px/1-refined-32-dark.png",
+  "width": 32,
+  "height": 32,
+  "bg": "#202124",
+  "scheme": "dark"
+ },
+ {
+  "src": "2-crescendo/favicon.svg",
+  "out": "px/2-crescendo-16-light.png",
+  "width": 16,
+  "height": 16,
+  "bg": "#FFFFFF",
+  "scheme": "light"
+ },
+ {
+  "src": "2-crescendo/favicon.svg",
+  "out": "px/2-crescendo-16-dark.png",
+  "width": 16,
+  "height": 16,
+  "bg": "#202124",
+  "scheme": "dark"
+ },
+ {
+  "src": "2-crescendo/favicon.svg",
+  "out": "px/2-crescendo-32-light.png",
+  "width": 32,
+  "height": 32,
+  "bg": "#FFFFFF",
+  "scheme": "light"
+ },
+ {
+  "src": "2-crescendo/favicon.svg",
+  "out": "px/2-crescendo-32-dark.png",
+  "width": 32,
+  "height": 32,
+  "bg": "#202124",
+  "scheme": "dark"
+ },
+ {
+  "src": "3-cursor-d/favicon.svg",
+  "out": "px/3-cursor-d-16-light.png",
+  "width": 16,
+  "height": 16,
+  "bg": "#FFFFFF",
+  "scheme": "light"
+ },
+ {
+  "src": "3-cursor-d/favicon.svg",
+  "out": "px/3-cursor-d-16-dark.png",
+  "width": 16,
+  "height": 16,
+  "bg": "#202124",
+  "scheme": "dark"
+ },
+ {
+  "src": "3-cursor-d/favicon.svg",
+  "out": "px/3-cursor-d-32-light.png",
+  "width": 32,
+  "height": 32,
+  "bg": "#FFFFFF",
+  "scheme": "light"
+ },
+ {
+  "src": "3-cursor-d/favicon.svg",
+  "out": "px/3-cursor-d-32-dark.png",
+  "width": 32,
+  "height": 32,
+  "bg": "#202124",
+  "scheme": "dark"
+ }
+]

@@ -11,10 +11,12 @@ A DyUI project can be a single file. `dyui new my-bot` creates this:
 my-bot/
 ├── app.py              your App, handlers and components
 ├── README.md
-└── requirements.txt    dyui (plus the SDK extra for the template)
+├── requirements.txt    dyui (plus the SDK extra for the template)
+├── .gitignore          keeps .env and .dyui/ out of git
+└── .env.example        model templates only: copy it to .env and add your key
 ```
 
-The `nvidia`, `openai`, `anthropic` and `langgraph` templates also include an `.env.example`.
+`dyui run` loads `.env` from the app's folder, without overriding variables that are already set. See [API keys & environment](../api-keys/).
 
 ## Where the app object lives
 
@@ -38,9 +40,9 @@ DyUI keeps runtime data in `./.dyui/`, relative to the working directory. Change
 | `.dyui/uploads/` | Uploaded files |
 | `.dyui/secret` | Key that signs the password cookie when `password=` is set and `DYUI_SECRET` isn't |
 
-`dyui agent` writes the DyUI skill for your coding agent outside `.dyui/`, in that agent's own skills folder (for example `.claude/skills/dyui/`); see [Build with a coding agent](../coding-agents/).
+Coding-agent setup (`dyui mcp install`, `dyui agent`) writes its files outside `.dyui/`, in that agent's own config folder; see [Build with AI](../coding-agents/).
 
-Add `.dyui/` to your `.gitignore`. In production, put it on a persistent volume; see [Production server](../../deploy/production/).
+Keep `.dyui/` and `.env` in your `.gitignore` (the templates' `.gitignore` already lists both). In production, put `.dyui/` on a persistent volume; see [Production server](../../deploy/production/).
 
 ## Growing beyond one file
 

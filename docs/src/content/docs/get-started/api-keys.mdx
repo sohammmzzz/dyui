@@ -1,0 +1,155 @@
+---
+title: API keys & environment
+description: Where to get a key for each provider, how dyui run loads .env, setting variables on macOS, Linux and Windows, passing keys in code, deployment secrets and troubleshooting.
+sidebar:
+  order: 3
+---
+
+import { Tabs, TabItem } from "@astrojs/starlight/components";
+
+A model-backed DyUI app needs one API key, for the provider in its model string. The examples in these docs default to `nvidia/...` models, which read `NVIDIA_API_KEY`. [build.nvidia.com](https://build.nvidia.com) gives you one for free.
+
+The quickest setup is a `.env` file next to `app.py`:
+
+```ini title=".env"
+NVIDIA_API_KEY=nvapi-...
+```
+
+```bash
+dyui run app.py
+```
+
+`dyui run` loads that file before it imports your app and prints the names it loaded (never the values):
+
+```text
+dyui: loaded .env (1 key: NVIDIA_API_KEY)
+```
+
+:::caution[Keep keys out of git]
+Add `.env` to your `.gitignore`. Projects created with `dyui new` already have one. Never put a key in `app.py`: anyone who can read the file can use your account.
+:::
+
+## Where to get a key
+
+The model string's prefix picks the provider, and each provider reads its key from its own variable. Every provider except Anthropic is reached through the `openai` SDK, so install `pip install "dyui[openai]"` for all of them, or `"dyui[anthropic]"` for Claude.
+
+| Prefix | Variable | Get a key | Keys look like | Notes |
+|---|---|---|---|---|
+| `nvidia/` | `NVIDIA_API_KEY` | [build.nvidia.com](https://build.nvidia.com) | `nvapi-...` | Free tier; the docs' default |
+| `openai/` | `OPENAI_API_KEY` | [platform.openai.com/api-keys](https://platform.openai.com/api-keys) | `sk-...` | Paid |
+| `anthropic/` | `ANTHROPIC_API_KEY` | [console.anthropic.com](https://console.anthropic.com/) | `sk-ant-...` | Paid; needs `dyui[anthropic]` |
+| `groq/` | `GROQ_API_KEY` | [console.groq.com/keys](https://console.groq.com/keys) | `gsk_...` | Free tier |
+| `openrouter/` | `OPENROUTER_API_KEY` | [openrouter.ai/keys](https://openrouter.ai/keys) | `sk-or-...` | Some free models |
+| `gemini/` | `GEMINI_API_KEY` or `GOOGLE_API_KEY` | [aistudio.google.com/apikey](https://aistudio.google.com/apikey) | `AIza...` | Free tier |
+| `together/` | `TOGETHER_API_KEY` | [api.together.ai](https://api.together.ai/) | | Paid |
+| `deepseek/` | `DEEPSEEK_API_KEY` | [platform.deepseek.com](https://platform.deepseek.com/) | `sk-...` | Paid |
+| `mistral/` | `MISTRAL_API_KEY` | [console.mistral.ai](https://console.mistral.ai/) | | Free tier for some models |
+| `xai/` | `XAI_API_KEY` | [console.x.ai](https://console.x.ai/) | `xai-...` | Paid |
+| `ollama/` | none | runs on your machine | | `OLLAMA_API_KEY` is sent if set |
+
+Each provider's endpoint and its base-URL variable are listed on [Models & providers](../../integrations/overview/#providers). Free tiers limit requests per minute; see [rate limits](../../integrations/overview/#rate-limits-and-free-tiers).
+
+## `.env` files
+
+A `.env` file holds one `NAME=value` per line:
+
+```ini title=".env"
+# comments and blank lines are ignored
+NVIDIA_API_KEY=nvapi-...
+DYUI_MODEL=nvidia/deepseek-ai/deepseek-v4.1-flash
+APP_PASSWORD="a long passphrase # with a hash"
+```
+
+- `dyui run` looks for `.env` **next to the app file**, then in the current directory, and loads the first one it finds.
+- A variable that is already set in your shell or platform **is never overridden**, so `NVIDIA_API_KEY=other dyui run` still wins over the file.
+- Quotes are optional. Inside double quotes `\n` is a newline; single quotes are taken literally. An `export ` prefix is allowed, and there is no `$VAR` expansion.
+- Restart `dyui run` after you edit `.env`. The reloader restarts your app on code changes, but the file is read once at startup.
+
+```bash
+dyui run app.py --env-file prod.env   # load another file instead
+dyui run app.py --no-env-file         # load none
+```
+
+You can keep the model in `.env` too: `DYUI_MODEL` is read by the examples in these docs (`MODEL = os.getenv("DYUI_MODEL", "nvidia/...")`), which makes switching providers the same on every operating system.
+
+## Set a variable in your shell
+
+Use the shell instead of a file when you don't want the key on disk in the project, or in CI.
+
+<Tabs syncKey="os">
+  <TabItem label="macOS / Linux">
+
+```bash
+export NVIDIA_API_KEY=nvapi-...
+dyui run app.py
+```
+
+This lasts until you close the terminal. To keep it, add the `export` line to `~/.zshrc` (macOS) or `~/.bashrc` (Linux). For one command only: `NVIDIA_API_KEY=nvapi-... dyui run app.py`.
+
+  </TabItem>
+  <TabItem label="Windows (PowerShell)">
+
+```powershell
+$env:NVIDIA_API_KEY = "nvapi-..."
+dyui run app.py
+```
+
+This lasts until you close the window. To keep it for new windows, run `setx NVIDIA_API_KEY "nvapi-..."` once, then open a new terminal (`setx` doesn't change the current one).
+
+  </TabItem>
+  <TabItem label="Windows (cmd)">
+
+```bat
+set NVIDIA_API_KEY=nvapi-...
+dyui run app.py
+```
+
+Don't put quotes around the value: `cmd` keeps them as part of it. `setx NVIDIA_API_KEY nvapi-...` keeps it for new windows.
+
+  </TabItem>
+</Tabs>
+
+## Pass the key in code
+
+`dyui.llm.stream` reads the provider's variable only when you don't pass `api_key=`. Pass it explicitly when the key comes from a secrets manager, a vault or per-user settings. Inside your handler:
+
+```python
+async for part in dyui.llm.stream(
+    "nvidia/moonshotai/kimi-k2.6",
+    chat.history,
+    components=app.catalog,
+    api_key=load_secret("nvidia-api-key"),         # your own lookup
+    base_url="https://my-gateway.example.com/v1",  # optional: a proxy or gateway
+):
+    yield part
+```
+
+For Azure OpenAI, custom HTTP settings or a proxy, build the SDK client yourself and pass `client=`; see [OpenAI](../../integrations/openai/#azure-openai-and-proxies). With your own SDK calls, DyUI never sees the key at all; see [Bring your own SDK](../../integrations/bring-your-own-sdk/).
+
+## Other ways to run
+
+`dyui run` is the development server. Elsewhere, set the variables the way that tool expects:
+
+| Where | How |
+|---|---|
+| Uvicorn | `uvicorn app:app --env-file .env` (Uvicorn's own loader, which also never overrides) |
+| Docker | `docker run --env-file .env my-bot`, or `-e NVIDIA_API_KEY`. Docker keeps quotes as part of the value, so leave values unquoted. See [Docker](../../deploy/docker/). |
+| Render, Fly, Railway | The platform's secrets or environment variables; see [Render, Fly & Railway](../../deploy/platforms/) |
+| CI, tests | Your CI's secret store, exposed as an environment variable |
+
+Don't copy `.env` into an image: the `.dockerignore` on the [Docker](../../deploy/docker/) page leaves it out. DyUI never sends keys to the browser.
+
+## Troubleshooting
+
+| What you see | What to do |
+|---|---|
+| **"NVIDIA_API_KEY is not set (needed for 'nvidia/' models)…"** in the chat | DyUI found no key before calling the provider. Check that `.env` is next to `app.py` (or in the directory you run from), that the name is spelled exactly, and that `dyui run` printed `loaded .env (… NVIDIA_API_KEY)`. Restart `dyui run` after editing `.env`. |
+| **"The model provider rejected the API key (401)"** | The key is wrong, revoked, or for another provider. An `nvapi-` key only works with `nvidia/` models, `sk-ant-` only with `anthropic/`, and so on. |
+| **The shell has the key but the app doesn't** | Variables only reach programs started from that terminal. After `setx`, open a new one. IDE run buttons have their own environment settings. |
+| **"The model provider's rate limit was reached"** | A free-tier limit (HTTP 429). DyUI retries short waits by itself; see [rate limits](../../integrations/overview/#rate-limits-and-free-tiers) to make requests smaller. |
+| **`MissingDependencyError: … pip install "dyui[openai]"`** | Install the SDK extra the error names. |
+
+## Next
+
+- [Your first LLM bot](../first-llm-bot/): a travel bot with custom components and approvals.
+- [Models & providers](../../integrations/overview/): every argument of `dyui.llm.stream`.

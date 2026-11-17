@@ -39,9 +39,11 @@ async def reply(msg: dyui.Message, chat: dyui.Chat):
 
 ```bash
 pip install "dyui[openai]"
-export NVIDIA_API_KEY=nvapi-...   # or the key for any other provider
+echo "NVIDIA_API_KEY=nvapi-..." > .env   # free key at build.nvidia.com; dyui run loads .env
 dyui run app.py          # → http://127.0.0.1:8000
 ```
+
+Other providers, Windows shells and deployment secrets: [API keys & environment](https://sohammmzzz.github.io/dyui/get-started/api-keys/).
 
 No API key yet? `pip install dyui && dyui demo` opens a guided tour that needs none.
 

@@ -29,6 +29,7 @@ A single async worker handles many concurrent chats, because handlers spend most
 ## Secrets
 
 - Keep model API keys in environment variables (`OPENAI_API_KEY`, `ANTHROPIC_API_KEY`…). DyUI never sends them to the browser.
+- Uvicorn doesn't read `.env` the way `dyui run` does. Set the variables in your platform's secret store, or pass `--env-file .env` to Uvicorn. [API keys & environment](../../get-started/api-keys/#other-ways-to-run) lists every option.
 - With `password=`, set **`DYUI_SECRET`** to a long random value so the auth cookie survives redeploys and works on every instance:
 
 ```bash

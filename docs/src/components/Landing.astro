@@ -101,7 +101,7 @@ const pad = (n: number) => String(n).padStart(2, "0");
           <p>One handler streams the model. <code>app.catalog</code> tells DyUI which components to describe in the system prompt.</p>
         </div>
         <div class="lp-plate-art">
-          <Code code={handlerPy} lang="python" title="app.py" />
+          <Code code={handlerPy} lang="python" title="Your handler" />
         </div>
       </li>
       <li class="lp-plate">
@@ -185,12 +185,16 @@ const pad = (n: number) => String(n).padStart(2, "0");
       <li>
         <h3><span class="lp-step-n" aria-hidden="true">02</span>Write <code>app.py</code></h3>
         <Code code={appPy} lang="python" title="app.py" />
-        <p>This is the whole app: a title, a starter prompt and one handler.</p>
+        <p>This is the whole app: a title, a starter prompt and one handler. Save it in a new, empty file.</p>
       </li>
       <li>
         <h3><span class="lp-step-n" aria-hidden="true">03</span>Run it</h3>
         <Code code={"dyui run app.py"} lang="bash" />
-        <p>Open <code>http://localhost:8000</code>. The app reloads when you save.</p>
+        <p>
+          First put your key in a <code>.env</code> file next to <code>app.py</code>: <code>NVIDIA_API_KEY=nvapi-...</code> (free at
+          build.nvidia.com). <code>dyui run</code> loads it. Then open <code>http://localhost:8000</code>; the app reloads when you save.
+          <a href={href("get-started/api-keys/")}>API keys for every provider</a>.
+        </p>
       </li>
     </ol>
   </section>

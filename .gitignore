@@ -8,6 +8,8 @@ dist/
 
 # Built web app copied into the Python package (produced by hatch_build.py / npm run build:py)
 python/dyui/_static/
+# Docs copied into the Python package for the offline MCP server (hatch_build.py)
+python/dyui/_docs/
 
 # Node
 node_modules/

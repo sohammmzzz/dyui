@@ -212,7 +212,8 @@ def test_component_records_match_the_docs_data():
         pytest.skip("runs from a source checkout")
     committed = json.loads(data.read_text(encoding="utf-8"))["components"]
     live = [introspect.component_record(c) for c in introspect.component_classes()]
-    assert live == committed
+    # gen_components.py adds a generated complete `app` per component on top of the record
+    assert live == [{k: v for k, v in c.items() if k != "app"} for c in committed]
 
 
 def test_skill_components_come_from_introspection():
@@ -389,7 +390,7 @@ def test_read_doc_resolves_the_data_analyst_cookbook_to_the_full_source():
     source = (REPO / "examples" / "data_analyst.py").read_text(encoding="utf-8").replace("\r\n", "\n")
     assert text.startswith("# Data analyst\n")
     assert source.strip() in text
-    assert 'title="examples/data_analyst.py"' in text
+    assert 'title="data_analyst.py"' in text
     assert "import " not in text.split("```", 1)[0]  # the MDX import lines are gone
     assert "<Code" not in text
 

@@ -2,6 +2,28 @@
 
 All notable changes to DyUI are documented here. DyUI follows [Semantic Versioning](https://semver.org/).
 
+## 1.3.0 — 2026-11-18
+
+### Added
+
+- **DyUI MCP server** (`pip install "dyui[mcp]"`, `dyui mcp` / `python -m dyui.mcp`). Coding agents get version-exact tools instead of a static skill file: `dyui_overview`, `list_docs`, `read_doc`, `search_docs`, `list_components`, `get_component` (full prop schema, examples, action contract, catalog line), `list_examples`, `get_example`, `get_template`, `validate_ui` (runs the real parser and validator on a `dyui` block), `check_app` (imports your app in a subprocess and flags common mistakes) and `catalog_prompt`, plus docs/component/example resources and the build/convert/design/production playbooks as prompts. The docs ship inside the wheel, so it works offline.
+- **`dyui mcp install [agent]`** registers the server for Claude Code (`.mcp.json`), Cursor, VS Code, Gemini CLI, Qwen Code, Codex, opencode, Zed and Claude Desktop, merging into existing config without touching other servers. `--print` shows the snippet.
+- **`.env` loading.** `dyui run` loads `.env` from the app's folder (then the current directory) without overriding variables already set; `--env-file PATH`, `--no-env-file`. UTF-16 files written by Windows PowerShell load too.
+- A missing API key now fails fast with a clear message naming the variable (`MissingAPIKeyError`), instead of an SDK error.
+- Docs: **API keys & environment** page, **Models & providers** overview, `llms.txt` and `llms-full.txt`.
+
+### Changed
+
+- `dyui agent` / `dyui claude` / ... now register the MCP server and write a short pointer skill. Without the `mcp` extra, or for agents DyUI can't configure, they fall back to the full skill as before. `--print` still prints the full skill.
+- **Docs rewritten around complete programs.** Every concept, integration, cookbook and component page ends with a complete `app.py` you can save and run, with save/run steps and a download link. Copied code ends with a newline. CI runs every complete example and compiles every copyable one on the built site, and checks all internal links.
+- Template READMEs: `cp .env.example .env` replaces the `export $(grep …)` line, which failed on Windows.
+
+### Fixed
+
+- Pasting a copied example could glue its last line to the next one (`yield part"""Data analyst…` SyntaxError), because the copy text had no trailing newline and the page didn't say to save it as a new file.
+- Component pages showed `yield ui.X(...)` at module level, which is a SyntaxError when pasted.
+- Examples are checked out with LF line endings on every platform.
+
 ## 1.2.0 — 2026-11-11
 
 ### Added

@@ -220,7 +220,8 @@ Reasoning models stream their thinking into a collapsible block automatically.
 | `dyui new <dir>` | Scaffold a project (`basic`, `nvidia`, `openai`, `anthropic`, `langgraph`) |
 | `dyui demo` | A guided tour — no API key needed |
 | `dyui catalog [app.py]` | Print the generated UI prompt and its token cost |
-| `dyui agent` | Open your coding agent with the DyUI skill loaded, to build, convert or extend an app (`dyui claude`, `gemini`, `codex`, `qwen`, `antigravity`, `kimi`, `opencode`, `cursor`) |
+| `dyui mcp install [agent]` | Give your coding agent the DyUI MCP server: version-exact docs, component schemas, examples and validators (`pip install "dyui[mcp]"`; Claude Code, Cursor, VS Code, Gemini, Qwen, Codex, …) |
+| `dyui agent` | Register the MCP server and open your coding agent on a task (`dyui claude`, `gemini`, `codex`, `qwen`, `antigravity`, `kimi`, `opencode`, `cursor`) |
 
 ## Deploy
 

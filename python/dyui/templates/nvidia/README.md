@@ -15,4 +15,4 @@ Switch models with `DYUI_MODEL`: any model from https://build.nvidia.com as `nvi
 or another provider such as `openai/...`, `anthropic/...` or `ollama/...`. API keys for every
 provider: https://sohammmzzz.github.io/dyui/get-started/api-keys/
 
-Want help building it out? `dyui agent` opens your coding agent briefed on DyUI.
+Want help building it out? `pip install "dyui[mcp]"` then `dyui mcp install` gives your coding agent the DyUI docs, component schemas and validators.

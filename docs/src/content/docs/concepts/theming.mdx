@@ -5,6 +5,11 @@ sidebar:
   order: 8
 ---
 
+import { Code } from "@astrojs/starlight/components";
+import source from "../../../../examples/concepts/theming.py?raw";
+
+Everything users see (name, welcome copy, starters, logo, colours) is set on `dyui.App`, with no frontend code. Read this page to brand an app.
+
 Everything users see is configured on `dyui.App`:
 
 ```python
@@ -59,3 +64,24 @@ Most [lucide](https://lucide.dev/icons/) icon names work too (kebab-case, e.g. `
 async def feedback(fb: dyui.Feedback, chat: dyui.Chat):
     print(fb.message_id, fb.value, fb.comment)    # value: 1, -1 or 0 (cleared)
 ```
+
+## Complete example
+
+A branded support app with an accent colour, welcome copy, starters with icons and a feedback handler. It needs no API key.
+
+<Code code={source} lang="python" title="app.py" />
+
+1. Save it as `app.py` in a new, empty file, or [download app.py](../../examples/concepts/theming/app.py).
+2. Run it:
+
+   ```bash
+   pip install dyui
+   dyui run app.py
+   ```
+
+3. Open [http://localhost:8000](http://localhost:8000), send a message and use the thumbs under the reply: the feedback is printed in your terminal.
+
+## See also
+
+- [Authentication](../auth/): put a password in front of the app.
+- [Production server](../../deploy/production/#security-headers): embedding the app in another site.

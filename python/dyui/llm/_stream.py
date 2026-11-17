@@ -9,7 +9,7 @@ from typing import Any, AsyncIterator
 
 from dyui.parts import Reasoning
 
-from ._errors import missing_sdk
+from ._errors import MissingAPIKeyError, missing_sdk
 from ._prompt import build_system, split_system, to_anthropic_messages, to_openai_messages
 from ._providers import Provider, parse_model
 
@@ -40,14 +40,10 @@ def _make_openai_client(provider: Provider, base_url: str | None, api_key: str |
     base_url = base_url or (os.environ.get(provider.base_url_env or "") or provider.base_url)
     api_key = api_key or _resolve_key(provider)
     if api_key is None:
-        if provider.key_required and provider.name != "openai":
-            raise RuntimeError(
-                f"No API key for '{provider.name}'. Set {' or '.join(provider.key_envs)} "
-                f"or pass api_key=... to dyui.llm.stream()."
-            )
+        if provider.key_required:
+            raise MissingAPIKeyError(provider.name, provider.key_envs)
         # ollama & friends ignore the key; the SDK still wants *something*.
-        # For openai itself let the SDK raise its own (clear) error.
-        api_key = None if provider.name == "openai" else "not-needed"
+        api_key = "not-needed"
     kwargs: dict[str, Any] = {}
     if base_url:
         kwargs["base_url"] = base_url
@@ -63,6 +59,10 @@ def _make_anthropic_client(provider: Provider, base_url: str | None, api_key: st
         raise missing_sdk("anthropic") from e
     kwargs: dict[str, Any] = {}
     base_url = base_url or os.environ.get(provider.base_url_env or "")
+    # The SDK reads ANTHROPIC_API_KEY itself (or ANTHROPIC_AUTH_TOKEN for bearer auth).
+    # A gateway at a custom base URL may not need either, so only fail on the default endpoint.
+    if not (api_key or _resolve_key(provider) or os.environ.get("ANTHROPIC_AUTH_TOKEN") or base_url):
+        raise MissingAPIKeyError(provider.name, provider.key_envs)
     if base_url:
         kwargs["base_url"] = base_url
     if api_key:

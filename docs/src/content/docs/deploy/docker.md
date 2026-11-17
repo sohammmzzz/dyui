@@ -44,6 +44,8 @@ docker run -p 8000:8000 \
   my-bot
 ```
 
+`-e OPENAI_API_KEY` passes the variable from your shell into the container. To use your `.env` file instead, run `docker run --env-file .env ...`; Docker keeps quotes as part of the value, so leave values unquoted there. See [API keys & environment](../../get-started/api-keys/) for each provider's variable.
+
 ## Compose
 
 ```yaml title="compose.yaml"

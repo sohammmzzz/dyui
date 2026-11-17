@@ -23,7 +23,12 @@ const ACTIONS: Record<string, { action: string; values: string }> = {
 
 const llmLines = (c.llm_examples.length ? c.llm_examples : []).map((e) => JSON.stringify({ ui: c.name, ...e }));
 const fence = llmLines.length ? "```dyui\n" + llmLines.join("\n") + "\n```" : "";
-const python = `from dyui import ui\n\n${c.python.map((p) => `yield ${p}`).join("\n")}`;
+// a fragment (no title): these lines go inside a handler, so it is labelled as one
+const python = `# inside a handler: @app.on_message, @app.on_action, ...\n${c.python.map((p) => `yield ${p}`).join("\n")}`;
+// the whole runnable app.py (docs/scripts/component_apps.py; run end to end by python/tests/test_docs_examples.py)
+const app = (c as { app?: string }).app ?? "";
+const download = `${base}examples/components/${c.name}/app.py`;
+const interactive = Boolean(ACTIONS[c.name]) || c.group === "interactive";
 const prompt = c.signature;
 const fmtDefault = (f: Comp["fields"][number]) => {
   if (f.required) return "required";
@@ -44,6 +49,7 @@ const next = all[idx + 1];
     { depth: 2, slug: "usage", text: "Usage" },
     { depth: 2, slug: "props", text: "Props" },
     ...(ACTIONS[c.name] || c.group === "interactive" ? [{ depth: 2, slug: "actions", text: "Actions" }] : []),
+    ...(app ? [{ depth: 2, slug: "complete-example", text: "Complete example" }] : []),
   ]}
   prev={prev ? { label: prev.name, link: `${base}components/${prev.name}/` } : undefined}
   next={next ? { label: next.name, link: `${base}components/${next.name}/` } : undefined}
@@ -70,7 +76,10 @@ const next = all[idx + 1];
   <h2 id="usage">Usage</h2>
   <Tabs syncKey="usage">
     <TabItem label="Python">
-      <p>Yield it from any handler (<code>@app.on_message</code>, <code>@app.on_action</code>…) or pass it to <code>chat.send()</code>.</p>
+      <p>
+        Inside a handler (<code>@app.on_message</code>, <code>@app.on_action</code>…), yield it or pass it to <code>chat.send()</code>.
+        This is a fragment. The <a href="#complete-example">complete example</a> below is a whole file you can run.
+      </p>
       <Code code={python} lang="python" />
     </TabItem>
     {
@@ -165,6 +174,39 @@ const next = all[idx + 1];
             : "Each button sends its own action name with its static data."}{" "}
           See <a href={`${base}concepts/actions/`}>Actions &amp; human-in-the-loop</a>.
         </p>
+      </>
+    )
+  }
+  {
+    app && (
+      <>
+        <h2 id="complete-example">Complete example</h2>
+        <p>
+          A whole app that shows <code>{c.name}</code>
+          {interactive ? " and handles what the user sends back" : ""}. It needs no API key.
+        </p>
+        <Code code={app} lang="python" title="app.py" />
+        <ol>
+          <li>
+            Save it as <code>app.py</code> in a new, empty folder, or <a href={download} download="app.py">download app.py</a>. Paste it
+            into an empty file: pasting below existing code joins the two.
+          </li>
+          <li>
+            Run it with <code>pip install dyui</code>, then <code>dyui run app.py</code>.
+          </li>
+          <li>
+            Open <a href="http://localhost:8000">http://localhost:8000</a> and tap <strong>Show me</strong>.
+            {interactive && " Click the component to see the action arrive in Python."}
+          </li>
+        </ol>
+        {
+          c.llm && (
+            <p>
+              To let a model write it instead, stream a model with <code>components=app.catalog</code>; see{" "}
+              <a href={`${base}concepts/generative-ui/`}>Generative UI</a>.
+            </p>
+          )
+        }
       </>
     )
   }

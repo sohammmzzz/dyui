@@ -2,11 +2,12 @@
 //  1. copy brand assets that must live in public/ (favicon) — never edited by hand here,
 //     so a logo swap in ../brand propagates on the next build;
 //  2. regenerate the component data (src/data/components.json) and the Python API
-//     reference (src/content/docs/reference/api/) from the dyui package.
+//     reference (src/content/docs/reference/api/) from the dyui package;
+//  3. copy every complete example into public/examples/ so pages can link a download.
 // Python is optional for local work: without it the committed components.json is used
 // and the API reference is replaced by a short placeholder page.
 import { spawnSync } from "node:child_process";
-import { copyFileSync, existsSync, mkdirSync, writeFileSync } from "node:fs";
+import { copyFileSync, existsSync, mkdirSync, readdirSync, readFileSync, rmSync, writeFileSync } from "node:fs";
 import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
 
@@ -59,3 +60,40 @@ if (py) {
     );
   }
 }
+
+// 3. downloadable complete examples → public/examples/ (the "Download app.py" links)
+//    examples/<f>.py                     → examples/<f>.py            (cookbook, keeps its name)
+//    docs/examples/<section>/<page>.py   → examples/<section>/<page>/app.py
+//    components.json  c.app              → examples/components/<name>/app.py
+// Always LF and newline-terminated, whatever the checkout's line endings are.
+const outDir = join(docs, "public", "examples");
+rmSync(outDir, { recursive: true, force: true });
+const lf = (text) => text.replace(/\r\n?/g, "\n").replace(/\n*$/, "\n");
+const put = (rel, text) => {
+  const file = join(outDir, rel);
+  mkdirSync(dirname(file), { recursive: true });
+  writeFileSync(file, lf(text));
+};
+let copied = 0;
+for (const f of readdirSync(join(repo, "examples"))) {
+  if (f.endsWith(".py")) {
+    put(f, readFileSync(join(repo, "examples", f), "utf8"));
+    copied++;
+  }
+}
+const docExamples = join(docs, "examples");
+for (const section of existsSync(docExamples) ? readdirSync(docExamples) : []) {
+  for (const f of readdirSync(join(docExamples, section))) {
+    if (!f.endsWith(".py")) continue;
+    put(join(section, f.replace(/\.py$/, "").replace(/_/g, "-"), "app.py"), readFileSync(join(docExamples, section, f), "utf8"));
+    copied++;
+  }
+}
+const { components } = JSON.parse(readFileSync(join(docs, "src", "data", "components.json"), "utf8"));
+for (const c of components) {
+  if (c.app) {
+    put(join("components", c.name, "app.py"), c.app);
+    copied++;
+  }
+}
+console.log(`prebuild: ${copied} example files -> public/examples/`);

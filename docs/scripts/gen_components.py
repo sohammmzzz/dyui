@@ -10,10 +10,14 @@ Usage:  python docs/scripts/gen_components.py
 from __future__ import annotations
 
 import json
+import sys
 from pathlib import Path
 
 import dyui
 from dyui.mcp.introspect import component_classes, component_record
+
+sys.path.insert(0, str(Path(__file__).resolve().parent))
+from component_apps import component_app  # noqa: E402  (a complete app.py per component page)
 
 OUT = Path(__file__).resolve().parent.parent / "src" / "data" / "components.json"
 
@@ -23,6 +27,8 @@ def main() -> int:
         comps = [component_record(cls) for cls in component_classes()]
     except ValueError as exc:  # a component with no working Python example
         raise SystemExit(f"gen_components: {exc}") from None
+    for comp in comps:
+        comp["app"] = component_app(comp)
     OUT.parent.mkdir(parents=True, exist_ok=True)
     data = {"version": dyui.__version__, "components": comps}
     OUT.write_text(json.dumps(data, indent=2, ensure_ascii=False) + "\n", encoding="utf-8")

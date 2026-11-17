@@ -5,6 +5,13 @@ sidebar:
   order: 3
 ---
 
+import { Code } from "@astrojs/starlight/components";
+import source from "../../../../examples/concepts/generative_ui.py?raw";
+
+Generative UI is how a model renders components: DyUI describes them in the system prompt, and turns what the model writes back into validated components while it streams. Read this page when a model writes your replies.
+
+Code on this page is fragments; the [complete example](#complete-example) is a whole file.
+
 The model renders UI by writing **data**, never markup. DyUI tells the model which components exist, parses what it writes as it streams, and validates every component against the same pydantic model that produced its description.
 
 ## The fence format
@@ -107,3 +114,26 @@ Use fence mode (the default) for every other provider and for local models.
 ## What the model sees afterwards
 
 `chat.history` gives the model back what it rendered. Each component in an assistant message is re-serialized as a one-line `dyui` block containing its props, so a follow-up like "book the cheaper one" has the data it refers to. Action messages appear as `[action:name] {...}`.
+
+## Complete example
+
+A model that answers with a chosen set of built-ins and a custom `Ticker` component, placed in the system prompt with `{dyui_components}`.
+
+<Code code={source} lang="python" title="app.py" />
+
+1. Save it as `app.py` in a new, empty file, or [download app.py](../../examples/concepts/generative-ui/app.py).
+2. Put your key in a `.env` file next to it: `NVIDIA_API_KEY=nvapi-...` (free at [build.nvidia.com](https://build.nvidia.com); other providers on [API keys & environment](../../get-started/api-keys/)).
+3. Run it:
+
+   ```bash
+   pip install "dyui[openai]"
+   dyui run app.py
+   ```
+
+4. Open [http://localhost:8000](http://localhost:8000) and send the starter. Run `dyui catalog app.py` to see the exact prompt section the model receives, and `DYUI_UI_MODE=tools` (in `.env`) to try structured mode with an OpenAI or Anthropic model.
+
+## See also
+
+- [Custom components](../custom-components/): define your own.
+- [Models & providers](../../integrations/overview/): every argument of `dyui.llm.stream`.
+- [Components](../../components/): the built-in catalog.

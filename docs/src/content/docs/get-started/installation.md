@@ -30,6 +30,8 @@ pip install "dyui[openai]"
 
 If you call a provider whose SDK isn't installed, `dyui.llm.stream` raises a `MissingDependencyError` that names the extra to install.
 
+Each provider also needs an API key. [API keys & environment](../api-keys/) lists where to get one and how to set it on every operating system.
+
 ## Check the install
 
 ```bash

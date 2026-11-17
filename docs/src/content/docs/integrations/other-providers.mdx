@@ -1,0 +1,53 @@
+---
+title: Groq, OpenRouter & others
+description: Use NVIDIA NIM, Groq, OpenRouter, Together, DeepSeek, Gemini, Mistral and xAI models with one string.
+sidebar:
+  order: 4
+---
+
+import { Code } from "@astrojs/starlight/components";
+import source from "../../../../examples/integrations/other_providers.py?raw";
+
+Every other provider is one prefix away. They all use the `openai` SDK (`pip install "dyui[openai]"`) against the provider's OpenAI-compatible endpoint, so switching is a change of model string and key. The full table of prefixes, endpoints, key variables and base-URL overrides is on [Models & providers](../overview/#providers), and where to get each key is on [API keys & environment](../../get-started/api-keys/#where-to-get-a-key).
+
+The model id may itself contain slashes. Inside your handler, any of these works:
+
+```python
+dyui.llm.stream("nvidia/moonshotai/kimi-k2.6", chat.history, components=app.catalog)
+dyui.llm.stream("openrouter/anthropic/claude-sonnet-5-5", chat.history, components=app.catalog)
+dyui.llm.stream("together/meta-llama/Llama-3.3-70B-Instruct-Turbo", chat.history, components=app.catalog)
+dyui.llm.stream("groq/llama-3.3-70b-versatile", chat.history, components=app.catalog)
+dyui.llm.stream("gemini/gemini-2.5-flash", chat.history, components=app.catalog)
+```
+
+`base_url=` and `api_key=` arguments override the environment. A provider DyUI doesn't list still works if it speaks the OpenAI API: use `openai/<model>` with `base_url=`, or [bring your own SDK](../bring-your-own-sdk/).
+
+Free tiers (Groq, NVIDIA NIM, Gemini) limit tokens per minute. Keep the catalog and history short; see [rate limits and free tiers](../overview/#rate-limits-and-free-tiers).
+
+## Complete example
+
+One app for every provider: pick it with `DYUI_MODEL`. It trims the catalog and the history so requests stay inside free-tier limits.
+
+<Code code={source} lang="python" title="app.py" />
+
+1. Save it as `app.py` in a new, empty file, or [download app.py](../../examples/integrations/other-providers/app.py).
+2. Put the provider's key and, if you like, the model in a `.env` file next to it:
+
+   ```ini title=".env"
+   GROQ_API_KEY=gsk_...
+   # DYUI_MODEL=openrouter/anthropic/claude-sonnet-5-5   (with OPENROUTER_API_KEY)
+   ```
+
+3. Run it:
+
+   ```bash
+   pip install "dyui[openai]"
+   dyui run app.py
+   ```
+
+4. Open [http://localhost:8000](http://localhost:8000) and send the starter.
+
+## See also
+
+- [Models & providers](../overview/): every argument and the provider table.
+- [Ollama & local models](../ollama/): no key at all.

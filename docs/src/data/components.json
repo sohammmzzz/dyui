@@ -1,5 +1,5 @@
 {
-  "version": "1.0.0",
+  "version": "1.2.0",
   "components": [
     {
       "name": "markdown",
@@ -30,7 +30,8 @@
         {
           "text": "**Note:** prices include taxes."
         }
-      ]
+      ],
+      "app": "\"\"\"A complete DyUI app that shows the `markdown` component.\n\nSave it as app.py, then run:  dyui run app.py\n\"\"\"\nimport dyui\nfrom dyui import ui\n\napp = dyui.App(title=\"Markdown demo\", starters=[\"Show me\"], persist=False)\n\n\n@app.on_message\nasync def reply(msg: dyui.Message, chat: dyui.Chat):\n    yield \"Here is the `markdown` component.\"\n    yield ui.Markdown(\"**Two nights** in Alfama, then a day in Sintra.\")\n"
     },
     {
       "name": "callout",
@@ -78,7 +79,8 @@
           "text": "Prices may change before checkout.",
           "level": "warning"
         }
-      ]
+      ],
+      "app": "\"\"\"A complete DyUI app that shows the `callout` component.\n\nSave it as app.py, then run:  dyui run app.py\n\"\"\"\nimport dyui\nfrom dyui import ui\n\napp = dyui.App(title=\"Callout demo\", starters=[\"Show me\"], persist=False)\n\n\n@app.on_message\nasync def reply(msg: dyui.Message, chat: dyui.Chat):\n    yield \"Here is the `callout` component.\"\n    yield ui.Callout(\"Your booking is confirmed.\", level=\"success\", title=\"Done\")\n"
     },
     {
       "name": "code",
@@ -126,7 +128,8 @@
           "code": "pip install dyui",
           "language": "bash"
         }
-      ]
+      ],
+      "app": "\"\"\"A complete DyUI app that shows the `code` component.\n\nSave it as app.py, then run:  dyui run app.py\n\"\"\"\nimport dyui\nfrom dyui import ui\n\napp = dyui.App(title=\"Code demo\", starters=[\"Show me\"], persist=False)\n\n\n@app.on_message\nasync def reply(msg: dyui.Message, chat: dyui.Chat):\n    yield \"Here is the `code` component.\"\n    yield ui.Code(\"pip install dyui\", language=\"bash\")\n"
     },
     {
       "name": "quote",
@@ -169,7 +172,8 @@
       "python": [
         "ui.Quote(\"Simplicity is the ultimate sophistication.\", author=\"Leonardo da Vinci\")"
       ],
-      "llm_examples": []
+      "llm_examples": [],
+      "app": "\"\"\"A complete DyUI app that shows the `quote` component.\n\nSave it as app.py, then run:  dyui run app.py\n\"\"\"\nimport dyui\nfrom dyui import ui\n\napp = dyui.App(title=\"Quote demo\", starters=[\"Show me\"], persist=False)\n\n\n@app.on_message\nasync def reply(msg: dyui.Message, chat: dyui.Chat):\n    yield \"Here is the `quote` component.\"\n    yield ui.Quote(\"Simplicity is the ultimate sophistication.\", author=\"Leonardo da Vinci\")\n"
     },
     {
       "name": "sources",
@@ -203,7 +207,8 @@
             }
           ]
         }
-      ]
+      ],
+      "app": "\"\"\"A complete DyUI app that shows the `sources` component.\n\nSave it as app.py, then run:  dyui run app.py\n\"\"\"\nimport dyui\nfrom dyui import ui\n\napp = dyui.App(title=\"Sources demo\", starters=[\"Show me\"], persist=False)\n\n\n@app.on_message\nasync def reply(msg: dyui.Message, chat: dyui.Chat):\n    yield \"Here is the `sources` component.\"\n    yield ui.Sources(ui.Source(\"DyUI docs\", \"https://example.com/docs\"))\n"
     },
     {
       "name": "badges",
@@ -228,7 +233,8 @@
       "python": [
         "ui.Badges(\"Beta\", ui.Badge(\"Paid\", color=\"green\"))"
       ],
-      "llm_examples": []
+      "llm_examples": [],
+      "app": "\"\"\"A complete DyUI app that shows the `badges` component.\n\nSave it as app.py, then run:  dyui run app.py\n\"\"\"\nimport dyui\nfrom dyui import ui\n\napp = dyui.App(title=\"Badges demo\", starters=[\"Show me\"], persist=False)\n\n\n@app.on_message\nasync def reply(msg: dyui.Message, chat: dyui.Chat):\n    yield \"Here is the `badges` component.\"\n    yield ui.Badges(\"Beta\", ui.Badge(\"Paid\", color=\"green\"))\n"
     },
     {
       "name": "divider",
@@ -255,7 +261,8 @@
       "python": [
         "ui.Divider(\"Results\")"
       ],
-      "llm_examples": []
+      "llm_examples": [],
+      "app": "\"\"\"A complete DyUI app that shows the `divider` component.\n\nSave it as app.py, then run:  dyui run app.py\n\"\"\"\nimport dyui\nfrom dyui import ui\n\napp = dyui.App(title=\"Divider demo\", starters=[\"Show me\"], persist=False)\n\n\n@app.on_message\nasync def reply(msg: dyui.Message, chat: dyui.Chat):\n    yield \"Here is the `divider` component.\"\n    yield ui.Divider(\"Results\")\n"
     },
     {
       "name": "table",
@@ -316,7 +323,8 @@
             ]
           ]
         }
-      ]
+      ],
+      "app": "\"\"\"A complete DyUI app that shows the `table` component.\n\nSave it as app.py, then run:  dyui run app.py\n\"\"\"\nimport dyui\nfrom dyui import ui\n\napp = dyui.App(title=\"Table demo\", starters=[\"Show me\"], persist=False)\n\n\n@app.on_message\nasync def reply(msg: dyui.Message, chat: dyui.Chat):\n    yield \"Here is the `table` component.\"\n    yield ui.Table([\"City\", \"Temp\"], [[\"Lisbon\", 24], [\"Porto\", 21]])\n"
     },
     {
       "name": "stat",
@@ -391,7 +399,8 @@
           "delta": "+12%",
           "trend": "up"
         }
-      ]
+      ],
+      "app": "\"\"\"A complete DyUI app that shows the `stat` component.\n\nSave it as app.py, then run:  dyui run app.py\n\"\"\"\nimport dyui\nfrom dyui import ui\n\napp = dyui.App(title=\"Stat demo\", starters=[\"Show me\"], persist=False)\n\n\n@app.on_message\nasync def reply(msg: dyui.Message, chat: dyui.Chat):\n    yield \"Here is the `stat` component.\"\n    yield ui.Stat(\"Revenue\", \"$48.2k\", delta=\"+12%\")\n"
     },
     {
       "name": "stats",
@@ -430,7 +439,8 @@
             }
           ]
         }
-      ]
+      ],
+      "app": "\"\"\"A complete DyUI app that shows the `stats` component.\n\nSave it as app.py, then run:  dyui run app.py\n\"\"\"\nimport dyui\nfrom dyui import ui\n\napp = dyui.App(title=\"Stats demo\", starters=[\"Show me\"], persist=False)\n\n\n@app.on_message\nasync def reply(msg: dyui.Message, chat: dyui.Chat):\n    yield \"Here is the `stats` component.\"\n    yield ui.Stats(ui.Stat(\"Orders\", 1284), ui.Stat(\"AOV\", \"$37.50\"))\n"
     },
     {
       "name": "keyvalue",
@@ -470,7 +480,8 @@
             }
           ]
         }
-      ]
+      ],
+      "app": "\"\"\"A complete DyUI app that shows the `keyvalue` component.\n\nSave it as app.py, then run:  dyui run app.py\n\"\"\"\nimport dyui\nfrom dyui import ui\n\napp = dyui.App(title=\"KeyValue demo\", starters=[\"Show me\"], persist=False)\n\n\n@app.on_message\nasync def reply(msg: dyui.Message, chat: dyui.Chat):\n    yield \"Here is the `keyvalue` component.\"\n    yield ui.KeyValue({\"Status\": \"Open\", \"Priority\": \"High\"})\n"
     },
     {
       "name": "chart",
@@ -558,7 +569,8 @@
           ],
           "unit": "$k"
         }
-      ]
+      ],
+      "app": "\"\"\"A complete DyUI app that shows the `chart` component.\n\nSave it as app.py, then run:  dyui run app.py\n\"\"\"\nimport dyui\nfrom dyui import ui\n\napp = dyui.App(title=\"Chart demo\", starters=[\"Show me\"], persist=False)\n\n\n@app.on_message\nasync def reply(msg: dyui.Message, chat: dyui.Chat):\n    yield \"Here is the `chart` component.\"\n    yield ui.Chart(\"bar\", [ui.Series(\"Revenue\", [12, 18, 24])], labels=[\"Jul\", \"Aug\", \"Sep\"])\n"
     },
     {
       "name": "progress",
@@ -606,7 +618,8 @@
           "value": 64,
           "label": "Profile complete"
         }
-      ]
+      ],
+      "app": "\"\"\"A complete DyUI app that shows the `progress` component.\n\nSave it as app.py, then run:  dyui run app.py\n\"\"\"\nimport dyui\nfrom dyui import ui\n\napp = dyui.App(title=\"Progress demo\", starters=[\"Show me\"], persist=False)\n\n\n@app.on_message\nasync def reply(msg: dyui.Message, chat: dyui.Chat):\n    yield \"Here is the `progress` component.\"\n    yield ui.Progress(64, label=\"Upload\")\n"
     },
     {
       "name": "timeline",
@@ -646,7 +659,8 @@
             }
           ]
         }
-      ]
+      ],
+      "app": "\"\"\"A complete DyUI app that shows the `timeline` component.\n\nSave it as app.py, then run:  dyui run app.py\n\"\"\"\nimport dyui\nfrom dyui import ui\n\napp = dyui.App(title=\"Timeline demo\", starters=[\"Show me\"], persist=False)\n\n\n@app.on_message\nasync def reply(msg: dyui.Message, chat: dyui.Chat):\n    yield \"Here is the `timeline` component.\"\n    yield ui.Timeline(ui.TimelineItem(\"Ordered\", \"Mon\"), ui.TimelineItem(\"Shipped\", \"Tue\"))\n"
     },
     {
       "name": "json",
@@ -681,7 +695,8 @@
       "python": [
         "ui.Json({\"id\": 42, \"tags\": [\"a\", \"b\"]}, title=\"Response\")"
       ],
-      "llm_examples": []
+      "llm_examples": [],
+      "app": "\"\"\"A complete DyUI app that shows the `json` component.\n\nSave it as app.py, then run:  dyui run app.py\n\"\"\"\nimport dyui\nfrom dyui import ui\n\napp = dyui.App(title=\"Json demo\", starters=[\"Show me\"], persist=False)\n\n\n@app.on_message\nasync def reply(msg: dyui.Message, chat: dyui.Chat):\n    yield \"Here is the `json` component.\"\n    yield ui.Json({\"id\": 42, \"tags\": [\"a\", \"b\"]}, title=\"Response\")\n"
     },
     {
       "name": "image",
@@ -729,7 +744,8 @@
           "src": "https://example.com/photo.jpg",
           "alt": "Tram 28 in Alfama"
         }
-      ]
+      ],
+      "app": "\"\"\"A complete DyUI app that shows the `image` component.\n\nSave it as app.py, then run:  dyui run app.py\n\"\"\"\nimport dyui\nfrom dyui import ui\n\napp = dyui.App(title=\"Image demo\", starters=[\"Show me\"], persist=False)\n\n\n@app.on_message\nasync def reply(msg: dyui.Message, chat: dyui.Chat):\n    yield \"Here is the `image` component.\"\n    yield ui.Image(\"https://example.com/lisbon.jpg\", alt=\"Lisbon at dusk\")\n"
     },
     {
       "name": "gallery",
@@ -754,7 +770,8 @@
       "python": [
         "ui.Gallery(\"https://example.com/a.jpg\", \"https://example.com/b.jpg\")"
       ],
-      "llm_examples": []
+      "llm_examples": [],
+      "app": "\"\"\"A complete DyUI app that shows the `gallery` component.\n\nSave it as app.py, then run:  dyui run app.py\n\"\"\"\nimport dyui\nfrom dyui import ui\n\napp = dyui.App(title=\"Gallery demo\", starters=[\"Show me\"], persist=False)\n\n\n@app.on_message\nasync def reply(msg: dyui.Message, chat: dyui.Chat):\n    yield \"Here is the `gallery` component.\"\n    yield ui.Gallery(\"https://example.com/a.jpg\", \"https://example.com/b.jpg\")\n"
     },
     {
       "name": "video",
@@ -797,7 +814,8 @@
       "python": [
         "ui.Video(\"https://www.youtube.com/watch?v=dQw4w9WgXcQ\")"
       ],
-      "llm_examples": []
+      "llm_examples": [],
+      "app": "\"\"\"A complete DyUI app that shows the `video` component.\n\nSave it as app.py, then run:  dyui run app.py\n\"\"\"\nimport dyui\nfrom dyui import ui\n\napp = dyui.App(title=\"Video demo\", starters=[\"Show me\"], persist=False)\n\n\n@app.on_message\nasync def reply(msg: dyui.Message, chat: dyui.Chat):\n    yield \"Here is the `video` component.\"\n    yield ui.Video(\"https://www.youtube.com/watch?v=dQw4w9WgXcQ\")\n"
     },
     {
       "name": "audio",
@@ -832,7 +850,8 @@
       "python": [
         "ui.Audio(\"https://example.com/episode.mp3\", title=\"Episode 12\")"
       ],
-      "llm_examples": []
+      "llm_examples": [],
+      "app": "\"\"\"A complete DyUI app that shows the `audio` component.\n\nSave it as app.py, then run:  dyui run app.py\n\"\"\"\nimport dyui\nfrom dyui import ui\n\napp = dyui.App(title=\"Audio demo\", starters=[\"Show me\"], persist=False)\n\n\n@app.on_message\nasync def reply(msg: dyui.Message, chat: dyui.Chat):\n    yield \"Here is the `audio` component.\"\n    yield ui.Audio(\"https://example.com/episode.mp3\", title=\"Episode 12\")\n"
     },
     {
       "name": "file",
@@ -884,7 +903,8 @@
       "python": [
         "ui.File(\"report.pdf\", \"/api/files/f_123\", size=48213, type=\"application/pdf\")"
       ],
-      "llm_examples": []
+      "llm_examples": [],
+      "app": "\"\"\"A complete DyUI app that shows the `file` component.\n\nSave it as app.py, then run:  dyui run app.py\n\"\"\"\nimport dyui\nfrom dyui import ui\n\napp = dyui.App(title=\"File demo\", starters=[\"Show me\"], persist=False)\n\n\n@app.on_message\nasync def reply(msg: dyui.Message, chat: dyui.Chat):\n    yield \"Here is the `file` component.\"\n    yield ui.File(\"report.pdf\", \"/api/files/f_123\", size=48213, type=\"application/pdf\")\n"
     },
     {
       "name": "link_preview",
@@ -943,7 +963,8 @@
       "python": [
         "ui.LinkPreview(\"https://example.com\", title=\"Example\", site=\"example.com\")"
       ],
-      "llm_examples": []
+      "llm_examples": [],
+      "app": "\"\"\"A complete DyUI app that shows the `link_preview` component.\n\nSave it as app.py, then run:  dyui run app.py\n\"\"\"\nimport dyui\nfrom dyui import ui\n\napp = dyui.App(title=\"LinkPreview demo\", starters=[\"Show me\"], persist=False)\n\n\n@app.on_message\nasync def reply(msg: dyui.Message, chat: dyui.Chat):\n    yield \"Here is the `link_preview` component.\"\n    yield ui.LinkPreview(\"https://example.com\", title=\"Example\", site=\"example.com\")\n"
     },
     {
       "name": "buttons",
@@ -982,7 +1003,8 @@
             }
           ]
         }
-      ]
+      ],
+      "app": "\"\"\"A complete DyUI app that shows the `buttons` component.\n\nSave it as app.py, then run:  dyui run app.py\n\"\"\"\nimport dyui\nfrom dyui import ui\n\napp = dyui.App(title=\"Buttons demo\", starters=[\"Show me\"], persist=False)\n\n\n@app.on_message\nasync def reply(msg: dyui.Message, chat: dyui.Chat):\n    yield \"Here is the `buttons` component.\"\n    yield ui.Buttons(ui.Button(\"Approve\", action=\"approve\", style=\"primary\"), ui.Button(\"Reject\", action=\"reject\"))\n\n\n@app.on_action(\"approve\")\nasync def on_approve(action: dyui.Action, chat: dyui.Chat):\n    # action.values holds what the user entered or chose; action.data is the static data\n    yield f\"Got `{action.name}` from **{action.label}** with values `{action.values}`.\"\n\n\n@app.on_action(\"reject\")\nasync def on_reject(action: dyui.Action, chat: dyui.Chat):\n    # action.values holds what the user entered or chose; action.data is the static data\n    yield f\"Got `{action.name}` from **{action.label}** with values `{action.values}`.\"\n"
     },
     {
       "name": "quick_replies",
@@ -1014,7 +1036,8 @@
             "Book the cheaper one"
           ]
         }
-      ]
+      ],
+      "app": "\"\"\"A complete DyUI app that shows the `quick_replies` component.\n\nSave it as app.py, then run:  dyui run app.py\n\"\"\"\nimport dyui\nfrom dyui import ui\n\napp = dyui.App(title=\"QuickReplies demo\", starters=[\"Show me\"], persist=False)\n\n\n@app.on_message\nasync def reply(msg: dyui.Message, chat: dyui.Chat):\n    yield \"Here is the `quick_replies` component.\"\n    yield ui.QuickReplies(\"Show hotels\", \"Book the cheaper one\")\n    # tapping an option sends its text as a new message, which runs reply() again\n"
     },
     {
       "name": "choice",
@@ -1090,7 +1113,8 @@
             "Aisle"
           ]
         }
-      ]
+      ],
+      "app": "\"\"\"A complete DyUI app that shows the `choice` component.\n\nSave it as app.py, then run:  dyui run app.py\n\"\"\"\nimport dyui\nfrom dyui import ui\n\napp = dyui.App(title=\"Choice demo\", starters=[\"Show me\"], persist=False)\n\n\n@app.on_message\nasync def reply(msg: dyui.Message, chat: dyui.Chat):\n    yield \"Here is the `choice` component.\"\n    yield ui.Choice(\"Which seat?\", [\"Window\", \"Aisle\"])\n\n\n@app.on_action(\"choice\")\nasync def on_choice(action: dyui.Action, chat: dyui.Chat):\n    # action.values holds what the user entered or chose; action.data is the static data\n    yield f\"Got `{action.name}` from **{action.label}** with values `{action.values}`.\"\n"
     },
     {
       "name": "form",
@@ -1154,7 +1178,8 @@
           ],
           "submit_label": "Send"
         }
-      ]
+      ],
+      "app": "\"\"\"A complete DyUI app that shows the `form` component.\n\nSave it as app.py, then run:  dyui run app.py\n\"\"\"\nimport dyui\nfrom dyui import ui\n\napp = dyui.App(title=\"Form demo\", starters=[\"Show me\"], persist=False)\n\n\n@app.on_message\nasync def reply(msg: dyui.Message, chat: dyui.Chat):\n    yield \"Here is the `form` component.\"\n    yield ui.Form(ui.Field(\"name\"), ui.Field(\"email\", type=\"email\"), title=\"Contact\", action=\"contact\")\n\n\n@app.on_action(\"contact\")\nasync def on_contact(action: dyui.Action, chat: dyui.Chat):\n    # action.values holds what the user entered or chose; action.data is the static data\n    yield f\"Got `{action.name}` from **{action.label}** with values `{action.values}`.\"\n\n\n@app.on_action(\"form_submit\")\nasync def on_form_submit(action: dyui.Action, chat: dyui.Chat):\n    # action.values holds what the user entered or chose; action.data is the static data\n    yield f\"Got `{action.name}` from **{action.label}** with values `{action.values}`.\"\n"
     },
     {
       "name": "confirm",
@@ -1235,7 +1260,8 @@
           "text": "You keep access until May 31.",
           "danger": true
         }
-      ]
+      ],
+      "app": "\"\"\"A complete DyUI app that shows the `confirm` component.\n\nSave it as app.py, then run:  dyui run app.py\n\"\"\"\nimport dyui\nfrom dyui import ui\n\napp = dyui.App(title=\"Confirm demo\", starters=[\"Show me\"], persist=False)\n\n\n@app.on_message\nasync def reply(msg: dyui.Message, chat: dyui.Chat):\n    yield \"Here is the `confirm` component.\"\n    yield ui.Confirm(\"Book TAP 18:05 for $189?\", confirm_label=\"Book\", data={\"flight\": \"TP123\"})\n\n\n@app.on_action(\"confirm\")\nasync def on_confirm(action: dyui.Action, chat: dyui.Chat):\n    # action.values holds what the user entered or chose; action.data is the static data\n    yield f\"Got `{action.name}` from **{action.label}** with values `{action.values}`.\"\n"
     },
     {
       "name": "rating",
@@ -1286,7 +1312,8 @@
       "python": [
         "ui.Rating(\"How was this answer?\")"
       ],
-      "llm_examples": []
+      "llm_examples": [],
+      "app": "\"\"\"A complete DyUI app that shows the `rating` component.\n\nSave it as app.py, then run:  dyui run app.py\n\"\"\"\nimport dyui\nfrom dyui import ui\n\napp = dyui.App(title=\"Rating demo\", starters=[\"Show me\"], persist=False)\n\n\n@app.on_message\nasync def reply(msg: dyui.Message, chat: dyui.Chat):\n    yield \"Here is the `rating` component.\"\n    yield ui.Rating(\"How was this answer?\")\n\n\n@app.on_action(\"rating\")\nasync def on_rating(action: dyui.Action, chat: dyui.Chat):\n    # action.values holds what the user entered or chose; action.data is the static data\n    yield f\"Got `{action.name}` from **{action.label}** with values `{action.values}`.\"\n"
     },
     {
       "name": "card",
@@ -1371,7 +1398,8 @@
             }
           ]
         }
-      ]
+      ],
+      "app": "\"\"\"A complete DyUI app that shows the `card` component.\n\nSave it as app.py, then run:  dyui run app.py\n\"\"\"\nimport dyui\nfrom dyui import ui\n\napp = dyui.App(title=\"Card demo\", starters=[\"Show me\"], persist=False)\n\n\n@app.on_message\nasync def reply(msg: dyui.Message, chat: dyui.Chat):\n    yield \"Here is the `card` component.\"\n    yield ui.Card(\"TAP · Fri 18:05\", ui.Stat(\"Price\", \"$189\"), actions=[ui.Button(\"Book\", action=\"book\")])\n\n\n@app.on_action(\"book\")\nasync def on_book(action: dyui.Action, chat: dyui.Chat):\n    # action.values holds what the user entered or chose; action.data is the static data\n    yield f\"Got `{action.name}` from **{action.label}** with values `{action.values}`.\"\n"
     },
     {
       "name": "grid",
@@ -1406,7 +1434,8 @@
       "python": [
         "ui.Grid(ui.Stat(\"A\", 1), ui.Stat(\"B\", 2), columns=2)"
       ],
-      "llm_examples": []
+      "llm_examples": [],
+      "app": "\"\"\"A complete DyUI app that shows the `grid` component.\n\nSave it as app.py, then run:  dyui run app.py\n\"\"\"\nimport dyui\nfrom dyui import ui\n\napp = dyui.App(title=\"Grid demo\", starters=[\"Show me\"], persist=False)\n\n\n@app.on_message\nasync def reply(msg: dyui.Message, chat: dyui.Chat):\n    yield \"Here is the `grid` component.\"\n    yield ui.Grid(ui.Stat(\"A\", 1), ui.Stat(\"B\", 2), columns=2)\n"
     },
     {
       "name": "tabs",
@@ -1431,7 +1460,8 @@
       "python": [
         "ui.Tabs(ui.Tab(\"Overview\", ui.Markdown(\"A relaxed long weekend.\")), ui.Tab(\"Budget\", ui.Stat(\"Total\", \"€1,208\")))"
       ],
-      "llm_examples": []
+      "llm_examples": [],
+      "app": "\"\"\"A complete DyUI app that shows the `tabs` component.\n\nSave it as app.py, then run:  dyui run app.py\n\"\"\"\nimport dyui\nfrom dyui import ui\n\napp = dyui.App(title=\"Tabs demo\", starters=[\"Show me\"], persist=False)\n\n\n@app.on_message\nasync def reply(msg: dyui.Message, chat: dyui.Chat):\n    yield \"Here is the `tabs` component.\"\n    yield ui.Tabs(ui.Tab(\"Overview\", ui.Markdown(\"A relaxed long weekend.\")), ui.Tab(\"Budget\", ui.Stat(\"Total\", \"€1,208\")))\n"
     },
     {
       "name": "accordion",
@@ -1456,7 +1486,8 @@
       "python": [
         "ui.Accordion(ui.AccordionItem(\"Can I change my flight?\", ui.Markdown(\"Yes, free up to **24 hours** before departure.\")), ui.AccordionItem(\"How do refunds work?\", ui.Markdown(\"Refunds arrive in 3–5 business days.\")))"
       ],
-      "llm_examples": []
+      "llm_examples": [],
+      "app": "\"\"\"A complete DyUI app that shows the `accordion` component.\n\nSave it as app.py, then run:  dyui run app.py\n\"\"\"\nimport dyui\nfrom dyui import ui\n\napp = dyui.App(title=\"Accordion demo\", starters=[\"Show me\"], persist=False)\n\n\n@app.on_message\nasync def reply(msg: dyui.Message, chat: dyui.Chat):\n    yield \"Here is the `accordion` component.\"\n    yield ui.Accordion(ui.AccordionItem(\"Can I change my flight?\", ui.Markdown(\"Yes, free up to **24 hours** before departure.\")), ui.AccordionItem(\"How do refunds work?\", ui.Markdown(\"Refunds arrive in 3–5 business days.\")))\n"
     },
     {
       "name": "carousel",
@@ -1481,7 +1512,8 @@
       "python": [
         "ui.Carousel(ui.Card(\"One\"), ui.Card(\"Two\"), ui.Card(\"Three\"))"
       ],
-      "llm_examples": []
+      "llm_examples": [],
+      "app": "\"\"\"A complete DyUI app that shows the `carousel` component.\n\nSave it as app.py, then run:  dyui run app.py\n\"\"\"\nimport dyui\nfrom dyui import ui\n\napp = dyui.App(title=\"Carousel demo\", starters=[\"Show me\"], persist=False)\n\n\n@app.on_message\nasync def reply(msg: dyui.Message, chat: dyui.Chat):\n    yield \"Here is the `carousel` component.\"\n    yield ui.Carousel(ui.Card(\"One\"), ui.Card(\"Two\"), ui.Card(\"Three\"))\n"
     },
     {
       "name": "list",
@@ -1519,7 +1551,8 @@
             }
           ]
         }
-      ]
+      ],
+      "app": "\"\"\"A complete DyUI app that shows the `list` component.\n\nSave it as app.py, then run:  dyui run app.py\n\"\"\"\nimport dyui\nfrom dyui import ui\n\napp = dyui.App(title=\"List demo\", starters=[\"Show me\"], persist=False)\n\n\n@app.on_message\nasync def reply(msg: dyui.Message, chat: dyui.Chat):\n    yield \"Here is the `list` component.\"\n    yield ui.List(ui.ListItem(\"Hotel Avenida\", \"4.6 ★ · $180/night\", action=\"pick_hotel\"))\n\n\n@app.on_action(\"pick_hotel\")\nasync def on_pick_hotel(action: dyui.Action, chat: dyui.Chat):\n    # action.values holds what the user entered or chose; action.data is the static data\n    yield f\"Got `{action.name}` from **{action.label}** with values `{action.values}`.\"\n"
     },
     {
       "name": "step",
@@ -1587,7 +1620,8 @@
       "python": [
         "ui.Step(\"Search flights\", \"done\", type=\"search\", duration_ms=840)"
       ],
-      "llm_examples": []
+      "llm_examples": [],
+      "app": "\"\"\"A complete DyUI app that shows the `step` component.\n\nSave it as app.py, then run:  dyui run app.py\n\"\"\"\nimport dyui\nfrom dyui import ui\n\napp = dyui.App(title=\"Step demo\", starters=[\"Show me\"], persist=False)\n\n\n@app.on_message\nasync def reply(msg: dyui.Message, chat: dyui.Chat):\n    yield \"Here is the `step` component.\"\n    yield ui.Step(\"Search flights\", \"done\", type=\"search\", duration_ms=840)\n"
     },
     {
       "name": "reasoning",
@@ -1622,7 +1656,8 @@
       "python": [
         "ui.Reasoning(\"Friday departures keep Saturday free, so I prioritised evening flights.\")"
       ],
-      "llm_examples": []
+      "llm_examples": [],
+      "app": "\"\"\"A complete DyUI app that shows the `reasoning` component.\n\nSave it as app.py, then run:  dyui run app.py\n\"\"\"\nimport dyui\nfrom dyui import ui\n\napp = dyui.App(title=\"Reasoning demo\", starters=[\"Show me\"], persist=False)\n\n\n@app.on_message\nasync def reply(msg: dyui.Message, chat: dyui.Chat):\n    yield \"Here is the `reasoning` component.\"\n    yield ui.Reasoning(\"Friday departures keep Saturday free, so I prioritised evening flights.\")\n"
     },
     {
       "name": "plan",
@@ -1669,7 +1704,8 @@
             }
           ]
         }
-      ]
+      ],
+      "app": "\"\"\"A complete DyUI app that shows the `plan` component.\n\nSave it as app.py, then run:  dyui run app.py\n\"\"\"\nimport dyui\nfrom dyui import ui\n\napp = dyui.App(title=\"Plan demo\", starters=[\"Show me\"], persist=False)\n\n\n@app.on_message\nasync def reply(msg: dyui.Message, chat: dyui.Chat):\n    yield \"Here is the `plan` component.\"\n    yield ui.Plan(ui.PlanItem(\"Find flights\", \"done\"), ui.PlanItem(\"Book hotel\", \"active\"), title=\"Trip plan\")\n"
     },
     {
       "name": "html",
@@ -1704,7 +1740,8 @@
       "python": [
         "ui.Html(\"<b>Boarding pass</b> · Gate B32 · Boards 17:35\", height=120)"
       ],
-      "llm_examples": []
+      "llm_examples": [],
+      "app": "\"\"\"A complete DyUI app that shows the `html` component.\n\nSave it as app.py, then run:  dyui run app.py\n\"\"\"\nimport dyui\nfrom dyui import ui\n\napp = dyui.App(title=\"Html demo\", starters=[\"Show me\"], persist=False)\n\n\n@app.on_message\nasync def reply(msg: dyui.Message, chat: dyui.Chat):\n    yield \"Here is the `html` component.\"\n    yield ui.Html(\"<b>Boarding pass</b> · Gate B32 · Boards 17:35\", height=120)\n"
     },
     {
       "name": "invalid",
@@ -1737,7 +1774,8 @@
       "python": [
         "ui.Invalid(raw='{\"ui\":\"chart\",\"kind\":\"radar\"}', error=\"Unknown chart kind\")"
       ],
-      "llm_examples": []
+      "llm_examples": [],
+      "app": "\"\"\"A complete DyUI app that shows the `invalid` component.\n\nSave it as app.py, then run:  dyui run app.py\n\"\"\"\nimport dyui\nfrom dyui import ui\n\napp = dyui.App(title=\"Invalid demo\", starters=[\"Show me\"], persist=False)\n\n\n@app.on_message\nasync def reply(msg: dyui.Message, chat: dyui.Chat):\n    yield \"Here is the `invalid` component.\"\n    yield ui.Invalid(raw='{\"ui\":\"chart\",\"kind\":\"radar\"}', error=\"Unknown chart kind\")\n"
     }
   ]
 }

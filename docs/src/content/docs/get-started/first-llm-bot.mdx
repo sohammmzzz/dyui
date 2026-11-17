@@ -1,0 +1,72 @@
+---
+title: Your first LLM bot
+description: A travel bot with a custom component, a button handled in Python, an approval and a live step.
+sidebar:
+  order: 4
+---
+
+import { Code } from "@astrojs/starlight/components";
+import source from "../../../../examples/get-started/first_llm_bot.py?raw";
+
+This guide builds a small travel bot that uses everything that makes DyUI different:
+
+- the model renders built-in components;
+- the model renders a component you define;
+- a button click reaches a Python handler;
+- the user approves a booking before it happens;
+- a live step shows work in progress.
+
+## Before you start
+
+```bash
+pip install "dyui[openai]"
+```
+
+Put your key in a `.env` file in the folder where you'll save `app.py`:
+
+```ini title=".env"
+NVIDIA_API_KEY=nvapi-...
+```
+
+The key is free at [build.nvidia.com](https://build.nvidia.com). To use OpenAI, Anthropic or another provider, add its key instead and set `DYUI_MODEL`; see [API keys & environment](../api-keys/).
+
+## The app
+
+Save this as `app.py` in a new, empty file, or [download app.py](../../examples/get-started/first-llm-bot/app.py):
+
+<Code code={source} lang="python" title="app.py" />
+
+Run it:
+
+```bash
+dyui run app.py
+```
+
+Open [http://localhost:8000](http://localhost:8000), click **Find flights**, then **Book** on one of the cards.
+
+## What happens
+
+1. **The prompt grows with your app.** `components=app.catalog` adds a line for every enabled built-in, plus your `flight` component. The class docstring becomes its description and the fields become its props. Run `dyui catalog app.py` to see the exact text.
+2. **The model writes a component.** When it offers flights, the model writes `{"ui":"flight","airline":"TAP","depart":"Fri 18:05","price":189}` inside a `dyui` fence. DyUI validates it against `Flight` and calls `render()`. The browser receives the built-in card that `render()` returned.
+3. **`examples` are checked at import.** The example props on `Flight` are validated when the class is defined, so a renamed field fails immediately instead of in a chat.
+4. **The click comes back to Python.** **Book** sends the action `book_flight` with the flight as `data`. `@app.on_action("book_flight")` handles it. Without a handler, the click would go to `on_message` as a message for the model; see [Actions](../../concepts/actions/).
+5. **The agent waits for a human.** `await chat.ask(ui.Confirm(...))` renders a confirmation and pauses the handler until the user answers.
+6. **Work shows progress.** `chat.step(...)` renders a live step. It shows running, then done (or error) with its duration.
+
+## Switch models
+
+Change one string. Any `provider/model` works. Put it in `.env` so the command is the same on every operating system:
+
+```ini title=".env"
+NVIDIA_API_KEY=nvapi-...
+DYUI_MODEL=nvidia/deepseek-ai/deepseek-v4.1-flash
+# DYUI_MODEL=anthropic/claude-sonnet-5-5    (needs ANTHROPIC_API_KEY and dyui[anthropic])
+# DYUI_MODEL=ollama/llama3.2                (local, no key)
+```
+
+See [Models & providers](../../integrations/overview/) for every provider.
+
+## Next
+
+- [How DyUI works](../../concepts/how-it-works/): what happens between your handler and the browser.
+- [Travel bot](../../cookbook/travel-bot/): the same idea with hotels and more actions.

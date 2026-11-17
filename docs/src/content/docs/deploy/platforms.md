@@ -9,7 +9,7 @@ Every platform needs the same three things:
 
 - **Start command:** `uvicorn app:app --host 0.0.0.0 --port $PORT --proxy-headers`
 - **Persistent disk** mounted at your app's `.dyui` directory, or set `App(data_dir=...)` to the mount path
-- **Environment variables:** your model API key, plus `DYUI_SECRET` if you use `password=`
+- **Environment variables:** your model API key, plus `DYUI_SECRET` if you use `password=`. Each provider's variable name is on [API keys & environment](../../get-started/api-keys/#where-to-get-a-key).
 
 Run a single instance (or enable sticky sessions); see [Production server](../production/#run-one-process-per-app).
 

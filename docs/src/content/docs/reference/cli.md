@@ -10,10 +10,10 @@ sidebar:
 ## `dyui run`
 
 ```bash
-dyui run [target] [--host 127.0.0.1] [--port 8000] [--open] [--no-reload]
+dyui run [target] [--host 127.0.0.1] [--port 8000] [--open] [--no-reload] [--env-file PATH | --no-env-file]
 ```
 
-Serves your app and reloads it when files in the app's directory change.
+Serves your app and reloads it when files in the app's directory change. Before importing the app it loads a `.env` file: the one next to the app file, otherwise the one in the current directory. Variables that are already set are never overridden, and only the names it loaded are printed. See [API keys & environment](../../get-started/api-keys/#env-files).
 
 | | |
 |---|---|
@@ -21,6 +21,8 @@ Serves your app and reloads it when files in the app's directory change.
 | `--host`, `--port` | Bind address (default `127.0.0.1:8000`). Use `--host 0.0.0.0` to reach the app from other devices. |
 | `--open` | Open the browser once the server is up |
 | `--no-reload` | Disable auto-reload |
+| `--env-file PATH` | Load this file instead of looking for `.env` (exits with an error if it's missing) |
+| `--no-env-file` | Don't load any `.env` file |
 
 ## `dyui demo`
 
@@ -36,7 +38,7 @@ A guided tour bot that shows components, custom components, actions, steps and a
 dyui new <dir> [--template basic|nvidia|openai|anthropic|langgraph]
 ```
 
-Scaffolds a project: `app.py`, `README.md`, `requirements.txt`, plus `.env.example` for the model templates. The target directory must be empty or missing.
+Scaffolds a project: `app.py`, `README.md`, `requirements.txt` and a `.gitignore`, plus `.env.example` for the model templates. The target directory must be empty or missing.
 
 ## `dyui catalog`
 

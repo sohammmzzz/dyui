@@ -8,18 +8,36 @@ sidebar:
 import { Code } from "@astrojs/starlight/components";
 import source from "../../../../../examples/support_bot.py?raw";
 
-A scripted support flow, with no API key needed:
+You'll build a scripted support flow with no model and no API key: a **form** collects the order number and the issue, the submission arrives in `@app.on_action("open_ticket")`, two **live steps** show the lookup, and a **plan** and **sources** close the turn.
 
-1. A **form** collects the order number and the issue.
-2. The submission arrives in `@app.on_action("open_ticket")` with the field values in `action.values`.
-3. Two **live steps** show the lookup.
-4. A **plan** and **sources** close the turn.
+## Prerequisites
 
-```bash
-pip install dyui
-dyui run examples/support_bot.py
-```
+- `pip install dyui`
+- No API key.
 
-To put a model in charge, replace the scripted parts with `dyui.llm.stream(...)`. The model can render the same form itself, and an unhandled `form_submit` comes back to it as a message.
+## Save and run
 
-<Code code={source} lang="python" title="examples/support_bot.py" />
+1. Save the code below as `support_bot.py` in a new, empty file, or [download support_bot.py](../../examples/support_bot.py).
+2. Run it:
+
+   ```bash
+   pip install dyui
+   dyui run support_bot.py
+   ```
+
+3. Open [http://localhost:8000](http://localhost:8000). Click **My order has not arrived**, fill in the form and submit it.
+
+## What to look at
+
+- **`action.values`** holds the form's field values, keyed by field name.
+- **`chat.step(...)`** shows each lookup as it runs.
+- **No model is involved.** To put one in charge, replace the scripted parts with `dyui.llm.stream(...)`: the model can render the same form itself, and an unhandled `form_submit` comes back to it as a message.
+
+## The code
+
+<Code code={source} lang="python" title="support_bot.py" />
+
+## Extend it
+
+- Look the order up in your database inside the steps.
+- Ask for a rating at the end with `await chat.ask(ui.Rating("How did we do?"))`.

@@ -5,6 +5,13 @@ sidebar:
   order: 6
 ---
 
+import { Code } from "@astrojs/starlight/components";
+import source from "../../../../../examples/bring_your_own_sdk.py?raw";
+
+Read this page when you already use an SDK or framework, or when your code has structured data to show directly.
+
+Code on this page is fragments; the [complete example](#complete-example) is a whole file.
+
 DyUI doesn't need to own your model calls. It parses **text**, so anything that streams text can render components. Two steps:
 
 1. Add `app.catalog.prompt()` to your system prompt.
@@ -51,3 +58,25 @@ yield {"ui": "stat", "label": "Revenue", "value": "$48.2k", "delta": "+12%"}
 ```
 
 `app.catalog.json_schema()` returns `{name: JSON schema}`, and `app.catalog.tool_schemas("openai" | "anthropic")` returns ready-to-send `render_<name>` tool definitions if you want to run your own structured loop.
+
+## Complete example
+
+The raw `openai` client against NVIDIA's endpoint, with `app.catalog.prompt()` in the system prompt and the raw text yielded.
+
+<Code code={source} lang="python" title="bring_your_own_sdk.py" />
+
+1. Save it as `bring_your_own_sdk.py` in a new, empty file, or [download it](../../examples/bring_your_own_sdk.py).
+2. Put `NVIDIA_API_KEY=nvapi-...` in a `.env` file next to it (the example reads it with `os.environ` when the first message arrives).
+3. Run it:
+
+   ```bash
+   pip install dyui openai
+   dyui run bring_your_own_sdk.py
+   ```
+
+4. Open [http://localhost:8000](http://localhost:8000) and send a message.
+
+## See also
+
+- [Generative UI](../../concepts/generative-ui/): the fence format your model writes.
+- [Models & providers](../overview/): let DyUI make the call instead.

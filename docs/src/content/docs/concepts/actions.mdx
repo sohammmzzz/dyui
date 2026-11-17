@@ -5,6 +5,13 @@ sidebar:
   order: 5
 ---
 
+import { Code } from "@astrojs/starlight/components";
+import source from "../../../../examples/concepts/actions.py?raw";
+
+An action is what an interactive component sends back when the user clicks, submits or chooses. Read this page to decide where each one goes: a waiting `chat.ask()`, an `@app.on_action` handler, or the model.
+
+The snippets below are fragments that assume an `app`; the [complete example](#complete-example) is a whole file.
+
 Interactive components (`buttons`, `choice`, `form`, `confirm`, `rating`, card `actions`, and `list` rows with an `action`) send an **action** when the user responds. An action carries:
 
 | Field | Meaning |
@@ -83,3 +90,24 @@ An LLM bot therefore needs no action code at all: the model reads what was click
 ## Resolved state
 
 After an interactive component is used, it becomes **resolved**: the client shows the choice inline (for example a check and "Approved") and disables the control. The resolution is stored in the message as `props.__resolved__`, so it survives a reload. Only components in the latest assistant message are interactive.
+
+## Complete example
+
+All three routes in one app: a form answered through `chat.ask()`, a button with an `@app.on_action` handler that asks for confirmation, and a button with no handler that comes back to `on_message`. It needs no API key.
+
+<Code code={source} lang="python" title="app.py" />
+
+1. Save it as `app.py` in a new, empty file, or [download app.py](../../examples/concepts/actions/app.py).
+2. Run it:
+
+   ```bash
+   pip install dyui
+   dyui run app.py
+   ```
+
+3. Open [http://localhost:8000](http://localhost:8000), send the starter, fill in the form, then try both buttons.
+
+## See also
+
+- [Components → Interactive](../../components/#interactive): the `values` each component sends.
+- [Steps & reasoning](../steps-and-reasoning/): show work after an approval.

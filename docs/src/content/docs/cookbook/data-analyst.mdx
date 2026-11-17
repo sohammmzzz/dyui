@@ -8,18 +8,39 @@ sidebar:
 import { Code } from "@astrojs/starlight/components";
 import source from "../../../../../examples/data_analyst.py?raw";
 
-The model reads a small CSV that's embedded in the system prompt, and answers with a `stats` row, a `chart` or a `table`.
+You'll build an analyst that answers questions about a small CSV embedded in the system prompt, with a `stats` row, a `chart` or a `table`, and a sentence that says what they mean.
 
-```bash
-pip install "dyui[openai]"
-dyui run examples/data_analyst.py
-DYUI_UI_MODE=tools dyui run examples/data_analyst.py     # schema-guaranteed components
-```
+## Prerequisites
 
-What to look at:
+- `pip install "dyui[openai]"`
+- An API key, in a `.env` file (step 2).
 
-- **`{dyui_components}`** in the system prompt marks where the catalog section goes, so the dataset and the instructions stay together.
+## Save and run
+
+1. Save the code below as `data_analyst.py` in a new, empty file, or [download data_analyst.py](../../examples/data_analyst.py).
+2. Put your key in a `.env` file next to it: `NVIDIA_API_KEY=nvapi-...` (free at [build.nvidia.com](https://build.nvidia.com)). For another provider, add its key and `DYUI_MODEL`; see [API keys & environment](../../get-started/api-keys/).
+3. Run it:
+
+   ```bash
+   pip install "dyui[openai]"
+   dyui run data_analyst.py
+   ```
+
+4. Open [http://localhost:8000](http://localhost:8000). Click **Revenue trend by region**.
+
+## What to look at
+
+- **`{dyui_components}`** in the system prompt marks where the catalog section goes, so the dataset and the instructions stay together. In the f-string it's written `{{dyui_components}}`.
 - **Steering in plain words** ("Prefer a `stats` row for headline numbers…") works better than restricting the catalog.
-- **`ui_mode="tools"`** switches to strict `render_*` tools on OpenAI and Anthropic, with no other code changes.
+- **A small catalog** (`app.catalog.only(...)`) keeps the prompt short, which matters on rate-limited free tiers.
+- **`ui_mode="tools"`** switches to strict `render_*` tools on OpenAI and Anthropic, with no other code changes. Add `DYUI_UI_MODE=tools` to `.env` to try it.
 
-<Code code={source} lang="python" title="examples/data_analyst.py" />
+## The code
+
+<Code code={source} lang="python" title="data_analyst.py" />
+
+## Extend it
+
+- Load your own CSV with `csv.DictReader(open("sales.csv"))` instead of `DATA`.
+- Let users upload the file: read `msg.files[0].path` in the handler.
+- Add a `quick_replies` hint to the prompt so every answer ends with follow-up questions.

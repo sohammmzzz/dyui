@@ -68,3 +68,6 @@ jobs:
         working-directory: web
       - run: npm ci && npm run build
         working-directory: docs
+      # every complete example on the built site compiles, ends with a newline, and every
+      # internal link and #anchor resolves
+      - run: python docs/scripts/check_snippets.py

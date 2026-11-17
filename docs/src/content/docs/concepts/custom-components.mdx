@@ -5,6 +5,13 @@ sidebar:
   order: 4
 ---
 
+import { Code } from "@astrojs/starlight/components";
+import source from "../../../../examples/concepts/custom_components.py?raw";
+
+Custom components are components for your domain (a flight, an invoice, a ticket), defined in Python. Use one when you'd otherwise arrange the same built-ins over and over, or when the model should be able to ask for it by name.
+
+The snippets below are fragments that assume an `app = dyui.App(...)`; the [complete example](#complete-example) is a whole file.
+
 A custom component is a pydantic model with a `render()` method that returns built-in components. Register it with `@app.component`. It joins `app.catalog`, its line is added to the system prompt, and the model can use it from the next turn on.
 
 ```python
@@ -95,4 +102,25 @@ Scripts in your HTML run inside the app's [Content-Security-Policy](../../deploy
 dyui claude init app.py     # or gemini, codex, qwen, antigravity, kimi, opencode, cursor
 ```
 
-This installs the DyUI skill for that agent and launches its CLI on this job. The agent reads your app, proposes 3–6 components, asks you to confirm, and implements them. See [Build with a coding agent](../../get-started/coding-agents/) for everything else the agent can do.
+This briefs that agent on DyUI and launches its CLI on this job. The agent reads your app, proposes 3–6 components, asks you to confirm, and implements them. See [Build with AI](../../get-started/coding-agents/) for everything else the agent can do.
+
+## Complete example
+
+A `Flight` component, yielded by your code and offered to the model, with a **Book** button handled in Python. It needs no API key.
+
+<Code code={source} lang="python" title="app.py" />
+
+1. Save it as `app.py` in a new, empty file, or [download app.py](../../examples/concepts/custom-components/app.py).
+2. Run it:
+
+   ```bash
+   pip install dyui
+   dyui run app.py
+   ```
+
+3. Open [http://localhost:8000](http://localhost:8000), send the starter and click **Book**. `dyui catalog app.py` shows the line the model would see for `flight`.
+
+## See also
+
+- [Actions & human-in-the-loop](../actions/): what happens when a button is clicked.
+- [Generative UI](../generative-ui/): how the model learns your component.

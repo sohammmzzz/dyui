@@ -5,6 +5,13 @@ sidebar:
   order: 6
 ---
 
+import { Code } from "@astrojs/starlight/components";
+import source from "../../../../examples/concepts/steps_and_reasoning.py?raw";
+
+Steps show work in progress (a search, a tool call, a booking) and reasoning shows the model's thinking, both without cluttering the answer. Use them whenever a reply takes more than a moment.
+
+The snippets below are fragments that assume an `app` and `ui`; the [complete example](#complete-example) is a whole file.
+
 ## Steps
 
 `chat.step()` renders a live step in the reply. It moves from running to done (or error) and shows how long it took.
@@ -62,3 +69,24 @@ For multi-step agents, the `plan` component shows a live checklist. Yield it wit
 items = [ui.PlanItem("Find flights", "active"), ui.PlanItem("Shortlist hotels"), ui.PlanItem("Build itinerary")]
 yield ui.Plan(*items, title="Planning your trip", id="plan")
 ```
+
+## Complete example
+
+A live plan, a step with input, logs and output, the decorator form, and a reasoning block. It needs no API key.
+
+<Code code={source} lang="python" title="app.py" />
+
+1. Save it as `app.py` in a new, empty file, or [download app.py](../../examples/concepts/steps-and-reasoning/app.py).
+2. Run it:
+
+   ```bash
+   pip install dyui
+   dyui run app.py
+   ```
+
+3. Open [http://localhost:8000](http://localhost:8000), send the starter, and expand the steps.
+
+## See also
+
+- [Messages & streaming](../messages-and-streaming/): everything else a handler can yield.
+- [LangGraph](../../integrations/langgraph/): steps and components from inside an agent.

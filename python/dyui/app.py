@@ -37,7 +37,14 @@ _ORIGIN = re.compile(r"https?://(\*\.)?[A-Za-z0-9.-]+(:\d{1,5})?")
 def _public_error(exc: BaseException) -> str:
     """The error text shown in the chat. Never includes the exception message
     (it can hold paths, keys or prompts); provider limits get a useful hint."""
+    from .llm._errors import MissingAPIKeyError
+
+    if isinstance(exc, MissingAPIKeyError):  # names env vars only, never a value
+        return str(exc)
     status = getattr(exc, "status_code", None)
+    if status == 401:
+        return ("The model provider rejected the API key (401). Check that the key is "
+                "correct, active, and belongs to this provider.")
     if status == 429:
         return ("The model provider's rate limit was reached. Wait a moment and try again; "
                 "if it keeps happening, the provider plan's quota is too small for this app.")

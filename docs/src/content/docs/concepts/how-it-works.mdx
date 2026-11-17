@@ -1,0 +1,116 @@
+---
+title: How DyUI works
+description: One page that follows a message from the browser through your handler, the model, the parser and back again when the user clicks.
+sidebar:
+  order: 1
+---
+
+import { Code } from "@astrojs/starlight/components";
+import source from "../../../../examples/concepts/how_it_works.py?raw";
+
+Read this page first. It follows one message end to end and links to the page that covers each part in depth.
+
+DyUI has three parts, and all of them ship in the `dyui` package:
+
+1. **Your Python app**: an `App` with handlers (`@app.on_message`, `@app.on_action`…) and, optionally, your own components.
+2. **The DyUI server**: a FastAPI app that runs your handlers, parses what they produce, stores conversations and streams events to the browser over Server-Sent Events.
+3. **The chat app**: a React app, compiled into the package. It renders the stream with DyUI's component library.
+
+```text
+ browser ──POST /api/chat──▶ on_message(msg, chat)
+                               │  yields text, components, steps, reasoning
+                               │  (or streams a model: dyui.llm.stream(..., components=app.catalog))
+                               ▼
+                         fence parser ──▶ validated UI nodes ──SSE──▶ chat app renders them
+                                                                          │
+ your code ◀── chat.ask() / @app.on_action / back to on_message ◀── POST /api/action (clicks, forms)
+```
+
+## 1. The message arrives
+
+The user sends a message. The browser calls `POST /api/chat`. The server stores the message, opens an SSE stream and calls your `on_message(msg, chat)` handler.
+
+- `msg.text` is what the user typed, and `msg.files` the files they attached.
+- `chat.history` is the conversation so far as `{"role", "content"}` dicts, ready for any chat API.
+- `chat.session` is a dict saved with the conversation.
+
+Details: [Messages & streaming](../messages-and-streaming/), [Sessions & persistence](../sessions-and-persistence/).
+
+## 2. Your handler yields
+
+Everything the handler yields is appended to the reply, in order:
+
+- **Text** streams in as Markdown.
+- **Components** (`ui.Stat(...)`, `ui.Table(...)`, or your own) render where they're yielded.
+- **`chat.step(...)`** shows a live step: running, then done or error, with its duration.
+- **`dyui.Reasoning(...)`** fills a collapsible "thinking" block.
+
+Details: [Steps & reasoning](../steps-and-reasoning/), [Components](../../components/).
+
+## 3. Or a model writes the reply
+
+To let a model answer, the handler streams it and yields what comes back:
+
+```python
+# Inside your handler:
+async for part in dyui.llm.stream(MODEL, chat.history, components=app.catalog):
+    yield part
+```
+
+`app.catalog` lists the components the model may use. `components=app.catalog` adds a short "UI components" section to the system prompt, with one signature line per component, generated from the pydantic models. Because the prompt is rebuilt from the live registry, registering a component or editing its docstring changes what the model knows on the next turn.
+
+The model then writes components as JSON lines in a ```` ```dyui ```` fence inside its text. Any SDK works: DyUI only needs the text.
+
+Details: [Generative UI](../generative-ui/), [Models & providers](../../integrations/overview/), [API keys](../../get-started/api-keys/).
+
+## 4. The parser turns text into components
+
+Text goes through a streaming **fence parser**. Prose streams straight through. A `dyui` block becomes components *while it's still being written*: a component appears as soon as its `"ui"` name is known, and fills in as its props arrive.
+
+Every node is **validated** against its pydantic model. Invalid output turns into a quiet "Couldn't display this component" chip, and the surrounding prose is kept. Custom components are expanded on the server through their `render()`, so the browser only ever renders built-ins.
+
+When the handler finishes, the message is stored with its parts. After the first exchange, the thread gets a title from the user's first words.
+
+Details: [Custom components](../custom-components/).
+
+## 5. The user clicks
+
+Interactive components (buttons, forms, choices, confirms, ratings) send an **action** to `POST /api/action`. The server first checks that the component exists in that message and declared that action, and rejects forged actions. It then routes the action in this order:
+
+1. to a `chat.ask(...)` that is waiting for this component;
+2. otherwise to an `@app.on_action(name)` handler;
+3. otherwise back to `on_message`, as an LLM-friendly message the model can respond to.
+
+An LLM bot therefore needs no action code at all; add handlers only where Python should decide.
+
+Details: [Actions & human-in-the-loop](../actions/).
+
+## Safety model
+
+- The model only ever sends **data**. HTML from the model is never rendered, and Markdown is rendered without raw HTML.
+- URLs must be `http(s):`, `mailto:` or app-relative `/api/files/...`; anything else is dropped. External links open in a new tab with `rel="noopener noreferrer"`.
+- Actions are verified against the component that declared them. `action.data` comes from the server's copy, and each interactive component can be answered once (`409` after that).
+- Request bodies are size-limited, failed password attempts are throttled, and uploaded files that aren't safe to display inline are served as downloads under a sandboxing Content-Security-Policy.
+- Developer HTML (`ui.Html`, `dyui.html_template`) renders in a sandboxed iframe without same-origin access, and the model can't produce it.
+- API keys stay on the server. Errors in the chat never include tracebacks; the traceback goes to the server log.
+
+## Complete example
+
+One turn with every step above and no model, so it needs no key: text, a live step, a component, a button handled in Python, and an approval that pauses the handler.
+
+<Code code={source} lang="python" title="app.py" />
+
+1. Save it as `app.py` in a new, empty file, or [download app.py](../../examples/concepts/how-it-works/app.py).
+2. Run it:
+
+   ```bash
+   pip install dyui
+   dyui run app.py
+   ```
+
+3. Open [http://localhost:8000](http://localhost:8000), send the starter, then click **Cancel order**.
+
+## See also
+
+- [Your first LLM bot](../../get-started/first-llm-bot/): the same loop with a model in charge.
+- [Protocol](../../reference/protocol/): the HTTP and SSE events, for your own frontend.

@@ -18,6 +18,9 @@ from dyui import ui
 from dyui.ui.registry import BUILTINS
 from dyui.ui.signature import prompt_fields, ts_type
 
+sys.path.insert(0, str(Path(__file__).resolve().parent))
+from component_apps import component_app  # noqa: E402  (a complete app.py per component page)
+
 OUT = Path(__file__).resolve().parent.parent / "src" / "data" / "components.json"
 
 # Fallback Python usage for components whose docstring has no example.
@@ -148,6 +151,7 @@ def main() -> int:
             "python": _examples(cls, info.name),
             "llm_examples": [dict(e) for e in info.examples],
         })
+        comps[-1]["app"] = component_app(comps[-1])
     OUT.parent.mkdir(parents=True, exist_ok=True)
     data = {"version": dyui.__version__, "components": comps}
     OUT.write_text(json.dumps(data, indent=2, ensure_ascii=False) + "\n", encoding="utf-8")

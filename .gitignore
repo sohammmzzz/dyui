@@ -18,6 +18,8 @@ docs/.astro/
 
 # Generated docs API reference
 docs/src/content/docs/reference/api/
+# Downloadable example files, copied by docs/scripts/prebuild.mjs
+docs/public/examples/
 
 # Playwright / screenshots scratch
 test-results/

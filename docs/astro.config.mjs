@@ -2,9 +2,11 @@
 // Live demos import the real component library from ../web/src, so web fixes flow through.
 import { defineConfig, passthroughImageService } from "astro/config";
 import starlight from "@astrojs/starlight";
+import { satteri } from "@astrojs/markdown-satteri";
 import react from "@astrojs/react";
 import { fileURLToPath } from "node:url";
 import { readFileSync } from "node:fs";
+import { sidebar } from "./src/data/nav.mjs";
 
 const here = (p) => fileURLToPath(new URL(p, import.meta.url));
 const { components } = JSON.parse(readFileSync(here("./src/data/components.json"), "utf8"));
@@ -13,23 +15,28 @@ const { components } = JSON.parse(readFileSync(here("./src/data/components.json"
 const base = process.env.DOCS_BASE ?? "/dyui";
 const site = process.env.DOCS_SITE ?? "https://sohammmzzz.github.io";
 
-const GROUP_LABELS = {
-  content: "Content", data: "Data", media: "Media", interactive: "Interactive",
-  layout: "Layout", agent: "Agent", developer: "Developer-only",
+// The changelog page renders ../CHANGELOG.md, whose links to repo files (SECURITY.md) are
+// relative to the repository. Point them at GitHub instead of a page that doesn't exist here.
+// A Satteri (Astro's default Markdown processor) HTML-tree plugin; Starlight adds its own
+// plugins to the same processor.
+const REPO_FILE = /^[A-Z][\w.-]*\.md$/;
+const repoFileLinks = {
+  name: "dyui-repo-file-links",
+  element: {
+    filter: ["a"],
+    visit(node, ctx) {
+      const href = String(node.properties?.href ?? "");
+      if (REPO_FILE.test(href)) ctx.setProperty(node, "href", `https://github.com/sohammmzzz/dyui/blob/main/${href}`);
+    },
+  },
 };
-const componentGroups = Object.entries(GROUP_LABELS).map(([group, label]) => ({
-  label,
-  collapsed: true,
-  items: components
-    .filter((c) => c.group === group)
-    .map((c) => ({ label: c.name, link: `/components/${c.name}/` })),
-}));
 
 export default defineConfig({
   site,
   base,
   trailingSlash: "always",
   image: { service: passthroughImageService() },
+  markdown: { processor: satteri({ hastPlugins: [repoFileLinks] }) },
   integrations: [
     react(),
     starlight({
@@ -47,115 +54,12 @@ export default defineConfig({
         "@fontsource-variable/geist-mono",
         "./src/styles/theme.css",
       ],
-      expressiveCode: {
-        themes: ["github-light", "github-dark-dimmed"],
-        styleOverrides: {
-          borderRadius: "12px",
-          borderColor: "var(--dy-border)",
-          codeFontFamily: "var(--dy-font-mono)",
-          uiFontFamily: "var(--dy-font)",
-          codeFontSize: "13.5px",
-          codeLineHeight: "1.7",
-          codePaddingBlock: "1rem",
-          codePaddingInline: "1.15rem",
-          // code sits on the brand surfaces (see --dx-code-* in theme.css), not the syntax theme's own
-          codeBackground: "var(--dx-code-bg)",
-          frames: {
-            shadowColor: "transparent",
-            frameBoxShadowCssValue: "none",
-            editorBackground: "var(--dx-code-bg)",
-            editorTabBarBackground: "var(--dx-code-bar)",
-            editorTabBarBorderBottomColor: "var(--dy-border)",
-            editorActiveTabBackground: "var(--dx-code-bg)",
-            editorActiveTabForeground: "var(--sl-color-white)",
-            editorActiveTabBorderColor: "transparent",
-            editorActiveTabIndicatorTopColor: "transparent",
-            editorActiveTabIndicatorBottomColor: "var(--dx-code-bg)",
-            terminalBackground: "var(--dx-code-bg)",
-            terminalTitlebarBackground: "var(--dx-code-bar)",
-            terminalTitlebarForeground: "var(--sl-color-gray-3)",
-            terminalTitlebarBorderBottomColor: "var(--dy-border)",
-            terminalTitlebarDotsForeground: "var(--dy-border-strong)",
-            terminalTitlebarDotsOpacity: "1",
-            inlineButtonBackground: "var(--sl-color-gray-3)",
-            inlineButtonForeground: "var(--sl-color-gray-2)",
-            inlineButtonBorder: "var(--dy-border-strong)",
-          },
-        },
-      },
+      // Expressive Code options live in ec.config.mjs (the <Code> component needs them there)
       head: [
         { tag: "meta", attrs: { name: "theme-color", content: "#F7F6F3", media: "(prefers-color-scheme: light)" } },
         { tag: "meta", attrs: { name: "theme-color", content: "#0B0C10", media: "(prefers-color-scheme: dark)" } },
       ],
-      sidebar: [
-        {
-          label: "Get started",
-          items: [
-            { label: "Installation", link: "/get-started/installation/" },
-            { label: "Quickstart", link: "/get-started/quickstart/" },
-            { label: "Your first LLM bot", link: "/get-started/first-llm-bot/" },
-            { label: "Project structure", link: "/get-started/project-structure/" },
-            { label: "Build with a coding agent", link: "/get-started/coding-agents/" },
-          ],
-        },
-        {
-          label: "Concepts",
-          items: [
-            { label: "How DyUI works", link: "/concepts/how-it-works/" },
-            { label: "Messages & streaming", link: "/concepts/messages-and-streaming/" },
-            { label: "Generative UI", link: "/concepts/generative-ui/" },
-            { label: "Custom components", link: "/concepts/custom-components/" },
-            { label: "Actions & human-in-the-loop", link: "/concepts/actions/" },
-            { label: "Steps & reasoning", link: "/concepts/steps-and-reasoning/" },
-            { label: "Sessions & persistence", link: "/concepts/sessions-and-persistence/" },
-            { label: "Theming & branding", link: "/concepts/theming/" },
-            { label: "Authentication", link: "/concepts/auth/" },
-          ],
-        },
-        {
-          label: "Components",
-          items: [{ label: "Overview", link: "/components/" }, ...componentGroups],
-        },
-        {
-          label: "Integrations",
-          items: [
-            { label: "OpenAI", link: "/integrations/openai/" },
-            { label: "Anthropic", link: "/integrations/anthropic/" },
-            { label: "Ollama & local models", link: "/integrations/ollama/" },
-            { label: "Groq, OpenRouter & others", link: "/integrations/other-providers/" },
-            { label: "LangGraph", link: "/integrations/langgraph/" },
-            { label: "Bring your own SDK", link: "/integrations/bring-your-own-sdk/" },
-          ],
-        },
-        {
-          label: "Deploy",
-          items: [
-            { label: "Production server", link: "/deploy/production/" },
-            { label: "Docker", link: "/deploy/docker/" },
-            { label: "Render, Fly & Railway", link: "/deploy/platforms/" },
-            { label: "Behind a reverse proxy", link: "/deploy/reverse-proxy/" },
-          ],
-        },
-        {
-          label: "Cookbook",
-          items: [
-            { label: "Travel bot", link: "/cookbook/travel-bot/" },
-            { label: "Data analyst", link: "/cookbook/data-analyst/" },
-            { label: "Support bot", link: "/cookbook/support-bot/" },
-            { label: "LangGraph agent", link: "/cookbook/langgraph-agent/" },
-            { label: "No-LLM bot", link: "/cookbook/no-llm-bot/" },
-          ],
-        },
-        {
-          label: "Reference",
-          items: [
-            { label: "CLI", link: "/reference/cli/" },
-            { label: "Protocol", link: "/reference/protocol/" },
-            { label: "Python API", collapsed: true, items: [{ autogenerate: { directory: "reference/api" } }] },
-          ],
-        },
-        { label: "Changelog", link: "/changelog/" },
-      ],
+      sidebar: sidebar(components),
     }),
   ],
   vite: {

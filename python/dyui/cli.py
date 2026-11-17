@@ -132,7 +132,7 @@ def _run_env(target: str, env_file: Optional[str], enabled: bool) -> int:
     Never overrides a variable that is already set, and prints names only, never values.
     Returns a non-zero exit code when an explicit ``--env-file`` is missing.
     """
-    from ._env import find_dotenv, load_dotenv, parse_dotenv
+    from ._env import find_dotenv, load_dotenv, parse_dotenv, read_dotenv
 
     if not enabled:
         return 0
@@ -149,7 +149,7 @@ def _run_env(target: str, env_file: Optional[str], enabled: bool) -> int:
             return 0
     try:
         loaded = load_dotenv(path)
-        kept = sorted(set(parse_dotenv(path.read_text(encoding="utf-8-sig"))) - set(loaded))
+        kept = sorted(set(parse_dotenv(read_dotenv(path))) - set(loaded))
     except (OSError, UnicodeDecodeError) as exc:
         print(f"dyui: could not read {path}: {exc.__class__.__name__}", file=sys.stderr)
         return 2

@@ -60,6 +60,13 @@ def test_load_missing_file_and_bom(tmp_path):
     assert load_dotenv(f, environ=env) == ["KEY"] and env == {"KEY": "v"}
 
 
+def test_load_utf16_from_powershell(tmp_path):
+    f = tmp_path / ".env"
+    f.write_bytes("NVIDIA_API_KEY=nvapi-x\r\n".encode("utf-16"))  # PowerShell 5: echo ... > .env
+    env: dict[str, str] = {}
+    assert load_dotenv(f, environ=env) == ["NVIDIA_API_KEY"] and env["NVIDIA_API_KEY"] == "nvapi-x"
+
+
 def test_find_dotenv_order(tmp_path):
     a, b = tmp_path / "a", tmp_path / "b"
     a.mkdir()

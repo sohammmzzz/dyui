@@ -20,7 +20,7 @@ import re
 from pathlib import Path
 from typing import Iterable, MutableMapping, Optional, Union
 
-__all__ = ["parse_dotenv", "load_dotenv", "find_dotenv"]
+__all__ = ["parse_dotenv", "load_dotenv", "find_dotenv", "read_dotenv"]
 
 _KEY = re.compile(r"[A-Za-z_][A-Za-z0-9_.]*")
 _ESCAPES = {"n": "\n", "t": "\t", "r": "\r", '"': '"', "\\": "\\"}
@@ -87,6 +87,15 @@ def parse_dotenv(text: str) -> dict[str, str]:
     return values
 
 
+def read_dotenv(path: Union[str, os.PathLike]) -> str:
+    """The text of a ``.env`` file: UTF-8 (with or without a BOM), or UTF-16 with a BOM,
+    which is what ``echo KEY=value > .env`` writes in Windows PowerShell 5."""
+    raw = Path(path).read_bytes()
+    if raw.startswith((b"\xff\xfe", b"\xfe\xff")):
+        return raw.decode("utf-16")
+    return raw.decode("utf-8-sig")
+
+
 def load_dotenv(
     path: Union[str, os.PathLike],
     *,
@@ -102,7 +111,7 @@ def load_dotenv(
     p = Path(path)
     if not p.is_file():
         return []
-    text = p.read_text(encoding="utf-8-sig")
+    text = read_dotenv(p)
     loaded: list[str] = []
     for key, value in parse_dotenv(text).items():
         if not override and key in env:

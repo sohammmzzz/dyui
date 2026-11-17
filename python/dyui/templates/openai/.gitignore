@@ -1,0 +1,5 @@
+# secrets and DyUI runtime data never belong in version control
+.env
+.dyui/
+__pycache__/
+.venv/

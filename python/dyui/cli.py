@@ -126,8 +126,50 @@ def _serve(target: str, host: str, port: int, reload: bool, open_browser: bool, 
 
 
 # ------------------------------------------------------------------ commands
+def _run_env(target: str, env_file: Optional[str], enabled: bool) -> int:
+    """Load ``.env`` for ``dyui run``: ``--env-file``, else the app's directory, else the CWD.
+
+    Never overrides a variable that is already set, and prints names only, never values.
+    Returns a non-zero exit code when an explicit ``--env-file`` is missing.
+    """
+    from ._env import find_dotenv, load_dotenv, parse_dotenv
+
+    if not enabled:
+        return 0
+    if env_file:
+        path: Optional[Path] = Path(env_file)
+        if not path.is_file():
+            print(f"dyui: --env-file {env_file} not found", file=sys.stderr)
+            return 2
+    else:
+        spec_target, _attr = split_target(target)
+        dirs = [Path(spec_target).resolve().parent] if spec_target.endswith(".py") else []
+        path = find_dotenv([*dirs, Path.cwd()])
+        if path is None:
+            return 0
+    try:
+        loaded = load_dotenv(path)
+        kept = sorted(set(parse_dotenv(path.read_text(encoding="utf-8-sig"))) - set(loaded))
+    except (OSError, UnicodeDecodeError) as exc:
+        print(f"dyui: could not read {path}: {exc.__class__.__name__}", file=sys.stderr)
+        return 2
+    try:
+        shown = path.resolve().relative_to(Path.cwd().resolve())
+    except ValueError:
+        shown = path
+    noun = "key" if len(loaded) == 1 else "keys"
+    line = f"dyui: loaded {shown} ({len(loaded)} {noun}{': ' + ', '.join(loaded) if loaded else ''})"
+    if kept:
+        line += f"; already set, kept: {', '.join(kept)}"
+    print(line)
+    return 0
+
+
 def cmd_run(args: argparse.Namespace) -> int:
     target = _discover(args.target)
+    code = _run_env(target, getattr(args, "env_file", None), not getattr(args, "no_env_file", False))
+    if code:
+        return code
     title = "DyUI"
     try:
         obj = load_target(target)
@@ -224,6 +266,9 @@ def build_parser() -> argparse.ArgumentParser:
     r = sub.add_parser("run", help="serve your app with hot reload")
     r.add_argument("target", nargs="?", help="app.py, app.py:attr or module:attr")
     r.add_argument("--no-reload", action="store_true")
+    r.add_argument("--env-file", metavar="PATH",
+                   help="load environment variables from PATH (default: .env next to the app, then in the CWD)")
+    r.add_argument("--no-env-file", action="store_true", help="don't load any .env file")
     serve_opts(r)
     r.set_defaults(func=cmd_run)
 

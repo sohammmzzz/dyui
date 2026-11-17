@@ -203,7 +203,55 @@ def cmd_agent(args: argparse.Namespace) -> int:
         task = agents.INIT_TASK.format(target=_discover(words[1] if len(words) > 1 else None))
     else:
         task = " ".join(words)
-    return agents.run(name, task, launch=not getattr(args, "no_launch", False))
+    return agents.run(name, task, launch=not getattr(args, "no_launch", False), yes=getattr(args, "yes", False))
+
+
+def cmd_mcp(args: argparse.Namespace) -> int:
+    from . import mcp as dyui_mcp
+
+    if getattr(args, "mcp_command", None) != "install":
+        if not dyui_mcp.available():
+            print(f"dyui mcp: the MCP server needs the 'mcp' package. Install it with:  {dyui_mcp.INSTALL_HINT}",
+                  file=sys.stderr)
+            return 2
+        from .mcp.server import main as serve
+
+        return serve()
+
+    from .mcp import install as inst
+
+    if args.client:
+        client = inst.resolve_client(args.client)
+        if client is None:
+            print(f"dyui mcp: unknown client {args.client!r}. Known: {', '.join(inst.CLIENTS)}", file=sys.stderr)
+            return 2
+        clients = [client]
+    else:
+        clients = inst.detect()
+        if not clients:
+            print("dyui mcp: no coding agent detected here. Name one: dyui mcp install <client>\n"
+                  f"Clients: {', '.join(inst.CLIENTS)}\n\nGeneric stdio entry:\n"
+                  + inst.snippet(inst.CLIENTS["other"]))
+            return 0
+    if args.print:
+        for client in clients:
+            print(f"# {client.label}" + (f" ({client.path})" if client.path else ""))
+            print(inst.snippet(client))
+        return 0
+    if not dyui_mcp.available():
+        print(f"dyui mcp: warning: the 'mcp' package is not installed in this Python ({sys.executable}), so the "
+              f"server will not start until you run:  {dyui_mcp.INSTALL_HINT}", file=sys.stderr)
+    from .agents import _confirm
+
+    code = 0
+    for client in clients:
+        result = inst.install(client, confirm=_confirm(args.yes))
+        print(result.message)
+        if result.snippet:
+            print(result.snippet)
+        if not result.ok:
+            code = 1
+    return code
 
 
 def cmd_version(_: argparse.Namespace) -> int:
@@ -246,19 +294,37 @@ def build_parser() -> argparse.ArgumentParser:
 
     def agent_opts(sp: argparse.ArgumentParser) -> None:
         sp.add_argument("task", nargs="*", help="what the agent should do (optional)")
-        sp.add_argument("--no-launch", action="store_true", help="only write the skill file")
+        sp.add_argument("--no-launch", action="store_true", help="only write the config and skill files")
+        sp.add_argument("-y", "--yes", action="store_true", help="allow user-level config changes (Codex) without asking")
 
-    g = sub.add_parser("agent", help="open a coding agent preloaded with the DyUI skill",
-                       description="Install the DyUI skill into this project and start a coding-agent CLI "
-                                   "with it. Without a name, DyUI uses the agent CLI it finds on PATH.")
+    g = sub.add_parser("agent", help="open a coding agent briefed on DyUI (MCP server + skill)",
+                       description="Register the DyUI MCP server for a coding agent, write a DyUI skill into this "
+                                   "project and start the agent's CLI. Without a name, DyUI uses the agent CLI it "
+                                   "finds on PATH. Without the 'mcp' extra, the full offline skill is used.")
     agent_opts(g)
     g.add_argument("--list", action="store_true", help="list supported agents and whether they are installed")
-    g.add_argument("--print", action="store_true", help="print the skill to stdout")
+    g.add_argument("--print", action="store_true", help="print the full offline skill to stdout")
     g.set_defaults(func=cmd_agent, agent=None)
     for a in AGENTS.values():
-        sp = sub.add_parser(a.name, help=f"open {a.label} preloaded with the DyUI skill")
+        sp = sub.add_parser(a.name, help=f"open {a.label} briefed on DyUI")
         agent_opts(sp)
         sp.set_defaults(func=cmd_agent, agent=a.name)
+
+    m = sub.add_parser("mcp", help="run the DyUI MCP server (stdio) for coding agents",
+                       description="Without a subcommand: serve DyUI's docs, component schemas and validators "
+                                   "to a coding agent over stdio (same as `python -m dyui.mcp`). Needs "
+                                   "`pip install \"dyui[mcp]\"`.")
+    m.set_defaults(func=cmd_mcp, mcp_command=None)
+    msub = m.add_subparsers(dest="mcp_command")
+    mi = msub.add_parser("install", help="register the server in a coding agent's MCP config",
+                         description="Add the dyui server to an agent's MCP config, keeping every other server. "
+                                     "Clients: claude, cursor, vscode, gemini, qwen, opencode, codex (user-level), "
+                                     "windsurf, claude-desktop, zed, other (print the snippet). Without a client: "
+                                     "every project-level client detected here.")
+    mi.add_argument("client", nargs="?", help="which client (default: detect)")
+    mi.add_argument("--print", action="store_true", help="print the config snippet instead of writing it")
+    mi.add_argument("-y", "--yes", action="store_true", help="allow user-level config changes (Codex) without asking")
+    mi.set_defaults(func=cmd_mcp)
 
     v = sub.add_parser("version", help="print the version")
     v.set_defaults(func=cmd_version)

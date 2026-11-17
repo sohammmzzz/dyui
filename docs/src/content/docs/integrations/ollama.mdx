@@ -1,0 +1,53 @@
+---
+title: Ollama & local models
+description: Run a fully local DyUI bot with Ollama or any OpenAI-compatible local server.
+sidebar:
+  order: 3
+---
+
+import { Code } from "@astrojs/starlight/components";
+import source from "../../../../../examples/local_ollama.py?raw";
+
+Use `ollama/<model>` to run a bot entirely on your machine. Ollama exposes an OpenAI-compatible API, so DyUI talks to it through the `openai` SDK, and no API key is needed. Every argument of `dyui.llm.stream` is on [Models & providers](../overview/).
+
+```bash
+pip install "dyui[openai]"
+ollama pull llama3.2
+```
+
+DyUI connects to `http://localhost:11434/v1`. Set `OLLAMA_BASE_URL` (or pass `base_url=`) for another host.
+
+## Tips for small models
+
+- **Keep the catalog short.** A smaller catalog is easier to follow: `components=app.catalog.only("table", "stat", "callout", "quick_replies")`.
+- **Use fence mode.** Most local models handle the `dyui` fence well. Tool calling varies by model.
+- **Invalid output is safe.** A malformed component becomes a quiet "couldn't display" chip, and the rest of the answer is kept.
+
+## Other local servers
+
+Anything that speaks the OpenAI chat completions API works (LM Studio, vLLM, llama.cpp server). Use the `openai/` prefix with your server's URL, and any non-empty key. Inside your handler:
+
+```python
+async for part in dyui.llm.stream("openai/local-model", chat.history, components=app.catalog,
+                                  base_url="http://localhost:1234/v1", api_key="not-needed"):
+    yield part
+```
+
+## Complete example
+
+<Code code={source} lang="python" title="local_ollama.py" />
+
+1. Save it as `local_ollama.py` in a new, empty file, or [download it](../../examples/local_ollama.py).
+2. Start Ollama and pull the model: `ollama pull llama3.2`.
+3. Run it:
+
+   ```bash
+   pip install "dyui[openai]"
+   dyui run local_ollama.py
+   ```
+
+4. Open [http://localhost:8000](http://localhost:8000). Use another model with `DYUI_MODEL=ollama/<model>` in a `.env` file.
+
+## See also
+
+- [Models & providers](../overview/): every argument and provider.

@@ -5,6 +5,13 @@ sidebar:
   order: 5
 ---
 
+import { Code } from "@astrojs/starlight/components";
+import source from "../../../../../examples/langgraph_agent.py?raw";
+
+Use the LangGraph adapter when a LangGraph graph or agent writes your replies: it streams the run into the chat, and `emit()` sends components from inside any node or tool.
+
+Code on this page is fragments; the [complete example](#complete-example) is a whole file.
+
 ```bash
 pip install "dyui[langgraph]"      # installs langgraph>=1.0
 ```
@@ -13,6 +20,8 @@ pip install "dyui[langgraph]"      # installs langgraph>=1.0
 
 - **`stream(graph, input, config=None, **kwargs)`** runs the graph with `stream_mode=["messages", "custom"]` and yields what DyUI understands: AI message chunks as text (parsed for `dyui` fences), thinking blocks as `Reasoning`, and components you `emit()`.
 - **`emit(item, writer=None, *, config=None)`**, called inside any node or tool, sends a component (or a `{"ui": ...}` dict) straight to the chat.
+
+A sketch of a two-node research graph (`search` and `llm` stand for your own search function and chat model):
 
 ```python
 import dyui
@@ -77,4 +86,24 @@ def forecast(city: str, runtime: ToolRuntime) -> str:     # a tool
 - An emitted `{"ui": ...}` dict is validated like model output, so it can't be the developer-only `html`. Emit a `ui.Html(...)` instance instead.
 - Tool-call chunks without text are skipped. A complete `AIMessage` is only shown if it wasn't already streamed.
 
-See the runnable [`examples/langgraph_agent.py`](https://github.com/sohammmzzz/dyui/blob/main/examples/langgraph_agent.py) and the [`langgraph` template](../../get-started/quickstart/#start-from-a-template), which passes `runtime` to `emit()`.
+## Complete example
+
+A prebuilt ReAct agent whose tool emits a chart while the model streams its answer.
+
+<Code code={source} lang="python" title="langgraph_agent.py" />
+
+1. Save it as `langgraph_agent.py` in a new, empty file, or [download it](../../examples/langgraph_agent.py).
+2. Put `OPENAI_API_KEY=sk-...` in a `.env` file next to it (LangChain's OpenAI model reads it; set `DYUI_LANGCHAIN_MODEL` for another `<provider>:<model>`).
+3. Run it:
+
+   ```bash
+   pip install "dyui[langgraph]" langchain langchain-openai
+   dyui run langgraph_agent.py
+   ```
+
+4. Open [http://localhost:8000](http://localhost:8000) and send a message.
+
+## See also
+
+- [LangGraph agent](../../cookbook/langgraph-agent/): the same file, explained.
+- [Steps & reasoning](../../concepts/steps-and-reasoning/): live steps from nodes.

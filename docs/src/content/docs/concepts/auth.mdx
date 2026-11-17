@@ -5,6 +5,11 @@ sidebar:
   order: 9
 ---
 
+import { Code } from "@astrojs/starlight/components";
+import source from "../../../../examples/concepts/auth.py?raw";
+
+DyUI can put a shared password in front of an app, and always keeps each browser's conversations private. Read this page before you put an app on the internet.
+
 ## Shared password
 
 ```python
@@ -34,3 +39,25 @@ Each browser gets a random `dyui_uid` cookie, and threads, messages, uploaded fi
 ## Your own auth
 
 DyUI's `app` is a standard ASGI application, so you can put it behind any gateway that authenticates users: an SSO proxy, your platform's access control, or ASGI middleware you wrap around it. OAuth providers are on the roadmap.
+
+## Complete example
+
+An app behind a shared password read from the environment. It needs no API key, only the password.
+
+<Code code={source} lang="python" title="app.py" />
+
+1. Save it as `app.py` in a new, empty file, or [download app.py](../../examples/concepts/auth/app.py).
+2. Put `APP_PASSWORD=choose-a-long-passphrase` in a `.env` file next to it.
+3. Run it:
+
+   ```bash
+   pip install dyui
+   dyui run app.py
+   ```
+
+4. Open [http://localhost:8000](http://localhost:8000) and sign in with the password from `.env`.
+
+## See also
+
+- [Behind a reverse proxy](../../deploy/reverse-proxy/): HTTPS and real client addresses.
+- [API keys & environment](../../get-started/api-keys/): `.env` files and secrets in deployment.

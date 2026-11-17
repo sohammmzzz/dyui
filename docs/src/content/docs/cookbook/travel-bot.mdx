@@ -8,22 +8,39 @@ sidebar:
 import { Code } from "@astrojs/starlight/components";
 import source from "../../../../../examples/travel_bot.py?raw";
 
-This example shows the core DyUI loop:
+You'll build a travel agent that plans trips with **your** components. The model renders `flight` and `hotel` cards, their buttons reach `@app.on_action` handlers, and a booking waits for the user's approval with `chat.ask(ui.Confirm(...))`.
 
-- the model renders **your** components (`flight`, `hotel`);
-- their buttons reach `@app.on_action` handlers;
-- a booking waits for the user's approval with `chat.ask(ui.Confirm(...))`.
+## Prerequisites
 
-```bash
-pip install "dyui[openai]"
-dyui run examples/travel_bot.py        # DYUI_MODEL=anthropic/claude-sonnet-5-5 to switch
-```
+- `pip install "dyui[openai]"`
+- An API key, in a `.env` file (step 2).
 
-What to look at:
+## Save and run
+
+1. Save the code below as `travel_bot.py` in a new, empty file, or [download travel_bot.py](../../examples/travel_bot.py).
+2. Put your key in a `.env` file next to it: `NVIDIA_API_KEY=nvapi-...` (free at [build.nvidia.com](https://build.nvidia.com)). For another provider, add its key and `DYUI_MODEL`; see [API keys & environment](../../get-started/api-keys/).
+3. Run it:
+
+   ```bash
+   pip install "dyui[openai]"
+   dyui run travel_bot.py
+   ```
+
+4. Open [http://localhost:8000](http://localhost:8000). Click **Plan a weekend in Lisbon**, then **Book** on a flight.
+
+## What to look at
 
 - **The docstrings are prompts.** "Use when listing specific flights" tells the model *when* to reach for the component.
 - **`examples` are validated at import**, so a field rename that breaks an example fails immediately.
 - **`render()` returns built-ins.** The browser never needs to know what a `Flight` is.
 - **`book_flight` mixes all three response styles:** an approval (`chat.ask`), a live step and a closing callout with quick replies.
 
-<Code code={source} lang="python" title="examples/travel_bot.py" />
+## The code
+
+<Code code={source} lang="python" title="travel_bot.py" />
+
+## Extend it
+
+- Call a real flight API inside the `chat.step(...)` block and put its result in `step.output`.
+- Add a `Hotel` filter with `ui.Form` and handle its `form_submit`.
+- Offer only booking components at checkout: `components=app.catalog.only("flight", "confirm", "quick_replies")`.

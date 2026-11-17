@@ -5,6 +5,13 @@ sidebar:
   order: 2
 ---
 
+import { Code } from "@astrojs/starlight/components";
+import source from "../../../../examples/concepts/messages_and_streaming.py?raw";
+
+Handlers are the functions DyUI calls when something happens in a conversation; whatever they yield streams into the reply. Read this page to learn the handler shapes, what you can yield and what `chat` gives you.
+
+The snippets below are fragments that assume `import dyui`, `from dyui import ui` and an `app = dyui.App(...)`. The [complete example](#complete-example) at the end is a whole file.
+
 ## Handlers
 
 `@app.on_message` is the only required handler. It receives the user's `Message` and the conversation's `Chat`.
@@ -39,7 +46,7 @@ Anything else is shown as text, and a warning is logged.
 
 ## Updating a component in place
 
-Give a component a stable `id`. Yielding another component with the same id replaces it where it stands, which suits progress bars and live numbers:
+Give a component a stable `id`. Yielding another component with the same id replaces it where it stands, which suits progress bars and live numbers. Inside your handler:
 
 ```python
 for done in range(0, 101, 20):
@@ -68,7 +75,7 @@ async def reply(msg: dyui.Message, chat: dyui.Chat):
 | `chat.thread_id`, `chat.user_id` | The conversation and the anonymous browser identity. |
 | `await chat.send(*items)` | Appends items to the current reply, the same as yielding them. |
 | `chat.step(title, type=)` | A live step. See [Steps & reasoning](../steps-and-reasoning/). |
-| `await chat.ask(component)` | Renders an interactive component and waits for the user's answer. |
+| `await chat.ask(component)` | Renders an interactive component and waits for the user's answer. See [Actions](../actions/). |
 | `await chat.set_title(title)` | Sets the conversation title and turns off auto-titling. |
 
 ### Greeting on a new conversation
@@ -86,6 +93,27 @@ async def start(chat: dyui.Chat):
 - **Stop:** the browser aborts the stream. The server cancels your handler task (`asyncio.CancelledError` is raised inside it) and stores the partial reply as `cancelled`.
 - **Regenerate:** the last assistant reply is deleted and `on_message` runs again for the last user message.
 - **Edit:** the user's last message is replaced, everything after it is deleted, and `on_message` runs again.
-- **Errors:** if your handler raises, the user sees an inline error with **Retry**. The traceback is logged on the server and never sent to the browser.
+- **Errors:** if your handler raises, the user sees an inline error with **Retry**. The traceback is logged on the server and never sent to the browser. Two errors get a specific message: a missing API key names the variable to set, and a provider rate limit says to wait.
 
 During long silences the server sends an SSE comment every 15 seconds, so proxies don't time out the stream.
+
+## Complete example
+
+A greeting from `on_chat_start`, a conversation title, uploaded files, a progress bar updated in place and a list of components yielded at once. No API key needed.
+
+<Code code={source} lang="python" title="app.py" />
+
+1. Save it as `app.py` in a new, empty file, or [download app.py](../../examples/concepts/messages-and-streaming/app.py).
+2. Run it:
+
+   ```bash
+   pip install dyui
+   dyui run app.py
+   ```
+
+3. Open [http://localhost:8000](http://localhost:8000), start a chat, and attach a file with the paperclip.
+
+## See also
+
+- [Steps & reasoning](../steps-and-reasoning/) for live progress.
+- [Generative UI](../generative-ui/) for what changes when a model writes the reply.

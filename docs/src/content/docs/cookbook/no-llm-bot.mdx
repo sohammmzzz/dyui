@@ -8,19 +8,36 @@ sidebar:
 import { Code } from "@astrojs/starlight/components";
 import source from "../../../../../examples/no_llm.py?raw";
 
-DyUI is useful without a model too: guided flows, internal tools, demos and tests. This pizza desk uses a table, a choice, an approval, a live step and a plan.
+DyUI is useful without a model too: guided flows, internal tools, demos and tests. You'll build a pizza desk that uses a table, a choice, an approval, a live step and a plan.
 
-```bash
-pip install dyui
-dyui run examples/no_llm.py
-```
+## Prerequisites
 
-What to look at:
+- `pip install dyui`
+- No API key.
+
+## Save and run
+
+1. Save the code below as `no_llm.py` in a new, empty file, or [download no_llm.py](../../examples/no_llm.py).
+2. Run it:
+
+   ```bash
+   pip install dyui
+   dyui run no_llm.py
+   ```
+
+3. Open [http://localhost:8000](http://localhost:8000). Click **Order a pizza** and follow the buttons.
+
+## What to look at
 
 - **`@app.on_action("choice")`** handles the `choice` component's default action. Its `values["selected"]` is a list.
 - **`chat.ask()` inside an action handler** waits for a second click before doing the work.
 - Everything is plain Python control flow. There's no state machine to declare.
 
-<Code code={source} lang="python" title="examples/no_llm.py" />
+## The code
 
-For a bigger tour, `dyui demo` runs the built-in showcase bot.
+<Code code={source} lang="python" title="no_llm.py" />
+
+## Extend it
+
+- Replace the menu with rows from your own database.
+- For a bigger tour, `dyui demo` runs the built-in showcase bot.

@@ -1,0 +1,74 @@
+---
+title: Anthropic
+description: Stream Claude models through the Anthropic SDK, with extended thinking and strict tool use.
+sidebar:
+  order: 2
+---
+
+import { Code } from "@astrojs/starlight/components";
+import source from "../../../../examples/integrations/anthropic.py?raw";
+
+Use `anthropic/<model id>` to stream Claude models through the Anthropic SDK. This page covers what is specific to Anthropic; every argument of `dyui.llm.stream` is on [Models & providers](../overview/).
+
+```bash
+pip install "dyui[anthropic]"
+```
+
+The key goes in `ANTHROPIC_API_KEY`, for example in a `.env` file next to `app.py`; see [API keys & environment](../../get-started/api-keys/). Inside your handler:
+
+```python
+async for part in dyui.llm.stream("anthropic/claude-sonnet-5-5", chat.history,
+                                  system="You are a careful research assistant.", components=app.catalog):
+    yield part
+```
+
+DyUI uses the Messages streaming API. The system prompt (yours plus the catalog section) is sent as `system`. `max_tokens` defaults to `4096`; pass `max_tokens=` to change it. Other keyword arguments go to `client.messages.stream(...)`.
+
+## Extended thinking
+
+Thinking deltas become a collapsible reasoning block automatically. Turn thinking on with the SDK's own parameter:
+
+```python
+async for part in dyui.llm.stream(
+    "anthropic/claude-opus-5-5",
+    chat.history,
+    components=app.catalog,
+    max_tokens=16000,
+    thinking={"type": "enabled", "budget_tokens": 8000},
+):
+    yield part
+```
+
+## Structured mode
+
+`ui_mode="tools"` registers a strict `render_<name>` tool per component and runs the tool loop, keeping text and tool calls in order:
+
+```python
+async for part in dyui.llm.stream("anthropic/claude-sonnet-5-5", chat.history,
+                                  components=app.catalog, ui_mode="tools"):
+    yield part
+```
+
+## Custom endpoints
+
+`ANTHROPIC_BASE_URL` or `base_url=` points DyUI at a proxy or gateway. Pass `client=` with a pre-built `anthropic.AsyncAnthropic` for full control. With a custom base URL, DyUI doesn't insist on `ANTHROPIC_API_KEY`, because gateways may authenticate differently; on the default endpoint a missing key is reported before any request.
+
+## Complete example
+
+<Code code={source} lang="python" title="app.py" />
+
+1. Save it as `app.py` in a new, empty file, or [download app.py](../../examples/integrations/anthropic/app.py).
+2. Put `ANTHROPIC_API_KEY=sk-ant-...` in a `.env` file next to it.
+3. Run it:
+
+   ```bash
+   pip install "dyui[anthropic]"
+   dyui run app.py
+   ```
+
+4. Open [http://localhost:8000](http://localhost:8000) and send the starter. Add `DYUI_THINKING=1` to `.env` and restart to stream Claude's thinking.
+
+## See also
+
+- [Models & providers](../overview/): every argument, rate limits.
+- [Steps & reasoning](../../concepts/steps-and-reasoning/): how the thinking block is shown.

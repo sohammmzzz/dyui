@@ -1,0 +1,106 @@
+---
+title: Models & providers
+description: The dyui.llm.stream reference — every argument, what it yields, each provider prefix with its endpoint and key variable, structured mode and rate limits.
+sidebar:
+  order: 0
+---
+
+import { Code } from "@astrojs/starlight/components";
+import source from "../../../../examples/integrations/overview.py?raw";
+
+`dyui.llm.stream` calls a model and streams its reply as parts your handler yields. This page is its reference; the provider pages below only cover what differs. You never have to use it: any SDK that streams text works with DyUI (see [Bring your own SDK](../bring-your-own-sdk/)).
+
+Every model needs a key. [API keys & environment](../../get-started/api-keys/) covers where to get one and how to set it.
+
+## `dyui.llm.stream`
+
+```python
+dyui.llm.stream(model, messages, *, system=None, components=None, ui_mode="fence",
+                max_tool_rounds=8, rate_limit_retries=3, base_url=None, api_key=None,
+                client=None, **kwargs)
+```
+
+It yields `str` text deltas and `dyui.Reasoning` deltas. With `ui_mode="tools"` it also yields `{"ui": ...}` component dicts. Yield every part as it comes. Inside your handler:
+
+```python
+async for part in dyui.llm.stream("nvidia/moonshotai/kimi-k2.6", chat.history, components=app.catalog):
+    yield part
+```
+
+| Argument | Meaning |
+|---|---|
+| `model` | `"<provider>/<model id>"`; the model id may contain slashes (`openrouter/anthropic/claude-sonnet-5-5`). See [providers](#providers). |
+| `messages` | Usually `chat.history`; any OpenAI-style `{"role", "content"}` list. |
+| `system` | Your system prompt. With `components`, the catalog section is appended, or placed at a `{dyui_components}` placeholder. |
+| `components` | A catalog, usually `app.catalog` or `app.catalog.only(...)`. Without it the model isn't told about components. |
+| `ui_mode` | `"fence"` (default, every provider) or `"tools"` (OpenAI and Anthropic); see [structured mode](#structured-mode). |
+| `max_tool_rounds` | Requests per reply in tools mode (default 8). |
+| `rate_limit_retries` | Retries on HTTP 429 (default 3; `0` turns them off). |
+| `base_url`, `api_key` | Override the provider's endpoint and key variables. |
+| `client` | A pre-built async SDK client (`openai.AsyncOpenAI`, `anthropic.AsyncAnthropic`) for Azure, proxies or custom HTTP settings. |
+| `**kwargs` | Passed to the SDK call (`client.chat.completions.create` or `client.messages.stream`), e.g. `temperature`, `max_tokens`, `reasoning_effort`, `tools`. |
+
+If the provider needs a key and neither `api_key=` nor its variable is set, `stream` raises `dyui.llm.MissingAPIKeyError` before any request, and the chat shows which variable to set. If the SDK isn't installed, it raises `MissingDependencyError` naming the extra.
+
+`await dyui.llm.complete(model, messages, **kwargs)` takes the same arguments and returns the full text, with reasoning dropped. Use it for titles, summaries and classification.
+
+Reasoning from the provider (Anthropic thinking, the `reasoning_content` / `reasoning` fields of OpenAI-compatible APIs) arrives as `dyui.Reasoning` and fills the collapsible thinking block.
+
+## Providers
+
+Every prefix except `anthropic/` uses the `openai` SDK (`pip install "dyui[openai]"`) against the provider's OpenAI-compatible endpoint. The table is available in code as `dyui.llm.PROVIDERS`.
+
+| Prefix | Default endpoint | API key variable | Base-URL override |
+|---|---|---|---|
+| `nvidia/` | `https://integrate.api.nvidia.com/v1` (NVIDIA NIM) | `NVIDIA_API_KEY` | `NVIDIA_BASE_URL` |
+| `openai/` | SDK default | `OPENAI_API_KEY` | `OPENAI_BASE_URL` |
+| `anthropic/` | SDK default (Anthropic SDK) | `ANTHROPIC_API_KEY` | `ANTHROPIC_BASE_URL` |
+| `ollama/` | `http://localhost:11434/v1` | not required (`OLLAMA_API_KEY` if set) | `OLLAMA_BASE_URL` |
+| `groq/` | `https://api.groq.com/openai/v1` | `GROQ_API_KEY` | `GROQ_BASE_URL` |
+| `openrouter/` | `https://openrouter.ai/api/v1` | `OPENROUTER_API_KEY` | `OPENROUTER_BASE_URL` |
+| `together/` | `https://api.together.ai/v1` | `TOGETHER_API_KEY` | `TOGETHER_BASE_URL` |
+| `deepseek/` | `https://api.deepseek.com` | `DEEPSEEK_API_KEY` | `DEEPSEEK_BASE_URL` |
+| `gemini/` | `https://generativelanguage.googleapis.com/v1beta/openai/` | `GEMINI_API_KEY` or `GOOGLE_API_KEY` | `GEMINI_BASE_URL` |
+| `mistral/` | `https://api.mistral.ai/v1` | `MISTRAL_API_KEY` | `MISTRAL_BASE_URL` |
+| `xai/` | `https://api.x.ai/v1` | `XAI_API_KEY` | `XAI_BASE_URL` |
+
+A provider DyUI doesn't list still works if it speaks the OpenAI API: use `openai/<model>` with `base_url=` and `api_key=`.
+
+## Structured mode
+
+`ui_mode="tools"` (OpenAI and Anthropic) registers one strict tool per component, `render_<name>`, whose parameters are the component's JSON schema, so the provider's constrained decoding guarantees valid props. DyUI runs the tool loop itself, up to `max_tool_rounds` requests, and prose and components still interleave. If the model calls a tool you passed in `tools=`, the loop stops, because custom tools need their own loop. See [Generative UI](../../concepts/generative-ui/#structured-mode-ui_modetools).
+
+Use fence mode (the default) for every other provider and for local models.
+
+## Rate limits and free tiers
+
+Free tiers (Groq, NVIDIA NIM, Gemini) limit requests and tokens per minute. `dyui.llm.stream` handles the short limits for you: on an HTTP 429 it waits for the provider's `Retry-After` (or 2s, 4s, 8s) and retries, up to `rate_limit_retries` times. A wait longer than a minute means a daily quota, so it fails straight away and the chat shows a rate-limit message instead of hanging.
+
+Retries can't help when one request is bigger than the per-minute token budget. Keep requests small:
+
+- **Stay on `ui_mode="fence"`** (the default). `ui_mode="tools"` sends a JSON schema for every component, about 6,000 tokens for the full catalog, and sends it again on every tool round.
+- **Trim the catalog** to what the app needs: `components=app.catalog.only("stats", "chart", "table")`. The full fence prompt is about 1,250 tokens; `app.catalog.token_estimate()` tells you the size.
+- **Lower `max_tool_rounds`** if you do use tools mode. Each round is one more request.
+- **Cap the history** you send, for example `chat.history[-12:]`. Every component the model showed earlier is sent back as context.
+
+## Complete example
+
+The smallest model-backed app: it streams any provider and titles the conversation with `dyui.llm.complete`.
+
+<Code code={source} lang="python" title="app.py" />
+
+1. Save it as `app.py` in a new, empty file, or [download app.py](../../examples/integrations/overview/app.py).
+2. Put your key in a `.env` file next to it: `NVIDIA_API_KEY=nvapi-...`. For another provider, add its key and `DYUI_MODEL=<prefix>/<model>`.
+3. Run it:
+
+   ```bash
+   pip install "dyui[openai]"
+   dyui run app.py
+   ```
+
+4. Open [http://localhost:8000](http://localhost:8000) and send the starter.
+
+## See also
+
+- [OpenAI](../openai/), [Anthropic](../anthropic/), [Ollama](../ollama/), [Groq, OpenRouter & others](../other-providers/): what differs per provider.
+- [LangGraph](../langgraph/) and [Bring your own SDK](../bring-your-own-sdk/): when DyUI doesn't make the model call.

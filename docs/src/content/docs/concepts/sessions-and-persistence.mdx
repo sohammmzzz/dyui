@@ -5,6 +5,13 @@ sidebar:
   order: 7
 ---
 
+import { Code } from "@astrojs/starlight/components";
+import source from "../../../../examples/concepts/sessions.py?raw";
+
+Every conversation is stored, with a small dict of state you control. Read this page to keep per-conversation state, choose where conversations are stored, or plug in your own database.
+
+The snippets below are fragments; the [complete example](#complete-example) is a whole file.
+
 ## Per-conversation state
 
 `chat.session` is a dict stored with the conversation. Read and write it freely. It's saved when the handler finishes, so values must be JSON-serializable.
@@ -57,3 +64,24 @@ app = dyui.App(persist=PostgresStore())
 ```
 
 The record shapes are documented on [`dyui.store.Store`](../../reference/api/store/). `dyui.store.MemoryStore` is a short, complete reference implementation.
+
+## Complete example
+
+A counter kept in `chat.session`, stored in an SQLite file you name. It needs no API key.
+
+<Code code={source} lang="python" title="app.py" />
+
+1. Save it as `app.py` in a new, empty file, or [download app.py](../../examples/concepts/sessions/app.py).
+2. Run it:
+
+   ```bash
+   pip install dyui
+   dyui run app.py
+   ```
+
+3. Open [http://localhost:8000](http://localhost:8000) and send a few messages. Stop the app, start it again, and the conversation and its count are still there.
+
+## See also
+
+- [Authentication](../auth/): who can open the app.
+- [Production server](../../deploy/production/#storage): storage in production.

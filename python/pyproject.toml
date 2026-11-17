@@ -62,6 +62,10 @@ path = "hatch_build.py"
 include = ["dyui", "hatch_build.py", "README.md"]
 artifacts = ["dyui/_static/**", "dyui/_docs/**"]
 
+# The sdist runs the hook too, but only to bundle the docs (see hatch_build.py).
+[tool.hatch.build.targets.sdist.hooks.custom]
+path = "hatch_build.py"
+
 [tool.pytest.ini_options]
 testpaths = ["tests"]
 pythonpath = ["."]

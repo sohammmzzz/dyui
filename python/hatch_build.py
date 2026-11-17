@@ -3,8 +3,9 @@
 Docs (for the offline MCP server, ``dyui mcp``): ``../docs/src/content/docs/**/*.{md,mdx}``
 (without the generated ``reference/api/``), ``../examples/*.py``, ``../docs/examples/**/*.py``
 and ``../CHANGELOG.md`` are copied into ``dyui/_docs/`` with their repository-relative paths, so
-MDX ``?raw`` imports resolve the same way as in a checkout. Skipped for editable installs (they
-read the checkout directly) and when ``../docs`` is absent (an sdist already carries ``_docs``).
+MDX ``?raw`` imports resolve the same way as in a checkout. Runs for both the sdist and the
+wheel target; skipped for editable installs (they read the checkout directly) and when
+``../docs`` is absent (building a wheel from an sdist, which already carries ``_docs``).
 
 Web UI:
 
@@ -88,6 +89,8 @@ class CustomBuildHook(BuildHookInterface):
         root = Path(self.root)
         if version != "editable" and (root.parent / "docs" / "src" / "content" / "docs").is_dir():
             bundle_docs(root.parent, root / "dyui" / "_docs")
+        if self.target_name == "sdist":
+            return  # the sdist only needs the docs; the web UI is built for wheels (as before)
         web = root.parent / "web"
         static = root / "dyui" / "_static"
         if os.environ.get("DYUI_SKIP_WEB_BUILD"):

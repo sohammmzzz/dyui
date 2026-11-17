@@ -1,4 +1,13 @@
-"""Hatch build hook: compile ../web into dyui/_static so the wheel ships the UI.
+"""Hatch build hook: ship the web UI (dyui/_static) and the docs (dyui/_docs) in the wheel.
+
+Docs (for the offline MCP server, ``dyui mcp``): ``../docs/src/content/docs/**/*.{md,mdx}``
+(without the generated ``reference/api/``), ``../examples/*.py``, ``../docs/examples/**/*.py``
+and ``../CHANGELOG.md`` are copied into ``dyui/_docs/`` with their repository-relative paths, so
+MDX ``?raw`` imports resolve the same way as in a checkout. Runs for both the sdist and the
+wheel target; skipped for editable installs (they read the checkout directly) and when
+``../docs`` is absent (building a wheel from an sdist, which already carries ``_docs``).
+
+Web UI:
 
 - ``DYUI_SKIP_WEB_BUILD=1`` skips it (tests, CI for Python only).
 - Skipped when ``../web/package.json`` is absent (building from an sdist, which
@@ -42,9 +51,46 @@ def needs_web_build(web: Path, static: Path, *, force: bool = False) -> bool:
     return _newest_mtime(web) > index.stat().st_mtime
 
 
+_DOC_GLOBS = (
+    ("docs/src/content/docs", ("**/*.md", "**/*.mdx")),
+    ("examples", ("*.py",)),
+    ("docs/examples", ("**/*.py",)),
+)
+_DOC_FILES = ("CHANGELOG.md",)
+_DOC_SKIP = ("docs/src/content/docs/reference/api/",)
+
+
+def bundle_docs(repo: Path, dest: Path) -> int:
+    """Copy the docs sources the MCP server reads from ``repo`` into ``dest``; return the file count.
+
+    ``dest`` is rebuilt from scratch so pages deleted upstream do not linger.
+    """
+    files: list[Path] = []
+    for base, patterns in _DOC_GLOBS:
+        folder = repo / base
+        if not folder.is_dir():
+            continue
+        for pattern in patterns:
+            for path in folder.glob(pattern):
+                rel = path.relative_to(repo).as_posix()
+                if path.is_file() and "__pycache__" not in path.parts and not rel.startswith(_DOC_SKIP):
+                    files.append(path)
+    files += [repo / f for f in _DOC_FILES if (repo / f).is_file()]
+    shutil.rmtree(dest, ignore_errors=True)
+    for path in sorted(set(files)):
+        out = dest / path.relative_to(repo)
+        out.parent.mkdir(parents=True, exist_ok=True)
+        shutil.copyfile(path, out)
+    return len(set(files))
+
+
 class CustomBuildHook(BuildHookInterface):
     def initialize(self, version: str, build_data: dict) -> None:
         root = Path(self.root)
+        if version != "editable" and (root.parent / "docs" / "src" / "content" / "docs").is_dir():
+            bundle_docs(root.parent, root / "dyui" / "_docs")
+        if self.target_name == "sdist":
+            return  # the sdist only needs the docs; the web UI is built for wheels (as before)
         web = root.parent / "web"
         static = root / "dyui" / "_static"
         if os.environ.get("DYUI_SKIP_WEB_BUILD"):

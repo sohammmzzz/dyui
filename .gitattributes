@@ -1,0 +1,7 @@
+# Python sources, docs examples and templates are copied by readers into their own files:
+# keep them LF everywhere (a CRLF checkout on Windows leaks into the docs' copy buttons).
+*.py         text eol=lf
+*.md         text eol=lf
+*.mdx        text eol=lf
+*.txt        text eol=lf
+.env.example text eol=lf

@@ -1,26 +1,70 @@
 ---
-title: Build with a coding agent
-description: Open Claude Code, Gemini CLI, Codex, Qwen Code, Antigravity or another coding agent with the DyUI skill loaded, and let it build or convert your app.
+title: Build with AI
+description: Give Claude Code, Cursor, VS Code Copilot, Gemini CLI, Codex and other coding agents the DyUI MCP server, so they read the docs, look up components and validate their own work for the exact version you have installed.
 sidebar:
   order: 5
 ---
 
-`dyui agent` opens your coding agent already briefed on DyUI. It installs a **DyUI skill** into the project and starts the agent's CLI with it, so the agent knows the API, every component, and how to approach the job.
+DyUI ships an **MCP server** for coding agents. It runs locally against the DyUI you have installed, so everything the agent sees matches your version exactly, and it works offline:
+
+- the full docs and every example app, searchable;
+- every component's props, types, defaults, JSON schema, working Python and model examples, and the action each interactive component sends;
+- validators the agent runs on its own work: `validate_ui` for component JSON and model replies, `check_app` to import your app and catch common mistakes.
+
+## Set it up
 
 ```bash
-pip install dyui
+pip install "dyui[mcp]"
 cd my-project
-dyui agent
+dyui mcp install claude      # or: cursor, vscode, gemini, qwen, opencode, codex, windsurf, claude-desktop, zed
 ```
 
-The agent starts by reading your project, then tells you what it found and what it proposes. Give it a task up front if you already know what you want:
+`dyui mcp install` adds one entry to the agent's MCP config. It keeps every other server you have, backs the file up to `<file>.bak` before the first change, and does nothing when the entry is already there. The entry runs the Python you installed DyUI into, so the agent always gets the right virtualenv:
 
-```bash
-dyui agent "turn this RAG script into a chat app with sources and a feedback form"
-dyui claude "add a booking flow with a confirmation step"
+```json
+{
+  "mcpServers": {
+    "dyui": { "command": "/path/to/.venv/bin/python", "args": ["-m", "dyui.mcp"] }
+  }
+}
 ```
 
-## What the agent can do
+| Client | Command | Config written |
+|---|---|---|
+| Claude Code | `dyui mcp install claude` | `.mcp.json` |
+| Cursor (IDE and `cursor-agent`) | `dyui mcp install cursor` | `.cursor/mcp.json` |
+| VS Code / GitHub Copilot | `dyui mcp install vscode` | `.vscode/mcp.json` (`servers`, `type: stdio`) |
+| Gemini CLI | `dyui mcp install gemini` | `.gemini/settings.json` |
+| Qwen Code | `dyui mcp install qwen` | `.qwen/settings.json` |
+| opencode | `dyui mcp install opencode` | `opencode.json` (`mcp`) |
+| Codex CLI | `dyui mcp install codex` | `~/.codex/config.toml` (user-level: asks first, or pass `--yes`) |
+| Windsurf, Claude Desktop, Zed, others | `dyui mcp install windsurf` ... | prints the snippet and where to paste it |
+
+- With no client name, DyUI configures every project-level client it detects (a `.claude/`, `.cursor/`, `.vscode/`... folder, or the CLI on your `PATH`).
+- `--print` shows the snippet without writing anything.
+- A config file with comments or other non-JSON content is left untouched; DyUI prints the snippet for you to add.
+- Claude Code asks you to approve project MCP servers the first time; VS Code shows a **Start** button in `mcp.json`.
+
+To run the server by hand (for any other MCP client, stdio transport): `dyui mcp` or `python -m dyui.mcp`.
+
+## What the agent gets
+
+| Tool | What it does |
+|---|---|
+| `dyui_overview` | The mental model, the 30-second app, what handlers yield, providers and API keys, actions, custom components, mistakes to avoid. Agents call it first. |
+| `list_docs`, `read_doc(slug)` | Every docs page of your version as Markdown, with example sources inlined |
+| `search_docs(query)` | Keyword search over the docs, the example apps and the components |
+| `list_components`, `get_component(name)` | Props, JSON schema, Python constructor and examples, what the model writes, the prompt line, actions |
+| `list_examples`, `get_example(name)`, `get_template(name)` | The complete cookbook apps and the `dyui new` templates |
+| `validate_ui(payload)` | Runs DyUI's real parser and validator on a `{"ui": ...}` object, JSON lines or a whole reply with `dyui` fences |
+| `check_app(path)` | Imports the app in a subprocess and reports import errors, handlers, custom components (and whether their examples validate), the catalog and its token cost, plus common mistakes: no `components=` in `dyui.llm.stream`, hard-coded API keys, blocking calls in async handlers, `.dyui/` missing from `.gitignore` |
+| `catalog_prompt(path, only)` | The exact "UI components" section the model receives, like `dyui catalog` |
+
+It also exposes the docs, components and examples as resources (`dyui://docs/<slug>`, `dyui://components/<name>`, `dyui://examples/<name>`), and four prompts for clients with a prompt picker: `build_app`, `convert_project`, `design_components` and `production_checklist` (in Claude Code: `/mcp__dyui__build_app`).
+
+API keys never leave your machine through the server: anything shaped like a key is masked in every report.
+
+## Then ask for what you want
 
 | You have | Ask for | What it does |
 |---|---|---|
@@ -30,11 +74,19 @@ dyui claude "add a booking flow with a confirmation step"
 | A web service | "Add a chat to this FastAPI app" | Adds DyUI beside it and shares your service's functions with the handler |
 | A DyUI app | "Design components for this app" | Proposes components, asks you to confirm, implements them with their actions |
 
-The skill tells the agent to look before it proposes, to keep your existing code working, and to run the app's import, `dyui catalog` and `dyui run` checks before it reports success.
+The agent is told to look at your project before it proposes anything, to keep your existing code working, and to run `check_app` and `validate_ui` before it reports success.
 
-## Pick an agent
+## Start an agent CLI in one command
 
-With no name, `dyui agent` uses the agent CLI it finds on your `PATH` and asks when there are several. To pick one, name it:
+`dyui agent` does the setup and opens your coding agent with a first message:
+
+```bash
+dyui agent                                       # the agent CLI found on your PATH
+dyui claude "add a booking flow with a confirmation step"
+dyui gemini "turn this RAG script into a chat app with sources"
+```
+
+For Claude Code, Gemini CLI, Qwen Code, Cursor Agent, opencode and Codex it registers the MCP server (as above), writes a short skill that points the agent at the tools, and starts the agent with `Use the dyui MCP server (call dyui_overview first).` followed by your task.
 
 | Command | Agent | Skill is written to |
 |---|---|---|
@@ -47,38 +99,22 @@ With no name, `dyui agent` uses the agent CLI it finds on your `PATH` and asks w
 | `dyui opencode` | opencode | `.agents/skills/dyui/SKILL.md` |
 | `dyui cursor` | Cursor Agent (`cursor-agent`) | `.agents/skills/dyui/SKILL.md` |
 
-Each of these is the same as `dyui agent <name>`. `dyui agent --list` shows which ones are installed.
-
-Any other CLI that accepts a prompt as its argument works too:
-
-```bash
-dyui agent aider "convert this repo"
-```
-
-## How the skill is loaded
-
-1. DyUI renders the skill for the version you have installed. It includes the live list of built-in components, so it never goes stale.
-2. The skill is written into the project folder that agent reads skills from (the table above). It is a plain Markdown file: read it, edit it, commit it or ignore it.
-3. The agent is started with a first message that points at the skill and carries your task.
-
-Because the file stays in the project, later sessions of an agent that discovers project skills pick it up without `dyui agent`. Run the command again after upgrading DyUI to refresh it.
-
-Kimi Code is started without a first message; DyUI prints the line to paste.
-
-## Options
+Each is the same as `dyui agent <name>`; `dyui agent --list` shows which are installed. Any other CLI that takes a prompt as its argument works too: `dyui agent aider "convert this repo"`.
 
 ```bash
 dyui agent --list          # supported agents and whether each is installed
-dyui agent --print         # print the skill, e.g. to paste into another tool
-dyui claude --no-launch    # only write the skill file
+dyui agent --print         # print the full offline guide, e.g. to paste into another tool
+dyui claude --no-launch    # only write the config and skill files
+dyui codex --yes           # allow the user-level Codex config change without asking
+dyui claude init app.py    # design custom components for an existing app
 ```
 
-Setting `DYUI_NO_LAUNCH=1` has the same effect as `--no-launch`.
+Setting `DYUI_NO_LAUNCH=1` has the same effect as `--no-launch`. Kimi Code is started without a first message; DyUI prints the line to paste.
 
-## Design components for an existing app
+## Without the MCP extra
 
-```bash
-dyui claude init app.py
-```
+If `dyui[mcp]` is not installed, or for agents DyUI cannot configure (Antigravity, Kimi, other CLIs), `dyui agent` falls back to the **full offline skill**: one Markdown file with the API, every component's prompt line and the playbooks, rendered for your installed version. It is written to the same skills folder. Run the command again after upgrading DyUI to refresh it.
 
-`init` starts the agent on one specific job: read the app, propose three to six custom components, ask you to confirm, and implement them. See [Custom components](../../concepts/custom-components/).
+## Agents without MCP
+
+The docs site also publishes `llms.txt` (an index of every page) and `llms-full.txt` (every page in one file) for tools that read documentation from a URL instead of an MCP server.

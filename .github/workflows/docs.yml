@@ -6,7 +6,7 @@ name: Deploy docs
 on:
   push:
     branches: [main]
-    paths: ["docs/**", "examples/**", "web/src/**", "python/dyui/**", ".github/workflows/docs.yml"]
+    paths: ["docs/**", "examples/**", "web/**", "python/dyui/**", ".github/workflows/docs.yml"]
   workflow_dispatch:
 
 permissions:
@@ -36,6 +36,8 @@ jobs:
           cache-dependency-path: |
             web/package-lock.json
             docs/package-lock.json
+      # web/ is needed by the docs build: the landing page imports its components, and the
+      # prebuild builds the embedded demo from it (vite build --mode demo → docs/public/demo/)
       - run: npm ci
         working-directory: web
       - run: npm ci && npm run build

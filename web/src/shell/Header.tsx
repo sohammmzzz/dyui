@@ -106,7 +106,8 @@ export function Header({
         </div>
       </div>
       <div className="sh-header-right">
-        <ThemeToggle value={theme} onChange={onTheme} />
+        {/* the docs embed follows the host page's theme, so it has no toggle of its own */}
+        {import.meta.env.MODE === "demo" ? null : <ThemeToggle value={theme} onChange={onTheme} />}
       </div>
     </header>
   );

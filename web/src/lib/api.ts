@@ -251,10 +251,22 @@ async function mockConnection(): Promise<{ transport: Transport; config: AppConf
 }
 
 /**
+ * The docs-site demo build (`vite build --mode demo`) always plays the `dyui demo` script
+ * in the browser. MODE is a build-time constant, so the real build drops this and the
+ * mock code entirely.
+ */
+async function demoConnection(): Promise<{ transport: Transport; config: AppConfig }> {
+  const [{ createMockTransport }, { demoScenario }] = await Promise.all([import("./mock"), import("@/demo/scenario")]);
+  const transport = createMockTransport({ scenario: demoScenario });
+  return { transport, config: await transport.getConfig() };
+}
+
+/**
  * Pick a transport and load the app config. `?mock=1` forces the mock; in dev
  * (`npm run dev`) an unreachable backend falls back to it as well.
  */
 export async function connect(): Promise<{ transport: Transport; config: AppConfig }> {
+  if (import.meta.env.MODE === "demo") return demoConnection();
   if (import.meta.env.DEV && wantsMock()) return mockConnection();
   const transport = createHttpTransport();
   try {

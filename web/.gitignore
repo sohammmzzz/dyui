@@ -1,0 +1,2 @@
+# the docs-site demo build (npm run build:demo), copied into docs/public/demo/ at docs build time
+dist-demo/

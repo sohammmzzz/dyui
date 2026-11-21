@@ -1,0 +1,12 @@
+---
+// Starlight <PageFrame> override: the default frame, plus the loading splash (../Splash.astro).
+import Default from "@astrojs/starlight/components/PageFrame.astro";
+import Splash from "../Splash.astro";
+---
+
+<Splash />
+<Default>
+  <slot name="header" slot="header" />
+  <slot name="sidebar" slot="sidebar" />
+  <slot />
+</Default>

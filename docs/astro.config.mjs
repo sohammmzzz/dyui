@@ -60,6 +60,11 @@ export default defineConfig({
         { tag: "meta", attrs: { name: "theme-color", content: "#0B0C10", media: "(prefers-color-scheme: dark)" } },
       ],
       sidebar: sidebar(components),
+      // loading splash (the DyUI mark assembling), once per browser session
+      components: {
+        Head: "./src/components/overrides/Head.astro",
+        PageFrame: "./src/components/overrides/PageFrame.astro",
+      },
     }),
   ],
   vite: {

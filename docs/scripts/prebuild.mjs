@@ -3,11 +3,12 @@
 //     so a logo swap in ../brand propagates on the next build;
 //  2. regenerate the component data (src/data/components.json) and the Python API
 //     reference (src/content/docs/reference/api/) from the dyui package;
-//  3. copy every complete example into public/examples/ so pages can link a download.
+//  3. copy every complete example into public/examples/ so pages can link a download;
+//  4. build the landing page's embedded demo (web/, `vite build --mode demo`) into public/demo/.
 // Python is optional for local work: without it the committed components.json is used
 // and the API reference is replaced by a short placeholder page.
 import { spawnSync } from "node:child_process";
-import { copyFileSync, existsSync, mkdirSync, readdirSync, readFileSync, rmSync, writeFileSync } from "node:fs";
+import { copyFileSync, cpSync, existsSync, mkdirSync, readdirSync, readFileSync, rmSync, writeFileSync } from "node:fs";
 import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
 
@@ -97,3 +98,24 @@ for (const c of components) {
   }
 }
 console.log(`prebuild: ${copied} example files -> public/examples/`);
+
+// 4. the landing page's live demo: the real web shell playing `dyui demo` in the browser
+//    (web/src/demo/), built from web/ and served at <base>/demo/. Never committed.
+const web = join(repo, "web");
+const demoOut = join(docs, "public", "demo");
+rmSync(demoOut, { recursive: true, force: true });
+const vite = join(web, "node_modules", "vite", "bin", "vite.js");
+if (existsSync(vite)) {
+  const r = spawnSync(process.execPath, [vite, "build", "--mode", "demo", "--logLevel", "warn"], { cwd: web, stdio: "inherit" });
+  if (r.status !== 0 || !existsSync(join(web, "dist-demo", "index.html"))) {
+    console.error("prebuild: the demo build failed (cd web && npm run build:demo)");
+    process.exit(r.status || 1);
+  }
+  cpSync(join(web, "dist-demo"), demoOut, { recursive: true });
+  console.log("prebuild: demo -> public/demo/");
+} else if (process.env.CI) {
+  console.error("prebuild: CI needs the web app's dependencies for the landing demo (run `npm ci` in web/ first).");
+  process.exit(1);
+} else {
+  console.warn("prebuild: web/node_modules not found — the landing page demo is skipped (cd web && npm install).");
+}

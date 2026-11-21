@@ -62,6 +62,8 @@ export function Composer({
   useEffect(resize, [text, resize]);
 
   useEffect(() => {
+    // Embedded in the docs (demo build), never pull focus out of the host page on load.
+    if (import.meta.env.MODE === "demo" && window.parent !== window && !document.hasFocus()) return;
     if (window.matchMedia?.("(pointer: fine)").matches) ta.current?.focus({ preventScroll: true });
   }, [autoFocusKey]);
 

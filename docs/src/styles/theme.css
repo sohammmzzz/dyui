@@ -742,8 +742,7 @@ footer .meta a:hover {
 .dd-hint {
   color: var(--dy-text-muted);
 }
-.dd-replay,
-.lc-replay {
+.dd-replay {
   flex: none;
   display: inline-flex;
   align-items: center;
@@ -757,18 +756,12 @@ footer .meta a:hover {
   cursor: pointer;
   transition: color var(--dx-t-fast), border-color var(--dx-t-fast), transform var(--dx-t-fast);
 }
-.dd-replay:hover,
-.lc-replay:hover:not(:disabled) {
+.dd-replay:hover {
   color: var(--dy-text);
   border-color: var(--dy-border-strong);
 }
-.dd-replay:active,
-.lc-replay:active:not(:disabled) {
+.dd-replay:active {
   transform: scale(0.97);
-}
-.lc-replay:disabled {
-  cursor: default;
-  opacity: 0.65;
 }
 
 /* ------------------------------------------------------------ component pages */
@@ -932,12 +925,48 @@ main:has(.lp) {
   padding-bottom: 0;
 }
 main:has(.lp) + footer,
-main:has(.lp) ~ footer {
+main:has(.lp) ~ footer,
+main:has(.lp) .sl-container > footer {
   display: none;
 }
 .lp {
   --lp-max: 76rem;
+  /* one stop = the viewport under the Starlight header (svh: no jump when a phone's URL bar slides) */
+  --lp-stop: calc(100vh - var(--sl-nav-height));
+  --lp-pad: clamp(1.25rem, 4.5vh, 3.5rem); /* breathing room inside a stop */
+  --lp-gap: clamp(0.75rem, 2.4vh, 1.5rem); /* the stage card's margin inside its stop */
+  --lp-rhythm: clamp(1.25rem, 3.8vh, 3.25rem); /* section head → body */
   color: var(--sl-color-gray-2);
+}
+@supports (height: 100svh) {
+  .lp {
+    --lp-stop: calc(100svh - var(--sl-nav-height));
+  }
+}
+@media (max-aspect-ratio: 1/1) {
+  .lp {
+    --lp-pad: clamp(1.25rem, 3vh, 2.5rem);
+  }
+}
+/* presentation scroll (docs/src/scripts/magnet-scroll.ts): the spring writes every frame */
+html.lp-magnet {
+  scroll-behavior: auto !important;
+}
+/* reduced motion: no spring, native scroll with gentle proximity snapping */
+html.lp-snap {
+  scroll-snap-type: y proximity;
+  scroll-padding-top: var(--sl-nav-height);
+}
+html.lp-snap .lp [data-stop] {
+  scroll-snap-align: start;
+}
+.lp-stop {
+  box-sizing: border-box;
+  min-height: var(--lp-stop);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding-block: var(--lp-pad);
 }
 .lp :is(ul, ol) {
   list-style: none;
@@ -946,6 +975,9 @@ main:has(.lp) ~ footer {
 }
 .lp a {
   text-decoration: none;
+}
+.lp :is(p, dd) > code {
+  font-size: max(0.84em, 12.5px);
 }
 
 .lp-eyebrow {
@@ -966,16 +998,15 @@ main:has(.lp) ~ footer {
   flex-direction: column;
   align-items: center;
   text-align: center;
-  padding: clamp(3rem, 8vw, 6.5rem) 0 clamp(2.5rem, 5vw, 4rem);
 }
 .lp-title {
   font-family: var(--dy-font-display);
   font-weight: 400;
-  font-size: clamp(2.9rem, 8.2vw, 6.25rem);
+  font-size: clamp(2.6rem, min(8.2vw, 11.5vh), 6.25rem);
   line-height: 0.98;
   letter-spacing: -0.03em;
   color: var(--sl-color-white);
-  margin: 1.4rem 0 0;
+  margin: clamp(0.9rem, 2.4vh, 1.4rem) 0 0;
   max-width: 12.5em;
   text-wrap: balance;
 }
@@ -985,7 +1016,7 @@ main:has(.lp) ~ footer {
   padding-inline-end: 0.04em;
 }
 .lp-lede {
-  margin: 1.75rem 0 0;
+  margin: clamp(1rem, 3vh, 1.75rem) 0 0;
   font-size: clamp(1.05rem, 1.6vw, 1.2rem);
   line-height: 1.6;
   max-width: 37rem;
@@ -1000,7 +1031,7 @@ main:has(.lp) ~ footer {
   flex-wrap: wrap;
   justify-content: center;
   gap: 10px;
-  margin-top: 2.1rem;
+  margin-top: clamp(1.25rem, 3.4vh, 2.1rem);
 }
 .lp-btn {
   display: inline-flex;
@@ -1046,7 +1077,7 @@ main:has(.lp) ~ footer {
   display: inline-flex;
   align-items: center;
   gap: 10px;
-  margin-top: 1.5rem;
+  margin-top: clamp(1rem, 2.4vh, 1.5rem);
   height: 40px;
   padding: 0 6px 0 16px;
   border-radius: 999px;
@@ -1107,79 +1138,21 @@ main:has(.lp) ~ footer {
     radial-gradient(45% 70% at 100% 100%, color-mix(in oklab, var(--dy-teal) var(--dx-wash-b), transparent), transparent 70%),
     radial-gradient(circle at 1px 1px, var(--dx-grid) 1px, transparent 1.5px) 0 0 / 20px 20px,
     var(--dy-bg-subtle);
-  min-height: 20rem;
-}
-.lc-stage {
-  display: grid;
-  grid-template-columns: minmax(0, 19rem) minmax(0, 1fr);
-  gap: clamp(1.5rem, 4vw, 4rem);
-  align-items: center;
-}
-.lc-legend {
-  padding-inline-start: clamp(0rem, 1vw, 0.75rem);
-}
-.lc-legend-title {
-  font-family: var(--dy-font-display);
-  font-size: clamp(1.7rem, 2.6vw, 2.25rem);
-  line-height: 1.1;
-  letter-spacing: var(--dy-tracking-display);
-  color: var(--sl-color-white);
-  margin: 0.7rem 0 1.5rem;
-}
-.lc-phases {
-  list-style: none;
-  padding: 0;
-  margin: 0 0 1.5rem;
-  border-top: 1px solid var(--dx-hair);
-}
-.lc-phases li {
-  position: relative;
-  display: grid;
-  grid-template-columns: 2rem minmax(0, 1fr);
-  padding: 0.8rem 0 0.85rem;
-  border-bottom: 1px solid var(--dx-hair);
-  transition: opacity var(--dy-dur-3) var(--dy-ease);
-}
-.lc-phases li[data-state="idle"] {
-  opacity: 0.5;
-}
-.lc-phases li::after {
-  content: "";
-  position: absolute;
-  inset-inline: 0;
-  bottom: -1px;
-  height: 1px;
-  background: var(--dy-accent);
-  transform: scaleX(0);
-  transform-origin: left;
-  transition: transform var(--dy-dur-4) var(--dy-ease);
-}
-.lc-phases li[data-state="active"]::after {
-  transform: scaleX(1);
-}
-.lc-phase-n {
-  font: 500 0.6875rem/1.75 var(--dy-font-mono);
-  letter-spacing: 0.04em;
-  color: var(--sl-color-gray-3);
-  transition: color var(--dx-t);
-}
-.lc-phases li[data-state="active"] .lc-phase-n {
-  color: var(--dy-accent);
-}
-.lc-phase-copy {
+  box-sizing: border-box;
+  height: calc(var(--lp-stop) - 2 * var(--lp-gap));
+  margin-block: var(--lp-gap);
   display: flex;
   flex-direction: column;
-  gap: 2px;
 }
-.lc-phase-copy strong {
-  font-size: 0.9rem;
-  font-weight: 600;
-  color: var(--sl-color-white);
+.lp-stage > :last-child {
+  flex: 1 1 auto;
+  min-height: 0;
 }
-.lc-phase-copy > span {
-  font-size: 0.82rem;
-  line-height: 1.45;
-  color: var(--sl-color-gray-3);
+.lp-stage iframe {
+  display: block;
+  width: 100%;
+  height: 100%;
+  border: 0;
 }
 
 /* the chat window */
@@ -1194,7 +1167,6 @@ main:has(.lp) ~ footer {
   height: clamp(31rem, 66vh, 38rem);
   min-width: 0;
 }
-.lc-chrome,
 .rd-chrome {
   display: flex;
   align-items: center;
@@ -1203,107 +1175,18 @@ main:has(.lp) ~ footer {
   border-bottom: 1px solid var(--dy-border);
   background: var(--dy-bg-subtle);
 }
-.lc-dot {
-  width: 9px;
-  height: 9px;
-  border-radius: 50%;
-  background: var(--dy-border-strong);
-}
-.lc-title,
 .rd-title {
   margin-inline-start: 8px;
   font-size: 12.5px;
   font-weight: 500;
   color: var(--dy-text-muted);
 }
-.lc-addr {
-  margin-inline-start: auto;
-  font: 400 11px/1 var(--dy-font-mono);
-  color: var(--dy-text-muted);
-  padding: 5px 9px;
-  border: 1px solid var(--dy-border);
-  border-radius: 999px;
-  background: var(--dy-bg);
-}
-.lc-body {
-  flex: 1;
-  overflow-y: auto;
-  overscroll-behavior: contain;
-  padding: 22px clamp(14px, 3vw, 26px);
-  display: flex;
-  flex-direction: column;
-  gap: 16px;
-  background: var(--dy-bg);
-  scrollbar-width: thin;
-}
-.lc-user {
-  align-self: flex-end;
-  max-width: 82%;
-  padding: 9px 14px;
-  border-radius: 18px 18px 6px 18px;
-  background: var(--dy-accent-soft, color-mix(in oklab, var(--dy-accent) 12%, var(--dy-surface)));
-  color: var(--dy-text);
-  font-size: 14.5px;
-  line-height: 1.5;
-  animation: dy-rise var(--dy-dur-2) var(--dy-ease);
-}
-.lc-assistant {
-  display: flex;
-  flex-direction: column;
-  gap: 12px;
-  font-size: 14.5px;
-  line-height: 1.6;
-  color: var(--dy-text);
-}
-.lc-assistant .dy-md p,
 .rd-body .dy-md p {
   margin: 0;
 }
-.lc-thinking {
-  width: 36px;
-  height: 10px;
-  border-radius: 999px;
-  background: linear-gradient(90deg, var(--dy-accent), var(--dy-teal));
-  opacity: 0.5;
-  animation: lc-breathe 2s var(--dy-ease-in-out) infinite;
-}
-@keyframes lc-breathe {
-  50% {
-    opacity: 1;
-  }
-}
-.lc-foot {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  padding: 10px 12px 12px;
-  background: var(--dy-bg);
-}
-.lc-composer {
-  flex: 1;
-  font-size: 13.5px;
-  color: var(--dy-text-muted);
-  padding: 10px 14px;
-  border: 1px solid var(--dy-border);
-  border-radius: 14px;
-  background: var(--dy-surface);
-  box-shadow: var(--dy-shadow-sm);
-}
-.lc-send {
-  flex: none;
-  display: grid;
-  place-items: center;
-  width: 32px;
-  height: 32px;
-  border-radius: 50%;
-  background: var(--dy-accent);
-  color: var(--dy-accent-text);
-  opacity: 0.55;
-}
-
 /* sections */
 .lp-section {
-  padding-top: clamp(4.5rem, 9vw, 8rem);
+  min-width: 0;
 }
 .lp-head {
   max-width: 44rem;
@@ -1319,15 +1202,15 @@ main:has(.lp) ~ footer {
 .lp-h2 {
   font-family: var(--dy-font-display);
   font-weight: 400;
-  font-size: clamp(2.1rem, 4.6vw, 3.5rem);
+  font-size: clamp(1.9rem, min(4.6vw, 6.4vh), 3.5rem);
   letter-spacing: -0.022em;
   line-height: 1.04;
   color: var(--sl-color-white);
-  margin: 0.8rem 0 0;
+  margin: clamp(0.55rem, 1.4vh, 0.8rem) 0 0;
   text-wrap: balance;
 }
 .lp-sub {
-  margin: 1rem 0 0;
+  margin: clamp(0.6rem, 1.6vh, 1rem) 0 0;
   font-size: 1.05rem;
   line-height: 1.6;
   color: var(--sl-color-gray-3);
@@ -1354,7 +1237,7 @@ main:has(.lp) ~ footer {
 
 /* how it works: three plates on one rule */
 .lp-plates {
-  margin-top: clamp(2rem, 4vw, 3.25rem) !important;
+  margin-top: var(--lp-rhythm) !important;
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
   grid-template-rows: auto auto 1fr;
@@ -1386,12 +1269,12 @@ main:has(.lp) ~ footer {
   margin-inline-end: calc(-1 * clamp(1.5rem, 3vw, 2.75rem));
 }
 .lp-plate-copy {
-  padding: 1.25rem 0 1.4rem;
+  padding: clamp(0.8rem, 2.2vh, 1.25rem) 0 clamp(0.9rem, 2.4vh, 1.4rem);
 }
 .lp-plate-copy h3 {
   font-family: var(--dy-font-display);
   font-weight: 400;
-  font-size: 1.6rem;
+  font-size: clamp(1.35rem, 3vh, 1.6rem);
   line-height: 1.15;
   letter-spacing: var(--dy-tracking-display);
   color: var(--sl-color-white);
@@ -1439,10 +1322,6 @@ main:has(.lp) ~ footer {
   padding: 9px 12px;
   background: var(--dx-code-bar);
 }
-.rd-chrome .lc-dot {
-  width: 8px;
-  height: 8px;
-}
 .rd-title {
   font: 500 0.75rem/1 var(--dy-font-mono);
 }
@@ -1460,7 +1339,7 @@ main:has(.lp) ~ footer {
 
 /* features: a ledger, not a card grid */
 .lp-ledger {
-  margin: clamp(2rem, 4vw, 3.25rem) 0 0;
+  margin: var(--lp-rhythm) 0 0;
   border-top: 1px solid var(--sl-color-gray-5);
 }
 .lp-ledger-row {
@@ -1468,7 +1347,7 @@ main:has(.lp) ~ footer {
   grid-template-columns: 4rem minmax(0, 24rem) minmax(0, 1fr);
   column-gap: clamp(1rem, 3vw, 3rem);
   align-items: baseline;
-  padding: 1.5rem 0 1.6rem;
+  padding: clamp(0.7rem, 2.1vh, 1.5rem) 0 clamp(0.75rem, 2.2vh, 1.6rem);
   border-bottom: 1px solid var(--dx-hair);
   transition: background-color var(--dx-t);
 }
@@ -1483,7 +1362,7 @@ main:has(.lp) ~ footer {
 }
 .lp-ledger dt {
   font-family: var(--dy-font-display);
-  font-size: clamp(1.45rem, 2.2vw, 1.8rem);
+  font-size: clamp(1.3rem, min(2.2vw, 3.5vh), 1.8rem);
   line-height: 1.15;
   letter-spacing: var(--dy-tracking-display);
   color: var(--sl-color-white);
@@ -1492,7 +1371,7 @@ main:has(.lp) ~ footer {
   margin: 0;
   padding: 0;
   font-size: 0.975rem;
-  line-height: 1.65;
+  line-height: 1.6;
   color: var(--sl-color-gray-3);
   max-width: 38rem;
   text-wrap: pretty;
@@ -1500,7 +1379,7 @@ main:has(.lp) ~ footer {
 
 /* components: group index + marquee */
 .lp-groups {
-  margin-top: clamp(2rem, 4vw, 3rem) !important;
+  margin-top: var(--lp-rhythm) !important;
   display: grid;
   grid-template-columns: repeat(7, minmax(0, 1fr));
   border-block: 1px solid var(--dx-hair);
@@ -1536,7 +1415,7 @@ main:has(.lp) ~ footer {
 .mq {
   position: relative;
   overflow: hidden;
-  margin-top: 2.25rem;
+  margin-top: clamp(1.25rem, 3.4vh, 2.25rem);
   padding: 0.25rem 0 0.5rem;
   mask-image: linear-gradient(90deg, transparent, #000 7%, #000 93%, transparent);
   -webkit-mask-image: linear-gradient(90deg, transparent, #000 7%, #000 93%, transparent);
@@ -1588,13 +1467,13 @@ main:has(.lp) ~ footer {
 
 /* quickstart: a real sequence, numbered */
 .lp-steplist {
-  margin-top: clamp(2rem, 4vw, 3.25rem) !important;
+  margin-top: var(--lp-rhythm) !important;
   border-top: 1px solid var(--sl-color-gray-5);
 }
 /* each step is a row: title + note on the left, its code on the right */
 .lp-steplist > li {
   min-width: 0;
-  padding: 1.6rem 0;
+  padding: clamp(0.9rem, 2.4vh, 1.6rem) 0;
   border-bottom: 1px solid var(--dx-hair);
   display: grid;
   grid-template-columns: minmax(12rem, 22rem) minmax(0, 1fr);
@@ -1643,14 +1522,59 @@ main:has(.lp) ~ footer {
   margin: 0;
 }
 
-/* closing */
+@media (min-width: 60rem) {
+  .lp-steplist {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1.3fr);
+    grid-template-areas: "s1 s2" "s3 s2";
+    grid-template-rows: auto 1fr;
+    column-gap: clamp(2rem, 4.5vw, 4.5rem);
+    border-top: 0;
+  }
+  .lp-steplist > li {
+    grid-template-columns: minmax(0, 1fr);
+    grid-template-areas: "title" "code" "note";
+    grid-template-rows: auto;
+    align-content: start;
+    row-gap: clamp(0.6rem, 1.6vh, 0.9rem);
+    border-top: 1px solid var(--sl-color-gray-5);
+  }
+  .lp-steplist > li:nth-child(1) {
+    grid-area: s1;
+  }
+  .lp-steplist > li:nth-child(2) {
+    grid-area: s2;
+  }
+  .lp-steplist > li:nth-child(3) {
+    grid-area: s3;
+    border-top-color: var(--dx-hair);
+  }
+  .lp-steplist > li > p {
+    margin: 0;
+    padding-inline-start: 0;
+  }
+}
+
+/* closing: the last stop is the closing card with the footer under it */
+.lp-finale {
+  box-sizing: border-box;
+  min-height: var(--lp-stop);
+  display: flex;
+  flex-direction: column;
+}
+.lp-closing {
+  flex: 1 0 auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding-block: var(--lp-pad) calc(var(--lp-pad) * 0.75);
+}
 .lp-cta {
-  margin-top: clamp(4.5rem, 9vw, 8rem);
   display: grid;
   grid-template-columns: minmax(0, 1.15fr) minmax(0, 1fr);
   gap: clamp(1.5rem, 5vw, 4.5rem);
   align-items: center;
-  padding: clamp(1.75rem, 5vw, 4.5rem);
+  padding: clamp(1.75rem, min(5vw, 8vh), 4.5rem);
   border: 1px solid var(--dx-hair);
   border-radius: 28px;
   background:
@@ -1669,8 +1593,7 @@ main:has(.lp) ~ footer {
 }
 
 .lp-footer {
-  margin-top: clamp(4rem, 8vw, 6.5rem);
-  padding: 2.75rem 0 2.5rem;
+  padding: clamp(1.75rem, 4.5vh, 2.75rem) 0 clamp(1.5rem, 4vh, 2.5rem);
   border-top: 1px solid var(--dx-hair);
   display: grid;
   grid-template-columns: minmax(0, 1fr) auto;
@@ -1729,14 +1652,31 @@ main:has(.lp) ~ footer {
 }
 
 /* ------------------------------------------------------------ responsive + motion */
-@media (max-width: 68rem) {
+@media (max-width: 52rem) {
   .lp-plates {
     grid-template-columns: minmax(0, 1fr);
     grid-template-rows: none;
-    row-gap: 2.5rem;
+    row-gap: clamp(1rem, 2.4vh, 2.5rem);
   }
   .lp-plate {
-    display: block;
+    display: grid;
+    grid-template-columns: minmax(0, 0.8fr) minmax(0, 1.2fr);
+    grid-template-areas: "n art" "copy art";
+    grid-template-rows: auto 1fr;
+    column-gap: 1.5rem;
+    align-items: start;
+  }
+  .lp-plate-n {
+    grid-area: n;
+  }
+  .lp-plate-copy {
+    grid-area: copy;
+  }
+  .lp-plate-art {
+    grid-area: art;
+  }
+  .lp-plate-copy {
+    padding: clamp(0.6rem, 1.6vh, 1rem) 0 0;
   }
   .lp-plate:not(:last-child) .lp-plate-n::after {
     margin-inline-end: 0;
@@ -1747,6 +1687,16 @@ main:has(.lp) ~ footer {
   .rd {
     height: auto;
   }
+}
+@media (max-width: 40rem) {
+  .lp-plate {
+    display: block;
+  }
+  .lp-plate-copy {
+    padding-bottom: 1rem;
+  }
+}
+@media (max-width: 68rem) {
   .lp-groups {
     grid-template-columns: repeat(4, minmax(0, 1fr));
     border-bottom: 0;
@@ -1762,49 +1712,6 @@ main:has(.lp) ~ footer {
   }
 }
 @media (max-width: 60rem) {
-  .lc-stage {
-    grid-template-columns: minmax(0, 1fr);
-    gap: 1.5rem;
-  }
-  .lc-legend {
-    padding: 0.5rem 0.25rem 0;
-    display: grid;
-    grid-template-columns: minmax(0, 1fr) auto;
-    align-items: end;
-    column-gap: 1rem;
-  }
-  .lc-legend > .lp-eyebrow,
-  .lc-legend-title {
-    grid-column: 1;
-  }
-  .lc-legend-title {
-    margin-bottom: 0;
-  }
-  .lc-replay {
-    grid-column: 2;
-    grid-row: 1 / span 2;
-  }
-  .lc-phases {
-    grid-column: 1 / -1;
-    margin: 1.1rem 0 0;
-    display: grid;
-    grid-template-columns: repeat(4, minmax(0, 1fr));
-    column-gap: 1rem;
-    border-top: 0;
-  }
-  .lc-phases li {
-    grid-template-columns: minmax(0, 1fr);
-    border-top: 1px solid var(--dx-hair);
-    border-bottom: 0;
-    padding: 0.6rem 0 0;
-  }
-  .lc-phases li::after {
-    bottom: auto;
-    top: -1px;
-  }
-  .lc-phase-copy > span {
-    display: none;
-  }
   .lp-ledger-row {
     grid-template-columns: 2.5rem minmax(0, 1fr);
     row-gap: 0.5rem;
@@ -1829,6 +1736,28 @@ main:has(.lp) ~ footer {
     grid-template-columns: minmax(0, 1fr);
   }
 }
+/* tablets: one-line commands sit beside their title; the ledger keeps its three columns */
+@media (min-width: 40rem) and (max-width: 60rem) {
+  .lp-steplist > li:not(:nth-child(2)) {
+    grid-template-columns: auto minmax(0, 1fr);
+    grid-template-areas: "title code" "note note";
+    column-gap: 1.5rem;
+    align-items: center;
+  }
+  .lp-steplist > li {
+    padding-block: 1rem;
+    row-gap: 0.6rem;
+  }
+}
+@media (min-width: 40rem) and (max-width: 68rem) {
+  .lp-ledger-row {
+    grid-template-columns: 2.5rem minmax(0, 13rem) minmax(0, 1fr);
+    column-gap: 1.5rem;
+  }
+  .lp-ledger dd {
+    grid-column: auto;
+  }
+}
 @media (max-width: 40rem) {
   .lp-stage,
   .lp-cta {
@@ -1839,13 +1768,6 @@ main:has(.lp) ~ footer {
   }
   .lc {
     height: 33rem;
-  }
-  .lc-addr {
-    display: none;
-  }
-  .lc-phases {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-    row-gap: 0.75rem;
   }
   .lp-actions {
     width: 100%;
@@ -1892,6 +1814,38 @@ main:has(.lp) ~ footer {
     text-align: end;
   }
 }
+@media (max-height: 860px) {
+  .lp .expressive-code {
+    --ec-codeFontSize: 13px;
+    --ec-codeLineHt: 1.55;
+    --ec-codePadBlk: 0.75rem;
+  }
+  .lp-plate-copy p,
+  .lp-steplist > li > p {
+    font-size: 0.9rem;
+    line-height: 1.5;
+  }
+  .lp-ledger dd {
+    font-size: 0.925rem;
+    line-height: 1.5;
+  }
+}
+@media (max-height: 740px) {
+  .lp .expressive-code {
+    --ec-codeFontSize: 12.5px;
+    --ec-codeLineHt: 1.5;
+    --ec-codePadBlk: 0.6rem;
+  }
+  .lp-sub {
+    font-size: 0.975rem;
+    line-height: 1.5;
+  }
+  .lp-plate-copy p,
+  .lp-steplist > li > p,
+  .lp-ledger dd {
+    font-size: 0.875rem;
+  }
+}
 @media (prefers-reduced-motion: reduce) {
   .mq {
     overflow-x: auto;
@@ -1904,11 +1858,6 @@ main:has(.lp) ~ footer {
   .mq-row[aria-hidden] {
     display: none;
   }
-  .lc-thinking,
-  .lc-user {
-    animation: none;
-  }
-  .lc-phases li::after,
   .lp-btn svg,
   .lp-link svg,
   .pagination-links svg,

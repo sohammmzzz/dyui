@@ -7,6 +7,7 @@
 import { flushSync } from "react-dom";
 import type { ThemeMode } from "@/lib/types";
 import { prefersReducedMotion } from "@/lib/motion";
+import { demoStoreTheme, demoStoredTheme } from "@/demo/embed";
 
 /** Named accents: [light, dark]. Light shades keep AA contrast for white text. */
 export const NAMED_ACCENTS: Record<string, [string, string]> = {
@@ -74,6 +75,7 @@ export function applyAccent(accent: string | null | undefined) {
 const THEME_KEY = "dyui:theme";
 
 export function storedTheme(): ThemeMode | null {
+  if (import.meta.env.MODE === "demo") return demoStoredTheme();
   try {
     const v = localStorage.getItem(THEME_KEY);
     return v === "light" || v === "dark" || v === "system" ? v : null;
@@ -83,6 +85,7 @@ export function storedTheme(): ThemeMode | null {
 }
 
 export function storeTheme(mode: ThemeMode) {
+  if (import.meta.env.MODE === "demo") return demoStoreTheme(mode);
   try {
     localStorage.setItem(THEME_KEY, mode);
   } catch {

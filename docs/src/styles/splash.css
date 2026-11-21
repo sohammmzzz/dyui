@@ -1,0 +1,67 @@
+/* Docs loading splash — ported from web/public/boot.css (same mark, timing, easing, colours).
+   Hidden unless the head script added `dy-splash-on` to <html> (first page of the session).
+   Starlight's ThemeProvider sets <html data-theme> in <head> before <body> is parsed, so keying
+   on data-theme alone gives the right surface on first paint (incl. OS dark + chosen light). */
+html {
+  --dyd-splash-bg: #0b0c10;
+  --dyd-splash-accent: #8b80ff;
+}
+html[data-theme="light"] {
+  --dyd-splash-bg: #f7f6f3;
+  --dyd-splash-accent: #5b4fe0;
+}
+
+#dyd-splash { display: none; }
+
+html.dy-splash-on #dyd-splash {
+  position: fixed;
+  inset: 0;
+  z-index: 2147483000;
+  display: grid;
+  place-items: center;
+  background: var(--dyd-splash-bg);
+  /* stands in for the app's SPLASH_MIN_MS = 1400 (counted from navigation start, so a little
+     earlier here, from first style) + its 0.42s .is-leaving transition */
+  /* forwards, not both: the page stays covered and unclickable during the delay; once the fade
+     starts it lets clicks through at once, like the app's .is-leaving { pointer-events: none } */
+  animation: dyd-splash-out 0.42s cubic-bezier(0.22, 1, 0.36, 1) 1.3s forwards;
+}
+.dyd-splash-mark {
+  overflow: visible;
+  fill: var(--dyd-splash-accent);
+  animation: dyd-splash-lift 0.42s cubic-bezier(0.22, 1, 0.36, 1) 1.3s both;
+}
+.dyd-splash-dot {
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: dyd-splash-pop 0.5s cubic-bezier(0.22, 1, 0.36, 1) both,
+             dyd-splash-type 1.2s cubic-bezier(0.65, 0, 0.35, 1) 1.15s infinite;
+}
+.dyd-splash-dot + .dyd-splash-dot { animation-delay: 0.12s, 1.31s; }
+.dyd-splash-card {
+  transform-origin: 52px 75px;
+  animation: dyd-splash-bloom 0.7s cubic-bezier(0.22, 1, 0.36, 1) 0.3s both,
+             dyd-splash-breathe 2s cubic-bezier(0.65, 0, 0.35, 1) 1.15s infinite;
+}
+
+@keyframes dyd-splash-out {
+  from { opacity: 1; visibility: visible; pointer-events: none; }
+  to { opacity: 0; visibility: hidden; pointer-events: none; }
+}
+@keyframes dyd-splash-lift { from { transform: scale(1); } to { transform: scale(1.06); } }
+@keyframes dyd-splash-pop { from { opacity: 0; transform: scale(0.4); } to { opacity: 1; transform: scale(1); } }
+@keyframes dyd-splash-bloom {
+  from { opacity: 0; transform: scale(0.55); filter: blur(6px); }
+  to { opacity: 1; transform: scale(1); filter: blur(0); }
+}
+@keyframes dyd-splash-type { 0%, 60%, 100% { transform: translateY(0); } 30% { transform: translateY(-28%); } }
+@keyframes dyd-splash-breathe { 0%, 100% { opacity: 1; } 50% { opacity: 0.72; } }
+
+@media (prefers-reduced-motion: reduce) {
+  /* no assemble motion: the finished mark, then a brief fade */
+  .dyd-splash-dot, .dyd-splash-card, .dyd-splash-mark { animation: none; }
+  html.dy-splash-on #dyd-splash { animation: dyd-splash-out 0.3s ease-out 0.35s forwards; }
+}
+
+/* belt and braces: never hit-test or print it */
+@media print { #dyd-splash { display: none !important; } }

@@ -47,7 +47,7 @@ function abortError() {
 
 /* --------------------------------------------------------------- script DSL */
 
-type StepSpec = {
+export type StepSpec = {
   id?: string;
   title: string;
   type?: string;
@@ -59,7 +59,7 @@ type StepSpec = {
   parent?: string;
 };
 
-type Op =
+export type Op =
   | { t: "reason"; text: string }
   | { t: "text"; text: string }
   | { t: "ui"; node: UINode; progressive?: "rows" | "items"; skeletonMs?: number; delay?: number }
@@ -69,19 +69,19 @@ type Op =
 
 type Emission = { delay: number; make: () => StreamEvent };
 
-const R = (text: string): Op => ({ t: "reason", text });
-const T = (text: string): Op => ({ t: "text", text });
-const W = (ms: number): Op => ({ t: "wait", ms });
-const S = (spec: StepSpec): Op => ({ t: "step", spec });
-const N = (ui: string, props: Record<string, any>, children?: UINode[], id = cid()): UINode => ({
+export const R = (text: string): Op => ({ t: "reason", text });
+export const T = (text: string): Op => ({ t: "text", text });
+export const W = (ms: number): Op => ({ t: "wait", ms });
+export const S = (spec: StepSpec): Op => ({ t: "step", spec });
+export const N = (ui: string, props: Record<string, any>, children?: UINode[], id = cid()): UINode => ({
   id,
   ui,
   props,
   ...(children ? { children } : {}),
   status: "done",
 });
-const U = (node: UINode, opts: Omit<Extract<Op, { t: "ui" }>, "t" | "node"> = {}): Op => ({ t: "ui", node, ...opts });
-const ASK = (node: UINode, then: (req: ActionRequest | null) => Op[]): Op => ({ t: "ask", node, then });
+export const U = (node: UINode, opts: Omit<Extract<Op, { t: "ui" }>, "t" | "node"> = {}): Op => ({ t: "ui", node, ...opts });
+export const ASK = (node: UINode, then: (req: ActionRequest | null) => Op[]): Op => ({ t: "ask", node, then });
 
 function tokens(text: string): string[] {
   return text.match(/\s+|\S+\s*/g) ?? [text];
@@ -219,7 +219,7 @@ function collapse(ops: Op[], messageId: string, answer?: (node: UINode) => Actio
 
 /* ------------------------------------------------------------- the scripts */
 
-type Script = { title: string; ops: Op[] };
+export type Script = { title: string; ops: Op[] };
 
 function revenueScript(): Script {
   return {
@@ -687,7 +687,7 @@ function scriptFor(text: string): Script {
   return defaultScript(text);
 }
 
-type ActionOutcome =
+export type ActionOutcome =
   /** like @app.on_action yielding a reply (no user message) */
   | { mode: "reply"; ops: Op[] }
   /** like the fallback: a user message with the action label, then on_message */
@@ -749,7 +749,7 @@ function actionOutcome(req: ActionRequest): ActionOutcome {
 
 /* ------------------------------------------------------------------ the DB */
 
-type DB = { threads: Thread[] };
+export type DB = { threads: Thread[] };
 const STORAGE_KEY = "dyui:mock:v3";
 
 function startOfToday() {
@@ -855,7 +855,48 @@ function humanize(action: string) {
 
 /* ------------------------------------------------------------ the transport */
 
-export type MockOptions = { auth?: boolean };
+/**
+ * A scenario is the scripted "model" behind the mock: the app config, the reply to a
+ * message, what an action does, and whether conversations survive a reload. The default
+ * is the showcase below; the docs-site demo build plays `src/demo/scenario.ts`
+ * (a port of `dyui demo`) through the same transport.
+ */
+export type Scenario = {
+  /** App config, minus auth (the transport owns the password gate). */
+  config: (params: URLSearchParams) => Omit<AppConfig, "authenticated">;
+  scriptFor: (text: string) => Script;
+  actionOutcome: (req: ActionRequest) => ActionOutcome;
+  /** true → seeded history kept in localStorage; false → in memory, fresh on every load. */
+  persist: boolean;
+  seed?: () => DB;
+};
+
+function showcaseConfig(p: URLSearchParams): Omit<AppConfig, "authenticated"> {
+  const flag = (k: string) => p.get(k) !== "0" && p.get(k) !== "false";
+  const theme = p.get("theme");
+  return {
+    title: p.get("title") || "DyUI",
+    description:
+      "Ask anything. Answers can include charts, tables, forms and buttons, rendered live as the reply streams.",
+    welcome: p.get("welcome") || "How can I help?",
+    placeholder: "Message DyUI…",
+    logo: null,
+    theme: theme === "light" || theme === "dark" ? theme : "system",
+    accent: p.get("accent") || "indigo",
+    starters: [
+      { label: "Revenue snapshot", message: "How did revenue do this quarter?", icon: "chart" },
+      { label: "Plan a weekend", message: "Plan a weekend in Lisbon for two", icon: "plane" },
+      { label: "Book a team offsite", message: "Help me book a team offsite", icon: "calendar" },
+      { label: "Clean up branches", message: "Delete the stale branches in our repo", icon: "git-branch" },
+    ],
+    features: { history: flag("history"), uploads: flag("uploads"), feedback: flag("feedback"), auth: false },
+    version: "1.0.0",
+  };
+}
+
+export const showcaseScenario: Scenario = { config: showcaseConfig, scriptFor, actionOutcome, persist: true, seed };
+
+export type MockOptions = { auth?: boolean; scenario?: Scenario };
 
 class MockTransport implements Transport {
   readonly kind = "mock" as const;
@@ -866,12 +907,14 @@ class MockTransport implements Transport {
   private params: URLSearchParams;
   private speed: number;
   private saveTimer: ReturnType<typeof setTimeout> | null = null;
+  private scenario: Scenario;
 
   constructor(private opts: MockOptions = {}) {
+    this.scenario = opts.scenario ?? showcaseScenario;
     this.params = new URLSearchParams(typeof location !== "undefined" ? location.search : "");
     const sp = Number(this.params.get("speed"));
     this.speed = Number.isFinite(sp) && sp > 0 ? sp : 1;
-    this.db = this.load() ?? seed();
+    this.db = this.scenario.persist ? (this.load() ?? this.scenario.seed?.() ?? { threads: [] }) : { threads: this.scenario.seed?.().threads ?? [] };
     try {
       this.authed = sessionStorage.getItem("dyui:mock:auth") === "1";
     } catch {
@@ -895,7 +938,7 @@ class MockTransport implements Transport {
     }
   }
   private save() {
-    if (this.saveTimer) return;
+    if (!this.scenario.persist || this.saveTimer) return;
     this.saveTimer = setTimeout(() => {
       this.saveTimer = null;
       try {
@@ -945,28 +988,8 @@ class MockTransport implements Transport {
 
   async getConfig(): Promise<AppConfig> {
     await this.sleep(60);
-    const p = this.params;
-    const flag = (k: string) => p.get(k) !== "0" && p.get(k) !== "false";
-    const theme = p.get("theme");
-    return {
-      title: p.get("title") || "DyUI",
-      description:
-        "Ask anything. Answers can include charts, tables, forms and buttons, rendered live as the reply streams.",
-      welcome: p.get("welcome") || "How can I help?",
-      placeholder: "Message DyUI…",
-      logo: null,
-      theme: theme === "light" || theme === "dark" ? theme : "system",
-      accent: p.get("accent") || "indigo",
-      starters: [
-        { label: "Revenue snapshot", message: "How did revenue do this quarter?", icon: "chart" },
-        { label: "Plan a weekend", message: "Plan a weekend in Lisbon for two", icon: "plane" },
-        { label: "Book a team offsite", message: "Help me book a team offsite", icon: "calendar" },
-        { label: "Clean up branches", message: "Delete the stale branches in our repo", icon: "git-branch" },
-      ],
-      features: { history: flag("history"), uploads: flag("uploads"), feedback: flag("feedback"), auth: !!this.opts.auth },
-      authenticated: !this.opts.auth || this.authed,
-      version: "1.0.0",
-    };
+    const cfg = this.scenario.config(this.params);
+    return { ...cfg, features: { ...cfg.features, auth: !!this.opts.auth }, authenticated: !this.opts.auth || this.authed };
   }
 
   async login(password: string): Promise<void> {
@@ -1092,7 +1115,7 @@ class MockTransport implements Transport {
       throw new ApiError("Nothing to send.", 400);
     }
     thread.updated_at = now();
-    const script = scriptFor(text);
+    const script = this.scenario.scriptFor(text);
     yield* this.reply(thread, script.ops, signal);
     if (fresh && thread.title === "New chat") {
       thread.title = script.title;
@@ -1125,7 +1148,7 @@ class MockTransport implements Transport {
       yield { event: "done", data: {} };
       return;
     }
-    const outcome = actionOutcome({ ...req, label });
+    const outcome = this.scenario.actionOutcome({ ...req, label });
     if (outcome.mode === "message") {
       const user: Message = {
         id: mid(),

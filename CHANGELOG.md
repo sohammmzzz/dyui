@@ -2,6 +2,14 @@
 
 All notable changes to DyUI are documented here. DyUI follows [Semantic Versioning](https://semver.org/).
 
+## Unreleased
+
+### Docs site
+
+- The docs open with the same loading splash as every DyUI app (the mark assembles: dot, dot, card), once per browser session.
+- The landing page's second section is now the real `dyui demo` app running in the page with its scripted, deterministic model — no API key, no server. It is a separate demo build of the web shell; the app bundled in the package is unchanged.
+- The landing page reads like a presentation: Lenis smooth scrolling with spring-settled scroll stops, one per section, and every section fits the viewport. Phones and reduced motion keep native scrolling.
+
 ## 1.3.0 — 2026-11-18
 
 ### Added

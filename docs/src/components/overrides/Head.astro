@@ -1,0 +1,15 @@
+---
+// Starlight <Head> override: the default head, plus the splash opt-in (see ../Splash.astro).
+// Runs before first paint; shows the splash only on the first docs page of a browser session.
+import Default from "@astrojs/starlight/components/Head.astro";
+---
+
+<Default />
+<script is:inline>
+  try {
+    if (!sessionStorage.getItem("dyui:docs-splash")) {
+      sessionStorage.setItem("dyui:docs-splash", "1");
+      document.documentElement.classList.add("dy-splash-on");
+    }
+  } catch (e) {}
+</script>

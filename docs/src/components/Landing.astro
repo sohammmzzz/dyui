@@ -1,6 +1,6 @@
 ---
 import { Code } from "@astrojs/starlight/components";
-import LiveChat from "./LiveChat.tsx";
+import DemoEmbed from "./DemoEmbed.astro";
 import Marquee from "./Marquee.tsx";
 import { Rendered } from "./ComponentDemo.tsx";
 import data from "../data/components.json";
@@ -56,7 +56,7 @@ const pad = (n: number) => String(n).padStart(2, "0");
 
 <div class="lp not-content">
   <!-- ─────────────── hero -->
-  <section class="lp-hero" aria-labelledby="lp-title">
+  <section class="lp-hero lp-stop" data-stop aria-labelledby="lp-title">
     <p class="lp-eyebrow">Open source <span aria-hidden="true">·</span> Python 3.10+ <span aria-hidden="true">·</span> MIT licensed</p>
     <h1 id="lp-title" class="lp-title">Chatbots that answer in&nbsp;<em>interfaces</em>.</h1>
     <p class="lp-lede">
@@ -82,12 +82,12 @@ const pad = (n: number) => String(n).padStart(2, "0");
   </section>
 
   <!-- ─────────────── the live demo -->
-  <section class="lp-stage" aria-label="Live demo">
-    <LiveChat client:load />
+  <section class="lp-stage" data-stop aria-labelledby="de-title">
+    <DemoEmbed />
   </section>
 
   <!-- ─────────────── how it works -->
-  <section class="lp-section" aria-labelledby="lp-how-title">
+  <section class="lp-section lp-stop lp-how" data-stop aria-labelledby="lp-how-title">
     <header class="lp-head">
       <p class="lp-eyebrow">How it works</p>
       <h2 id="lp-how-title" class="lp-h2">Text in, interface out</h2>
@@ -128,7 +128,7 @@ const pad = (n: number) => String(n).padStart(2, "0");
   </section>
 
   <!-- ─────────────── what you get -->
-  <section class="lp-section" aria-labelledby="lp-features-title">
+  <section class="lp-section lp-stop lp-features" data-stop aria-labelledby="lp-features-title">
     <header class="lp-head">
       <p class="lp-eyebrow">What you get</p>
       <h2 id="lp-features-title" class="lp-h2">A finished chat app around your model</h2>
@@ -145,7 +145,7 @@ const pad = (n: number) => String(n).padStart(2, "0");
   </section>
 
   <!-- ─────────────── components -->
-  <section class="lp-section lp-components" aria-labelledby="lp-comp-title">
+  <section class="lp-section lp-stop lp-components" data-stop aria-labelledby="lp-comp-title">
     <header class="lp-head lp-head--row">
       <div>
         <p class="lp-eyebrow">Component library</p>
@@ -171,7 +171,7 @@ const pad = (n: number) => String(n).padStart(2, "0");
   </section>
 
   <!-- ─────────────── code to result -->
-  <section class="lp-section lp-steps" aria-labelledby="lp-steps-title">
+  <section class="lp-section lp-stop lp-steps" data-stop aria-labelledby="lp-steps-title">
     <header class="lp-head">
       <p class="lp-eyebrow">Quickstart</p>
       <h2 id="lp-steps-title" class="lp-h2">From one file to a chat app</h2>
@@ -199,53 +199,63 @@ const pad = (n: number) => String(n).padStart(2, "0");
     </ol>
   </section>
 
-  <!-- ─────────────── closing -->
-  <section class="lp-cta" aria-labelledby="lp-cta-title">
-    <div class="lp-cta-copy">
-      <p class="lp-eyebrow">No API key needed</p>
-      <h2 id="lp-cta-title" class="lp-h2">Try it without an API key</h2>
-      <p class="lp-sub">The built-in demo walks through components, actions, steps and approvals with a simulated model.</p>
-      <div class="lp-actions">
-        <a class="lp-btn lp-btn--primary" href={href("get-started/quickstart/")}>Read the quickstart</a>
-        <a class="lp-btn" href="https://github.com/sohammmzzz/dyui">View on GitHub</a>
+  <!-- ─────────────── closing + footer: the last stop -->
+  <div class="lp-finale" data-stop>
+    <section class="lp-closing" aria-labelledby="lp-cta-title">
+      <div class="lp-cta">
+        <div class="lp-cta-copy">
+          <p class="lp-eyebrow">No API key needed</p>
+          <h2 id="lp-cta-title" class="lp-h2">Try it without an API key</h2>
+          <p class="lp-sub">The built-in demo walks through components, actions, steps and approvals with a simulated model.</p>
+          <div class="lp-actions">
+            <a class="lp-btn lp-btn--primary" href={href("get-started/quickstart/")}>Read the quickstart</a>
+            <a class="lp-btn" href="https://github.com/sohammmzzz/dyui">View on GitHub</a>
+          </div>
+        </div>
+        <div class="lp-cta-code">
+          <Code code={"pip install dyui\ndyui demo"} lang="bash" />
+        </div>
       </div>
-    </div>
-    <div class="lp-cta-code">
-      <Code code={"pip install dyui\ndyui demo"} lang="bash" />
-    </div>
-  </section>
+    </section>
 
-  <footer class="lp-footer">
-    <div class="lp-footer-brand">
-      <img class="lp-wordmark lp-wordmark--light" src={wordmarkLight.src} alt="DyUI" width="67" height="28" />
-      <img class="lp-wordmark lp-wordmark--dark" src={wordmarkDark.src} alt="DyUI" width="67" height="28" />
-      <p>Chatbots that answer in interfaces.</p>
-    </div>
-    <nav class="lp-footer-nav" aria-label="Footer">
-      <div>
-        <p class="lp-eyebrow">Learn</p>
-        <a href={href("get-started/installation/")}>Installation</a>
-        <a href={href("get-started/quickstart/")}>Quickstart</a>
-        <a href={href("concepts/how-it-works/")}>How DyUI works</a>
+    <footer class="lp-footer">
+      <div class="lp-footer-brand">
+        <img class="lp-wordmark lp-wordmark--light" src={wordmarkLight.src} alt="DyUI" width="67" height="28" />
+        <img class="lp-wordmark lp-wordmark--dark" src={wordmarkDark.src} alt="DyUI" width="67" height="28" />
+        <p>Chatbots that answer in interfaces.</p>
       </div>
-      <div>
-        <p class="lp-eyebrow">Build</p>
-        <a href={href("components/")}>Components</a>
-        <a href={href("cookbook/travel-bot/")}>Cookbook</a>
-        <a href={href("reference/cli/")}>Reference</a>
-      </div>
-      <div>
-        <p class="lp-eyebrow">Project</p>
-        <a href="https://github.com/sohammmzzz/dyui">GitHub</a>
-        <a href="https://pypi.org/project/dyui/">PyPI</a>
-        <a href={href("changelog/")}>Changelog</a>
-      </div>
-    </nav>
-    <p class="lp-footer-fine">MIT licensed.</p>
-  </footer>
+      <nav class="lp-footer-nav" aria-label="Footer">
+        <div>
+          <p class="lp-eyebrow">Learn</p>
+          <a href={href("get-started/installation/")}>Installation</a>
+          <a href={href("get-started/quickstart/")}>Quickstart</a>
+          <a href={href("concepts/how-it-works/")}>How DyUI works</a>
+        </div>
+        <div>
+          <p class="lp-eyebrow">Build</p>
+          <a href={href("components/")}>Components</a>
+          <a href={href("cookbook/travel-bot/")}>Cookbook</a>
+          <a href={href("reference/cli/")}>Reference</a>
+        </div>
+        <div>
+          <p class="lp-eyebrow">Project</p>
+          <a href="https://github.com/sohammmzzz/dyui">GitHub</a>
+          <a href="https://pypi.org/project/dyui/">PyPI</a>
+          <a href={href("changelog/")}>Changelog</a>
+        </div>
+      </nav>
+      <p class="lp-footer-fine">MIT licensed.</p>
+    </footer>
+  </div>
 </div>
 
 <script>
+  import { initMagnetScroll } from "../scripts/magnet-scroll";
+
+  // presentation scroll: Lenis + one magnet per section (landing only)
+  const lp = document.querySelector<HTMLElement>(".lp");
+  if (lp) initMagnetScroll(lp);
+
   // copy affordance for the hero install command
   for (const btn of document.querySelectorAll<HTMLButtonElement>("[data-copy]")) {
     const label = btn.querySelector(".lp-copy-label");

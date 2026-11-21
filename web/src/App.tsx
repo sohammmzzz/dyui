@@ -6,6 +6,7 @@ import { AppShell } from "@/shell/AppShell";
 import { BootError, BootScreen, PasswordGate } from "@/shell/Gate";
 import { ToastProvider } from "@/shell/Toasts";
 import { applyAccent, setFavicon, setThemeAttr, storeTheme, storedTheme, switchTheme } from "@/shell/theme";
+import { onParentTheme } from "@/demo/embed";
 
 /** Keep the loading splash up at least this long (since navigation), so the mark finishes assembling. */
 const SPLASH_MIN_MS = 1400;
@@ -71,6 +72,12 @@ export function App() {
     storeTheme(mode);
     switchTheme(mode, () => setTheme(mode));
   }, []);
+
+  // docs-site demo build only (compiled out of the real app): follow the embedding page's theme
+  if (import.meta.env.MODE === "demo") {
+    // eslint-disable-next-line react-hooks/rules-of-hooks -- MODE is a build-time constant
+    useEffect(() => onParentTheme((mode) => switchTheme(mode, () => setTheme(mode))), []);
+  }
 
   const refreshConfig = useCallback(() => {
     if (boot.status !== "ready") return;

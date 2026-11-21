@@ -1,0 +1,35 @@
+---
+// Loading splash for the docs site — a port of the DyUI app splash (web/index.html #dy-splash,
+// web/public/boot.css): the mark assembles (dot, dot, card) and then fades away.
+//
+// Shown once per browser session. The markup carries `hidden`, so with no JS (or no CSS) it
+// never appears; the inline head script in overrides/Head.astro opts in by adding
+// `dy-splash-on` to <html> before first paint. Dismissal is pure CSS (an animation that ends at
+// opacity 0 + visibility hidden), so it leaves even if no later script runs; the small script
+// below only removes the node once it has gone.
+import "../styles/splash.css";
+---
+
+<div id="dyd-splash" aria-hidden="true" hidden>
+  <svg class="dyd-splash-mark" viewBox="0 23 100 54" width="104" height="56" focusable="false">
+    <circle class="dyd-splash-dot" cx="11" cy="50" r="9" />
+    <circle class="dyd-splash-dot" cx="35" cy="50" r="9" />
+    <path
+      class="dyd-splash-card"
+      d="M66 25H84A14 14 0 0 1 98 39V61A14 14 0 0 1 84 75H56A4 4 0 0 1 52 71V39A14 14 0 0 1 66 25Z"
+    />
+  </svg>
+</div>
+<script is:inline>
+  (function () {
+    var el = document.getElementById("dyd-splash");
+    if (!el) return;
+    if (!document.documentElement.classList.contains("dy-splash-on")) {
+      el.remove();
+      return;
+    }
+    el.addEventListener("animationend", function (e) {
+      if (e.target === el && e.animationName === "dyd-splash-out") el.remove();
+    });
+  })();
+</script>

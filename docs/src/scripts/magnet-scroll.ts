@@ -5,11 +5,12 @@
  * Starlight header, is a magnet; a stop taller than the viewport also gets a magnet at its bottom
  * edge and scrolls freely in between, so nothing is ever trapped.
  *
- *   while input is active  Lenis smooths the wheel; one gesture can travel at most to the next magnet,
- *                          so a trackpad's inertial tail never skips a section.
- *   when input stops       the rest point is projected (Lenis' target = where its lerp comes to rest),
- *                          the nearest magnet inside the attraction radius is picked, and a damped
- *                          spring (slightly underdamped) carries the page there from its current velocity.
+ *   while input is active  Lenis smooths the wheel and the page moves freely — no walls, no resistance,
+ *                          so continuous scrolling flows straight through sections.
+ *   when input stops       the rest point is projected (Lenis' target = where its lerp comes to rest) and
+ *                          the magnets either side of it compete: the one ahead wins once the page is a
+ *                          fair way into the gap (biased towards the direction of travel), and a soft
+ *                          damped spring carries the page there from its current velocity.
  *   any new input          cancels the spring at once.
  *
  * Off on phones (coarse pointer, narrow) and with prefers-reduced-motion: native scrolling there.
@@ -17,16 +18,17 @@
 import Lenis from "lenis";
 import "lenis/dist/lenis.css";
 
-const IDLE_MS = 120; // wheel silence that ends a gesture
-const GAP_MS = 180; // a longer silence starts a fresh gesture
-const RADIUS = 0.6; // attraction radius, in stop heights
+const IDLE_MS = 170; // wheel silence that ends a gesture (lets a slow, reading scroll breathe)
+const GAP_MS = 220; // a longer silence starts a fresh gesture
+const RADIUS = 0.45; // in a free zone (stop taller than the viewport), pull only from this close, in stop heights
 const STEP = 1.15; // a neighbouring magnet this close (in stop heights) is "the next slide"
-const INTENT = 0.06; // travel (in stop heights) that counts as a decisive gesture…
-const INTENT_PX = 40; // …capped, so one wheel notch (3 lines ≈ 50px in Firefox) always counts
-const OMEGA = 9.5; // spring natural frequency, rad/s (settles in ~0.6s whatever the distance)
-const ZETA = 0.8; // damping ratio: a ~1.5% overshoot that settles
+const LEAVE = 0.04; // travel out of a resting stop (in stop heights) that already means "next"…
+const LEAVE_PX = 24; // …capped, so the lightest deliberate scroll is enough
+const BIAS = 0.3; // past a magnet, how far into the gap (fraction) before the one ahead wins
+const OMEGA = 7; // spring natural frequency, rad/s — softer, ~0.8s glide
+const ZETA = 0.9; // damping ratio: a barely-there overshoot
 
-type Gesture = { dir: number; start: number; origin: number; lo: number; hi: number; last: number; lastAbs: number; peak: number; rising: number };
+type Gesture = { dir: number; start: number; origin: number; last: number; lastAbs: number; peak: number; rising: number };
 
 /** Mass-spring-damper (m = 1), semi-implicit Euler in fixed sub-steps so it is frame-rate independent. */
 class Spring {
@@ -127,13 +129,18 @@ export function initMagnetScroll(root: HTMLElement): () => void {
    * magnet ahead within the radius — never pulled back against the user's direction mid-free-zone.
    */
   function pick(origin: number, p: number, dir: number, travel = p - origin): number | null {
-    const ahead = (m: number) => (m - origin) * dir > 1;
-    if (travel * dir >= Math.min(INTENT * H, INTENT_PX)) {
-      const next = beyond(origin, dir);
-      if (next !== null && Math.abs(next - origin) <= STEP * H) return next;
-      return nearest(p, ahead);
-    }
-    return isMagnet(origin) ? origin : nearest(p, ahead);
+    // the magnets either side of the rest point, `back` behind it and `fwd` ahead (in the direction of travel)
+    const back = dir > 0 ? [...magnets].reverse().find((m) => m <= p + 1) ?? null : magnets.find((m) => m >= p - 1) ?? null;
+    const fwd = beyond(p, dir);
+    if (back === null) return fwd;
+    if (fwd === null) return back;
+    const gap = Math.abs(fwd - back);
+    if (gap > STEP * H) return nearest(p); // free zone inside a tall stop: rest unless close to an edge
+    // still inside the stop it rested on: the lightest deliberate push already means "next"
+    const leaving = Math.abs(back - origin) < 2 && isMagnet(origin);
+    const into = Math.abs(p - back);
+    if (leaving) return travel * dir >= Math.min(LEAVE * H, LEAVE_PX) ? fwd : back;
+    return into >= BIAS * gap ? fwd : back;
   }
 
   function settleTo(goal: number | null, v = vel) {
@@ -194,22 +201,13 @@ export function initMagnetScroll(root: HTMLElement): () => void {
       lenis!.scrollTo(here, { immediate: true, force: true });
       let origin = here;
       if (goal !== null && (goal - here) * dir > 0) origin = magnets.find((m) => Math.abs(m - goal) < 2) ?? here;
-      const lo = beyond(origin, -1) ?? 0;
-      const hi = beyond(origin, 1) ?? limit();
-      gesture = { dir, start: here, origin, lo: Math.min(lo, here), hi: Math.max(hi, here), last: now, lastAbs: abs, peak: abs, rising: 0 };
+      gesture = { dir, start: here, origin, last: now, lastAbs: abs, peak: abs, rising: 0 };
     } else {
       Object.assign(g!, { last: now, lastAbs: abs, peak: Math.max(g!.peak, abs), rising });
     }
     clearTimeout(idleTimer);
     idleTimer = window.setTimeout(release, IDLE_MS);
-    // one gesture reaches at most the next magnet: the inertial tail is absorbed there
-    const want = Math.min(gesture!.hi, Math.max(gesture!.lo, lenis!.targetScroll + data.deltaY));
-    data.deltaY = want - lenis!.targetScroll;
-    if (Math.abs(data.deltaY) < 0.01) {
-      if (e.cancelable) e.preventDefault();
-      return false;
-    }
-    return true;
+    return true; // free movement while scrolling; the magnets act on release
   }
   function release() {
     const g = gesture;
@@ -328,7 +326,7 @@ export function initMagnetScroll(root: HTMLElement): () => void {
   function start() {
     lenis = new Lenis({
       autoRaf: false,
-      lerp: 0.12,
+      lerp: 0.09, // a touch more glide
       smoothWheel: true,
       syncTouch: false, // tablets keep native touch momentum; we settle after it
       virtualScroll: onWheelDelta,

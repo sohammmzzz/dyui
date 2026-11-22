@@ -992,22 +992,33 @@ html.lp-snap .lp [data-stop] {
   margin-inline: 0.35em;
 }
 
-/* hero */
+/* hero: the words on the left, the art on the right — interfaces surfacing from the model's text */
 .lp-hero {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1.08fr);
+  align-items: center;
+  column-gap: clamp(2rem, 4.5vw, 5rem);
+  justify-content: initial;
+}
+.lp-hero-copy {
   display: flex;
   flex-direction: column;
-  align-items: center;
-  text-align: center;
+  align-items: flex-start;
+  text-align: start;
+  min-width: 0;
+}
+.lp-hero-copy .lp-actions {
+  justify-content: flex-start;
 }
 .lp-title {
   font-family: var(--dy-font-display);
   font-weight: 400;
-  font-size: clamp(2.6rem, min(8.2vw, 11.5vh), 6.25rem);
+  font-size: clamp(2.6rem, min(5.4vw, 10.5vh), 5.6rem);
   line-height: 0.98;
   letter-spacing: -0.03em;
   color: var(--sl-color-white);
   margin: clamp(0.9rem, 2.4vh, 1.4rem) 0 0;
-  max-width: 12.5em;
+  max-width: 9.5em;
   text-wrap: balance;
 }
 .lp-title em {
@@ -1025,6 +1036,200 @@ html.lp-snap .lp [data-stop] {
 }
 .lp-lede code {
   white-space: nowrap;
+}
+
+/* the art (docs/src/components/HeroArt.tsx) */
+.ha {
+  --ha-ease: cubic-bezier(0.22, 1, 0.36, 1); /* the mark's bloom easing */
+  position: relative;
+  overflow: clip; /* the blooms fade out well inside; never widen the page */
+  height: min(33rem, calc(var(--lp-stop) - 2 * var(--lp-pad)));
+  min-width: 0;
+  isolation: isolate;
+  pointer-events: none;
+  user-select: none;
+}
+.ha-field {
+  position: absolute;
+  inset: 0;
+  padding: 1.5rem 0.5rem;
+  overflow: hidden;
+  font: 400 12.5px/2 var(--dy-font-mono);
+  color: color-mix(in oklab, var(--dy-text-faint) 72%, transparent);
+  /* the fine print fades into the paper at every edge */
+  -webkit-mask-image: linear-gradient(to bottom, transparent, #000 12%, #000 86%, transparent), linear-gradient(to right, transparent, #000 6%, #000 90%, transparent);
+  -webkit-mask-composite: source-in;
+  mask-image: linear-gradient(to bottom, transparent, #000 12%, #000 86%, transparent), linear-gradient(to right, transparent, #000 6%, #000 90%, transparent);
+  mask-composite: intersect;
+  transition: opacity 1.1s var(--ha-ease), filter 1.1s var(--ha-ease);
+}
+.ha-line {
+  margin: 0;
+  min-height: 2.05em;
+  overflow-wrap: anywhere;
+}
+.ha-line.is-prose {
+  margin-top: 0.7em;
+  font: 400 14px/1.9 var(--dy-font);
+  color: var(--dy-text-muted);
+}
+.ha-line.is-prose:first-child {
+  margin-top: 0;
+}
+.ha-line.is-fence {
+  opacity: 0.75;
+}
+.ha-caret {
+  display: inline-block;
+  width: 0.55em;
+  height: 1.05em;
+  margin-inline-start: 1px;
+  vertical-align: -0.16em;
+  border-radius: 1.5px;
+  background: var(--dy-accent);
+  animation: ha-caret 1s steps(1) infinite;
+}
+@keyframes ha-caret {
+  50% {
+    opacity: 0;
+  }
+}
+
+/* where a component surfaces: the paper clears, a drop of dye spreads, the component resolves */
+.ha-pool {
+  position: absolute;
+  display: grid;
+  place-items: center;
+}
+.ha-pool--stat {
+  top: 5%;
+  right: 2%;
+  width: 44%;
+}
+.ha-pool--chart {
+  top: 36%;
+  left: 6%;
+  width: 58%;
+}
+.ha-pool--buttons {
+  bottom: 7%;
+  right: 2%;
+  width: 60%;
+  justify-items: end;
+}
+.ha-clear,
+.ha-dye {
+  position: absolute;
+  inset: -22% -14%;
+  border-radius: 50%;
+  opacity: 0;
+  transform: scale(0.5);
+}
+.ha-clear {
+  background: radial-gradient(closest-side, var(--sl-color-bg) 58%, color-mix(in oklab, var(--sl-color-bg) 70%, transparent) 78%, transparent);
+  transition: opacity 0.9s var(--ha-ease), transform 1.3s var(--ha-ease);
+}
+.ha-dye {
+  background:
+    radial-gradient(closest-side at 46% 52%, color-mix(in oklab, var(--dy-accent) 20%, transparent), transparent 72%),
+    radial-gradient(closest-side at 66% 40%, color-mix(in oklab, var(--dy-teal) 10%, transparent), transparent 70%);
+  filter: blur(14px);
+}
+.ha-comp {
+  position: relative;
+  width: 100%;
+  zoom: 0.86; /* the components at a slightly finer scale than in a chat */
+  opacity: 0;
+  transform: translateY(6px) scale(0.96);
+  filter: blur(6px);
+  transition: opacity 0.7s var(--ha-ease), transform 0.9s var(--ha-ease), filter 0.7s var(--ha-ease);
+}
+.ha-pool--buttons .ha-comp {
+  width: auto;
+}
+.ha-pool[data-on] .ha-clear {
+  opacity: 1;
+  transform: scale(1);
+}
+.ha-pool[data-on] .ha-dye {
+  animation: ha-dye 2.6s var(--ha-ease) forwards;
+}
+.ha-pool[data-on] .ha-comp {
+  opacity: 1;
+  transform: none;
+  filter: none;
+  transition-delay: 0.32s;
+}
+@keyframes ha-dye {
+  0% {
+    opacity: 0;
+    transform: scale(0.3);
+  }
+  28% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0.55;
+    transform: scale(1.12);
+  }
+}
+/* the loop ends quietly: everything sinks back into the paper */
+.ha[data-phase="fade"] .ha-field,
+.ha[data-phase="fade"] .ha-pool {
+  opacity: 0;
+  filter: blur(4px);
+  transition: opacity 1.1s var(--ha-ease), filter 1.1s var(--ha-ease);
+}
+.ha[data-still] .ha-dye {
+  animation: none;
+  opacity: 0.5;
+  transform: scale(1.1);
+}
+@media (prefers-reduced-motion: reduce) {
+  .ha *,
+  .ha *::before {
+    transition: none !important;
+    animation: none !important;
+  }
+}
+@media (max-width: 60rem) {
+  .lp-hero {
+    grid-template-columns: minmax(0, 1fr);
+    row-gap: clamp(1rem, 3vh, 2rem);
+  }
+  .lp-hero-copy {
+    align-items: center;
+    text-align: center;
+  }
+  .lp-hero-copy .lp-actions {
+    justify-content: center;
+  }
+  .lp-title {
+    font-size: clamp(2.4rem, min(9vw, 7vh), 4.5rem);
+  }
+  .ha {
+    height: clamp(19rem, 44vh, 26rem);
+    width: min(100%, 34rem);
+    justify-self: center;
+  }
+}
+@media (max-width: 32rem) {
+  .ha .ha-comp {
+    zoom: 0.72;
+  }
+  .ha-pool--stat {
+    top: 3%;
+    width: 66%;
+  }
+  .ha-pool--chart {
+    top: 32%;
+    left: 0;
+    width: 78%;
+  }
+  .ha-pool--buttons {
+    bottom: 3%;
+    width: 90%;
+  }
 }
 .lp-actions {
   display: flex;
@@ -1127,46 +1332,25 @@ html.lp-snap .lp [data-stop] {
   color: var(--dy-teal);
 }
 
-/* the stage: the live chat is the centrepiece */
+/* the stage: the live demo fills its whole stop, edge to edge — a chat app of its own until you
+   scroll away. --lp-vw is the viewport width without the scrollbar (set by Landing.astro). */
 .lp-stage {
   position: relative;
-  border: 1px solid var(--dx-hair);
-  border-radius: 28px;
-  padding: clamp(14px, 3.2vw, 40px);
-  background:
-    radial-gradient(55% 75% at 8% 0%, color-mix(in oklab, var(--dy-accent) var(--dx-wash-a), transparent), transparent 70%),
-    radial-gradient(45% 70% at 100% 100%, color-mix(in oklab, var(--dy-teal) var(--dx-wash-b), transparent), transparent 70%),
-    radial-gradient(circle at 1px 1px, var(--dx-grid) 1px, transparent 1.5px) 0 0 / 20px 20px,
-    var(--dy-bg-subtle);
   box-sizing: border-box;
-  height: calc(var(--lp-stop) - 2 * var(--lp-gap));
-  margin-block: var(--lp-gap);
+  width: var(--lp-vw, 100vw);
+  margin-inline: calc(50% - var(--lp-vw, 100vw) / 2);
+  height: var(--lp-stop);
+  margin-block: 0;
   display: flex;
   flex-direction: column;
+  background: var(--dy-bg);
+  border-block: 1px solid var(--dx-hair);
 }
 .lp-stage > :last-child {
   flex: 1 1 auto;
   min-height: 0;
 }
-.lp-stage iframe {
-  display: block;
-  width: 100%;
-  height: 100%;
-  border: 0;
-}
 
-/* the chat window */
-.lc {
-  border: 1px solid var(--dy-border);
-  border-radius: var(--dy-radius-xl);
-  background: var(--dy-surface);
-  box-shadow: var(--dy-shadow-lg);
-  overflow: hidden;
-  display: flex;
-  flex-direction: column;
-  height: clamp(31rem, 66vh, 38rem);
-  min-width: 0;
-}
 .rd-chrome {
   display: flex;
   align-items: center;
@@ -1759,15 +1943,8 @@ html.lp-snap .lp [data-stop] {
   }
 }
 @media (max-width: 40rem) {
-  .lp-stage,
   .lp-cta {
     border-radius: 20px;
-  }
-  .lp-stage {
-    margin-inline: -0.5rem;
-  }
-  .lc {
-    height: 33rem;
   }
   .lp-actions {
     width: 100%;

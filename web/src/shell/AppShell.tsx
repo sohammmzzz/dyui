@@ -29,6 +29,8 @@ function useMediaQuery(q: string): boolean {
 const COLLAPSE_KEY = "dyui:sidebar";
 
 function readCollapsed(): boolean {
+  // the docs embed opens on the chat alone; the history is one click away
+  if (import.meta.env.MODE === "demo") return true;
   try {
     return localStorage.getItem(COLLAPSE_KEY) === "collapsed";
   } catch {
@@ -66,6 +68,7 @@ export function AppShell({
 
   const toggleCollapsed = useCallback((v: boolean) => {
     setCollapsed(v);
+    if (import.meta.env.MODE === "demo") return; // the embed stores nothing
     try {
       localStorage.setItem(COLLAPSE_KEY, v ? "collapsed" : "open");
     } catch {

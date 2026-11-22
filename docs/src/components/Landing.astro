@@ -2,6 +2,7 @@
 import { Code } from "@astrojs/starlight/components";
 import DemoEmbed from "./DemoEmbed.astro";
 import Marquee from "./Marquee.tsx";
+import HeroArt from "./HeroArt.tsx";
 import { Rendered } from "./ComponentDemo.tsx";
 import data from "../data/components.json";
 import wordmarkLight from "../../../brand/wordmark.svg";
@@ -57,6 +58,7 @@ const pad = (n: number) => String(n).padStart(2, "0");
 <div class="lp not-content">
   <!-- ─────────────── hero -->
   <section class="lp-hero lp-stop" data-stop aria-labelledby="lp-title">
+    <div class="lp-hero-copy">
     <p class="lp-eyebrow">Open source <span aria-hidden="true">·</span> Python 3.10+ <span aria-hidden="true">·</span> MIT licensed</p>
     <h1 id="lp-title" class="lp-title">Chatbots that answer in&nbsp;<em>interfaces</em>.</h1>
     <p class="lp-lede">
@@ -79,6 +81,8 @@ const pad = (n: number) => String(n).padStart(2, "0");
         <span class="lp-copy-label" aria-live="polite">Copy</span>
       </button>
     </div>
+    </div>
+    <HeroArt client:load />
   </section>
 
   <!-- ─────────────── the live demo -->
@@ -255,6 +259,11 @@ const pad = (n: number) => String(n).padStart(2, "0");
   // presentation scroll: Lenis + one magnet per section (landing only)
   const lp = document.querySelector<HTMLElement>(".lp");
   if (lp) initMagnetScroll(lp);
+
+  // the viewport width without the scrollbar, for the full-bleed demo stop
+  const setVw = () => document.documentElement.style.setProperty("--lp-vw", `${document.documentElement.clientWidth}px`);
+  setVw();
+  window.addEventListener("resize", setVw, { passive: true });
 
   // copy affordance for the hero install command
   for (const btn of document.querySelectorAll<HTMLButtonElement>("[data-copy]")) {

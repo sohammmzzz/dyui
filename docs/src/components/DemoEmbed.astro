@@ -4,63 +4,38 @@
  * `vite build --mode demo`, copied to public/demo/ by scripts/prebuild.mjs), playing the
  * `dyui demo` script in the browser. No server, no API key, nothing stored.
  *
+ * It fills its whole scroll stop edge to edge — a slim label bar, then the app — so the stop
+ * reads as a chat app of its own; only scrolling away reveals the site around it.
+ *
  * The frame follows the Starlight theme: the first theme goes in the `?theme=` query, later
  * toggles as `{ source: "dyui-docs", type: "theme", theme }` messages. The demo posts unused
  * wheel / touch scrolling back as `{ source: "dyui-demo", type: "wheel" | "touch", ... }`
  * (contract in web/src/demo/embed.ts) for the page's scroller to consume.
- *
- * Height: the component fills `--de-block-size` (default: one viewport under the Starlight
- * header, minus the stage padding). Set it to 100% if the stage gets a definite height.
  */
 const base = import.meta.env.BASE_URL.replace(/\/?$/, "/");
 const src = base + "demo/";
-const command = "pip install dyui && dyui demo";
 ---
 
 <div class="de">
-  <header class="de-head">
-    <div class="de-copy">
-      <p class="lp-eyebrow">Live demo <span aria-hidden="true">·</span> No API key</p>
-      <h2 id="de-title" class="lp-h2 de-h2">Try it with a deterministic chatbot</h2>
-    </div>
-    <div class="de-side">
-      <p class="lp-sub de-sub">The app <code>dyui demo</code> gives you, with a scripted model in place of an LLM.</p>
-      <div class="lp-cmd de-cmd">
-        <span class="lp-cmd-prompt" aria-hidden="true">$</span>
-        <code>{command}</code>
-        <button type="button" class="lp-copy" data-de-copy={command} aria-label="Copy the demo command">
-          <svg class="lp-copy-icon" aria-hidden="true" viewBox="0 0 16 16" width="14" height="14"><rect x="5.5" y="5.5" width="8" height="8" rx="1.8" fill="none" stroke="currentColor" stroke-width="1.3"/><path d="M10.5 3.2v-.1A1.6 1.6 0 0 0 8.9 1.5H3.1a1.6 1.6 0 0 0-1.6 1.6v5.8a1.6 1.6 0 0 0 1.6 1.6h.1" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/></svg>
-          <svg class="lp-copy-done" aria-hidden="true" viewBox="0 0 16 16" width="14" height="14"><path d="M3 8.5l3.2 3.2L13 4.8" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
-          <span class="lp-copy-label" aria-live="polite">Copy</span>
-        </button>
-      </div>
-    </div>
-  </header>
-
-  <div class="de-window">
-    <div class="de-chrome" aria-hidden="true">
-      <span class="de-dot"></span>
-      <span class="de-dot"></span>
-      <span class="de-dot"></span>
-      <span class="de-title">DyUI</span>
-      <span class="de-addr">localhost:8000</span>
-    </div>
-    <iframe
-      class="de-frame"
-      data-de-src={src}
-      title="DyUI demo: a chat app with a scripted model"
-      loading="eager"></iframe>
-    <script is:inline>
-      // set the first theme before the frame loads, so it never flashes the other one
-      (function () {
-        var f = document.currentScript && document.currentScript.previousElementSibling;
-        if (!f || !f.dataset.deSrc) return;
-        var t = document.documentElement.dataset.theme;
-        f.src = f.dataset.deSrc + (t === "light" || t === "dark" ? "?theme=" + t : "");
-      })();
-    </script>
-    <noscript><p class="de-noscript">The live demo needs JavaScript. Run <code>{command}</code> to try it locally.</p></noscript>
-  </div>
+  <p class="de-bar" id="de-title">
+    <span class="de-live" aria-hidden="true"></span>
+    Live demo <span class="de-sep" aria-hidden="true">·</span> <span class="de-note">deterministic chatbot</span>
+  </p>
+  <iframe
+    class="de-frame"
+    data-de-src={src}
+    title="DyUI live demo: a chat app with a scripted, deterministic model"
+    loading="eager"></iframe>
+  <script is:inline>
+    // set the first theme before the frame loads, so it never flashes the other one
+    (function () {
+      var f = document.currentScript && document.currentScript.previousElementSibling;
+      if (!f || !f.dataset.deSrc) return;
+      var t = document.documentElement.dataset.theme;
+      f.src = f.dataset.deSrc + (t === "light" || t === "dark" ? "?theme=" + t : "");
+    })();
+  </script>
+  <noscript><p class="de-noscript">The live demo needs JavaScript. Run <code>pip install dyui && dyui demo</code> to try it locally.</p></noscript>
 </div>
 
 <script>
@@ -74,123 +49,41 @@ const command = "pip install dyui && dyui demo";
     frame.addEventListener("load", send);
     new MutationObserver(send).observe(document.documentElement, { attributes: true, attributeFilter: ["data-theme"] });
   }
-
-  // copy affordance for the demo command
-  for (const btn of document.querySelectorAll<HTMLButtonElement>("[data-de-copy]")) {
-    const label = btn.querySelector(".lp-copy-label");
-    let timer = 0;
-    btn.addEventListener("click", async () => {
-      try {
-        await navigator.clipboard.writeText(btn.dataset.deCopy ?? "");
-      } catch {
-        return;
-      }
-      btn.dataset.copied = "";
-      if (label) label.textContent = "Copied";
-      clearTimeout(timer);
-      timer = window.setTimeout(() => {
-        delete btn.dataset.copied;
-        if (label) label.textContent = "Copy";
-      }, 1800);
-    });
-  }
 </script>
 
 <style>
   .de {
-    /* one viewport under the Starlight header, less the stage's padding and a little air */
-    --de-block-size: calc(100dvh - var(--sl-nav-height) - 2 * clamp(14px, 3.2vw, 40px) - 1rem);
     display: flex;
     flex-direction: column;
-    gap: clamp(0.85rem, 2.2vh, 1.5rem);
-    block-size: var(--de-block-size);
-    min-block-size: 30rem;
-    max-block-size: 64rem;
+    block-size: 100%;
     min-inline-size: 0;
+    background: var(--dy-bg);
   }
-  /* title left; the one line of copy and the command right — keeps the head short */
-  .de-head {
-    display: grid;
-    grid-template-columns: auto minmax(0, 1fr);
-    align-items: end;
-    gap: 0.75rem 2.5rem;
-    padding-inline: clamp(0rem, 1vw, 0.5rem);
-  }
-  .de-copy {
-    min-inline-size: 0;
-  }
-  .de-side {
-    min-inline-size: 0;
-    display: flex;
-    flex-direction: column;
-    align-items: flex-end;
-    gap: 0.6rem;
-    text-align: end;
-  }
-  .de-h2 {
-    /* follows the viewport height too, so the frame keeps most of a short screen */
-    font-size: clamp(1.75rem, min(3.4vw, 5.4vh), 2.75rem);
-    margin-top: clamp(0.35rem, 1vh, 0.6rem);
-  }
-  .de-sub {
-    margin: 0;
-    font-size: 1rem;
-    line-height: 1.5;
-    max-width: 40rem;
-  }
-  .de-sub code {
-    font-size: 0.9em;
-  }
-  .de-cmd {
-    margin-top: 0;
-    flex: 0 0 auto;
-    max-inline-size: 100%;
-  }
-  .de-cmd code {
-    white-space: nowrap;
-  }
-
-  /* the browser window, as in the rest of the landing page */
-  .de-window {
-    flex: 1 1 auto;
-    min-block-size: 0;
-    display: flex;
-    flex-direction: column;
-    border: 1px solid var(--dy-border);
-    border-radius: var(--dy-radius-xl);
-    background: var(--dy-surface);
-    box-shadow: var(--dy-shadow-lg);
-    overflow: hidden;
-  }
-  .de-chrome {
+  /* one quiet line: what this is, nothing more */
+  .de-bar {
     flex: 0 0 auto;
     display: flex;
     align-items: center;
-    gap: 6px;
-    padding: 11px 14px;
-    border-bottom: 1px solid var(--dy-border);
+    justify-content: center;
+    gap: 0.5rem;
+    margin: 0;
+    padding: 0.5rem 1rem;
+    border-bottom: 1px solid var(--dx-hair);
     background: var(--dy-bg-subtle);
+    font: 500 11px/1.2 var(--dy-font-mono);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--dy-text-muted);
   }
-  .de-dot {
-    width: 9px;
-    height: 9px;
+  .de-note {
+    color: var(--dy-text);
+  }
+  .de-live {
+    inline-size: 6px;
+    block-size: 6px;
     border-radius: 50%;
-    background: var(--dy-border-strong);
-  }
-  .de-title {
-    margin-inline-start: 8px;
-    font-size: 12.5px;
-    font-weight: 500;
-    color: var(--dy-text-muted);
-  }
-  .de-addr {
-    margin-inline-start: auto;
-    font: 400 11px/1 var(--dy-font-mono);
-    color: var(--dy-text-muted);
-    padding: 5px 9px;
-    border: 1px solid var(--dy-border);
-    border-radius: 999px;
-    background: var(--dy-bg);
+    background: var(--dy-teal);
+    box-shadow: 0 0 0 3px color-mix(in oklab, var(--dy-teal) 22%, transparent);
   }
   .de-frame {
     flex: 1 1 auto;
@@ -205,34 +98,5 @@ const command = "pip install dyui && dyui demo";
     margin: 0;
     padding: 2rem;
     color: var(--sl-color-gray-3);
-  }
-
-  @media (max-width: 64rem) {
-    .de-head {
-      grid-template-columns: minmax(0, 1fr);
-    }
-    .de-side {
-      align-items: flex-start;
-      text-align: start;
-    }
-  }
-  @media (max-width: 40rem) {
-    /* the stage is a fixed-height flex column (one scroll stop): fill it, never overflow it */
-    .de {
-      flex: 1 1 auto;
-      block-size: auto;
-      min-block-size: 0;
-      max-block-size: none;
-    }
-    .de-addr {
-      display: none;
-    }
-    .de-cmd {
-      font-size: 0.75rem;
-      padding-inline-start: 12px;
-    }
-    .de-cmd .lp-copy-label {
-      display: none;
-    }
   }
 </style>

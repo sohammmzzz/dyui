@@ -1,0 +1,109 @@
+=== B-0056
+--- user
+For my project I collected ad spend in $k and the leads it produced, as pairs: (3.3, 151.5), (3.5, 157.2), (3.7, 164), (3.8, 172.6), (4, 171.5), (6.1, 269.1), (8.3, 336.2), (8.6, 370.2), (8.9, 365.4). Please plot these against each other.
+--- reference
+Here is each spend level plotted against the leads it produced.
+```dyui
+{"ui":"chart","kind":"scatter","series":[{"name":"Leads vs ad spend ($k)","data":[[3.3,151.5],[3.5,157.2],[3.7,164],[3.8,172.6],[4,171.5],[6.1,269.1],[8.3,336.2],[8.6,370.2],[8.9,365.4]]}],"title":"Leads vs ad spend ($k)","unit":"leads"}
+```
+The points climb steadily, so more spend goes with more leads across this range.
+--- derived
+
+=== B-0022
+--- user
+Necesito las ventas de estos eventos de forma que sea fácil de revisar: Marathon Expo, 3 de feb, 4558 vendidas, Main Hall; Tech Summit, 10 de feb, 4788, Arena; Jazz on the Quay, 9 de jul, 1866, Studio; Food Fest, 11 de sep, 6399, Arena.
+--- reference
+Aquí tienes los cuatro eventos con sus fechas, entradas vendidas y recintos.
+```dyui
+{"ui":"table","columns":["Event","Date","Sold","Venue"],"rows":[["Marathon Expo","Feb 3",4558,"Main Hall"],["Tech Summit","Feb 10",4788,"Arena"],["Jazz on the Quay","Jul 9",1866,"Studio"],["Food Fest","Sep 11",6399,"Arena"]]}
+```
+Food Fest es el que más entradas ha vendido, con 6399.
+--- derived
+
+=== B-0062
+--- user
+Here are the open-incident counts at month end, March to September: 6, 5, 6, 5, 6, 6, 6. I'd like to see it as an area chart so the overall level is obvious, and I'm interested in whether the backlog is really moving at all.
+--- reference
+Here is the open-incident count from March to September as an area chart.
+```dyui
+{"ui":"chart","kind":"area","labels":["Mar","Apr","May","Jun","Jul","Aug","Sep"],"series":[{"name":"Open incidents","data":[6,5,6,5,6,6,6]}],"title":"Open incidents, Mar–Sep"}
+```
+The backlog hardly moves, bouncing between 5 and 6 for the whole period.
+--- derived
+
+=== B-0005
+--- user
+I'm planning next term's materials and pulled the tutoring orders per subject: Biology 3763, Algebra 3336, Statistics 2168, Chemistry 311, History 4381, Physics 2862. Could you show me the split between subjects?
+--- reference
+Here is how the orders divide across the six subjects.
+```dyui
+{"ui":"chart","kind":"donut","labels":["Biology","Algebra","Statistics","Chemistry","History","Physics"],"series":[{"name":"Orders","data":[3763,3336,2168,311,4381,2862]}],"title":"Orders per subject"}
+```
+History takes the biggest share, and Chemistry is a tiny sliver by comparison.
+--- derived
+
+=== B-0041
+--- user
+avg session length by platform, mins: PC 18, Console 12, Android 20, iOS 6. compare them
+--- reference
+Here is the average session length for each platform.
+```dyui
+{"ui":"chart","kind":"bar","labels":["PC","Console","Android","iOS"],"series":[{"name":"Session length","data":[18,12,20,6]}],"title":"Session length by platform","unit":"min"}
+```
+Android sessions are the longest at 20 minutes, and iOS the shortest at 6.
+--- derived
+
+=== B-0065
+--- user
+so far we've raised 72380 toward our 119930 goal. how far along are we?
+--- reference
+Here is the progress toward the fundraising goal.
+```dyui
+{"ui":"progress","value":72380,"max":119930,"label":"Fundraising goal"}
+```
+You have passed the halfway mark but still have a good stretch to go.
+--- derived
+
+=== B-0021
+--- user
+El evento será en la azotea (Rooftop), el 24 de febrero (Feb 24), con apertura de puertas a las 19:00. Resúmalo, por favor.
+--- reference
+Este es el resumen del evento.
+```dyui
+{"ui":"keyvalue","items":[{"key":"Venue","value":"Rooftop"},{"key":"Date","value":"Feb 24"},{"key":"Doors","value":"19:00"}]}
+```
+Las puertas abren a las 19:00, así que conviene avisar a los asistentes con antelación.
+--- derived
+
+=== B-0006
+--- user
+Forum questions over the last four weeks went 59, 66, 74, 76 as students got closer to the exam. I'd like to understand what the trajectory looks like and whether it's levelling off.
+--- reference
+Here is the weekly count of forum questions.
+```dyui
+{"ui":"chart","kind":"area","series":[{"name":"Forum questions","data":[59,66,74,76]}]}
+```
+Questions rose from 59 to 76, but the last step was much smaller than the earlier ones, so growth is starting to level off.
+--- derived
+
+=== B-0064
+--- user
+Hier die Wiedergabeliste: Salt & Honey von Quinn Lindqvist (674 Streams, 8 Skips), Static Bloom von Bruno Quispe (373, 14), Midnight Tram von Felix Quispe (837, 14), Paper Lanterns von Zoe Costa (227, 40), Neon Harbour von Wanjiru Park (653, 41). Bitte übersichtlich darstellen.
+--- reference
+Hier sind die fünf Titel mit Künstler, Streams und Skips.
+```dyui
+{"ui":"table","columns":["Track","Artist","Streams","Skips"],"rows":[["Salt & Honey","Quinn Lindqvist",674,8],["Static Bloom","Bruno Quispe",373,14],["Midnight Tram","Felix Quispe",837,14],["Paper Lanterns","Zoe Costa",227,40],["Neon Harbour","Wanjiru Park",653,41]]}
+```
+Midnight Tram hat die meisten Streams, während Neon Harbour mit 41 am häufigsten übersprungen wurde.
+--- derived
+
+=== B-0050
+--- user
+Event overview, please in a table: Lunar Hunt has 49239 players, $63,152 revenue, Scheduled. Spring Festival 81005 players, $74,549, Scheduled. Boss Rush 11998 players, $44,916, Live. Speedrun Cup 128118 players, $46,320, Live.
+--- reference
+Here are the four events with players, revenue and status.
+```dyui
+{"ui":"table","columns":["Event","Players","Revenue","Status"],"rows":[["Lunar Hunt",49239,"$63,152","Scheduled"],["Spring Festival",81005,"$74,549","Scheduled"],["Boss Rush",11998,"$44,916","Live"],["Speedrun Cup",128118,"$46,320","Live"]]}
+```
+Speedrun Cup draws the most players, and two of the four events are live now.
+--- derived

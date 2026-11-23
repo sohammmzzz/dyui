@@ -1,0 +1,162 @@
+=== C-0004
+--- user
+Parcels handled today by hour block: 2783, 2950, 2614, 2451, 2068, 2061. Can you make me a line chart of that? Also tell the user the migration finished and average transit is back to 2.2 days, within the 1.9 days limit. And give me a few follow-up questions I can tap: how does this compare to target, break it down by hub, show the top 3, show it as a table.
+--- reference
+Here are today's parcel counts as a line chart.
+```dyui
+{"ui":"chart","kind":"line","series":[{"name":"Parcels today","data":[2783,2950,2614,2451,2068,2061]}]}
+```
+Here is the update for the user.
+```dyui
+{"ui":"callout","level":"success","title":"All set","text":"The migration finished and Average transit is back to 2.2 days, within the 1.9 days limit."}
+```
+Some follow-ups you could tap next.
+```dyui
+{"ui":"quick_replies","options":["How does this compare to target?","Break it down by hub","Show the top 3","Show it as a table"]}
+```
+Volume peaked in the second block and has drifted down since.
+--- derived
+
+=== C-0058
+--- user
+show me my bills cleanly: Electricity due Jan 18 $50 no autopay, Rent Jun 13 $881 no autopay, Gym Feb 23 $788 no autopay, Internet Sep 20 $1,201 no autopay, Phone Apr 8 $1,055 autopay on. and then per account, split into mobile vs desktop signups (stacked): Credit card 16482 / 2284, Savings 23781 / 5212, Checking 21357 / 1945, Brokerage 7451 / 8282
+--- reference
+Here are your five bills in one table.
+```dyui
+{"ui":"table","columns":["Bill","Due","Amount","Autopay"],"rows":[["Electricity","Jan 18","$50","No"],["Rent","Jun 13","$881","No"],["Gym","Feb 23","$788","No"],["Internet","Sep 20","$1,201","No"],["Phone","Apr 8","$1,055","Yes"]]}
+```
+Next, signups per account with each bar split into its mobile and desktop parts.
+```dyui
+{"ui":"chart","kind":"bar","labels":["Credit card","Savings","Checking","Brokerage"],"series":[{"name":"Mobile","data":[16482,23781,21357,7451]},{"name":"Desktop","data":[2284,5212,1945,8282]}],"unit":"$","stacked":true}
+```
+Only the phone bill is on autopay. Brokerage is the one account where desktop is close to mobile.
+--- derived
+
+=== C-0044
+--- user
+How is the unit volume split across plans? Business 2866, Basic 1647, Plus 4258, Max 839. And can you lay out the plan details too: Max 112 GB, 338 Mbps, $50; Basic 138 GB, 213 Mbps, $20; Business 187 GB, 582 Mbps, $66; Plus 20 GB, 973 Mbps, $23.
+--- reference
+Here is the share of units across the four plans.
+```dyui
+{"ui":"chart","kind":"donut","labels":["Business","Basic","Plus","Max"],"series":[{"name":"Units","data":[2866,1647,4258,839]}],"unit":"units"}
+```
+And the plan details laid out side by side.
+```dyui
+{"ui":"table","columns":["Plan","Data GB","Speed Mbps","Price"],"rows":[["Max",112,338,"$50"],["Basic",138,213,"$20"],["Business",187,582,"$66"],["Plus",20,973,"$23"]],"caption":"Plans"}
+```
+Plus accounts for the largest share of units, and Max the smallest.
+--- derived
+
+=== C-0050
+--- user
+Can you give me an overview of how I'm doing this term? Forum questions: 58 (flat). Assignments due: 2, down 5.4%. Study streak: 20 days. Then I'd like the assignments due per month as an area graph: Feb 4, Mar 5, Apr 6, May 7.
+--- reference
+Here is your overview for the term.
+```dyui
+{"ui":"stats","items":[{"label":"Forum questions","value":"58","trend":"flat"},{"label":"Assignments due","value":"2","delta":"-5.4%","trend":"down"},{"label":"Study streak","value":"20 days"}]}
+```
+And assignments due by month as an area graph.
+```dyui
+{"ui":"chart","kind":"area","labels":["Feb","Mar","Apr","May"],"series":[{"name":"Assignments due","data":[4,5,6,7]}]}
+```
+The monthly workload has grown steadily from February to May, so it is worth planning ahead.
+--- derived
+
+=== C-0052
+--- user
+Please show me where we are on exam prep: Do the practice set (Mar 4, done), Take the quiz (Jul 6, in progress), Book office hours (Aug 8, still to do). Also let the student know in the app that the average quiz score is recalculated every 4 hours, so today's figure is provisional.
+--- reference
+Here is the exam prep with the status of each step.
+```dyui
+{"ui":"timeline","items":[{"title":"Do the practice set","time":"Mar 4","status":"done"},{"title":"Take the quiz","time":"Jul 6","status":"active"},{"title":"Book office hours","time":"Aug 8","status":"pending"}]}
+```
+This is the message for the student.
+```dyui
+{"ui":"callout","level":"info","text":"Average quiz score is recalculated every 4 hours, so today's figure is provisional."}
+```
+The quiz is the current step, and office hours come after it.
+--- derived
+
+=== C-0059
+--- user
+Dammi una panoramica della campagna e rendila facile da scorrere. Costo per lead $43 (obiettivo $47), lead 288 (0%, obiettivo 317), open rate email 20.8% in crescita, ROAS 6.1x. Campagne: Spring launch spesa $33,409, 438 lead, CPL $14; Winter sale $11,564, 369 lead, $23; Webinar series $15,107, 65 lead, $32; Brand refresh $14,674, 1330 lead, $6. Avvisa anche l'utente che l'export dei dati è fallito dopo 9 tentativi, quindi il ROAS non si è potuto leggere.
+--- reference
+Ecco i numeri principali della campagna.
+```dyui
+{"ui":"stats","items":[{"label":"Cost per lead","value":43,"unit":"$","help":"Target $47"},{"label":"Leads","value":"288","delta":"0%","help":"Target 317"},{"label":"Email open rate","value":20.8,"unit":"%","trend":"up"},{"label":"ROAS","value":6.1,"unit":"x"}]}
+```
+Qui sotto il dettaglio per campagna.
+```dyui
+{"ui":"table","columns":["Campaign","Spend","Leads","CPL"],"rows":[["Spring launch","$33,409",438,"$14"],["Winter sale","$11,564",369,"$23"],["Webinar series","$15,107",65,"$32"],["Brand refresh","$14,674",1330,"$6"]],"caption":"Campaigns"}
+```
+Infine l'avviso per l'utente.
+```dyui
+{"ui":"callout","level":"error","text":"L'export dei dati è fallito dopo 9 tentativi, quindi il ROAS non si è potuto leggere."}
+```
+Brand refresh ha il costo per lead più basso, ma il valore del ROAS va verificato dopo un nuovo export.
+--- derived
+
+=== C-0010
+--- user
+quick one for the farm: harvest progress 82% (trending down), rainfall 24 mm vs 26 mm target, soil moisture 34% (-11.5%). Show those as headline numbers under a "Next steps" heading, then fuel use Jul-Oct in litres, 212, 143, 67, 46, as a trend under "Risks".
+--- reference
+First the headline numbers, under the Next steps heading.
+```dyui
+{"ui":"divider","label":"Next steps"}
+{"ui":"stats","items":[{"label":"Harvest progress","value":82,"unit":"%","trend":"down"},{"label":"Rainfall","value":24,"unit":"mm","help":"Target 26 mm"},{"label":"Soil moisture","value":"34%","delta":"-11.5%"}]}
+```
+And the fuel trend, under Risks.
+```dyui
+{"ui":"divider","label":"Risks"}
+{"ui":"chart","kind":"line","series":[{"name":"Fuel use","data":[212,143,67,46]}],"title":"Fuel use, Jul–Oct","unit":"L"}
+```
+Rainfall is just under target while soil moisture is dropping, and fuel use has fallen steadily through the season.
+--- derived
+
+=== C-0016
+--- user
+Here are this month's figures for the fleet, please show them as headline numbers under a heading "Open questions": miles driven 102925 (down 13.6%, target 113218), fuel economy 54 mpg (+10.3%), maintenance backlog 15 (flat). Then under "Next steps", make a line chart of the maintenance backlog by month: Jan 19, Feb 20, Mar 21, Apr 23, May 24, Jun 24.
+--- reference
+Here are the fleet's headline figures under Open questions.
+```dyui
+{"ui":"divider","label":"Open questions"}
+{"ui":"stats","items":[{"label":"Miles driven","value":"102925","delta":"-13.6%","trend":"down","help":"Target 113218"},{"label":"Fuel economy","value":"54 mpg","delta":"+10.3%","trend":"up"},{"label":"Maintenance backlog","value":"15","trend":"flat"}]}
+```
+And the backlog trend under Next steps.
+```dyui
+{"ui":"divider","label":"Next steps"}
+{"ui":"chart","kind":"line","labels":["Jan","Feb","Mar","Apr","May","Jun"],"series":[{"name":"Maintenance backlog","data":[19,20,21,23,24,24]}]}
+```
+Miles driven are below target, while the backlog rose over the half-year and levelled off in the last two months.
+--- derived
+
+=== C-0003
+--- user
+Could you put these in order for the stakeholders? Shift the heavy loads (Oct 1, Mia Rahman), Review next bill (Jun 3, Elena Singh), Compare tariffs (May 5, Sofia Novak), Install the smart plug (Jan 7, Noor Ueda), Read the meter (Aug 9, Quinn Nakamura). Please also let them know in the app that the bill estimate is recalculated every 9 hours, so today's figure is provisional.
+--- reference
+Here are the five actions with their dates and owners.
+```dyui
+{"ui":"timeline","items":[{"title":"Shift the heavy loads","time":"Oct 1","text":"Owner: Mia Rahman"},{"title":"Review next bill","time":"Jun 3","text":"Owner: Elena Singh"},{"title":"Compare tariffs","time":"May 5","text":"Owner: Sofia Novak"},{"title":"Install the smart plug","time":"Jan 7","text":"Owner: Noor Ueda"},{"title":"Read the meter","time":"Aug 9","text":"Owner: Quinn Nakamura"}]}
+```
+And this is the note for stakeholders in the app.
+```dyui
+{"ui":"callout","level":"info","title":"Good to know","text":"Bill estimate is recalculated every 9 hours, so today's figure is provisional."}
+```
+Each action has one named owner, so follow-ups are easy to assign.
+--- derived
+
+=== C-0060
+--- user
+idle time is 7% right now, up 5.3% vs last month, target is 8%. can you show that nicely? and how's the maintenance backlog trended, last readings 16, 15, 14, 13, 12, 11, 10
+--- reference
+Here is idle time against its target.
+```dyui
+{"ui":"stat","label":"Idle time","value":7,"unit":"%","delta":"+5.3% vs last month","help":"Target 8%"}
+```
+And the maintenance backlog over the seven readings.
+```dyui
+{"ui":"chart","kind":"line","series":[{"name":"Maintenance backlog","data":[16,15,14,13,12,11,10]}]}
+```
+The backlog has shrunk with every reading, while idle time sits just under its target.
+--- derived
+

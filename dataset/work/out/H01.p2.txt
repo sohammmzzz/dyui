@@ -1,0 +1,115 @@
+=== H-0013
+--- user
+SaaS analytics plan status: growth lead review done, tracking plan audit failed, dashboard publish failed, retention cohort rebuild failed. Show it as a plan.
+--- reference
+Here is the SaaS analytics plan with where each step landed.
+```dyui
+{"ui":"plan","title":"SaaS analytics plan","items":[{"title":"Review with the growth lead","status":"done"},{"title":"Audit the tracking plan","status":"error"},{"title":"Publish the dashboard","status":"error"},{"title":"Rebuild the retention cohort","status":"error"}]}
+```
+Only the review went through; the audit failed first, so it is the step to fix before retrying the others.
+--- derived
+
+=== H-0007
+--- user
+Can you lay out the details for the lunch special? It's cooked on the Grill station, priced at $11, and it contains Nuts.
+--- reference
+Here are the details for the lunch special.
+```dyui
+{"ui":"keyvalue","items":[{"key":"Station","value":"Grill"},{"key":"Price","value":"$11"},{"key":"Allergens","value":"Nuts"}]}
+```
+The nut allergen is the point to flag to front-of-house staff.
+--- derived
+
+=== H-0014
+--- user
+Could you summarise today's figures for me? Average transit is 1.4 days, flat at 0%. Fleet utilisation is 75%, down 12.2%. Parcels today: 2,816 against a target of 3,098. Damage rate is 1.1%, up 5.7%. On-time delivery is 96.0%, up 16.2%, against a target of 105.6%.
+--- reference
+Delivery is performing well, with on-time delivery at 96.0% and average transit holding at 1.4 days. Parcels today stand at 2,816, still short of the 3,098 target. The figure to watch is the damage rate, which has risen 5.7% to 1.1%, alongside fleet utilisation falling 12.2% to 75%.
+--- derived
+
+=== H-0010
+--- user
+ok lay out the details for SKU-618 for me: priced at $218, 419 in stock, supplier is Brightloom, rating 3.6.
+--- reference
+Here are the details for SKU-618.
+```dyui
+{"ui":"keyvalue","items":[{"key":"SKU","value":"SKU-618"},{"key":"Price","value":"$218"},{"key":"Stock","value":419},{"key":"Supplier","value":"Brightloom"},{"key":"Rating","value":3.6}]}
+```
+Stock is healthy at 419 units, though the 3.6 rating is middling for a $218 item.
+--- derived
+
+=== H-0018
+--- user
+What's the picture? Stat cards please. Waitlist 1,791 (target 1,970). Revenue $130.7k (target $143.8k). Capacity filled 70%, flat at 0%. Refund requests 69, up 6.2%. Tickets sold 417, up 3.7% (target 459). Check-in wait 15 min, flat.
+--- reference
+Sales are running below plan: 417 tickets sold against a target of 459, and revenue of $130.7k against $143.8k. The waitlist stands at 1,791 against 1,970, and capacity filled is flat at 70%. Refund requests are at 69, up 6.2%, while check-in wait holds at 15 min.
+--- derived
+
+=== H-0001
+--- user
+Here's where I am in my course this week. Course completion is 49%, up 6.2%. I've asked 28 questions on the forum, and the target was 31. My study streak is 11 days. My average quiz score is 86%, up 2.3%. Can you summarise those?
+--- reference
+Here are your four headline numbers for the week.
+```dyui
+{"ui":"stats","items":[{"label":"Course completion","value":"49%","delta":"+6.2%"},{"label":"Forum questions","value":"28","help":"Target 31"},{"label":"Study streak","value":"11 days"},{"label":"Average quiz score","value":"86%","delta":"+2.3%"}]}
+```
+Completion and quiz scores are both climbing, and your 11 day streak is the habit worth protecting.
+--- derived
+
+=== H-0004
+--- user
+ehi, scrivi un avviso per gli studenti: il job di importazione è finito e Assignments due è tornato a 9, entro il limite di 7. Mettilo in un riquadro evidenziato!
+--- reference
+Il job di importazione è terminato e Assignments due è tornato a 9, rientrando nel limite di 7. Puoi comunicarlo agli studenti così com'è.
+--- derived
+
+=== H-0022
+--- user
+Show me where we are on the economy update. Balance the rewards is done, Ship the build is in progress right now, and Monitor the economy hasn't started yet.
+--- reference
+Here is the economy update in order, from finished to upcoming.
+```dyui
+{"ui":"timeline","items":[{"title":"Balance the rewards","status":"done"},{"title":"Ship the build","status":"active"},{"title":"Monitor the economy","status":"pending"}]}
+```
+The build is the step in flight, and monitoring starts once it ships.
+--- derived
+
+=== H-0024
+--- user
+I need to see how appointment availability looks this week across services. Open slots: Check-up 18, Lab work 36, Vaccination 30, Dermatology 7. Compare them for me, please.
+--- reference
+Here is how open slots compare across the four services this week.
+```dyui
+{"ui":"chart","kind":"bar","labels":["Check-up","Lab work","Vaccination","Dermatology"],"series":[{"name":"Open slots this week","data":[18,36,30,7]}]}
+```
+Lab work has the most room at 36 slots, while Dermatology is down to 7.
+--- derived
+
+=== H-0019
+--- user
+give me the overview for the fleet: maintenance backlog is 20 (+14.7%), miles driven 215603 and flat, accidents 5 vs a target of 6, idle time 27% against a 30% target, fuel economy 43 mpg and flat
+--- reference
+The maintenance backlog is 20, up 14.7%, and idle time is 27%, under its 30% target. Accidents are at 5 against a target of 6, while fuel economy holds at 43 mpg and mileage is flat at 215603.
+--- derived
+
+=== H-0017
+--- user
+Parcel progress: scan at the hub and pick up at the dock are both still waiting, collecting proof of delivery failed, clearing customs was skipped, and out for delivery is done. Turn that into a live checklist.
+--- reference
+Here is the parcel checklist with each step's current status.
+```dyui
+{"ui":"plan","items":[{"title":"Scan at the hub","status":"pending"},{"title":"Pick up at the dock","status":"pending"},{"title":"Collect proof of delivery","status":"error"},{"title":"Clear customs","status":"skipped"},{"title":"Out for delivery","status":"done"}]}
+```
+The failed proof of delivery is the item that needs attention first.
+--- derived
+
+=== H-0009
+--- user
+give me the plan view of my budget setup: linking the salary account is done, categorising last month hasn't started, setting the savings goal was skipped, reviewing subscriptions is done, and scheduling the transfer is in progress
+--- reference
+Here are the five setup steps with where each one stands.
+```dyui
+{"ui":"list","items":[{"title":"Link the salary account","meta":"Done"},{"title":"Categorise last month","meta":"Pending"},{"title":"Set the savings goal","meta":"Skipped"},{"title":"Review subscriptions","meta":"Done"},{"title":"Schedule the transfer","meta":"In progress"}]}
+```
+Scheduling the transfer is the step underway, with last month's categorising still to come.
+--- derived

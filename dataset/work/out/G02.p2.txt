@@ -1,0 +1,83 @@
+=== G-0008
+--- user
+which campaigns are giving us the cheapest leads? Mostly looking at App install and Webinar series, just the best few please
+--- reference
+Across 41 campaigns, these eight have the lowest cost per lead, led by App install and Webinar series.
+```dyui
+{"ui":"table","columns":["Campaign","Spend","Leads","CPL"],"rows":[["App install","$28,670",564,"$7"],["Webinar series","$17,950",1366,"$8"],["Webinar series","$1,265",305,"$8"],["App install","$26,727",834,"$11"],["App install","$21,835",1150,"$12"],["App install","$21,690",515,"$12"],["App install","$2,603",581,"$12"],["App install","$22,648",779,"$14"]]}
+```
+The App install campaign at $7 per lead is the cheapest, though it generated fewer leads than the $17,950 Webinar series run.
+--- derived
+8
+
+=== G-0042
+--- user
+Good afternoon. Would you kindly list the outages that are currently open, including OUT-503, OUT-557 and OUT-768, with their causes and the number of customers affected?
+--- reference
+Three outages are currently open.
+```dyui
+{"ui":"table","columns":["ID","Area","Cause","Status","Customers"],"rows":[["OUT-503","Denver","Fibre cut","Investigating",7418],["OUT-557","Chicago","Fibre cut","Investigating",910],["OUT-768","Lisbon","Congestion","Monitoring",1413]]}
+```
+OUT-503 in Denver affects the most customers at 7418 and is still under investigation.
+--- derived
+
+=== G-0043
+--- user
+I'd like to review my April training, please. I remember the strength session on Apr 28 and the long ride on Apr 7, but I would like to see every April workout in the log so I can judge my load for the month.
+--- reference
+Your log holds 33 workouts in total, and these five fall in April.
+```dyui
+{"ui":"table","columns":["Date","Activity","Duration","Calories"],"rows":[["Apr 28","Strength",53,558],["Apr 7","Cycling",83,703],["Apr 18","Strength",78,346],["Apr 19","Yoga",63,843],["Apr 17","Strength",31,875]]}
+```
+Strength made up three of the five April sessions, and Apr 7 was your longest at 83 minutes.
+--- derived
+5
+
+=== G-0016
+--- user
+open incidents. INC-540 and INC-650 were paging earlier. top 10 is fine
+--- reference
+There are 44 open incidents, and these are the first 10 in the list, including INC-540 and INC-650.
+```dyui
+{"ui":"table","columns":["ID","Title","Severity","Owner"],"rows":[["INC-540","Stale search index","SEV2","Jun Castillo"],["INC-650","Elevated 5xx on api","SEV1","Bruno Silva"],["INC-741","Login loop on SSO","SEV1","Rosa Eriksson"],["INC-480","Webhook retries piling up","SEV2","Zoe Sato"],["INC-490","Checkout timeouts","SEV1","Priya Mendes"],["INC-381","Stale search index","SEV2","Kofi Bergstrom"],["INC-347","Webhook retries piling up","SEV2","Tomas Jensen"],["INC-447","Webhook retries piling up","SEV3","Umar Eriksson"],["INC-348","Checkout timeouts","SEV1","Zainab Reyes"],["INC-859","Webhook retries piling up","SEV3","Aiden Park"]]}
+```
+Four of these are SEV1, with INC-650 the elevated 5xx on the API being the one that was paging.
+--- derived
+10, 4
+
+=== G-0039
+--- user
+quick one, what's the status of the machines, esp. baler B1, sprayer S2 and the John Deere 6130? planning the week
+--- reference
+Six machines are on the list, and two of them need servicing.
+```dyui
+{"ui":"table","columns":["Machine","Hours","Status"],"rows":[["Baler B1",2307,"Service due"],["Sprayer S2",1921,"Service due"],["John Deere 6130",3292,"In field"],["Claas Lexion",5379,"Ready"],["Kubota M7",1468,"In field"],["Claas Lexion",3359,"In field"]]}
+```
+The Baler B1 and Sprayer S2 are both service due, while the John Deere 6130 is out in the field.
+--- derived
+2
+
+=== G-0004
+--- user
+any open listings right now? want something to show a client this weekend
+--- reference
+No open listings came back from the system, so there is nothing to show a client from the current inventory. It may be worth checking again once new listings are published.
+--- derived
+
+=== G-0025
+--- user
+Could you give me the results of the creative tests we are running? I am mainly interested in how variants A, B and D performed on click-through rate, and whether any of them has been declared a winner.
+--- reference
+Here are the five creative tests with click-through rate and winner status.
+```dyui
+{"ui":"table","columns":["Variant","Headline","CTR","Winner"],"rows":[["B","Free for 14 days",4.5,"Yes"],["A","Save 20% today",1.6,"Running"],["D","See it in action",2.2,"Yes"],["C","See it in action",2.9,"No"],["D","Free for 14 days",2.5,"No"]]}
+```
+Variant B has the highest CTR at 4.5 and is marked as a winner, while variant A is still running.
+--- derived
+
+=== G-0044
+--- user
+anything open on the incident board?
+--- reference
+There are no open incidents right now, since the incident list came back empty. It is a good moment to catch up on follow-ups from earlier ones.
+--- derived

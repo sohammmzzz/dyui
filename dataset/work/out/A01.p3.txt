@@ -1,0 +1,110 @@
+=== A-0056
+--- user
+Necesito revisar el expediente en bruto. Muéstreme los datos para poder desplegarlos: reclamación CLM-307, tipo Auto, presentada el Apr 21, importe $10,699, y dentro de meta la versión 6 con dry_run en true.
+--- reference
+Aquí tiene los datos de la reclamación como un árbol que puede desplegar.
+```dyui
+{"ui":"json","data":{"claim":"CLM-307","type":"Auto","filed":"Apr 21","amount":"$10,699","meta":{"version":6,"dry_run":true}}}
+```
+Abra el nodo meta para ver la versión y el indicador de prueba sin salir de la conversación.
+--- derived
+
+=== A-0109
+--- user
+cool, that's the ranking sorted. what could I ask next? maybe something like "Forecast next month", "Show the top 3" or "Show it as a table", give me those as options I can tap
+--- reference
+Here are three follow-ups you can tap.
+```dyui
+{"ui":"quick_replies","options":["Forecast next month","Show the top 3","Show it as a table"]}
+```
+Pick any of them and I will continue from the ranking we just looked at.
+--- derived
+
+=== A-0062
+--- user
+Mostra estas três imagens numa galeria, por favor. 1) https://files.example.com/img/report-20.png?v=1 - "The old tram climbing Rua da Bica", legenda "Close-up". 2) https://cdn.fernhill.example.com/img/q3-summary-05.webp?v=2 - "The old tram climbing Rua da Bica", legenda "Final". 3) https://static.brasa.example.com/img/case-study-14.png?v=3 - "The updated storefront", legenda "Final".
+--- reference
+Aqui estão as três imagens reunidas numa galeria, cada uma com a sua legenda.
+```dyui
+{"ui":"gallery","images":[{"src":"https://files.example.com/img/report-20.png?v=1","alt":"The old tram climbing Rua da Bica","caption":"Close-up"},{"src":"https://cdn.fernhill.example.com/img/q3-summary-05.webp?v=2","alt":"The old tram climbing Rua da Bica","caption":"Final"},{"src":"https://static.brasa.example.com/img/case-study-14.png?v=3","alt":"The updated storefront","caption":"Final"}]}
+```
+As duas primeiras mostram o mesmo elétrico em versões diferentes, e a terceira é a fachada atualizada.
+--- derived
+
+=== A-0106
+--- user
+We need to poke around the service record during triage. Could you make it explorable? Owner is Growth, language Python, on-call Elena Novak, last deploy Jun 26, SLO 99.99%, tags audit and priority, and a meta object with version 6 and dry_run true.
+--- reference
+The service record is below as an expandable tree.
+```dyui
+{"ui":"json","data":{"owner":"Growth","language":"Python","on_call":"Elena Novak","last_deploy":"Jun 26","slo":"99.99%","tags":["audit","priority"],"meta":{"version":6,"dry_run":true}}}
+```
+The tags and meta nodes collapse, so you can open only the parts you need.
+--- derived
+
+=== A-0098
+--- user
+Puoi mostrarmi questa citazione in modo decente? "The new dashboard saved me an hour a day." L'ha detto Lena Fischer, Data analyst, durante la Support interview.
+--- reference
+Ecco la citazione formattata con autore e fonte.
+```dyui
+{"ui":"quote","text":"The new dashboard saved me an hour a day.","author":"Lena Fischer, Data analyst","source":"Support interview"}
+```
+L'attribuzione è visibile sotto il testo, così si capisce subito chi lo ha detto e dove.
+--- derived
+
+=== A-0040
+--- user
+I'm setting up the listings workflow for the agency and want to connect some tools. Which integrations should I turn on?
+--- reference
+Pick the integrations you want, and you can add one that is not listed.
+```dyui
+{"ui":"choice","question":"Which integrations do you want to enable?","options":["Slack","Google Sheets","Zapier","Webhooks"],"multiple":true,"allow_other":true,"action":"enable_integrations","submit_label":"Enable"}
+```
+Select as many as you like and press Enable, and I will set up exactly those.
+--- derived
+
+=== A-0047
+--- user
+list these as sources pls: Roadmap summary https://docs.acme-cloud.example.com/handbook, Annual review https://blog.northwind.example.com/roadmap, Security whitepaper https://static.brasa.example.com/faq/52, Pricing overview https://cdn.fernhill.example.com/security
+--- reference
+Here are the four documents listed as sources.
+```dyui
+{"ui":"sources","items":[{"title":"Roadmap summary","url":"https://docs.acme-cloud.example.com/handbook"},{"title":"Annual review","url":"https://blog.northwind.example.com/roadmap"},{"title":"Security whitepaper","url":"https://static.brasa.example.com/faq/52"},{"title":"Pricing overview","url":"https://cdn.fernhill.example.com/security"}]}
+```
+Each entry links to its original page for anyone who wants to verify.
+--- derived
+
+=== A-0095
+--- user
+Ho una registrazione audio sul risparmio energetico che vorrei ascoltare direttamente qui nella chat, senza aprire altre schede. Si trova all'indirizzo https://help.helpwave.example.com/audio/security-24.mp3 e mi piacerebbe che tu incorporassi il lettore.
+--- reference
+Ecco la registrazione con il lettore incorporato.
+```dyui
+{"ui":"audio","src":"https://help.helpwave.example.com/audio/security-24.mp3"}
+```
+Premi play per ascoltarla senza uscire dalla conversazione.
+--- derived
+
+=== A-0042
+--- user
+Could you show the video for the field-trial briefing? The link is https://www.youtube.com/watch?v=ck0Nzb25w-O, the poster image is https://blog.northwind.example.com/img/overview-37.webp, and please caption it "The onboarding walkthrough".
+--- reference
+The briefing video is embedded with its poster image and caption.
+```dyui
+{"ui":"video","src":"https://www.youtube.com/watch?v=ck0Nzb25w-O","poster":"https://blog.northwind.example.com/img/overview-37.webp","caption":"The onboarding walkthrough"}
+```
+The poster appears first and the video plays when you press the play button.
+--- derived
+
+=== A-0111
+--- user
+ok so how do I read an env var in Python, with a default?
+--- reference
+Here is how to read environment variables in Python, including one with a fallback.
+```dyui
+{"ui":"code","code":"import os\n\napi_key = os.environ[\"API_KEY\"]\nregion = os.environ.get(\"REGION\", \"eu-west-1\")","language":"python","filename":"env.py"}
+```
+`os.environ[...]` raises an error if the key is missing, while `.get` returns the default you pass.
+--- derived
+

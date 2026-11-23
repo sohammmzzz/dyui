@@ -1,0 +1,102 @@
+=== B-0061
+--- user
+I'm looking at last night's signup attribution by origin service for the incident review: billing brought in 1664 signups, auth 3268, and api-gateway 1322. Could you show me the split?
+--- reference
+Here is how the signups divide across the three services.
+```dyui
+{"ui":"chart","kind":"donut","labels":["billing","auth","api-gateway"],"series":[{"name":"Signups","data":[1664,3268,1322]}],"unit":"signups"}
+```
+Auth accounts for the largest share, and api-gateway for the smallest.
+--- derived
+
+=== B-0001
+--- user
+Our churn rate for December was 1.9%, against a target of 2.1%. Is that good?
+--- reference
+Here is December's churn figure.
+```dyui
+{"ui":"stat","label":"Churn rate · December","value":"1.9%","help":"Target 2.1%"}
+```
+Yes, churn came in under the 2.1% target, which is the right side of it.
+--- derived
+
+=== B-0045
+--- user
+Today's bookings: 09:15, Yara Ferreira, Dental, Room 3; and 15:00, Ana Tanaka, Physio, Room 2. Could you go over them?
+--- reference
+Yara Ferreira has the earlier slot at 09:15 for Dental in Room 3. Ana Tanaka follows at 15:00 for Physio in Room 2.
+--- derived
+
+=== B-0051
+--- user
+For the live-service team we planned 10 hires and 9 are now in. How far along are we?
+--- reference
+Here is the progress on the hiring plan.
+```dyui
+{"ui":"progress","value":9,"max":10,"label":"Hiring plan"}
+```
+Nine of the ten planned hires are done, so one position remains.
+--- derived
+
+=== B-0008
+--- user
+Line status this morning, could you make it easy to scan? M-395, Packaging, Running, last serviced Feb 17. M-169, Line B, Running, Jun 26. M-261, Line A, Maintenance, Jul 15. M-417, Line A, Idle, May 5. M-636, Line B, Down, Dec 6. M-447, Line C, Maintenance, Oct 11. M-878, Line C, Idle, Nov 7.
+--- reference
+Here are all seven machines with their line, status and last service date.
+```dyui
+{"ui":"table","columns":["Machine","Line","Status","Last service"],"rows":[["M-395","Packaging","Running","Feb 17"],["M-169","Line B","Running","Jun 26"],["M-261","Line A","Maintenance","Jul 15"],["M-417","Line A","Idle","May 5"],["M-636","Line B","Down","Dec 6"],["M-447","Line C","Maintenance","Oct 11"],["M-878","Line C","Idle","Nov 7"]],"caption":"Machines"}
+```
+M-636 is the only machine that is down, so it needs attention first.
+--- derived
+
+=== B-0037
+--- user
+we've got 25 things in this sprint and only 6 are finished so far, how far along are we?
+--- reference
+Here is how much of the sprint is done.
+```dyui
+{"ui":"progress","value":6,"max":25,"label":"Sprint scope"}
+```
+Six of the 25 items are complete, so most of the sprint is still ahead.
+--- derived
+
+=== B-0026
+--- user
+ticket status: acknowledged the customer (done), confirming the fix (in progress now), closing the ticket (not started), escalate to tier 2 (failed), reproduce the issue (done). track this
+--- reference
+Here is the support desk work with the current status of each step.
+```dyui
+{"ui":"plan","title":"Customer support desk plan","items":[{"title":"Acknowledge the customer","status":"done"},{"title":"Confirm the fix","status":"active"},{"title":"Close the ticket","status":"pending"},{"title":"Escalate to tier 2","status":"error"},{"title":"Reproduce the issue","status":"done"}]}
+```
+The tier 2 escalation failed and needs to be retried, while the fix confirmation is the step in progress.
+--- derived
+
+=== B-0023
+--- user
+Our hiring plan for the year covers 10 roles and we have filled 4 of them so far. Could you tell me how much is left to do before we close it out?
+--- reference
+Here is where the hiring plan stands.
+```dyui
+{"ui":"progress","value":4,"max":10,"label":"Hiring plan"}
+```
+Six roles are still open out of the ten planned.
+--- derived
+6
+
+=== B-0059
+--- user
+Two fields to check: River plot is planted with Barley, 52 hectares, currently at the Sowing stage. Orchard has Olives on 8 hectares, also at Sowing. Please summarise.
+--- reference
+River plot is the larger of the two, with 52 hectares of Barley now being sown. Orchard covers 8 hectares of Olives and is at the same Sowing stage.
+--- derived
+
+=== B-0020
+--- user
+Leads by month, February through July: 621, 522, 478, 375, 281, 203. Has it been improving?
+--- reference
+Here is the monthly lead count from February to July.
+```dyui
+{"ui":"chart","kind":"line","labels":["Feb","Mar","Apr","May","Jun","Jul"],"series":[{"name":"Leads","data":[621,522,478,375,281,203]}],"title":"Leads, Feb–Jul"}
+```
+No, leads have declined every month, falling from 621 in February to 203 in July.
+--- derived

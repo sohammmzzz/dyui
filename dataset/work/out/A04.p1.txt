@@ -1,0 +1,121 @@
+=== A-0043
+--- user
+Got the invoice batch export ready at https://assets.lumen.example.io/files/invoice-batch.csv, it's a CSV, 23.2 MB. Can you attach it so I can grab it?
+--- reference
+The invoice batch is attached below as a download.
+```dyui
+{"ui":"file","name":"invoice-batch.csv","url":"https://assets.lumen.example.io/files/invoice-batch.csv","size":"23.2 MB","type":"text/csv"}
+```
+It is a fairly large CSV, so give the download a moment to finish.
+--- derived
+
+=== A-0064
+--- user
+ok numbers look done, what next?
+--- reference
+Here are a few good directions to take this analysis.
+```dyui
+{"ui":"quick_replies","options":["How does this compare to target?","Set an alert for this","Explain the biggest drop","Break it down by queue"]}
+```
+Tap whichever fits and I will continue from there.
+--- derived
+
+=== A-0027
+--- user
+Bilder für den Bericht: https://www.example.org/img/release-notes-35.png?v=1 (alte Tram in der Rua da Bica, Weitaufnahme), https://media.example.net/img/pricing-25.png?v=2 (Ernte im Morgengrauen, Nachher), https://cdn.fernhill.example.com/img/getting-started-03.webp?v=3 (neuer Haupteingang, Nachher), https://assets.lumen.example.io/img/q3-summary-06.png?v=4 (Wegmarkierung am Gipfel, Detail). Alle zusammen darstellen.
+--- reference
+Hier sind die vier Bilder gemeinsam in einer Galerie.
+```dyui
+{"ui":"gallery","images":[{"src":"https://www.example.org/img/release-notes-35.png?v=1","alt":"The old tram climbing Rua da Bica","caption":"Wide shot"},{"src":"https://media.example.net/img/pricing-25.png?v=2","alt":"The harvest at dawn","caption":"After"},{"src":"https://cdn.fernhill.example.com/img/getting-started-03.webp?v=3","alt":"The new front entrance","caption":"After"},{"src":"https://assets.lumen.example.io/img/q3-summary-06.png?v=4","alt":"The trail marker at the summit","caption":"Detail"}]}
+```
+So lassen sich Vorher-Nachher-Motive und Details nebeneinander vergleichen.
+--- derived
+
+=== A-0005
+--- user
+Here's the clip, https://static.brasa.example.com/video/faq.mp4, with the thumbnail at https://cdn.fernhill.example.com/img/overview-20.webp. Title it "The safety briefing". Can you play it here?
+--- reference
+The safety briefing is ready to play right here.
+```dyui
+{"ui":"video","src":"https://static.brasa.example.com/video/faq.mp4","poster":"https://cdn.fernhill.example.com/img/overview-20.webp","caption":"The safety briefing"}
+```
+The thumbnail shows until you press play.
+--- derived
+
+=== A-0105
+--- user
+tenant listing labels are "Premium" and "Featured", can you render them as tags?
+--- reference
+Here are the two labels as tags.
+```dyui
+{"ui":"badges","items":[{"label":"Premium"},{"label":"Featured"}]}
+```
+They sit in a single row, so they are easy to scan.
+--- derived
+
+=== A-0070
+--- user
+Compared two fares for the counsel trip: Iberia at $188 and easyJet at $362. Walk me through why you'd go with Iberia, the reasoning took about 445 ms.
+--- reference
+Here is the reasoning behind picking Iberia.
+```dyui
+{"ui":"reasoning","text":"Comparing the two fares: Iberia at $188 is $174 cheaper than easyJet at $362. Price is the deciding factor, so Iberia is the better pick.","duration_ms":445}
+```
+The fare gap is what settles the choice.
+--- derived
+174
+
+=== A-0012
+--- user
+We'd like to get a quote for our upcoming project, and I'd prefer to give you the details in a proper form. We need to know how to reach us, the start date, up to 12 guests (at least 1), and any notes about allergies or access. We also have to accept the terms.
+--- reference
+Please fill in this short form and I will prepare your quote.
+```dyui
+{"ui":"form","fields":[{"name":"contact_method","label":"How should we contact you?","type":"radio","options":["Email","Phone","Chat"],"required":true},{"name":"terms","label":"I accept the terms","type":"checkbox","required":true,"default":false},{"name":"guests","label":"Number of guests","type":"number","min":1,"max":12},{"name":"start_date","label":"Start date","type":"date","required":true},{"name":"notes","label":"Anything we should know?","type":"textarea","required":true,"placeholder":"Allergies, access instructions..."}],"submit_label":"Get quote","action":"request_quote"}
+```
+Submitting sends your answers back to me, and the quote follows from them.
+--- derived
+
+=== A-0071
+--- user
+Campaign payload for Legal aid: goal $222,751, raised $5,307, ends Nov 3, tags beta and priority, meta version 8 with dry_run false. Show the structure.
+--- reference
+Here is the campaign payload as an expandable tree.
+```dyui
+{"ui":"json","data":{"program":"Legal aid","goal":"$222,751","raised":"$5,307","ends":"Nov 3","tags":["beta","priority"],"meta":{"version":8,"dry_run":false}},"title":"Campaign payload"}
+```
+Open the nested nodes to inspect the tags and meta fields.
+--- derived
+
+=== A-0001
+--- user
+For the donor page I'd like a card titled "Orion Dashboard" with the subtitle "Best value this season", the image https://docs.acme-cloud.example.com/img/q3-summary-22.jpg and a "Popular" badge. Inside, add a Next steps heading with three bullets: thank the donors, report the impact, set the goal, with the verbs in bold. Also include a secondary Save button.
+--- reference
+Here is the item laid out as a card.
+```dyui
+{"ui":"card","title":"Orion Dashboard","subtitle":"Best value this season","image":"https://docs.acme-cloud.example.com/img/q3-summary-22.jpg","badge":"Popular","children":[{"ui":"markdown","text":"### Next steps\n- **Thank** the donors\n- **Report** the impact\n- **Set** the goal"}],"actions":[{"label":"Save","action":"save_item","style":"secondary"}]}
+```
+The Save button sends its action back to me when pressed.
+--- derived
+
+=== A-0089
+--- user
+This month our solar panels generated 257 kWh, while the household consumed 416 kWh. The target for consumption was 458 kWh. What's the picture?
+--- reference
+Here are your solar generation and consumption side by side.
+```dyui
+{"ui":"stats","items":[{"label":"Solar generation","value":257,"unit":"kWh"},{"label":"Consumption","value":"416 kWh","help":"Target 458 kWh"}]}
+```
+Consumption landed under its target, while solar covered a good share of it.
+--- derived
+
+=== A-0113
+--- user
+Landing page needs a testimonial: "The new dashboard saved me an hour a day." from Kofi Eriksson, CFO, taken from a community forum post. Show it as a quote.
+--- reference
+Here is the testimonial formatted for the landing page.
+```dyui
+{"ui":"quote","text":"The new dashboard saved me an hour a day.","author":"Kofi Eriksson, CFO","source":"Community forum post"}
+```
+The attribution lines carry the credibility, so keep them with the text.
+--- derived

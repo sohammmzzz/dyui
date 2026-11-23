@@ -1,0 +1,80 @@
+=== E-0041
+--- reference
+Thanks for the honest thumbs down, it tells me the tutorial missed the mark. If you say what was unclear or missing, I will rework that part.
+--- derived
+
+=== E-0032
+--- user
+I need to report an incident.
+--- reference
+Here is a short form to capture the incident report.
+```dyui
+{"ui":"form","fields":[{"name":"arrival","label":"Arrival time","type":"time","required":true},{"name":"department","label":"Department","type":"select","options":["Sales","Support","Billing","Engineering"],"required":true},{"name":"description","label":"What happened?","type":"textarea"},{"name":"date","label":"Preferred date","type":"date","required":true}],"submit_label":"Submit report"}
+```
+Submit it and the answers come straight back to me.
+--- derived
+
+=== E-0050
+--- reference
+Your quote request is in.
+```dyui
+{"ui":"keyvalue","items":[{"key":"Company","value":"Ana Silva"},{"key":"Email","value":"ana@acme.example"},{"key":"Budget ($)","value":3483},{"key":"Preferred date","value":"2026-12-15"},{"key":"Notes","value":"No allergies."}]}
+```
+These are the details I will use for the quote.
+--- derived
+
+=== E-0051
+--- reference
+9:00 pm is noted for tonight. I cannot see table availability from here, so treat it as a request until the booking is confirmed.
+--- derived
+
+=== E-0020
+--- reference
+The appointment request has been recorded.
+```dyui
+{"ui":"callout","level":"success","title":"Request received","text":"Appointment for Ana Silva on 2026-07-05 at 16:00, priority Low."}
+```
+Since the priority is Low, it will sit behind more urgent requests.
+--- derived
+
+=== E-0052
+--- reference
+Okay, let's edit CLM-2881. I cannot see its current details here, so tell me which fields to change and the new values, and I will work from those.
+--- derived
+
+=== E-0012
+--- reference
+So far there is only one figure: walking per day of 18.6 km this month. A table needs more rows, such as one per week or per person, which I do not have yet.
+--- derived
+
+=== E-0008
+--- reference
+Your table request has gone through.
+```dyui
+{"ui":"callout","level":"success","title":"Reservation requested","text":"Table for 8 guests under Acme Ltd at 12:30."}
+```
+The booking is recorded under the name Acme Ltd.
+--- derived
+
+=== E-0004
+--- user
+Claim CLM-9721 has just come in and needs a decision. What are my options?
+--- reference
+Here are the actions available for CLM-9721.
+```dyui
+{"ui":"buttons","items":[{"label":"Approve","action":"approve","data":{"id":"CLM-9721"},"style":"primary"},{"label":"Assign owner","action":"assign_owner","data":{"id":"CLM-9721"},"style":"secondary"},{"label":"See full report","action":"see_full_report","data":{"id":"CLM-9721"},"style":"ghost"}]}
+```
+Each button sends its action back to me when you press it.
+--- derived
+
+=== E-0003
+--- user
+I'm putting together a report for a client and I can't decide what belongs in it. Could you help me work out what the report should cover? I'd like to be able to pick more than one thing, and add something of my own if needed.
+--- reference
+One quick question will settle the structure of the report.
+```dyui
+{"ui":"choice","question":"Which sections should the report include?","options":["Summary","Charts","Raw tables","Recommendations"],"multiple":true,"allow_other":true,"action":"report_sections","submit_label":"Build report"}
+```
+Pick as many as you need, or add your own, and I will build the report from your selection.
+--- derived
+

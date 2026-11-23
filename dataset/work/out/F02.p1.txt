@@ -1,0 +1,131 @@
+=== F-0035
+--- user
+Add one more: course completion 37%.
+--- reference
+Course completion now sits alongside the other three figures.
+```dyui
+{"ui":"stats","items":[{"label":"Average quiz score","value":"69%"},{"label":"Study streak","value":"60 days"},{"label":"Assignments due","value":"2"},{"label":"Course completion","value":"37%"}]}
+```
+The first three figures are exactly as before.
+--- derived
+
+=== F-0011
+--- user
+Kindly add a fourth figure to those headline numbers: Playlist adds, 89,984.
+--- reference
+Playlist adds has been appended as a fourth headline number.
+```dyui
+{"ui":"stats","items":[{"label":"Monthly listeners","value":"3,674,668"},{"label":"Skip rate","value":"36%"},{"label":"Streams","value":"34,231,441"},{"label":"Playlist adds","value":"89,984"}]}
+```
+The other three numbers are unchanged.
+--- derived
+
+=== F-0018
+--- user
+nice, now can I see mileage per plate as a bar chart instead?
+--- reference
+Here is the mileage of each vehicle as a bar chart.
+```dyui
+{"ui":"chart","kind":"bar","labels":["CM-8308","CM-4996","CM-8959","CM-8600","CM-7645"],"series":[{"name":"Mileage","data":[124493,79577,105350,114177,74757]}],"title":"Mileage per plate"}
+```
+CM-8308 has the highest mileage at 124,493.
+--- derived
+
+=== F-0037
+--- user
+swap it to a line chart and tack on Oct at 9 please
+--- reference
+Here is the same series as a line chart, with October added.
+```dyui
+{"ui":"chart","kind":"line","labels":["Mar","Apr","May","Jun","Jul","Aug","Sep","Oct"],"series":[{"name":"Days booked","data":[11,10,10,9,9,8,8,9]}],"title":"Days booked, Mar–Sep"}
+```
+October ticks back up to 9 after two months at 8.
+--- derived
+
+=== F-0001
+--- user
+can you turn that into a bar chart and put Dec on at 4.6?
+--- reference
+Here it is as a bar chart with December included.
+```dyui
+{"ui":"chart","kind":"bar","labels":["Jun","Jul","Aug","Sep","Oct","Nov","Dec"],"series":[{"name":"Patient satisfaction","data":[4.2,4.2,4.1,4.1,4.0,4.1,4.6]}],"title":"Patient satisfaction, Jun–Nov","unit":"pts"}
+```
+December at 4.6 is the highest reading in the series.
+--- derived
+
+=== F-0025
+--- user
+Switch it to bars and add January, 3.2 GB.
+--- reference
+Here is the data as a bar chart, now with January.
+```dyui
+{"ui":"chart","kind":"bar","labels":["Jun","Jul","Aug","Sep","Oct","Nov","Dec","Jan"],"series":[{"name":"Data used","data":[28.1,25.6,23.0,15.6,12.5,7.1,2.9,3.2]}],"title":"Data used, Jun–Dec","unit":"GB"}
+```
+January at 3.2 is a slight rise from December's 2.9.
+--- derived
+
+=== F-0008
+--- user
+Please remove the row for order EVT-799 from that list. Everything else should remain as it is, including the order of the remaining rows.
+--- reference
+Order EVT-799 has been taken out of the table.
+```dyui
+{"ui":"table","columns":["Order","Buyer","Tickets","Tier","Total"],"rows":[["EVT-566","Bruno Bergstrom",5,"Early bird","$501"],["EVT-916","Zoe Larsen",7,"Student","$556"],["EVT-223","Vera Haddad",2,"Student","$427"],["EVT-651","Yara Jensen",3,"Early bird","$600"],["EVT-274","Priya Dubois",3,"General","$695"]]}
+```
+The remaining five orders are unchanged.
+--- derived
+
+=== F-0031
+--- user
+Add a Notes column. Per row, in order: review, review, US, new, new, new.
+--- reference
+The table now has a Notes column filled in row by row.
+```dyui
+{"ui":"table","columns":["Date","Release","Artist","Format","Notes"],"rows":[["Sep 10","Paper Lanterns LP","Isla Ferreira","Album","review"],["Jun 15","Neon Harbour EP","Ivan Park","Album","review"],["May 8","Neon Harbour EP","Lena Novak","Single","US"],["Jun 18","Static Bloom","Kofi Tanaka","Album","new"],["Jul 22","Neon Harbour EP","Ivan Quispe","Single","new"],["Mar 5","Paper Lanterns LP","Chloe Vasquez","Album","new"]]}
+```
+Row order and the original four columns are untouched.
+--- derived
+
+=== F-0038
+--- user
+hmm drop September from that, it's not final yet
+--- reference
+Here is the chart with September removed.
+```dyui
+{"ui":"chart","kind":"area","labels":["Mar","Apr","May","Jun","Jul","Aug"],"series":[{"name":"Waste","data":[13.9,14.8,15.5,15.3,14.8,14.3]}],"title":"Waste, Mar–Aug","unit":"kg"}
+```
+The title now ends at August to match; the earlier months are as before.
+--- derived
+
+=== F-0040
+--- user
+That's too long for my slide. Could you cut it down to just the last three sources, please? I want to keep the same chart type and title.
+--- reference
+Here is the chart trimmed to the last three sources.
+```dyui
+{"ui":"chart","kind":"bar","labels":["Grants","Individuals","Corporate"],"series":[{"name":"Campaign goal reached","data":[54,50,22]}],"title":"Campaign goal reached by source","unit":"%"}
+```
+Events is no longer shown; the other three values are unchanged.
+--- derived
+
+=== F-0015
+--- user
+Spanish labels and title pls, numbers stay.
+--- reference
+Here is the chart with the labels and title translated into Spanish.
+```dyui
+{"ui":"chart","kind":"area","labels":["Jul","Ago","Sep","Oct","Nov","Dic"],"series":[{"name":"Gasto en publicidad","data":[32.6,34.9,37.2,40.7,44.5,47.6]}],"title":"Gasto en publicidad, jul–dic","unit":"$k"}
+```
+Only the text changed; the six values are identical.
+--- derived
+
+=== F-0033
+--- user
+Would you please shorten the table so that only the first three rows remain?
+--- reference
+The table now shows only its first three rows.
+```dyui
+{"ui":"table","columns":["Day","Usage kWh","Peak hour","Cost"],"rows":[["Fri",16,"19:00","$11"],["Tue",19,"08:00","$13"],["Mon",10,"20:00","$11"]],"caption":"Daily usage"}
+```
+The columns and the caption are unchanged.
+--- derived

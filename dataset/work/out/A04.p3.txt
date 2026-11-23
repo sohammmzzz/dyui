@@ -1,0 +1,98 @@
+=== A-0046
+--- user
+got the roadmap episode at https://cdn.fernhill.example.com/audio/roadmap-25.mp3, call it "Episode recap" and give me a player for it
+--- reference
+Here is a player for the roadmap episode.
+```dyui
+{"ui":"audio","src":"https://cdn.fernhill.example.com/audio/roadmap-25.mp3","title":"Episode recap"}
+```
+It plays inline, so you can listen while you work.
+--- derived
+
+=== A-0074
+--- user
+can you drop a divider in labeled Details before the specifics start?
+--- reference
+Here is a divider labeled for the details section.
+```dyui
+{"ui":"divider","label":"Details"}
+```
+The specifics can follow directly underneath.
+--- derived
+
+=== A-0017
+--- user
+show the video https://www.youtube.com/watch?v=_gtmr6Li3o8, caption "The tutorial", poster image https://cdn.fernhill.example.com/img/report-22.webp
+--- reference
+The tutorial video is embedded below.
+```dyui
+{"ui":"video","src":"https://www.youtube.com/watch?v=_gtmr6Li3o8","poster":"https://cdn.fernhill.example.com/img/report-22.webp","caption":"The tutorial"}
+```
+The poster image shows first, and playback starts when you press play.
+--- derived
+
+=== A-0100
+--- user
+Tenho o payload do medidor: meter_id MTR-841, tarifa Green, última leitura 1576, tags audit e priority, e meta com version 9 e dry_run true. Quero poder explorar isso, com o título "Meter payload".
+--- reference
+Aqui está o payload do medidor como uma árvore que você pode expandir.
+```dyui
+{"ui":"json","data":{"meter_id":"MTR-841","tariff":"Green","last_reading":1576,"tags":["audit","priority"],"meta":{"version":9,"dry_run":true}},"title":"Meter payload"}
+```
+Abra o nó meta para ver que se trata de uma execução de teste, com dry_run ativo.
+--- derived
+
+=== A-0053
+--- user
+Here are three hotels for the offsite, and I'd like them as a swipeable row of cards: Quinta Verde in Sintra at $164 per night, Hotel Avenida in Porto at $118 per night, and Mar & Sol in Valencia at $96 per night.
+--- reference
+Here are the three hotels as cards you can swipe through.
+```dyui
+{"ui":"carousel","children":[{"ui":"card","title":"Quinta Verde","subtitle":"Sintra","children":[{"ui":"stat","label":"Per night","value":"$164"}]},{"ui":"card","title":"Hotel Avenida","subtitle":"Porto","children":[{"ui":"stat","label":"Per night","value":"$118"}]},{"ui":"card","title":"Mar & Sol","subtitle":"Valencia","children":[{"ui":"stat","label":"Per night","value":"$96"}]}]}
+```
+Mar & Sol in Valencia is the cheapest of the three.
+--- derived
+
+=== A-0118
+--- user
+Please pay the electricity bill of $443 on my behalf.
+--- reference
+Paying is an outward action, so I need your go-ahead before anything is sent.
+```dyui
+{"ui":"confirm","title":"Pay the electricity bill?","text":"$443 will be debited from your checking account today.","confirm_label":"Pay now","cancel_label":"Later","action":"pay_bill","data":{"bill":"electricity"}}
+```
+No payment is made until you confirm.
+--- derived
+
+=== A-0015
+--- user
+Spring Festival runs Fri – Mon, banner image is https://www.example.org/img/getting-started-31.png, it's on sale, and grid carbon is at 27% for it. Put it in a card with a Save button.
+--- reference
+Here is the Spring Festival as a card.
+```dyui
+{"ui":"card","title":"Spring Festival","subtitle":"Fri – Mon","image":"https://www.example.org/img/getting-started-31.png","badge":"Sale","children":[{"ui":"stat","label":"Grid carbon","value":"27%"}],"actions":[{"label":"Save","action":"save_item","style":"secondary"}]}
+```
+Pressing Save sends that choice back to me.
+--- derived
+
+=== A-0058
+--- user
+Booking BK-1998 just came in, what are my options?
+--- reference
+Here is what you can do with booking BK-1998.
+```dyui
+{"ui":"buttons","items":[{"label":"Assign owner","action":"assign_owner","data":{"id":"BK-1998"},"style":"secondary"},{"label":"Compare options","action":"compare_options","data":{"id":"BK-1998"},"style":"secondary"},{"label":"Confirm details","action":"confirm_details","data":{"id":"BK-1998"},"style":"primary"}]}
+```
+Confirming the details is the recommended first move.
+--- derived
+
+=== A-0003
+--- user
+For the hiring tracker, please present these statuses as pills that can be seen at a glance: New (accent), Blocked (red), Experimental (violet), and Pending review (amber).
+--- reference
+Here are the four statuses as colored pills.
+```dyui
+{"ui":"badges","items":[{"label":"New","color":"accent"},{"label":"Blocked","color":"red"},{"label":"Experimental","color":"violet"},{"label":"Pending review","color":"amber"}]}
+```
+The red and amber ones are the ones that call for attention.
+--- derived

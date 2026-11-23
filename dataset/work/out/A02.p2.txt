@@ -1,0 +1,110 @@
+=== A-0092
+--- user
+Shipment payload for tracking TRK-907: origin Brussels, destination Chicago, tags vip and audit, meta with version 9 and dry_run true. Make it explorable.
+--- reference
+Here is the shipment payload as a tree you can expand.
+```dyui
+{"ui":"json","data":{"tracking":"TRK-907","origin":"Brussels","destination":"Chicago","tags":["vip","audit"],"meta":{"version":9,"dry_run":true}},"title":"Shipment payload"}
+```
+Open the tags and meta branches to see the nested values.
+--- derived
+
+=== A-0102
+--- user
+J'ai reçu ce retour d'une cliente : « Support answered before I finished my coffee. » Pourriez-vous l'afficher proprement, comme une citation mise en valeur ?
+--- reference
+Voici le retour de la cliente, mis en valeur comme une citation.
+```dyui
+{"ui":"quote","text":"Support answered before I finished my coffee."}
+```
+Il se détache clairement du reste de la conversation.
+--- derived
+
+=== A-0075
+--- user
+Show the last tool step in the trace: "Query orders", a sql step that finished, input was table orders with a 7d window, it returned 318 rows and took 4139 ms.
+--- reference
+Here is the finished query step with its input and output.
+```dyui
+{"ui":"step","title":"Query orders","status":"done","type":"sql","input":{"table":"orders","window":"7d"},"output":{"result":"318 rows"},"duration_ms":4139}
+```
+The query completed successfully and returned its rows.
+--- derived
+
+=== A-0094
+--- user
+can you drop a line between the summary and the clauses so it's easier to skim
+--- reference
+Here is a plain separator to split the summary from the clauses.
+```dyui
+{"ui":"divider"}
+```
+The clauses can now start under the line as their own part.
+--- derived
+
+=== A-0065
+--- user
+I have three flags on this account that I want to see at a glance: "EU only" (it should be blue), "Overdue" (red), and "Archived", which can stay uncolored. Could you display them as pills?
+--- reference
+Here are the three flags as pills.
+```dyui
+{"ui":"badges","items":[{"label":"EU only","color":"blue"},{"label":"Overdue","color":"red"},{"label":"Archived"}]}
+```
+Overdue is in red, so it is the one that grabs attention first.
+--- derived
+
+=== A-0097
+--- user
+Good morning. The release notes recording is at https://help.helpwave.example.com/audio/release-notes-15.mp3. Please give me a player so candidates can hear it.
+--- reference
+Here is a player for the release notes recording.
+```dyui
+{"ui":"audio","src":"https://help.helpwave.example.com/audio/release-notes-15.mp3"}
+```
+Candidates can press play and listen right here.
+--- derived
+
+=== A-0038
+--- user
+Tengo este enlace a las notas de la versión del mes: https://help.helpwave.example.com/guide/98. Se titula "Release notes: what's new this month", el sitio es help.helpwave.example.com y la imagen de portada es https://assets.lumen.example.io/img/handbook-12.webp. ¿Puedes mostrarlo como una vista previa enriquecida?
+--- reference
+Aquí tienes el enlace como una vista previa enriquecida.
+```dyui
+{"ui":"link_preview","url":"https://help.helpwave.example.com/guide/98","title":"Release notes: what's new this month","image":"https://assets.lumen.example.io/img/handbook-12.webp","site":"help.helpwave.example.com"}
+```
+La tarjeta permite abrir la guía con un solo clic.
+--- derived
+
+=== A-0082
+--- user
+Please give me the PostgreSQL install command for macOS and for Docker. I want version 16 in both cases, and the Docker container should publish port 5432.
+--- reference
+Here are both installation routes, one per tab.
+```dyui
+{"ui":"tabs","tabs":[{"label":"macOS","children":[{"ui":"code","code":"brew install postgresql@16","language":"bash"}]},{"label":"Docker","children":[{"ui":"code","code":"docker run -d -p 5432:5432 postgres:16","language":"bash"}]}]}
+```
+Homebrew installs it directly on the Mac, while Docker runs it as a detached container.
+--- derived
+
+=== A-0059
+--- user
+Please insert a separator between the vehicle inventory section and the maintenance section of this report.
+--- reference
+Here is a separator between the two sections.
+```dyui
+{"ui":"divider"}
+```
+The maintenance section can now begin below it.
+--- derived
+
+=== A-0066
+--- user
+ok the invoice lookup is still going. show it in the trace as a tool step called "Fetch invoice"
+--- reference
+Here is the invoice lookup, still in progress.
+```dyui
+{"ui":"step","title":"Fetch invoice","status":"running","type":"tool"}
+```
+It will switch to done once the invoice comes back.
+--- derived
+

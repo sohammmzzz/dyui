@@ -1,0 +1,110 @@
+=== B-0012
+--- user
+single novo: pitch aos editores feito, agendar o lançamento tá rolando agora, divulgar nas redes ainda pendente, subir a arte foi pulado. transforma isso num checklist vivo
+--- reference
+Aqui está o checklist do lançamento com o status de cada etapa.
+```dyui
+{"ui":"plan","items":[{"title":"Pitch aos editores","status":"done"},{"title":"Agendar o lançamento","status":"active"},{"title":"Divulgar nas redes","status":"pending"},{"title":"Subir a arte","status":"skipped"}]}
+```
+O agendamento é a etapa em andamento, e a divulgação nas redes é a próxima da fila.
+--- derived
+
+=== B-0027
+--- user
+Oi! Preciso ver as doações deste mês por programa, separadas entre mobile e desktop (valores em $k). Legal aid: mobile 97.1, desktop 41.7. Clean water: mobile 81.4, desktop 143.2. School meals: mobile 135.9, desktop 108.5. Emergency relief: mobile 161.3, desktop 74.1. Reforestation: mobile 94.5, desktop 108.5. Quero ver como cada programa se divide nessas duas partes.
+--- reference
+Aqui estão as doações de cada programa, com mobile e desktop empilhados.
+```dyui
+{"ui":"chart","kind":"bar","labels":["Legal aid","Clean water","School meals","Emergency relief","Reforestation"],"series":[{"name":"Mobile","data":[97.1,81.4,135.9,161.3,94.5]},{"name":"Desktop","data":[41.7,143.2,108.5,74.1,108.5]}],"title":"Doações deste mês por programa","unit":"$k","stacked":true}
+```
+Em Clean water o desktop (143.2) supera com folga o mobile (81.4), enquanto Emergency relief tem o maior valor mobile, 161.3.
+--- derived
+
+=== B-0063
+--- user
+Guten Tag, ich bräuchte bitte das Profil zu diesem Titel: Der Künstler ist Dev Moreau, das Genre ist Indie, und die Länge beträgt 5:12.
+--- reference
+Hier ist das Profil des Titels mit Künstler, Genre und Länge.
+```dyui
+{"ui":"keyvalue","items":[{"key":"Künstler","value":"Dev Moreau"},{"key":"Genre","value":"Indie"},{"key":"Länge","value":"5:12"}]}
+```
+Mit 5:12 ist der Titel eher ausgedehnt für einen Indie-Song.
+--- derived
+
+=== B-0030
+--- user
+Could you give me the overview for the co-op this month? Irrigation is at 70 kl, 0% change, against a target of 77 kl. Harvest progress is 92%, down 1.3%, with a target of 101%. Rainfall was 44 mm, down 16.7%, target 48 mm. Fuel use is 787 L and rising.
+--- reference
+Here are the four headline figures for the co-op this month.
+```dyui
+{"ui":"stats","items":[{"label":"Irrigation","value":"70 kl","delta":"0%","help":"Target 77 kl"},{"label":"Harvest progress","value":"92%","delta":"-1.3%","trend":"down","help":"Target 101%"},{"label":"Rainfall","value":"44 mm","delta":"-16.7%","help":"Target 48 mm"},{"label":"Fuel use","value":787,"unit":"L","trend":"up"}]}
+```
+Rainfall fell furthest of the group at -16.7%, and fuel use is the only figure climbing.
+--- derived
+
+=== B-0015
+--- user
+For the quarterly summary, annual attrition currently stands at 14.3%, and the trend has been downward. Please provide the headline.
+--- reference
+Here is the headline attrition figure.
+```dyui
+{"ui":"stat","label":"Attrition","value":14.3,"unit":"%","trend":"down"}
+```
+Attrition is trending downward, and 14.3% is the current level.
+--- derived
+
+=== B-0070
+--- user
+I pulled team size against tickets closed per week for seven teams: 4.1 and 98.9, 6.7 and 151.8, 7.5 and 183.7, 7.9 and 180.4, 11 and 248.1, 11.1 and 257.6, 13.2 and 281.9. Can you show me the correlation?
+--- reference
+Here are the seven teams plotted with team size on the x axis and tickets closed per week on the y axis.
+```dyui
+{"ui":"chart","kind":"scatter","series":[{"name":"Tickets closed per week vs team size","data":[[4.1,98.9],[6.7,151.8],[7.5,183.7],[7.9,180.4],[11,248.1],[11.1,257.6],[13.2,281.9]]}],"title":"Tickets closed per week vs team size","unit":"tickets closed per week"}
+```
+The points rise together in a fairly straight line, though seven teams only show an association, not a cause.
+--- derived
+
+=== B-0007
+--- user
+Quick status check on one machine, please. It's M-190 on Line A and it's currently Idle. Can you give me the rundown?
+--- reference
+Here are the details for that machine.
+```dyui
+{"ui":"keyvalue","items":[{"key":"Machine","value":"M-190"},{"key":"Line","value":"Line A"},{"key":"Status","value":"Idle"}]}
+```
+M-190 is idle on Line A, and nothing else was reported for it.
+--- derived
+
+=== B-0034
+--- user
+Here are the appointments-today counts I logged by month: Feb 40, Mar 38, Apr 34, May 33 and Jun 31. Can I get that as an area graph so I can see the shape?
+--- reference
+Here is the appointments count from February to June as an area graph.
+```dyui
+{"ui":"chart","kind":"area","labels":["Feb","Mar","Apr","May","Jun"],"series":[{"name":"Appointments today","data":[40,38,34,33,31]}],"title":"Appointments today, Feb–Jun"}
+```
+The count slides from 40 in February to 31 in June, with the largest step between Mar and Apr.
+--- derived
+
+=== B-0024
+--- user
+Active donors this month: 2669, which is up 16.1% vs last month. Our target was 3053. Can you give me the headline on that?
+--- reference
+Here is the active donor headline for the month.
+```dyui
+{"ui":"stat","label":"Active donors","value":"2669","delta":"+16.1% vs last month","trend":"up","help":"Target 3053"}
+```
+The base is growing, but it has not yet reached the 3053 target.
+--- derived
+
+=== B-0039
+--- user
+campagna, a che punto siamo? "Report the results" (Nov 7, Omar Kim) fatto. "Monitor the first 48 hours" (Feb 9, Elif Sato) in corso. "Launch the creatives" (Jun 11, Tomas Silva) da fare. "Build the audiences" (Jun 13, Katya Bergstrom) in corso. "Write the brief" (Jun 15, Aiden Castillo) da fare.
+--- reference
+Ecco le cinque attività della campagna in ordine, con data, responsabile e stato.
+```dyui
+{"ui":"timeline","items":[{"title":"Report the results","time":"Nov 7","status":"done","text":"Owner: Omar Kim"},{"title":"Monitor the first 48 hours","time":"Feb 9","status":"active","text":"Owner: Elif Sato"},{"title":"Launch the creatives","time":"Jun 11","status":"pending","text":"Owner: Tomas Silva"},{"title":"Build the audiences","time":"Jun 13","status":"active","text":"Owner: Katya Bergstrom"},{"title":"Write the brief","time":"Jun 15","status":"pending","text":"Owner: Aiden Castillo"}]}
+```
+Solo "Report the results" è concluso; due attività risultano in corso e due ancora da avviare.
+--- derived
+

@@ -1,0 +1,110 @@
+=== F-0007
+--- user
+can u add a Team column? values in order: US, EU, ok, new, US, ok, ok
+--- reference
+Here is the usage table with the Team column added.
+```dyui
+{"ui":"table","columns":["Day","Usage kWh","Peak hour","Cost","Team"],"rows":[["Sat",8,"20:00","$7","US"],["Thu",36,"18:00","$4","EU"],["Fri",15,"20:00","$12","ok"],["Sun",30,"20:00","$2","new"],["Tue",30,"20:00","$3","US"],["Wed",47,"18:00","$11","ok"],["Mon",29,"07:00","$2","ok"]],"caption":"Daily usage"}
+```
+The new values follow the row order you gave.
+--- derived
+
+=== F-0026
+--- user
+Kindly remove the final data point, May, from the chart.
+--- reference
+Here is the chart ending in April.
+```dyui
+{"ui":"chart","kind":"area","labels":["Jan","Feb","Mar","Apr"],"series":[{"name":"Units produced","data":[10106,10448,10636,11364]}],"title":"Units produced, Jan–Apr"}
+```
+The title now ends in April to match; the other values are unchanged.
+--- derived
+
+=== F-0020
+--- user
+Por favor, elimine de la tabla la fila correspondiente al servicio search.
+--- reference
+Aquí está la tabla sin la fila de search.
+```dyui
+{"ui":"table","columns":["Service","Version","Status","Duration"],"rows":[["billing","v2.1.7","Rolled back",23],["auth","v2.3.10","Succeeded",24],["notifications","v2.2.18","Succeeded",28],["api-gateway","v2.8.4","Succeeded",20],["checkout","v2.2.13","In progress",24],["api-gateway","v2.1.10","In progress",27]],"caption":"Deployments"}
+```
+Las demás filas quedan exactamente igual que antes.
+--- derived
+
+=== F-0012
+--- user
+Der Kilometerstand stimmt nicht mehr, bitte ändere ihn auf 21828. Alle anderen Angaben bleiben wie sie sind.
+--- reference
+Hier ist das Fahrzeugprofil mit dem aktualisierten Kilometerstand.
+```dyui
+{"ui":"keyvalue","items":[{"key":"Plate","value":"CM-6880"},{"key":"Model","value":"Golf"},{"key":"Mileage","value":21828},{"key":"Depot","value":"Airport"}]}
+```
+Kennzeichen, Modell und Depot sind unverändert geblieben.
+--- derived
+
+=== F-0024
+--- user
+set channel to Review
+--- reference
+Here is the campaign with the channel updated.
+```dyui
+{"ui":"keyvalue","items":[{"key":"Channel","value":"Review"},{"key":"Budget","value":"$10,290"},{"key":"Start","value":"Jun 1"},{"key":"Owner","value":"Omar Oliveira"}]}
+```
+Budget, start date and owner are untouched.
+--- derived
+
+=== F-0017
+--- user
+add a Region column, values in order: EU, ok, review, ok, review, review
+--- reference
+Here is the showings table with a Region column on the end.
+```dyui
+{"ui":"table","columns":["Time","Property","Buyer","Agent","Region"],"rows":[["13:30","7 Harbour Row","Chloe Lindqvist","Ana Nguyen","EU"],["09:30","12 Mill Lane","Yara Novak","Uma Yilmaz","ok"],["17:15","48 Rua Verde","Gabriel Nakamura","Uma Vasquez","review"],["11:00","19 Quay Street","Yara Park","Isla Fischer","ok"],["15:00","19 Quay Street","Jun Singh","Jamal Nakamura","review"],["15:00","48 Rua Verde","Zainab Kim","Rin Kim","review"]],"caption":"Showings"}
+```
+Each region value sits on the row in the order you listed.
+--- derived
+
+=== F-0021
+--- user
+Thanks. That is more than I need for the summary, so please cut it down to just the first three claims in the list.
+--- reference
+Here are the first three claims from the list.
+```dyui
+{"ui":"table","columns":["Claim","Type","Amount","Status","Adjuster"],"rows":[["CLM-162","Pet","$5,131","Paid","Carla Castillo"],["CLM-309","Health","$755","Filed","Rin Oliveira"],["CLM-189","Travel","$13,378","Assessing","Tomas Vasquez"]],"caption":"Claims"}
+```
+The remaining claims were removed from this view only; the rows shown are unchanged.
+--- derived
+
+=== F-0041
+--- user
+top 3 by room number, highest first
+--- reference
+Here are the three appointments with the highest room numbers.
+```dyui
+{"ui":"table","columns":["Time","Patient","Service","Room"],"rows":[["11:30","Isla Eriksson","Vaccination",9],["09:15","Yara Rossi","Physio",9],["13:45","Olga Petrov","Vaccination",3]],"caption":"Today's schedule"}
+```
+Two appointments share room 9, so they keep their original relative order.
+--- derived
+
+=== F-0032
+--- user
+Please take Quinta Verde out of the table.
+--- reference
+Here is the hotel table without Quinta Verde.
+```dyui
+{"ui":"table","columns":["Hotel","Stars","Per night","Rating"],"rows":[["Praça Suites",5,"$272",8.1],["Mar & Sol",4,"$209",9.2],["Porto Riverside",3,"$229",9.6],["Hotel Avenida",4,"$154",9.5],["Casa Alfama",4,"$307",8.6],["Praça Suites",4,"$164",7.1]],"caption":"Hotels"}
+```
+Every other row is exactly as before.
+--- derived
+
+=== F-0023
+--- user
+One more figure for the review, please: Yield 7.7 t. Add it alongside the other three.
+--- reference
+Here are the headline numbers with Yield added.
+```dyui
+{"ui":"stats","items":[{"label":"Fuel use","value":"850 L"},{"label":"Irrigation","value":"39 kl"},{"label":"Soil moisture","value":"32%"},{"label":"Yield","value":"7.7 t"}]}
+```
+The three original figures are unchanged.
+--- derived
+

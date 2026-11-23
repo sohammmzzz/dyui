@@ -1,0 +1,132 @@
+=== D-0015
+--- user
+We're prepping the candidate pack and I'd like two tabs, Overview and More. Put the product demo video in the first: https://www.youtube.com/watch?v=x0FmoGzjji9, captioned "The product demo". In the second, put the image https://static.brasa.example.com/img/release-notes-30.png with the caption "Approved by marketing".
+--- reference
+Here are the demo video and the approved image, one in each tab.
+```dyui
+{"ui":"tabs","tabs":[{"label":"Overview","children":[{"ui":"video","src":"https://www.youtube.com/watch?v=x0FmoGzjji9","caption":"The product demo"}]},{"label":"More","children":[{"ui":"image","src":"https://static.brasa.example.com/img/release-notes-30.png","caption":"Approved by marketing"}]}]}
+```
+The video plays inline in the first tab, and the second tab holds the cleared artwork.
+--- derived
+
+=== D-0047
+--- user
+Hey, can I get two tabs, Overview and More, each with an account card? Overview: "Lisbon · 3 nights", subtitle "Limited seats", badge "New", with Type Savings, Balance $14,717, Currency EUR, Opened Jun 1, Status Active. More: "Orion Dashboard", subtitle "Best value this season", image https://static.brasa.example.com/img/security-38.png, badge "New", with Type Checking, Balance $14,131, Currency USD, Opened Dec 22, Status Active, plus a Save button using the action save_item.
+--- reference
+Here are the two account cards, one per tab, with the second carrying a Save button.
+```dyui
+{"ui":"tabs","tabs":[{"label":"Overview","children":[{"ui":"card","title":"Lisbon · 3 nights","subtitle":"Limited seats","badge":"New","children":[{"ui":"keyvalue","items":[{"key":"Type","value":"Savings"},{"key":"Balance","value":"$14,717"},{"key":"Currency","value":"EUR"},{"key":"Opened","value":"Jun 1"},{"key":"Status","value":"Active"}]}]}]},{"label":"More","children":[{"ui":"card","title":"Orion Dashboard","subtitle":"Best value this season","image":"https://static.brasa.example.com/img/security-38.png","badge":"New","children":[{"ui":"keyvalue","items":[{"key":"Type","value":"Checking"},{"key":"Balance","value":"$14,131"},{"key":"Currency","value":"USD"},{"key":"Opened","value":"Dec 22"},{"key":"Status","value":"Active"}]}],"actions":[{"label":"Save","action":"save_item"}]}]}]}
+```
+Pressing Save sends save_item back to me, and both accounts are currently active.
+--- derived
+
+=== D-0006
+--- user
+Drop my fare reasoning into a card called "Weekly summary" please. The text: "Comparing the two fares: TAP at $358 is $28 cheaper than Vueling at $386. Price is the deciding factor, so TAP is the better pick." It took about 2714 ms to work out, if you can show that too.
+--- reference
+Here is the fare reasoning wrapped in the weekly summary card.
+```dyui
+{"ui":"card","title":"Weekly summary","children":[{"ui":"reasoning","text":"Comparing the two fares: TAP at $358 is $28 cheaper than Vueling at $386. Price is the deciding factor, so TAP is the better pick.","duration_ms":2714}]}
+```
+The reasoning expands inside the card and records how long it took.
+--- derived
+
+=== D-0049
+--- user
+Two collapsible sections, short: (1) a checklist, bold the verb: send the thank-you, confirm the venue, open ticket sales, announce the line-up. (2) sources: "Benchmark report" https://cdn.fernhill.example.com/roadmap, snippet "Has the latest figures."; "Pricing overview" https://docs.acme-cloud.example.com/faq/20, snippet "Walks through the setup."
+--- reference
+Here are the checklist and the two references, each in its own section.
+```dyui
+{"ui":"accordion","items":[{"title":"Main section","children":[{"ui":"markdown","text":"### Checklist\n- **Send** the thank-you\n- **Confirm** the venue\n- **Open** ticket sales\n- **Announce** the line-up"}]},{"title":"More detail","children":[{"ui":"sources","items":[{"title":"Benchmark report","url":"https://cdn.fernhill.example.com/roadmap","snippet":"Has the latest figures."},{"title":"Pricing overview","url":"https://docs.acme-cloud.example.com/faq/20","snippet":"Walks through the setup."}]}]}]}
+```
+The sources stay closed until someone needs to check where the figures came from.
+--- derived
+
+=== D-0011
+--- user
+Please present the following in a two-column arrangement. Left: a selectable list of hotels, each choice using the action pick_hotel with the hotel name as data: Mar & Sol ($96/night), Casa Alfama ($142/night), Hotel Avenida ($118/night), Praça Suites ($187/night), Quinta Verde ($164/night). Right: a card for the vehicle "Riverside Studio" with the image https://news.example.com/img/roadmap-38.jpg, listing Plate CM-5125, Model Corolla, Mileage 109024, Depot Harbour, and Next service Jun 9.
+--- reference
+Here are the selectable hotels beside the vehicle card.
+```dyui
+{"ui":"grid","columns":2,"children":[{"ui":"list","items":[{"title":"Mar & Sol","meta":"$96/night","action":"pick_hotel","data":{"hotel":"Mar & Sol"}},{"title":"Casa Alfama","meta":"$142/night","action":"pick_hotel","data":{"hotel":"Casa Alfama"}},{"title":"Hotel Avenida","meta":"$118/night","action":"pick_hotel","data":{"hotel":"Hotel Avenida"}},{"title":"Praça Suites","meta":"$187/night","action":"pick_hotel","data":{"hotel":"Praça Suites"}},{"title":"Quinta Verde","meta":"$164/night","action":"pick_hotel","data":{"hotel":"Quinta Verde"}}]},{"ui":"card","title":"Riverside Studio","image":"https://news.example.com/img/roadmap-38.jpg","children":[{"ui":"keyvalue","items":[{"key":"Plate","value":"CM-5125"},{"key":"Model","value":"Corolla"},{"key":"Mileage","value":109024},{"key":"Depot","value":"Harbour"},{"key":"Next service","value":"Jun 9"}]}]}]}
+```
+Selecting a hotel sends pick_hotel with its name, while the vehicle card stays as a reference.
+--- derived
+
+=== D-0028
+--- user
+can you stick a card called Overview inside a carousel, and put two tap-able suggestions in the card: "Show it as a table" and "Show the top 3"? thx
+--- reference
+Here is the overview card in a carousel, holding the two suggestions.
+```dyui
+{"ui":"carousel","children":[{"ui":"card","title":"Overview","children":[{"ui":"quick_replies","options":["Show it as a table","Show the top 3"]}]}]}
+```
+Tapping either suggestion sends it to me as your next message.
+--- derived
+
+=== D-0010
+--- user
+Preciso de duas colunas: à esquerda quatro botões para o pedido REQ-3350 ("Remind me later", "Skip for now", "Confirm details", "Decline offer", com as ações remind_me_later, skip_for_now, confirm_details e decline_offer); à direita a pergunta "Which sections should the report include?" com as opções Summary, Charts, Raw tables e Recommendations, múltipla escolha, permitindo outra, ação report_sections.
+--- reference
+Aqui estão os botões do pedido e a pergunta sobre o relatório, lado a lado.
+```dyui
+{"ui":"grid","columns":2,"children":[{"ui":"buttons","items":[{"label":"Remind me later","action":"remind_me_later","data":{"id":"REQ-3350"}},{"label":"Skip for now","action":"skip_for_now","data":{"id":"REQ-3350"}},{"label":"Confirm details","action":"confirm_details","data":{"id":"REQ-3350"}},{"label":"Decline offer","action":"decline_offer","data":{"id":"REQ-3350"}}]},{"ui":"choice","question":"Which sections should the report include?","options":["Summary","Charts","Raw tables","Recommendations"],"multiple":true,"allow_other":true,"action":"report_sections"}]}
+```
+Cada botão devolve o identificador REQ-3350, e a escolha das secções chega como uma lista, com espaço para uma resposta própria.
+--- derived
+
+=== D-0044
+--- user
+Two tabs, Overview and More. In Overview, side by side: a table of devices with columns Device, Power kW and Status (Dishwasher 4.0 Scheduled, Oven 1.7 Off, Pool pump 5.5 Fault, Dryer 7.1 Fault), and a progress bar at 35336 out of 63315. In More, a raw data tree titled "Meter payload": meter_id MTR-358, tariff Time-of-use, last_reading 34248, tags eu and trial, meta with version 8 and dry_run false.
+--- reference
+Here are the device table and progress bar on the first tab, with the meter payload on the second.
+```dyui
+{"ui":"tabs","tabs":[{"label":"Overview","children":[{"ui":"grid","children":[{"ui":"table","columns":["Device","Power kW","Status"],"rows":[["Dishwasher",4.0,"Scheduled"],["Oven",1.7,"Off"],["Pool pump",5.5,"Fault"],["Dryer",7.1,"Fault"]]},{"ui":"progress","value":35336,"max":63315}],"columns":2}]},{"label":"More","children":[{"ui":"json","data":{"meter_id":"MTR-358","tariff":"Time-of-use","last_reading":34248,"tags":["eu","trial"],"meta":{"version":8,"dry_run":false}},"title":"Meter payload"}]}]}
+```
+The pool pump and the dryer are the two devices reporting a fault.
+--- derived
+
+=== D-0034
+--- user
+Card "Weekly summary" with a danger confirmation inside: "Cancel your Starter subscription?", buttons "Cancel subscription" / "Keep Starter", action cancel_subscription, plan starter.
+--- reference
+Here is the cancellation prompt inside the weekly summary card.
+```dyui
+{"ui":"card","title":"Weekly summary","children":[{"ui":"confirm","title":"Cancel your Starter subscription?","confirm_label":"Cancel subscription","cancel_label":"Keep Starter","action":"cancel_subscription","data":{"plan":"starter"},"danger":true}]}
+```
+Nothing is cancelled until you confirm, and declining keeps the plan.
+--- derived
+
+=== D-0017
+--- user
+I would like two tabs, Overview and More. Overview: a list of properties with thumbnails: Praça Suites, Lisbon, https://docs.acme-cloud.example.com/img/security-15.webp; Quinta Verde, Sintra, https://static.brasa.example.com/img/report-26.png; Hotel Avenida, Porto, https://media.example.net/img/security-16.jpg; Mar & Sol, Valencia, https://files.example.com/img/changelog-03.jpg; Casa Alfama, Lisbon, https://news.example.com/img/changelog-13.png. More: a card "Spring Festival" with the image https://docs.acme-cloud.example.com/img/guide-19.jpg, containing the trip budget of $4,775.
+--- reference
+Here are the properties in the first tab and the festival budget card in the second.
+```dyui
+{"ui":"tabs","tabs":[{"label":"Overview","children":[{"ui":"list","items":[{"title":"Praça Suites","subtitle":"Lisbon","image":"https://docs.acme-cloud.example.com/img/security-15.webp"},{"title":"Quinta Verde","subtitle":"Sintra","image":"https://static.brasa.example.com/img/report-26.png"},{"title":"Hotel Avenida","subtitle":"Porto","image":"https://media.example.net/img/security-16.jpg"},{"title":"Mar & Sol","subtitle":"Valencia","image":"https://files.example.com/img/changelog-03.jpg"},{"title":"Casa Alfama","subtitle":"Lisbon","image":"https://news.example.com/img/changelog-13.png"}]}]},{"label":"More","children":[{"ui":"card","title":"Spring Festival","image":"https://docs.acme-cloud.example.com/img/guide-19.jpg","children":[{"ui":"stat","label":"Trip budget","value":"$4,775"}]}]}]}
+```
+Each property keeps its thumbnail and city, and the budget sits separately under the festival card.
+--- derived
+
+=== D-0050
+--- user
+Kindly prepare two collapsible sections. The first should show a progress bar at 25 out of 45. The second should show the headline figure for podcast downloads, 107,529, flagged as trending up.
+--- reference
+Here are the progress bar and the downloads figure, each in its own section.
+```dyui
+{"ui":"accordion","items":[{"title":"Main section","children":[{"ui":"progress","value":25,"max":45}]},{"title":"More detail","children":[{"ui":"stat","label":"Podcast downloads","value":"107,529","trend":"up"}]}]}
+```
+The first section tracks progress toward the target, and the second keeps the downloads count one click away.
+--- derived
+
+=== D-0023
+--- user
+I need two collapsible sections of hotels with thumbnails. In the first: Hotel Avenida (https://assets.lumen.example.io/img/changelog-22.jpg), Mar & Sol (https://news.example.com/img/security-13.jpg), Praça Suites (https://docs.acme-cloud.example.com/img/security-32.png). In the second: Mar & Sol (https://static.brasa.example.com/img/getting-started-13.jpg), Quinta Verde (https://files.example.com/img/overview-08.jpg), Casa Alfama (https://cdn.fernhill.example.com/img/release-notes-22.webp), Praça Suites (https://blog.northwind.example.com/img/changelog-38.png), Hotel Avenida (https://assets.lumen.example.io/img/release-notes-13.jpg).
+--- reference
+Here are the two hotel lists, each with its thumbnails, in separate sections.
+```dyui
+{"ui":"accordion","items":[{"title":"Main section","children":[{"ui":"list","items":[{"title":"Hotel Avenida","image":"https://assets.lumen.example.io/img/changelog-22.jpg"},{"title":"Mar & Sol","image":"https://news.example.com/img/security-13.jpg"},{"title":"Praça Suites","image":"https://docs.acme-cloud.example.com/img/security-32.png"}]}]},{"title":"More detail","children":[{"ui":"list","items":[{"title":"Mar & Sol","image":"https://static.brasa.example.com/img/getting-started-13.jpg"},{"title":"Quinta Verde","image":"https://files.example.com/img/overview-08.jpg"},{"title":"Casa Alfama","image":"https://cdn.fernhill.example.com/img/release-notes-22.webp"},{"title":"Praça Suites","image":"https://blog.northwind.example.com/img/changelog-38.png"},{"title":"Hotel Avenida","image":"https://assets.lumen.example.io/img/release-notes-13.jpg"}]}]}]}
+```
+Three hotels repeat across the sections with a different photo each time.
+--- derived
+

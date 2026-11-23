@@ -1,0 +1,119 @@
+=== H-0012
+--- user
+Parcel TRK-445 is going from Rome to Auckland and DHL has it. Could you summarise the shipment so I can paste it into the customer file?
+--- reference
+Shipment TRK-445 travels from Rome to Auckland and is carried by DHL.
+The tracking number and the carrier are the two details you will need if the customer asks for an update.
+--- derived
+
+=== H-0003
+--- user
+Leads by channel this month: Display 1856, Email 145, Social 2138, Search 661. Show me the comparison.
+--- reference
+Here is how the four channels compare on leads.
+```dyui
+{"ui":"chart","kind":"bar","labels":["Display","Email","Social","Search"],"series":[{"name":"Leads","data":[1856,145,2138,661]}],"title":"Leads by channel"}
+```
+Social leads with 2138, while Email trails far behind at 145.
+--- derived
+
+=== H-0002
+--- user
+Quick status on the new single's release: the artwork is uploaded, the pitch to editors failed, scheduling the release is in progress right now, and the socials promotion is done. Can you show it as a plan?
+--- reference
+Two steps are finished: the artwork is uploaded and the socials promotion is done. Scheduling the release is still in progress, while the pitch to editors failed and is the one to retry.
+--- derived
+
+=== H-0015
+--- user
+Please draft a message for the customer: the backup has finished, and their Workouts this month count is back to 15, which is within the limit of 13.
+--- reference
+Here is a message you can send to the customer.
+```dyui
+{"ui":"callout","level":"success","text":"The backup finished and Workouts this month is back to 15, within the 13 limit."}
+```
+It states the outcome first and the figure after, so the customer sees the good news straight away.
+--- derived
+
+=== H-0016
+--- user
+hey can you tell the tenant rep that the battery level is recalculated every 4 hours, so today's figure is only provisional? a highlighted note box would be nice
+--- reference
+Battery level is recalculated every 4 hours, so today's figure is provisional and may shift at the next recalculation.
+--- derived
+
+=== H-0021
+--- user
+Please let the team know that the backup has finished and that Open incidents is back to 1, within the limit of 1.
+--- reference
+The backup is complete, and the incident count is back inside its limit.
+```dyui
+{"ui":"callout","level":"success","text":"The backup finished and Open incidents is back to 1, within the 1 limit."}
+```
+No further cleanup is implied by this status.
+--- derived
+
+=== H-0020
+--- user
+For the Fleet management plan on this van: the road test is done, booking the service slot is underway, swapping the tyres hasn't started, returning to the pool was skipped, and inspecting the vehicle hasn't started either. Show it as a plan.
+--- reference
+Here is the fleet management plan with each step's status.
+```dyui
+{"ui":"plan","title":"Fleet management plan","items":[{"title":"Road test","status":"done"},{"title":"Book the service slot","status":"active"},{"title":"Swap the tyres","status":"pending"},{"title":"Return to the pool","status":"skipped"},{"title":"Inspect the vehicle","status":"pending"}]}
+```
+Booking the service slot is the step in motion; the tyre swap and inspection wait behind it.
+--- derived
+
+=== H-0006
+--- user
+Here is this morning's network snapshot. Subscribers: 816,596 (target 898,256). Data used: 23.3 GB, unchanged at 0%. Download speed: 112 Mbps, up 13.2%. Latency: 28 ms, trending down. Churn: 2.0%, trending up. Dropped calls: 2.7%, up 13.1%. Please show them as headline numbers.
+--- reference
+Here are the six headline figures for the network.
+```dyui
+{"ui":"stats","items":[{"label":"Subscribers","value":"816,596","help":"Target 898,256"},{"label":"Data used","value":"23.3 GB","delta":"0%"},{"label":"Download speed","value":"112 Mbps","delta":"+13.2%"},{"label":"Latency","value":28,"unit":"ms","trend":"down"},{"label":"Churn","value":"2.0%","trend":"up"},{"label":"Dropped calls","value":"2.7%","delta":"+13.1%","trend":"up"}]}
+```
+Speed and latency moved the right way, but rising churn and dropped calls are the pair to watch.
+--- derived
+
+=== H-0008
+--- user
+Could you pull up the profile of our Legal aid campaign? The goal is $218,507, we have raised $44,440 so far, it ends Feb 16, and Ana Torres leads it.
+--- reference
+Here is the profile of the Legal aid campaign.
+```dyui
+{"ui":"keyvalue","items":[{"key":"Program","value":"Legal aid"},{"key":"Goal","value":"$218,507"},{"key":"Raised","value":"$44,440"},{"key":"Ends","value":"Feb 16"},{"key":"Lead","value":"Ana Torres"}]}
+```
+Ana Torres owns the campaign, which closes on Feb 16.
+--- derived
+
+=== H-0005
+--- user
+We're mid-incident and I'd like a clear picture of where things stand. Ship the fix behind a flag: done, Apr 5, owner Greta Novak. Bisect the last three deploys: in progress, Nov 7, owner Kofi Novak. Write the postmortem: not started, Jul 9, owner Ben Lindqvist. Run the load test: not started, Mar 11, owner Bruno Torres. Show me where we are.
+--- reference
+Here is where the incident work stands, in the order you listed it.
+
+- **Ship the fix behind a flag** (Apr 5, Greta Novak): done
+- **Bisect the last three deploys** (Nov 7, Kofi Novak): in progress
+- **Write the postmortem** (Jul 9, Ben Lindqvist): not started
+- **Run the load test** (Mar 11, Bruno Torres): not started
+
+The bisect is the only active item, so everything else is waiting on its result.
+--- derived
+
+=== H-0023
+--- user
+Zu Bestellung ORD-1397 liegt ein Alarm vor. Bitte geben Sie mir Schaltflächen, mit denen ich die Anfrage ablehnen oder den Alarm schließen kann.
+--- reference
+Für ORD-1397 stehen zwei Aktionen zur Verfügung: die Anfrage ablehnen oder den Alarm schließen. Nennen Sie mir einfach die gewünschte Aktion, dann veranlasse ich sie für diese Bestellung.
+--- derived
+
+=== H-0011
+--- user
+Please give me the key facts on the candidate as a key-value list. Role: Data analyst. Stage: Offer. Source: LinkedIn. Recruiter: Nadia Torres. Start date: Sep 25.
+--- reference
+Here are the key facts on the candidate.
+```dyui
+{"ui":"table","columns":["Field","Value"],"rows":[["Role","Data analyst"],["Stage","Offer"],["Source","LinkedIn"],["Recruiter","Nadia Torres"],["Start date","Sep 25"]]}
+```
+The candidate is at the offer stage with a start date of Sep 25.
+--- derived

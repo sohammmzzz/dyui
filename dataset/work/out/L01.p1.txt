@@ -1,0 +1,144 @@
+=== L-0003
+--- user
+Could you please lay out the album release rollout as a plan? Promoting on socials failed, scheduling the release is done, uploading the artwork failed as well, and mastering the track has not started yet.
+--- reference
+Here is the release rollout with the status of each task.
+```dyui
+{"ui":"plan","items":[{"title":"Promote on socials","status":"error"},{"title":"Schedule the release","status":"done"},{"title":"Upload the artwork","status":"error"},{"title":"Master the track","status":"pending"}]}
+```
+Two tasks failed, so the socials promotion and the artwork upload need attention before anything else.
+--- derived
+
+
+=== L-0008
+--- user
+hey can you show that geocoding tool call? "Geocode address" for Porto finished fine, it took 2691 ms and returned 41.15, -8.61
+--- reference
+The geocoding call completed, and its input and output are attached.
+```dyui
+{"ui":"step","title":"Geocode address","status":"done","type":"tool","input":{"city":"Porto"},"output":{"result":"41.15, -8.61"},"duration_ms":2691}
+```
+It resolved Porto to those coordinates in under three seconds.
+--- derived
+
+
+=== L-0001
+--- user
+track the event work: playtest pending, ship the build done, design the event in progress, balance rewards pending, monitor economy done
+--- reference
+Here is the event work tracked step by step.
+```dyui
+{"ui":"plan","items":[{"title":"Playtest","status":"pending"},{"title":"Ship the build","status":"done"},{"title":"Design the event","status":"active"},{"title":"Balance the rewards","status":"pending"},{"title":"Monitor the economy","status":"done"}]}
+```
+Designing the event is the only task in progress; playtesting and reward balancing are still waiting.
+--- derived
+
+
+=== L-0011
+--- user
+Please present our live-ops work for the mobile game as a plan titled "Live-ops for a mobile game plan". Status: monitoring the economy is pending, designing the event is complete, shipping the build is complete, playtesting has failed, and balancing the rewards is complete.
+--- reference
+Here is the live-ops plan with its current statuses.
+```dyui
+{"ui":"plan","title":"Live-ops for a mobile game plan","items":[{"title":"Monitor the economy","status":"pending"},{"title":"Design the event","status":"done"},{"title":"Ship the build","status":"done"},{"title":"Playtest","status":"error"},{"title":"Balance the rewards","status":"done"}]}
+```
+The failed playtest is the item to resolve before the economy can be monitored.
+--- derived
+
+
+=== L-0007
+--- user
+I'm about to run a flight lookup and would like to see it as a step before it starts. It's called "Search flights", it's a search type step, its input is from LIS to MAD, and it's still pending, so no output or timing yet.
+--- reference
+Here is the flight search step, queued and not yet run.
+```dyui
+{"ui":"step","title":"Search flights","status":"pending","type":"search","input":{"from":"LIS","to":"MAD"}}
+```
+It has no output until it starts running.
+--- derived
+
+
+=== L-0010
+--- user
+I want a live checklist for my "Fitness coaching app plan" session. Planning tomorrow is already done, the warm up is in progress right now, the cool down hasn't started, the main set is also in progress, and logging the session is still to come.
+--- reference
+Here is your session as a live checklist.
+```dyui
+{"ui":"plan","title":"Fitness coaching app plan","items":[{"title":"Plan tomorrow","status":"done"},{"title":"Warm up","status":"active"},{"title":"Cool down","status":"pending"},{"title":"Main set","status":"active"},{"title":"Log the session","status":"pending"}]}
+```
+Planning is finished, so the warm up and main set are what is currently moving.
+--- derived
+
+
+=== L-0005
+--- user
+I'd like to follow along with the thread summarisation. Please show the step "Summarise thread": it's an llm step that is running right now, and its input is 24 messages.
+--- reference
+The summarisation step is running, and its input is shown below.
+```dyui
+{"ui":"step","title":"Summarise thread","status":"running","type":"llm","input":{"messages":24}}
+```
+It will fill in its output once the model finishes.
+--- derived
+
+
+=== L-0006
+--- user
+Can you show the "Query orders" step from earlier? It was a sql step on the orders table over the last 7d window, and it failed with a timeout after 1135 ms.
+--- reference
+The order query did not complete, and here is the failed step.
+```dyui
+{"ui":"step","title":"Query orders","status":"error","type":"sql","input":{"table":"orders","window":"7d"},"output":{"error":"timeout"},"duration_ms":1135}
+```
+It timed out after about a second, so the orders data was never returned.
+--- derived
+
+
+=== L-0002
+--- user
+Please show today's visit workflow as a plan called "Outpatient clinic plan". Collecting the insurance card is in progress; taking vitals, sending the visit summary and booking the follow-up are all done; seeing the clinician is pending.
+--- reference
+Here is the outpatient visit plan with each step's status.
+```dyui
+{"ui":"plan","title":"Outpatient clinic plan","items":[{"title":"Collect the insurance card","status":"active"},{"title":"Take vitals","status":"done"},{"title":"Send the visit summary","status":"done"},{"title":"Book the follow-up","status":"done"},{"title":"See the clinician","status":"pending"}]}
+```
+The insurance card is the only thing still being collected before the clinician visit.
+--- derived
+
+
+=== L-0012
+--- user
+checklist for the campaign pls: monitor first 48 hours = in progress, write the brief = done, report results = skipped, build audiences = in progress
+--- reference
+Here is the campaign as a live checklist.
+```dyui
+{"ui":"plan","items":[{"title":"Monitor the first 48 hours","status":"active"},{"title":"Write the brief","status":"done"},{"title":"Report the results","status":"skipped"},{"title":"Build the audiences","status":"active"}]}
+```
+Only the brief is complete; reporting was skipped.
+--- derived
+
+
+=== L-0009
+--- user
+why easyJet? it's $217 and Iberia is $387
+--- reference
+Here is the reasoning behind the pick.
+```dyui
+{"ui":"reasoning","text":"Comparing the two fares: easyJet at $217 is $170 cheaper than Iberia at $387. Price is the deciding factor, so easyJet is the better pick."}
+```
+The recommendation rests entirely on the fare gap.
+--- derived
+170
+
+
+=== L-0004
+--- user
+Turn the shipment into a live checklist titled "Freight and last-mile logistics plan". Out for delivery was skipped, clearing customs is done, the pick up at the dock was skipped, the scan at the hub was skipped, and collecting proof of delivery is in progress right now.
+--- reference
+Here is the shipment as a live checklist.
+```dyui
+{"ui":"plan","title":"Freight and last-mile logistics plan","items":[{"title":"Out for delivery","status":"skipped"},{"title":"Clear customs","status":"done"},{"title":"Pick up at the dock","status":"skipped"},{"title":"Scan at the hub","status":"skipped"},{"title":"Collect proof of delivery","status":"active"}]}
+```
+Customs is cleared, and proof of delivery is the one step still active.
+--- derived
+

@@ -1,0 +1,102 @@
+=== B-0032
+--- user
+Here is today's showing sheet, in the order I jotted it down: 15:00 at 7 Harbour Row, buyer Wen Costa, agent Viktor Park. 17:15 at 19 Quay Street, buyer Katya Castillo, agent Greta Sato. 11:00 at 19 Quay Street, buyer Olga Novak, agent Chloe Eriksson. 09:30 at 48 Rua Verde, buyer Ben Rossi, agent Katya Castillo. 13:30 at 7 Harbour Row, buyer Umar Castillo, agent Ben Bergstrom. 11:00 at 12 Mill Lane, buyer Carla Hoang, agent Gabriel Costa. Could you lay these showings out cleanly for me?
+--- reference
+Here are all six showings with the time, property, buyer and agent for each.
+```dyui
+{"ui":"table","columns":["Time","Property","Buyer","Agent"],"rows":[["15:00","7 Harbour Row","Wen Costa","Viktor Park"],["17:15","19 Quay Street","Katya Castillo","Greta Sato"],["11:00","19 Quay Street","Olga Novak","Chloe Eriksson"],["09:30","48 Rua Verde","Ben Rossi","Katya Castillo"],["13:30","7 Harbour Row","Umar Castillo","Ben Bergstrom"],["11:00","12 Mill Lane","Carla Hoang","Gabriel Costa"]],"caption":"Showings"}
+```
+Two showings share the 11:00 slot, at 19 Quay Street and 12 Mill Lane, each with a different agent.
+--- derived
+
+=== B-0060
+--- user
+Good morning. Could you please set out the current status of our fields so that it is easy to scan? Hill field has wheat, 40 hectares, currently growing. North 40 has barley, 19 hectares, sowing. Orchard has wheat, 23 hectares, flowering. Greenhouse has olives, 55 hectares, growing. River plot has sunflower, 58 hectares, growing. And Hill field again, wheat, 43 hectares, flowering.
+--- reference
+Good morning. Here are the six field entries with crop, area and growth stage.
+```dyui
+{"ui":"table","columns":["Field","Crop","Hectares","Stage"],"rows":[["Hill field","Wheat",40,"Growing"],["North 40","Barley",19,"Sowing"],["Orchard","Wheat",23,"Flowering"],["Greenhouse","Olives",55,"Growing"],["River plot","Sunflower",58,"Growing"],["Hill field","Wheat",43,"Flowering"]]}
+```
+Hill field appears twice with different areas and stages, so it may be worth confirming whether those are two separate plots.
+--- derived
+
+=== B-0029
+--- user
+We closed out September irrigation at 46 kl for the whole co-op. How does it look to you?
+--- reference
+Here is the September irrigation total for the co-op.
+```dyui
+{"ui":"stat","label":"Irrigation · September","value":"46 kl"}
+```
+That is the month's total; I have no target or earlier month in this conversation to judge it against.
+--- derived
+
+=== B-0048
+--- user
+mano, a umidade do solo foi subindo esse ano: mar 28, abr 29, mai 30 e jun 31, tudo em %. me mostra isso como um gráfico de área?
+--- reference
+Aqui está a umidade do solo de março a junho em um gráfico de área.
+```dyui
+{"ui":"chart","kind":"area","labels":["Mar","Apr","May","Jun"],"series":[{"name":"Umidade do solo","data":[28,29,30,31]}],"title":"Umidade do solo, mar–jun","unit":"%"}
+```
+A umidade subiu um ponto por mês, de 28% em março para 31% em junho.
+--- derived
+
+=== B-0019
+--- user
+Please provide the breakdown of signups per campaign for the period: Spring launch brought in 3929, Webinar series 3215, Winter sale 2406 and App install 557.
+--- reference
+Here is how signups divide across the four campaigns.
+```dyui
+{"ui":"chart","kind":"donut","labels":["Spring launch","Webinar series","Winter sale","App install"],"series":[{"name":"Signups","data":[3929,3215,2406,557]}],"title":"Signups per campaign","unit":"signups"}
+```
+Spring launch is the largest share at 3929 signups, while App install is the smallest at 557.
+--- derived
+
+=== B-0046
+--- user
+Kindly put today's schedule into a table. 09:15 Tomas Ueda, lab work, room 8. 13:45 Carla Nakamura, check-up, room 1. 11:30 Elena Oliveira, physio, room 6. 08:30 Liam Mendes, vaccination, room 9. 15:00 Aiden Castillo, dental, room 6. 16:20 Viktor Larsen, vaccination, room 4.
+--- reference
+Here is today's schedule with time, patient, service and room.
+```dyui
+{"ui":"table","columns":["Time","Patient","Service","Room"],"rows":[["09:15","Tomas Ueda","Lab work",8],["13:45","Carla Nakamura","Check-up",1],["11:30","Elena Oliveira","Physio",6],["08:30","Liam Mendes","Vaccination",9],["15:00","Aiden Castillo","Dental",6],["16:20","Viktor Larsen","Vaccination",4]],"caption":"Today's schedule"}
+```
+Room 6 is booked twice, at 11:30 and again at 15:00.
+--- derived
+
+=== B-0042
+--- user
+deploys/wk vs incidents/wk: 6.8→4.7, 8.9→5.3, 10→6, 17.2→8.7, 21.8→11, 27.4→15.4, 28.6→15.3. does one drive the other?
+--- reference
+Here are the seven weekly points with deploys on the x axis and incidents on the y axis.
+```dyui
+{"ui":"chart","kind":"scatter","series":[{"name":"Incidents vs deploys per week","data":[[6.8,4.7],[8.9,5.3],[10,6],[17.2,8.7],[21.8,11],[27.4,15.4],[28.6,15.3]]}],"title":"Incidents vs deploys per week"}
+```
+Incidents climb steadily as deploys go up, but a scatter shows they move together, not that one causes the other.
+--- derived
+
+=== B-0017
+--- user
+I have two devices on my watch list right now: the Heat pump at 3.9 kW with a fault status, and the Dishwasher also at 3.9 kW, currently scheduled. Could you tell me where they stand?
+--- reference
+Both the Heat pump and the Dishwasher draw 3.9 kW, but their states differ: the Heat pump is in fault, while the Dishwasher is simply scheduled. The Heat pump is the one that needs attention first.
+--- derived
+
+=== B-0033
+--- user
+Orders by location for the period: Riverside 2554, Old Town 4537, Harbour 4622. Can you show me how the split looks across the three sites? I want to see each location's share of the total.
+--- reference
+Here is each location's share of the orders.
+```dyui
+{"ui":"chart","kind":"donut","labels":["Riverside","Old Town","Harbour"],"series":[{"name":"Orders","data":[2554,4537,4622]}]}
+```
+Harbour and Old Town are close at 4622 and 4537, while Riverside trails at 2554.
+--- derived
+
+=== B-0031
+--- user
+Two showings are left on my list today: 13:30 at 12 Mill Lane for buyer Olga Bergstrom with agent Hana Ferreira, and 15:00 at 12 Mill Lane for buyer Pedro Ibrahim with agent Yara Vasquez. Can you tell me who is seeing what?
+--- reference
+Both showings are at 12 Mill Lane: Olga Bergstrom goes at 13:30 with Hana Ferreira, and Pedro Ibrahim follows at 15:00 with Yara Vasquez. Each buyer has a different agent, so there is no overlap to manage.
+--- derived
+

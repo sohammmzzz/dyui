@@ -1,0 +1,12 @@
+{
+ "seeds": 600,
+ "passed": 436,
+ "failed_gates": 14,
+ "missing_output": 150,
+ "rewrite_batches": 11,
+ "gate_failures_by_gate": {
+  "grounding": 23,
+  "filler": 7,
+  "html": 1
+ }
+}

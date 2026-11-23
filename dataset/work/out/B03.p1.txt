@@ -1,0 +1,144 @@
+=== B-0053
+--- user
+Here is where the shipment stands. Collect proof of delivery (Apr 4, Katya Bergstrom) is finished. Scan at the hub (Nov 6, Gabriel Castillo) is happening right now. Still waiting to start: Out for delivery (Oct 8, Elena Lindqvist), Pick up at the dock (Mar 10, Kofi Rossi) and Clear customs (Dec 12, Greta Hoang). Could you lay that out as a sequence so the team can follow it?
+--- reference
+Here are the five shipment steps in the order you listed them, with owners and current status.
+```dyui
+{"ui":"timeline","items":[{"title":"Collect proof of delivery","time":"Apr 4","text":"Owner: Katya Bergstrom","status":"done"},{"title":"Scan at the hub","time":"Nov 6","text":"Owner: Gabriel Castillo","status":"active"},{"title":"Out for delivery","time":"Oct 8","text":"Owner: Elena Lindqvist","status":"pending"},{"title":"Pick up at the dock","time":"Mar 10","text":"Owner: Kofi Rossi","status":"pending"},{"title":"Clear customs","time":"Dec 12","text":"Owner: Greta Hoang","status":"pending"}]}
+```
+Only the hub scan is in progress, and the three remaining steps have not started.
+--- derived
+
+
+=== B-0011
+--- user
+Lançamento do single: Upload the artwork (Sep 4, Omar Nguyen) já foi feito; Promote on socials (Mar 6, Rosa Tanaka) está em andamento; Schedule the release (Oct 8, Vera Okafor) ainda não começou. Organiza isso em ordem?
+--- reference
+Aqui estão as três etapas do lançamento, cada uma com data e responsável.
+```dyui
+{"ui":"timeline","items":[{"title":"Upload the artwork","time":"Sep 4","text":"Owner: Omar Nguyen","status":"done"},{"title":"Promote on socials","time":"Mar 6","text":"Owner: Rosa Tanaka","status":"active"},{"title":"Schedule the release","time":"Oct 8","text":"Owner: Vera Okafor","status":"pending"}]}
+```
+A divulgação nas redes é a etapa ativa agora, e o agendamento do lançamento vem em seguida.
+--- derived
+
+
+=== B-0018
+--- user
+Dear assistant, I am reviewing the appliance log for the building. The heat pump draws 2.9 kW and is scheduled; the dishwasher draws 2.3 kW and is on; the EV charger draws 6.2 kW and is on; the dryer draws 5.5 kW and is on; the oven draws 1.5 kW and has a fault; a pool pump draws 0.3 kW and has a fault; another pool pump draws 3.0 kW and is off; a second dishwasher draws 0.7 kW and has a fault. Please show me this cleanly.
+--- reference
+Here are all eight devices with their power draw and current status.
+```dyui
+{"ui":"table","columns":["Device","Power kW","Status"],"rows":[["Heat pump",2.9,"Scheduled"],["Dishwasher",2.3,"On"],["EV charger",6.2,"On"],["Dryer",5.5,"On"],["Oven",1.5,"Fault"],["Pool pump",0.3,"Fault"],["Pool pump",3.0,"Off"],["Dishwasher",0.7,"Fault"]],"caption":"Devices"}
+```
+Three devices report a fault: the oven, one pool pump and one dishwasher.
+--- derived
+
+
+=== B-0058
+--- user
+Kurzer Stand zu den Kennzahlen dieser Woche: Der NPS liegt bei 25 (+16.8% gegenüber zuvor), wir haben 215 Support-Tickets, mit steigender Tendenz. Die Churn-Rate beträgt 2.1% und steigt ebenfalls, das Ziel waren 2.3%. Die Trial-Konversion ist auf 26.5% gefallen, das Ziel lag bei 29.2%. Zeig mir die Zahlen als Kennzahlen auf einen Blick.
+--- reference
+Hier sind die vier Kennzahlen dieser Woche auf einen Blick.
+```dyui
+{"ui":"stats","items":[{"label":"NPS","value":"25","delta":"+16.8%","trend":"up"},{"label":"Support tickets","value":"215","trend":"up"},{"label":"Churn rate","value":2.1,"unit":"%","trend":"up","help":"Target 2.3%"},{"label":"Trial conversion","value":"26.5%","trend":"down","help":"Target 29.2%"}]}
+```
+Die Trial-Konversion verfehlt ihr Ziel, während die Churn-Rate trotz steigender Tendenz noch unter ihrem Ziel bleibt.
+--- derived
+
+
+=== B-0028
+--- user
+Fiz um levantamento com oito voluntários da campanha de doadores: horas estudadas e nota na prova de treinamento. 4.4 horas deu 55.4, 5 horas deu 68.6, 6.4 horas deu 67.1, 10.6 horas deu 67.9, 13.4 horas deu 87.1, 18.8 horas deu 89.1, 19.5 horas deu 82.8 e 19.6 horas deu 95.1. Será que estudar mais faz a nota subir?
+--- reference
+Aqui está cada voluntário como um ponto, com as horas estudadas no eixo x e a nota da prova no eixo y.
+```dyui
+{"ui":"chart","kind":"scatter","series":[{"name":"Exam score vs hours studied","data":[[4.4,55.4],[5,68.6],[6.4,67.1],[10.6,67.9],[13.4,87.1],[18.8,89.1],[19.5,82.8],[19.6,95.1]]}]}
+```
+As notas tendem a subir junto com as horas, mas com só oito pontos isso mostra uma associação, não prova que uma coisa causa a outra.
+--- derived
+
+
+=== B-0067
+--- user
+Could you please show me where this patient's appointment workflow stands? "See the clinician" was completed on Jan 4 by Sven Park. "Book the follow-up" is under way, due Nov 6, with Sofia Yilmaz. "Collect the insurance card" is scheduled for Apr 8 and has not begun; Xavier Weber is responsible.
+--- reference
+Here is the appointment workflow, with the completed step first and the open steps after it.
+```dyui
+{"ui":"timeline","items":[{"title":"See the clinician","time":"Jan 4","text":"Owner: Sven Park","status":"done"},{"title":"Book the follow-up","time":"Nov 6","text":"Owner: Sofia Yilmaz","status":"active"},{"title":"Collect the insurance card","time":"Apr 8","text":"Owner: Xavier Weber","status":"pending"}]}
+```
+Booking the follow-up is the current step, and the insurance card collection has not started.
+--- derived
+
+
+=== B-0009
+--- user
+hey, we're moving the booking records over to the new system. 2783 of 3200 are done so far. how much is left?
+--- reference
+Here is how far the migration has come.
+```dyui
+{"ui":"progress","value":2783,"max":3200,"label":"Migration"}
+```
+That leaves 417 records still to move.
+--- derived
+417
+
+
+=== B-0057
+--- user
+Die Weekly Active Users liegen diese Woche bei 1,228, unser Ziel waren 1,215. Kannst du das übersichtlich darstellen?
+--- reference
+Hier ist die Zahl der wöchentlich aktiven Nutzer im Vergleich zum Ziel.
+```dyui
+{"ui":"stat","label":"Weekly active users","value":"1,228","help":"Target 1,215"}
+```
+Damit liegt der Wert über dem Ziel.
+--- derived
+
+
+=== B-0025
+--- user
+Ticket status pls. Escalate to tier 2: done Feb 7, Wen Nguyen. Close the ticket: in progress, Jan 9, Vera Rahman. Confirm the fix: not started, Nov 11, Lena Fischer. Acknowledge the customer: not started, Aug 13, Tomas Garcia.
+--- reference
+Here is the ticket's progress, one step per line with its owner.
+```dyui
+{"ui":"timeline","items":[{"title":"Escalate to tier 2","time":"Feb 7","text":"Owner: Wen Nguyen","status":"done"},{"title":"Close the ticket","time":"Jan 9","text":"Owner: Vera Rahman","status":"active"},{"title":"Confirm the fix","time":"Nov 11","text":"Owner: Lena Fischer","status":"pending"},{"title":"Acknowledge the customer","time":"Aug 13","text":"Owner: Tomas Garcia","status":"pending"}]}
+```
+Escalation is complete and closing the ticket is the step in progress.
+--- derived
+
+
+=== B-0035
+--- user
+I need a quick summary of this file for the customer call: the claim is CLM-656, it is a Travel claim, and it was filed on Apr 17.
+--- reference
+Here are the details of the claim at a glance.
+```dyui
+{"ui":"keyvalue","items":[{"key":"Claim","value":"CLM-656"},{"key":"Type","value":"Travel"},{"key":"Filed","value":"Apr 17"}]}
+```
+This only records what was filed; it does not say anything about coverage.
+--- derived
+
+
+=== B-0069
+--- user
+ok so I tracked how much walking each part of the trip involves per day: Flights 4.5, Food 9.1, Activities 10.4, Trains 13.3, Hotels 17.6. Compare them for me?
+--- reference
+Here is the daily walking for each part of the trip, side by side.
+```dyui
+{"ui":"chart","kind":"bar","labels":["Flights","Food","Activities","Trains","Hotels"],"series":[{"name":"Walking per day","data":[4.5,9.1,10.4,13.3,17.6]}]}
+```
+Hotels involve the most walking at 17.6, and flights the least at 4.5.
+--- derived
+
+
+=== B-0055
+--- user
+Please compare device usage by level. Advanced: 24 on mobile and 37 on desktop. Beginner: 84 on mobile and 74 on desktop. Intermediate: 29 on mobile and 61 on desktop. All figures are percentages. Could you stack them so I can see both parts per level?
+--- reference
+Here is usage by level, with mobile and desktop stacked in each bar.
+```dyui
+{"ui":"chart","kind":"bar","labels":["Advanced","Beginner","Intermediate"],"series":[{"name":"Mobile","data":[24,84,29]},{"name":"Desktop","data":[37,74,61]}],"unit":"%","stacked":true}
+```
+Beginner learners show the highest values on both devices, while the intermediate level leans towards desktop.
+--- derived
+

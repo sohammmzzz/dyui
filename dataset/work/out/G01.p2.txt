@@ -1,0 +1,114 @@
+=== G-0046
+--- user
+We're triaging an incident that touches service X-564. I believe Growth owns it, it's written in Rust, and Tomas Eriksson is on call. Can you check the details?
+--- reference
+Here are the details for service X-564, and they match what you described.
+```dyui
+{"ui":"keyvalue","items":[{"key":"Owner","value":"Growth"},{"key":"Language","value":"Rust"},{"key":"On call","value":"Tomas Eriksson"},{"key":"Last deploy","value":"Nov 18"},{"key":"SLO","value":"99.9%"}]}
+```
+The last deploy went out on Nov 18, which is worth keeping in mind while you triage.
+--- derived
+
+=== G-0011
+--- user
+hey can you pull up the lab orders? looking for LAB-323 and LAB-676 specifically, but I'd like to see where the rest stand too
+--- reference
+There are 45 lab orders in the system, and these are the first ten, including LAB-323 and LAB-676.
+```dyui
+{"ui":"table","columns":["Order","Test","Status"],"rows":[["LAB-323","HbA1c","Collected"],["LAB-676","TSH","Collected"],["LAB-543","Vitamin D","In lab"],["LAB-415","CBC","Ready"],["LAB-419","Lipid panel","Collected"],["LAB-203","Lipid panel","In lab"],["LAB-972","HbA1c","Ready"],["LAB-925","HbA1c","In lab"],["LAB-650","HbA1c","Collected"],["LAB-878","Lipid panel","Collected"]]}
+```
+Both of the orders you asked about have been collected; the other 35 are not shown here.
+--- derived
+35
+
+=== G-0009
+--- user
+Please retrieve the upcoming release calendar. I need to confirm what is scheduled on Oct 25, Feb 15 and Sep 13.
+--- reference
+The calendar lists five releases, and the three dates you named are all on it.
+```dyui
+{"ui":"table","columns":["Date","Release","Artist","Format"],"rows":[["Oct 25","Static Bloom","Vera Ueda","Album"],["Feb 15","Neon Harbour EP","Sven Reyes","Single"],["Sep 13","Paper Lanterns LP","Zainab Park","Album"],["Dec 20","Slow Weather","Lena Novak","Single"],["Apr 12","Paper Lanterns LP","Zainab Tanaka","EP"]]}
+```
+Paper Lanterns LP appears twice, on Sep 13 under Zainab Park and on Apr 12 under Zainab Tanaka.
+--- derived
+
+=== G-0024
+--- user
+what's coming up for vehicle servicing? I'm after CM-6403 and CM-4928 mostly, but show me the general picture
+--- reference
+There are 36 vehicles with services due, and these are the first ten, with CM-6403 and CM-4928 at the top.
+```dyui
+{"ui":"table","columns":["Plate","Service","Due","Depot"],"rows":[["CM-6403","Brake pads","Sep 24","Campus"],["CM-4928","Oil change","Aug 19","Harbour"],["CM-9668","Oil change","Sep 2","Harbour"],["CM-9266","Battery check","Sep 11","Airport"],["CM-1180","Brake pads","Jan 3","Harbour"],["CM-4862","Brake pads","Sep 22","Central"],["CM-7733","Brake pads","Jan 2","Harbour"],["CM-7401","Battery check","Nov 18","Campus"],["CM-6526","Battery check","Aug 19","Campus"],["CM-6009","Tyres","Jun 11","Harbour"]]}
+```
+CM-4928 is due first on Aug 19; the other 26 vehicles are not listed here.
+--- derived
+26
+
+=== G-0030
+--- user
+dish K-814? think it's Cold station, $17, dairy
+--- reference
+Here are the details for dish K-814, which confirm your guess.
+```dyui
+{"ui":"keyvalue","items":[{"key":"Station","value":"Cold"},{"key":"Price","value":"$17"},{"key":"Allergens","value":"Dairy"},{"key":"Prep time","value":19},{"key":"Status","value":"On menu"}]}
+```
+It is on the menu with a prep time of 19, so the dairy allergen is the one to flag to guests.
+--- derived
+
+=== G-0026
+--- user
+I would be grateful if you could list the vehicles with upcoming maintenance, in particular CM-6101, CM-5906 and CM-3901.
+--- reference
+Six vehicles have maintenance due, and the three you named are among them.
+```dyui
+{"ui":"table","columns":["Plate","Service","Due","Depot"],"rows":[["CM-6101","Oil change","Jul 27","Harbour"],["CM-5906","Battery check","Jul 25","Campus"],["CM-3901","Annual inspection","Mar 11","Harbour"],["CM-3888","Battery check","Oct 22","Central"],["CM-5144","Battery check","Oct 17","Campus"],["CM-5433","Brake pads","Jul 28","Central"]]}
+```
+Three of the six are due in late July, with CM-5906 the earliest on Jul 25.
+--- derived
+
+=== G-0027
+--- user
+what events do we have on sale? mostly curious how Tech Summit and Indie Film Night are doing
+--- reference
+The box office lists 36 events, and here are the first ten with tickets sold.
+```dyui
+{"ui":"table","columns":["Event","Date","Sold","Venue"],"rows":[["Tech Summit","Aug 12",8932,"Studio"],["Indie Film Night","Aug 26",1036,"Rooftop"],["Jazz on the Quay","Oct 7",6236,"Rooftop"],["Food Fest","Aug 12",6553,"Arena"],["Marathon Expo","Nov 21",2493,"Main Hall"],["Jazz on the Quay","Jul 11",8123,"Studio"],["Indie Film Night","Sep 20",2169,"Arena"],["Jazz on the Quay","Aug 20",6773,"Main Hall"],["Jazz on the Quay","Sep 8",2553,"Main Hall"],["Jazz on the Quay","Mar 18",4765,"Arena"]]}
+```
+The Tech Summit on Aug 12 has sold 8932 tickets, while the Indie Film Night on Aug 26 has sold 1036; the other 26 events are not shown here.
+--- derived
+26
+
+=== G-0007
+--- user
+Could you give me the current top-selling products across the store? I'd particularly like to see how the Wool rug, the Brass desk lamp and the Glass carafe compare with the rest, including units, revenue and stock.
+--- reference
+Here are the six top-selling products with units, revenue and stock.
+```dyui
+{"ui":"table","columns":["Product","Units","Revenue","Stock"],"rows":[["Wool rug",764,"$35,668",488],["Brass desk lamp",1276,"$21,091",106],["Glass carafe",1790,"$26,452",257],["Linen throw",1318,"$16,945",484],["Ceramic planter",1071,"$30,761",546],["Oak shelf",1600,"$7,714",275]]}
+```
+The Glass carafe sold the most units at 1790, while the Wool rug brought in the most revenue at $35,668.
+--- derived
+
+=== G-0040
+--- user
+Could you show me my training plan for this week? I'd like to see what is scheduled for Fri and Sun in particular, along with how long each session is.
+--- reference
+The plan has 41 sessions this week, and here are the first ten, starting with Fri and Sun.
+```dyui
+{"ui":"table","columns":["Day","Session","Minutes"],"rows":[["Fri","Long run",68],["Sun","Rest",19],["Thu","Rest",26],["Sat","Tempo",11],["Mon","Long run",58],["Tue","Intervals",83],["Wed","Intervals",87],["Sat","Tempo",60],["Sat","Rest",59],["Sun","Long run",77]]}
+```
+Fri opens with a 68-minute long run, and the other 31 entries are not shown here.
+--- derived
+31
+
+=== G-0048
+--- user
+hotels list, esp Casa Alfama + Praça Suites
+--- reference
+There are 37 hotel entries, and here are the first ten with stars, nightly price and rating.
+```dyui
+{"ui":"table","columns":["Hotel","Stars","Per night","Rating"],"rows":[["Casa Alfama",3,"$118",7.7],["Praça Suites",3,"$172",7.2],["Hotel Avenida",4,"$204",9.3],["Mar & Sol",5,"$289",8.1],["Porto Riverside",4,"$249",9.2],["Quinta Verde",5,"$259",7.9],["Casa Alfama",5,"$107",7.5],["Mar & Sol",3,"$235",8.6],["Praça Suites",4,"$88",9.2],["Porto Riverside",5,"$208",8.5]]}
+```
+Casa Alfama and Praça Suites each appear more than once with different star levels and rates; the other 27 entries are not shown here.
+--- derived
+27

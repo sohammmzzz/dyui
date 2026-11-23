@@ -1,0 +1,110 @@
+=== A-0004
+--- user
+Kindly present the following customer comment as a testimonial: "Support answered before I finished my coffee."
+--- reference
+Here is the comment presented as a testimonial.
+```dyui
+{"ui":"quote","text":"Support answered before I finished my coffee."}
+```
+A short quote like this works well as social proof on a product page.
+--- derived
+
+=== A-0009
+--- user
+For the maintenance review, could you put the Orion Dashboard figure in a card? Fleet availability currently stands at 70%, and I would like a Decline button on it.
+--- reference
+Here is the Orion Dashboard card with a Decline action.
+```dyui
+{"ui":"card","title":"Orion Dashboard","children":[{"ui":"stat","label":"Fleet availability","value":"70%"}],"actions":[{"label":"Decline","action":"decline_item","style":"danger"}]}
+```
+The Decline button is styled as a danger action and reports back to me when pressed.
+--- derived
+
+=== A-0085
+--- user
+This listing alert looks suspicious. I'd like to be able to act on it from right here: one option to dismiss the alert, and another to flag it as fraud, both styled as dangerous actions.
+--- reference
+Here are the two actions for this alert.
+```dyui
+{"ui":"buttons","items":[{"label":"Dismiss alert","action":"dismiss_alert","style":"danger"},{"label":"Flag as fraud","action":"flag_as_fraud","style":"danger"}]}
+```
+Whichever button you press is sent back to me as an action.
+--- derived
+
+=== A-0103
+--- user
+Ecco le fonti che ho usato per la pratica, puoi elencarle come fonti? 1) Compliance handbook, https://docs.acme-cloud.example.com/annual-review, "Illustra la configurazione passo per passo". 2) Pricing overview, https://files.example.com/q3-summary/18, "Contiene le cifre più recenti". 3) Annual review, https://static.brasa.example.com/benchmark, "Illustra la configurazione passo per passo". 4) Roadmap summary, https://help.helpwave.example.com/guide, "Spiega i comandi in linguaggio semplice".
+--- reference
+Ecco le quattro fonti elencate con i rispettivi link.
+```dyui
+{"ui":"sources","items":[{"title":"Compliance handbook","url":"https://docs.acme-cloud.example.com/annual-review","snippet":"Illustra la configurazione passo per passo"},{"title":"Pricing overview","url":"https://files.example.com/q3-summary/18","snippet":"Contiene le cifre più recenti"},{"title":"Annual review","url":"https://static.brasa.example.com/benchmark","snippet":"Illustra la configurazione passo per passo"},{"title":"Roadmap summary","url":"https://help.helpwave.example.com/guide","snippet":"Spiega i comandi in linguaggio semplice"}]}
+```
+Ogni voce è numerata e porta al documento originale.
+--- derived
+
+=== A-0073
+--- user
+I'm tagging my training plans: one is a Draft and one is Stable. Could you show those two as pills so I can see at a glance which is which? Gray for the draft and green for the stable one would be great.
+--- reference
+Here are your two plan statuses as pills.
+```dyui
+{"ui":"badges","items":[{"label":"Draft","color":"gray"},{"label":"Stable","color":"green"}]}
+```
+Gray marks the plan still being worked on, and green the one that is settled.
+--- derived
+
+=== A-0035
+--- user
+can you share the price list as a file? it's price-list.zip, 1636029 bytes, at https://static.brasa.example.com/files/price-list.zip
+--- reference
+Here is the price list, ready to download.
+```dyui
+{"ui":"file","name":"price-list.zip","url":"https://static.brasa.example.com/files/price-list.zip","size":1636029}
+```
+It downloads as a single zip archive.
+--- derived
+
+=== A-0078
+--- user
+got the launch teaser clip here: https://news.example.com/video/case-study.mp4 - embed it so I can watch it, and caption it "The launch teaser"
+--- reference
+The launch teaser is embedded and ready to watch.
+```dyui
+{"ui":"video","src":"https://news.example.com/video/case-study.mp4","caption":"The launch teaser"}
+```
+Hit play to view it in place.
+--- derived
+
+=== A-0077
+--- user
+We recorded the release notes as audio for the editorial team, and it lives at https://docs.acme-cloud.example.com/audio/release-notes-26.mp3. Can you embed the audio here so people can play it straight from the chat?
+--- reference
+The release notes recording is embedded below.
+```dyui
+{"ui":"audio","src":"https://docs.acme-cloud.example.com/audio/release-notes-26.mp3"}
+```
+Anyone on the team can play it from the chat.
+--- derived
+
+=== A-0114
+--- user
+add a divider before the risks section pls, labeled Risks
+--- reference
+Here is a labeled separator that opens the risks section.
+```dyui
+{"ui":"divider","label":"Risks"}
+```
+The label tells readers what comes next.
+--- derived
+
+=== A-0030
+--- user
+Spring Festival has 2213 active donors. Put that in a card with a Details button, nothing fancy.
+--- reference
+Here is the Spring Festival as a card with a details action.
+```dyui
+{"ui":"card","title":"Spring Festival","children":[{"ui":"stat","label":"Active donors","value":"2213"}],"actions":[{"label":"Details","action":"view_details","style":"ghost"}]}
+```
+The Details button is a low-key ghost style, and pressing it sends the action to me.
+--- derived
+

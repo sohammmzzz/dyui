@@ -1,0 +1,70 @@
+=== J-0001
+--- user
+Könnten Sie mir bitte kurz erklären, was bei DNS die TTL ist? Ich bin darüber in den Einstellungen unseres Hosters gestolpert.
+--- reference
+Die TTL (Time to Live) ist ein Wert im DNS-Eintrag, der angibt, wie lange Resolver und Caches die Antwort zwischenspeichern dürfen, bevor sie erneut beim zuständigen Nameserver nachfragen. Eine kurze TTL sorgt dafür, dass Änderungen schnell sichtbar werden, erzeugt aber mehr Abfragen; eine lange TTL entlastet die Server, verzögert jedoch die Wirkung von Änderungen.
+--- derived
+
+=== J-0015
+--- user
+Could you please explain what a DNS TTL is? One of the suppliers asked us to lower it and I would like to understand why.
+--- reference
+A DNS TTL (time to live) is the period for which resolvers and other caches may reuse a DNS answer before they must ask the authoritative server again. Lowering it makes a change, such as moving a site to a new address, take effect sooner, at the cost of more lookups.
+--- derived
+
+=== J-0016
+--- user
+um dashboard interno, só a equipe acessa pela rede da empresa, precisa mesmo de HTTPS?
+--- reference
+Sim, vale a pena usar. Mesmo numa rede interna, o HTTPS impede que logins e dados sejam lidos por quem estiver na mesma rede e garante que você está falando com o servidor certo. Um certificado emitido por uma CA interna resolve sem custo para o público.
+--- derived
+
+=== J-0003
+--- user
+quick q, what's a DNS TTL? keeps showing up when I mess with my domain settings
+--- reference
+It's the "time to live" on a DNS record: how long other computers and DNS servers can remember the answer before they have to look it up again. Short means changes show up fast, long means fewer lookups but slower updates.
+--- derived
+
+=== J-0029
+--- user
+In our planning meeting someone said we are accumulating technical debt on the booking tool. Could you explain what that term means?
+--- reference
+Technical debt is the future cost of choosing a quick or shortcut solution in software now instead of a cleaner one. Like financial debt it accrues interest: the shortcuts make later changes slower and riskier until the code is cleaned up.
+--- derived
+
+=== J-0034
+--- user
+ok settle a debate in our dev chat, tabs or spaces?
+--- reference
+My pick is spaces, mainly because they look the same in every editor and diff tool, and most style guides settle on them anyway. Tabs have a real accessibility advantage since each person can set their own indent width, so the best choice is whatever your project's formatter enforces, applied consistently.
+--- derived
+
+=== J-0017
+--- user
+I'm writing up notes on web APIs for a class and keep seeing the word idempotent used for HTTP methods. Could you explain precisely what it means for an API operation to be idempotent, and why anyone cares about it?
+--- reference
+An API operation is idempotent when performing it several times has the same effect on the server as performing it once; the response may differ, but the resulting state does not. This matters because clients can safely retry after a timeout or network error without causing duplicates. In HTTP, GET, PUT and DELETE are defined as idempotent, while POST is not.
+--- derived
+
+=== J-0037
+--- user
+Siamo una startup di 5 persone e dobbiamo scegliere l'architettura per il prodotto: partire con un monolite o direttamente con i microservizi? Il team ha esperienza media e vogliamo arrivare al lancio il prima possibile. Qual è la tua opinione?
+--- reference
+Con 5 persone ti consiglio un monolite ben modulare. Un solo deploy, un solo database e meno infrastruttura da gestire ti fanno risparmiare tempo prezioso prima del lancio, mentre i microservizi aggiungono complessità operativa che un team così piccolo difficilmente ripaga. Se mantieni confini chiari tra i moduli, potrai estrarre un servizio in seguito quando un'esigenza concreta lo giustificherà.
+--- derived
+
+=== J-0019
+--- user
+por quê?
+--- reference
+Porque, se uma requisição falhar ou der timeout, você pode reenviá-la sem medo de duplicar o efeito, como cobrar duas vezes o mesmo pedido. O resultado final continua o mesmo.
+--- derived
+
+=== J-0036
+--- user
+Wir haben auf einer großen Tabelle mehrere Indizes angelegt und merken, dass Schreibvorgänge langsamer geworden sind. Kann ein Datenbankindex Schreibzugriffe tatsächlich verlangsamen?
+--- reference
+Ja, das kann er. Bei jedem INSERT, UPDATE oder DELETE muss die Datenbank zusätzlich zur Tabelle auch jeden betroffenen Index aktualisieren, daher steigt der Aufwand mit der Zahl der Indizes. Lesezugriffe profitieren dafür, deshalb lohnt es sich, ungenutzte Indizes zu entfernen.
+--- derived
+

@@ -1,0 +1,88 @@
+=== E-0015
+--- reference
+Got it: the report will cover a summary and recommendations, with no charts or raw tables. I will build it that way.
+--- derived
+
+=== E-0025
+--- user
+Wait, before that, how do I check which shared boards Yara still owns? I'd like to know whether anything needs handing over first.
+--- reference
+I cannot see the board list from here, but it is worth checking which shared boards Yara owns and reassigning those before any removal, so nobody loses work. When you are ready to go ahead, tell me and I will bring the removal back for confirmation.
+--- derived
+
+=== E-0022
+--- reference
+Fechado, deixo o BK-4828 para depois. Quando quiser retomar, é só me chamar.
+--- derived
+
+=== E-0031
+--- user
+cancel pro sub pls
+--- reference
+That cannot be undone from my side, so I need your confirmation first.
+```dyui
+{"ui":"confirm","title":"Cancel your Pro subscription?","text":"You keep access until the end of the billing period.","confirm_label":"Cancel subscription","cancel_label":"Keep Pro","action":"cancel_subscription","data":{"plan":"pro"},"danger":true}
+```
+Nothing changes until you choose.
+--- derived
+
+=== E-0013
+--- reference
+Your flight is booked.
+```dyui
+{"ui":"callout","level":"success","title":"Flight booked","text":"The 7:45 flight (TP888) is confirmed and $919 was charged to your card."}
+```
+Check your email for the itinerary.
+--- derived
+
+=== E-0002
+--- user
+Good afternoon. I would like to file an incident report, please.
+--- reference
+I will need a few details to file the report.
+```dyui
+{"ui":"form","fields":[{"name":"time","label":"Preferred time","type":"time"},{"name":"priority","label":"Priority","type":"select","options":["Low","Normal","High","Urgent"]},{"name":"notes","label":"Anything we should know?","type":"textarea","placeholder":"Allergies, access instructions..."},{"name":"start_date","label":"Start date","type":"date","required":true}],"submit_label":"Submit report"}
+```
+Only the start date is required; the rest helps us respond faster.
+--- derived
+
+=== E-0033
+--- user
+I would like to change how the clinic contacts me about my appointments and reminders. Could you help me set up the notifications I receive?
+--- reference
+Let me know which channels suit you for notifications.
+```dyui
+{"ui":"choice","question":"How should we notify you?","options":["Email","Push","SMS"],"multiple":true,"allow_other":true,"action":"notify_channels","submit_label":"Save"}
+```
+You can pick more than one, or add a channel of your own.
+--- derived
+
+=== E-0023
+--- reference
+Thank you for the five stars, your feedback has been logged.
+--- derived
+
+=== E-0053
+--- reference
+Vielen Dank für die fünf Sterne. Es freut uns, dass die Antwort hilfreich war.
+--- derived
+
+=== E-0024
+--- reference
+I cannot tell which account is weakest yet, because I only have the $95 dining-out total and no per-account amounts. Send me the figure for each account and I will point out the lowest one.
+--- derived
+
+=== E-0006
+--- reference
+I only have the overall ROAS of 1.7x, so there is no campaign list to rank yet. Paste your campaigns with their ROAS and I will pull out the top 3.
+--- derived
+
+=== E-0049
+--- reference
+Understood, the release is on hold.
+```dyui
+{"ui":"callout","level":"info","text":"Release v4.0.6 was not published: production stays exactly as it is."}
+```
+Ask me again whenever you want to deploy it.
+--- derived
+

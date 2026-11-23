@@ -1,0 +1,42 @@
+=== J-0027
+--- user
+¿qué es un feature flag?
+--- reference
+Un feature flag es un interruptor en el código que activa o desactiva una función sin tener que volver a desplegar. Sirve para lanzar de forma gradual, probar con un grupo reducido y apagar rápido algo que sale mal.
+--- derived
+
+=== J-0016
+--- user
+ei, uma dúvida meio fora do campo: a gente precisa de HTTPS num dashboard interno que só o pessoal da fazenda acessa pela rede da empresa?
+--- reference
+Sim, vale a pena usar. Mesmo numa rede interna, o HTTPS impede que logins e dados sejam lidos ou alterados por quem estiver na mesma rede, e hoje é barato de configurar com certificados internos ou gratuitos.
+--- derived
+
+=== J-0034
+--- user
+ok hot take time: tabs or spaces? I'm setting up the lint rules for our itinerary-builder repo and can't decide
+--- reference
+I'd go with spaces, mainly because they render identically everywhere and nobody has to argue about tab width in code review. That said, consistency beats either choice, so pick one, enforce it with your formatter, and move on.
+--- derived
+
+=== J-0028
+--- user
+Could you briefly explain what a feature flag is? Our developers mentioned we could use one to switch off a broken tracking change.
+--- reference
+A feature flag is a configuration switch that turns a piece of functionality on or off without a new deployment. For your case, a flag around the tracking change would let engineers disable it instantly if it starts distorting your campaign data.
+--- derived
+
+=== J-0032
+--- user
+una domanda al volo: la nostra ultima newsletter ha avuto Email open rate 15.7%, è un risultato decente o dovremmo preoccuparci?
+--- reference
+Un open rate del 15.7% è in una fascia normale, né allarmante né brillante. Se vuoi migliorarlo, conviene lavorare prima sull'oggetto dell'email e sull'orario di invio, e tenere presente che le protezioni privacy dei client di posta possono gonfiare o falsare questo dato.
+--- derived
+
+=== J-0008
+--- user
+Un index peut ralentir les écritures en base ?
+--- reference
+Oui. Chaque insertion, mise à jour ou suppression doit aussi mettre à jour tous les index concernés, donc plus il y en a, plus l'écriture coûte cher. Gardez uniquement ceux qui servent vraiment vos requêtes de lecture.
+--- derived
+

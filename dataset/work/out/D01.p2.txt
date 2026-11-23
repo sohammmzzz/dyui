@@ -1,0 +1,119 @@
+=== D-0039
+--- user
+2-column grid: left a download for invoice-batch.zip at https://www.example.org/files/invoice-batch.zip, right a gallery of six images. Images (alt text in brackets): https://files.example.com/img/changelog-10.webp?v=1 [The old tram climbing Rua da Bica], https://files.example.com/img/release-notes-16.webp?v=2 [The pilot batch on the line], https://docs.acme-cloud.example.com/img/faq-19.png?v=3 [The product on a white background], https://news.example.com/img/case-study-17.jpg?v=4 [The new front entrance], https://www.example.org/img/handbook-29.png?v=5 [The stage before doors opened], https://www.example.org/img/annual-review-24.webp?v=6 [The stage before doors opened].
+--- reference
+The download and the six-image gallery are placed side by side in a two-column grid.
+```dyui
+{"ui":"grid","columns":2,"children":[{"ui":"file","name":"invoice-batch.zip","url":"https://www.example.org/files/invoice-batch.zip"},{"ui":"gallery","images":[{"src":"https://files.example.com/img/changelog-10.webp?v=1","alt":"The old tram climbing Rua da Bica"},{"src":"https://files.example.com/img/release-notes-16.webp?v=2","alt":"The pilot batch on the line"},{"src":"https://docs.acme-cloud.example.com/img/faq-19.png?v=3","alt":"The product on a white background"},{"src":"https://news.example.com/img/case-study-17.jpg?v=4","alt":"The new front entrance"},{"src":"https://www.example.org/img/handbook-29.png?v=5","alt":"The stage before doors opened"},{"src":"https://www.example.org/img/annual-review-24.webp?v=6","alt":"The stage before doors opened"}]}]}
+```
+The zip is ready to download on the left, and the photos sit in the gallery on the right.
+--- derived
+
+
+=== D-0041
+--- user
+Hey! I'm choosing a hotel and want two lists next to each other, where tapping a row sends back pick_hotel with the hotel's name. List one has pictures: Casa Alfama (https://media.example.net/img/changelog-02.jpg), Mar & Sol (https://www.example.org/img/release-notes-19.png), Hotel Avenida (https://assets.lumen.example.io/img/guide-38.png). List two has prices: Quinta Verde $164/night, Hotel Avenida $118/night, Praça Suites $187/night.
+--- reference
+Here are the two hotel lists in a two-column grid, and every row is tappable.
+```dyui
+{"ui":"grid","columns":2,"children":[{"ui":"list","items":[{"title":"Casa Alfama","image":"https://media.example.net/img/changelog-02.jpg","action":"pick_hotel","data":{"hotel":"Casa Alfama"}},{"title":"Mar & Sol","image":"https://www.example.org/img/release-notes-19.png","action":"pick_hotel","data":{"hotel":"Mar & Sol"}},{"title":"Hotel Avenida","image":"https://assets.lumen.example.io/img/guide-38.png","action":"pick_hotel","data":{"hotel":"Hotel Avenida"}}]},{"ui":"list","items":[{"title":"Quinta Verde","meta":"$164/night","action":"pick_hotel","data":{"hotel":"Quinta Verde"}},{"title":"Hotel Avenida","meta":"$118/night","action":"pick_hotel","data":{"hotel":"Hotel Avenida"}},{"title":"Praça Suites","meta":"$187/night","action":"pick_hotel","data":{"hotel":"Praça Suites"}}]}]}
+```
+Tap any row and I will receive your pick together with the hotel name.
+--- derived
+
+
+=== D-0043
+--- user
+env var read, tabs: Python, Node.js, Ruby. Name it API_KEY.
+--- reference
+Here is the API_KEY lookup in three languages, one tab each.
+```dyui
+{"ui":"tabs","tabs":[{"label":"Python","children":[{"ui":"code","code":"import os\n\nkey = os.environ[\"API_KEY\"]","language":"python"}]},{"label":"Node.js","children":[{"ui":"code","code":"const key = process.env.API_KEY;","language":"javascript"}]},{"label":"Ruby","children":[{"ui":"code","code":"key = ENV.fetch(\"API_KEY\")","language":"ruby"}]}]}
+```
+In Node.js a missing variable comes back as undefined, whereas Python and Ruby raise an error here.
+--- derived
+
+
+=== D-0005
+--- user
+card "Weekly summary" w/ a list: Quinta Verde $164/night, Mar & Sol $96/night, Casa Alfama $142/night
+--- reference
+The three stays are listed inside the Weekly summary card.
+```dyui
+{"ui":"card","title":"Weekly summary","children":[{"ui":"list","items":[{"title":"Quinta Verde","meta":"$164/night"},{"title":"Mar & Sol","meta":"$96/night"},{"title":"Casa Alfama","meta":"$142/night"}]}]}
+```
+Mar & Sol is the cheapest of the three at $96/night.
+--- derived
+
+
+=== D-0030
+--- user
+I need a sideways-scrolling row with two things in it. The first is a reasoning note that took 1614 ms and reads: "Comparing the two fares: TAP at $180 is $76 cheaper than easyJet at $256. Price is the deciding factor, so TAP is the better pick." The second is a failed tool step called "Check inventory" whose input was the SKU SKU-2210.
+--- reference
+The reasoning note and the failed inventory step are placed in one scrolling carousel.
+```dyui
+{"ui":"carousel","children":[{"ui":"reasoning","text":"Comparing the two fares: TAP at $180 is $76 cheaper than easyJet at $256. Price is the deciding factor, so TAP is the better pick.","duration_ms":1614},{"ui":"step","title":"Check inventory","status":"error","input":{"sku":"SKU-2210"}}]}
+```
+The inventory check for SKU-2210 ended in an error and needs a retry.
+--- derived
+
+
+=== D-0048
+--- user
+Kindly present two tabs. "Overview" should contain the reasoning: "Comparing the two fares: Vueling at $146 is $64 cheaper than Iberia at $210. Price is the deciding factor, so Vueling is the better pick." "More" should contain the plan "Recruiting and people ops plan" with Source candidates (skipped), Run the screens (skipped), Schedule panel interviews (skipped), Send the offer (done) and Draft the job post (skipped).
+--- reference
+Here are the two tabs, with the fare reasoning first and the recruiting plan second.
+```dyui
+{"ui":"tabs","tabs":[{"label":"Overview","children":[{"ui":"reasoning","text":"Comparing the two fares: Vueling at $146 is $64 cheaper than Iberia at $210. Price is the deciding factor, so Vueling is the better pick."}]},{"label":"More","children":[{"ui":"plan","title":"Recruiting and people ops plan","items":[{"title":"Source candidates","status":"skipped"},{"title":"Run the screens","status":"skipped"},{"title":"Schedule panel interviews","status":"skipped"},{"title":"Send the offer","status":"done"},{"title":"Draft the job post","status":"skipped"}]}]}]}
+```
+Only the offer was sent, and every other step was skipped.
+--- derived
+
+
+=== D-0018
+--- user
+Could you split this into an Overview tab and a More tab? Overview: a step named "Search flights" that failed after 4121 ms. More: an untitled plan with Send desserts (done), Prep the mise en place (active), Close the kitchen (active), Plate the mains (active).
+--- reference
+The failed flight search is on the Overview tab, and the kitchen plan is on the More tab.
+```dyui
+{"ui":"tabs","tabs":[{"label":"Overview","children":[{"ui":"step","title":"Search flights","status":"error","duration_ms":4121}]},{"label":"More","children":[{"ui":"plan","items":[{"title":"Send desserts","status":"done"},{"title":"Prep the mise en place","status":"active"},{"title":"Close the kitchen","status":"active"},{"title":"Plate the mains","status":"active"}]}]}]}
+```
+Three kitchen tasks are running at once, and only the desserts are finished.
+--- derived
+
+
+=== D-0045
+--- user
+tabs pls. Overview = link preview for https://www.example.org/report/42, title "Release notes: what's new this month", image https://cdn.fernhill.example.com/img/handbook-01.webp. More = gallery: https://help.helpwave.example.com/img/benchmark-21.jpg?v=1 (A team offsite on the beach), https://news.example.com/img/roadmap-27.webp?v=2 (The old tram climbing Rua da Bica), https://help.helpwave.example.com/img/pricing-38.png?v=3 (The rooftop terrace at sunset), https://www.example.org/img/q3-summary-08.webp?v=4 (The finished kitchen).
+--- reference
+The report preview is on the first tab and the four photos are on the second.
+```dyui
+{"ui":"tabs","tabs":[{"label":"Overview","children":[{"ui":"link_preview","url":"https://www.example.org/report/42","title":"Release notes: what's new this month","image":"https://cdn.fernhill.example.com/img/handbook-01.webp"}]},{"label":"More","children":[{"ui":"gallery","images":[{"src":"https://help.helpwave.example.com/img/benchmark-21.jpg?v=1","alt":"A team offsite on the beach"},{"src":"https://news.example.com/img/roadmap-27.webp?v=2","alt":"The old tram climbing Rua da Bica"},{"src":"https://help.helpwave.example.com/img/pricing-38.png?v=3","alt":"The rooftop terrace at sunset"},{"src":"https://www.example.org/img/q3-summary-08.webp?v=4","alt":"The finished kitchen"}]}]}]}
+```
+Switch to More to browse the photos.
+--- derived
+
+
+=== D-0038
+--- user
+Please set up a two-column grid. On the left, a stacked bar chart in dollars across Subscriptions, Rent, Dining, Transport, Groceries and Health, with a Self-serve series of 85, 217, 117, 125, 215, 227 and an Assisted series of 77, 225, 255, 67, 63, 145. On the right, a bills table with columns Bill, Due, Amount and Autopay: Insurance, Mar 19, $428, Yes; Rent, Nov 24, $1,103, Yes; Internet, Jan 1, $1,243, No; Gym, Feb 25, $1,018, No.
+--- reference
+The spending chart and the bills table share a two-column grid.
+```dyui
+{"ui":"grid","columns":2,"children":[{"ui":"chart","kind":"bar","labels":["Subscriptions","Rent","Dining","Transport","Groceries","Health"],"series":[{"name":"Self-serve","data":[85,217,117,125,215,227]},{"name":"Assisted","data":[77,225,255,67,63,145]}],"unit":"$","stacked":true},{"ui":"table","columns":["Bill","Due","Amount","Autopay"],"rows":[["Insurance","Mar 19","$428","Yes"],["Rent","Nov 24","$1,103","Yes"],["Internet","Jan 1","$1,243","No"],["Gym","Feb 25","$1,018","No"]]}]}
+```
+Autopay is off for Internet and Gym, so those two bills need a manual payment.
+--- derived
+
+
+=== D-0016
+--- user
+Can I get two tabs? Overview should ask for a star rating. More should ask "Which plan fits your team?" as a multiple-choice question with Starter, Pro, Team and Enterprise, and the submit button reading "Continue".
+--- reference
+Here are both questions, the star rating under Overview and the plan question under More.
+```dyui
+{"ui":"tabs","tabs":[{"label":"Overview","children":[{"ui":"rating","style":"stars"}]},{"label":"More","children":[{"ui":"choice","question":"Which plan fits your team?","options":["Starter","Pro","Team","Enterprise"],"multiple":true,"submit_label":"Continue"}]}]}
+```
+The plan question accepts more than one answer, and your picks come back when you press Continue.
+--- derived
+

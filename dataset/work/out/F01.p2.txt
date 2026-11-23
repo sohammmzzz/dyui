@@ -1,0 +1,110 @@
+=== F-0039
+--- user
+Merci de traduire les libellés et le titre du graphique en français, sans toucher aux chiffres. I need to forward it to our Lyon plant.
+--- reference
+Here is the downtime chart with the labels and title in French.
+```dyui
+{"ui":"chart","kind":"line","labels":["mars","avr.","mai","juin","juil.","août","sept.","oct."],"series":[{"name":"Temps d'arrêt","data":[132,144,155,165,178,187,199,212]}],"title":"Temps d'arrêt, mars–oct.","unit":"min"}
+```
+The values are identical to the English version.
+--- derived
+
+=== F-0042
+--- user
+add a Flag column: APAC, ok, review, US, review, review, new
+--- reference
+Here is the machine table with the new Flag column added.
+```dyui
+{"ui":"table","columns":["Machine","Line","Status","Last service","Flag"],"rows":[["M-268","Line C","Idle","Jul 23","APAC"],["M-764","Line B","Maintenance","Sep 5","ok"],["M-207","Line C","Down","May 26","review"],["M-656","Line A","Idle","Sep 20","US"],["M-780","Line B","Running","Jul 10","review"],["M-502","Line B","Maintenance","Sep 27","review"],["M-370","Line B","Idle","Nov 14","new"]]}
+```
+The flags were applied to the rows in the order you listed them.
+--- derived
+
+=== F-0016
+--- user
+only the last 3 bars please
+--- reference
+Here is the chart reduced to its last three bars.
+```dyui
+{"ui":"chart","kind":"bar","labels":["MSA","DPA","NDA"],"series":[{"name":"NDAs pending","data":[18,23,25]}],"title":"NDAs pending by type"}
+```
+NDA is still the largest of the three.
+--- derived
+
+=== F-0005
+--- user
+Great. Now narrow it down to the three students with the longest Streak, longest first, since that's what the awards slide needs.
+--- reference
+Here are the three students with the longest streaks, longest first.
+```dyui
+{"ui":"table","columns":["Student","Points","Badges","Streak"],"rows":[["Priya Sato",549,5,55],["Mia Ferreira",275,5,32],["Xavier Mendes",496,9,28]]}
+```
+Priya Sato is clearly ahead on Streak, even though her Points are modest.
+--- derived
+
+=== F-0019
+--- user
+Can you add a column called Flag? Values for the rows in order are: APAC, US, ok, US, review. I'd like to keep everything else as it is.
+--- reference
+Here is the device table with a Flag column added.
+```dyui
+{"ui":"table","columns":["Device","Power kW","Status","Flag"],"rows":[["Oven",5.5,"Scheduled","APAC"],["Pool pump",1.5,"Fault","US"],["Dryer",7.2,"Fault","ok"],["Heat pump",2.3,"On","US"],["EV charger",1.5,"Off","review"]]}
+```
+Existing columns and rows are exactly as before.
+--- derived
+
+=== F-0013
+--- user
+make it a bar chart and add Nov = 289
+--- reference
+Here is the chart as bars with November added.
+```dyui
+{"ui":"chart","kind":"bar","labels":["May","Jun","Jul","Aug","Sep","Oct","Nov"],"series":[{"name":"New customers","data":[206,217,223,241,259,267,289]}],"title":"New customers, May–Oct"}
+```
+November is the highest bar so far. The title still reads May–Oct as you did not ask to change it.
+--- derived
+
+=== F-0010
+--- user
+sort that by usage, biggest first
+--- reference
+Here is the table sorted by Usage kWh, highest first.
+```dyui
+{"ui":"table","columns":["Day","Usage kWh","Peak hour","Cost"],"rows":[["Mon",42,"07:00","$6"],["Wed",25,"19:00","$10"],["Tue",24,"07:00","$8"],["Sun",23,"20:00","$6"],["Thu",7,"18:00","$14"]],"caption":"Daily usage"}
+```
+Mon is the heaviest day at 42, and Thu the lightest.
+--- derived
+
+=== F-0002
+--- user
+drop June from the chart
+--- reference
+Here is the chart without June.
+```dyui
+{"ui":"chart","kind":"line","labels":["Jan","Feb","Mar","Apr","May"],"series":[{"name":"Donations this month","data":[73.5,78.3,87.5,91.7,94.7]}],"title":"Donations this month, Jan–May","unit":"$k"}
+```
+I also shortened the title to end in May so it matches the data.
+--- derived
+
+=== F-0034
+--- user
+Please sort the table by airline name in reverse order, from the end of the alphabet backwards.
+--- reference
+Here are the flights sorted by airline, Z to A.
+```dyui
+{"ui":"table","columns":["Airline","Departs","Duration","Price"],"rows":[["Vueling","18:05","2h 45m","$261"],["TAP","12:30","1h 35m","$114"],["Ryanair","06:40","3h 05m","$104"],["Iberia","06:40","2h 10m","$265"],["easyJet","15:05","2h 45m","$413"],["Air France","15:05","1h 35m","$270"]]}
+```
+All rows and values are unchanged; only the order differs.
+--- derived
+
+=== F-0036
+--- user
+actually set the plate to Closed
+--- reference
+Here is the vehicle with the plate updated.
+```dyui
+{"ui":"keyvalue","items":[{"key":"Plate","value":"Closed"},{"key":"Model","value":"Model 3"},{"key":"Mileage","value":60752}]}
+```
+Model and mileage stay as they were.
+--- derived
+

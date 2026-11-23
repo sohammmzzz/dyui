@@ -1,0 +1,17 @@
+=== D-0017
+--- user
+Please set this up in two tabs, Overview and More. Overview should be a list of our properties with thumbnails:
+Praça Suites, Lisbon, image https://docs.acme-cloud.example.com/img/security-15.webp
+Quinta Verde, Sintra, image https://static.brasa.example.com/img/report-26.png
+Hotel Avenida, Porto, image https://media.example.net/img/security-16.jpg
+Mar & Sol, Valencia, image https://files.example.com/img/changelog-03.jpg
+Casa Alfama, Lisbon, image https://news.example.com/img/changelog-13.png
+The More tab should hold a card titled Spring Festival with the image https://docs.acme-cloud.example.com/img/guide-19.jpg, showing the trip budget of $4,775.
+--- reference
+Here are the properties in the first tab and the festival card in the second.
+```dyui
+{"ui":"tabs","tabs":[{"label":"Overview","children":[{"ui":"list","items":[{"title":"Praça Suites","subtitle":"Lisbon","image":"https://docs.acme-cloud.example.com/img/security-15.webp"},{"title":"Quinta Verde","subtitle":"Sintra","image":"https://static.brasa.example.com/img/report-26.png"},{"title":"Hotel Avenida","subtitle":"Porto","image":"https://media.example.net/img/security-16.jpg"},{"title":"Mar & Sol","subtitle":"Valencia","image":"https://files.example.com/img/changelog-03.jpg"},{"title":"Casa Alfama","subtitle":"Lisbon","image":"https://news.example.com/img/changelog-13.png"}]}]},{"label":"More","children":[{"ui":"card","title":"Spring Festival","image":"https://docs.acme-cloud.example.com/img/guide-19.jpg","children":[{"ui":"stat","label":"Trip budget","value":"$4,775"}]}]}]}
+```
+Switch between the tabs to move from the property list to the festival budget.
+--- derived
+

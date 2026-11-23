@@ -1,0 +1,11 @@
+=== E-0033
+--- user
+I would like to change how the clinic contacts me about my appointments and reminders. Could you help me set up the notifications I receive?
+--- reference
+Pick the channels you want the clinic to use for appointment notices and reminders.
+```dyui
+{"ui":"choice","question":"How should we notify you?","options":["Email","Push","SMS"],"multiple":true,"allow_other":true,"action":"notify_channels","submit_label":"Save"}
+```
+You can select more than one, or add a channel of your own.
+--- derived
+

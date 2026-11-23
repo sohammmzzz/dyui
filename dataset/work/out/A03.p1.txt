@@ -1,0 +1,110 @@
+=== A-0024
+--- user
+Can you embed the audio from this week's release? It's at https://files.example.com/audio/changelog-23.mp3, call it "Episode recap".
+--- reference
+Here is the audio, titled Episode recap, ready to play.
+```dyui
+{"ui":"audio","src":"https://files.example.com/audio/changelog-23.mp3","title":"Episode recap"}
+```
+Hit play to listen without leaving the chat.
+--- derived
+
+=== A-0076
+--- user
+Hi, I'd like to show the vehicle handover walkthrough to the new branch staff. The video is here: https://www.youtube.com/watch?v=sN1YKpnpIUL and I want to show it in this thread, thanks.
+--- reference
+The walkthrough is embedded below.
+```dyui
+{"ui":"video","src":"https://www.youtube.com/watch?v=sN1YKpnpIUL"}
+```
+It plays inline, so the branch staff can watch it right here.
+--- derived
+
+=== A-0087
+--- user
+Tengo este resumen del viaje de un cliente y quiero poder abrirlo y navegarlo campo por campo: destination Rome, dates Jun 2-9, travellers 5, budget $3,319, status Planning, tags trial y renewal.
+--- reference
+Aquí tienes los datos del viaje como un árbol que puedes expandir.
+```dyui
+{"ui":"json","data":{"destination":"Rome","dates":"Jun 2-9","travellers":5,"budget":"$3,319","status":"Planning","tags":["trial","renewal"]}}
+```
+Despliega cada rama para revisar los campos y la lista de etiquetas.
+--- derived
+
+=== A-0090
+--- user
+Can you make this link look nice in the chat? It's https://help.helpwave.example.com/q3-summary/57 on help.helpwave.example.com, titled "Pricing that scales with your team", described as "A plain-language walkthrough of plans and limits." Thumbnail: https://assets.lumen.example.io/img/benchmark-30.webp
+--- reference
+Here is the link as a preview card with its thumbnail and description.
+```dyui
+{"ui":"link_preview","url":"https://help.helpwave.example.com/q3-summary/57","title":"Pricing that scales with your team","description":"A plain-language walkthrough of plans and limits.","image":"https://assets.lumen.example.io/img/benchmark-30.webp","site":"help.helpwave.example.com"}
+```
+The card shows where the link leads before anyone clicks it.
+--- derived
+
+=== A-0050
+--- user
+We're comparing stays for a driver rest stop. Casa Alfama in Lisbon is $142 per night, Quinta Verde in Sintra is $164, and Hotel Avenida in Porto is $118. Could you give me a carousel I can swipe through, one card each with the nightly price?
+--- reference
+Here are the three stays as a swipeable row of cards.
+```dyui
+{"ui":"carousel","children":[{"ui":"card","title":"Casa Alfama","subtitle":"Lisbon","children":[{"ui":"stat","label":"Per night","value":"$142"}]},{"ui":"card","title":"Quinta Verde","subtitle":"Sintra","children":[{"ui":"stat","label":"Per night","value":"$164"}]},{"ui":"card","title":"Hotel Avenida","subtitle":"Porto","children":[{"ui":"stat","label":"Per night","value":"$118"}]}]}
+```
+Hotel Avenida in Porto is the cheapest per night of the three.
+--- derived
+
+=== A-0061
+--- user
+For this billing period my readings are: solar generation 442 kWh, bill estimate $49, and consumption 577 kWh. Please lay these three out together, stacked in a single column.
+--- reference
+Here are your three readings for the period, arranged in one column.
+```dyui
+{"ui":"grid","columns":1,"children":[{"ui":"stat","label":"Solar generation","value":"442 kWh"},{"ui":"stat","label":"Bill estimate","value":"$49"},{"ui":"stat","label":"Consumption","value":"577 kWh"}]}
+```
+Consumption is higher than solar generation for this period.
+--- derived
+
+=== A-0117
+--- user
+sources for the pricing page pls: Customer case study https://files.example.com/overview, Roadmap summary https://news.example.com/pricing/79, Getting started guide https://static.brasa.example.com/overview
+--- reference
+These are the three references behind the pricing page.
+```dyui
+{"ui":"sources","items":[{"title":"Customer case study","url":"https://files.example.com/overview"},{"title":"Roadmap summary","url":"https://news.example.com/pricing/79"},{"title":"Getting started guide","url":"https://static.brasa.example.com/overview"}]}
+```
+Each one is numbered so you can cite it by its position.
+--- derived
+
+=== A-0108
+--- user
+I'd love to watch last week's town hall without leaving the chat. The file is https://docs.acme-cloud.example.com/video/benchmark.mp4 and the cover image is https://media.example.net/img/q3-summary-20.webp. Please label it "Last week's town hall".
+--- reference
+Here is the town hall recording with its cover image and caption.
+```dyui
+{"ui":"video","src":"https://docs.acme-cloud.example.com/video/benchmark.mp4","poster":"https://media.example.net/img/q3-summary-20.webp","caption":"Last week's town hall"}
+```
+Press play on the cover to start watching.
+--- derived
+
+=== A-0069
+--- user
+Kindly walk me through why you recommended Iberia over Vueling for the team trip. Iberia was $177 and Vueling $395, and the comparison took 3112 ms according to the log.
+--- reference
+Here is the reasoning behind the fare recommendation.
+```dyui
+{"ui":"reasoning","text":"Comparing the two fares: Iberia at $177 is $218 cheaper than Vueling at $395. Price is the deciding factor, so Iberia is the better pick.","duration_ms":3112}
+```
+The choice rests entirely on the price gap between the two fares.
+--- derived
+218
+
+=== A-0052
+--- user
+Pull this one out as a testimonial: "I trust the alerts now, and that changed how we work." Ben Costa, Head of Support, said it on the Annual review call.
+--- reference
+Here is the testimonial, credited to Ben Costa.
+```dyui
+{"ui":"quote","text":"I trust the alerts now, and that changed how we work.","author":"Ben Costa, Head of Support","source":"Annual review call"}
+```
+It works well as a standalone highlight.
+--- derived

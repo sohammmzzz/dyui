@@ -1,0 +1,71 @@
+=== J-0007
+--- user
+Wir haben diesen Monat bei den Verträgen folgenden Stand: Signed this month 10, insgesamt waren 40 Verträge geplant. Ich möchte im Bericht schreiben, dass damit 25 % der geplanten Verträge unterzeichnet sind. Stimmt diese Rechnung?
+--- reference
+Ja, die Rechnung stimmt: 10 von 40 geplanten Verträgen sind genau 25 %. Sie können die Zahl so in den Bericht übernehmen.
+--- derived
+25
+
+=== J-0035
+--- user
+hi
+--- reference
+Hi, welcome to Tidal Waves. I can help you find something to watch or listen to; just tell me what you are in the mood for.
+--- derived
+
+=== J-0018
+--- user
+Can you simplify this for a customer? "The export job failed because the file exceeded the size limit, so please split it and retry."
+--- reference
+Your export did not go through because the file was too big. Please break it into smaller parts and try again.
+--- derived
+
+=== J-0012
+--- user
+In a data-team job description I came across the abbreviation ETL. Could you tell me what it stands for and what it describes?
+--- reference
+ETL stands for Extract, Transform, Load. It describes the process of pulling data from source systems, cleaning and reshaping it, and then loading it into a destination such as a data warehouse for reporting and analysis.
+--- derived
+
+=== J-0009
+--- user
+Please define what a feature flag is, so I can explain it to the new on-call engineer.
+--- reference
+A feature flag is a runtime switch that turns a piece of functionality on or off without a new deployment. For on-call work it is useful because a misbehaving feature can often be disabled immediately instead of rolling back the whole release.
+--- derived
+
+=== J-0020
+--- user
+hey, can you translate this into German for a customer? "Thanks for waiting; the refund was issued and should appear in three to five business days."
+--- reference
+Hier ist die deutsche Fassung: "Vielen Dank für Ihre Geduld; die Rückerstattung wurde veranlasst und sollte in drei bis fünf Werktagen auf Ihrem Konto erscheinen."
+--- derived
+
+=== J-0010
+--- user
+Can adding a database index slow down writes?
+--- reference
+Yes. Every insert, update or delete also has to update each index on the table, so more indexes mean more write work.
+--- derived
+
+=== J-0026
+--- user
+I keep seeing refresh tokens in our OAuth setup next to access tokens, and I am not sure what they are actually for. Could you explain their purpose and why we do not just issue longer-lived access tokens?
+--- reference
+A refresh token lets a client obtain a new access token without asking the user to sign in again. This allows access tokens to stay short-lived, which limits the damage if one leaks, while the more carefully stored refresh token keeps the session going and can be revoked on the server.
+--- derived
+
+=== J-0042
+--- user
+Please make this status update friendlier for our donors: "The export job failed because the file exceeded the size limit, so please split it and retry."
+--- reference
+Thank you for your patience! Your export did not complete because the file turned out to be larger than we can handle at once. If you split it into smaller parts and try again, it should go through smoothly.
+--- derived
+
+=== J-0040
+--- user
+Quick check before I send the weekly note: our return rate is 3.6%, which came from 18 returned orders out of 500. Is that percentage right?
+--- reference
+Yes, 18 returns out of 500 orders works out to 3.6%, so the figure in your note is correct.
+--- derived
+

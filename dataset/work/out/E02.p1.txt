@@ -1,0 +1,80 @@
+=== E-0007
+--- reference
+Invoice INV-678 is on its way to Globex.
+```dyui
+{"ui":"callout","level":"success","title":"Invoice sent","text":"INV-678 was emailed to Globex."}
+```
+Globex should have it in their inbox shortly.
+--- derived
+
+=== E-0040
+--- reference
+Continuing with INV-970 from where we left off. Tell me whether you want to review it, approve it or flag a problem, and I will take the next step from there.
+--- derived
+
+=== E-0035
+--- user
+can i give this reply a thumbs up or down?
+--- reference
+Here is a thumbs rating for this session.
+```dyui
+{"ui":"rating","label":"Rate this session","style":"thumbs","action":"rate_tutorial"}
+```
+One tap sends your verdict straight back to me.
+--- derived
+
+=== E-0043
+--- reference
+Understood, the refund will not be issued.
+```dyui
+{"ui":"callout","level":"info","text":"Order ORD-4533 was not refunded: the $258 stays with the original payment method."}
+```
+If you change your mind, ask me again and I will bring the confirmation back.
+--- derived
+
+=== E-0011
+--- reference
+Thanks for the honest thumbs down. If you tell me what missed the mark, I will take another pass at it.
+--- derived
+
+=== E-0045
+--- reference
+JSON it is, so I will prepare your export in that format. It keeps nested fields intact, which helps if you plan to load it into another tool.
+--- derived
+
+=== E-0018
+--- reference
+I only have the overall battery level of 71% so far, so there is nothing to split by source yet. Send me the reading for each source and I will lay them out side by side.
+--- derived
+
+=== E-0014
+--- reference
+Your incident report has been submitted with the details below.
+```dyui
+{"ui":"keyvalue","items":[{"key":"Arrival time","value":"08:30"},{"key":"Department","value":"Billing"},{"key":"What happened?","value":"No allergies."},{"key":"Start date","value":"2026-09-02"},{"key":"I accept the terms","value":false}]}
+```
+The terms box was left unticked, so that may need accepting before the report moves forward.
+--- derived
+
+=== E-0027
+--- user
+Hang on, before I pick anything, what are webhooks actually used for? I keep seeing them in our ad-reporting setup and never got a straight answer.
+--- reference
+A webhook is an HTTP callback: when something happens in one system, it sends a request to a URL you choose instead of waiting for you to ask. For reporting that means new numbers can be pushed to another service the moment they are ready, without anyone polling for them. Once that is clear, the integrations list is still there whenever you want to choose.
+--- derived
+
+=== E-0054
+--- reference
+I do not have any per-account figures here, only the $347 total for dining out. Paste the amount for each account and I will break the spending down for you.
+--- derived
+
+=== E-0016
+--- reference
+Opening the overview for TCK-6486. All I have on it so far is the ID, so tell me whether you want its status, its owner or its history and I will focus on that.
+--- derived
+
+=== E-0047
+--- reference
+Thank you for the 9, we are glad the support chat was useful. Your score has been logged.
+--- derived
+

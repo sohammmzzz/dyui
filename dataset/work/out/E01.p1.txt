@@ -1,0 +1,68 @@
+=== E-0048
+--- reference
+Active listings is the only figure in this conversation: 106. A table would have a single row, so it adds nothing yet. A split by neighbourhood, property type or price band would give it enough rows to be worth tabulating.
+--- derived
+
+=== E-0044
+--- reference
+Thanks, your onboarding details are in.
+```dyui
+{"ui":"keyvalue","items":[{"key":"Full name","value":"Acme Ltd"},{"key":"Company","value":"Ana Silva"},{"key":"Available days","value":"Tue, Fri"}]}
+```
+Those are the entries I will work from, with Tuesday and Friday as your available days.
+--- derived
+
+=== E-0029
+--- user
+Forget the stars for now. What does "cut-off time" mean on a freight booking?
+--- reference
+A cut-off time is the last moment a shipment can be handed over, documented or loaded and still make a given vessel, flight or truck departure. Miss it and the cargo rolls to the next departure, which usually means a delay and sometimes extra charges.
+--- derived
+
+=== E-0019
+--- reference
+Capito, non ho effettuato alcun pagamento.
+```dyui
+{"ui":"callout","level":"info","title":"Pagamento annullato","text":"La bolletta del telefono non è stata pagata: i $267 non verranno addebitati sul Suo conto corrente."}
+```
+Quando desidera saldarla, può chiedermelo di nuovo e riproporrò la conferma.
+--- derived
+
+=== E-0030
+--- user
+Ignore those suggestions for a second. Our ROAS just came in at 3.8x and I need to explain to the client what that number actually means. How is it calculated and how should I phrase it?
+--- reference
+ROAS, return on ad spend, is the revenue attributed to your ads divided by what you spent on them. A 3.8x result means every unit of currency spent on advertising brought back 3.8 units of attributed revenue. When you present it, say that it is revenue rather than profit, since margins and other costs are not included in the ratio.
+--- derived
+
+=== E-0028
+--- user
+Before I press anything: what's the difference between starting a review and assigning an owner?
+--- reference
+Starting a review means you begin evaluating BK-9677 yourself, right now. Assigning an owner hands it to someone else, who then becomes responsible for evaluating and closing it. I have no details on what BK-9677 contains, so I cannot say which route suits it better.
+--- derived
+
+=== E-0021
+--- reference
+Understood: the report will cover Recommendations and Raw tables, and leave out Summary and Charts. To build it I still need the source data or the listings it should draw from.
+--- derived
+
+=== E-0039
+--- reference
+JSON gewählt. Für den Export fehlt mir noch, welche Daten und welcher Zeitraum enthalten sein sollen.
+--- derived
+
+=== E-0036
+--- reference
+I only have this month's return rate of 7.5%, with no earlier period or category figures, so I cannot say what changed the most. Send last month's rate or a breakdown by category and I can rank the movers.
+--- derived
+
+=== E-0010
+--- reference
+Noted, BK-7709 stays untouched for now.
+```dyui
+{"ui":"callout","level":"info","text":"BK-7709 was skipped for now. No review has started and nothing has been changed."}
+```
+It remains as it was until you pick one of the other actions.
+--- derived
+

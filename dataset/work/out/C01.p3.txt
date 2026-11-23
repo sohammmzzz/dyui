@@ -1,0 +1,158 @@
+=== C-0055
+--- user
+Can you display https://docs.acme-cloud.example.com/img/roadmap-07.png with the caption "Photo by the site team"? And show me the profile for the booking: patient Sven Castillo, Lab work, on Dec 24.
+--- reference
+Here is the picture with its caption.
+```dyui
+{"ui":"image","src":"https://docs.acme-cloud.example.com/img/roadmap-07.png","caption":"Photo by the site team"}
+```
+And here is the booking profile.
+```dyui
+{"ui":"keyvalue","items":[{"key":"Patient","value":"Sven Castillo"},{"key":"Service","value":"Lab work"},{"key":"Date","value":"Dec 24"}]}
+```
+Sven Castillo is booked for lab work on Dec 24.
+--- derived
+
+=== C-0029
+--- user
+Overview: on-time delivery 86.9%, fuel cost $21.7k, fleet utilisation 58%. Then damage rate Apr to Sep as an area chart, in %: 1.3, 1.5, 1.6, 1.7, 1.8, 1.9. Title it "Damage rate, Apr–Sep".
+--- reference
+Here are the three headline numbers.
+```dyui
+{"ui":"stats","items":[{"label":"On-time delivery","value":86.9,"unit":"%"},{"label":"Fuel cost","value":"$21.7k"},{"label":"Fleet utilisation","value":"58%"}]}
+```
+Now the damage rate over the six months.
+```dyui
+{"ui":"chart","kind":"area","series":[{"name":"Damage rate","data":[1.3,1.5,1.6,1.7,1.8,1.9]}],"title":"Damage rate, Apr–Sep","unit":"%"}
+```
+The damage rate rose in every month of the period.
+--- derived
+
+=== C-0017
+--- user
+Please turn the contract workflow into a live checklist called "Contract management plan": counterparty redlines are pending, drafting from the template is done, signature is skipped, final approval is done, and legal review is done. And what are my options from here? I would like Dismiss alert, Compare options and Not now.
+--- reference
+Here is the contract workflow as a checklist with live statuses.
+```dyui
+{"ui":"plan","title":"Contract management plan","items":[{"title":"Counterparty redlines","status":"pending"},{"title":"Draft from the template","status":"done"},{"title":"Signature","status":"skipped"},{"title":"Final approval","status":"done"},{"title":"Legal review","status":"done"}]}
+```
+These are the options you can choose from here.
+```dyui
+{"ui":"buttons","items":[{"label":"Dismiss alert","action":"dismiss_alert"},{"label":"Compare options","action":"compare_options"},{"label":"Not now","action":"not_now"}]}
+```
+Counterparty redlines are the only step still pending, and signature was skipped.
+--- derived
+
+=== C-0049
+--- user
+Where do we stand? Deploys: 59. Open incidents: 7 (trending up, target 8). p95 latency: 410 ms (flat, target 451 ms). Error rate: 0.14% (0%). Please make the deployments easy to scan, with caption "Deployments": billing v2.7.14 rolled back, 4; search v2.5.1 succeeded, 23; api-gateway v2.6.3 rolled back, 27; notifications v2.8.20 succeeded, 19 (the last column is duration). And show the user a warning notice: "Deploys is at 49, above the 44 threshold. Review it before Friday."
+--- reference
+Here are the four headline numbers for the platform.
+```dyui
+{"ui":"stats","items":[{"label":"Deploys","value":"59"},{"label":"Open incidents","value":"7","trend":"up","help":"Target 8"},{"label":"p95 latency","value":"410 ms","trend":"flat","help":"Target 451 ms"},{"label":"Error rate","value":"0.14%","delta":"0%"}]}
+```
+These are the deployments behind them.
+```dyui
+{"ui":"table","columns":["Service","Version","Status","Duration"],"rows":[["billing","v2.7.14","Rolled back",4],["search","v2.5.1","Succeeded",23],["api-gateway","v2.6.3","Rolled back",27],["notifications","v2.8.20","Succeeded",19]],"caption":"Deployments"}
+```
+And this is the warning for the user.
+```dyui
+{"ui":"callout","level":"warning","text":"Deploys is at 49, above the 44 threshold. Review it before Friday."}
+```
+Billing and api-gateway were both rolled back, while search and notifications succeeded.
+--- derived
+
+=== C-0040
+--- user
+Please turn the home sale into a live checklist titled "Residential real estate plan": the open house is held, the photographer booking was skipped, offers are being collected right now, publishing the listing was skipped, and moving to contract was skipped too. As options for booking BK-8951, I'd like an Assign owner button (secondary style) and a Mark as spam button (danger style).
+--- reference
+Here is the sale as a checklist with live statuses.
+```dyui
+{"ui":"plan","title":"Residential real estate plan","items":[{"title":"Hold the open house","status":"done"},{"title":"Book the photographer","status":"skipped"},{"title":"Collect offers","status":"active"},{"title":"Publish the listing","status":"skipped"},{"title":"Move to contract","status":"skipped"}]}
+```
+Here are your two options for booking BK-8951.
+```dyui
+{"ui":"buttons","items":[{"label":"Assign owner","action":"assign_owner","data":{"id":"BK-8951"},"style":"secondary"},{"label":"Mark as spam","action":"mark_as_spam","data":{"id":"BK-8951"},"style":"danger"}]}
+```
+Collecting offers is the only active step, and the three skipped steps are not part of the current path.
+--- derived
+
+=== C-0019
+--- user
+Buenos días. Muéstreme por favor esta imagen: https://cdn.fernhill.example.com/img/pricing-35.png, y el perfil del viaje: destino Osaka, fechas Apr 14-19, 5 viajeros, presupuesto $4,877, estado Awaiting payment.
+--- reference
+Aquí tiene la imagen, mostrada directamente en el chat.
+```dyui
+{"ui":"image","src":"https://cdn.fernhill.example.com/img/pricing-35.png"}
+```
+Y este es el perfil del viaje.
+```dyui
+{"ui":"keyvalue","items":[{"key":"Destino","value":"Osaka"},{"key":"Fechas","value":"Apr 14-19"},{"key":"Viajeros","value":5},{"key":"Presupuesto","value":"$4,877"},{"key":"Estado","value":"Awaiting payment"}]}
+```
+El viaje a Osaka sigue pendiente de pago, así que el presupuesto aún no está confirmado.
+--- derived
+
+=== C-0032
+--- user
+Could you lay out this week's interviews in a table? Tue: Hugo Vasquez, case study panel, 14:00. Thu: Carla Rossi, tech panel, 10:00. Mon: Hana Torres, culture panel, 14:00. Fri: Wanjiru Nguyen, tech panel, 16:15. Then give me the next actions, a Dismiss alert and an Add note button.
+--- reference
+Here are the four interviews, in the order you listed them.
+```dyui
+{"ui":"table","columns":["Day","Candidate","Panel","Time"],"rows":[["Tue","Hugo Vasquez","Case study","14:00"],["Thu","Carla Rossi","Tech","10:00"],["Mon","Hana Torres","Culture","14:00"],["Fri","Wanjiru Nguyen","Tech","16:15"]]}
+```
+These are the actions you can take next.
+```dyui
+{"ui":"buttons","items":[{"label":"Dismiss alert","action":"dismiss_alert"},{"label":"Add note","action":"add_note"}]}
+```
+Two of the four interviews are with the tech panel, on Thu and Fri.
+--- derived
+
+=== C-0026
+--- user
+I'd like to plot open slots this week from January to August: 14, 14, 14, 14, 14, 14, 15, 14, titled "Open slots this week, Jan–Aug". Please also write a message for the customer saying the report refresh finished and Appointments today is back to 27, within the 19 limit (title it "All set"). Finish with some follow-up questions I can tap: Forecast next month, How does this compare to target?, What changed the most?, and Set an alert for this.
+--- reference
+Here are the open slots for each month from January to August.
+```dyui
+{"ui":"chart","kind":"line","labels":["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug"],"series":[{"name":"Open slots this week","data":[14,14,14,14,14,14,15,14]}],"title":"Open slots this week, Jan–Aug"}
+```
+This is the message for the customer.
+```dyui
+{"ui":"callout","level":"success","title":"All set","text":"The report refresh finished and Appointments today is back to 27, within the 19 limit."}
+```
+And these are the follow-ups you can tap.
+```dyui
+{"ui":"quick_replies","options":["Forecast next month","How does this compare to target?","What changed the most?","Set an alert for this"]}
+```
+Open slots stayed flat apart from a single uptick in July.
+--- derived
+
+=== C-0031
+--- user
+Please lay out the claim steps as a timeline: Approve the amount (Apr 6), Collect the documents (Oct 8), File the claim (Nov 10), Issue the payment (May 12), Assess the damage (Jul 14). And let them know in the app, titled "Good to know", that Days to settle is recalculated every 7 hours, so today's figure is provisional.
+--- reference
+Here are the five claim steps with their dates.
+```dyui
+{"ui":"timeline","items":[{"title":"Approve the amount","time":"Apr 6"},{"title":"Collect the documents","time":"Oct 8"},{"title":"File the claim","time":"Nov 10"},{"title":"Issue the payment","time":"May 12"},{"title":"Assess the damage","time":"Jul 14"}]}
+```
+And here is the note for the app.
+```dyui
+{"ui":"callout","level":"info","title":"Good to know","text":"Days to settle is recalculated every 7 hours, so today's figure is provisional."}
+```
+The steps are listed in the order you gave, not sorted by date.
+--- derived
+
+=== C-0042
+--- user
+Wie stehen wir da? Abfall im August: 12.4 kg, +5.1% zum Vormonat, Ziel 14.2 kg. Mach mir außerdem eine Liniengrafik der Gedecke heute Abend: 144, 141, 137, 131.
+--- reference
+Hier ist die Abfallmenge im August auf einen Blick.
+```dyui
+{"ui":"stat","label":"Abfall · August","value":12.4,"unit":"kg","delta":"+5.1% ggü. Vormonat","help":"Ziel 14.2 kg"}
+```
+Und hier die Gedecke heute Abend als Liniengrafik.
+```dyui
+{"ui":"chart","kind":"line","series":[{"name":"Gedecke heute Abend","data":[144,141,137,131]}]}
+```
+Die Abfallmenge liegt unter dem Ziel, und die Gedecke gehen im Verlauf des Abends zurück.
+--- derived
+

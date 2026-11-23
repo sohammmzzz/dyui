@@ -1,0 +1,62 @@
+=== J-0021
+--- user
+Could you please tell me what the acronym ETL stands for? It came up in a job description I am reviewing.
+--- reference
+ETL stands for Extract, Transform, Load. It describes the process of pulling data from source systems, reshaping or cleaning it, and then loading it into a destination such as a data warehouse. In a job description it usually points to a data engineering or analytics role.
+--- derived
+
+=== J-0006
+--- user
+is it even worth writing tests for a throwaway script lol
+--- reference
+Usually not, if it truly is throwaway and you will run it once and delete it. A quick manual check of the output is enough. The moment it gets rerun, shared or quietly turns into something permanent, a couple of tests for the risky parts will pay for themselves.
+--- derived
+
+=== J-0025
+--- user
+quick q, what does ETL stand for? seeing it in a data team doc
+--- reference
+ETL means Extract, Transform, Load. Data is pulled out of its sources, cleaned and reshaped, then loaded into a target system like a warehouse. The related ELT variant just flips the last two steps and transforms the data after loading.
+--- derived
+
+=== J-0023
+--- user
+Safe to retry a GET?
+--- reference
+Yes. GET is meant to be safe and idempotent, so repeating it does not change anything on the server. The exception is an endpoint that wrongly triggers side effects on GET, so it is worth checking that one is not misbehaving.
+--- derived
+
+=== J-0022
+--- user
+Bonjour, c'est la première fois que j'utilise cet outil de suivi. Pourriez-vous m'indiquer comment vous pouvez m'aider pour mes expéditions ?
+--- reference
+Bonjour et bienvenue chez Orbit Freight. Je peux vous aider à suivre vos expéditions, à vérifier leur statut et à répondre à vos questions de livraison. Donnez-moi simplement un numéro de suivi pour commencer.
+--- derived
+
+=== J-0030
+--- user
+Please simplify this sentence for a customer who is not technical: "Your ticket has been escalated to tier 2 and we will update you within 24 hours."
+--- reference
+Here is a plainer version: "A specialist is now looking at your request, and we will get back to you within 24 hours." It drops the support jargon but keeps the promise of a 24-hour update.
+--- derived
+
+=== J-0033
+--- user
+ok can you give me an example?
+--- reference
+Sure. Setting a user's status to "active" is idempotent, because running it ten times leaves the same result as running it once. Adding a new order to a list is not, since every repeat creates another order, which is why retrying it needs extra care.
+--- derived
+
+=== J-0041
+--- user
+what's a DNS TTL
+--- reference
+A DNS TTL, or time to live, is how long a resolver may cache a DNS record before asking again. A short TTL makes changes spread quickly but adds lookups, while a long one reduces traffic but delays updates.
+--- derived
+
+=== J-0004
+--- user
+Could you explain what cache invalidation means? I would like a clear definition for our team notes.
+--- reference
+Cache invalidation is the process of removing or refreshing cached data once the original data has changed, so users do not keep seeing stale content. It is notoriously hard because you must decide when and how much to evict without throwing away the performance benefit of the cache.
+--- derived

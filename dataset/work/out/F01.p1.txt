@@ -1,0 +1,110 @@
+=== F-0029
+--- user
+ok nice, now just the top 3 by CTR, best one first
+--- reference
+Here are the three creative tests with the highest CTR, best first.
+```dyui
+{"ui":"table","columns":["Variant","Headline","CTR","Winner"],"rows":[["B","Save 20% today",3.9,"Yes"],["D","See it in action",3.6,"Yes"],["D","Save 20% today",3.5,"No"]]}
+```
+Variant B with "Save 20% today" still leads, and the rows are unchanged apart from the cut.
+--- derived
+
+=== F-0027
+--- user
+Bitte übersetze die Beschriftungen und den Titel des Diagramms ins Deutsche, die Zahlen bleiben wie sie sind.
+--- reference
+Here is the same line chart with the labels and title in German.
+```dyui
+{"ui":"chart","kind":"line","labels":["Mai","Jun","Jul","Aug","Sep","Okt","Nov","Dez"],"series":[{"name":"Tage bis zur Regulierung","data":[22,21,21,20,19,19,19,19]}],"title":"Tage bis zur Regulierung, Mai–Dez","unit":"Tage"}
+```
+Only the text changed; the values are exactly as before.
+--- derived
+
+=== F-0014
+--- user
+Could you take December off the chart? I'd rather end the trajectory at November, since that month's data is still provisional.
+--- reference
+Here is the chart ending in November.
+```dyui
+{"ui":"chart","kind":"line","labels":["Jun","Jul","Aug","Sep","Oct","Nov"],"series":[{"name":"Average quiz score","data":[69,68,68,67,66,66]}],"title":"Average quiz score, Jun–Nov","unit":"%"}
+```
+The title now ends at November to match; the remaining points are untouched.
+--- derived
+
+=== F-0028
+--- user
+Thank you. For the report I would prefer a shorter version, so please show only the final three appliances from that chart.
+--- reference
+Here is the chart narrowed to the last three appliances.
+```dyui
+{"ui":"chart","kind":"bar","labels":["Lighting","Fridge","Laundry"],"series":[{"name":"Peak demand","data":[6.4,6.5,11.4]}],"title":"Peak demand by appliance","unit":"kW"}
+```
+Laundry still stands well above the other two.
+--- derived
+
+=== F-0003
+--- user
+love it! can you put the labels and title in French? numbers stay the same
+--- reference
+Voici le même graphique en aires avec les libellés et le titre en français.
+```dyui
+{"ui":"chart","kind":"area","labels":["avr.","mai","juin","juil.","août"],"series":[{"name":"Marche par jour","data":[10.6,11.4,12.2,13.2,13.6]}],"title":"Marche par jour, avr.–août","unit":"km"}
+```
+Only the wording changed; every value is as before.
+--- derived
+
+=== F-0006
+--- user
+Actually, can you show the Hours for each machine as a bar chart instead of the table?
+--- reference
+Here are the hours per machine as a bar chart.
+```dyui
+{"ui":"chart","kind":"bar","labels":["Claas Lexion","Baler B1","John Deere 6130","Sprayer S2","Kubota M7","Baler B1","Sprayer S2"],"series":[{"name":"Hours","data":[3592,4387,3088,1605,561,385,4522]}],"title":"Hours by machine"}
+```
+Baler B1 and Sprayer S2 each appear twice because the table listed them twice; the larger Sprayer S2 figure is the highest bar.
+--- derived
+
+=== F-0030
+--- user
+swap to a bar chart of stock by product
+--- reference
+Here is stock per product as a bar chart.
+```dyui
+{"ui":"chart","kind":"bar","labels":["Linen throw","Wool rug","Oak shelf","Ceramic planter","Brass desk lamp","Glass carafe"],"series":[{"name":"Stock","data":[158,393,531,131,498,419]}],"title":"Stock by product"}
+```
+Oak shelf has the most stock and Ceramic planter the least.
+--- derived
+
+=== F-0009
+--- user
+hmm that's long, trim it to just the first three rows
+--- reference
+Here is the table trimmed to the first three events.
+```dyui
+{"ui":"table","columns":["Event","Players","Revenue","Status"],"rows":[["Spring Festival",82888,"$85,693","Scheduled"],["Lunar Hunt",113895,"$81,770","Ended"],["Speedrun Cup",69280,"$51,747","Live"]]}
+```
+The rows keep their original order and nothing else was changed.
+--- derived
+
+=== F-0004
+--- user
+Thanks, that is helpful. However, I would like a more compact version for our staff meeting: please keep only the last three services on the chart.
+--- reference
+Here is the chart limited to the last three services.
+```dyui
+{"ui":"chart","kind":"bar","labels":["Lab work","Check-up","Dental"],"series":[{"name":"No-show rate","data":[10.2,11.3,4.0]}],"title":"No-show rate by service","unit":"%"}
+```
+Check-up keeps the highest no-show rate of the three.
+--- derived
+
+=== F-0022
+--- user
+sort by tracking, highest first
+--- reference
+Here is the table sorted by tracking number, highest first.
+```dyui
+{"ui":"table","columns":["Tracking","Origin","Destination","Status","ETA"],"rows":[["TRK-783","Dublin","Denver","At customs","Oct 20"],["TRK-778","Lisbon","Nairobi","At customs","Apr 10"],["TRK-761","Oslo","Munich","At customs","Oct 17"],["TRK-566","Stockholm","Stockholm","Delayed","Jun 25"],["TRK-502","Denver","Cape Town","At customs","Sep 25"]]}
+```
+TRK-566 is the only shipment marked as delayed.
+--- derived
+

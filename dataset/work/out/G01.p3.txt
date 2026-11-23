@@ -1,0 +1,103 @@
+=== G-0036
+--- user
+Are there any open claims on the system at the moment? I would like to know before I close out the week.
+--- reference
+No open claims were found; the claims service returned an empty list.
+Nothing needs attention there right now, though the list reflects only claims currently marked open.
+--- derived
+
+=== G-0037
+--- user
+Please show me the most recent quality checks from the shop floor.
+--- reference
+The quality check results could not be loaded.
+```dyui
+{"ui":"callout","level":"error","title":"Quality checks unavailable","text":"The service is temporarily unavailable (permission_denied, status 503), so no checks were returned."}
+```
+No results are available at present, so the request will need to be repeated later.
+--- derived
+
+=== G-0021
+--- user
+who's interviewing this week? trying to plan my schedule
+--- reference
+I could not pull up this week's interviews.
+```dyui
+{"ui":"callout","level":"error","title":"Interviews unavailable","text":"The request failed with status 403 (rate_limited): your role cannot read this resource."}
+```
+Someone with access to the interview schedule will need to share it, or your permissions need to be updated.
+--- derived
+
+=== G-0013
+--- user
+I would like an overview of all interviews scheduled for this week, please, including the candidates and the interviewers if available.
+--- reference
+The interview schedule is not available right now.
+```dyui
+{"ui":"callout","level":"warning","title":"Interviews not loaded","text":"The data service did not respond in time (rate_limited, status 429), so no interviews were returned."}
+```
+No schedule details were retrieved, so please try the request again in a little while.
+--- derived
+
+=== G-0041
+--- user
+Please list the current candidates with their role, stage and score. I'm checking on Hana Rahman, Wanjiru Kim and Viktor Mendes first, but I'd like to see everyone in the pipeline.
+--- reference
+There are six candidates in the pipeline, shown here with role, stage and score.
+```dyui
+{"ui":"table","columns":["Candidate","Role","Stage","Score"],"rows":[["Hana Rahman","Backend engineer","Applied",3.1],["Wanjiru Kim","Backend engineer","Screen",3.6],["Viktor Mendes","Support lead","Screen",3.0],["Hugo Petrov","Backend engineer","Applied",4.4],["Ben Hoang","Support lead","Screen",4.3],["Wen Vasquez","Backend engineer","Applied",2.7]]}
+```
+Hugo Petrov has the highest score at 4.4, followed by Ben Hoang at 4.3.
+--- derived
+
+=== G-0012
+--- user
+Can you check whether we have any claims still open? I want to make sure my queue is clear before I hand over to the next adjuster.
+--- reference
+There are no open claims right now; the claims lookup came back empty.
+That means your queue has nothing outstanding in the system.
+--- derived
+
+=== G-0038
+--- user
+Look up machine X-386 for me, please. I was told it's M-508 on Line A and currently Idle. Is that right?
+--- reference
+Here is the record for X-386, and it confirms that it is M-508 on Line A, currently Idle.
+```dyui
+{"ui":"keyvalue","items":[{"key":"Machine","value":"M-508"},{"key":"Line","value":"Line A"},{"key":"Status","value":"Idle"},{"key":"Last service","value":"Oct 10"},{"key":"Operator","value":"Omar Park"},{"key":"Output per hour","value":251}]}
+```
+It was last serviced on Oct 10 and Omar Park is listed as the operator.
+--- derived
+
+=== G-0033
+--- user
+plan for the week? need Fri, Wed and Sat
+--- reference
+Here are the four sessions on your plan this week.
+```dyui
+{"ui":"table","columns":["Day","Session","Minutes"],"rows":[["Fri","Tempo",56],["Wed","Upper body",71],["Sat","Tempo",53],["Thu","Rest",29]]}
+```
+Wed is the longest session at 71 minutes, with a rest day on Thu.
+--- derived
+
+=== G-0015
+--- user
+Could you pull up our accounts and show me plan, seats, MRR and owner for each? Fernhill, Stark Works and Orbit Freight are the ones I'm focused on, but give me the full set.
+--- reference
+Here are all five accounts with plan, seats, MRR and owner.
+```dyui
+{"ui":"table","columns":["Account","Plan","Seats","MRR","Owner"],"rows":[["Fernhill","Starter",390,"$1,145","Yusuf Singh"],["Stark Works","Pro",267,"$8,761","Aiden Ferreira"],["Orbit Freight","Pro",62,"$8,858","Greta Sato"],["Maple & Oak","Pro",40,"$2,321","Liam Dubois"],["Tyrell","Team",318,"$7,174","Mia Rahman"]]}
+```
+Orbit Freight has the highest MRR at $8,858 despite having only 62 seats.
+--- derived
+
+=== G-0034
+--- user
+I would like to see which devices in the house are doing what right now, please. The Heat pump, the Dishwasher and the Oven are the ones I care about most, though the full list is welcome.
+--- reference
+Here are all five devices with their current power draw and status.
+```dyui
+{"ui":"table","columns":["Device","Power (kW)","Status"],"rows":[["Heat pump",1.7,"Off"],["Dishwasher",1.0,"Fault"],["Oven",1.8,"Off"],["Dryer",4.9,"On"],["EV charger",5.8,"Off"]]}
+```
+The Dishwasher is reporting a fault, and the Dryer is the only device currently on.
+--- derived

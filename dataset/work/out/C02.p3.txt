@@ -1,0 +1,154 @@
+=== C-0014
+--- user
+Tonight's reservations, can you lay them out? 21:30 Mia Kowalski, party of 10, birthday; 20:45 Carla Kowalski, 8, window table; 18:00 Ana Ferreira, 6, birthday; 18:30 Carla Garcia, 2, no notes. And what are my options for handling the list: view history, dismiss alert, flag as fraud, or skip for now?
+--- reference
+Here are tonight's four reservations.
+```dyui
+{"ui":"table","columns":["Time","Name","Party","Notes"],"rows":[["21:30","Mia Kowalski",10,"Birthday"],["20:45","Carla Kowalski",8,"Window table"],["18:00","Ana Ferreira",6,"Birthday"],["18:30","Carla Garcia",2,"None"]],"caption":"Reservations"}
+```
+These are the actions available from here.
+```dyui
+{"ui":"buttons","items":[{"label":"View history","action":"view_history"},{"label":"Dismiss alert","action":"dismiss_alert"},{"label":"Flag as fraud","action":"flag_as_fraud"},{"label":"Skip for now","action":"skip_for_now"}]}
+```
+Pick one and I will carry it out.
+--- derived
+
+=== C-0002
+--- user
+Resume o envio e põe os passos em linha do tempo, por favor. Tracking TRK-621, de Sydney para Miami, transportadora FedEx, 468 kg. Passos: Out for delivery (feito, Aiden Reyes), Pick up at the dock (a decorrer, Rosa Dubois), Clear customs (pendente, Hugo Nakamura), Scan at the hub (pendente, Wen Mendes).
+--- reference
+Aqui está o resumo do envio.
+```dyui
+{"ui":"keyvalue","items":[{"key":"Tracking","value":"TRK-621"},{"key":"Origin","value":"Sydney"},{"key":"Destination","value":"Miami"},{"key":"Carrier","value":"FedEx"},{"key":"Weight kg","value":468}]}
+```
+E aqui estão os passos em linha do tempo, cada um com o seu responsável.
+```dyui
+{"ui":"timeline","items":[{"title":"Out for delivery","status":"done","text":"Owner: Aiden Reyes"},{"title":"Pick up at the dock","status":"active","text":"Owner: Rosa Dubois"},{"title":"Clear customs","status":"pending","text":"Owner: Hugo Nakamura"},{"title":"Scan at the hub","status":"pending","text":"Owner: Wen Mendes"}]}
+```
+O passo ativo é a recolha no cais, e a alfândega e o scan no hub ainda faltam.
+--- derived
+
+=== C-0018
+--- user
+For the weekly review, please show headline numbers: active listings 57 (target 63), showings this week 31 (0% change), offers received 1 (down 3.3%, target 1). Then how offers received have trended over the last seven weeks: 7, 7, 8, 9, 10, 11, 11.
+--- reference
+Here are this week's headline numbers.
+```dyui
+{"ui":"stats","items":[{"label":"Active listings","value":"57","help":"Target 63"},{"label":"Showings this week","value":"31","delta":"0%"},{"label":"Offers received","value":"1","delta":"-3.3%","trend":"down","help":"Target 1"}]}
+```
+And the trend in offers received over the seven weeks.
+```dyui
+{"ui":"chart","kind":"area","series":[{"name":"Offers received","data":[7,7,8,9,10,11,11]}]}
+```
+Offers climbed across the period before levelling off at the end.
+--- derived
+
+=== C-0001
+--- user
+I need to cite the sources for the donor briefing and then have a few follow-up questions ready. Sources: "Pricing overview" https://media.example.net/benchmark/45 (explains the controls in plain language); "Roadmap summary" https://media.example.net/release-notes (has the latest figures); "Annual review" https://static.brasa.example.com/overview (covers the main changes); "Compliance handbook" https://static.brasa.example.com/roadmap (covers the main changes). Suggested questions: how does this compare to target, and compare with last month.
+--- reference
+Here are the four sources behind the briefing.
+```dyui
+{"ui":"sources","items":[{"title":"Pricing overview","url":"https://media.example.net/benchmark/45","snippet":"Explains the controls in plain language."},{"title":"Roadmap summary","url":"https://media.example.net/release-notes","snippet":"Has the latest figures."},{"title":"Annual review","url":"https://static.brasa.example.com/overview","snippet":"Covers the main changes."},{"title":"Compliance handbook","url":"https://static.brasa.example.com/roadmap","snippet":"Covers the main changes."}]}
+```
+These are two questions you could ask next.
+```dyui
+{"ui":"quick_replies","options":["How does this compare to target?","Compare with last month"]}
+```
+The roadmap summary is the one to open first for the latest figures.
+--- derived
+
+=== C-0036
+--- user
+track the contract: draft from the template done, legal review failed, counterparty redlines failed, signature not started. let me act on it from here, reject the request or continue
+--- reference
+Here is the contract plan with the status of each step.
+```dyui
+{"ui":"plan","title":"Contract management plan","items":[{"title":"Draft from the template","status":"done"},{"title":"Legal review","status":"error"},{"title":"Counterparty redlines","status":"error"},{"title":"Signature","status":"pending"}]}
+```
+You can act on it from here.
+```dyui
+{"ui":"buttons","items":[{"label":"Reject request","action":"reject_request","style":"danger"},{"label":"Continue","action":"continue","style":"primary"}]}
+```
+Both review steps failed, so signature cannot start until they are cleared.
+--- derived
+
+=== C-0022
+--- user
+where do we stand on calories burned? 3,382 this month, down 6.3% vs last month. also let them know in the app that workouts this month is at 13, above the 10 threshold, and to review it before Friday
+--- reference
+Here is where calories burned stand this month.
+```dyui
+{"ui":"stat","label":"Calories burned","value":"3,382","delta":"-6.3% vs last month","trend":"down"}
+```
+And the heads-up for the app.
+```dyui
+{"ui":"callout","level":"warning","title":"Needs attention","text":"Workouts this month is at 13, above the 10 threshold. Review it before Friday."}
+```
+Calories are lower than last month even though workouts passed the threshold.
+--- derived
+
+=== C-0012
+--- user
+open roles 40 (down), applicants this week 721 (flat), headcount 474 (flat) - show those as headline numbers. which stage is ahead on attrition? Interview 4.7, Screen 9.1, Hired 10.5, Applied 12.7, Offer 13.7. And suggest what I could ask next: show the top 3, explain the biggest drop, which stage is weakest
+--- reference
+Here are the three headline numbers.
+```dyui
+{"ui":"stats","items":[{"label":"Open roles","value":"40","trend":"down"},{"label":"Applicants this week","value":"721","trend":"flat"},{"label":"Headcount","value":"474","trend":"flat"}]}
+```
+Here is attrition by stage so you can see which is ahead.
+```dyui
+{"ui":"chart","kind":"bar","labels":["Interview","Screen","Hired","Applied","Offer"],"series":[{"name":"Attrition","data":[4.7,9.1,10.5,12.7,13.7]}],"title":"Attrition by stage"}
+```
+A few questions you could ask next.
+```dyui
+{"ui":"quick_replies","options":["Show the top 3","Explain the biggest drop","Which stage is weakest?"]}
+```
+Offer has the highest attrition and Interview the lowest.
+--- derived
+
+=== C-0006
+--- user
+Bitte stellen Sie den Ablauf als Zeitleiste dar: Irrigate and monitor (erledigt), Prepare the soil (erledigt), Store and sell (aktuell), Harvest (offen), Sow the seed (offen). Und weisen Sie im Chat deutlich darauf hin, dass der Ertrag alle 2 Stunden neu berechnet wird und der heutige Wert daher vorläufig ist.
+--- reference
+Hier ist der Ablauf als Zeitleiste, mit dem Status jedes Schritts.
+```dyui
+{"ui":"timeline","items":[{"title":"Irrigate and monitor","status":"done"},{"title":"Prepare the soil","status":"done"},{"title":"Store and sell","status":"active"},{"title":"Harvest","status":"pending"},{"title":"Sow the seed","status":"pending"}]}
+```
+Und der Hinweis zum Ertrag.
+```dyui
+{"ui":"callout","level":"info","text":"Der Ertrag wird alle 2 Stunden neu berechnet, daher ist der heutige Wert vorläufig."}
+```
+Aktuell läuft der Schritt Store and sell, während Harvest und Sow the seed noch ausstehen.
+--- derived
+
+=== C-0046
+--- user
+I'd like to see the progress on the inspection backlog review, it's sitting at 13 right now. Then what are my options from here? I can think of remind me later, learn more, dismiss the alert, or start the review.
+--- reference
+Here is the current progress.
+```dyui
+{"ui":"progress","value":13}
+```
+These are your options from here.
+```dyui
+{"ui":"buttons","items":[{"label":"Remind me later","action":"remind_me_later"},{"label":"Learn more","action":"learn_more"},{"label":"Dismiss alert","action":"dismiss_alert"},{"label":"Start review","action":"start_review"}]}
+```
+The review is only just under way, so starting it now is the quickest way to move it forward.
+--- derived
+
+=== C-0013
+--- user
+How far along are we with my storage quota? I've used 18 out of 55. I'd also like to be able to act on it right from here: edit details, flag as fraud, approve, or view history.
+--- reference
+Here is how much of the storage quota is used.
+```dyui
+{"ui":"progress","value":18,"max":55,"label":"Storage quota"}
+```
+And the actions you can take from here.
+```dyui
+{"ui":"buttons","items":[{"label":"Edit details","action":"edit_details"},{"label":"Flag as fraud","action":"flag_as_fraud"},{"label":"Approve","action":"approve"},{"label":"View history","action":"view_history"}]}
+```
+A little under a third of the quota is in use, so there is plenty of room left.
+--- derived
+

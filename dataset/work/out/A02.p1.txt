@@ -1,0 +1,110 @@
+=== A-0032
+--- user
+We're highlighting the Orion Dashboard on the tutoring portal: it has free cancellation and 5,736 active learners right now. Could you turn that into a card with a Book button so students can sign up straight away?
+--- reference
+Here is the Orion Dashboard as a card with a booking action.
+```dyui
+{"ui":"card","title":"Orion Dashboard","subtitle":"Free cancellation","children":[{"ui":"stat","label":"Active learners","value":"5,736"}],"actions":[{"label":"Book","action":"book_item","style":"primary"}]}
+```
+The Book button sends its action back to me when a student presses it.
+--- derived
+
+=== A-0112
+--- user
+Customer survey quote: "I trust the alerts now, and that changed how we work." Show it as a testimonial.
+--- reference
+Here is the survey comment set up as a testimonial.
+```dyui
+{"ui":"quote","text":"I trust the alerts now, and that changed how we work.","source":"Customer survey"}
+```
+It credits the survey, so readers know where the feedback came from.
+--- derived
+
+=== A-0067
+--- user
+I've been chatting with this assistant about our router outage for a while and I'd like to give it a score at the end. How do I rate this conversation?
+--- reference
+You can rate the conversation right here.
+```dyui
+{"ui":"rating"}
+```
+Your score comes back to me as soon as you tap it.
+--- derived
+
+=== A-0084
+--- user
+Kindly embed the audio briefing located at https://news.example.com/audio/report-18.mp3 so our client can listen to it within the conversation.
+--- reference
+The audio briefing is embedded below and ready to play.
+```dyui
+{"ui":"audio","src":"https://news.example.com/audio/report-18.mp3"}
+```
+Your client can listen without leaving the chat.
+--- derived
+
+=== A-0081
+--- user
+Need a section break before the Outlook part of the update.
+--- reference
+Here is a separator that opens the Outlook section.
+```dyui
+{"ui":"divider","label":"Outlook"}
+```
+Everything after the line can now read as its own part of the update.
+--- derived
+
+=== A-0014
+--- user
+Status labels: Featured, Approved, Draft, In progress. Pills please, with distinct colors.
+--- reference
+Here are the four statuses as colored pills.
+```dyui
+{"ui":"badges","items":[{"label":"Featured","color":"accent"},{"label":"Approved","color":"green"},{"label":"Draft","color":"gray"},{"label":"In progress","color":"blue"}]}
+```
+Each state has its own color, so you can scan them quickly.
+--- derived
+
+=== A-0110
+--- user
+Good afternoon. I would like to give feedback on the answer you just provided regarding opening hours. How may I do so?
+--- reference
+You can give your feedback with the rating below.
+```dyui
+{"ui":"rating"}
+```
+Your rating is passed back to me as soon as you select it.
+--- derived
+
+=== A-0008
+--- user
+hey, I've got a few budget categories with statuses: In progress, Archived, Deprecated and Stable. can you render them as tags? make the colors match the vibe, like red for deprecated.
+--- reference
+Here are the four statuses as tags.
+```dyui
+{"ui":"badges","items":[{"label":"In progress","color":"blue"},{"label":"Archived","color":"gray"},{"label":"Deprecated","color":"red"},{"label":"Stable","color":"green"}]}
+```
+Deprecated stands out in red, while Stable reads as safe in green.
+--- derived
+
+=== A-0060
+--- user
+love this line from Ben Singh, Head of Support: "Finally, reports that explain themselves." can you highlight it like a testimonial?
+--- reference
+Here is Ben's comment as a testimonial.
+```dyui
+{"ui":"quote","text":"Finally, reports that explain themselves.","author":"Ben Singh, Head of Support"}
+```
+The quote carries his name and role, so it reads with proper attribution.
+--- derived
+
+=== A-0096
+--- user
+Hi, I'm Ana Silva and I'd like to book an appointment. I normally arrive around 09:00.
+--- reference
+Please fill in the details below to book your appointment.
+```dyui
+{"ui":"form","fields":[{"name":"full_name","label":"Full name","required":true,"placeholder":"Ana Silva"},{"name":"start_date","label":"Start date","type":"date","required":true},{"name":"arrival","label":"Arrival time","type":"time","required":true,"default":"09:00"},{"name":"department","label":"Department","type":"select","options":["Sales","Support","Billing","Engineering"]},{"name":"notes","label":"Anything we should know?","type":"textarea","required":true,"placeholder":"Allergies, access instructions..."}],"action":"book_appointment"}
+```
+Once you submit, I will use these answers to arrange the booking.
+--- derived
+

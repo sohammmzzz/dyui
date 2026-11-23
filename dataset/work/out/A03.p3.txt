@@ -1,0 +1,109 @@
+=== A-0018
+--- user
+That tutorial on the packing checklist was really useful, and I want to leave a rating for it. Can you set up star ratings and call the prompt "Rate this session"?
+--- reference
+Here is a star rating for the session.
+```dyui
+{"ui":"rating","label":"Rate this session","style":"stars","action":"rate_answer"}
+```
+Pick the number of stars and your choice comes back to me as a message.
+--- derived
+
+=== A-0033
+--- user
+We got great feedback from a customer: "The new dashboard saved me an hour a day." I want to show it as a quote for the landing page. Could you format it?
+--- reference
+Here is the customer line formatted as a quote.
+```dyui
+{"ui":"quote","text":"The new dashboard saved me an hour a day."}
+```
+It is short enough to sit prominently on a landing page as it is.
+--- derived
+
+=== A-0002
+--- user
+Can you set me up for the event? I'm Ana Silva (you@company.com is the sort of work address I'd use), I could do any weekday Mon to Fri, and I need to set a budget with a slider from 100 to 5000 in steps of 100, starting at 1000. Also add a tick box for getting updates, and the button should say Register.
+--- reference
+Here is the event registration form.
+```dyui
+{"ui":"form","title":"Event registration","fields":[{"name":"full_name","label":"Full name","type":"text","required":true,"placeholder":"Ana Silva"},{"name":"email","label":"Email","type":"email","required":true,"placeholder":"you@company.com"},{"name":"days","label":"Available days","type":"multiselect","options":["Mon","Tue","Wed","Thu","Fri"],"required":true},{"name":"budget","label":"Budget ($)","type":"slider","required":true,"default":1000,"min":100,"max":5000,"step":100},{"name":"newsletter","label":"Send me updates","type":"checkbox","required":true,"default":false}],"submit_label":"Register","action":"event_registration"}
+```
+Once you submit it, I will receive your answers together in a single message.
+--- derived
+
+=== A-0116
+--- user
+hey, put the invoice lookup in the trace for me. It's the "Fetch invoice" tool step with invoice INV-0412 as input, and it hasn't run yet.
+--- reference
+Here is the invoice lookup step, still waiting to run.
+```dyui
+{"ui":"step","title":"Fetch invoice","status":"pending","type":"tool","input":{"invoice":"INV-0412"}}
+```
+It will show a result once the tool has been called.
+--- derived
+
+=== A-0086
+--- user
+need a player for https://news.example.com/audio/guide-02.mp3, title it Demo track
+--- reference
+Here is the demo track with a player.
+```dyui
+{"ui":"audio","src":"https://news.example.com/audio/guide-02.mp3","title":"Demo track"}
+```
+Press play to preview it on the spot.
+--- derived
+
+=== A-0007
+--- user
+play it here: https://www.youtube.com/watch?v=rcC7rh9GkLK, caption "Last week's town hall"
+--- reference
+The town hall video is ready to play below.
+```dyui
+{"ui":"video","src":"https://www.youtube.com/watch?v=rcC7rh9GkLK","caption":"Last week's town hall"}
+```
+It plays inline, with the caption underneath.
+--- derived
+
+=== A-0080
+--- user
+Could you please provide a quick thumbs up or thumbs down control so I can give feedback on this reply? I'd like it labelled "Your feedback".
+--- reference
+Here is a thumbs control for your feedback.
+```dyui
+{"ui":"rating","label":"Your feedback","style":"thumbs","action":"rate_tutorial"}
+```
+Your vote is sent back to me as a single positive or negative value.
+--- derived
+
+=== A-0025
+--- user
+Could you attach the Q3 summary spreadsheet so I can grab it? It's q3-summary.xlsx at https://news.example.com/files/q3-summary.xlsx, an Excel file of 27160 bytes.
+--- reference
+The Q3 summary spreadsheet is attached below for download.
+```dyui
+{"ui":"file","name":"q3-summary.xlsx","url":"https://news.example.com/files/q3-summary.xlsx","size":27160,"type":"application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"}
+```
+The card shows the file name and size, so you know what you are downloading.
+--- derived
+
+=== A-0028
+--- user
+I recorded a benchmark walkthrough and uploaded it to https://files.example.com/audio/benchmark-26.mp3. I'd like to listen to it here instead of downloading it, if that's possible.
+--- reference
+Here is the benchmark recording with a player.
+```dyui
+{"ui":"audio","src":"https://files.example.com/audio/benchmark-26.mp3"}
+```
+You can listen to it directly in the conversation.
+--- derived
+
+=== A-0079
+--- user
+Here's the payload for the Rooftop event: venue Rooftop, date Dec 8, doors 19:00, tags renewal and audit, and a meta object with version 4 and dry_run false. I'd like to be able to explore it, and title it "Event payload".
+--- reference
+Here is the event payload as a tree you can expand.
+```dyui
+{"ui":"json","data":{"venue":"Rooftop","date":"Dec 8","doors":"19:00","tags":["renewal","audit"],"meta":{"version":4,"dry_run":false}},"title":"Event payload"}
+```
+Open the meta branch to check that the dry-run flag is off.
+--- derived

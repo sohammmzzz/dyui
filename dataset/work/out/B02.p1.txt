@@ -1,0 +1,105 @@
+=== B-0003
+--- user
+Elif Rahman: último donativo $1,629, 34 donativos, mensual. Ben Nguyen: $2,269, 33 donativos, inactivo (lapsed). ¿Cómo los ves?
+--- reference
+Elif Rahman es donante mensual con 34 donativos y un último gesto de $1,629, así que sigue activa y constante. Ben Nguyen dio $2,269 en su último donativo y suma 33, pero figura como inactivo, por lo que conviene contactarlo primero.
+--- derived
+
+=== B-0038
+--- user
+Assignments due this July: 8, which is the same as last month (0% change). can you show that nicely?
+--- reference
+Here is the July assignment load as a single number.
+```dyui
+{"ui":"stat","label":"Assignments due · July","value":"8","delta":"0% vs last month"}
+```
+The workload is unchanged from last month.
+--- derived
+
+=== B-0016
+--- user
+Please give me the weekly HR overview. Applicants this week: 729 (0% change, target 802). Attrition: 11.7%, up 16.1%. Headcount: 789, trending down. Time to hire: 37 days, up 5.4% against a target of 41 days.
+--- reference
+Here are the four headline figures for this week.
+```dyui
+{"ui":"stats","items":[{"label":"Applicants this week","value":"729","delta":"0%","help":"Target 802"},{"label":"Attrition","value":"11.7%","delta":"+16.1%"},{"label":"Headcount","value":"789","trend":"down"},{"label":"Time to hire","value":"37 days","delta":"+5.4%","trend":"up","help":"Target 41 days"}]}
+```
+Applicants and time to hire are both short of their targets, while attrition has risen noticeably.
+--- derived
+
+=== B-0052
+--- user
+Pre-orders currently stand at 21,102, unchanged from the previous reading. Is that good?
+--- reference
+Here is the current pre-order count.
+```dyui
+{"ui":"stat","label":"Pre-orders","value":"21,102","trend":"flat"}
+```
+The count is flat, and without a target or earlier benchmark I cannot say whether 21,102 is strong or weak.
+--- derived
+
+=== B-0047
+--- user
+Inscrições por cultura: Tomatoes 4109, Sunflower 2855, Barley 1308. Qual é a divisão?
+--- reference
+Aqui está a divisão das inscrições entre as três culturas.
+```dyui
+{"ui":"chart","kind":"pie","labels":["Tomatoes","Sunflower","Barley"],"series":[{"name":"Signups","data":[4109,2855,1308]}],"title":"Signups per crop","unit":"signups"}
+```
+Tomatoes ficam com a maior fatia e Barley com a menor.
+--- derived
+
+=== B-0072
+--- user
+Quick numbers for the week: 36 open roles, 230 applicants this week (target was 253), headcount 114 (+2.5%), attrition 15.4% (+14.7%, rising, target 16.9%). can you summarise those?
+--- reference
+Here is the recruiting snapshot in four numbers.
+```dyui
+{"ui":"stats","items":[{"label":"Open roles","value":"36"},{"label":"Applicants this week","value":"230","help":"Target 253"},{"label":"Headcount","value":"114","delta":"+2.5%"},{"label":"Attrition","value":"15.4%","delta":"+14.7%","trend":"up","help":"Target 16.9%"}]}
+```
+Applicants are below target, and attrition is climbing even though it still sits under its 16.9% ceiling.
+--- derived
+
+=== B-0066
+--- user
+Volunteer hours for February came to 416 h, same as January, and our target was 430 h. how does it look?
+--- reference
+Here is February's volunteer total.
+```dyui
+{"ui":"stat","label":"Volunteer hours · February","value":416,"unit":"h","delta":"0% vs last month","trend":"flat","help":"Target 430 h"}
+```
+Hours held steady but landed just under the 430 h target.
+--- derived
+
+=== B-0004
+--- user
+Donantes: Hugo Nakamura, $815, 16 donativos, Mid-level. Vera Dubois, $4,491, 31, Monthly. Priya Reyes, $4,502, 27, Lapsed. Kofi Ueda, $980, 20, Lapsed. Tara Ueda, $4,134, 35, Lapsed. Mia Costa, $1,980, 28, Lapsed. Gabriel Nguyen, $3,852, 38, Lapsed. Ponlo en una tabla.
+--- reference
+Aquí tienes a los siete donantes en una tabla.
+```dyui
+{"ui":"table","columns":["Donor","Last gift","Gifts","Segment"],"rows":[["Hugo Nakamura","$815",16,"Mid-level"],["Vera Dubois","$4,491",31,"Monthly"],["Priya Reyes","$4,502",27,"Lapsed"],["Kofi Ueda","$980",20,"Lapsed"],["Tara Ueda","$4,134",35,"Lapsed"],["Mia Costa","$1,980",28,"Lapsed"],["Gabriel Nguyen","$3,852",38,"Lapsed"]],"caption":"Donors"}
+```
+Cinco de los siete están en el segmento Lapsed, y Vera Dubois es la única donante mensual.
+--- derived
+
+=== B-0049
+--- user
+Details on the current event: Solo mode, starts Jul 10, runs 5 days, rewards Gems, status Live. Could you show me the profile?
+--- reference
+Here is the profile of the event.
+```dyui
+{"ui":"keyvalue","items":[{"key":"Mode","value":"Solo"},{"key":"Starts","value":"Jul 10"},{"key":"Duration days","value":5},{"key":"Reward","value":"Gems"},{"key":"Status","value":"Live"}]}
+```
+The event is already live and pays out in Gems.
+--- derived
+
+=== B-0013
+--- user
+accidents this year by depot: Harbour 8, Airport 9, Campus 2, Central 5. which one is ahead?
+--- reference
+Here are the accident counts for the four depots side by side.
+```dyui
+{"ui":"chart","kind":"bar","labels":["Harbour","Airport","Campus","Central"],"series":[{"name":"Accidents","data":[8,9,2,5]}],"title":"Accidents by depot"}
+```
+Airport is ahead with 9, closely followed by Harbour, while Campus has only 2.
+--- derived

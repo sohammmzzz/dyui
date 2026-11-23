@@ -1,0 +1,110 @@
+=== A-0023
+--- user
+For the Fernhill landing page, please present this customer feedback as a quotation: "The new dashboard saved me an hour a day." It comes from Liam Costa, Head of Support, and was collected in our Customer survey.
+--- reference
+Here is the testimonial formatted as a quotation for the landing page.
+```dyui
+{"ui":"quote","text":"The new dashboard saved me an hour a day.","author":"Liam Costa, Head of Support","source":"Customer survey"}
+```
+The attribution names both the speaker and the survey it came from, which helps the claim read as credible.
+--- derived
+
+=== A-0101
+--- user
+this help page is just a bare url in my notes, can you make it look nicer? https://help.helpwave.example.com/guide
+--- reference
+Here is the guide as a proper link card.
+```dyui
+{"ui":"link_preview","url":"https://help.helpwave.example.com/guide"}
+```
+The card replaces the raw address, and it opens the same page when clicked.
+--- derived
+
+=== A-0041
+--- user
+Je prépare le compte rendu de mon bloc d'entraînement et je voudrais séparer clairement la partie sur les résultats actuels de celle qui parle de la suite. Peux-tu insérer une ligne de séparation intitulée « Outlook » à cet endroit, avant que je rédige les prévisions ?
+--- reference
+Voici la séparation avec le titre « Outlook » pour ouvrir la partie prospective.
+```dyui
+{"ui":"divider","label":"Outlook"}
+```
+Tout ce qui suivra cette ligne sera lu comme la section sur la suite du programme.
+--- derived
+
+=== A-0091
+--- user
+Show "Query orders" in the trace, still running.
+--- reference
+The orders query is shown in the trace as in progress.
+```dyui
+{"ui":"step","title":"Query orders","status":"running"}
+```
+It will stay marked as running until the query returns.
+--- derived
+
+=== A-0063
+--- user
+we haven't kicked off the "Fetch invoice" step yet, can you put it in the trace as pending?
+--- reference
+I have added the invoice step to the trace in its waiting state.
+```dyui
+{"ui":"step","title":"Fetch invoice","status":"pending"}
+```
+Nothing has started for it yet, so it sits there until the earlier work finishes.
+--- derived
+
+=== A-0022
+--- user
+ok can you make a card for this one? Title is Riverside Studio, subtitle "Free cancellation", badge "Popular", image https://www.example.org/img/security-21.webp. Inside show the ticket details: ID TCK-813, customer Rosa Mendes, queue Technical. And add a red Decline button.
+--- reference
+Here is the Riverside Studio card with the ticket details and a decline action.
+```dyui
+{"ui":"card","title":"Riverside Studio","subtitle":"Free cancellation","image":"https://www.example.org/img/security-21.webp","badge":"Popular","children":[{"ui":"keyvalue","items":[{"key":"ID","value":"TCK-813"},{"key":"Customer","value":"Rosa Mendes"},{"key":"Queue","value":"Technical"}]}],"actions":[{"label":"Decline","action":"decline_item","style":"danger"}]}
+```
+Pressing Decline sends the choice back to me, so nothing is declined until you click it.
+--- derived
+
+=== A-0037
+--- user
+I am drafting a budget summary for the household. Kindly add a divider labelled "Next steps" so the recommendations are visually separated from the figures above.
+--- reference
+Here is a divider that marks where the recommendations begin.
+```dyui
+{"ui":"divider","label":"Next steps"}
+```
+The figures stay above the line and the action items can go beneath it.
+--- derived
+
+=== A-0031
+--- user
+I'd like the tool step from the last run displayed in the trace so I can check what it was doing. It is titled "Query orders", it is still running, and its input was a table called orders with a window of 7d. Could you render it with that input attached?
+--- reference
+This is the orders query step, still in progress, with its input attached.
+```dyui
+{"ui":"step","title":"Query orders","status":"running","input":{"table":"orders","window":"7d"}}
+```
+The input shows the query reads the orders table over a seven-day window, and the step stays running until it completes.
+--- derived
+
+=== A-0011
+--- user
+Please make a card for Hotel Avenida. Inside it I want a short "What happens next" section listing the following in bold lead words: Draft the job post, Source candidates, Schedule panel interviews. Add a quiet Details button at the bottom, nothing loud.
+--- reference
+Here is a card for Hotel Avenida with the next steps listed inside.
+```dyui
+{"ui":"card","title":"Hotel Avenida","children":[{"ui":"markdown","text":"### What happens next\n- **Draft** the job post\n- **Source** candidates\n- **Schedule** panel interviews"}],"actions":[{"label":"Details","action":"view_details","style":"ghost"}]}
+```
+The Details button is styled as a ghost so it stays unobtrusive, and it reports back to me when pressed.
+--- derived
+
+=== A-0120
+--- user
+We recorded the quarterly recap and it's hosted here: https://assets.lumen.example.io/video/q3-summary.mp4. Could you show the video directly in our conversation so I can preview it before sending it to a client?
+--- reference
+The quarterly recap is embedded below.
+```dyui
+{"ui":"video","src":"https://assets.lumen.example.io/video/q3-summary.mp4"}
+```
+You can play it right in the chat and check it before it goes out.
+--- derived
+

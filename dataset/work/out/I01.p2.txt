@@ -1,0 +1,149 @@
+=== I-0008
+--- user
+Please set out three ambulance call records for the contracts file. Mia Novak: items keys, badge and notes; tags priority, beta and audit; active, not verified, not urgent; level team. Ana Silva: no items listed; tags new, priority and audit; active, not verified, not urgent; level team. A second Ana Silva record: items samples and laptop; tag audit only; active, verified, urgent; level pro.
+--- reference
+Here are the three ambulance call records as submitted.
+```dyui
+{"ui":"ambulance_call","name":"Mia Novak","items":["keys","badge","notes"],"tags":["priority","beta","audit"],"active":true,"verified":false,"urgent":false,"level":"team"}
+{"ui":"ambulance_call","name":"Ana Silva","tags":["new","priority","audit"],"active":true,"verified":false,"urgent":false,"level":"team"}
+{"ui":"ambulance_call","name":"Ana Silva","items":["samples","laptop"],"tags":["audit"],"active":true,"verified":true,"urgent":true,"level":"pro"}
+```
+Only the last record is both verified and urgent, and it is also the only one at the pro level.
+--- derived
+
+=== I-0001
+--- user
+show these lessons pls: Ana Silva, level high, owner Elena Rossi, 8%. Ana Silva again, level medium, Elena Rossi, 75%. and Sven Larsen, high, owner Dev Patel, 85%.
+--- reference
+Here are the three lessons.
+```dyui
+{"ui":"language_lesson","name":"Ana Silva","level":"high","owner":"Elena Rossi","percent":8}
+{"ui":"language_lesson","name":"Ana Silva","level":"medium","owner":"Elena Rossi","percent":75}
+{"ui":"language_lesson","name":"Sven Larsen","level":"high","owner":"Dev Patel","percent":85}
+```
+Ana Silva appears twice, at high with 8 percent and at medium with 75 percent.
+--- derived
+
+=== I-0009
+--- user
+Camp sites, three: Pilot batch / Dev Patel / https://docs.example.com/guide/73 / price 132 / medium / score 77. Pilot batch / https://docs.example.com/status/78 / 166 / high. Quarterly review / https://docs.example.com/guide/48 / 413.0 km / 87 / low / score 42.
+--- reference
+Here are the three camp sites.
+```dyui
+{"ui":"camp_site","title":"Pilot batch","owner":"Dev Patel","url":"https://docs.example.com/guide/73","price":132,"status":"medium","score":77}
+{"ui":"camp_site","title":"Pilot batch","url":"https://docs.example.com/status/78","price":166,"status":"high"}
+{"ui":"camp_site","title":"Quarterly review","url":"https://docs.example.com/guide/48","distance_km":413.0,"price":87,"status":"low","score":42}
+```
+Quarterly review is the cheapest at 87, and the second Pilot batch has the high status.
+--- derived
+
+=== I-0019
+--- user
+Hey, can you show these two therapy sessions for me? MV-602 holds 668 people, verified, status ok, starts 12:30. KT-4971 holds 588, verified too, ok, 07:00, not urgent, with the note "Fragile".
+--- reference
+Here are the two sessions.
+```dyui
+{"ui":"therapy_session","id":"MV-602","capacity":668,"verified":true,"tier":"ok","time":"12:30"}
+{"ui":"therapy_session","id":"KT-4971","capacity":588,"verified":true,"tier":"ok","notes":"Fragile","time":"07:00","urgent":false}
+```
+Both are verified and sitting at ok, and KT-4971 carries a Fragile note.
+--- derived
+
+=== I-0020
+--- user
+Show prescription notes. Mia Novak, Mar 7, low, Dock 4, balance 970, Finance. Kofi Mensah, Sep 14, high, Studio 2, Operations.
+--- reference
+Here are the two prescription notes.
+```dyui
+{"ui":"prescription_note","name":"Mia Novak","date":"Mar 7","state":"low","location":"Dock 4","balance":970,"category":"Finance"}
+{"ui":"prescription_note","name":"Kofi Mensah","date":"Sep 14","state":"high","location":"Studio 2","category":"Operations"}
+```
+Only Mia Novak's note has a balance recorded.
+--- derived
+
+=== I-0017
+--- user
+We've got two therapy sessions to line up for the catalogue shoot, if you can show them. MV-797: capacity 673, verified, tier warn, note "Bring ID", 07:15. And PR-9395: capacity 418, verified, tier ok, note "Call before arrival", 15:45, marked urgent.
+--- reference
+Both sessions are listed below.
+```dyui
+{"ui":"therapy_session","id":"MV-797","capacity":673,"verified":true,"tier":"warn","notes":"Bring ID","time":"07:15"}
+{"ui":"therapy_session","id":"PR-9395","capacity":418,"verified":true,"tier":"ok","notes":"Call before arrival","time":"15:45","urgent":true}
+```
+MV-797 is flagged warn, while PR-9395 is ok but urgent.
+--- derived
+
+=== I-0005
+--- user
+I'd like the flashcard deck for "Quarterly review" displayed in full please. Its balance is 3973, the city is Lyon, the tier is pro, the code is TEAM15, and the cards cover notes, samples and charger.
+--- reference
+Here is the deck with all of its details.
+```dyui
+{"ui":"flashcard_deck","title":"Quarterly review","balance":3973,"city":"Lyon","tier":"pro","code":"TEAM15","items":["notes","samples","charger"]}
+```
+It is on the pro tier, and the code to use with it is TEAM15.
+--- derived
+
+=== I-0023
+--- user
+Kindly present these ward rounds. PR-1072, capacity 465, titled "Quarterly review", summary "Needs a decision this week", live, not refundable. MV-2550, capacity 782, titled "Night shift", summary "Waiting on the supplier", ended, refundable. PR-2738, capacity 446, no title, summary "Completed ahead of plan", live, not refundable.
+--- reference
+Here are the three ward rounds with their current tiers.
+```dyui
+{"ui":"ward_round","id":"PR-1072","capacity":465,"title":"Quarterly review","summary":"Needs a decision this week","tier":"live","refundable":false}
+{"ui":"ward_round","id":"MV-2550","capacity":782,"title":"Night shift","summary":"Waiting on the supplier","tier":"ended","refundable":true}
+{"ui":"ward_round","id":"PR-2738","capacity":446,"summary":"Completed ahead of plan","tier":"live","refundable":false}
+```
+Two rounds are still live, and MV-2550 is the only one that has ended and is refundable.
+--- derived
+
+=== I-0006
+--- user
+Could you show me two harvest lots from today's listings? The first belongs to Omar Haddad, owner Tomas Weber, active, balance 4532, count 195, temperature 35, status published. The second is Ana Silva's, with code WELCOME, inactive, balance 7909, count 179, temperature 14, also published.
+--- reference
+Here are the two harvest lots.
+```dyui
+{"ui":"harvest_lot","name":"Omar Haddad","owner":"Tomas Weber","active":true,"balance":4532,"count":195,"temperature":35,"status":"published"}
+{"ui":"harvest_lot","name":"Ana Silva","code":"WELCOME","active":false,"balance":7909,"count":179,"temperature":14,"status":"published"}
+```
+Both lots are published, but only the first one is currently active.
+--- derived
+
+=== I-0014
+--- user
+coupon offers: Quarterly review, live, tags beta, temp 19, 67%, rating 4.6. Quarterly review, ended, beta + vip, temp 34, 61%, 4.7. Quarterly review, ended, tags new priority audit, temp 12, 40%.
+--- reference
+Here are the three coupon offers.
+```dyui
+{"ui":"coupon_offer","title":"Quarterly review","state":"live","tags":["beta"],"temperature":19,"percent":67,"rating":4.6}
+{"ui":"coupon_offer","title":"Quarterly review","state":"ended","tags":["beta","vip"],"temperature":34,"percent":61,"rating":4.7}
+{"ui":"coupon_offer","title":"Quarterly review","state":"ended","tags":["new","priority","audit"],"temperature":12,"percent":40}
+```
+Only the first offer is still live, and the last one has no rating yet.
+--- derived
+
+=== I-0007
+--- user
+swatches pls. KT-2686: Carla, Elif, Ben attending, "Night shift", items badge keys charger, not refundable, balance 719, note "Fragile", team, active. AX-1721: Elif, "Pilot batch", samples + laptop, refundable, 737, note "Call before arrival", pro, inactive. KT-2086: Carla, "Spring bundle", badge + notes, not refundable, 7009, "Call before arrival", pro, inactive.
+--- reference
+Here are the three swatches.
+```dyui
+{"ui":"color_swatch","id":"KT-2686","attendees":["Carla","Elif","Ben"],"title":"Night shift","items":["badge","keys","charger"],"refundable":false,"balance":719,"notes":"Fragile","stage":"team","active":true}
+{"ui":"color_swatch","id":"AX-1721","attendees":["Elif"],"title":"Pilot batch","items":["samples","laptop"],"refundable":true,"balance":737,"notes":"Call before arrival","stage":"pro","active":false}
+{"ui":"color_swatch","id":"KT-2086","attendees":["Carla"],"title":"Spring bundle","items":["badge","notes"],"refundable":false,"balance":7009,"notes":"Call before arrival","stage":"pro","active":false}
+```
+KT-2686 is the only active one, and KT-2086 has the largest balance.
+--- derived
+
+=== I-0004
+--- user
+Car rentals: Ana Silva with Orbit Freight, rated 3.5; Ana Silva with Globex, rated 3.8.
+--- reference
+Here are the two rentals for Ana Silva.
+```dyui
+{"ui":"car_rental","name":"Ana Silva","provider":"Orbit Freight","rating":3.5}
+{"ui":"car_rental","name":"Ana Silva","provider":"Globex","rating":3.8}
+```
+The Globex rental has the higher rating, 3.8 against 3.5.
+--- derived
+

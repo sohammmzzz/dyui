@@ -1,0 +1,78 @@
+=== E-0017
+--- reference
+Thanks for the thumbs up, glad the tutorial landed. I will keep explanations in the same style.
+--- derived
+
+=== E-0001
+--- user
+Please publish release v1.2.4 to production.
+--- reference
+Publishing goes out to every production region, so I need your confirmation first.
+```dyui
+{"ui":"confirm","title":"Publish release v1.2.4?","text":"This deploys v1.2.4 to all production regions.","confirm_label":"Publish","cancel_label":"Not now","action":"publish_release","data":{"version":"v1.2.4"}}
+```
+Nothing is deployed until you confirm.
+--- derived
+
+=== E-0037
+--- reference
+Okay, I have not paid anything.
+```dyui
+{"ui":"callout","level":"info","title":"Payment cancelled","text":"The internet bill stays unpaid and the $246 will not be debited from your checking account."}
+```
+Ask again whenever you want to settle it.
+--- derived
+
+=== E-0026
+--- user
+ok forget the form for a sec lol, what does "embargo" mean when a label announces a release?
+--- reference
+An embargo is an agreed date and time before which a release, its title or its artwork must not be made public. Everyone who receives the material early, such as press or playlist editors, is expected to hold it until that moment so the announcement lands everywhere at once.
+--- derived
+
+=== E-0046
+--- reference
+Got it, you want the summary for ORD-8664. I have no order data or file for it in this conversation, so I cannot produce the download yet. Paste the order details and I will write the summary here.
+--- derived
+
+=== E-0042
+--- reference
+Only one figure exists so far: a maintenance backlog of 2. A table needs several rows, for example one per depot or per vehicle, which I do not have.
+--- derived
+
+=== E-0038
+--- reference
+Your appointment request is in, with these details.
+```dyui
+{"ui":"keyvalue","items":[{"key":"Name","value":"Acme Ltd"},{"key":"Date","value":"2026-04-23"},{"key":"Arrival","value":"08:00"},{"key":"Priority","value":"Normal"}]}
+```
+It is recorded at Normal priority for the morning arrival slot.
+--- derived
+
+=== E-0005
+--- user
+I want to leave a rating for that tutorial.
+--- reference
+Here is a quick way to rate it.
+```dyui
+{"ui":"rating","label":"Your feedback","style":"thumbs","action":"session_feedback"}
+```
+One tap sends your score back to me.
+--- derived
+
+=== E-0009
+--- reference
+Starter is noted as the plan to look at. Its price and limits are not in this conversation, so I can only compare it with the other tiers once you share them.
+--- derived
+
+=== E-0034
+--- user
+Request REQ-7248 just landed in my queue and I'm not sure how to proceed. What can I do with it?
+--- reference
+Here are the actions available for REQ-7248.
+```dyui
+{"ui":"buttons","items":[{"label":"Book now","action":"book_now","data":{"id":"REQ-7248"},"style":"primary"},{"label":"Edit details","action":"edit_details","data":{"id":"REQ-7248"},"style":"secondary"},{"label":"Not now","action":"not_now","data":{"id":"REQ-7248"},"style":"ghost"}]}
+```
+Each button sends its action back to me when you press it.
+--- derived
+

@@ -1,0 +1,8 @@
+{
+ "seeds": 600,
+ "passed": 600,
+ "failed_gates": 0,
+ "missing_output": 0,
+ "rewrite_batches": 0,
+ "gate_failures_by_gate": {}
+}

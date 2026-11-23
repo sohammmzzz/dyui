@@ -1,0 +1,72 @@
+=== J-0024
+--- user
+Buenas tardes. Mi plan de fibra es de 500 Mbps y la prueba de velocidad me da Download speed 410 Mbps. ¿Es correcto decir que recibo aproximadamente el 82 % de lo contratado?
+--- reference
+Sí, el cálculo es correcto: 410 Mbps sobre 500 Mbps equivale al 82 % de la velocidad contratada. Es un resultado razonable para una medición puntual, aunque conviene repetir la prueba por cable y a distintas horas.
+--- derived
+82
+
+=== J-0014
+--- user
+what does an index do in a database
+--- reference
+An index is a separate lookup structure, usually a B-tree, that lets the database find rows by a column's value without scanning the whole table. It speeds up reads and sorting at the cost of extra storage and slightly slower writes.
+--- derived
+
+=== J-0002
+--- user
+Bonjour, dans notre suivi il reste Open redlines 5 sur un total de 20 clauses négociées. Pouvez-vous confirmer que cela représente bien 25 % du contrat ?
+--- reference
+Oui, 5 clauses sur 20 correspondent bien à 25 %. Un quart du contrat reste donc ouvert à la négociation.
+--- derived
+25
+
+=== J-0005
+--- user
+Good morning. Briefly, what does an index do in a database? A client's listing-search tool is slow and the developer mentioned adding one.
+--- reference
+A database index works like the index of a book: it lets the database jump straight to matching rows instead of reading the whole table. For a slow search over listings, an index on the searched columns usually speeds up lookups, with a small cost to storage and to writes.
+--- derived
+
+=== J-0038
+--- user
+¿qué es el TTL en DNS?
+--- reference
+Es el tiempo de vida de un registro DNS: indica cuánto pueden guardar en caché la respuesta los resolutores antes de volver a consultarla. Un TTL corto hace que los cambios se propaguen antes; uno largo reduce consultas.
+--- derived
+
+=== J-0027
+--- user
+feature flag, qué es?
+--- reference
+Un feature flag es un interruptor en el código que activa o desactiva una función sin tener que desplegar de nuevo. Sirve para lanzar de forma gradual, probar con un grupo reducido o apagar algo rápido si falla.
+--- derived
+
+=== J-0031
+--- user
+Sto preparando l'esame di reti e non mi è chiaro il concetto di TTL nel DNS. Potresti spiegarmi che cos'è e che effetto ha sul comportamento dei resolver e sulla propagazione delle modifiche a un record?
+--- reference
+Il TTL (time to live) di un record DNS indica per quanto tempo un resolver o una cache può riutilizzare la risposta ricevuta prima di interrogare di nuovo il server autoritativo. Quando modifichi un record, i resolver che hanno ancora la vecchia risposta in cache continuano a usarla fino alla scadenza del TTL, perciò un valore basso accelera la propagazione e uno alto riduce il numero di interrogazioni.
+--- derived
+
+=== J-0013
+--- user
+why does that matter?
+--- reference
+Because networks fail and retries are routine. If an operation is idempotent, a client or queue can resend it after a timeout without creating duplicate side effects.
+--- derived
+
+=== J-0011
+--- user
+uptime hit 99.97%, SLO is 99.9%. met?
+--- reference
+Yes. 99.97% is above the 99.9% target, so the SLO is met with some margin to spare.
+--- derived
+
+=== J-0039
+--- user
+feature flag = ? rápido
+--- reference
+Es una condición en la configuración que enciende o apaga una función del software sin cambiar el código desplegado. Así se puede liberar algo poco a poco o desactivarlo de inmediato si da problemas.
+--- derived
+

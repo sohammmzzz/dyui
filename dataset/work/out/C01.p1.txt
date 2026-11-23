@@ -1,0 +1,151 @@
+=== C-0021
+--- user
+Campaign setup is at 10% so far. Show me the progress, and give me four things I can click: Learn more, Skip for now, Not now, Reject request.
+--- reference
+Here is where campaign setup stands at 10%.
+```dyui
+{"ui":"progress","value":10}
+```
+Below are the four responses you asked for.
+```dyui
+{"ui":"buttons","items":[{"label":"Learn more","action":"learn_more"},{"label":"Skip for now","action":"skip_for_now"},{"label":"Not now","action":"not_now"},{"label":"Reject request","action":"reject_request"}]}
+```
+Each button sends its choice back to me, so I can act on it straight away.
+--- derived
+
+=== C-0034
+--- user
+Can you lay out our four products so they're easy to scan? Glass carafe: 691 units, $8,567 revenue, 277 in stock. Cotton duvet: 50 units, $14,343, 294 in stock. Oak shelf: 204 units, $36,172, 290 in stock. Wool rug: 1151 units, $15,065, 157 in stock. Then write a short note for the customer saying the nightly sync finished and Cart abandonment is back to 79%, within the 67% limit.
+--- reference
+Here are the four products side by side.
+```dyui
+{"ui":"table","columns":["Product","Units","Revenue","Stock"],"rows":[["Glass carafe",691,"$8,567",277],["Cotton duvet",50,"$14,343",294],["Oak shelf",204,"$36,172",290],["Wool rug",1151,"$15,065",157]]}
+```
+And here is the message for the customer.
+```dyui
+{"ui":"callout","level":"success","text":"The nightly sync finished and Cart abandonment is back to 79%, within the 67% limit."}
+```
+Wool rug sold the most units, while Oak shelf brought in the most revenue.
+--- derived
+
+=== C-0020
+--- user
+Pull up this image https://assets.lumen.example.io/img/faq-09.png and sum up the member: goal is Build muscle, 4 sessions a week, coach Priya Jensen, Base plan, next test May 6.
+--- reference
+Here is the image, shown inline.
+```dyui
+{"ui":"image","src":"https://assets.lumen.example.io/img/faq-09.png"}
+```
+Below are the member's details laid out one per line.
+```dyui
+{"ui":"keyvalue","items":[{"key":"Goal","value":"Build muscle"},{"key":"Weekly sessions","value":4},{"key":"Coach","value":"Priya Jensen"},{"key":"Plan","value":"Base"},{"key":"Next test","value":"May 6"}]}
+```
+The next test on May 6 is the date to plan the training week around.
+--- derived
+
+=== C-0054
+--- user
+Kindly present these outages cleanly, captioned "Outages": OUT-344 in Boston, congestion, monitoring, 10688 customers; OUT-817 in Stockholm, congestion, fixed, 6702 customers; OUT-658 in Tokyo, congestion, fixed, 9277 customers; OUT-730 in Paris, congestion, fixed, 11380 customers. I would also like Flag as fraud and Approve actions for order ORD-1954.
+--- reference
+Here are the four outages with their current status.
+```dyui
+{"ui":"table","columns":["ID","Area","Cause","Status","Customers"],"rows":[["OUT-344","Boston","Congestion","Monitoring",10688],["OUT-817","Stockholm","Congestion","Fixed",6702],["OUT-658","Tokyo","Congestion","Fixed",9277],["OUT-730","Paris","Congestion","Fixed",11380]],"caption":"Outages"}
+```
+These are the two actions available for order ORD-1954.
+```dyui
+{"ui":"buttons","items":[{"label":"Flag as fraud","action":"flag_as_fraud","data":{"id":"ORD-1954"}},{"label":"Approve","action":"approve","data":{"id":"ORD-1954"}}]}
+```
+OUT-344 in Boston is the only outage still being monitored; the other three are fixed.
+--- derived
+
+=== C-0053
+--- user
+Please show this photo in the chat: https://cdn.fernhill.example.com/img/benchmark-16.webp, with the alt text "The finished kitchen" and the caption "Taken last week". Alongside it, I need the ticket profile: TCK-792, customer Elif Silva, Account queue, Low priority, opened Mar 12.
+--- reference
+Here is the photo with its caption.
+```dyui
+{"ui":"image","src":"https://cdn.fernhill.example.com/img/benchmark-16.webp","alt":"The finished kitchen","caption":"Taken last week"}
+```
+And here is the profile of the ticket.
+```dyui
+{"ui":"keyvalue","items":[{"key":"ID","value":"TCK-792"},{"key":"Customer","value":"Elif Silva"},{"key":"Queue","value":"Account"},{"key":"Priority","value":"Low"},{"key":"Opened","value":"Mar 12"}]}
+```
+The ticket sits in the Account queue at low priority.
+--- derived
+
+=== C-0047
+--- user
+Please give me the plan view for the SaaS analytics plan: backfilling last quarter's events is pending, rebuilding the retention cohort is done, auditing the tracking plan is pending, and both the growth-lead review and publishing the dashboard were skipped. For request REQ-1791 I also need Dismiss alert, Edit details, Learn more and Reject request actions.
+--- reference
+Here is the SaaS analytics plan with the status of each step.
+```dyui
+{"ui":"plan","title":"SaaS analytics plan","items":[{"title":"Backfill last quarter's events","status":"pending"},{"title":"Rebuild the retention cohort","status":"done"},{"title":"Audit the tracking plan","status":"pending"},{"title":"Review with the growth lead","status":"skipped"},{"title":"Publish the dashboard","status":"skipped"}]}
+```
+These are the actions you can take on request REQ-1791.
+```dyui
+{"ui":"buttons","items":[{"label":"Dismiss alert","action":"dismiss_alert","data":{"id":"REQ-1791"}},{"label":"Edit details","action":"edit_details","data":{"id":"REQ-1791"}},{"label":"Learn more","action":"learn_more","data":{"id":"REQ-1791"}},{"label":"Reject request","action":"reject_request","data":{"id":"REQ-1791"}}]}
+```
+Only the cohort rebuild is finished, and the backfill and the audit are still waiting to start.
+--- derived
+
+=== C-0024
+--- user
+Storage quota: 136 of 320 used. Need buttons too: Approve (primary), Decline offer (danger), View history (secondary).
+--- reference
+Here is how much of the storage quota is used.
+```dyui
+{"ui":"progress","value":136,"max":320,"label":"Storage quota"}
+{"ui":"buttons","items":[{"label":"Approve","action":"approve","style":"primary"},{"label":"Decline offer","action":"decline_offer","style":"danger"},{"label":"View history","action":"view_history","style":"secondary"}]}
+```
+Approve is the primary action, and Decline offer is styled as the destructive one.
+--- derived
+
+=== C-0048
+--- user
+Here's the photo: https://static.brasa.example.com/img/q3-summary-10.jpg (alt text: The old tram climbing Rua da Bica). And the field rundown: Sunflower, 35 hectares, sown Sep 7, Loam soil.
+--- reference
+The photo is shown right here in the chat.
+```dyui
+{"ui":"image","src":"https://static.brasa.example.com/img/q3-summary-10.jpg","alt":"The old tram climbing Rua da Bica"}
+```
+Here is the rundown of the field.
+```dyui
+{"ui":"keyvalue","items":[{"key":"Crop","value":"Sunflower"},{"key":"Hectares","value":35},{"key":"Sown","value":"Sep 7"},{"key":"Soil","value":"Loam"}]}
+```
+The sunflowers went into Loam soil on Sep 7.
+--- derived
+
+=== C-0023
+--- user
+Bitte stellen Sie die CSAT von Juli bis Oktober als Kurve dar: 76, 75, 73, 72. Außerdem soll in der App eine Meldung erscheinen, dass die Migration abgeschlossen ist und die offenen Tickets wieder bei 510 liegen, innerhalb des Limits von 410. Und geben Sie mir noch ein paar Folgefragen zum Antippen: Welche Queue ist am schwächsten? Wie schneidet das im Vergleich zum Ziel ab? Vergleich mit dem Vormonat. Zeige die Top 3.
+--- reference
+Hier ist der Verlauf der CSAT von Juli bis Oktober.
+```dyui
+{"ui":"chart","kind":"line","labels":["Jul","Aug","Sep","Okt"],"series":[{"name":"CSAT","data":[76,75,73,72]}]}
+```
+Dazu die Meldung für die App.
+```dyui
+{"ui":"callout","level":"success","title":"Alles erledigt","text":"Die Migration ist abgeschlossen und die offenen Tickets liegen wieder bei 510, innerhalb des Limits von 410."}
+```
+Diese Fragen bieten sich als Nächstes an.
+```dyui
+{"ui":"quick_replies","options":["Welche Queue ist am schwächsten?","Wie schneidet das im Vergleich zum Ziel ab?","Vergleich mit dem Vormonat","Zeige die Top 3"]}
+```
+Die CSAT sinkt in jedem Monat, von 76 im Juli auf 72 im Oktober.
+--- derived
+
+=== C-0051
+--- user
+Account summary for the stakeholders: Plan is Business, Data GB 46, Price $54, renews Mar 21. Please also set out the support steps in this order: Confirm the fix, Verify the account, Reset the router, Escalate to field tech, Run the line test.
+--- reference
+Here is the account at a glance.
+```dyui
+{"ui":"keyvalue","items":[{"key":"Plan","value":"Business"},{"key":"Data GB","value":46},{"key":"Price","value":"$54"},{"key":"Renews","value":"Mar 21"}]}
+```
+And here are the five support steps in the order you gave.
+```dyui
+{"ui":"timeline","items":[{"title":"Confirm the fix"},{"title":"Verify the account"},{"title":"Reset the router"},{"title":"Escalate to field tech"},{"title":"Run the line test"}]}
+```
+The account renews on Mar 21, and the sequence runs from confirming the fix to the final line test.
+--- derived
+

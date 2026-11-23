@@ -1,0 +1,22 @@
+=== G-0027
+--- user
+what's on sale right now? I mostly want to know how Tech Summit and Indie Film Night are doing compared to the rest
+--- reference
+The box office lists 36 events, and these ten have sold the most tickets.
+```dyui
+{"ui":"table","columns":["Event","Date","Sold","Venue"],"rows":[["Indie Film Night","Dec 22",8947,"Arena"],["Tech Summit","Aug 12",8932,"Studio"],["Food Fest","Sep 27",8911,"Rooftop"],["Jazz on the Quay","Jul 11",8123,"Studio"],["Indie Film Night","Jun 25",7795,"Rooftop"],["Tech Summit","Jan 13",7629,"Main Hall"],["Indie Film Night","Sep 15",7389,"Rooftop"],["Indie Film Night","Oct 4",7377,"Studio"],["Jazz on the Quay","Aug 20",6773,"Main Hall"],["Food Fest","Aug 12",6553,"Arena"]]}
+```
+Indie Film Night holds the top spot and Tech Summit follows right behind it.
+--- derived
+
+=== G-0017
+--- user
+Can you pull up my workout log? I'd like to see the sessions from Feb 26, Jun 15 and Jun 9 next to everything else I've logged.
+--- reference
+Here is your workout log.
+```dyui
+{"ui":"table","columns":["Date","Activity","Duration","Calories"],"rows":[["Feb 26","Yoga",38,866],["Jun 15","Cycling",47,455],["Jun 9","Swimming",77,504],["Aug 25","Strength",63,305],["Jul 26","Swimming",66,912],["Feb 12","Strength",49,844]]}
+```
+The July swim burned the most, and the August strength session the least.
+--- derived
+

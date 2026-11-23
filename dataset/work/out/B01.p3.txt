@@ -1,0 +1,110 @@
+=== B-0068
+--- user
+Please turn today's outpatient flow into a live checklist. Seeing the clinician is complete. Collecting the insurance card is in progress. Taking vitals has not started. Booking the follow-up is in progress. Sending the visit summary failed.
+--- reference
+Here is the outpatient clinic checklist with the current status of each step.
+```dyui
+{"ui":"plan","title":"Outpatient clinic plan","items":[{"title":"See the clinician","status":"done"},{"title":"Collect the insurance card","status":"active"},{"title":"Take vitals","status":"pending"},{"title":"Book the follow-up","status":"active"},{"title":"Send the visit summary","status":"error"}]}
+```
+Sending the visit summary failed and needs to be retried before the visit can be closed out.
+--- derived
+
+=== B-0036
+--- user
+Can you show me what the claims list looks like? CLM-966 is a Health claim for $885, Paid, adjuster Uma Haddad. CLM-606 is Home, $10,677, Assessing, Olga Jensen. CLM-297 is Travel, $14,663, Assessing, Umar Hoang. CLM-368 is Home, $9,484, Paid, Zainab Reyes. CLM-537 is Home, $8,001, Paid, Tara Reyes. CLM-600 is Home, $12,153, Filed, Ben Weber. CLM-294 is Home, $2,419, Approved, Sofia Jensen.
+--- reference
+Here are the seven claims with type, amount, status and adjuster.
+```dyui
+{"ui":"table","columns":["Claim","Type","Amount","Status","Adjuster"],"rows":[["CLM-966","Health","$885","Paid","Uma Haddad"],["CLM-606","Home","$10,677","Assessing","Olga Jensen"],["CLM-297","Travel","$14,663","Assessing","Umar Hoang"],["CLM-368","Home","$9,484","Paid","Zainab Reyes"],["CLM-537","Home","$8,001","Paid","Tara Reyes"],["CLM-600","Home","$12,153","Filed","Ben Weber"],["CLM-294","Home","$2,419","Approved","Sofia Jensen"]]}
+```
+CLM-297 is the largest at $14,663 and is still being assessed.
+--- derived
+
+=== B-0010
+--- user
+hey can you show that nicely? our fleet's fuel economy for November was 53 mpg, basically flat, 0% vs last month
+--- reference
+Here is the fleet's fuel economy for November.
+```dyui
+{"ui":"stat","label":"Fuel economy · November","value":"53 mpg","delta":"0% vs last month","trend":"flat"}
+```
+It held steady month over month, so there is nothing to flag.
+--- derived
+
+=== B-0043
+--- user
+e aí, o tempo de espera no check-in tá em 12 min agora e vem subindo. como isso tá ficando?
+--- reference
+Aqui está o tempo de espera atual no check-in.
+```dyui
+{"ui":"stat","label":"Espera no check-in","value":12,"unit":"min","trend":"up"}
+```
+São 12 minutos e a tendência é de alta, então vale ficar de olho na fila.
+--- derived
+
+=== B-0054
+--- user
+Can you track this shipment for me as it moves through the chain? The pick-up at the dock is complete. The scan at the hub is happening now. Customs clearance is still waiting. Out for delivery is also waiting. Collecting the proof of delivery has failed.
+--- reference
+Here is the shipment's progress, step by step.
+```dyui
+{"ui":"plan","items":[{"title":"Pick up at the dock","status":"done"},{"title":"Scan at the hub","status":"active"},{"title":"Clear customs","status":"pending"},{"title":"Out for delivery","status":"pending"},{"title":"Collect proof of delivery","status":"error"}]}
+```
+The proof-of-delivery step is marked as failed and is the one to look into.
+--- derived
+
+=== B-0040
+--- user
+fammi vedere a che punto siamo: monitoraggio delle prime 48 ore fatto, costruzione dei pubblici in corso, stesura del brief da fare, report dei risultati saltato.
+--- reference
+Ecco lo stato delle quattro attività della campagna.
+```dyui
+{"ui":"plan","items":[{"title":"Monitoraggio delle prime 48 ore","status":"done"},{"title":"Costruzione dei pubblici","status":"active"},{"title":"Stesura del brief","status":"pending"},{"title":"Report dei risultati","status":"skipped"}]}
+```
+La costruzione dei pubblici è l'attività in corso, mentre il report è stato saltato.
+--- derived
+
+=== B-0002
+--- user
+Could you please summarise this week's numbers? New customers: 251, up 5.6%. Support tickets: 555, against a target of 610. MRR: 37.7 $k, target $41.5k. Weekly active users: 8,583, down 16.6%.
+--- reference
+Here is the weekly summary in four headline numbers.
+```dyui
+{"ui":"stats","items":[{"label":"New customers","value":"251","delta":"+5.6%","trend":"up"},{"label":"Support tickets","value":"555","help":"Target 610"},{"label":"MRR","value":37.7,"unit":"$k","help":"Target $41.5k"},{"label":"Weekly active users","value":"8,583","delta":"-16.6%"}]}
+```
+Weekly active users is the figure to watch, down 16.6%, while new customers grew.
+--- derived
+
+=== B-0044
+--- user
+me mostra isso como números de destaque: ingressos vendidos 10,626 (subindo), lista de espera 1,256, capacidade preenchida 52% e receita $237.6k, +0.4%
+--- reference
+Aqui estão os quatro números de destaque do evento.
+```dyui
+{"ui":"stats","items":[{"label":"Ingressos vendidos","value":"10,626","trend":"up"},{"label":"Lista de espera","value":"1,256"},{"label":"Capacidade preenchida","value":"52%"},{"label":"Receita","value":"$237.6k","delta":"+0.4%","trend":"up"}]}
+```
+Com 52% da capacidade preenchida, ainda há bastante espaço para vender.
+--- derived
+
+=== B-0014
+--- user
+ad spend ($k) vs leads, does more spend actually bring more leads? 2.6 → 131.9, 4.7 → 206.6, 4.9 → 211.1, 7.2 → 282.2, 7.5 → 317.8, 8.6 → 363.7
+--- reference
+Here are the six points with ad spend on the x axis and leads on the y axis.
+```dyui
+{"ui":"chart","kind":"scatter","series":[{"name":"Leads vs ad spend ($k)","data":[[2.6,131.9],[4.7,206.6],[4.9,211.1],[7.2,282.2],[7.5,317.8],[8.6,363.7]]}],"title":"Leads vs ad spend ($k)"}
+```
+Leads rise with spend across all six points, from 131.9 at 2.6 up to 363.7 at 8.6, though this shows a pattern and not proof of cause.
+--- derived
+
+=== B-0071
+--- user
+quick one, where do we stand on hiring? we've got 10 open roles right now, it's been trending down, and the goal is 9
+--- reference
+Here is the current count of open roles.
+```dyui
+{"ui":"stat","label":"Open roles","value":"10","trend":"down","help":"Target 9"}
+```
+The count is moving the right way and sits just above the target of 9.
+--- derived
+

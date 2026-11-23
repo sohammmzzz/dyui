@@ -1,0 +1,99 @@
+=== N-0010
+--- user
+Need a cards row for hotels, each with a Book button: Quinta Verde, Sintra, $164 a night; Casa Alfama, Lisbon, $142; Hotel Avenida, Porto, $118; Praça Suites, Lisbon, $187.
+--- reference
+Here are the four hotels as a scrolling row of cards, each with its nightly price and a Book button.
+```dyui
+{"ui":"carousel","children":[{"ui":"card","title":"Quinta Verde","subtitle":"Sintra","children":[{"ui":"stat","label":"Per night","value":"$164"}],"actions":[{"label":"Book","action":"book_hotel","data":{"hotel":"Quinta Verde"}}]},{"ui":"card","title":"Casa Alfama","subtitle":"Lisbon","children":[{"ui":"stat","label":"Per night","value":"$142"}],"actions":[{"label":"Book","action":"book_hotel","data":{"hotel":"Casa Alfama"}}]},{"ui":"card","title":"Hotel Avenida","subtitle":"Porto","children":[{"ui":"stat","label":"Per night","value":"$118"}],"actions":[{"label":"Book","action":"book_hotel","data":{"hotel":"Hotel Avenida"}}]},{"ui":"card","title":"Praça Suites","subtitle":"Lisbon","children":[{"ui":"stat","label":"Per night","value":"$187"}],"actions":[{"label":"Book","action":"book_hotel","data":{"hotel":"Praça Suites"}}]}]}
+```
+Hotel Avenida in Porto is the cheapest option, and pressing Book sends the chosen hotel back to me.
+--- derived
+
+=== N-0018
+--- user
+checklist for the performance marketing plan pls. report the results - done, monitor the first 48 hours - done, build the audiences - failed, write the brief - done, launch the creatives - not started
+--- reference
+Here is the performance marketing plan with where each step stands.
+```dyui
+{"ui":"plan","title":"Performance marketing plan","items":[{"title":"Report the results","status":"done"},{"title":"Monitor the first 48 hours","status":"done"},{"title":"Build the audiences","status":"error"},{"title":"Write the brief","status":"done"},{"title":"Launch the creatives","status":"pending"}]}
+```
+Building the audiences failed, so that step has to be fixed before the creatives can launch.
+--- derived
+
+=== N-0017
+--- user
+Kindly produce a histogram of my account balances: Credit card 13610, Savings 6706, Checking 12861, Brokerage 12262. Dollars, please.
+--- reference
+Here are your four account balances compared side by side in dollars.
+```dyui
+{"ui":"chart","kind":"bar","labels":["Credit card","Savings","Checking","Brokerage"],"series":[{"name":"Balance","data":[13610,6706,12861,12262]}],"title":"Balance by account","unit":"$"}
+```
+The credit card carries the largest balance and savings the smallest.
+--- derived
+
+=== N-0013
+--- user
+give me citations for these four: Release notes https://www.example.org/overview (covers the main changes), Benchmark report https://news.example.com/benchmark (walks through the setup), Security whitepaper https://static.brasa.example.com/annual-review (walks through the setup), Pricing overview https://blog.northwind.example.com/annual-review (covers the main changes)
+--- reference
+Here are the four references, numbered with their links and a short note on each.
+```dyui
+{"ui":"sources","items":[{"title":"Release notes","url":"https://www.example.org/overview","snippet":"Covers the main changes."},{"title":"Benchmark report","url":"https://news.example.com/benchmark","snippet":"Walks through the setup."},{"title":"Security whitepaper","url":"https://static.brasa.example.com/annual-review","snippet":"Walks through the setup."},{"title":"Pricing overview","url":"https://blog.northwind.example.com/annual-review","snippet":"Covers the main changes."}]}
+```
+The release notes and pricing overview cover the changes, while the other two explain the setup.
+--- derived
+
+=== N-0016
+--- user
+Please show fuel cost as a metric with the title "Fuel cost": 16.3 in $k, down 11.3% vs last month, against a target of $18.5k.
+--- reference
+Here is fuel cost for the month as a single headline figure.
+```dyui
+{"ui":"stat","label":"Fuel cost","value":16.3,"unit":"$k","delta":"-11.3% vs last month","trend":"down","help":"Target $18.5k"}
+```
+Spend is falling and sits under the $18.5k target.
+--- derived
+
+=== N-0014
+--- user
+can u throw these flights into a spreadsheet? Iberia 21:10, 1h 35m, $408 / Ryanair 21:10, 3h 05m, $249 / TAP 06:40, 2h 10m, $407 / Air France 06:40, 3h 05m, $182 / Vueling 21:10, 1h 35m, $251
+--- reference
+Here are the five flights lined up with departure, duration and price.
+```dyui
+{"ui":"table","columns":["Airline","Departs","Duration","Price"],"rows":[["Iberia","21:10","1h 35m","$408"],["Ryanair","21:10","3h 05m","$249"],["TAP","06:40","2h 10m","$407"],["Air France","06:40","3h 05m","$182"],["Vueling","21:10","1h 35m","$251"]],"caption":"Flight options"}
+```
+Air France is the cheapest at $182, though it is also one of the longer trips.
+--- derived
+
+=== N-0007
+--- user
+add chips under this: compare with last month, set an alert for this
+--- reference
+These two suggestions can be tapped to continue from here.
+```dyui
+{"ui":"quick_replies","options":["Compare with last month","Set an alert for this"]}
+```
+Tap either one and I will take it from there.
+--- derived
+
+=== N-0004
+--- user
+I would like a todo for the listing: book the photographer (pending), move to contract (pending), publish the listing (done), hold the open house (pending).
+--- reference
+Here is the listing workflow with the current status of each task.
+```dyui
+{"ui":"plan","items":[{"title":"Book the photographer","status":"pending"},{"title":"Move to contract","status":"pending"},{"title":"Publish the listing","status":"done"},{"title":"Hold the open house","status":"pending"}]}
+```
+Only publishing is finished so far, and three tasks are still waiting.
+--- derived
+
+=== N-0011
+--- user
+Could you add a tag for each of these labels on the docs page: Deprecated, Beta (amber), Experimental (violet), and Draft. The first and last can stay neutral.
+--- reference
+Here are the four labels as small colored tags.
+```dyui
+{"ui":"badges","items":[{"label":"Deprecated"},{"label":"Beta","color":"amber"},{"label":"Experimental","color":"violet"},{"label":"Draft"}]}
+```
+Beta is amber and Experimental is violet, while Deprecated and Draft keep the default gray.
+--- derived
+

@@ -1,0 +1,11 @@
+=== S-0012
+--- user
+hey, if I show a stat for 3 bookings today, will tapping it fire an action back to you?
+--- reference
+A stat is display-only, so here is the booking number as one.
+```dyui
+{"ui":"code","language":"json","code":"{\"ui\":\"stat\",\"label\":\"Bookings today\",\"value\":3}"}
+```
+It has no action prop: only label and value are required, with unit, delta, trend and help optional. Buttons, confirm, form, choice and rating send an action message (the word action, a colon, the action name, then JSON) back to me, while quick_replies simply arrive as a plain user message.
+--- derived
+

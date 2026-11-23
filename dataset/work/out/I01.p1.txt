@@ -1,0 +1,143 @@
+=== I-0024
+--- user
+Could you lay out three hotel stays for me? MV-3165 is booked under Mia Novak with Ana attending; rating 4.2, details at https://docs.example.com/plan/69, non-refundable, still pending, 160.4 km away, and verified. MV-561 is Ana Silva's, with Ben attending; rating 4.7, https://docs.example.com/status/7, non-refundable, done, 85.6 km away, verified. Finally KT-402 for Priya Singh, with Carla, Ben and Ana; rating 3.4, https://docs.example.com/guide/95, non-refundable, pending, 443.6 km away, and not verified.
+--- reference
+Here are the three hotel stays with their booking details.
+```dyui
+{"ui":"hotel_stay","id":"MV-3165","name":"Mia Novak","attendees":["Ana"],"rating":4.2,"url":"https://docs.example.com/plan/69","refundable":false,"level":"pending","distance_km":160.4,"verified":true}
+{"ui":"hotel_stay","id":"MV-561","name":"Ana Silva","attendees":["Ben"],"rating":4.7,"url":"https://docs.example.com/status/7","refundable":false,"level":"done","distance_km":85.6,"verified":true}
+{"ui":"hotel_stay","id":"KT-402","name":"Priya Singh","attendees":["Carla","Ben","Ana"],"rating":3.4,"url":"https://docs.example.com/guide/95","refundable":false,"level":"pending","distance_km":443.6}
+```
+None of the three is refundable, and MV-561 is the only one already done.
+--- derived
+
+=== I-0002
+--- user
+hey, got two supplier quotes to show: KT-2985 (refundable, nothing else on it yet) and KT-6658 from Orbit Freight, name Priya Singh, owner Elena Rossi, also refundable.
+--- reference
+Here are both supplier quotes side by side.
+```dyui
+{"ui":"supplier_quote","id":"KT-2985","refundable":true}
+{"ui":"supplier_quote","id":"KT-6658","name":"Priya Singh","owner":"Elena Rossi","refundable":true,"provider":"Orbit Freight"}
+```
+KT-2985 has no provider or owner recorded yet, while KT-6658 is fully attributed.
+--- derived
+
+=== I-0016
+--- user
+I'd like to see my savings goal for the new quarter pulled up properly: it is called "Spring bundle" and its reference is AX-7126. Please show it the way you normally would for a single item.
+--- reference
+Here is the goal you asked about.
+```dyui
+{"ui":"sprint_goal","title":"Spring bundle","id":"AX-7126"}
+```
+It is tracked under the reference AX-7126 if you need to quote it later.
+--- derived
+
+=== I-0003
+--- user
+Please present the following two records. First, a camp site entry titled "Pilot batch", owner Elena Rossi, link https://docs.example.com/guide/36, 441.1 km distant, price 309, status high, score 20. Second, an NDA status for KT-3203 dated Sep 5, count 26, stage draft, score 87 and quantity 53.
+--- reference
+Here are the camp site entry and the NDA status you provided.
+```dyui
+{"ui":"camp_site","title":"Pilot batch","owner":"Elena Rossi","url":"https://docs.example.com/guide/36","distance_km":441.1,"price":309,"status":"high","score":20}
+{"ui":"nda_status","id":"KT-3203","date":"Sep 5","count":26,"stage":"draft","score":87,"quantity":53}
+```
+The NDA is still at the draft stage, so it has not been published yet.
+--- derived
+
+=== I-0015
+--- user
+Two vet visits for the shift board, please. "Spring bundle" with Lumen Labs, free status, in Lyon, category Finance, not urgent, 21.4 kg. And "Pilot batch" with Orbit Freight, also free, Lyon, category Growth, urgent, 26.8 kg.
+--- reference
+Both vet visits are shown below.
+```dyui
+{"ui":"vet_visit","title":"Spring bundle","provider":"Lumen Labs","status":"free","city":"Lyon","category":"Finance","urgent":false,"weight_kg":21.4}
+{"ui":"vet_visit","title":"Pilot batch","provider":"Orbit Freight","status":"free","city":"Lyon","category":"Growth","urgent":true,"weight_kg":26.8}
+```
+Pilot batch is the urgent one and should be handled first.
+--- derived
+
+=== I-0012
+--- user
+For the review pile, here are three trademark cases that need to be laid out. MV-2515: risk high, Lisbon, refundable, count 178, duration 102 minutes. KT-3544: high, Lyon, refundable, count 207, duration 176 minutes. MV-9550: medium, Lisbon, not refundable, count 11, duration 6 minutes.
+--- reference
+Here are the three trademark cases with their states.
+```dyui
+{"ui":"trademark_case","id":"MV-2515","state":"high","city":"Lisbon","refundable":true,"count":178,"duration_min":102}
+{"ui":"trademark_case","id":"KT-3544","state":"high","city":"Lyon","refundable":true,"count":207,"duration_min":176}
+{"ui":"trademark_case","id":"MV-9550","state":"medium","city":"Lisbon","refundable":false,"count":11,"duration_min":6}
+```
+MV-2515 and KT-3544 are both rated high, while MV-9550 is the only medium case and the only one that is not refundable.
+--- derived
+
+=== I-0011
+--- user
+can you show my study queue? three items: Quarterly review is urgent and active, Night shift is 43 percent, not urgent, pending, and Harbour route is 40 percent, not urgent, pending too.
+--- reference
+Here is your queue with all three items.
+```dyui
+{"ui":"clinic_queue","title":"Quarterly review","urgent":true,"tier":"active"}
+{"ui":"clinic_queue","title":"Night shift","percent":43,"urgent":false,"tier":"pending"}
+{"ui":"clinic_queue","title":"Harbour route","percent":40,"urgent":false,"tier":"pending"}
+```
+Quarterly review is the only active item, and it is also the urgent one.
+--- derived
+
+=== I-0013
+--- user
+I have two support tickets I want to see in a tidy format. The first is titled "Spring bundle" and carries the note "Call before arrival". The second is "Harbour route", and its note says "Second floor". Both came in during tonight's maintenance window.
+--- reference
+Here are the two support tickets with their notes.
+```dyui
+{"ui":"support_ticket","title":"Spring bundle","notes":"Call before arrival"}
+{"ui":"support_ticket","title":"Harbour route","notes":"Second floor"}
+```
+The first ticket needs a phone call ahead of time, while the second points to a location.
+--- derived
+
+=== I-0010
+--- user
+Please record the following vaccine entry for the kitchen log: reference KT-5063, name Kofi Mensah, duration 48 minutes, quantity 16, price 86, tagged audit and new.
+--- reference
+Here is the vaccine record for Kofi Mensah.
+```dyui
+{"ui":"vaccine_record","id":"KT-5063","duration_min":48,"quantity":16,"tags":["audit","new"],"price":86,"name":"Kofi Mensah"}
+```
+The record carries the audit and new tags.
+--- derived
+
+=== I-0021
+--- user
+Playlist PR-6715: capacity 235, score 35, 100 min, 36 of them, items: charger.
+--- reference
+Here is the profile for PR-6715.
+```dyui
+{"ui":"pet_profile","id":"PR-6715","capacity":235,"score":35,"duration_min":100,"items":["charger"],"quantity":36}
+```
+It lists a single item, the charger.
+--- derived
+
+=== I-0018
+--- user
+Safety checks: MV-1933, Tomas Weber, 118, closed. AX-3758, Tomas Weber, 40, closed.
+--- reference
+Both safety checks are below.
+```dyui
+{"ui":"safety_check","id":"MV-1933","owner":"Tomas Weber","price":118,"state":"closed"}
+{"ui":"safety_check","id":"AX-3758","owner":"Tomas Weber","price":40,"state":"closed"}
+```
+Both belong to Tomas Weber and both are closed.
+--- derived
+
+=== I-0022
+--- user
+quick one, show the bracket ZN-4340 for me: it holds 751, it's in Madrid, 43 percent filled, and starts at 18:00.
+--- reference
+Here is the bracket you asked about.
+```dyui
+{"ui":"tournament_bracket","id":"ZN-4340","capacity":751,"city":"Madrid","percent":43,"time":"18:00"}
+```
+It is set for Madrid at 18:00.
+--- derived
+

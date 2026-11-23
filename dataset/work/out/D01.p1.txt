@@ -1,0 +1,143 @@
+=== D-0053
+--- user
+Could you lay this out as collapsible sections? The first, "Main section", holds a card titled Orion Dashboard with the subtitle "Best value this season", a "Sale" badge, a Save button (action save_item) and a short checklist in bold lead words: Inspect the vehicle, Swap the tyres, Book the service slot. The second, "More detail", is a list of Hotel Avenida in Porto, Quinta Verde in Sintra and Mar & Sol in Valencia.
+--- reference
+Here are both groups as collapsible sections, with the Orion card in the first and the hotel list in the second.
+```dyui
+{"ui":"accordion","items":[{"title":"Main section","children":[{"ui":"card","title":"Orion Dashboard","subtitle":"Best value this season","badge":"Sale","children":[{"ui":"markdown","text":"### Checklist\n- **Inspect** the vehicle\n- **Swap** the tyres\n- **Book** the service slot"}],"actions":[{"label":"Save","action":"save_item"}]}]},{"title":"More detail","children":[{"ui":"list","items":[{"title":"Hotel Avenida","subtitle":"Porto"},{"title":"Quinta Verde","subtitle":"Sintra"},{"title":"Mar & Sol","subtitle":"Valencia"}]}]}]}
+```
+The second section stays closed until someone opens it, and the Save button reports back with save_item.
+--- derived
+
+
+=== D-0029
+--- user
+Please put two lists side by side in a swipeable row. The first one is our priced shortlist with photos: Casa Alfama $142/night (https://media.example.net/img/pricing-11.jpg), Mar & Sol $96/night (https://docs.acme-cloud.example.com/img/overview-19.jpg), Hotel Avenida $118/night (https://media.example.net/img/pricing-23.jpg), Praça Suites $187/night (https://files.example.com/img/getting-started-04.png) and Quinta Verde $164/night (https://news.example.com/img/q3-summary-09.jpg). The second is just a plain ranking of names: Mar & Sol, Casa Alfama, Hotel Avenida, Praça Suites.
+--- reference
+Both lists sit in one horizontal carousel, the priced shortlist first and the plain ranking second.
+```dyui
+{"ui":"carousel","children":[{"ui":"list","items":[{"title":"Casa Alfama","meta":"$142/night","image":"https://media.example.net/img/pricing-11.jpg"},{"title":"Mar & Sol","meta":"$96/night","image":"https://docs.acme-cloud.example.com/img/overview-19.jpg"},{"title":"Hotel Avenida","meta":"$118/night","image":"https://media.example.net/img/pricing-23.jpg"},{"title":"Praça Suites","meta":"$187/night","image":"https://files.example.com/img/getting-started-04.png"},{"title":"Quinta Verde","meta":"$164/night","image":"https://news.example.com/img/q3-summary-09.jpg"}]},{"ui":"list","items":[{"title":"Mar & Sol"},{"title":"Casa Alfama"},{"title":"Hotel Avenida"},{"title":"Praça Suites"}]}]}
+```
+Swipe sideways to move from the prices to the ranking.
+--- derived
+
+
+=== D-0013
+--- user
+env var read in Ruby, Rust and Java, one tab per language pls. Key is API_KEY. Ruby: ENV.fetch, Rust: std::env::var with ?, Java: System.getenv.
+--- reference
+Here is the same lookup in each language, one tab apiece.
+```dyui
+{"ui":"tabs","tabs":[{"label":"Ruby","children":[{"ui":"code","code":"key = ENV.fetch(\"API_KEY\")","language":"ruby"}]},{"label":"Rust","children":[{"ui":"code","code":"let key = std::env::var(\"API_KEY\")?;","language":"rust"}]},{"label":"Java","children":[{"ui":"code","code":"String key = System.getenv(\"API_KEY\");","language":"java"}]}]}
+```
+Ruby's `fetch` and Rust's `var` fail when the variable is missing, while Java's `getenv` returns null.
+--- derived
+
+
+=== D-0054
+--- user
+I'd like our plant status in two collapsible parts. Open with "Main section": a plan called "Plant operations plan" with Quality sampling (active), Full production (pending), Set up the line (done), Run the first article (done) and Changeover (pending). Then "More detail": the reasoning note "Comparing the two fares: TAP at $324 is $9 cheaper than easyJet at $333. Price is the deciding factor, so TAP is the better pick."
+--- reference
+The plan and the reasoning note are grouped into two collapsible sections.
+```dyui
+{"ui":"accordion","items":[{"title":"Main section","children":[{"ui":"plan","title":"Plant operations plan","items":[{"title":"Quality sampling","status":"active"},{"title":"Full production","status":"pending"},{"title":"Set up the line","status":"done"},{"title":"Run the first article","status":"done"},{"title":"Changeover","status":"pending"}]}]},{"title":"More detail","children":[{"ui":"reasoning","text":"Comparing the two fares: TAP at $324 is $9 cheaper than easyJet at $333. Price is the deciding factor, so TAP is the better pick."}]}]}
+```
+Quality sampling is the active step, and the reasoning stays tucked away until opened.
+--- derived
+
+
+=== D-0003
+--- user
+Can you put four photos in a card named "Release status"? In order: https://help.helpwave.example.com/img/roadmap-14.jpg?v=1 captioned Before, https://media.example.net/img/release-notes-20.webp?v=2 captioned Final, https://static.brasa.example.com/img/security-37.webp?v=3 captioned Day one, and https://help.helpwave.example.com/img/overview-39.jpg?v=4 captioned After.
+--- reference
+The four photos are grouped in a single card with their captions.
+```dyui
+{"ui":"card","title":"Release status","children":[{"ui":"gallery","images":[{"src":"https://help.helpwave.example.com/img/roadmap-14.jpg?v=1","caption":"Before"},{"src":"https://media.example.net/img/release-notes-20.webp?v=2","caption":"Final"},{"src":"https://static.brasa.example.com/img/security-37.webp?v=3","caption":"Day one"},{"src":"https://help.helpwave.example.com/img/overview-39.jpg?v=4","caption":"After"}]}]}
+```
+The gallery keeps the images in the order you listed them.
+--- derived
+
+
+=== D-0027
+--- user
+Peux-tu me montrer deux éléments dans un carrousel horizontal ? Le premier est un aperçu du lien https://media.example.net/faq/49, titre "2026 industry benchmark report", description "Controls, audits and data handling in one place.", image https://docs.acme-cloud.example.com/img/roadmap-26.jpg, site media.example.net. Le second est la photo https://files.example.com/img/overview-22.jpg avec le texte alternatif "The warehouse after the reorganisation".
+--- reference
+Voici le carrousel avec l'aperçu du lien en premier, puis la photo de l'entrepôt.
+```dyui
+{"ui":"carousel","children":[{"ui":"link_preview","url":"https://media.example.net/faq/49","title":"2026 industry benchmark report","description":"Controls, audits and data handling in one place.","image":"https://docs.acme-cloud.example.com/img/roadmap-26.jpg","site":"media.example.net"},{"ui":"image","src":"https://files.example.com/img/overview-22.jpg","alt":"The warehouse after the reorganisation"}]}
+```
+Il suffit de faire défiler horizontalement pour passer de l'aperçu à l'image.
+--- derived
+
+
+=== D-0007
+--- user
+Two-column grid: a divider labelled Appendix, then a source list. Sources: Security whitepaper, https://static.brasa.example.com/security/10, "Covers the main changes."; Annual review, https://www.example.org/changelog/54, "Explains the controls in plain language."
+--- reference
+Here is the two-column grid with the Appendix divider and both sources.
+```dyui
+{"ui":"grid","columns":2,"children":[{"ui":"divider","label":"Appendix"},{"ui":"sources","items":[{"title":"Security whitepaper","url":"https://static.brasa.example.com/security/10","snippet":"Covers the main changes."},{"title":"Annual review","url":"https://www.example.org/changelog/54","snippet":"Explains the controls in plain language."}]}]}
+```
+The divider marks where the reference material begins, and each source links to its page.
+--- derived
+
+
+=== D-0033
+--- user
+I want a card called "Release status" with one link preview inside it. The link is https://cdn.fernhill.example.com/roadmap, the title should be "Security overview" and the description "Everything that shipped, grouped by area." No image is needed.
+--- reference
+The link preview is wrapped in a card titled Release status.
+```dyui
+{"ui":"card","title":"Release status","children":[{"ui":"link_preview","url":"https://cdn.fernhill.example.com/roadmap","title":"Security overview","description":"Everything that shipped, grouped by area."}]}
+```
+Selecting the preview opens the roadmap page.
+--- derived
+
+
+=== D-0024
+--- user
+For tonight's service, please show two collapsible sections. "Main section" gets the plan "Restaurant and delivery plan": Prep the mise en place (skipped), Close the kitchen (active), Fire the starters (done), Plate the mains (done). "More detail" gets one tool step, "Geocode address", which is done, with input city Porto and output result "41.15, -8.61".
+--- reference
+Both the plan and the geocoding step are laid out as collapsible sections.
+```dyui
+{"ui":"accordion","items":[{"title":"Main section","children":[{"ui":"plan","title":"Restaurant and delivery plan","items":[{"title":"Prep the mise en place","status":"skipped"},{"title":"Close the kitchen","status":"active"},{"title":"Fire the starters","status":"done"},{"title":"Plate the mains","status":"done"}]}]},{"title":"More detail","children":[{"ui":"step","title":"Geocode address","status":"done","input":{"city":"Porto"},"output":{"result":"41.15, -8.61"}}]}]}
+```
+Closing the kitchen is the one active item, and the geocode step finished for Porto.
+--- derived
+
+
+=== D-0014
+--- user
+Set this up as two tabs, please. The first tab, "Overview", is a timeline: Upload the artwork (done, Owner: Kofi Sato), Pitch to editors (active, Owner: Jun Eriksson), Schedule the release (pending, Owner: Tomas Singh). The second tab, "More", shows a raw data tree titled "Track payload" with artist Carla Eriksson, genre Jazz, length 2:48, released Mar 12, streams 225, tags renewal and priority.
+--- reference
+Here are the two tabs, with the release timeline first and the track payload second.
+```dyui
+{"ui":"tabs","tabs":[{"label":"Overview","children":[{"ui":"timeline","items":[{"title":"Upload the artwork","status":"done","text":"Owner: Kofi Sato"},{"title":"Pitch to editors","status":"active","text":"Owner: Jun Eriksson"},{"title":"Schedule the release","status":"pending","text":"Owner: Tomas Singh"}]}]},{"label":"More","children":[{"ui":"json","data":{"artist":"Carla Eriksson","genre":"Jazz","length":"2:48","released":"Mar 12","streams":225,"tags":["renewal","priority"]},"title":"Track payload"}]}]}
+```
+The pitch to editors is the step currently in progress, owned by Jun Eriksson.
+--- derived
+
+
+=== D-0031
+--- user
+hey can u put these 4 refs in a card titled "Weekly summary"? Annual review https://media.example.net/roadmap/32 (Covers the main changes.), Benchmark report https://blog.northwind.example.com/release-notes/94 (Covers the main changes.), Security whitepaper https://cdn.fernhill.example.com/overview (Covers the main changes.), Compliance handbook https://help.helpwave.example.com/report (Explains the controls in plain language.)
+--- reference
+All four references are collected inside the Weekly summary card.
+```dyui
+{"ui":"card","title":"Weekly summary","children":[{"ui":"sources","items":[{"title":"Annual review","url":"https://media.example.net/roadmap/32","snippet":"Covers the main changes."},{"title":"Benchmark report","url":"https://blog.northwind.example.com/release-notes/94","snippet":"Covers the main changes."},{"title":"Security whitepaper","url":"https://cdn.fernhill.example.com/overview","snippet":"Covers the main changes."},{"title":"Compliance handbook","url":"https://help.helpwave.example.com/report","snippet":"Explains the controls in plain language."}]}]}
+```
+Each source is numbered and links straight to its page.
+--- derived
+
+
+=== D-0022
+--- user
+Please arrange this as two collapsible sections. In "Main section", a confirmation titled "Cancel your Pro subscription?" with the cancel button labelled "Keep Pro", action cancel_subscription, data plan pro, marked as destructive. In "More detail", four buttons: "See full report" (see_full_report, ghost), "Confirm details" (confirm_details, primary), "Learn more" (learn_more, ghost) and "Open dashboard" (open_dashboard, primary).
+--- reference
+The cancellation prompt sits in the first section and the four shortcuts in the second.
+```dyui
+{"ui":"accordion","items":[{"title":"Main section","children":[{"ui":"confirm","title":"Cancel your Pro subscription?","cancel_label":"Keep Pro","action":"cancel_subscription","data":{"plan":"pro"},"danger":true}]},{"title":"More detail","children":[{"ui":"buttons","items":[{"label":"See full report","action":"see_full_report","style":"ghost"},{"label":"Confirm details","action":"confirm_details","style":"primary"},{"label":"Learn more","action":"learn_more","style":"ghost"},{"label":"Open dashboard","action":"open_dashboard","style":"primary"}]}]}]}
+```
+Nothing is cancelled until you answer the prompt, and the buttons report their actions back when pressed.
+--- derived
+

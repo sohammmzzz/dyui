@@ -1,0 +1,45 @@
+=== C-0038
+--- user
+Quick status on the release pls. The steps are Master the track (done, Yara Rossi), Schedule the release (in progress, Nadia Jensen) and Promote on socials (not started, Rin Moreau). Also help me word a customer note: Monthly listeners is recalculated every 9 hours, so today's figure is provisional.
+--- reference
+Here is where the release stands, step by step.
+```dyui
+{"ui":"timeline","items":[{"title":"Master the track","status":"done","text":"Owner: Yara Rossi"},{"title":"Schedule the release","status":"active","text":"Owner: Nadia Jensen"},{"title":"Promote on socials","status":"pending","text":"Owner: Rin Moreau"}]}
+```
+This is a wording you can give the customer.
+```dyui
+{"ui":"callout","level":"info","text":"Monthly listeners is recalculated every 9 hours, so today's figure is provisional."}
+```
+Scheduling is the live step, so promotion can only begin once it is finished.
+--- derived
+
+=== C-0057
+--- user
+Rundown on the course: Subject Statistics, Level Advanced, 8 lessons, instructor Elena Dubois. Then where we are on the plan: Book office hours (Elif Ferreira), Watch lesson 1 (Aiden Moreau), Do the practice set (Dev Costa), Take the quiz (Carla Larsen), Review mistakes (Rin Okafor).
+--- reference
+Here are the course basics.
+```dyui
+{"ui":"keyvalue","items":[{"key":"Subject","value":"Statistics"},{"key":"Level","value":"Advanced"},{"key":"Lessons","value":8},{"key":"Instructor","value":"Elena Dubois"}]}
+```
+And here is the study plan with an owner for each step.
+```dyui
+{"ui":"timeline","items":[{"title":"Book office hours","text":"Owner: Elif Ferreira"},{"title":"Watch lesson 1","text":"Owner: Aiden Moreau"},{"title":"Do the practice set","text":"Owner: Dev Costa"},{"title":"Take the quiz","text":"Owner: Carla Larsen"},{"title":"Review mistakes","text":"Owner: Rin Okafor"}]}
+```
+The plan opens with office hours and closes with a review of mistakes after the quiz.
+--- derived
+
+=== C-0007
+--- user
+Give me the rundown on the account: Plan Pro, 285 seats, Renewal Jan 25. Then put the workstream in order for stakeholders: Backfill last quarter's events is done (Chloe Singh), Review with the growth lead is done (Tomas Mendes), Rebuild the retention cohort is active (Sofia Singh), Publish the dashboard is pending (Aiden Kim).
+--- reference
+Here is the account rundown.
+```dyui
+{"ui":"keyvalue","items":[{"key":"Plan","value":"Pro"},{"key":"Seats","value":285},{"key":"Renewal","value":"Jan 25"}]}
+```
+Here is the workstream in order, with an owner for each step.
+```dyui
+{"ui":"timeline","items":[{"title":"Backfill last quarter's events","status":"done","text":"Owner: Chloe Singh"},{"title":"Review with the growth lead","status":"done","text":"Owner: Tomas Mendes"},{"title":"Rebuild the retention cohort","status":"active","text":"Owner: Sofia Singh"},{"title":"Publish the dashboard","status":"pending","text":"Owner: Aiden Kim"}]}
+```
+Two steps are done, the cohort rebuild is under way, and publishing waits last.
+--- derived
+

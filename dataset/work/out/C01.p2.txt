@@ -1,0 +1,154 @@
+=== C-0025
+--- user
+Hey, can you sum up this course for me? Average quiz score 76% (+9.4%), course completion 65% (+3.1%, trending up), forum questions 87 (+6.3%, trending up, target 96), assignments due 7 (-11.9%, target 8). Then show the assignments cleanly with caption "Assignments": Linear equations set, due Feb 27, weight 24, Open; Cell biology lab, May 17, 9, Late; Essay on the Treaty of Utrecht, Feb 23, 14, Open; Stats project, Nov 9, 5, Graded. And how would we word a warning to the customer that Study streak is at 13 days, above the 10 days threshold, and they should review it before Friday? Title it "Needs attention".
+--- reference
+Here are the four headline numbers for the course.
+```dyui
+{"ui":"stats","items":[{"label":"Average quiz score","value":"76%","delta":"+9.4%"},{"label":"Course completion","value":"65%","delta":"+3.1%","trend":"up"},{"label":"Forum questions","value":"87","delta":"+6.3%","trend":"up","help":"Target 96"},{"label":"Assignments due","value":"7","delta":"-11.9%","help":"Target 8"}]}
+```
+The assignments behind them are laid out below.
+```dyui
+{"ui":"table","columns":["Assignment","Due","Weight","Status"],"rows":[["Linear equations set","Feb 27",24,"Open"],["Cell biology lab","May 17",9,"Late"],["Essay on the Treaty of Utrecht","Feb 23",14,"Open"],["Stats project","Nov 9",5,"Graded"]],"caption":"Assignments"}
+```
+And this is a warning you can pass on to the customer.
+```dyui
+{"ui":"callout","level":"warning","title":"Needs attention","text":"Study streak is at 13 days, above the 10 days threshold. Review it before Friday."}
+```
+The Cell biology lab is the only assignment marked Late, so it is the first one to chase.
+--- derived
+
+=== C-0015
+--- user
+Show this inline: https://cdn.fernhill.example.com/img/case-study-05.jpg (alt: The rooftop terrace at sunset). Then summarise the contract: counterparty Globex, type MSA, signed Jun 15, expires May 28, owner Zoe Kowalski, status In review.
+--- reference
+The image is inline below.
+```dyui
+{"ui":"image","src":"https://cdn.fernhill.example.com/img/case-study-05.jpg","alt":"The rooftop terrace at sunset"}
+```
+Here is the summary of the contract.
+```dyui
+{"ui":"keyvalue","items":[{"key":"Counterparty","value":"Globex"},{"key":"Type","value":"MSA"},{"key":"Signed","value":"Jun 15"},{"key":"Expires","value":"May 28"},{"key":"Owner","value":"Zoe Kowalski"},{"key":"Status","value":"In review"}]}
+```
+The MSA with Globex is still in review under Zoe Kowalski.
+--- derived
+
+=== C-0045
+--- user
+Meter MTR-115: Flat tariff, last reading 4895 taken Oct 9, status Check. Stakeholder order of work: Shift the heavy loads (done, owner Dev Ueda), Install the smart plug (active, owner Sven Mendes), Read the meter (pending, owner Hugo Almeida).
+--- reference
+Here is the profile of the meter.
+```dyui
+{"ui":"keyvalue","items":[{"key":"Meter id","value":"MTR-115"},{"key":"Tariff","value":"Flat"},{"key":"Last reading","value":4895},{"key":"Read on","value":"Oct 9"},{"key":"Status","value":"Check"}]}
+```
+The work is ordered below, with an owner on every step.
+```dyui
+{"ui":"timeline","items":[{"title":"Shift the heavy loads","status":"done","text":"Owner: Dev Ueda"},{"title":"Install the smart plug","status":"active","text":"Owner: Sven Mendes"},{"title":"Read the meter","status":"pending","text":"Owner: Hugo Almeida"}]}
+```
+Installing the smart plug is the step in progress, and reading the meter follows it.
+--- derived
+
+=== C-0009
+--- user
+OEE for October is 77%, 0% change vs last month. Cycle time May to Aug went 37, 38, 35, 35. Headline plus the trend please.
+--- reference
+Here is the headline OEE figure for October.
+```dyui
+{"ui":"stat","label":"OEE · October","value":77,"unit":"%","delta":"0% vs last month"}
+```
+And this is how cycle time moved from May to August.
+```dyui
+{"ui":"chart","kind":"line","labels":["May","Jun","Jul","Aug"],"series":[{"name":"Cycle time","data":[37,38,35,35]}]}
+```
+OEE is unchanged on last month, and cycle time has settled after its dip in July.
+--- derived
+
+=== C-0038
+--- user
+Where are we on the track release? Mastering is done (Yara Rossi), scheduling the release is in progress (Nadia Jensen), promoting on socials hasn't started (Rin Moreau). Also, how do we tell the customer that Monthly listeners is recalculated every 9 hours so today's figure is provisional?
+--- reference
+Here is where the release stands, step by step.
+```dyui
+{"ui":"timeline","items":[{"title":"Master the track","status":"done","text":"Owner: Yara Rossi"},{"title":"Schedule the release","status":"active","text":"Owner: Nadia Jensen"},{"title":"Promote on socials","status":"pending","text":"Owner: Rin Moreau"}]}
+```
+This is a way to word the note for the customer.
+```dyui
+{"ui":"callout","level":"info","text":"Monthly listeners is recalculated every 9 hours, so today's figure is provisional."}
+```
+Scheduling is the live step, so promotion on socials can only start after it.
+--- derived
+
+=== C-0007
+--- user
+Give me the rundown on the account: Pro plan, 285 seats, renewal Jan 25. And put the workstream in order for the stakeholders: backfill last quarter's events is done (Chloe Singh), review with the growth lead is done (Tomas Mendes), rebuild the retention cohort is active (Sofia Singh), publish the dashboard is pending (Aiden Kim).
+--- reference
+Here is the account rundown.
+```dyui
+{"ui":"keyvalue","items":[{"key":"Plan","value":"Pro"},{"key":"Seats","value":285},{"key":"Renewal","value":"Jan 25"}]}
+```
+Here is the workstream in order, with an owner for each step.
+```dyui
+{"ui":"timeline","items":[{"title":"Backfill last quarter's events","status":"done","text":"Owner: Chloe Singh"},{"title":"Review with the growth lead","status":"done","text":"Owner: Tomas Mendes"},{"title":"Rebuild the retention cohort","status":"active","text":"Owner: Sofia Singh"},{"title":"Publish the dashboard","status":"pending","text":"Owner: Aiden Kim"}]}
+```
+Two steps are done, the cohort rebuild is under way, and the dashboard publication is the last one waiting.
+--- derived
+
+=== C-0027
+--- user
+Could I get an overview of the claims desk? Average settlement is $6,766 (up 17.4%), open claims are 781 (+9.1%), and claims this week are 81 (+5.0%, trending up, target 89). I would also like days to settle from June to November as an area chart, titled "Days to settle, Jun–Nov", in days: 15, 17, 19, 21, 21, 24.
+--- reference
+Here is the overview of the claims desk in three headline numbers.
+```dyui
+{"ui":"stats","items":[{"label":"Average settlement","value":"$6,766","delta":"+17.4%","trend":"up"},{"label":"Open claims","value":"781","delta":"+9.1%"},{"label":"Claims this week","value":"81","delta":"+5.0%","trend":"up","help":"Target 89"}]}
+```
+And here are the days to settle as an area chart.
+```dyui
+{"ui":"chart","kind":"area","series":[{"name":"Days to settle","data":[15,17,19,21,21,24]}],"title":"Days to settle, Jun–Nov","unit":"days"}
+```
+Settlement time has climbed over the six months, and claims this week are still short of the target of 89.
+--- derived
+
+=== C-0028
+--- user
+Can you make this carrier scorecard easy to scan? GLS: on-time 89.7, 9 claims, $8 per parcel. DHL: 91.9, 21 claims, $6. FedEx: 79.0, 22 claims, $11. UPS: 92.3, 19 claims, $15. Correos: 98.1, 38 claims, $7. Also stack the fleet utilisation by lane in percent so I can see both parts per lane: Iberia planned 88, unplanned 68; France 84 and 85; Benelux 68 and 56; DACH 78 and 73. Title it "Fleet utilisation by lane".
+--- reference
+Here is the carrier scorecard in one table.
+```dyui
+{"ui":"table","columns":["Carrier","On-time","Claims","Cost per parcel"],"rows":[["GLS",89.7,9,"$8"],["DHL",91.9,21,"$6"],["FedEx",79.0,22,"$11"],["UPS",92.3,19,"$15"],["Correos",98.1,38,"$7"]]}
+```
+And here is utilisation per lane, with the planned and unplanned parts stacked.
+```dyui
+{"ui":"chart","kind":"bar","labels":["Iberia","France","Benelux","DACH"],"series":[{"name":"Planned","data":[88,84,68,78]},{"name":"Unplanned","data":[68,85,56,73]}],"title":"Fleet utilisation by lane","unit":"%","stacked":true}
+```
+Correos leads on on-time delivery but also logs the most claims.
+--- derived
+
+=== C-0056
+--- user
+Can you display this image https://cdn.fernhill.example.com/img/security-03.jpg for me? And sum up the course: Chemistry, Intermediate level, 49 lessons, taught by Liam Castillo, starts May 19.
+--- reference
+Here is the image from your link.
+```dyui
+{"ui":"image","src":"https://cdn.fernhill.example.com/img/security-03.jpg"}
+```
+And here is the course summary.
+```dyui
+{"ui":"keyvalue","items":[{"key":"Subject","value":"Chemistry"},{"key":"Level","value":"Intermediate"},{"key":"Lessons","value":49},{"key":"Instructor","value":"Liam Castillo"},{"key":"Starts","value":"May 19"}]}
+```
+It is an intermediate Chemistry course with Liam Castillo, starting on May 19.
+--- derived
+
+=== C-0033
+--- user
+Please show the incident as a plan: reproducing the failure in staging is done, writing the postmortem is pending, bisecting the last three deploys failed, shipping the fix behind a flag failed, and running the load test is pending. Then give me the next actions for CLM-2951: Reject request (danger), Mark as spam (danger) and Approve (primary).
+--- reference
+Here is the incident plan with the current status of every step.
+```dyui
+{"ui":"plan","items":[{"title":"Reproduce the failure in staging","status":"done"},{"title":"Write the postmortem","status":"pending"},{"title":"Bisect the last three deploys","status":"error"},{"title":"Ship the fix behind a flag","status":"error"},{"title":"Run the load test","status":"pending"}]}
+```
+These are the actions available for CLM-2951.
+```dyui
+{"ui":"buttons","items":[{"label":"Reject request","action":"reject_request","data":{"id":"CLM-2951"},"style":"danger"},{"label":"Mark as spam","action":"mark_as_spam","data":{"id":"CLM-2951"},"style":"danger"},{"label":"Approve","action":"approve","data":{"id":"CLM-2951"},"style":"primary"}]}
+```
+The bisect and the flagged fix both failed, so those two steps block everything after them.
+--- derived
+

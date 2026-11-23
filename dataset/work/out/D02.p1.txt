@@ -1,0 +1,132 @@
+=== D-0032
+--- user
+I'd like to keep this track record together in a single card called "Trip overview". The payload reads: artist Chloe Yilmaz, genre Hip hop, length 5:12, tags renewal and audit, and a meta object with version 6 and dry_run set to false. Show the raw structure inside the card so I can expand it.
+--- reference
+Here is the track record as a collapsible tree inside a card.
+```dyui
+{"ui":"card","title":"Trip overview","children":[{"ui":"json","data":{"artist":"Chloe Yilmaz","genre":"Hip hop","length":"5:12","tags":["renewal","audit"],"meta":{"version":6,"dry_run":false}}}]}
+```
+Expanding the tree lets you inspect the nested tags and meta fields without leaving the card.
+--- derived
+
+=== D-0020
+--- user
+Please set this up as collapsible sections. The first section should carry an "Overview" card with the on-time delivery figure: 98.4%, which is -9.3% vs last month, against a target of 88.4%. The second section should hold the shipment payload as raw data: tracking TRK-585, origin Brussels, destination Lagos, tags audit and vip, meta version 5 with dry_run false.
+--- reference
+Here are the two sections, with the delivery figure up front and the shipment payload behind the second header.
+```dyui
+{"ui":"accordion","items":[{"title":"Main section","children":[{"ui":"card","title":"Overview","children":[{"ui":"stat","label":"On-time delivery","value":98.4,"unit":"%","delta":"-9.3% vs last month","help":"Target 88.4%"}]}]},{"title":"More detail","children":[{"ui":"json","data":{"tracking":"TRK-585","origin":"Brussels","destination":"Lagos","tags":["audit","vip"],"meta":{"version":5,"dry_run":false}}}]}]}
+```
+The headline stays visible in the first section, while the raw payload only opens when someone needs it.
+--- derived
+
+=== D-0052
+--- user
+For our review of order ORD-4075, I would like two collapsible sections. In the first, a card titled "Details" that asks "How helpful was this?" with a thumbs up/down rating. In the second, a confirmation titled "Refund order ORD-4075?" with a Cancel option, wired to the action issue_refund and carrying the order ID.
+--- reference
+Here are the two sections: the feedback card first, then the refund confirmation.
+```dyui
+{"ui":"accordion","items":[{"title":"Main section","children":[{"ui":"card","title":"Details","children":[{"ui":"rating","label":"How helpful was this?","style":"thumbs"}]}]},{"title":"More detail","children":[{"ui":"confirm","title":"Refund order ORD-4075?","cancel_label":"Cancel","action":"issue_refund","data":{"order":"ORD-4075"}}]}]}
+```
+The refund only proceeds if the confirmation is accepted, and its response includes the order ID.
+--- derived
+
+=== D-0037
+--- user
+Could you lay out two things side by side? On the left, a note saying "Signed this month is recalculated every 7 hours, so today's figure is provisional." as an info note. On the right, two small labels: Beta and Internal. I'm putting this at the top of our contracts dashboard.
+--- reference
+Here is the note beside the two labels in a two-column layout.
+```dyui
+{"ui":"grid","columns":2,"children":[{"ui":"callout","text":"Signed this month is recalculated every 7 hours, so today's figure is provisional.","level":"info"},{"ui":"badges","items":[{"label":"Beta"},{"label":"Internal"}]}]}
+```
+The note flags that today's figure is provisional, and the labels mark the page's status.
+--- derived
+
+=== D-0025
+--- user
+I need a swipeable row for the design review with two slides. First, a quote: "Setup took ten minutes and nothing broke." by Ana Reyes, Product manager, from the Onboarding feedback. Second, our button style as CSS: .btn with padding 0.5rem 1rem, border-radius 8px, background #4f46e5 and color #fff, each property on its own line with a two-space indent.
+--- reference
+Here is the review row with the customer quote first and the button CSS second.
+```dyui
+{"ui":"carousel","children":[{"ui":"quote","text":"Setup took ten minutes and nothing broke.","author":"Ana Reyes, Product manager","source":"Onboarding feedback"},{"ui":"code","code":".btn {\n  padding: 0.5rem 1rem;\n  border-radius: 8px;\n  background: #4f46e5;\n  color: #fff;\n}","language":"css"}]}
+```
+Scroll sideways to move from the feedback to the style that produced it.
+--- derived
+
+=== D-0012
+--- user
+Please arrange the following in a two-column layout. In the left column, show my reasoning on the flights: "Comparing the two fares: Iberia at $356 is $53 cheaper than easyJet at $409. Price is the deciding factor, so Iberia is the better pick." In the right column, the Personal finance plan with these steps: Review subscriptions (pending), Link the salary account (pending), Schedule the transfer (error), Set the savings goal (done).
+--- reference
+Here are the flight reasoning and the finance plan, arranged as a pair of panels.
+```dyui
+{"ui":"grid","columns":2,"children":[{"ui":"grid","columns":2,"children":[{"ui":"reasoning","text":"Comparing the two fares: Iberia at $356 is $53 cheaper than easyJet at $409. Price is the deciding factor, so Iberia is the better pick."},{"ui":"plan","title":"Personal finance plan","items":[{"title":"Review subscriptions","status":"pending"},{"title":"Link the salary account","status":"pending"},{"title":"Schedule the transfer","status":"error"},{"title":"Set the savings goal","status":"done"}]}]}]}
+```
+The failed transfer step is the one blocking the rest of the plan.
+--- derived
+
+=== D-0021
+--- user
+Two collapsible sections. First: images https://cdn.fernhill.example.com/img/guide-38.webp?v=1, https://media.example.net/img/roadmap-05.webp?v=2, https://news.example.com/img/case-study-14.webp?v=3, https://help.helpwave.example.com/img/benchmark-31.jpg?v=4, https://assets.lumen.example.io/img/annual-review-17.jpg?v=5. Second: audio https://news.example.com/audio/pricing-01.mp3 titled "Customer call".
+--- reference
+Here are the images in the first section and the audio clip in the second.
+```dyui
+{"ui":"accordion","items":[{"title":"Main section","children":[{"ui":"gallery","images":[{"src":"https://cdn.fernhill.example.com/img/guide-38.webp?v=1"},{"src":"https://media.example.net/img/roadmap-05.webp?v=2"},{"src":"https://news.example.com/img/case-study-14.webp?v=3"},{"src":"https://help.helpwave.example.com/img/benchmark-31.jpg?v=4"},{"src":"https://assets.lumen.example.io/img/annual-review-17.jpg?v=5"}]}]},{"title":"More detail","children":[{"ui":"audio","src":"https://news.example.com/audio/pricing-01.mp3","title":"Customer call"}]}]}
+```
+Open the second section to play the call.
+--- derived
+
+=== D-0035
+--- user
+Card titled "Trip overview" with a list inside: Quinta Verde (Sintra), Hotel Avenida (Porto), Mar & Sol (Valencia), Praça Suites (Lisbon), Casa Alfama (Lisbon).
+--- reference
+Here are the stays inside a single card.
+```dyui
+{"ui":"card","title":"Trip overview","children":[{"ui":"list","items":[{"title":"Quinta Verde","subtitle":"Sintra"},{"title":"Hotel Avenida","subtitle":"Porto"},{"title":"Mar & Sol","subtitle":"Valencia"},{"title":"Praça Suites","subtitle":"Lisbon"},{"title":"Casa Alfama","subtitle":"Lisbon"}]}]}
+```
+Each row pairs the property with its city, and Lisbon appears twice.
+--- derived
+
+=== D-0046
+--- user
+Two tabs: Overview and More. Overview gets a booking form with action reserve_table: Full name (required, placeholder Ana Silva), Number of guests (number, min 1), Arrival time (time, required). More gets a rating, "Rate this session", out of 10, action session_feedback.
+--- reference
+Here are the booking form and the session rating, one per tab.
+```dyui
+{"ui":"tabs","tabs":[{"label":"Overview","children":[{"ui":"form","fields":[{"name":"full_name","label":"Full name","required":true,"placeholder":"Ana Silva"},{"name":"guests","label":"Number of guests","type":"number","min":1},{"name":"arrival","label":"Arrival time","type":"time","required":true}],"action":"reserve_table"}]},{"label":"More","children":[{"ui":"rating","label":"Rate this session","max":10,"action":"session_feedback"}]}]}
+```
+Submitting the form sends the reservation details back as reserve_table, and the rating reports as session_feedback.
+--- derived
+
+=== D-0009
+--- user
+Put two things in a two-column layout: the audit report file, audit-report.pdf (PDF) at https://files.example.com/files/audit-report.pdf, and a link preview for https://cdn.fernhill.example.com/overview using the image https://www.example.org/img/report-11.png.
+--- reference
+Here are the downloadable report and the overview link side by side.
+```dyui
+{"ui":"grid","columns":2,"children":[{"ui":"file","name":"audit-report.pdf","url":"https://files.example.com/files/audit-report.pdf","type":"application/pdf"},{"ui":"link_preview","url":"https://cdn.fernhill.example.com/overview","image":"https://www.example.org/img/report-11.png"}]}
+```
+The file card downloads the PDF, and the preview opens the overview page.
+--- derived
+
+=== D-0002
+--- user
+Could you wrap our release progress in a card titled "Release status"? We've completed 7 of the 20 items so far, and I'd like a progress bar inside the card that reflects it.
+--- reference
+Here is the release progress inside a titled card.
+```dyui
+{"ui":"card","title":"Release status","children":[{"ui":"progress","value":7,"max":20}]}
+```
+The bar fills in proportion to the completed items against the total.
+--- derived
+
+=== D-0019
+--- user
+ok so I want two collapsible bits. First one has handover notes as a list: plan the day trips, pick the dates, book the flights, share the itinerary (bold the verb in each). Second one has a green "All set" note saying "The report refresh finished and Flight cost is back to $335, within the $239 limit."
+--- reference
+Here are the handover notes up top and the success note tucked into the second section.
+```dyui
+{"ui":"accordion","items":[{"title":"Main section","children":[{"ui":"markdown","text":"### Handover notes\n- **Plan** the day trips\n- **Pick** the dates\n- **Book** the flights\n- **Share** the itinerary"}]},{"title":"More detail","children":[{"ui":"callout","text":"The report refresh finished and Flight cost is back to $335, within the $239 limit.","level":"success","title":"All set"}]}]}
+```
+The checklist stays visible, and the refresh result opens only when you want it.
+--- derived
+

@@ -1,0 +1,99 @@
+=== N-0006
+--- user
+order ORD-1018 needs a CTA row: Continue (main), Add note (secondary), Start review (main too)
+--- reference
+Here are the three actions for order ORD-1018.
+```dyui
+{"ui":"buttons","items":[{"label":"Continue","action":"continue","data":{"id":"ORD-1018"},"style":"primary"},{"label":"Add note","action":"add_note","data":{"id":"ORD-1018"},"style":"secondary"},{"label":"Start review","action":"start_review","data":{"id":"ORD-1018"},"style":"primary"}]}
+```
+Each button sends its action back along with the order id.
+--- derived
+
+=== N-0015
+--- user
+Our household peak demand reached 3.3 kW today, which is over the 2.8 kW threshold we set. I would like a banner at the top of the dashboard warning about this, and it should remind me to review it before Friday.
+--- reference
+I will present that as a warning note you can see straight away.
+```dyui
+{"ui":"callout","level":"warning","text":"Peak demand is at 3.3 kW, above the 2.8 kW threshold. Review it before Friday."}
+```
+Lowering use during the busiest hours would bring demand back under the limit.
+--- derived
+
+=== N-0003
+--- user
+pie of claims orders by status pls: Paid 1327, Filed 4817, Denied 1636, Approved 560, Assessing 666
+--- reference
+Here is how the orders divide across the five statuses.
+```dyui
+{"ui":"chart","kind":"pie","labels":["Paid","Filed","Denied","Approved","Assessing"],"series":[{"name":"Orders","data":[1327,4817,1636,560,666]}],"title":"Orders per status"}
+```
+Filed is by far the largest slice, and Approved the smallest.
+--- derived
+
+=== N-0012
+--- user
+snippet for reading the API_KEY env var in php
+--- reference
+Here is how to read an environment variable in PHP.
+```dyui
+{"ui":"code","code":"<?php\n$key = getenv('API_KEY');","language":"php"}
+```
+`getenv` returns false when the variable is not set, so check the result before using it.
+--- derived
+
+=== N-0009
+--- user
+need an expander for the pricing page faq. Q: Can I change my plan later? A: Yes. Upgrades apply immediately; downgrades start at the next billing date. Q: Is there an API? A: Yes. Every plan includes API access with per-key rate limits. Q: Do you offer student discounts? A: Students get a discount with a valid school email.
+--- reference
+Here are the three questions as sections that open on click.
+```dyui
+{"ui":"accordion","items":[{"title":"Can I change my plan later?","children":[{"ui":"markdown","text":"Yes. Upgrades apply immediately; downgrades start at the next billing date."}]},{"title":"Is there an API?","children":[{"ui":"markdown","text":"Yes. Every plan includes API access with per-key rate limits."}]},{"title":"Do you offer student discounts?","children":[{"ui":"markdown","text":"Students get a discount with a valid school email."}]}]}
+```
+Each answer stays collapsed until the question is opened.
+--- derived
+
+=== N-0001
+--- user
+alert me: dining out is at $577, threshold was $444. remind me to review before Friday. title it Needs attention
+--- reference
+I will show that as a warning note with the title you asked for.
+```dyui
+{"ui":"callout","level":"warning","title":"Needs attention","text":"Dining out is at $577, above the $444 threshold. Review it before Friday."}
+```
+Spending is over the limit you set, so a review before Friday would help.
+--- derived
+
+=== N-0008
+--- user
+pop up a modal asking me to confirm booking the 21:05 flight, TP995, $318
+--- reference
+Booking is an outward action, so I will ask you to confirm it first.
+```dyui
+{"ui":"confirm","title":"Book the 21:05 flight for $318?","confirm_label":"Book flight","action":"book_flight","data":{"flight":"TP995"}}
+```
+Nothing is booked until you confirm.
+--- derived
+
+=== N-0005
+--- user
+Preciso de um dropdown para o cliente escolher o plano da equipa dele. As opções são Starter, Pro, Team e Enterprise, e o botão de envio deve dizer "Continuar". A pergunta pode ser "Que plano serve à sua equipa?".
+--- reference
+Aqui está a pergunta com as quatro opções para escolher.
+```dyui
+{"ui":"choice","question":"Que plano serve à sua equipa?","options":["Starter","Pro","Team","Enterprise"],"submit_label":"Continuar"}
+```
+A escolha volta para mim quando o cliente carregar em Continuar.
+--- derived
+
+=== N-0002
+--- user
+Could you give me a number card for current soil moisture? It reads 19 percent right now, and our target is 18%, so I would like that target noted underneath.
+--- reference
+Here is the current soil moisture reading with the target noted beneath it.
+```dyui
+{"ui":"stat","label":"Soil moisture","value":19,"unit":"%","help":"Target 18%"}
+```
+Moisture is slightly above the 18% target.
+--- derived
+

@@ -1,0 +1,103 @@
+=== G-0020
+--- user
+Hey, anything on the events calendar this week? Trying to see if we have a free slot to squeeze in a load-in.
+--- reference
+I checked the events calendar and nothing came back, so there are no events scheduled right now. That means the venue looks open for your load-in, though it is worth confirming with whoever manages the space before you lock it in.
+--- derived
+
+=== G-0028
+--- user
+Could you please check whether we currently have any candidates in the pipeline for the open analyst role? I would like a quick status before my 1:1 with the hiring manager this afternoon.
+--- reference
+The candidate list came back empty, so there is nobody in the pipeline at the moment. You may want to tell the hiring manager that sourcing has not produced any applicants yet.
+--- derived
+
+=== G-0047
+--- user
+who's booked tonight? I remember something at 18:30, a big one around 21:30, and another party near 20:00 but I'm not sure about the rest
+--- reference
+Four reservations are on the book tonight, and two of them are parties of nine.
+```dyui
+{"ui":"table","columns":["Time","Name","Party","Notes"],"rows":[["18:30","Nadia Haddad",9,"Window table"],["21:30","Viktor Ibrahim",9,"Allergy: nuts"],["20:00","Farah Lindqvist",5,"Window table"],["20:45","Vera Weber",4,"Birthday"]]}
+```
+Viktor Ibrahim's 21:30 booking has a nut allergy, so the kitchen should know before service.
+--- derived
+
+=== G-0003
+--- user
+pull up our grants for me, I mostly care about what's going on with City Arts Board and Sunrise Foundation, the biggest ones
+--- reference
+There are 36 grants on file, so here are the eight largest ones from City Arts Board and Sunrise Foundation.
+```dyui
+{"ui":"table","columns":["Funder","Amount","Deadline","Status"],"rows":[["Sunrise Foundation","$180,139","Dec 22","Declined"],["Sunrise Foundation","$177,271","Apr 8","Awarded"],["Sunrise Foundation","$143,123","Mar 1","Awarded"],["City Arts Board","$131,632","Jun 20","Declined"],["City Arts Board","$125,890","Apr 17","Submitted"],["Sunrise Foundation","$118,855","Sep 8","Drafting"],["City Arts Board","$118,652","Jul 25","Declined"],["Sunrise Foundation","$109,638","May 9","Awarded"]]}
+```
+Of these, the $125,890 City Arts Board application is still waiting on a decision, and the $118,855 Sunrise application is still in drafting.
+--- derived
+8
+
+=== G-0014
+--- user
+what's the deal with ID-434? I think it's the pastry dish, around $21, with dairy in it
+--- reference
+Here are the details for dish ID-434.
+```dyui
+{"ui":"keyvalue","items":[{"key":"Station","value":"Pastry"},{"key":"Price","value":"$21"},{"key":"Allergens","value":"Dairy"},{"key":"Prep time","value":36},{"key":"Status","value":"Special"}]}
+```
+It is running as a special and contains dairy, so flag that to the floor when it is ordered.
+--- derived
+
+=== G-0022
+--- user
+Pull up X-779, the 3-bed loft at 301 Elm Court. I'm showing it later and need the basics.
+--- reference
+Here are the basics for listing X-779.
+```dyui
+{"ui":"keyvalue","items":[{"key":"Address","value":"301 Elm Court"},{"key":"Type","value":"Loft"},{"key":"Beds","value":3},{"key":"Area (m²)","value":131},{"key":"Price","value":"$757"},{"key":"Status","value":"Active"}]}
+```
+The listing is still active, so it is fine to book the showing.
+--- derived
+
+=== G-0017
+--- user
+Can you show me my workout log? I'd especially like to see the sessions I did on Feb 26, Jun 15 and Jun 9, and I would like to check how they compare with the rest of what's logged.
+--- reference
+Here is your workout log with all six sessions.
+```dyui
+{"ui":"table","columns":["Date","Activity","Duration","Calories"],"rows":[["Feb 26","Yoga",38,866],["Jun 15","Cycling",47,455],["Jun 9","Swimming",77,504],["Aug 25","Strength",63,305],["Jul 26","Swimming",66,912],["Feb 12","Strength",49,844]]}
+```
+The Jul 26 swim burned the most at 912 calories, while the Aug 25 strength session burned the least.
+--- derived
+
+=== G-0010
+--- user
+plans? Plus, Family, Business
+--- reference
+Here are the five plans on offer, including Plus, Family and Business.
+```dyui
+{"ui":"table","columns":["Plan","Data (GB)","Speed (Mbps)","Price"],"rows":[["Plus",51,574,"$22"],["Family",61,499,"$34"],["Business",35,157,"$20"],["Basic",119,354,"$32"],["Max",57,807,"$21"]]}
+```
+Business is the cheapest at $20, and Max has the highest speed.
+--- derived
+
+=== G-0032
+--- user
+I'm balancing the event calendar and need to see what's live right now. Could you pull the live runs of Speedrun Cup and Boss Rush, with players and revenue for each? Roughly the top ten is plenty.
+--- reference
+Of the 41 events, these 10 live runs belong to Speedrun Cup or Boss Rush.
+```dyui
+{"ui":"table","columns":["Event","Players","Revenue","Status"],"rows":[["Speedrun Cup",132507,"$37,153","Live"],["Boss Rush",55930,"$76,927","Live"],["Speedrun Cup",4550,"$18,423","Live"],["Boss Rush",130712,"$34,475","Live"],["Speedrun Cup",142027,"$84,129","Live"],["Boss Rush",71690,"$50,343","Live"],["Boss Rush",79739,"$75,845","Live"],["Speedrun Cup",115067,"$28,050","Live"],["Speedrun Cup",113681,"$66,555","Live"],["Speedrun Cup",151421,"$23,847","Live"]]}
+```
+The Speedrun Cup run with 142027 players brings in the most revenue at $84,129.
+--- derived
+10
+
+=== G-0023
+--- user
+what's the state of the machines? sprayer S2, baler B1, the John Deere 6130 especially, we want to start tomorrow
+--- reference
+Six machines came back, and the Sprayer S2 and Baler B1 are both ready to go.
+```dyui
+{"ui":"table","columns":["Machine","Hours","Status"],"rows":[["Sprayer S2",4600,"Ready"],["Baler B1",419,"Ready"],["John Deere 6130",3273,"Service due"],["Claas Lexion",1197,"Service due"],["Kubota M7",4748,"Service due"],["Kubota M7",3841,"Service due"]]}
+```
+The John Deere 6130 is due for service, so book that before you rely on it tomorrow.
+--- derived

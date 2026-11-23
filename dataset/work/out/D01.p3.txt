@@ -1,0 +1,95 @@
+=== D-0051
+--- user
+quick one: two collapsible sections. "Main section" has the image https://www.example.org/img/security-01.jpg (alt: The rooftop terrace at sunset). "More detail" has a file download, customer-export.pdf, at https://docs.acme-cloud.example.com/files/customer-export.pdf.
+--- reference
+The image and the file download are placed in two collapsible sections.
+```dyui
+{"ui":"accordion","items":[{"title":"Main section","children":[{"ui":"image","src":"https://www.example.org/img/security-01.jpg","alt":"The rooftop terrace at sunset"}]},{"title":"More detail","children":[{"ui":"file","name":"customer-export.pdf","url":"https://docs.acme-cloud.example.com/files/customer-export.pdf"}]}]}
+```
+The export stays out of the way until the second section is opened.
+--- derived
+
+
+=== D-0040
+--- user
+Please create a two-column grid. The first cell offers four follow-up suggestions: "Show it as a table", "Break it down by shift", "Show the top 3" and "Which shift is weakest?". The second cell asks "Book the 6:05 flight for $819?" with the text "Your card will be charged when you confirm.", action book_flight and data flight TP226.
+--- reference
+The follow-up suggestions and the booking prompt are placed next to each other in the grid.
+```dyui
+{"ui":"grid","columns":2,"children":[{"ui":"quick_replies","options":["Show it as a table","Break it down by shift","Show the top 3","Which shift is weakest?"]},{"ui":"confirm","title":"Book the 6:05 flight for $819?","text":"Your card will be charged when you confirm.","action":"book_flight","data":{"flight":"TP226"}}]}
+```
+Nothing is booked until you confirm, and the confirmation carries flight TP226 back to me.
+--- derived
+
+
+=== D-0004
+--- user
+I would like a card named "Release status". Inside it, put a second card titled "Overview" that contains two buttons: "View history" (action view_history, secondary style) and "See full report" (action see_full_report, ghost style).
+--- reference
+Here is the Release status card with the Overview card nested inside it.
+```dyui
+{"ui":"card","title":"Release status","children":[{"ui":"card","title":"Overview","children":[{"ui":"buttons","items":[{"label":"View history","action":"view_history","style":"secondary"},{"label":"See full report","action":"see_full_report","style":"ghost"}]}]}]}
+```
+Each button sends its own action back when pressed.
+--- derived
+
+
+=== D-0026
+--- user
+Show two panels in a swipeable row, please. Panel one is a raw data tree: subject Statistics, level Beginner, lessons 9, tags beta and trial. Panel two is a fact sheet: Subject Biology, Level Beginner, Lessons 13, Instructor Olga Nguyen.
+--- reference
+The raw record and the course fact sheet sit side by side in a carousel.
+```dyui
+{"ui":"carousel","children":[{"ui":"json","data":{"subject":"Statistics","level":"Beginner","lessons":9,"tags":["beta","trial"]}},{"ui":"keyvalue","items":[{"key":"Subject","value":"Biology"},{"key":"Level","value":"Beginner"},{"key":"Lessons","value":13},{"key":"Instructor","value":"Olga Nguyen"}]}]}
+```
+The first panel describes a Statistics course and the second a Biology course taught by Olga Nguyen.
+--- derived
+
+
+=== D-0042
+--- user
+grid, 2 cols. left: plan "Music streaming plan" - Promote on socials done, Schedule the release active, Master the track skipped, Pitch to editors pending, Upload the artwork active. right: failed tool step "Check inventory", output {"error":"timeout"}.
+--- reference
+Here is the release plan on the left and the failed inventory step on the right.
+```dyui
+{"ui":"grid","columns":2,"children":[{"ui":"plan","title":"Music streaming plan","items":[{"title":"Promote on socials","status":"done"},{"title":"Schedule the release","status":"active"},{"title":"Master the track","status":"skipped"},{"title":"Pitch to editors","status":"pending"},{"title":"Upload the artwork","status":"active"}]},{"ui":"step","title":"Check inventory","status":"error","type":"tool","output":{"error":"timeout"}}]}
+```
+The inventory check timed out, which is the one failure to look at.
+--- derived
+
+
+=== D-0001
+--- user
+Would you please prepare a card called "Account overview", and place within it another card titled "Summary" that holds this Ruby snippet: key = ENV.fetch("API_KEY")
+--- reference
+The Ruby snippet is inside the Summary card, nested in the Account overview card.
+```dyui
+{"ui":"card","title":"Account overview","children":[{"ui":"card","title":"Summary","children":[{"ui":"code","code":"key = ENV.fetch(\"API_KEY\")","language":"ruby"}]}]}
+```
+`ENV.fetch` raises a KeyError when API_KEY is not set.
+--- derived
+
+
+=== D-0036
+--- user
+Could you make a card "Weekly summary" with a smaller card inside called "Summary"? The inner one should only hold this reasoning text: "Comparing the two fares: Iberia at $195 is $169 cheaper than Vueling at $364. Price is the deciding factor, so Iberia is the better pick."
+--- reference
+Here is the reasoning inside the Summary card, which sits in the Weekly summary card.
+```dyui
+{"ui":"card","title":"Weekly summary","children":[{"ui":"card","title":"Summary","children":[{"ui":"reasoning","text":"Comparing the two fares: Iberia at $195 is $169 cheaper than Vueling at $364. Price is the deciding factor, so Iberia is the better pick."}]}]}
+```
+The recommendation rests on price alone, which is why Iberia wins.
+--- derived
+
+
+=== D-0008
+--- user
+Please show two items in a two-column grid. Left: the record for vehicle CM-7423 titled "Vehicle payload", a Corolla based at Airport with mileage 11990, next service Feb 19, tagged eu and beta. Right: a bar chart of idle time in percent by depot, Central 32, Harbour 10, Airport 31.
+--- reference
+The vehicle record and the idle-time chart are shown together in a two-column grid.
+```dyui
+{"ui":"grid","columns":2,"children":[{"ui":"json","data":{"plate":"CM-7423","model":"Corolla","mileage":11990,"depot":"Airport","next_service":"Feb 19","tags":["eu","beta"]},"title":"Vehicle payload"},{"ui":"chart","kind":"bar","labels":["Central","Harbour","Airport"],"series":[{"name":"Idle time","data":[32,10,31]}],"unit":"%"}]}
+```
+Harbour has the lowest idle time, while Central and Airport are close to each other.
+--- derived
+

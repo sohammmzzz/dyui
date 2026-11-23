@@ -1,0 +1,42 @@
+=== J-0026
+--- user
+I keep seeing "refresh token" in our integration docs for the Lumen Metrics connector, and I've never been clear on what it's actually for. Could you explain it in plain terms?
+--- reference
+A refresh token is a long-lived credential that lets an app get a new access token without asking the user to sign in again. Access tokens expire quickly to limit damage if they leak, so the refresh token quietly renews them in the background and can be revoked if something looks wrong.
+--- derived
+
+=== J-0036
+--- user
+Kurze Frage für unser Ticket: Kann ein zusätzlicher Index in der Datenbank dazu führen, dass Schreibvorgänge langsamer werden? Ein Kunde beschwert sich über träge Inserts, seit wir neue Indizes angelegt haben.
+--- reference
+Ja, das ist möglich. Bei jedem INSERT, UPDATE oder DELETE muss die Datenbank auch jeden betroffenen Index nachziehen, deshalb werden Schreibvorgänge mit jedem zusätzlichen Index etwas teurer. Prüfen Sie, welche der neuen Indizes die Abfragen wirklich beschleunigen, und entfernen Sie die übrigen.
+--- derived
+
+=== J-0013
+--- user
+example?
+--- reference
+Setting a user's status to "active" is idempotent: run it once or five times and the status ends up the same. Charging a card, by contrast, is not, since every repeat would bill again unless you guard it with an idempotency key.
+--- derived
+
+=== J-0019
+--- user
+mas por que isso torna as tentativas seguras?
+--- reference
+Porque, se a requisição falhar no meio do caminho e você não souber se ela chegou, pode simplesmente enviá-la de novo sem medo de duplicar o efeito. O resultado final é o mesmo, então o cliente não precisa descobrir o que aconteceu antes de repetir.
+--- derived
+
+=== J-0024
+--- user
+Buenos días. Acabo de medir la velocidad de mi línea y me dio Download speed 410 Mbps. ¿Es un resultado razonable para uso doméstico habitual?
+--- reference
+Sí, 410 Mbps es una velocidad de descarga muy buena para un hogar: alcanza de sobra para varias reproducciones de vídeo en alta definición, videollamadas y descargas grandes al mismo tiempo. Si notas lentitud, suele deberse al wifi o al dispositivo y no a la línea.
+--- derived
+
+=== J-0010
+--- user
+Could you confirm whether adding a database index can reduce write performance on the underlying table?
+--- reference
+Yes. Every insert, update or delete must also modify each index on the table, so more indexes mean slower writes and more storage. Index only the columns your queries genuinely rely on.
+--- derived
+

@@ -1,0 +1,150 @@
+=== C-0005
+--- user
+pull up https://help.helpwave.example.com/img/changelog-16.png, alt "The old tram climbing Rua da Bica", caption "Draft version". also my plan: Family, 174 GB data, $48, renews May 1, 2 lines, status Pending port-in
+--- reference
+Here is the image with its caption.
+```dyui
+{"ui":"image","src":"https://help.helpwave.example.com/img/changelog-16.png","alt":"The old tram climbing Rua da Bica","caption":"Draft version"}
+```
+And here are the details of your plan.
+```dyui
+{"ui":"keyvalue","items":[{"key":"Plan","value":"Family"},{"key":"Data GB","value":174},{"key":"Price","value":"$48"},{"key":"Renews","value":"May 1"},{"key":"Lines","value":2},{"key":"Status","value":"Pending port-in"}]}
+```
+The plan is still waiting on the number port-in to complete.
+--- derived
+
+=== C-0011
+--- user
+Please set out the troubleshooting steps as a timeline: Run the line test (May 8, done), Escalate to field tech (Mar 10, done), Verify the account (May 12, done), Reset the router (Nov 14, in progress), Confirm the fix (Oct 16, not started). Also note clearly that churn is recalculated every 5 hours, so today's figure is provisional.
+--- reference
+The five troubleshooting steps are laid out below in the order you gave them.
+```dyui
+{"ui":"timeline","items":[{"title":"Run the line test","time":"May 8","status":"done"},{"title":"Escalate to field tech","time":"Mar 10","status":"done"},{"title":"Verify the account","time":"May 12","status":"done"},{"title":"Reset the router","time":"Nov 14","status":"active"},{"title":"Confirm the fix","time":"Oct 16","status":"pending"}]}
+```
+One caveat about the figures that go with this.
+```dyui
+{"ui":"callout","level":"info","text":"Churn is recalculated every 5 hours, so today's figure is provisional."}
+```
+The router reset is the step currently in progress, and the fix is not yet confirmed.
+--- derived
+
+=== C-0039
+--- user
+Could you show me the current orders? EVT-150 Dev Weber, 1 ticket, General, $24; EVT-850 Wanjiru Silva, 6, Early bird, $593; EVT-737 Elena Rossi, 1, General, $693; EVT-590 Sven Moreau, 6, VIP, $533; EVT-382 Vera Reyes, 2, VIP, $740; EVT-685 Katya Tanaka, 1, VIP, $273. Please mention that check-in wait is recalculated every 3 hours, so today's figure is provisional.
+--- reference
+Here are the six orders with buyer, ticket count, tier and total.
+```dyui
+{"ui":"table","columns":["Order","Buyer","Tickets","Tier","Total"],"rows":[["EVT-150","Dev Weber",1,"General","$24"],["EVT-850","Wanjiru Silva",6,"Early bird","$593"],["EVT-737","Elena Rossi",1,"General","$693"],["EVT-590","Sven Moreau",6,"VIP","$533"],["EVT-382","Vera Reyes",2,"VIP","$740"],["EVT-685","Katya Tanaka",1,"VIP","$273"]],"caption":"Orders"}
+```
+Please keep this in mind when reading the wait figures.
+```dyui
+{"ui":"callout","level":"info","title":"Good to know","text":"Check-in wait is recalculated every 3 hours, so today's figure is provisional."}
+```
+Treat any check-in wait you see today as an interim reading.
+--- derived
+
+=== C-0041
+--- user
+Where are we on the 14 Elm Court sale? Three items: Move to contract (Aug 3, Ana Kowalski), Book the photographer (Mar 5, Tomas Ueda), Collect offers (Mar 7, Mia Almeida). The customer will see this, so also note that days on market is recalculated every 5 hours and today's figure is provisional.
+--- reference
+Here is where the listing stands, with each step and its owner.
+```dyui
+{"ui":"timeline","items":[{"title":"Move to contract","time":"Aug 3","text":"Owner: Ana Kowalski"},{"title":"Book the photographer","time":"Mar 5","text":"Owner: Tomas Ueda"},{"title":"Collect offers","time":"Mar 7","text":"Owner: Mia Almeida"}]}
+```
+This note is suitable to pass on to the customer alongside it.
+```dyui
+{"ui":"callout","level":"info","title":"Good to know","text":"Days on market is recalculated every 5 hours, so today's figure is provisional."}
+```
+Each step has a named owner, so the customer knows who to contact.
+--- derived
+
+=== C-0035
+--- user
+whats the picture. p95 latency 894 ms (up), deploys 9, target 10, uptime 98.55% (up), target 108.41%. then uptime Feb-Jun as area: 98.97, 99.05, 99.11, 99.16, 99.25
+--- reference
+Here are the three headline numbers.
+```dyui
+{"ui":"stats","items":[{"label":"p95 latency","value":"894 ms","trend":"up"},{"label":"Deploys","value":"9","help":"Target 10"},{"label":"Uptime","value":"98.55%","trend":"up","help":"Target 108.41%"}]}
+```
+And uptime from February to June as an area chart.
+```dyui
+{"ui":"chart","kind":"area","labels":["Feb","Mar","Apr","May","Jun"],"series":[{"name":"Uptime","data":[98.97,99.05,99.11,99.16,99.25]}],"title":"Uptime, Feb–Jun"}
+```
+Uptime has risen steadily every month across the period.
+--- derived
+
+=== C-0030
+--- user
+Preciso de uma visão ordenada para as partes interessadas. Os passos são: Inspect the vehicle (Apr 1, concluído), Road test (Dec 3, em curso), Book the service slot (Apr 5, pendente), Swap the tyres (Apr 7, pendente). Assinale também de forma clara que a disponibilidade da frota é recalculada a cada 2 horas, pelo que o valor de hoje é provisório.
+--- reference
+Aqui estão os quatro passos pela ordem indicada, com o estado de cada um.
+```dyui
+{"ui":"timeline","items":[{"title":"Inspect the vehicle","time":"Apr 1","status":"done"},{"title":"Road test","time":"Dec 3","status":"active"},{"title":"Book the service slot","time":"Apr 5","status":"pending"},{"title":"Swap the tyres","time":"Apr 7","status":"pending"}]}
+```
+E aqui fica o aviso sobre os números da frota.
+```dyui
+{"ui":"callout","level":"info","title":"Bom saber","text":"A disponibilidade da frota é recalculada a cada 2 horas, pelo que o valor de hoje é provisório."}
+```
+O teste em estrada é o passo atual, e as reservas e a troca de pneus ainda aguardam.
+--- derived
+
+=== C-0057
+--- user
+Statistics course rundown: advanced level, 8 lessons, instructor Elena Dubois. And where are we on the plan: Book office hours (Elif Ferreira), Watch lesson 1 (Aiden Moreau), Do the practice set (Dev Costa), Take the quiz (Carla Larsen), Review mistakes (Rin Okafor).
+--- reference
+Here are the course basics.
+```dyui
+{"ui":"keyvalue","items":[{"key":"Subject","value":"Statistics"},{"key":"Level","value":"Advanced"},{"key":"Lessons","value":8},{"key":"Instructor","value":"Elena Dubois"}]}
+```
+And here is the study plan with an owner for each step.
+```dyui
+{"ui":"timeline","items":[{"title":"Book office hours","text":"Owner: Elif Ferreira"},{"title":"Watch lesson 1","text":"Owner: Aiden Moreau"},{"title":"Do the practice set","text":"Owner: Dev Costa"},{"title":"Take the quiz","text":"Owner: Carla Larsen"},{"title":"Review mistakes","text":"Owner: Rin Okafor"}]}
+```
+The plan starts with office hours and ends with reviewing mistakes after the quiz.
+--- derived
+
+=== C-0037
+--- user
+Account signups this quarter: Savings 3459, Checking 4368, Brokerage 1478, Credit card 4221. Which one dominates? Also here are my upcoming bills, can you show me what the list looks like: Phone due Feb 20, $346, autopay yes; Insurance Feb 18, $569, no autopay; Rent Apr 22, $1,282, autopay yes; Gym Jul 8, $1,201, autopay yes.
+--- reference
+Here is how signups split across the four account types.
+```dyui
+{"ui":"chart","kind":"donut","labels":["Savings","Checking","Brokerage","Credit card"],"series":[{"name":"Signups","data":[3459,4368,1478,4221]}]}
+```
+Now the list of upcoming bills.
+```dyui
+{"ui":"table","columns":["Bill","Due","Amount","Autopay"],"rows":[["Phone","Feb 20","$346","Yes"],["Insurance","Feb 18","$569","No"],["Rent","Apr 22","$1,282","Yes"],["Gym","Jul 8","$1,201","Yes"]],"caption":"Upcoming bills"}
+```
+Checking leads the signups, with credit card close behind. Insurance is the only bill without autopay.
+--- derived
+
+=== C-0008
+--- user
+Could you give me the overall picture for the campaign? Goal reached is 66% (target 73%), grant applications are at 2 (up 10.9%), and retention is 59% against a 65% target. I would also like to see how retention has trended; the readings so far are 42, 40, 38, 37, 36, 34, 31, 27 percent.
+--- reference
+Here are the three headline figures for the campaign.
+```dyui
+{"ui":"stats","items":[{"label":"Campaign goal reached","value":"66%","trend":"up","help":"Target 73%"},{"label":"Grant applications","value":"2","delta":"+10.9%","trend":"up"},{"label":"Retention","value":"59%","help":"Target 65%"}]}
+```
+And here is how retention has moved across the readings.
+```dyui
+{"ui":"chart","kind":"area","series":[{"name":"Retention","data":[42,40,38,37,36,34,31,27]}],"unit":"%"}
+```
+Retention has fallen in every reading, which is the point to watch.
+--- derived
+
+=== C-0043
+--- user
+I would like the open claims shown cleanly: CLM-979 (Pet, $8,901, Filed, adjuster Chloe Nakamura), CLM-551 (Health, $5,432, Filed, Elif Kowalski), CLM-253 (Home, $10,121, Paid, Rin Fischer), CLM-309 (Travel, $4,470, Filed, Pedro Silva), CLM-692 (Auto, $5,543, Filed, Katya Dubois). Please also show the comparison of fraud flags by type: Auto 40, Health 41, Home 11.
+--- reference
+Here are the five claims with their type, amount, status and adjuster.
+```dyui
+{"ui":"table","columns":["Claim","Type","Amount","Status","Adjuster"],"rows":[["CLM-979","Pet","$8,901","Filed","Chloe Nakamura"],["CLM-551","Health","$5,432","Filed","Elif Kowalski"],["CLM-253","Home","$10,121","Paid","Rin Fischer"],["CLM-309","Travel","$4,470","Filed","Pedro Silva"],["CLM-692","Auto","$5,543","Filed","Katya Dubois"]]}
+```
+Next, the fraud flags compared across claim types.
+```dyui
+{"ui":"chart","kind":"bar","labels":["Auto","Health","Home"],"series":[{"name":"Fraud flags","data":[40,41,11]}],"title":"Fraud flags by type"}
+```
+Health and Auto carry far more flags than Home. These are counts only, and coverage decisions stay with the adjusters.
+--- derived
+

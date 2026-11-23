@@ -1,0 +1,112 @@
+=== G-0019
+--- user
+Can you pull up our donor list? I'm especially trying to find Rin Garcia and Kofi Hoang, and I want a feel for the rest of the segments too.
+--- reference
+The donor service returned 44 records, so here are the first ten with their last gift and segment.
+```dyui
+{"ui":"table","columns":["Donor","Last gift","Gifts","Segment"],"rows":[["Rin Garcia","$96",33,"Mid-level"],["Kofi Hoang","$4,273",17,"Mid-level"],["Nadia Costa","$2,579",30,"Major"],["Wen Tanaka","$4,492",9,"Major"],["Olga Yilmaz","$3,565",33,"Major"],["Xavier Ibrahim","$1,536",9,"Mid-level"],["Mia Okafor","$633",9,"Major"],["Zoe Park","$3,001",24,"Mid-level"],["Umar Rossi","$2,497",24,"Major"],["Noor Moreau","$2,216",38,"Monthly"]]}
+```
+Both Rin Garcia and Kofi Hoang are in this first batch; the other 34 donors are not shown here.
+--- derived
+34
+
+=== G-0018
+--- user
+Kindly provide our current top-selling products. I would expect the Cotton duvet, the Glass carafe and the Oak shelf to appear among them.
+--- reference
+Here are the five top products with units sold, revenue and remaining stock.
+```dyui
+{"ui":"table","columns":["Product","Units","Revenue","Stock"],"rows":[["Cotton duvet",176,"$37,247",226],["Glass carafe",1366,"$46,717",94],["Oak shelf",1218,"$38,414",107],["Ceramic planter",688,"$19,278",570],["Brass desk lamp",630,"$31,348",317]]}
+```
+The Glass carafe leads on revenue at $46,717 and has the lowest stock of the five.
+--- derived
+
+=== G-0029
+--- user
+Could you please show me how the support agents performed this week?
+--- reference
+I could not load the agent performance data.
+```dyui
+{"ui":"callout","level":"error","title":"Agent performance unavailable","text":"The request was rejected with status 429 (rate_limited): your role cannot read this resource."}
+```
+Access to this report needs to be granted to your role before it can be retrieved.
+--- derived
+
+=== G-0005
+--- user
+what listings do we have right now? need to send a few to a client
+--- reference
+The listings did not load this time.
+```dyui
+{"ui":"callout","level":"error","title":"Listings unavailable","text":"The data service did not respond in time (upstream_timeout, status 403), so no listings were returned."}
+```
+Nothing was retrieved, so there is nothing to send yet; a retry is the next step.
+--- derived
+
+=== G-0045
+--- user
+Please give me my household's daily energy usage for the past few days.
+--- reference
+Your daily usage could not be retrieved.
+```dyui
+{"ui":"callout","level":"error","title":"Usage data unavailable","text":"The service is temporarily unavailable (permission_denied, status 429), so no daily figures were returned."}
+```
+No usage numbers are available at the moment, so please try again shortly.
+--- derived
+
+=== G-0001
+--- user
+Hey, what flights are there for my trip? Curious how Air France, TAP and Ryanair compare on price and timing.
+--- reference
+Six flight options came back, and here they are side by side.
+```dyui
+{"ui":"table","columns":["Airline","Departs","Duration","Price"],"rows":[["Air France","09:15","2h 45m","$216"],["TAP","09:15","3h 05m","$94"],["Ryanair","21:10","2h 45m","$249"],["Iberia","21:10","2h 10m","$163"],["Vueling","21:10","3h 05m","$349"],["easyJet","21:10","2h 10m","$225"]]}
+```
+TAP is the cheapest at $94, though it is also among the slower flights.
+--- derived
+
+=== G-0035
+--- user
+outages. OUT-166 and OUT-326 in particular
+--- reference
+There are 33 outages on record, and these are the first ten, including OUT-166 and OUT-326.
+```dyui
+{"ui":"table","columns":["ID","Area","Cause","Status","Customers"],"rows":[["OUT-166","Amsterdam","Power failure","Fixed",3237],["OUT-326","Chicago","Congestion","Monitoring",1208],["OUT-588","Cairo","Fibre cut","Investigating",9010],["OUT-502","Santiago","Fibre cut","Fixed",3494],["OUT-121","Amsterdam","Congestion","Investigating",6950],["OUT-688","Munich","Fibre cut","Fixed",10139],["OUT-917","Dubai","Software update","Investigating",7439],["OUT-934","Buenos Aires","Software update","Investigating",11086],["OUT-718","Zurich","Power failure","Monitoring",4537],["OUT-906","Rome","Power failure","Investigating",9640]]}
+```
+OUT-166 is fixed and OUT-326 is still being monitored; the remaining 23 are not listed here.
+--- derived
+23
+
+=== G-0031
+--- user
+Please give me this week's performance figures for the team. I'm mainly interested in Yara Ferreira, Tara Mendes and Greta Rossi, but include everyone.
+--- reference
+Here is the performance of all five agents.
+```dyui
+{"ui":"table","columns":["Agent","Resolved","CSAT","Avg handle"],"rows":[["Yara Ferreira",57,95,7],["Tara Mendes",50,97,7],["Greta Rossi",63,92,16],["Felix Kim",25,99,20],["Quinn Costa",90,86,6]]}
+```
+Quinn Costa resolved the most tickets at 90, with the lowest CSAT of the group.
+--- derived
+
+=== G-0006
+--- user
+Could you look up athlete K-322 for me? I recall the goal being a 10K in under 50 min, with 3 sessions a week and Jamal Castillo as coach, but I would like to confirm.
+--- reference
+Here is the profile for athlete K-322.
+```dyui
+{"ui":"keyvalue","items":[{"key":"Goal","value":"10K in under 50 min"},{"key":"Weekly sessions","value":3},{"key":"Coach","value":"Jamal Castillo"},{"key":"Plan","value":"Base"},{"key":"Next test","value":"Aug 21"}]}
+```
+Your recollection is correct, and the next fitness test is on Aug 21.
+--- derived
+
+=== G-0002
+--- user
+bugs list? BUG-481, BUG-752, BUG-173 esp
+--- reference
+Four bugs are open, three of them Major.
+```dyui
+{"ui":"table","columns":["ID","Title","Severity","Owner"],"rows":[["BUG-481","Lag on arena map","Major","Dev Castillo"],["BUG-752","Daily reward not granted","Minor","Dmitri Yilmaz"],["BUG-173","Inventory duplicates","Major","Dmitri Larsen"],["BUG-456","Lag on arena map","Major","Yusuf Oliveira"]]}
+```
+BUG-481 and BUG-456 share the same title, so they may be worth checking together.
+--- derived
+3

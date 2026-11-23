@@ -1,0 +1,132 @@
+=== S-0002
+--- user
+Sto integrando DyUI nel nostro tracker di contratti. Come si fa un grafico a barre impilate (stacked bar)? Ho due serie su lun e mar: "Nuovi" con 4 e 6, "Di ritorno" con 3 e 5. E come aggiungo una badge accanto per etichettarlo, con quali colori?
+--- reference
+Ecco un esempio di stacked bar con due serie, insieme a una badge per etichettarlo.
+```dyui
+{"ui":"code","language":"json","code":"{\"ui\":\"chart\",\"kind\":\"bar\",\"labels\":[\"Lun\",\"Mar\"],\"series\":[{\"name\":\"Nuovi\",\"data\":[4,6]},{\"name\":\"Di ritorno\",\"data\":[3,5]}],\"stacked\":true}\n{\"ui\":\"badges\",\"items\":[{\"label\":\"Stacked bar\",\"color\":\"accent\"}]}"}
+```
+Il grafico impilato è un chart con kind bar e stacked true, dove ogni serie diventa un segmento. La badge richiede solo items, e ogni color può essere gray, accent, green, amber, red, blue o violet.
+--- derived
+
+=== S-0006
+--- user
+quick q: when I show a pick-one question about vehicle class (Compact, SUV, Van), how does the answer get back to me? and what props can I set on it?
+--- reference
+A choice component sends the user's pick back as an action message, and here is one for vehicle class.
+```dyui
+{"ui":"code","language":"json","code":"{\"ui\":\"choice\",\"question\":\"Which vehicle class?\",\"options\":[\"Compact\",\"SUV\",\"Van\"],\"multiple\":false,\"allow_other\":true,\"action\":\"pick_vehicle_class\",\"submit_label\":\"Confirm\"}"}
+```
+Only question and options are required; multiple, allow_other, action and submit_label are optional. When the user submits, you receive `[action:pick_vehicle_class]` followed by JSON with a `selected` array, plus an `other` field if they typed their own answer.
+--- derived
+
+=== S-0010
+--- user
+what can you render? show chart syntax w/ spend Jan 120, Feb 95
+--- reference
+I can render 36 built-in components, from text and data displays to inputs, and here is the chart syntax for your spend figures.
+```dyui
+{"ui":"code","language":"json","code":"{\"ui\":\"chart\",\"kind\":\"bar\",\"labels\":[\"Jan\",\"Feb\"],\"series\":[{\"name\":\"Spend\",\"data\":[120,95]}],\"title\":\"Monthly spend\"}"}
+```
+Beyond chart, the set covers things like table for records, stat for headline numbers and form for structured input, plus layouts, media and agent components. A chart needs kind (bar, line, area, pie, donut or scatter) and series; labels, title, unit and stacked are optional.
+--- derived
+36
+
+=== S-0003
+--- user
+I'm designing the retention screen for our economy dashboards and want to know what kinds of things you can render, in general. Could you also show me exactly how a headline number is written, say Day-7 retention at 42%, up 3 pts?
+--- reference
+You can render a wide set of components, and here is a headline number for Day-7 retention written as a stat.
+```dyui
+{"ui":"code","language":"json","code":"{\"ui\":\"stat\",\"label\":\"Day-7 retention\",\"value\":\"42%\",\"delta\":\"+3 pts\",\"trend\":\"up\"}"}
+```
+Besides stat, you can show a chart for trends and comparisons, a table for records, and a form to collect structured input, along with callouts, timelines, media and layouts. A stat requires label and value, while unit, delta, trend (up, down or flat) and help are optional.
+--- derived
+
+=== S-0005
+--- user
+how do i ask the user to confirm deleting plot B-12 and get the answer back?
+--- reference
+Use a confirm component with an action name and the plot in its data, as in this example.
+```dyui
+{"ui":"code","language":"json","code":"{\"ui\":\"confirm\",\"title\":\"Delete plot B-12?\",\"text\":\"This removes the plot record permanently.\",\"confirm_label\":\"Delete\",\"cancel_label\":\"Keep it\",\"action\":\"delete_plot\",\"data\":{\"plot\":\"B-12\"},\"danger\":true}"}
+```
+Only title is required. The user's choice returns as `[action:delete_plot]` with your data plus a confirmed flag, so you get `{"plot":"B-12","confirmed":true}` or the same with false.
+--- derived
+
+=== S-0012
+--- user
+hey, if I show a stat for 3 bookings today, will tapping it fire an action back to you?
+--- reference
+A stat is display-only, so here is the booking number as one.
+```dyui
+{"ui":"code","language":"json","code":"{\"ui\":\"stat\",\"label\":\"Bookings today\",\"value\":3}"}
+```
+It has no action prop: only label and value are required, with unit, delta, trend and help optional. Components such as buttons, confirm, form, choice and rating send `[action:<name>]` plus JSON back, while quick_replies simply arrive as a plain user message.
+--- derived
+
+=== S-0009
+--- user
+Please advise which component is appropriate for presenting shares of a whole. Our request traffic is split as API 62%, web 28% and batch 10%, and I would also like to feature the largest share on its own.
+--- reference
+For shares of a whole, use a chart with kind donut or pie, and a stat for the single largest share; both appear below.
+```dyui
+{"ui":"code","language":"json","code":"{\"ui\":\"chart\",\"kind\":\"donut\",\"labels\":[\"API\",\"Web\",\"Batch\"],\"series\":[{\"name\":\"Traffic share\",\"data\":[62,28,10]}],\"title\":\"Request traffic\"}\n{\"ui\":\"stat\",\"label\":\"API share\",\"value\":\"62%\"}"}
+```
+A donut or pie works best with at most six slices, while a stat takes label and value as its required props. Use the stat alone when only one share matters.
+--- derived
+
+=== S-0008
+--- user
+For our maintenance planner, I need two buttons on a work order, WO-4471: an approval and a deferral. Please show the correct syntax and explain how the click reaches you.
+--- reference
+Here are two buttons for work order WO-4471, each with its own action name.
+```dyui
+{"ui":"code","language":"json","code":"{\"ui\":\"buttons\",\"items\":[{\"label\":\"Approve\",\"action\":\"approve_work_order\",\"data\":{\"order\":\"WO-4471\"},\"style\":\"primary\"},{\"label\":\"Defer\",\"action\":\"defer_work_order\",\"data\":{\"order\":\"WO-4471\"},\"style\":\"secondary\"}]}"}
+```
+Each item needs a label and an action, and data and style (primary, secondary, ghost or danger) are optional. A click returns to me as `[action:approve_work_order]` followed by the item's data as JSON.
+--- derived
+
+=== S-0011
+--- user
+how do I do a stacked bar of incidents per day? SEV1 is 3 on Mon and 2 on Tue, SEV2 is 5 and 4. also want the on-call to pick a window, Last 24h or Last 7 days, and get the pick back
+--- reference
+Here is a stacked bar chart with one series per severity, followed by a choice for the time window.
+```dyui
+{"ui":"code","language":"json","code":"{\"ui\":\"chart\",\"kind\":\"bar\",\"labels\":[\"Mon\",\"Tue\"],\"series\":[{\"name\":\"SEV1\",\"data\":[3,2]},{\"name\":\"SEV2\",\"data\":[5,4]}],\"stacked\":true}\n{\"ui\":\"choice\",\"question\":\"Which window?\",\"options\":[\"Last 24h\",\"Last 7 days\"],\"action\":\"pick_window\"}"}
+```
+Stacked bar means kind bar with stacked true, so each series becomes a segment per day. The choice needs question and options; with an action set, the pick comes back as `[action:pick_window]` and a selected array.
+--- derived
+
+=== S-0001
+--- user
+We would like to collect a field report from our members. Could you explain what sort of content you are able to render and show how a form for crop name, report date and notes would be written?
+--- reference
+I can render text, data displays, inputs, media and layouts, and here is a form for the field report.
+```dyui
+{"ui":"code","language":"json","code":"{\"ui\":\"form\",\"title\":\"Field report\",\"fields\":[{\"name\":\"crop\",\"label\":\"Crop name\",\"type\":\"text\",\"required\":true},{\"name\":\"report_date\",\"label\":\"Report date\",\"type\":\"date\"},{\"name\":\"notes\",\"label\":\"Notes\",\"type\":\"textarea\"}],\"submit_label\":\"Send report\",\"action\":\"field_report\"}"}
+```
+Beyond form, I can show a chart for trends and comparisons or a table for records. A form requires fields, and each field type can be text, textarea, number, email, select, multiselect, date, time, checkbox, radio or slider.
+--- derived
+
+=== S-0007
+--- user
+Kindly list the props of the stat component. Please give an example in which weekly listeners are 1.2 million, up 4.5% on the previous week.
+--- reference
+The stat component takes two required props and four optional ones, all shown in this example.
+```dyui
+{"ui":"code","language":"json","code":"{\"ui\":\"stat\",\"label\":\"Weekly listeners\",\"value\":1.2,\"unit\":\"M\",\"delta\":\"+4.5%\",\"trend\":\"up\",\"help\":\"Compared with the previous week\"}"}
+```
+The required props of stat are label and value, and the optional ones are unit, delta, trend and help. Trend accepts up, down or flat.
+--- derived
+
+=== S-0004
+--- user
+whats the difference between quick replies and buttons? and where do badges fit, like tagging my tomatoes "Ready" and basil "Needs water"
+--- reference
+Quick replies and buttons differ in how the answer comes back, and this example puts all three side by side.
+```dyui
+{"ui":"code","language":"json","code":"{\"ui\":\"badges\",\"items\":[{\"label\":\"Tomatoes: Ready\",\"color\":\"green\"},{\"label\":\"Basil: Needs water\",\"color\":\"amber\"}]}\n{\"ui\":\"quick_replies\",\"options\":[\"Watering schedule\",\"Soil tips\"]}\n{\"ui\":\"buttons\",\"items\":[{\"label\":\"Mark watered\",\"action\":\"mark_watered\"}]}"}
+```
+Tapping a quick reply arrives as a plain user message, while a button sends `[action:mark_watered]` with JSON data. Badges are only labels with a color (gray, accent, green, amber, red, blue or violet), so they trigger nothing.
+--- derived

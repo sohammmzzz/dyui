@@ -1,0 +1,112 @@
+=== A-0055
+--- user
+a customer said "Onboarding felt like a conversation, not a manual." and I want it up on the landing page as a nice pull quote
+--- reference
+This is the line set as a pull quote for the landing page.
+```dyui
+{"ui":"quote","text":"Onboarding felt like a conversation, not a manual."}
+```
+It has no attribution yet, so adding the customer's name later would make it stronger.
+--- derived
+
+=== A-0034
+--- user
+Our security walkthrough is stored at https://help.helpwave.example.com/video/security.mp4 and I would rather not open another tab to watch it. Can you play it here in the conversation, please?
+--- reference
+The security walkthrough is ready to play below.
+```dyui
+{"ui":"video","src":"https://help.helpwave.example.com/video/security.mp4"}
+```
+It plays inline, so you can stay in this conversation while you watch.
+--- derived
+
+=== A-0019
+--- user
+Start my onboarding.
+--- reference
+I need a few details from you to get started, so here is the onboarding form.
+```dyui
+{"ui":"form","title":"Onboarding","fields":[{"name":"full_name","label":"Full name","type":"text","required":true,"placeholder":"Ana Silva"},{"name":"company","label":"Company","type":"text","required":true},{"name":"topics","label":"Topics","type":"multiselect","options":["Pricing","Security","Integrations","Onboarding"],"required":true},{"name":"seating","label":"Seating","type":"radio","options":["Indoor","Terrace","Bar"],"required":true},{"name":"email","label":"Email","type":"email","required":true,"placeholder":"you@company.com"}],"submit_label":"Continue","action":"start_onboarding"}
+```
+Every field is required, and pressing Continue sends your answers back so I can proceed.
+--- derived
+
+=== A-0057
+--- user
+here's the onboarding walkthrough: https://www.youtube.com/watch?v=-iQICJk8HMy, the thumbnail is https://static.brasa.example.com/img/case-study-34.webp. embed it so I can watch, caption it "The onboarding walkthrough" pls
+--- reference
+The walkthrough is embedded with its thumbnail and caption.
+```dyui
+{"ui":"video","src":"https://www.youtube.com/watch?v=-iQICJk8HMy","poster":"https://static.brasa.example.com/img/case-study-34.webp","caption":"The onboarding walkthrough"}
+```
+The thumbnail shows until you press play.
+--- derived
+
+=== A-0051
+--- user
+need the roadmap shared as a file, it's at https://files.example.com/files/roadmap.csv
+--- reference
+Here is the roadmap as a downloadable file.
+```dyui
+{"ui":"file","name":"roadmap.csv","url":"https://files.example.com/files/roadmap.csv"}
+```
+Anyone with this chat can download it directly from the card.
+--- derived
+
+=== A-0072
+--- user
+the supplier left a voicemail and it's at https://docs.acme-cloud.example.com/audio/report-11.mp3 — can you give me a player for it? title it "Voicemail from the supplier"
+--- reference
+Here is the supplier's voicemail with a player.
+```dyui
+{"ui":"audio","src":"https://docs.acme-cloud.example.com/audio/report-11.mp3","title":"Voicemail from the supplier"}
+```
+Listen to it here, and I can help note down anything relevant to the claim afterwards.
+--- derived
+
+=== A-0049
+--- user
+Please cite the following four references in your answer, with their short descriptions. 1) Annual review, https://help.helpwave.example.com/faq, "Has the latest figures." 2) Compliance handbook, https://media.example.net/faq, "Walks through the setup." 3) Release notes, https://files.example.com/report, "Walks through the setup." 4) Getting started guide, https://docs.acme-cloud.example.com/benchmark, "Explains the controls in plain language."
+--- reference
+These are the four references behind the answer.
+```dyui
+{"ui":"sources","items":[{"title":"Annual review","url":"https://help.helpwave.example.com/faq","snippet":"Has the latest figures."},{"title":"Compliance handbook","url":"https://media.example.net/faq","snippet":"Walks through the setup."},{"title":"Release notes","url":"https://files.example.com/report","snippet":"Walks through the setup."},{"title":"Getting started guide","url":"https://docs.acme-cloud.example.com/benchmark","snippet":"Explains the controls in plain language."}]}
+```
+They are numbered so each claim can point back to a specific reference.
+--- derived
+
+=== A-0048
+--- user
+Show these in a grid: https://cdn.fernhill.example.com/img/getting-started-11.png?v=1 https://assets.lumen.example.io/img/roadmap-34.jpg?v=2 https://cdn.fernhill.example.com/img/security-24.jpg?v=3 https://news.example.com/img/overview-03.png?v=4 https://news.example.com/img/release-notes-34.png?v=5 https://media.example.net/img/overview-29.webp?v=6
+--- reference
+All six images are laid out together in a grid.
+```dyui
+{"ui":"gallery","images":[{"src":"https://cdn.fernhill.example.com/img/getting-started-11.png?v=1"},{"src":"https://assets.lumen.example.io/img/roadmap-34.jpg?v=2"},{"src":"https://cdn.fernhill.example.com/img/security-24.jpg?v=3"},{"src":"https://news.example.com/img/overview-03.png?v=4"},{"src":"https://news.example.com/img/release-notes-34.png?v=5"},{"src":"https://media.example.net/img/overview-29.webp?v=6"}]}
+```
+The grid lets you compare them side by side without scrolling through each one.
+--- derived
+6
+
+=== A-0104
+--- user
+I was comparing two flights for the donor trip: TAP at $296 versus easyJet at $312. Walk me through why TAP is the right pick, and show the reasoning as it took 2529 ms to work out.
+--- reference
+Here is the reasoning behind the fare choice.
+```dyui
+{"ui":"reasoning","text":"Comparing the two fares: TAP at $296 is $16 cheaper than easyJet at $312. Price is the deciding factor, so TAP is the better pick.","duration_ms":2529}
+```
+The gap between the two fares is what settles it.
+--- derived
+16
+
+=== A-0020
+--- user
+Our report job fell over and I need to tell the customer. The import job failed after 3 retries, which means the Click-through rate figure could not be read. How should we word this for them?
+--- reference
+This is a customer-facing error note that states what happened without internal jargon.
+```dyui
+{"ui":"callout","text":"The import job failed after 3 retries, so Click-through rate could not be read.","level":"error","title":"Something went wrong"}
+```
+It names the metric affected and the retry count, so the customer knows the scope without needing technical details.
+--- derived
+

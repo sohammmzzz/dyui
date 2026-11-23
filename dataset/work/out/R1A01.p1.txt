@@ -1,0 +1,14 @@
+=== A-0068
+--- user
+I need to pick a hotel for the Portugal trip, so please give me a brief clickable list of the shortlist. Each row: name, town, nightly rate, then its image link.
+Quinta Verde, Sintra, $164/night, https://news.example.com/img/handbook-32.webp
+Praça Suites, Lisbon, $187/night, https://news.example.com/img/getting-started-38.jpg
+Casa Alfama, Lisbon, $142/night, https://files.example.com/img/roadmap-31.png
+--- reference
+Here are the three shortlisted hotels, one clickable row each.
+```dyui
+{"ui":"list","items":[{"title":"Quinta Verde","subtitle":"Sintra","meta":"$164/night","image":"https://news.example.com/img/handbook-32.webp","action":"pick_hotel","data":{"hotel":"Quinta Verde"}},{"title":"Praça Suites","subtitle":"Lisbon","meta":"$187/night","image":"https://news.example.com/img/getting-started-38.jpg","action":"pick_hotel","data":{"hotel":"Praça Suites"}},{"title":"Casa Alfama","subtitle":"Lisbon","meta":"$142/night","image":"https://files.example.com/img/roadmap-31.png","action":"pick_hotel","data":{"hotel":"Casa Alfama"}}]}
+```
+Selecting a row sends that hotel back to me as your pick.
+--- derived
+

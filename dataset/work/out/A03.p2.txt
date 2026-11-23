@@ -1,0 +1,109 @@
+=== A-0044
+--- user
+I have three status tags on this account that I'd like to see at a glance as small pills: At risk, Internal and Approved. Can you display them that way?
+--- reference
+Here are the three tags as pills.
+```dyui
+{"ui":"badges","items":[{"label":"At risk"},{"label":"Internal"},{"label":"Approved"}]}
+```
+They sit in one row, so the account's status is readable in a glance.
+--- derived
+
+=== A-0088
+--- user
+Please give me an overview of the trip figures: hotel per night $121, walking per day 7.2 km, trip budget $1,912, and 19 days booked.
+--- reference
+Here is the trip overview with the four headline figures.
+```dyui
+{"ui":"stats","items":[{"label":"Hotel per night","value":"$121"},{"label":"Walking per day","value":"7.2 km"},{"label":"Trip budget","value":"$1,912"},{"label":"Days booked","value":"19"}]}
+```
+Together they cover cost, effort and length of the trip.
+--- derived
+
+=== A-0029
+--- user
+I'd like to reserve a table for dinner this weekend. I'm guessing you need a few details from me, like my name, how many people are coming, when we'll arrive, and how you should reach me (email, phone or chat). Also, afterwards I'd like to rate how satisfied I am on a scale from 0 to 10.
+--- reference
+Here is the reservation form to fill in.
+```dyui
+{"ui":"form","fields":[{"name":"full_name"},{"name":"quantity","type":"number"},{"name":"arrival","type":"time"},{"name":"contact_method","type":"radio","options":["Email","Phone","Chat"]},{"name":"satisfaction","type":"slider","min":0,"max":10}]}
+```
+Submit it and I will send your details back for the booking.
+--- derived
+
+=== A-0054
+--- user
+ey, muéstrame en la traza el paso donde se consulta la factura: la herramienta "Fetch invoice" ya terminó, entrada invoice INV-0412, devolvió result paid y tardó 726 ms.
+--- reference
+Este es el paso de la traza, ya completado.
+```dyui
+{"ui":"step","title":"Fetch invoice","status":"done","type":"tool","input":{"invoice":"INV-0412"},"output":{"result":"paid"},"duration_ms":726}
+```
+La factura figura como pagada, así que no queda nada pendiente en este paso.
+--- derived
+
+=== A-0010
+--- user
+Pode mostrar o Hotel Avenida como um cartão? Tem cancelamento grátis (Free cancellation), uma etiqueta Sale, a imagem é https://cdn.fernhill.example.com/img/guide-05.png, o ARPDAU de referência é $0.10 e quero um botão Book.
+--- reference
+Aqui está o Hotel Avenida num cartão com imagem, etiqueta e botão de reserva.
+```dyui
+{"ui":"card","title":"Hotel Avenida","subtitle":"Free cancellation","image":"https://cdn.fernhill.example.com/img/guide-05.png","badge":"Sale","children":[{"ui":"stat","label":"ARPDAU","value":"$0.10"}],"actions":[{"label":"Book","action":"book_item","style":"primary"}]}
+```
+Ao clicar em Book, a escolha volta para mim como uma ação.
+--- derived
+
+=== A-0016
+--- user
+Hör mal, kannst du mir den Satz hier als Testimonial hervorheben? "Support answered before I finished my coffee." Das hat Felix Hoang, Ops lead, gesagt.
+--- reference
+Hier ist der Satz als hervorgehobenes Zitat mit Namensangabe.
+```dyui
+{"ui":"quote","text":"Support answered before I finished my coffee.","author":"Felix Hoang, Ops lead"}
+```
+So wirkt die Aussage direkt und lässt sich gut in eine Präsentation übernehmen.
+--- derived
+
+=== A-0006
+--- user
+I've got a short audio clip of our coaching FAQ at https://news.example.com/audio/faq-22.mp3 and I'd like to play it right here in the chat while I'm warming up. Could you give me a player for it?
+--- reference
+Here is a player for the coaching FAQ clip.
+```dyui
+{"ui":"audio","src":"https://news.example.com/audio/faq-22.mp3"}
+```
+You can start and pause it as you go through your warm-up.
+--- derived
+
+=== A-0068
+--- user
+Please list our shortlisted hotels briefly, so I can pick one: Quinta Verde in Sintra, $164/night, image https://news.example.com/img/handbook-32.webp; Praça Suites in Lisbon, $187/night, image https://news.example.com/img/getting-started-38.jpg; and Casa Alfama in Lisbon, $142/night, image https://files.example.com/img/roadmap-31.png. Each row should be clickable to select that hotel.
+--- reference
+Here are the three shortlisted hotels, one clickable row each.
+```dyui
+{"ui":"list","items":[{"title":"Quinta Verde","subtitle":"Sintra","meta":"$164/night","image":"https://news.example.com/img/handbook-32.webp","action":"pick_hotel","data":{"hotel":"Quinta Verde"}},{"title":"Praça Suites","subtitle":"Lisbon","meta":"$187/night","image":"https://news.example.com/img/getting-started-38.jpg","action":"pick_hotel","data":{"hotel":"Praça Suites"}},{"title":"Casa Alfama","subtitle":"Lisbon","meta":"$142/night","image":"https://files.example.com/img/roadmap-31.png","action":"pick_hotel","data":{"hotel":"Casa Alfama"}}]}
+```
+Click a row and I will take that hotel as your pick.
+--- derived
+
+=== A-0036
+--- user
+can u show this as a preview card? https://docs.acme-cloud.example.com/annual-review/70 - the title is "Pricing that scales with your team"
+--- reference
+Here is the link as a preview card.
+```dyui
+{"ui":"link_preview","url":"https://docs.acme-cloud.example.com/annual-review/70","title":"Pricing that scales with your team"}
+```
+The title tells readers what the page is about before they open it.
+--- derived
+
+=== A-0021
+--- user
+Show the summarise step so I can follow along: it's an llm step called "Summarise thread", still pending, and its input is messages: 24.
+--- reference
+The summarise step is queued and has not started yet.
+```dyui
+{"ui":"step","title":"Summarise thread","status":"pending","type":"llm","input":{"messages":24}}
+```
+Its status will change once the model starts working through the thread.
+--- derived

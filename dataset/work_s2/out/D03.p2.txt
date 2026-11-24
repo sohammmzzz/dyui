@@ -1,0 +1,121 @@
+=== D-0066
+--- user
+In a card titled "Account overview", could you show my reasoning for the fare decision (1692 ms)? Vueling at $169 is $222 cheaper than Iberia at $391; price is the deciding factor, so Vueling is the better pick.
+--- reference
+A $222 saving makes Vueling the pick, and the reasoning is held inside the account overview card.
+```dyui
+{"ui":"card","title":"Account overview","children":[{"ui":"reasoning","text":"Comparing the two fares: Vueling at $169 is $222 cheaper than Iberia at $391. Price is the deciding factor, so Vueling is the better pick.","duration_ms":1692}]}
+```
+The saving is large enough that price alone settles the choice.
+--- derived
+
+
+=== D-0062
+--- user
+Kindly show our hiring progress as 322 out of 385, inside a card titled "Weekly summary".
+--- reference
+Hiring has reached 322 of 385, shown as a bar inside the weekly summary card.
+```dyui
+{"ui":"card","title":"Weekly summary","children":[{"ui":"progress","value":322,"max":385}]}
+```
+That leaves a remaining gap of 63 before the target is reached.
+--- derived
+63 (385 - 322)
+
+
+=== D-0127
+--- user
+Two columns for the listing board: left, a shell command to serve a folder with nginx: docker run --rm -p 8080:80 -v "$PWD":/usr/share/nginx/html:ro nginx:alpine. Right, four status tags: Blocked, Pending review, Featured (accent color), Stable (green).
+--- reference
+The nginx command takes the left column, and the four listing statuses are on the right.
+```dyui
+{"ui":"grid","columns":2,"children":[{"ui":"code","code":"docker run --rm -p 8080:80 -v \"$PWD\":/usr/share/nginx/html:ro nginx:alpine","language":"bash"},{"ui":"badges","items":[{"label":"Blocked"},{"label":"Pending review"},{"label":"Featured","color":"accent"},{"label":"Stable","color":"green"}]}]}
+```
+The container serves the current folder read-only on port 8080 and is removed when it stops.
+--- derived
+
+
+=== D-0098
+--- user
+Side by side, two columns, for the incident channel. Left: owner Payments, language Go, on-call Mateo Park, last deploy Mar 19, SLO 99.99%. Right: deploys table, columns Service, Version, Status, Duration: auth v2.3.13 In progress 7; checkout v2.2.1 Succeeded 16; billing v2.1.20 Rolled back 14; api-gateway v2.9.19 Succeeded 20; search v2.3.19 Rolled back 20; notifications v2.4.19 Rolled back 20; checkout v2.8.7 In progress 10.
+--- reference
+Three of the seven deploys were rolled back, and Mateo Park is the on-call for the Payments team.
+```dyui
+{"ui":"grid","columns":2,"children":[{"ui":"keyvalue","items":[{"key":"Owner","value":"Payments"},{"key":"Language","value":"Go"},{"key":"On-call","value":"Mateo Park"},{"key":"Last deploy","value":"Mar 19"},{"key":"SLO","value":"99.99%"}]},{"ui":"table","columns":["Service","Version","Status","Duration"],"rows":[["auth","v2.3.13","In progress",7],["checkout","v2.2.1","Succeeded",16],["billing","v2.1.20","Rolled back",14],["api-gateway","v2.9.19","Succeeded",20],["search","v2.3.19","Rolled back",20],["notifications","v2.4.19","Rolled back",20],["checkout","v2.8.7","In progress",10]]}]}
+```
+Billing, search and notifications are the rolled-back services to check first.
+--- derived
+3 rolled back, 7 deploys
+
+
+=== D-0096
+--- user
+Put my fare reasoning (449 ms) in a card named "Account overview": easyJet at $298 is $113 cheaper than TAP at $411, price decides, easyJet is the better pick.
+--- reference
+easyJet undercuts TAP by $113, and the comparison is recorded in the account overview card.
+```dyui
+{"ui":"card","title":"Account overview","children":[{"ui":"reasoning","text":"Comparing the two fares: easyJet at $298 is $113 cheaper than TAP at $411. Price is the deciding factor, so easyJet is the better pick.","duration_ms":449}]}
+```
+Only price was weighed, so schedule differences are not part of this recommendation.
+--- derived
+
+
+=== D-0059
+--- user
+For the brochure, a swipeable row with two hotel lists. List one has photos and prices: Casa Alfama $142/night (https://files.example.com/img/release-notes-29.png), Praça Suites $187/night (https://assets.lumen.example.io/img/q3-summary-33.png), Mar & Sol $96/night (https://static.brasa.example.com/img/security-07.webp), Hotel Avenida $118/night (https://help.helpwave.example.com/img/q3-summary-14.webp), Quinta Verde $164/night (https://files.example.com/img/annual-review-20.jpg). List two is clickable (each row sends pick_hotel with the hotel name): Mar & Sol $96/night (https://media.example.net/img/roadmap-20.jpg), Hotel Avenida $118/night (https://static.brasa.example.com/img/handbook-21.png), Praça Suites $187/night (https://www.example.org/img/benchmark-31.webp).
+--- reference
+Five hotels with photos open the row, and a shorter clickable shortlist follows.
+```dyui
+{"ui":"carousel","children":[{"ui":"list","items":[{"title":"Casa Alfama","meta":"$142/night","image":"https://files.example.com/img/release-notes-29.png"},{"title":"Praça Suites","meta":"$187/night","image":"https://assets.lumen.example.io/img/q3-summary-33.png"},{"title":"Mar & Sol","meta":"$96/night","image":"https://static.brasa.example.com/img/security-07.webp"},{"title":"Hotel Avenida","meta":"$118/night","image":"https://help.helpwave.example.com/img/q3-summary-14.webp"},{"title":"Quinta Verde","meta":"$164/night","image":"https://files.example.com/img/annual-review-20.jpg"}]},{"ui":"list","items":[{"title":"Mar & Sol","meta":"$96/night","image":"https://media.example.net/img/roadmap-20.jpg","action":"pick_hotel","data":{"hotel":"Mar & Sol"}},{"title":"Hotel Avenida","meta":"$118/night","image":"https://static.brasa.example.com/img/handbook-21.png","action":"pick_hotel","data":{"hotel":"Hotel Avenida"}},{"title":"Praça Suites","meta":"$187/night","image":"https://www.example.org/img/benchmark-31.webp","action":"pick_hotel","data":{"hotel":"Praça Suites"}}]}]}
+```
+Choosing a row in the second list sends the hotel name back to me.
+--- derived
+
+
+=== D-0128
+--- user
+Could you present the following in two columns? Left, a Display campaign: budget $29,885, starts Jul 13, owner Lena Larsen. Right, headline numbers: leads 1,843, ad spend $13.3k, click-through rate 4.2%.
+--- reference
+Lena Larsen's Display campaign details are on the left, with its three performance numbers on the right.
+```dyui
+{"ui":"grid","columns":2,"children":[{"ui":"keyvalue","items":[{"key":"Channel","value":"Display"},{"key":"Budget","value":"$29,885"},{"key":"Start","value":"Jul 13"},{"key":"Owner","value":"Lena Larsen"}]},{"ui":"stats","items":[{"label":"Leads","value":"1,843"},{"label":"Ad spend","value":"$13.3k"},{"label":"Click-through rate","value":"4.2%"}]}]}
+```
+Leads and click-through rate sit next to the spend, so cost against results is visible at a glance.
+--- derived
+
+
+=== D-0033
+--- user
+I have the walkthrough video: https://www.youtube.com/watch?v=ado6mg6rn5Z. Stick it in a card called "Trip overview" with the caption "The onboarding walkthrough".
+--- reference
+The onboarding walkthrough is embedded in the trip overview card.
+```dyui
+{"ui":"card","title":"Trip overview","children":[{"ui":"video","src":"https://www.youtube.com/watch?v=ado6mg6rn5Z","caption":"The onboarding walkthrough"}]}
+```
+It plays inline, so nobody has to leave the chat to watch it.
+--- derived
+
+
+=== D-0074
+--- user
+Two tabs please. Overview: timeline: Rebuild the retention cohort (Sep 5), Publish the dashboard (Oct 7), Audit the tracking plan (Nov 9), Review with the growth lead (Dec 11), Backfill last quarter's events (Sep 13). More: a pie of orders by plan: Starter 1783, Free 3274, Team 3407, Pro 5110, Enterprise 2831.
+--- reference
+Five milestones fill the timeline tab, and Pro leads the order split at 5110.
+```dyui
+{"ui":"tabs","tabs":[{"label":"Overview","children":[{"ui":"timeline","items":[{"title":"Rebuild the retention cohort","time":"Sep 5"},{"title":"Publish the dashboard","time":"Oct 7"},{"title":"Audit the tracking plan","time":"Nov 9"},{"title":"Review with the growth lead","time":"Dec 11"},{"title":"Backfill last quarter's events","time":"Sep 13"}]}]},{"label":"More","children":[{"ui":"chart","kind":"pie","labels":["Starter","Free","Team","Pro","Enterprise"],"series":[{"name":"Orders","data":[1783,3274,3407,5110,2831]}]}]}]}
+```
+The backfill dated Sep 13 comes after the Oct 7 dashboard in the list, so the order is as you gave it rather than by date.
+--- derived
+
+
+=== D-0052
+--- user
+Dispatch panel, formal please: two collapsible sections. Main section has, in two columns, suggestion chips "Show it as a table", "Show the top 3", "Compare with last month", "How does this compare to target?" and a question "Which day suits you best?" with Monday, Wednesday, Friday, an option to type another, submit label "Schedule". More detail has a thumbs rating that sends rate_answer.
+--- reference
+Follow-up chips and a day question share the first section, and the thumbs rating waits in the second.
+```dyui
+{"ui":"accordion","items":[{"title":"Main section","children":[{"ui":"grid","children":[{"ui":"quick_replies","options":["Show it as a table","Show the top 3","Compare with last month","How does this compare to target?"]},{"ui":"choice","question":"Which day suits you best?","options":["Monday","Wednesday","Friday"],"allow_other":true,"submit_label":"Schedule"}],"columns":2}]},{"title":"More detail","children":[{"ui":"rating","style":"thumbs","action":"rate_answer"}]}]}
+```
+Picking a day sends your answer to me, and the thumbs rating returns as rate_answer.
+--- derived
+

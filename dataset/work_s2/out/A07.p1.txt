@@ -1,0 +1,118 @@
+=== A-0035
+--- user
+Could you make a card for the Lisbon · 3 nights offer? Subtitle "Free cancellation", and inside it the royalties figure of $144.9k. I would also like a Save button on it, styled as a secondary action.
+--- reference
+The Lisbon offer becomes a card with its royalties figure on show.
+```dyui
+{"ui":"card","title":"Lisbon · 3 nights","subtitle":"Free cancellation","children":[{"ui":"stat","label":"Royalties","value":"$144.9k"}],"actions":[{"label":"Save","action":"save_item","style":"secondary"}]}
+```
+The Save button sends its action back to me when pressed.
+--- derived
+
+=== A-0190
+--- user
+Please show these three as a gallery, with their descriptions and captions:
+https://static.brasa.example.com/img/benchmark-39.jpg?v=1 - The pilot batch on the line, caption "After"
+https://assets.lumen.example.io/img/overview-03.jpg?v=2 - The stage before doors opened, caption "Close-up"
+https://files.example.com/img/pricing-12.png?v=3 - The product on a white background, caption "Before"
+--- reference
+Three photos, each with a caption, go into the gallery.
+```dyui
+{"ui":"gallery","images":[{"src":"https://static.brasa.example.com/img/benchmark-39.jpg?v=1","alt":"The pilot batch on the line","caption":"After"},{"src":"https://assets.lumen.example.io/img/overview-03.jpg?v=2","alt":"The stage before doors opened","caption":"Close-up"},{"src":"https://files.example.com/img/pricing-12.png?v=3","alt":"The product on a white background","caption":"Before"}]}
+```
+Each photo carries its caption and description.
+--- derived
+
+=== A-0004
+--- user
+I would like to start my onboarding at the co-op. Please collect my full name (placeholder Ana Silva, required), an email address, the topics I care about from Pricing, Security, Integrations and Onboarding (required), a satisfaction slider from 0 to 10 in steps of 1, and a required checkbox to accept the terms. The submit button should say Continue.
+--- reference
+Your onboarding form is ready, with name, topics and the terms checkbox required.
+```dyui
+{"ui":"form","fields":[{"name":"full_name","label":"Full name","type":"text","required":true,"placeholder":"Ana Silva"},{"name":"email","label":"Email","type":"email"},{"name":"topics","label":"Topics","type":"multiselect","options":["Pricing","Security","Integrations","Onboarding"],"required":true},{"name":"satisfaction","label":"How satisfied are you?","type":"slider","min":0,"max":10,"step":1},{"name":"terms","label":"I accept the terms","type":"checkbox","required":true}],"submit_label":"Continue","action":"start_onboarding"}
+```
+Email and the satisfaction slider can be skipped.
+--- derived
+
+=== A-0273
+--- user
+show as a tree: goal Half marathon, 6 weekly sessions, coach Olga Silva, plan Base, tags beta and renewal
+--- reference
+The training record unfolds as a readable tree.
+```dyui
+{"ui":"json","data":{"goal":"Half marathon","weekly_sessions":6,"coach":"Olga Silva","plan":"Base","tags":["beta","renewal"]}}
+```
+Expand the tags node to see both entries.
+--- derived
+
+=== A-0241
+--- user
+Please track the outpatient clinic plan for this visit. Booking the follow-up is in progress, taking vitals is done, sending the visit summary is in progress, and collecting the insurance card is still pending.
+--- reference
+Taking vitals is done, and the outpatient clinic plan below tracks the rest.
+```dyui
+{"ui":"plan","title":"Outpatient clinic plan","items":[{"title":"Book the follow-up","status":"active"},{"title":"Take vitals","status":"done"},{"title":"Send the visit summary","status":"active"},{"title":"Collect the insurance card","status":"pending"}]}
+```
+Two steps are in progress and the insurance card is still to come.
+--- derived
+
+=== A-0256
+--- user
+what does the list look like? here's what I have: 7 Harbour Row, 1 bed, $832, New; 19 Quay Street, 3 beds, $748, Under offer; 5 Orchard Way, 3 beds, $185, New; 48 Rua Verde, 1 bed, $684, Under offer; 12 Mill Lane, 5 beds, $152, Reduced; 301 Elm Court, 4 beds, $975, Active; 19 Quay Street, 2 beds, $359, New; 7 Harbour Row, 4 beds, $658, Active
+--- reference
+Eight listings come out as a table, with Harbour Row and Quay Street each repeated.
+```dyui
+{"ui":"table","columns":["Address","Beds","Price","Status"],"rows":[["7 Harbour Row",1,"$832","New"],["19 Quay Street",3,"$748","Under offer"],["5 Orchard Way",3,"$185","New"],["48 Rua Verde",1,"$684","Under offer"],["12 Mill Lane",5,"$152","Reduced"],["301 Elm Court",4,"$975","Active"],["19 Quay Street",2,"$359","New"],["7 Harbour Row",4,"$658","Active"]]}
+```
+Mill Lane is the cheapest at $152 and Elm Court the priciest at $975.
+--- derived
+
+=== A-0071
+--- user
+Could you display this line properly as a quote? I want to use it as a customer comment in our support portal: "Finally, reports that explain themselves."
+--- reference
+The support comment is formatted as a quote.
+```dyui
+{"ui":"quote","text":"Finally, reports that explain themselves."}
+```
+It is shown without an attribution line.
+--- derived
+
+=== A-0112
+--- user
+Kindly embed the tutorial video so I can watch it here. The file is https://blog.northwind.example.com/video/case-study.mp4 and the poster image is https://www.example.org/img/report-32.jpg. Please caption it "The tutorial".
+--- reference
+The tutorial video is embedded below with its poster image.
+```dyui
+{"ui":"video","src":"https://blog.northwind.example.com/video/case-study.mp4","poster":"https://www.example.org/img/report-32.jpg","caption":"The tutorial"}
+```
+The poster image appears until you press play.
+--- derived
+
+=== A-0268
+--- user
+put these into a gallery pls
+https://www.example.org/img/security-08.png?v=1 (The trail marker at the summit, "Close-up")
+https://www.example.org/img/faq-36.webp?v=2 (The updated storefront, "Close-up")
+https://cdn.fernhill.example.com/img/faq-13.jpg?v=3 (The trail marker at the summit, "Detail")
+https://files.example.com/img/roadmap-01.webp?v=4 (The harvest at dawn, "Before")
+https://help.helpwave.example.com/img/report-39.png?v=5 (The harvest at dawn, "Before")
+--- reference
+Five photos, captions intact, are collected in a gallery.
+```dyui
+{"ui":"gallery","images":[{"src":"https://www.example.org/img/security-08.png?v=1","alt":"The trail marker at the summit","caption":"Close-up"},{"src":"https://www.example.org/img/faq-36.webp?v=2","alt":"The updated storefront","caption":"Close-up"},{"src":"https://cdn.fernhill.example.com/img/faq-13.jpg?v=3","alt":"The trail marker at the summit","caption":"Detail"},{"src":"https://files.example.com/img/roadmap-01.webp?v=4","alt":"The harvest at dawn","caption":"Before"},{"src":"https://help.helpwave.example.com/img/report-39.png?v=5","alt":"The harvest at dawn","caption":"Before"}]}
+```
+Every image keeps its caption and description from your list.
+--- derived
+
+=== A-0230
+--- user
+hey, can you give me a player for this audio? https://help.helpwave.example.com/audio/report-08.mp3
+--- reference
+A player is ready for that recording.
+```dyui
+{"ui":"audio","src":"https://help.helpwave.example.com/audio/report-08.mp3"}
+```
+Press play to listen to it in the chat.
+--- derived
+

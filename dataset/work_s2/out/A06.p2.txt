@@ -1,0 +1,111 @@
+=== A-0223
+--- user
+We're choosing between two flights: Iberia at $191 and easyJet at $236. I would like you to explain your reasoning for picking Iberia, and note that the reasoning took 2408 ms.
+--- reference
+Iberia wins on price, and the reasoning is written out below.
+```dyui
+{"ui":"reasoning","text":"Comparing the two fares: Iberia at $191 is $45 cheaper than easyJet at $236. Price is the deciding factor, so Iberia is the better pick.","duration_ms":2408}
+```
+Iberia comes out $45 cheaper, which is what decides it.
+--- derived
+45
+
+=== A-0200
+--- user
+put a divider labelled "Outlook" before the forecast section
+--- reference
+A divider marks the point where the outlook begins.
+```dyui
+{"ui":"divider","label":"Outlook"}
+```
+Everything after the divider falls under the Outlook heading.
+--- derived
+
+=== A-0221
+--- user
+Bitte entwerfen Sie ein FAQ für die Preisseite mit drei Fragen: Wie funktionieren Rückerstattungen (Rückzahlung auf die ursprüngliche Zahlungsmethode innerhalb von 5–10 Werktagen), gibt es eine API (ja, jeder Tarif enthält API-Zugriff mit Ratenlimits pro Schlüssel) und kann ich meinen Tarif später ändern (ja, Upgrades gelten sofort, Downgrades beginnen zum nächsten Abrechnungstermin).
+--- reference
+Drei aufklappbare Antworten bilden das FAQ für die Preisseite.
+```dyui
+{"ui":"accordion","items":[{"title":"Wie funktionieren Rückerstattungen?","children":[{"ui":"markdown","text":"Erstattungen gehen innerhalb von **5–10 Werktagen** auf die ursprüngliche Zahlungsmethode zurück."}]},{"title":"Gibt es eine API?","children":[{"ui":"markdown","text":"Ja. Jeder Tarif enthält API-Zugriff mit Ratenlimits pro Schlüssel."}]},{"title":"Kann ich meinen Tarif später ändern?","children":[{"ui":"markdown","text":"Ja. Upgrades gelten sofort, Downgrades beginnen zum nächsten Abrechnungstermin."}]}]}
+```
+Jede Antwort bleibt zugeklappt, bis sie geöffnet wird.
+--- derived
+
+=== A-0074
+--- user
+play this here: https://files.example.com/video/security.mp4
+--- reference
+The video plays right in the chat.
+```dyui
+{"ui":"video","src":"https://files.example.com/video/security.mp4"}
+```
+It plays inline without leaving the conversation.
+--- derived
+
+=== A-0265
+--- user
+embed this call recording: https://blog.northwind.example.com/audio/handbook-11.mp3 title it Customer call
+--- reference
+The customer call is loaded in the player below.
+```dyui
+{"ui":"audio","src":"https://blog.northwind.example.com/audio/handbook-11.mp3","title":"Customer call"}
+```
+It is ready to play from the chat.
+--- derived
+
+=== A-0001
+--- user
+card for Orion Dashboard pls. subtitle Fri – Mon, image https://help.helpwave.example.com/img/benchmark-06.webp, badge Last seats. body: what happens next - see the clinician, take vitals, send the visit summary. plus a red Decline button
+--- reference
+Orion Dashboard becomes a card with the visit steps and a decline action.
+```dyui
+{"ui":"card","title":"Orion Dashboard","subtitle":"Fri – Mon","image":"https://help.helpwave.example.com/img/benchmark-06.webp","badge":"Last seats","children":[{"ui":"markdown","text":"### What happens next\n- **See** the clinician\n- **Take** vitals\n- **Send** the visit summary"}],"actions":[{"label":"Decline","action":"decline_item","style":"danger"}]}
+```
+Pressing Decline sends its action back to me so the booking can be released.
+--- derived
+
+=== A-0227
+--- user
+the flight search just failed. render that tool step for me, it was called "Search flights".
+--- reference
+The flight search step failed, and its status below says so.
+```dyui
+{"ui":"step","title":"Search flights","status":"error"}
+```
+The step ended in an error, so no flight results came back from it.
+--- derived
+
+=== A-0022
+--- user
+I need a card for the Lisbon · 3 nights trip, with a "Popular" badge. In the body, a checklist: review with the growth lead, backfill last quarter's events, publish the dashboard, and rebuild the retention cohort. I also want a Decline button styled as destructive.
+--- reference
+The Lisbon trip is a card with the checklist inside.
+```dyui
+{"ui":"card","title":"Lisbon · 3 nights","badge":"Popular","children":[{"ui":"markdown","text":"### Checklist\n- **Review** with the growth lead\n- **Backfill** last quarter's events\n- **Publish** the dashboard\n- **Rebuild** the retention cohort"}],"actions":[{"label":"Decline","action":"decline_item","style":"danger"}]}
+```
+The Decline button is styled as a destructive action and reports back to me when pressed.
+--- derived
+
+=== A-0130
+--- user
+show this in the chat: https://cdn.fernhill.example.com/img/faq-20.png, caption "Photo by the site team"
+--- reference
+The site team's photo is shown inline with its caption.
+```dyui
+{"ui":"image","src":"https://cdn.fernhill.example.com/img/faq-20.png","caption":"Photo by the site team"}
+```
+It is shown inline in the conversation.
+--- derived
+
+=== A-0193
+--- user
+Please show the video from the network briefing. The file is at https://help.helpwave.example.com/video/security.mp4, with the poster image https://help.helpwave.example.com/img/handbook-34.png, and the caption should read "The product demo".
+--- reference
+The product demo opens with its poster image.
+```dyui
+{"ui":"video","src":"https://help.helpwave.example.com/video/security.mp4","poster":"https://help.helpwave.example.com/img/handbook-34.png","caption":"The product demo"}
+```
+The poster appears first and the video starts on play.
+--- derived
+

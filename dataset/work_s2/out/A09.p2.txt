@@ -1,0 +1,164 @@
+=== A-0291
+--- user
+The household audit finished and I saved the PDF as audit-report.pdf at https://media.example.net/files/audit-report.pdf. Could you attach it here so I can grab it later when I'm back at my desk?
+--- reference
+The audit report is attached below and ready to download.
+```dyui
+{"ui":"file","name":"audit-report.pdf","url":"https://media.example.net/files/audit-report.pdf"}
+```
+Use the download link whenever you need the PDF again.
+--- derived
+
+=== A-0028
+--- user
+The import job failed after 4 retries, so Subscriptions could not be read. I'd like the user to be told about this directly in the app, so please word the notice for them.
+--- reference
+A short error notice in the app tells the user what went wrong.
+```dyui
+{"ui":"callout","level":"error","text":"The import job failed after 4 retries, so Subscriptions could not be read."}
+```
+It states the cause and the retry count without speculating further.
+--- derived
+
+=== A-0300
+--- user
+show the video https://cdn.fernhill.example.com/video/release-notes.mp4, poster https://www.example.org/img/overview-33.png, caption "Last week's town hall"
+--- reference
+Last week's town hall is ready to play, poster image included.
+```dyui
+{"ui":"video","src":"https://cdn.fernhill.example.com/video/release-notes.mp4","poster":"https://www.example.org/img/overview-33.png","caption":"Last week's town hall"}
+```
+The poster shows until you press play.
+--- derived
+
+=== A-0042
+--- user
+The customer's dashboard shows nothing for the field sensors. The report refresh failed after 7 retries, so Soil moisture could not be read. How do we word this for the customer? I'd like it to read as a clear error notice.
+--- reference
+For the customer, a plain error notice works better than a long explanation.
+```dyui
+{"ui":"callout","level":"error","text":"The report refresh failed after 7 retries, so Soil moisture could not be read."}
+```
+It names the cause and the number of retries, without guessing at the reason.
+--- derived
+
+=== A-0258
+--- user
+Fais-moi une carte d'aperçu pour https://help.helpwave.example.com/handbook/23 — titre "2026 industry benchmark report", description "A look at the changes behind the speedup.", image https://news.example.com/img/annual-review-39.jpg, site help.helpwave.example.com
+--- reference
+Voici le lien présenté sous forme de carte d'aperçu.
+```dyui
+{"ui":"link_preview","url":"https://help.helpwave.example.com/handbook/23","title":"2026 industry benchmark report","description":"A look at the changes behind the speedup.","image":"https://news.example.com/img/annual-review-39.jpg","site":"help.helpwave.example.com"}
+```
+La carte montre le titre, la description et l'image avant même d'ouvrir la page.
+--- derived
+
+=== A-0131
+--- user
+Here is the walkthrough for this week: https://blog.northwind.example.com/video/roadmap.mp4. I would like to be able to watch it here, so can you play it in the chat? Thanks.
+--- reference
+The roadmap video is embedded below and ready to play.
+```dyui
+{"ui":"video","src":"https://blog.northwind.example.com/video/roadmap.mp4"}
+```
+Press play to watch it without leaving the conversation.
+--- derived
+
+=== A-0269
+--- user
+Please render the following statuses as pills I can see at a glance: Beta in amber, In progress, Deprecated in red, and Approved.
+--- reference
+Four statuses, four pills, readable at a glance.
+```dyui
+{"ui":"badges","items":[{"label":"Beta","color":"amber"},{"label":"In progress"},{"label":"Deprecated","color":"red"},{"label":"Approved"}]}
+```
+Amber and red mark the two statuses that need attention; the other two use the default tone.
+--- derived
+
+=== A-0108
+--- user
+Pode mostrar aquele passo da ferramenta? Chama-se "Search flights" e ainda está pendente, não começou.
+--- reference
+Aqui está o passo da ferramenta, ainda à espera de ser executado.
+```dyui
+{"ui":"step","title":"Search flights","status":"pending"}
+```
+Quando a pesquisa começar, o estado deste passo muda para em execução.
+--- derived
+
+=== A-0276
+--- user
+can you show it as a readable tree? plan Pro, 282 seats, renewal Jan 18, owner Ben Rossi, health At risk, tags beta and renewal. title it Account payload
+--- reference
+Open the nodes below to walk through the account record.
+```dyui
+{"ui":"json","data":{"plan":"Pro","seats":282,"renewal":"Jan 18","owner":"Ben Rossi","health":"At risk","tags":["beta","renewal"]},"title":"Account payload"}
+```
+The health value is "At risk", which is worth a look before the renewal date.
+--- derived
+
+=== A-0093
+--- user
+https://docs.acme-cloud.example.com/security/6 - preview card pls. blurb: "Controls, audits and data handling in one place." image: https://www.example.org/img/benchmark-07.png
+--- reference
+Pasted as a preview card, the link carries its blurb and image.
+```dyui
+{"ui":"link_preview","url":"https://docs.acme-cloud.example.com/security/6","description":"Controls, audits and data handling in one place.","image":"https://www.example.org/img/benchmark-07.png"}
+```
+It opens the security page directly.
+--- derived
+
+=== A-0279
+--- user
+Please embed this recording so I can watch it without leaving the chat: https://static.brasa.example.com/video/handbook.mp4
+--- reference
+The handbook recording is embedded below.
+```dyui
+{"ui":"video","src":"https://static.brasa.example.com/video/handbook.mp4"}
+```
+Press play to start watching.
+--- derived
+
+=== A-0287
+--- user
+Before we move on, could you give me a thumbs up or thumbs down option for the reply you just wrote? It is for the tutorial, and I'd like the prompt labelled "Your feedback".
+--- reference
+A thumbs prompt now sits under the tutorial reply.
+```dyui
+{"ui":"rating","label":"Your feedback","style":"thumbs","action":"rate_tutorial"}
+```
+Your choice comes straight back to me as soon as you tap one.
+--- derived
+
+=== A-0036
+--- user
+render them as tags: "Staff pick", violet
+--- reference
+One violet tag, as requested.
+```dyui
+{"ui":"badges","items":[{"label":"Staff pick","color":"violet"}]}
+```
+It shows up as a single highlighted label in violet.
+--- derived
+
+=== A-0060
+--- user
+ok so vehicle CM-2042, a Corolla, mileage 62168, based at the Campus depot. tags renewal and audit, meta version 9, dry_run false. make this explorable, title "Vehicle payload"
+--- reference
+CM-2042 is below as a tree you can explore.
+```dyui
+{"ui":"json","data":{"plate":"CM-2042","model":"Corolla","mileage":62168,"depot":"Campus","tags":["renewal","audit"],"meta":{"version":9,"dry_run":false}},"title":"Vehicle payload"}
+```
+Expand `meta` and `tags` to see the nested values.
+--- derived
+
+=== A-0081
+--- user
+track by Wanjiru Rossi, Jazz, 4:30, tags audit and renewal, meta version 2 and dry_run true. show the structure
+--- reference
+The track's structure, nested as it is in the data.
+```dyui
+{"ui":"json","data":{"artist":"Wanjiru Rossi","genre":"Jazz","length":"4:30","tags":["audit","renewal"],"meta":{"version":2,"dry_run":true}}}
+```
+The `dry_run` flag in `meta` is set to true.
+--- derived

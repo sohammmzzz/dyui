@@ -1,0 +1,143 @@
+=== H-0004
+--- user
+Put these in order for the stakeholders, please. The sequence we agreed is: return to the pool (Katya Lindqvist), swap the tyres (Lena Reyes), inspect the vehicle (Wen Novak), road test (Wanjiru Larsen), book the service slot (Felix Castillo).
+--- reference
+Here is the sequence with an owner for each step.
+
+1. Return to the pool, owned by Katya Lindqvist
+2. Swap the tyres, owned by Lena Reyes
+3. Inspect the vehicle, owned by Wen Novak
+4. Road test, owned by Wanjiru Larsen
+5. Book the service slot, owned by Felix Castillo
+
+Each step has a single owner, so stakeholders know who to ask.
+--- derived
+
+
+=== H-0017
+--- user
+Please present the current network readings as headline numbers. Latency is 16 ms against a target of 18 ms. Subscribers stand at 647359 and are rising. Dropped calls are at 1.9%. Data used is 64.0 GB, up 10.8%, with a target of 70.4 GB.
+--- reference
+Here are the four network readings as headline figures.
+```dyui
+{"ui":"stats","items":[{"label":"Latency","value":"16 ms","help":"Target 18 ms"},{"label":"Subscribers","value":"647359","trend":"up"},{"label":"Dropped calls","value":"1.9%"},{"label":"Data used","value":"64.0 GB","delta":"+10.8%","trend":"up","help":"Target 70.4 GB"}]}
+```
+Latency is inside its target, and data usage is growing but still under its ceiling.
+--- derived
+
+
+=== H-0042
+--- user
+Leads by mode this week: Practice 1198, Solo 4760, Ranked 2316, Co-op 2746. Where are they coming from?
+--- reference
+Here are the leads for each of the four modes.
+```dyui
+{"ui":"stats","items":[{"label":"Practice","value":1198},{"label":"Solo","value":4760},{"label":"Ranked","value":2316},{"label":"Co-op","value":2746}]}
+```
+Solo is the biggest source of leads, and Practice is the smallest.
+--- derived
+
+
+=== H-0025
+--- user
+I need to share the event rundown with the team and it has to be easy to scan. Spring Festival has 129822 players and $58,225 revenue, Live. Lunar Hunt 142425 players, $47,083, Ended. Double XP Weekend 7571 players, $33,403, Ended. Boss Rush 159746 players, $10,887, Ended. Speedrun Cup 110847 players, $73,999, Live. A table would be perfect.
+--- reference
+Here is the rundown with the five events lined up for easy scanning.
+
+| Event | Players | Revenue | Status |
+|---|---|---|---|
+| Spring Festival | 129822 | $58,225 | Live |
+| Lunar Hunt | 142425 | $47,083 | Ended |
+| Double XP Weekend | 7571 | $33,403 | Ended |
+| Boss Rush | 159746 | $10,887 | Ended |
+| Speedrun Cup | 110847 | $73,999 | Live |
+
+Speedrun Cup brings in the most revenue at $73,999 and is still live, while Boss Rush drew the most players but earned the least.
+--- derived
+
+
+=== H-0055
+--- user
+Where are we on the contract? Draft from the template is done, legal review is done, final approval is in progress right now, and counterparty redlines are still pending. Give me the plan view for the contract management plan.
+--- reference
+Here is the contract management plan with each step's status.
+```dyui
+{"ui":"plan","title":"Contract management plan","items":[{"title":"Counterparty redlines","status":"pending"},{"title":"Final approval","status":"active"},{"title":"Draft from the template","status":"done"},{"title":"Legal review","status":"done"}]}
+```
+Final approval is the step in progress, with the counterparty redlines still waiting.
+--- derived
+
+
+=== H-0052
+--- user
+Lay that out as a timeline for me: first Update the product feed (Chloe Eriksson), then Pull the supplier invoices (Viktor Ibrahim), then Reconcile stock counts (Omar Nguyen).
+--- reference
+Here is the merchandising work in order with an owner on each step.
+```dyui
+{"ui":"timeline","items":[{"title":"Update the product feed","text":"Owner: Chloe Eriksson"},{"title":"Pull the supplier invoices","text":"Owner: Viktor Ibrahim"},{"title":"Reconcile stock counts","text":"Owner: Omar Nguyen"}]}
+```
+Each step has a different owner, so there is no single person to chase.
+--- derived
+
+
+=== H-0040
+--- user
+can you lay out the details for van CM-9863? It's a Transit with 54189 mileage, based at the Campus depot, next service Dec 24, currently in service.
+--- reference
+Here are the details for vehicle CM-9863.
+
+- **Plate:** CM-9863
+- **Model:** Transit
+- **Mileage:** 54189
+- **Depot:** Campus
+- **Next service:** Dec 24
+- **Status:** In service
+
+It is in service now, with its next maintenance slot on Dec 24.
+--- derived
+
+
+=== H-0047
+--- user
+Show me the clause tracker cleanly please: Payment terms, Elena Kowalski, Open. Data processing, Gabriel Castillo, Open. Termination, Yusuf Singh, Countered. Limitation of liability, Ana Lindqvist, Countered. Governing law, Katya Eriksson, Accepted. Termination, Bruno Oliveira, Accepted.
+--- reference
+Here is the clause tracker with owner and status for each row.
+
+| Clause | Owner | Status |
+|---|---|---|
+| Payment terms | Elena Kowalski | Open |
+| Data processing | Gabriel Castillo | Open |
+| Termination | Yusuf Singh | Countered |
+| Limitation of liability | Ana Lindqvist | Countered |
+| Governing law | Katya Eriksson | Accepted |
+| Termination | Bruno Oliveira | Accepted |
+
+Termination shows up twice with different owners and statuses, so make sure both rows are intentional.
+--- derived
+
+
+=== H-0039
+--- user
+On-time delivery is at 94.3% this month, up 16.7% versus last month. Can you show that nicely, like a big KPI card?
+--- reference
+On-time delivery came in at 94.3%, which is up 16.7% compared with last month.
+That is a strong improvement for the dispatch team.
+--- derived
+
+
+=== H-0044
+--- user
+Could you summarise those as headline figures for me? Open tickets 601 (flat, 0%), escalations 25 (flat, target 28), resolved today 148 (flat), CSAT 88%, backlog age 1.2 days (0%, target 1.3 days), and first response time 42 min (0%).
+--- reference
+Here is the queue summarised across the six measures.
+
+- **Open tickets:** 601, flat at 0%
+- **Escalations:** 25, flat, against a target of 28
+- **Resolved today:** 148, flat
+- **CSAT:** 88%
+- **Backlog age:** 1.2 days, flat at 0%, against a target of 1.3 days
+- **First response time:** 42 min, flat at 0%
+
+Everything is holding steady, and both escalations and backlog age sit inside their targets.
+--- derived
+

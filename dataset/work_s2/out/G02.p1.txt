@@ -1,0 +1,101 @@
+=== G-0068
+--- user
+any events lined up?
+--- reference
+The events lookup came back empty, so there are no events to report.
+Nothing is listed on the calendar in the data I received.
+--- derived
+
+=== G-0046
+--- user
+Could you pull up candidate ID-683 for me? I believe they are the Data analyst hire, at the Offer stage and sourced through the Agency, but I would like it confirmed.
+--- reference
+Here are the details on file for candidate ID-683.
+```dyui
+{"ui":"keyvalue","items":[{"key":"Role","value":"Data analyst"},{"key":"Stage","value":"Offer"},{"key":"Source","value":"Agency"},{"key":"Recruiter","value":"Tara Lindqvist"},{"key":"Start date","value":"Apr 12"}]}
+```
+The record matches what you described, with Tara Lindqvist as the recruiter and a start date of Apr 12.
+--- derived
+
+=== G-0116
+--- user
+open machines on the line?
+--- reference
+No machines with an open status were returned.
+The lookup came back empty, so there is nothing to act on right now.
+--- derived
+
+=== G-0093
+--- user
+I am putting together the quarterly fundraising report and need the full donor list pulled up before this afternoon's board prep. Can you fetch it?
+--- reference
+The donor lookup did not succeed, so I have no list to show.
+```dyui
+{"ui":"callout","level":"error","title":"Donor list unavailable","text":"The request failed with status 429 (upstream_timeout): Your role cannot read this resource."}
+```
+No donor data was loaded; the message points to a permissions issue, so access to this resource needs to be sorted out before the report can use it.
+--- derived
+
+=== G-0117
+--- user
+show me the current listings
+--- reference
+The listings request did not go through.
+```dyui
+{"ui":"callout","level":"error","title":"Listings unavailable","text":"The service returned status 503 (upstream_timeout): Too many requests, retry after 30 seconds."}
+```
+Nothing was loaded, so try again after the 30-second wait.
+--- derived
+
+=== G-0099
+--- user
+Please list the co-op's equipment, up to 50 records, but show me only the first 10. I am particularly interested in the Sprayer S2 and the John Deere 6130 units.
+--- reference
+The lookup returned 40 machines in total; here are the first 10.
+```dyui
+{"ui":"table","columns":["Machine","Hours","Status"],"rows":[["Sprayer S2",647,"Ready"],["John Deere 6130",1761,"Service due"],["Kubota M7",2281,"Service due"],["Claas Lexion",5071,"Service due"],["Baler B1",207,"Service due"],["John Deere 6130",5272,"Ready"],["Kubota M7",3267,"Service due"],["Sprayer S2",2802,"In field"],["Baler B1",679,"Ready"],["John Deere 6130",1427,"In field"]]}
+```
+Several of these are marked Service due, including the John Deere 6130 at 1761 hours.
+--- derived
+
+=== G-0060
+--- user
+Good afternoon. Could you tell me which events are currently scheduled?
+--- reference
+The events lookup returned no results, so no events are currently scheduled in the data I can see.
+If you expected something to be listed, the entry may not have been created yet.
+--- derived
+
+=== G-0050
+--- user
+Please list our current plans. I am mainly interested in Family, Max and Plus, with their data allowance, speed and price.
+--- reference
+Here are the three plans with their data, speed and price.
+```dyui
+{"ui":"table","columns":["Plan","Data (GB)","Speed (Mbps)","Price"],"rows":[["Family",88,666,"$24"],["Max",187,592,"$42"],["Plus",162,400,"$30"]]}
+```
+Max has the largest data allowance at 187 GB, while Family is the cheapest at $24.
+--- derived
+
+=== G-0043
+--- user
+Pull the latest deployments with a limit of 50, but the top 10 is plenty. I am mainly chasing billing and notifications.
+--- reference
+The lookup returned 44 deployments; here are the first 10.
+```dyui
+{"ui":"table","columns":["Service","Version","Status","Duration"],"rows":[["billing","v2.1.12","Rolled back",7],["notifications","v2.9.11","Rolled back",17],["auth","v2.4.17","Rolled back",13],["api-gateway","v2.7.9","In progress",18],["search","v2.9.19","Rolled back",8],["checkout","v2.5.13","Rolled back",5],["search","v2.9.5","Succeeded",25],["api-gateway","v2.7.15","Rolled back",11],["api-gateway","v2.8.18","In progress",22],["auth","v2.3.0","Rolled back",11]]}
+```
+Both billing v2.1.12 and notifications v2.9.11 were rolled back, and only search v2.9.5 succeeded in this slice.
+--- derived
+
+=== G-0096
+--- user
+can you grab my assignments (limit 50)? just the first 10 tho. mostly wanna see the Stats project and the Linear equations set
+--- reference
+You have 33 assignments in total, so here are the first 10.
+```dyui
+{"ui":"table","columns":["Assignment","Due","Weight","Status"],"rows":[["Stats project","May 1",25,"Submitted"],["Linear equations set","Jan 27",24,"Late"],["Newton's laws quiz","Apr 13",34,"Graded"],["Cell biology lab","Nov 27",28,"Graded"],["Essay on the Treaty of Utrecht","Jul 6",13,"Submitted"],["Cell biology lab","Dec 17",18,"Graded"],["Cell biology lab","Jul 18",34,"Open"],["Cell biology lab","Feb 5",32,"Open"],["Newton's laws quiz","Jul 16",16,"Submitted"],["Newton's laws quiz","Apr 7",38,"Graded"]]}
+```
+The Linear equations set is marked Late, while the Stats project is already submitted.
+--- derived
+

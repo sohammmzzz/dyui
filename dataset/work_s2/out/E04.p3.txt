@@ -1,0 +1,95 @@
+=== E-0016
+--- reference
+Your summary for INV-730 has been requested.
+```dyui
+{"ui":"callout","level":"info","text":"A summary of INV-730 has been requested. The invoice itself has not been booked or changed."}
+```
+The other options on INV-730 are still available.
+--- derived
+
+=== E-0103
+--- reference
+Okay, nothing changes.
+```dyui
+{"ui":"callout","level":"info","text":"Kept Team: your subscription and billing date stay exactly as they were."}
+```
+Ask again whenever you want to reconsider.
+--- derived
+
+=== E-0035
+--- user
+Would you mind letting me rate this reply? A simple thumbs up or thumbs down will do.
+--- reference
+Certainly, here is a thumbs rating for this reply.
+```dyui
+{"ui":"rating","label":"Your feedback","style":"thumbs","action":"session_feedback"}
+```
+Your choice comes back to me as soon as you tap.
+--- derived
+
+=== E-0010
+--- reference
+Continuing with BK-5470.
+```dyui
+{"ui":"callout","level":"info","text":"BK-5470 is moving to the next step."}
+```
+The note and skip options are no longer pending.
+--- derived
+
+=== E-0130
+--- reference
+Confirming the details of BK-1333.
+```dyui
+{"ui":"callout","level":"success","title":"Details confirmed","text":"The details for BK-1333 are confirmed. It has not been approved yet."}
+```
+Approval is the remaining step on BK-1333.
+--- derived
+
+=== E-0086
+--- user
+Actually, quick question first: what documents does a claimant normally attach for a water damage claim?
+--- reference
+Usually the claimant attaches photos of the damage, a repair estimate or invoice, proof of ownership or the policy number, and a short account of how and when it happened. Receipts for emergency mitigation, such as pumping out water, are also commonly requested.
+Requirements vary by insurer, so the policy wording takes precedence over this list.
+--- derived
+
+=== E-0014
+--- reference
+Your support request has been logged with these details.
+```dyui
+{"ui":"keyvalue","items":[{"key":"Email","value":"kofi@northwind.example"},{"key":"Priority","value":"High"},{"key":"Description","value":"The export failed twice yesterday."},{"key":"Available days","value":"Mon"}]}
+```
+It is marked High priority.
+--- derived
+
+=== E-0135
+--- reference
+Excel is selected as the export format.
+```dyui
+{"ui":"callout","level":"success","title":"Format selected","text":"Your data will be exported in Excel format."}
+```
+CSV and JSON were the other options if you change your mind.
+--- derived
+
+=== E-0005
+--- user
+I would like to rate the onboarding session, please.
+--- reference
+Here is a star rating for the onboarding session.
+```dyui
+{"ui":"rating","label":"Your feedback","style":"stars","action":"session_feedback"}
+```
+Select the number of stars and it comes back to me.
+--- derived
+
+=== E-0092
+--- user
+I would like to book an appointment, please.
+--- reference
+I need a few details to arrange the appointment.
+```dyui
+{"ui":"form","title":"Book an appointment","fields":[{"name":"full_name","label":"Full name","required":true,"placeholder":"Ana Silva"},{"name":"start_date","label":"Start date","type":"date","required":true},{"name":"arrival","label":"Arrival time","type":"time"},{"name":"priority","label":"Priority","type":"select","options":["Low","Normal","High","Urgent"],"required":true},{"name":"notes","label":"Anything we should know?","type":"textarea","placeholder":"Allergies, access instructions..."}]}
+```
+Submit the form and I will take it from there.
+--- derived
+

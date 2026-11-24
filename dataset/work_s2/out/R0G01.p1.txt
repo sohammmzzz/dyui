@@ -1,0 +1,107 @@
+=== G-0031
+--- user
+Pull up today's showings for me. In my calendar I've got 09:30, 11:00 and 15:00, and I want to cross-check those against the system.
+--- reference
+The system returned six showings across three properties.
+```dyui
+{"ui":"table","columns":["Time","Property","Buyer","Agent"],"rows":[["09:30","12 Mill Lane","Hugo Castillo","Gabriel Vasquez"],["15:00","12 Mill Lane","Yusuf Castillo","Yusuf Jensen"],["11:00","19 Quay Street","Greta Almeida","Sven Sato"],["17:15","7 Harbour Row","Ivan Mendes","Liam Vasquez"],["13:30","7 Harbour Row","Hugo Kowalski","Omar Almeida"],["11:00","19 Quay Street","Noor Vasquez","Jun Costa"]]}
+```
+Your three calendar slots all match, and Quay Street has two different buyers booked at the same hour with separate agents.
+--- derived
+
+
+=== G-0114
+--- user
+Quick check on how our top dishes are doing tonight, please. I'm mostly watching Burrata salad, Tonkotsu ramen and Charred octopus, but give me the full board with station and margin too.
+--- reference
+Charred octopus is out in front tonight, with Tonkotsu ramen and Burrata salad following behind it.
+```dyui
+{"ui":"table","columns":["Dish","Sold","Margin","Station"],"rows":[["Burrata salad",100,45,"Grill"],["Tonkotsu ramen",124,75,"Cold"],["Charred octopus",156,43,"Grill"],["Grilled sea bass",90,78,"Pastry"],["Mushroom risotto",95,66,"Pasta"]]}
+```
+Grilled sea bass moves the fewest plates but earns the best margin of the five, so it deserves a push from the floor.
+--- derived
+
+
+=== G-0120
+--- user
+Could you get our daily power usage for me, up to 50 rows? I'd like to compare the Sat and Sun readings first, with peak hour and cost alongside.
+--- reference
+The meter log holds thirty-five daily readings, so the table covers only the first ten, which open with Saturday and Sunday.
+```dyui
+{"ui":"table","columns":["Day","Usage kWh","Peak hour","Cost"],"rows":[["Sat",16,"08:00","$8"],["Sun",46,"20:00","$4"],["Tue",48,"19:00","$9"],["Wed",35,"07:00","$6"],["Fri",29,"07:00","$14"],["Thu",14,"19:00","$7"],["Mon",46,"19:00","$11"],["Thu",22,"19:00","$11"],["Mon",11,"19:00","$6"],["Sat",31,"19:00","$8"]]}
+```
+Tuesday is the heaviest day in this slice and the first Monday entry is the lightest, with Sunday matching Monday as the second-highest reading.
+--- derived
+
+
+=== G-0080
+--- user
+Would you please go through our creative tests? Fetch up to 50, and I intend to compare variants A and B before anything else. Only the first ten are needed on screen.
+--- reference
+The log contains thirty-five creative tests, and the table lists the first ten, with variants A and B leading it.
+```dyui
+{"ui":"table","columns":["Variant","Headline","CTR","Winner"],"rows":[["A","Save 20% today",1.9,"Yes"],["B","Free for 14 days",2.5,"Yes"],["C","Free for 14 days",2.8,"Running"],["D","Free for 14 days",4.5,"Running"],["C","Save 20% today",4.6,"No"],["C","See it in action",1.9,"Running"],["B","See it in action",1.9,"No"],["D","Free for 14 days",5.0,"No"],["D","Save 20% today",0.6,"Yes"],["C","Built for busy teams",2.0,"Yes"]]}
+```
+Variant B's first entry out-clicks A's, though both carry a Yes. The best click rate in this slice belongs to a D variant marked No, so CTR alone does not decide the winner flag.
+--- derived
+
+
+=== G-0095
+--- user
+Who is booked in tonight, please? I already know about the 20:45, 20:00 and 19:15 tables, but I would like to see the complete list with party sizes and notes.
+--- reference
+Four reservations are on the book tonight, running from the latest seating at the top to the earliest.
+```dyui
+{"ui":"table","columns":["Time","Name","Party","Notes"],"rows":[["20:45","Olga Lindqvist",11,"Birthday"],["20:00","Rin Rahman",2,"Window table"],["19:15","Greta Torres",8,"Window table"],["18:30","Carla Park",4,"Window table"]]}
+```
+Olga Lindqvist's party is the largest of the evening and carries a birthday note, so the kitchen may want advance warning.
+--- derived
+
+
+=== G-0023
+--- user
+Can you show me today's schedule? I especially want to check the 13:45, 16:20 and 15:00 slots, including the service and the room for each one.
+--- reference
+Six appointments are booked for today, shown in the order the system returned them.
+```dyui
+{"ui":"table","columns":["Time","Patient","Service","Room"],"rows":[["13:45","Sven Jensen","Check-up",2],["16:20","Carla Rahman","Lab work",8],["15:00","Ivan Rossi","Physio",4],["08:30","Wanjiru Garcia","Check-up",4],["09:15","Hugo Fischer","Physio",8],["11:30","Noor Ueda","Vaccination",3]]}
+```
+Two of the sessions are physio, and the two check-ups use different rooms.
+--- derived
+
+
+=== G-0051
+--- user
+Kindly retrieve the agent performance figures with a limit of 50. Only the first ten rows are required, and please pay particular attention to Wanjiru Torres and Elif Castillo.
+--- reference
+The report covers thirty-seven agents; the table shows the first ten, which begin with the two you named.
+```dyui
+{"ui":"table","columns":["Agent","Resolved","CSAT","Avg handle"],"rows":[["Wanjiru Torres",46,89,12],["Elif Castillo",59,80,6],["Quinn Haddad",27,88,11],["Ben Quispe",39,98,9],["Carla Weber",30,98,17],["Felix Singh",69,87,18],["Carla Yilmaz",58,93,10],["Felix Reyes",20,91,20],["Ivan Tanaka",18,85,6],["Greta Rahman",41,82,9]]}
+```
+Elif Castillo closed more tickets with a shorter handling time, whereas Wanjiru Torres holds the higher satisfaction score of the two.
+--- derived
+
+
+=== G-0040
+--- user
+Could you search flight options for the trip with a limit of 50? I only want the first ten results on screen, and I'd like to compare Vueling and easyJet in particular.
+--- reference
+The search found thirty-four options, and the table lists the first ten with departure time, duration and price.
+```dyui
+{"ui":"table","columns":["Airline","Departs","Duration","Price"],"rows":[["Vueling","12:30","2h 10m","$403"],["easyJet","06:40","2h 45m","$273"],["Ryanair","18:05","3h 05m","$338"],["TAP","15:05","3h 05m","$214"],["Air France","18:05","2h 45m","$174"],["Iberia","15:05","2h 45m","$324"],["Iberia","18:05","2h 10m","$287"],["easyJet","12:30","2h 45m","$269"],["TAP","12:30","2h 45m","$338"],["Ryanair","06:40","1h 35m","$212"]]}
+```
+Between your two airlines, easyJet is clearly the cheaper option in this slice, and its early departure comes with a lower fare.
+--- derived
+
+
+=== G-0034
+--- user
+I'd like the account overview, please. Northwind, Orbit Freight and Fernhill are the ones I care about, but include the rest with plan, seats, MRR and owner.
+--- reference
+Six accounts came back, with Northwind, Orbit Freight and Fernhill among them.
+```dyui
+{"ui":"table","columns":["Account","Plan","Seats","MRR","Owner"],"rows":[["Northwind","Pro",190,"$7,668","Xavier Castillo"],["Orbit Freight","Enterprise",394,"$1,005","Zainab Fischer"],["Fernhill","Team",190,"$5,507","Ivan Silva"],["Aperture","Team",258,"$5,519","Quinn Castillo"],["Globex","Enterprise",340,"$3,537","Umar Almeida"],["Vandelay","Enterprise",17,"$6,099","Ivan Yilmaz"]]}
+```
+Orbit Freight has the largest seat count yet brings in the least recurring revenue of the group.
+--- derived
+

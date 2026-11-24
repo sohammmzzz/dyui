@@ -1,0 +1,109 @@
+=== H-0031
+--- user
+Please summarise this account for me: Basic plan, 100 GB of data, $63 a month, renews Oct 14, 1 line, and its status is currently Suspended.
+--- reference
+The account sits on the Basic plan and is currently suspended.
+```dyui
+{"ui":"keyvalue","items":[{"key":"Plan","value":"Basic"},{"key":"Data GB","value":100},{"key":"Price","value":"$63"},{"key":"Renews","value":"Oct 14"},{"key":"Lines","value":1},{"key":"Status","value":"Suspended"}]}
+```
+The suspension is the fact that matters most, since the plan itself is still set to renew on Oct 14.
+--- derived
+
+=== H-0046
+--- user
+Churn is at 3.5% against a 3.1% threshold. Write that up as a message for the customer, flagged like an alert, and say we will review it before Friday.
+--- reference
+Here is a message you can send as it stands.
+
+> Our churn rate is currently 3.5%, above the 3.1% threshold. We will review it before Friday.
+
+It keeps both figures in view so the customer can see how far over the threshold the rate is.
+--- derived
+
+=== H-0023
+--- user
+We have reviewed 6 of 10 contracts in this batch. Can you show a progress bar so I can see how far along we are?
+--- reference
+Six contracts are through review out of the ten in the batch.
+```dyui
+{"ui":"stat","label":"Contracts reviewed","value":"6 of 10"}
+```
+Four contracts still need a reviewer before the batch is complete.
+--- derived
+4
+
+=== H-0006
+--- user
+Give me the overview for tonight: waitlist 1,307 (down 9.2%), refund requests 72 (trending down, target 79), capacity filled 71% (up 1.6%, target 78%), check-in wait 7 min, and revenue $88.1k (up 3.8%).
+--- reference
+Tonight's overview comes down to five numbers.
+```dyui
+{"ui":"stats","items":[{"label":"Waitlist","value":"1,307","delta":"-9.2%","trend":"down"},{"label":"Refund requests","value":"72","trend":"down","help":"Target 79"},{"label":"Capacity filled","value":"71%","delta":"+1.6%","trend":"up","help":"Target 78%"},{"label":"Check-in wait","value":7,"unit":"min"},{"label":"Revenue","value":"$88.1k","delta":"+3.8%","trend":"up"}]}
+```
+Refunds are already under their target, while capacity at 71% still has some way to go to reach 78%.
+--- derived
+
+=== H-0002
+--- user
+We have 1 NDA pending and the target is 1. Is this on track? A stat card would be handy if you can.
+--- reference
+Yes, this is on track: the 1 pending NDA matches the target of 1.
+Nothing needs to move unless that count changes.
+--- derived
+
+=== H-0001
+--- user
+What does the interview list look like? Mon is Sven Petrov, Case study at 11:30. Wed is Farah Ibrahim, Case study at 11:30. Tue is Umar Tanaka, also a Case study at 11:30, and Thu is Mateo Weber with the Hiring manager at 14:00.
+--- reference
+Four candidates are lined up, one for each of the days you listed.
+```dyui
+{"ui":"table","columns":["Day","Candidate","Panel","Time"],"rows":[["Mon","Sven Petrov","Case study","11:30"],["Wed","Farah Ibrahim","Case study","11:30"],["Tue","Umar Tanaka","Case study","11:30"],["Thu","Mateo Weber","Hiring manager","14:00"]]}
+```
+Only Mateo Weber's Thursday slot is with the hiring manager, and it starts later in the day at 14:00.
+--- derived
+
+=== H-0015
+--- user
+show me the progress, we've got 9 of 15 deliverables done for the campaign
+--- reference
+Nine of the fifteen campaign deliverables are done.
+```dyui
+{"ui":"progress","value":9,"max":15}
+```
+That leaves six still to go, so the campaign is past the halfway point.
+--- derived
+6
+
+=== H-0054
+--- user
+For invoice INV-968 I can approve it, reject the request, add a note, or leave it for now. What are my options?
+--- reference
+You have four ways to handle invoice INV-968:
+
+- **Approve** it and move it forward.
+- **Reject the request**, which is the one choice that closes it out negatively.
+- **Add a note** and keep the invoice open.
+- **Not now**, which leaves it untouched for later.
+
+Adding a note or choosing Not now keeps everything open, while Approve and Reject request settle it.
+--- derived
+
+=== H-0049
+--- user
+Escalations by priority this week: Normal 8, High 27, Low 29. How do they stack up?
+--- reference
+Low priority leads with 29 escalations, High is close behind at 27, and Normal trails at 8.
+High and Low together make up the bulk of the load, so Normal is the smallest group by a wide margin.
+--- derived
+
+=== H-0020
+--- user
+What's the breakdown of tickets per mode? Practice 3383, Events 1645, Ranked 2314, Solo 2646 and Co-op 4720.
+--- reference
+Co-op takes the largest share of tickets across the five modes.
+```dyui
+{"ui":"chart","kind":"donut","labels":["Practice","Events","Ranked","Solo","Co-op"],"series":[{"name":"Tickets","data":[3383,1645,2314,2646,4720]}],"title":"Tickets per mode","unit":"tickets"}
+```
+Events is the smallest slice, at 1645 tickets.
+--- derived
+

@@ -1,0 +1,119 @@
+=== D-0130
+--- user
+two columns pls. Left: a booking form with Full name (placeholder Ana Silva), Quantity (number, required, 1 to 50), Preferred time (time), Seating (radio: Indoor, Terrace, Bar) and a textarea "Anything we should know?". Right: tappable suggestions "Set an alert for this", "Show the top 3", "Break it down by city".
+--- reference
+Booking form on the left, three quick follow-ups on the right.
+```dyui
+{"ui":"grid","columns":2,"children":[{"ui":"form","fields":[{"name":"full_name","label":"Full name","placeholder":"Ana Silva"},{"name":"quantity","label":"Quantity","type":"number","required":true,"min":1,"max":50},{"name":"time","label":"Preferred time","type":"time"},{"name":"seating","label":"Seating","type":"radio","options":["Indoor","Terrace","Bar"]},{"name":"notes","label":"Anything we should know?","type":"textarea"}]},{"ui":"quick_replies","options":["Set an alert for this","Show the top 3","Break it down by city"]}]}
+```
+Only the quantity is mandatory, and the suggestions arrive as ordinary messages when tapped.
+--- derived
+
+
+=== D-0123
+--- user
+Card "Trip overview" with an audio player in it: https://blog.northwind.example.com/audio/security-25.mp3
+--- reference
+The clip plays from inside the trip overview card.
+```dyui
+{"ui":"card","title":"Trip overview","children":[{"ui":"audio","src":"https://blog.northwind.example.com/audio/security-25.mp3"}]}
+```
+Press play on the card to listen.
+--- derived
+
+
+=== D-0044
+--- user
+Could you organise the TCK-197 case into two tabs? "Overview" should have two columns: a timeline of the steps with owners (Reproduce the issue, Elif Eriksson; Confirm the fix, Jamal Kim; Close the ticket, Wen Novak; Escalate to tier 2, Rosa Petrov; Acknowledge the customer, Ana Silva) and a progress bar for the "Storage quota", 18 of 20. The second tab, "More", lists the ticket facts: ID TCK-197, Customer Elena Haddad, Queue Shipping, Priority Low.
+--- reference
+TCK-197 is divided into an overview tab and a details tab.
+```dyui
+{"ui":"tabs","tabs":[{"label":"Overview","children":[{"ui":"grid","children":[{"ui":"timeline","items":[{"title":"Reproduce the issue","text":"Owner: Elif Eriksson"},{"title":"Confirm the fix","text":"Owner: Jamal Kim"},{"title":"Close the ticket","text":"Owner: Wen Novak"},{"title":"Escalate to tier 2","text":"Owner: Rosa Petrov"},{"title":"Acknowledge the customer","text":"Owner: Ana Silva"}]},{"ui":"progress","value":18,"max":20,"label":"Storage quota"}],"columns":2}]},{"label":"More","children":[{"ui":"keyvalue","items":[{"key":"ID","value":"TCK-197"},{"key":"Customer","value":"Elena Haddad"},{"key":"Queue","value":"Shipping"},{"key":"Priority","value":"Low"}]}]}]}
+```
+The storage quota is close to its limit, which is worth watching.
+--- derived
+
+
+=== D-0022
+--- user
+I'd like two collapsible sections. The first, "Main section", should ask "How fast do you need it?" with the options Standard, Express and Same day, where more than one can be picked, and the answer should come back under the action name delivery_speed. The second, "More detail", should offer these suggested replies: "Show it as a table", "How does this compare to target?", "Compare with last month" and "Show the top 3".
+--- reference
+The delivery question and the follow-up suggestions each get a collapsible section.
+```dyui
+{"ui":"accordion","items":[{"title":"Main section","children":[{"ui":"choice","question":"How fast do you need it?","options":["Standard","Express","Same day"],"multiple":true,"action":"delivery_speed"}]},{"title":"More detail","children":[{"ui":"quick_replies","options":["Show it as a table","How does this compare to target?","Compare with last month","Show the top 3"]}]}]}
+```
+Your selections come back to me as a delivery_speed action once submitted.
+--- derived
+
+
+=== D-0041
+--- user
+Make a two-column grid of two cards. Card one: "Orion Dashboard", subtitle "Fri – Mon", image https://cdn.fernhill.example.com/img/overview-37.jpg, with the MRR figure $32.0k inside. Card two: "Pro plan" with plan Pro, 122 seats, renewal Jan 6, owner Viktor Dubois.
+--- reference
+Two cards share the row, one for the dashboard and one for the plan.
+```dyui
+{"ui":"grid","columns":2,"children":[{"ui":"card","title":"Orion Dashboard","subtitle":"Fri – Mon","image":"https://cdn.fernhill.example.com/img/overview-37.jpg","children":[{"ui":"stat","label":"MRR","value":"$32.0k"}]},{"ui":"card","title":"Pro plan","children":[{"ui":"keyvalue","items":[{"key":"Plan","value":"Pro"},{"key":"Seats","value":122},{"key":"Renewal","value":"Jan 6"},{"key":"Owner","value":"Viktor Dubois"}]}]}]}
+```
+The renewal on Jan 6 is the next date to prepare for.
+--- derived
+
+
+=== D-0023
+--- user
+I want two expandable sections of hotels. "Main section": clickable rows, each sending pick_hotel with the hotel name: Quinta Verde $164/night (https://static.brasa.example.com/img/changelog-19.png), Praça Suites $187/night (https://files.example.com/img/handbook-04.jpg), Casa Alfama $142/night (https://assets.lumen.example.io/img/changelog-05.png), Hotel Avenida $118/night (https://blog.northwind.example.com/img/guide-35.png). "More detail": a plain list of Praça Suites $187/night (https://help.helpwave.example.com/img/case-study-15.png), Hotel Avenida $118/night (https://www.example.org/img/pricing-30.jpg), Mar & Sol $96/night (https://news.example.com/img/guide-29.webp), Quinta Verde $164/night (https://www.example.org/img/release-notes-07.png), Casa Alfama $142/night (https://files.example.com/img/case-study-34.png).
+--- reference
+Hotels appear twice: as clickable rows in the first section and as a plain list in the second.
+```dyui
+{"ui":"accordion","items":[{"title":"Main section","children":[{"ui":"list","items":[{"title":"Quinta Verde","meta":"$164/night","image":"https://static.brasa.example.com/img/changelog-19.png","action":"pick_hotel","data":{"hotel":"Quinta Verde"}},{"title":"Praça Suites","meta":"$187/night","image":"https://files.example.com/img/handbook-04.jpg","action":"pick_hotel","data":{"hotel":"Praça Suites"}},{"title":"Casa Alfama","meta":"$142/night","image":"https://assets.lumen.example.io/img/changelog-05.png","action":"pick_hotel","data":{"hotel":"Casa Alfama"}},{"title":"Hotel Avenida","meta":"$118/night","image":"https://blog.northwind.example.com/img/guide-35.png","action":"pick_hotel","data":{"hotel":"Hotel Avenida"}}]}]},{"title":"More detail","children":[{"ui":"list","items":[{"title":"Praça Suites","meta":"$187/night","image":"https://help.helpwave.example.com/img/case-study-15.png"},{"title":"Hotel Avenida","meta":"$118/night","image":"https://www.example.org/img/pricing-30.jpg"},{"title":"Mar & Sol","meta":"$96/night","image":"https://news.example.com/img/guide-29.webp"},{"title":"Quinta Verde","meta":"$164/night","image":"https://www.example.org/img/release-notes-07.png"},{"title":"Casa Alfama","meta":"$142/night","image":"https://files.example.com/img/case-study-34.png"}]}]}]}
+```
+Clicking a row in the main section sends that hotel's name back to me.
+--- derived
+
+
+=== D-0106
+--- user
+need two tabs. First "Overview": ask which plan fits their team, options Starter, Pro, Team, Enterprise, button text Continue, action choose_plan. Second "More": a star rating, action session_feedback.
+--- reference
+Two tabs: the plan question first, the rating second.
+```dyui
+{"ui":"tabs","tabs":[{"label":"Overview","children":[{"ui":"choice","question":"Which plan fits your team?","options":["Starter","Pro","Team","Enterprise"],"action":"choose_plan","submit_label":"Continue"}]},{"label":"More","children":[{"ui":"rating","style":"stars","action":"session_feedback"}]}]}
+```
+The plan answer and the rating each come back as their own action.
+--- derived
+
+
+=== D-0118
+--- user
+swipe row: thumbs up/down rating, then suggestions "What changed the most?", "Set an alert for this", "Which genre is weakest?"
+--- reference
+Swipe from the thumbs rating to the suggested questions.
+```dyui
+{"ui":"carousel","children":[{"ui":"rating","style":"thumbs"},{"ui":"quick_replies","options":["What changed the most?","Set an alert for this","Which genre is weakest?"]}]}
+```
+A thumb sends 1 or -1, and a tapped suggestion arrives as a normal message.
+--- derived
+
+
+=== D-0070
+--- user
+I would like a two-column layout. On the left, a registration form (action event_registration) with: Full name; Email, an email field with placeholder you@company.com; Number of guests, a required number field with default 2 and maximum 12; "How should we contact you?", required radio with Email, Phone, Chat; and a checkbox "Send me updates", off by default. On the right, a rating with the action rate_tutorial.
+--- reference
+The registration form takes the left column, and the tutorial rating sits to its right.
+```dyui
+{"ui":"grid","columns":2,"children":[{"ui":"form","fields":[{"name":"full_name","label":"Full name"},{"name":"email","label":"Email","type":"email","placeholder":"you@company.com"},{"name":"guests","label":"Number of guests","type":"number","required":true,"default":2,"max":12},{"name":"contact_method","label":"How should we contact you?","type":"radio","options":["Email","Phone","Chat"],"required":true},{"name":"newsletter","label":"Send me updates","type":"checkbox","default":false}],"action":"event_registration"},{"ui":"rating","action":"rate_tutorial"}]}
+```
+The form submits under event_registration, and the rating comes back as rate_tutorial.
+--- derived
+
+
+=== D-0034
+--- user
+Could you add a card called "Weekly summary" that offers three suggested follow-up questions? They are "Explain the biggest drop", "Show the top 3" and "What changed the most?".
+--- reference
+Three follow-up questions are tucked into the weekly summary card.
+```dyui
+{"ui":"card","title":"Weekly summary","children":[{"ui":"quick_replies","options":["Explain the biggest drop","Show the top 3","What changed the most?"]}]}
+```
+Tap any of them and it is sent to me as your next message.
+--- derived
+

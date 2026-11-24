@@ -1,0 +1,163 @@
+=== C-0059
+--- user
+Grid carbon share has been 28%, 30%, 31% and 32% over the last four readings. Could you show the trajectory, and also draft a short success note for the customer saying the nightly sync finished and solar generation is back to 264 kWh, within the 215 kWh limit (title it "All set")? Please offer two next questions: "Set an alert for this" and "Forecast next month".
+--- reference
+Grid carbon has crept up from 28% to 32% over four readings.
+```dyui
+{"ui":"chart","kind":"line","series":[{"name":"Grid carbon","data":[28,30,31,32]}],"unit":"%"}
+```
+The customer note is worded below.
+```dyui
+{"ui":"callout","text":"The nightly sync finished and Solar generation is back to 264 kWh, within the 215 kWh limit.","level":"success","title":"All set"}
+```
+These are the questions you could tap next.
+```dyui
+{"ui":"quick_replies","options":["Set an alert for this","Forecast next month"]}
+```
+Grid carbon has risen at every reading, while the sync issue is resolved.
+--- derived
+
+
+=== C-0115
+--- user
+agents this week: Tomas Nakamura 18 resolved, CSAT 94, avg handle 20; Bruno Mendes 63, 81, 6; Olga Quispe 77, 91, 16; Wanjiru Fischer 87, 91, 16; Ben Ibrahim 21, 78, 7. make it easy to scan. and first response time by queue: feedback 3, billing 69, shipping 46, technical 54, account 86 - who's ahead?
+--- reference
+Five agents are compared side by side for resolved tickets, CSAT and handle time.
+```dyui
+{"ui":"table","columns":["Agent","Resolved","CSAT","Avg handle"],"rows":[["Tomas Nakamura",18,94,20],["Bruno Mendes",63,81,6],["Olga Quispe",77,91,16],["Wanjiru Fischer",87,91,16],["Ben Ibrahim",21,78,7]]}
+```
+Here is first response time across the five queues.
+```dyui
+{"ui":"chart","kind":"bar","labels":["Feedback","Billing","Shipping","Technical","Account"],"series":[{"name":"First response time","data":[3,69,46,54,86]}],"title":"First response time by queue"}
+```
+Wanjiru Fischer is ahead on resolved tickets, and the Account queue is the slowest to respond.
+--- derived
+
+
+=== C-0100
+--- user
+Our fundraising goal is at 18% right now. Could you show the progress, and tell me what I can do with it: dismiss the alert, edit the details, or start a review?
+--- reference
+The fundraising goal stands at 18%.
+```dyui
+{"ui":"progress","value":18,"label":"Fundraising goal"}
+```
+These are the actions available from here.
+```dyui
+{"ui":"buttons","items":[{"label":"Dismiss alert","action":"dismiss_alert"},{"label":"Edit details","action":"edit_details"},{"label":"Start review","action":"start_review"}]}
+```
+The goal is still early, so a review is a sensible next step.
+--- derived
+
+
+=== C-0020
+--- user
+can you lay out this week's usage? Sun 35 kWh, peak 18:00, $4. Tue 16, 18:00, $3. Mon 19, 07:00, $15. Thu 35, 18:00, $2. Fri 16, 07:00, $8. Wed 45, 08:00, $3. Also help me word a note for the customer: the import job finished and consumption is back to 251 kWh, within the 211 kWh limit.
+--- reference
+Daily usage for the week is laid out in the table below.
+```dyui
+{"ui":"table","columns":["Day","Usage kWh","Peak hour","Cost"],"rows":[["Sun",35,"18:00","$4"],["Tue",16,"18:00","$3"],["Mon",19,"07:00","$15"],["Thu",35,"18:00","$2"],["Fri",16,"07:00","$8"],["Wed",45,"08:00","$3"]],"caption":"Daily usage"}
+```
+This is a ready-to-send wording for the customer.
+```dyui
+{"ui":"callout","text":"The import job finished and Consumption is back to 251 kWh, within the 211 kWh limit.","level":"success"}
+```
+Wednesday was the heaviest day, and the note confirms consumption is back inside its limit.
+--- derived
+
+
+=== C-0146
+--- user
+Machine hours please, easy to scan: Sprayer S2 1868 hours service due, Baler B1 4756 service due, Claas Lexion 526 service due, John Deere 6130 823 service due. And give me a success notice titled "All set": the migration finished and harvest progress is back to 29%, within the 20% limit.
+--- reference
+Four machines are listed with their hours and service status.
+```dyui
+{"ui":"table","columns":["Machine","Hours","Status"],"rows":[["Sprayer S2",1868,"Service due"],["Baler B1",4756,"Service due"],["Claas Lexion",526,"Service due"],["John Deere 6130",823,"Service due"]]}
+```
+The migration outcome is noted here.
+```dyui
+{"ui":"callout","text":"The migration finished and Harvest progress is back to 29%, within the 20% limit.","level":"success","title":"All set"}
+```
+Every machine is currently due for service, so scheduling them is the next job.
+--- derived
+
+
+=== C-0114
+--- user
+Could you please cite the sources for this answer? They are: Security whitepaper (https://www.example.org/annual-review/32), Roadmap summary (https://static.brasa.example.com/getting-started/28), Compliance handbook (https://www.example.org/handbook) and Release notes (https://files.example.com/handbook/28). I would also appreciate two suggestions for what to ask next: "Break it down by level" and "Compare with last month".
+--- reference
+Four sources sit behind this answer.
+```dyui
+{"ui":"sources","items":[{"title":"Security whitepaper","url":"https://www.example.org/annual-review/32"},{"title":"Roadmap summary","url":"https://static.brasa.example.com/getting-started/28"},{"title":"Compliance handbook","url":"https://www.example.org/handbook"},{"title":"Release notes","url":"https://files.example.com/handbook/28"}]}
+```
+You might want to continue with one of these follow-ups.
+```dyui
+{"ui":"quick_replies","options":["Break it down by level","Compare with last month"]}
+```
+Each source opens from the numbered list above.
+--- derived
+
+
+=== C-0008
+--- user
+Lay out the details for ticket TCK-301: customer Ben Park, queue Account, priority Low, opened Jan 3. What are my options? I'd like to dismiss the alert or be reminded later, both tied to order ORD-1924.
+--- reference
+Ticket TCK-301 belongs to Ben Park and sits in the Account queue.
+```dyui
+{"ui":"keyvalue","items":[{"key":"ID","value":"TCK-301"},{"key":"Customer","value":"Ben Park"},{"key":"Queue","value":"Account"},{"key":"Priority","value":"Low"},{"key":"Opened","value":"Jan 3"}]}
+```
+You can choose one of these two actions.
+```dyui
+{"ui":"buttons","items":[{"label":"Dismiss alert","action":"dismiss_alert","data":{"id":"ORD-1924"}},{"label":"Remind me later","action":"remind_me_later","data":{"id":"ORD-1924"}}]}
+```
+The ticket is low priority, so a reminder is a reasonable choice.
+--- derived
+
+
+=== C-0007
+--- user
+assignments due is 11 this month, down 9.6% vs last month, target 10. is that good? also flag clearly (title it "Needs attention") that assignments due is at 1, above the 1 threshold, review before Friday
+--- reference
+Assignments due is 11 this month, just above the target.
+```dyui
+{"ui":"stat","label":"Assignments due","value":"11","delta":"-9.6% vs last month","trend":"down","help":"Target 10"}
+```
+The threshold warning is flagged below.
+```dyui
+{"ui":"callout","text":"Assignments due is at 1, above the 1 threshold. Review it before Friday.","level":"warning","title":"Needs attention"}
+```
+The count is falling and sits just above the target of 10.
+--- derived
+
+
+=== C-0079
+--- user
+Kindly lay out the release steps as a timeline: master the track, schedule the release, promote on socials, upload the artwork. Please also let them know in the app that podcast downloads is recalculated every 4 hours, so today's figure is provisional.
+--- reference
+The release runs in four steps, starting with mastering the track.
+```dyui
+{"ui":"timeline","items":[{"title":"Master the track"},{"title":"Schedule the release"},{"title":"Promote on socials"},{"title":"Upload the artwork"}]}
+```
+This note will tell listeners how to read today's figure.
+```dyui
+{"ui":"callout","text":"Podcast downloads is recalculated every 4 hours, so today's figure is provisional.","level":"info"}
+```
+The release steps run from mastering to artwork, and the download figure may still shift.
+--- derived
+
+
+=== C-0004
+--- user
+Please list the fleet in an easy-to-scan form: CM-4722 Ranger 103995 km out of order; CM-8079 Kona 109414 rented; CM-9508 Transit 82130 rented; CM-5108 Ranger 53736 rented; CM-1434 Ranger 77773 available. Then compare idle time by vehicle type: van 33, SUV 35, compact 5, EV 12, pickup 14.
+--- reference
+Five vehicles make up the fleet, with mileage and status for each.
+```dyui
+{"ui":"table","columns":["Plate","Model","Mileage","Status"],"rows":[["CM-4722","Ranger",103995,"Out of order"],["CM-8079","Kona",109414,"Rented"],["CM-9508","Transit",82130,"Rented"],["CM-5108","Ranger",53736,"Rented"],["CM-1434","Ranger",77773,"Available"]],"caption":"Vehicles"}
+```
+Here is the idle time compared across vehicle types.
+```dyui
+{"ui":"chart","kind":"bar","labels":["Van","SUV","Compact","EV","Pickup"],"series":[{"name":"Idle time","data":[33,35,5,12,14]}],"title":"Idle time by vehicle"}
+```
+SUVs sit idle the longest, while compacts are rarely unused.
+--- derived
+

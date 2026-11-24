@@ -1,0 +1,116 @@
+=== A-0213
+--- user
+can you render that tool step? it was "Check inventory" and it finished fine
+--- reference
+The inventory check step completed without trouble.
+```dyui
+{"ui":"step","title":"Check inventory","status":"done"}
+```
+It completed successfully.
+--- derived
+
+=== A-0171
+--- user
+Hey, the onboarding session just ended and I'd like to rate it. Can you give me a rating control with the label "How helpful was this?" that sends the result back as session_feedback?
+--- reference
+Your verdict on the onboarding session goes in the control below.
+```dyui
+{"ui":"rating","label":"How helpful was this?","action":"session_feedback"}
+```
+Your choice comes back to me as a session_feedback message with the rating.
+--- derived
+
+=== A-0017
+--- user
+card for Hotel Avenida: subtitle "Best value this season", image https://cdn.fernhill.example.com/img/changelog-15.jpg, badge New, and the first response time stat of 63 min. add a Decline button.
+--- reference
+Hotel Avenida is summarised in a card, with its 63 min first response time on show.
+```dyui
+{"ui":"card","title":"Hotel Avenida","subtitle":"Best value this season","image":"https://cdn.fernhill.example.com/img/changelog-15.jpg","badge":"New","children":[{"ui":"stat","label":"First response time","value":"63 min"}],"actions":[{"label":"Decline","action":"decline_item","style":"danger"}]}
+```
+The card carries the 63 min figure and a Decline action in red.
+--- derived
+
+=== A-0034
+--- user
+I would like to begin onboarding. Please ask for my full name (placeholder Ana Silva), my company, the days I'm available from Mon to Fri, a budget in dollars as a slider from 100 to 5000 in steps of 100 starting at 1000, and a checkbox to accept the terms. Everything is required and the button should say Continue.
+--- reference
+Five fields make up the onboarding form.
+```dyui
+{"ui":"form","title":"Onboarding","fields":[{"name":"full_name","label":"Full name","type":"text","required":true,"placeholder":"Ana Silva"},{"name":"company","label":"Company","type":"text","required":true},{"name":"days","label":"Available days","type":"multiselect","options":["Mon","Tue","Wed","Thu","Fri"],"required":true},{"name":"budget","label":"Budget ($)","type":"slider","required":true,"default":1000,"min":100,"max":5000,"step":100},{"name":"terms","label":"I accept the terms","type":"checkbox","required":true,"default":false}],"submit_label":"Continue","action":"start_onboarding"}
+```
+All fields are required, and submitting sends the values back to me to start onboarding.
+--- derived
+
+=== A-0186
+--- user
+Grant applications came in at 12 in February, flat against last month (0% change), and our target was 13. Could you show that nicely?
+--- reference
+February closed at 12 grant applications.
+```dyui
+{"ui":"stat","label":"Grant applications · February","value":"12","delta":"0% vs last month","trend":"flat","help":"Target 13"}
+```
+The count held steady month on month and finished one short of the 13 target.
+--- derived
+
+=== A-0032
+--- user
+Please show Lisbon · 3 nights as a card. The subtitle is "Best value this season", the image is https://help.helpwave.example.com/img/annual-review-09.png, and the badge reads Sale. Inside it I need the facts: plan Team, 274 seats, renewal Feb 24. Add a low-key Details button.
+--- reference
+The Lisbon trip is a card, and the account facts sit inside it.
+```dyui
+{"ui":"card","title":"Lisbon · 3 nights","subtitle":"Best value this season","image":"https://help.helpwave.example.com/img/annual-review-09.png","badge":"Sale","children":[{"ui":"keyvalue","items":[{"key":"Plan","value":"Team"},{"key":"Seats","value":274},{"key":"Renewal","value":"Feb 24"}]}],"actions":[{"label":"Details","action":"view_details","style":"ghost"}]}
+```
+The Details button sends its action back to me for a closer look.
+--- derived
+
+=== A-0011
+--- user
+Help me file a support request. I need to enter a start date, my full name (placeholder Ana Silva), a description of what happened, which weekdays from Mon to Fri I'm free, and how to be contacted: Email, Phone or Chat. All required, and the submit button says Send request.
+--- reference
+Every field in the support request form is required.
+```dyui
+{"ui":"form","title":"Support request","fields":[{"name":"start_date","label":"Start date","type":"date","required":true},{"name":"full_name","label":"Full name","type":"text","required":true,"placeholder":"Ana Silva"},{"name":"description","label":"What happened?","type":"textarea","required":true},{"name":"days","label":"Available days","type":"multiselect","options":["Mon","Tue","Wed","Thu","Fri"],"required":true},{"name":"contact_method","label":"How should we contact you?","type":"radio","options":["Email","Phone","Chat"],"required":true}],"submit_label":"Send request","action":"support_request"}
+```
+Once you send it, the answers come back to me as a single form submission.
+--- derived
+
+=== A-0255
+--- user
+I'd like the following shown as a quote on our landing page, as a customer testimonial: "Support answered before I finished my coffee." No name needed.
+--- reference
+The testimonial is set as a quote with no attribution.
+```dyui
+{"ui":"quote","text":"Support answered before I finished my coffee."}
+```
+An author can be added later if you want a name under it.
+--- derived
+
+=== A-0098
+--- user
+add a "Next steps" divider before the action items
+--- reference
+The next steps section starts at a labeled divider.
+```dyui
+{"ui":"divider","label":"Next steps"}
+```
+The action items that follow sit under this label.
+--- derived
+
+=== A-0072
+--- user
+Please display all six of these in a grid:
+1. https://cdn.fernhill.example.com/img/security-12.webp?v=1 - The pilot batch on the line
+2. https://media.example.net/img/getting-started-23.jpg?v=2 - The stage before doors opened
+3. https://blog.northwind.example.com/img/handbook-11.webp?v=3 - The stage before doors opened
+4. https://www.example.org/img/security-05.png?v=4 - The old tram climbing Rua da Bica
+5. https://assets.lumen.example.io/img/pricing-01.jpg?v=5 - The product on a white background
+6. https://files.example.com/img/handbook-04.jpg?v=6 - The warehouse after the reorganisation
+--- reference
+Six images, one grid, descriptions kept as alt text.
+```dyui
+{"ui":"gallery","images":[{"src":"https://cdn.fernhill.example.com/img/security-12.webp?v=1","alt":"The pilot batch on the line"},{"src":"https://media.example.net/img/getting-started-23.jpg?v=2","alt":"The stage before doors opened"},{"src":"https://blog.northwind.example.com/img/handbook-11.webp?v=3","alt":"The stage before doors opened"},{"src":"https://www.example.org/img/security-05.png?v=4","alt":"The old tram climbing Rua da Bica"},{"src":"https://assets.lumen.example.io/img/pricing-01.jpg?v=5","alt":"The product on a white background"},{"src":"https://files.example.com/img/handbook-04.jpg?v=6","alt":"The warehouse after the reorganisation"}]}
+```
+Each image keeps its description as alt text.
+--- derived
+

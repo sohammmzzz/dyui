@@ -1,0 +1,89 @@
+=== E-0065
+--- user
+how do I score this conversation? I'd like to leave a rating for the session
+--- reference
+Tap a star on the scale below to score the session.
+```dyui
+{"ui":"rating","label":"Rate this session","max":10,"style":"stars","action":"rate_answer"}
+```
+The last star is the best score, and your tap comes back to me straight away.
+--- derived
+
+
+=== E-0034
+--- user
+I've pulled up invoice INV-7373 and want to know what I can do with it. Could you list the possible next steps?
+--- reference
+INV-7373 can move forward, be corrected, or wait.
+```dyui
+{"ui":"buttons","items":[{"label":"Continue","action":"continue","data":{"id":"INV-7373"},"style":"primary"},{"label":"Edit details","action":"edit_details","data":{"id":"INV-7373"},"style":"secondary"},{"label":"Remind me later","action":"remind_me_later","data":{"id":"INV-7373"},"style":"ghost"}]}
+```
+Nothing happens to the invoice until you press one of them.
+--- derived
+
+
+=== E-0028
+--- user
+Before I decide on that, could you tell me what cross-docking is? A supplier mentioned it today and I would like to understand the term.
+--- reference
+Cross-docking means unloading goods from an inbound truck and loading them straight onto outbound vehicles with little or no storage in between. It cuts handling time and warehouse space, and it works best when arrivals and departures are tightly scheduled. ORD-2036 is still waiting for your decision.
+--- derived
+
+
+=== E-0083
+--- reference
+One star is recorded, and I am sorry the session did not help. Tell me which part of the answer was wrong or unclear and I will correct it.
+--- derived
+
+
+=== E-0074
+--- reference
+You are booked in for the bar.
+```dyui
+{"ui":"keyvalue","items":[{"key":"Full name","value":"Ana Silva"},{"key":"Number of guests","value":6},{"key":"Preferred time","value":"20:30"},{"key":"Seating","value":"Bar"},{"key":"Anything we should know?","value":"Please call before arriving."}]}
+```
+A party of six at the bar may need a call back, as the note requests.
+--- derived
+
+
+=== E-0042
+--- reference
+Explaining a drop requires the figures that dropped, and I only have the total trip budget of $5,413. Send me the earlier values or the line items and I will point out which one fell the most.
+--- derived
+
+
+=== E-0039
+--- reference
+Verstanden, 7:30 pm ist ausgewählt.
+```dyui
+{"ui":"callout","level":"success","title":"Uhrzeit gewählt","text":"Für heute Abend ist 7:30 pm vorgemerkt."}
+```
+Wenn sich die Zeit ändert, nenne mir einfach eine neue.
+--- derived
+
+
+=== E-0078
+--- reference
+A forecast needs a series of past values, and all I have for support tickets is today's count of 163. Give me the previous months and I will project the next one.
+--- derived
+
+
+=== E-0081
+--- reference
+Slack and Google Sheets are picked.
+```dyui
+{"ui":"callout","level":"success","title":"Integrations selected","text":"Slack and Google Sheets will be enabled."}
+```
+Zapier and Webhooks stay off, so you can add them later if the need comes up.
+--- derived
+
+
+=== E-0109
+--- reference
+No problem, the flight stays unbooked.
+```dyui
+{"ui":"callout","level":"info","text":"Nothing was booked and your card was not charged for the 17:45 flight."}
+```
+The $629 fare is not held, so the price may change if you come back later.
+--- derived
+

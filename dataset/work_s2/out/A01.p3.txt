@@ -1,0 +1,110 @@
+=== A-0111
+--- user
+Please embed this video so I can watch it: https://media.example.net/video/q3-summary.mp4
+--- reference
+The Q3 summary video is embedded below.
+```dyui
+{"ui":"video","src":"https://media.example.net/video/q3-summary.mp4"}
+```
+You can play it directly here without opening another tab.
+--- derived
+
+=== A-0226
+--- user
+add a divider labelled Outlook before the next section
+--- reference
+Here is a labelled separator for the next section.
+```dyui
+{"ui":"divider","label":"Outlook"}
+```
+Anything I write after it will sit under the Outlook heading.
+--- derived
+
+=== A-0070
+--- user
+I would like to download the audit report as a file, please. It is located at https://files.example.com/files/audit-report.csv and is named audit-report.csv. A direct download link would be the most useful form for me.
+--- reference
+Here is the audit report ready to download.
+```dyui
+{"ui":"file","name":"audit-report.csv","url":"https://files.example.com/files/audit-report.csv"}
+```
+It is a CSV file, so it opens directly in a spreadsheet.
+--- derived
+
+=== A-0039
+--- user
+Por favor, destaque esta frase como un testimonio: "We stopped arguing about the numbers once everyone saw the same chart." La dijo Dmitri Ibrahim, Founder, en una encuesta a clientes (Customer survey).
+--- reference
+Aquí tiene la frase destacada como testimonio, con su autor y su origen.
+```dyui
+{"ui":"quote","text":"We stopped arguing about the numbers once everyone saw the same chart.","author":"Dmitri Ibrahim, Founder","source":"Customer survey"}
+```
+La atribución completa le da más peso al testimonio en un informe a donantes.
+--- derived
+
+=== A-0107
+--- user
+Pode apresentar esta citação de forma adequada? "Support answered before I finished my coffee." Foi dita por Elena Torres, Head of Support, numa entrevista de suporte (Support interview).
+--- reference
+Aqui está a citação apresentada com o autor e a origem.
+```dyui
+{"ui":"quote","text":"Support answered before I finished my coffee.","author":"Elena Torres, Head of Support","source":"Support interview"}
+```
+Com a atribuição completa, a citação pode ser usada em comunicações da clínica.
+--- derived
+
+=== A-0228
+--- user
+highlight as a testimonial: "I trust the alerts now, and that changed how we work." Ben Castillo, CFO, said it on the annual review call
+--- reference
+Here is the testimonial with its attribution.
+```dyui
+{"ui":"quote","text":"I trust the alerts now, and that changed how we work.","author":"Ben Castillo, CFO","source":"Annual review call"}
+```
+Hearing this from a CFO makes it a strong proof point for the alerts feature.
+--- derived
+
+=== A-0251
+--- user
+I want to book an appointment, so I need a form where I can enter my full name (a placeholder like Ana Silva would help), pick a start date and a preferred time, and choose a priority from Low, Normal, High or Urgent. Please make everything required and label the button Book.
+--- reference
+Here is a booking form with the fields you described.
+```dyui
+{"ui":"form","title":"Book an appointment","fields":[{"name":"full_name","label":"Full name","type":"text","required":true,"placeholder":"Ana Silva"},{"name":"start_date","label":"Start date","type":"date","required":true},{"name":"time","label":"Preferred time","type":"time","required":true},{"name":"priority","label":"Priority","type":"select","options":["Low","Normal","High","Urgent"],"required":true}],"submit_label":"Book","action":"book_appointment"}
+```
+All four fields are required, and submitting sends your answers back to me to confirm the booking.
+--- derived
+
+=== A-0248
+--- user
+where are we against the goal? storage quota is at 15 out of 100
+--- reference
+Here is the storage quota against its limit.
+```dyui
+{"ui":"progress","value":15,"max":100,"label":"Storage quota"}
+```
+The quota is at 15 out of 100, so most of it is still free.
+--- derived
+
+=== A-0208
+--- user
+Please give me a tidy list I can scan with these four properties: Casa Alfama, Praça Suites, Mar & Sol and Hotel Avenida.
+--- reference
+Here are the four properties as a scannable list.
+```dyui
+{"ui":"list","items":[{"title":"Casa Alfama"},{"title":"Praça Suites"},{"title":"Mar & Sol"},{"title":"Hotel Avenida"}]}
+```
+They appear in the order you gave them.
+--- derived
+
+=== A-0136
+--- user
+can you play this here? https://www.youtube.com/watch?v=eIPjEJbPWxf "The tutorial"
+--- reference
+The tutorial video is embedded below.
+```dyui
+{"ui":"video","src":"https://www.youtube.com/watch?v=eIPjEJbPWxf","caption":"The tutorial"}
+```
+Press play to watch it in the chat.
+--- derived
+

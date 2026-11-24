@@ -1,0 +1,138 @@
+=== A-0283
+--- user
+Can you make this candidate record explorable? Role Account executive, stage Offer, source Agency, recruiter Gabriel Castillo, start date Sep 17, tags eu and beta. Please title it "Candidate payload".
+--- reference
+The candidate record becomes an explorable tree.
+```dyui
+{"ui":"json","data":{"role":"Account executive","stage":"Offer","source":"Agency","recruiter":"Gabriel Castillo","start_date":"Sep 17","tags":["eu","beta"]},"title":"Candidate payload"}
+```
+The tags are grouped in a list you can expand.
+--- derived
+
+=== A-0288
+--- user
+env var read in Java and Bash?
+--- reference
+Java and Bash read the variable differently, so each gets its own tab.
+```dyui
+{"ui":"tabs","tabs":[{"label":"Java","children":[{"ui":"code","code":"String key = System.getenv(\"API_KEY\");","language":"java"}]},{"label":"Bash","children":[{"ui":"code","code":"echo \"$API_KEY\"","language":"bash"}]}]}
+```
+Both read the variable named API_KEY from the process environment.
+--- derived
+
+=== A-0205
+--- user
+draft me a pricing page FAQ, 3 questions: where's my data stored (region you pick at signup, encrypted at rest), student discounts (yes, with a valid school email), and refunds (back to the original payment method within 5–10 business days)
+--- reference
+The pricing page FAQ covers storage, student discounts and refunds.
+```dyui
+{"ui":"accordion","items":[{"title":"Where is my data stored?","children":[{"ui":"markdown","text":"Data lives in the region you pick at signup and is encrypted at rest."}]},{"title":"Do you offer student discounts?","children":[{"ui":"markdown","text":"Students get a discount with a valid school email."}]},{"title":"How do refunds work?","children":[{"ui":"markdown","text":"Refunds go back to the original payment method within **5–10 business days**."}]}]}
+```
+Each answer opens only when its question is selected.
+--- derived
+
+=== A-0176
+--- user
+drop a divider labelled Next steps in there
+--- reference
+Next steps get their own labeled divider.
+```dyui
+{"ui":"divider","label":"Next steps"}
+```
+Whatever comes after it reads as the next steps.
+--- derived
+
+=== A-0090
+--- user
+show as tree: ticket TCK-342, customer Kofi Novak, queue Shipping, priority Low, tags trial + eu, meta version 6 dry_run true. title "Ticket payload"
+--- reference
+Ticket TCK-342 opens as a readable tree.
+```dyui
+{"ui":"json","data":{"id":"TCK-342","customer":"Kofi Novak","queue":"Shipping","priority":"Low","tags":["trial","eu"],"meta":{"version":6,"dry_run":true}},"title":"Ticket payload"}
+```
+The meta node shows this was a dry run.
+--- derived
+
+=== A-0219
+--- user
+Where do we stand on subscriptions this month? We have $230 in subscriptions, which is flat compared with last month (0% change), against a target of $260.
+--- reference
+Subscriptions sit at $230 this month, flat against last month.
+```dyui
+{"ui":"stat","label":"Subscriptions","value":230,"unit":"$","delta":"0% vs last month","trend":"flat","help":"Target $260"}
+```
+That leaves a $30 gap to the $260 target.
+--- derived
+30
+
+=== A-0117
+--- user
+embed the audio: https://assets.lumen.example.io/audio/annual-review-20.mp3
+--- reference
+The recording is ready to play inline.
+```dyui
+{"ui":"audio","src":"https://assets.lumen.example.io/audio/annual-review-20.mp3"}
+```
+Press play to listen in the chat.
+--- derived
+
+=== A-0124
+--- user
+Could you add a thumbs up or thumbs down for this reply, labelled "How helpful was this?", so I can tell you if the scheduling answer was useful? Record it under rate_tutorial, please.
+--- reference
+Thumbs up or down for this reply goes through the control below.
+```dyui
+{"ui":"rating","label":"How helpful was this?","style":"thumbs","action":"rate_tutorial"}
+```
+Your vote comes back to me as 1 for thumbs up or -1 for thumbs down.
+--- derived
+
+=== A-0161
+--- user
+Please lay these five photos out together in one view:
+https://docs.acme-cloud.example.com/img/roadmap-17.webp?v=1
+https://help.helpwave.example.com/img/q3-summary-30.jpg?v=2
+https://media.example.net/img/guide-34.png?v=3
+https://www.example.org/img/faq-38.jpg?v=4
+https://news.example.com/img/faq-07.webp?v=5
+--- reference
+All five photos are laid out together below.
+```dyui
+{"ui":"gallery","images":[{"src":"https://docs.acme-cloud.example.com/img/roadmap-17.webp?v=1"},{"src":"https://help.helpwave.example.com/img/q3-summary-30.jpg?v=2"},{"src":"https://media.example.net/img/guide-34.png?v=3"},{"src":"https://www.example.org/img/faq-38.jpg?v=4"},{"src":"https://news.example.com/img/faq-07.webp?v=5"}]}
+```
+The photos appear in the order you listed them.
+--- derived
+
+=== A-0210
+--- user
+Please show this image in the chat: https://news.example.com/img/guide-18.webp. Its description is "The updated storefront" and the caption should read "Draft version".
+--- reference
+The storefront image is shown inline, captioned as a draft.
+```dyui
+{"ui":"image","src":"https://news.example.com/img/guide-18.webp","alt":"The updated storefront","caption":"Draft version"}
+```
+The caption marks it as a draft.
+--- derived
+
+=== A-0292
+--- user
+List them briefly please. Praça Suites $187/night (https://www.example.org/img/changelog-22.jpg), Casa Alfama $142/night (https://cdn.fernhill.example.com/img/overview-01.jpg), Quinta Verde $164/night (https://docs.acme-cloud.example.com/img/faq-11.png), Hotel Avenida $118/night (https://cdn.fernhill.example.com/img/roadmap-28.jpg), Mar & Sol $96/night (https://help.helpwave.example.com/img/release-notes-26.webp).
+--- reference
+Mar & Sol is the cheapest of the five hotels listed below.
+```dyui
+{"ui":"list","items":[{"title":"Praça Suites","meta":"$187/night","image":"https://www.example.org/img/changelog-22.jpg"},{"title":"Casa Alfama","meta":"$142/night","image":"https://cdn.fernhill.example.com/img/overview-01.jpg"},{"title":"Quinta Verde","meta":"$164/night","image":"https://docs.acme-cloud.example.com/img/faq-11.png"},{"title":"Hotel Avenida","meta":"$118/night","image":"https://cdn.fernhill.example.com/img/roadmap-28.jpg"},{"title":"Mar & Sol","meta":"$96/night","image":"https://help.helpwave.example.com/img/release-notes-26.webp"}]}
+```
+Praça Suites is the most expensive at $187 a night.
+--- derived
+
+=== A-0175
+--- user
+Pouvez-vous afficher la vidéo de la réunion générale de la semaine dernière ? Le fichier est https://media.example.net/video/roadmap.mp4, l'affiche est https://news.example.com/img/handbook-13.webp et la légende doit être « Last week's town hall ».
+--- reference
+La vidéo s'ouvre ci-dessous avec son affiche et sa légende.
+```dyui
+{"ui":"video","src":"https://media.example.net/video/roadmap.mp4","poster":"https://news.example.com/img/handbook-13.webp","caption":"Last week's town hall"}
+```
+L'affiche s'affiche d'abord, puis la lecture démarre dès que vous appuyez sur play.
+--- derived
+

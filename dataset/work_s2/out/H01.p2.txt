@@ -1,0 +1,104 @@
+=== H-0027
+--- user
+Overview of contracts, please. We signed 22 this month and it's going up, average review time is 10.0 days and falling, and open redlines are at 8, up 9.7%.
+--- reference
+Three numbers sum up where contracts stand this month.
+```dyui
+{"ui":"stats","items":[{"label":"Signed this month","value":"22","trend":"up"},{"label":"Average review time","value":10.0,"unit":"days","trend":"down"},{"label":"Open redlines","value":"8","delta":"+9.7%","trend":"up"}]}
+```
+Review is getting faster, but the redlines rising 9.7% are the item to keep an eye on.
+--- derived
+
+=== H-0043
+--- user
+lay this out as a timeline: write the postmortem (Jun 7, done), bisect the last three deploys (Nov 9, in progress), reproduce the failure in staging (Oct 11, not started)
+--- reference
+The work runs in three steps, with only the bisect currently under way.
+```dyui
+{"ui":"timeline","items":[{"title":"Write the postmortem","time":"Jun 7","status":"done"},{"title":"Bisect the last three deploys","time":"Nov 9","status":"active"},{"title":"Reproduce the failure in staging","time":"Oct 11","status":"pending"}]}
+```
+The postmortem is finished, and reproducing the failure in staging has not begun.
+--- derived
+
+=== H-0011
+--- user
+what are my next actions for the field report? I could see the full report, skip for now, or add a note. give me some buttons for that
+--- reference
+You have three sensible moves on the field report.
+
+- **See full report** to read the details first.
+- **Add a note** if you want something recorded against it.
+- **Skip for now** to leave it for later.
+
+Reading the full report is the only one that gives you more information before you decide.
+--- derived
+
+=== H-0059
+--- user
+what does the deployments list look like? api-gateway v2.4.11 succeeded (20), auth v2.6.3 in progress (5), checkout v2.1.13 in progress (19), search v2.4.12 succeeded (17), billing v2.6.16 in progress (3), notifications v2.5.17 succeeded (18), search v2.2.19 in progress (21), search v2.3.16 succeeded (6)
+--- reference
+Eight deployments are listed, with three of the services appearing as search builds.
+```dyui
+{"ui":"table","columns":["Service","Version","Status","Duration"],"rows":[["api-gateway","v2.4.11","Succeeded",20],["auth","v2.6.3","In progress",5],["checkout","v2.1.13","In progress",19],["search","v2.4.12","Succeeded",17],["billing","v2.6.16","In progress",3],["notifications","v2.5.17","Succeeded",18],["search","v2.2.19","In progress",21],["search","v2.3.16","Succeeded",6]],"caption":"Deployments"}
+```
+Auth, checkout, billing and one search build are still in progress.
+--- derived
+
+=== H-0053
+--- user
+Where do we stand on the harvest? We are at 18% and the trend is going down. If you can, show it as a big headline number card.
+--- reference
+Harvest progress is at 18% and moving down.
+That is the only figure I have for it, so the trend is the signal to follow up on.
+--- derived
+
+=== H-0005
+--- user
+Applicants this week by reading: 289, 246, 177, 142, 66, 36, 36, 36. Make me a line chart of that.
+--- reference
+Applicants fell steadily from 289 at the first reading to 36 at the sixth, and the last three readings all sit at 36.
+The flattening at 36 suggests the drop has levelled off rather than continued.
+--- derived
+
+=== H-0022
+--- user
+Applicants this week gets recalculated every 7 hours, so today's number is only provisional. Flag it clearly in the chat.
+--- reference
+I have flagged the recalculation timing as a note.
+```dyui
+{"ui":"callout","level":"info","text":"Applicants this week is recalculated every 7 hours, so today's figure is provisional."}
+```
+Treat any reading taken between recalculations as subject to change.
+--- derived
+
+=== H-0048
+--- user
+Show them as headline numbers: dropped calls 2.4% (target 2.6%), download speed 672 Mbps (target 739 Mbps, change 0%), churn 2.3%, latency 58 ms (change 0%), subscribers 705,921 and rising (target 776,513).
+--- reference
+Five network and account figures, side by side.
+```dyui
+{"ui":"stats","items":[{"label":"Dropped calls","value":2.4,"unit":"%","help":"Target 2.6%"},{"label":"Download speed","value":"672 Mbps","delta":"0%","help":"Target 739 Mbps"},{"label":"Churn","value":2.3,"unit":"%"},{"label":"Latency","value":"58 ms","delta":"0%"},{"label":"Subscribers","value":"705,921","trend":"up","help":"Target 776,513"}]}
+```
+Dropped calls beat their target, whereas download speed and subscribers are both short of theirs.
+--- derived
+
+=== H-0028
+--- user
+Claim status: assessing the damage is done, while issuing the payment, approving the amount and collecting the documents are all still in progress. Show it as a plan.
+--- reference
+Only the damage assessment is finished on this claim; the other three steps are all live.
+```dyui
+{"ui":"plan","title":"Insurance claims plan","items":[{"title":"Assess the damage","status":"done"},{"title":"Issue the payment","status":"active"},{"title":"Approve the amount","status":"active"},{"title":"Collect the documents","status":"active"}]}
+```
+Since three steps are active at once, the amount approval and the documents are what gate the payment.
+--- derived
+
+=== H-0033
+--- user
+Grant applications is at 20 against a threshold of 16. Tell the user to review it before Friday.
+--- reference
+Grant applications is at 20, above the threshold of 16, so please review it before Friday.
+The count is 4 over the limit, which is why the review has a Friday deadline.
+--- derived
+4
+

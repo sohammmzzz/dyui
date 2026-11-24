@@ -1,0 +1,107 @@
+=== G-0025
+--- user
+my plan this week? Wed, Sun and Fri especially
+--- reference
+Here are your three sessions for this week.
+```dyui
+{"ui":"table","columns":["Day","Session","Minutes"],"rows":[["Wed","Rest",66],["Sun","Rest",61],["Fri","Tempo",89]]}
+```
+Friday's tempo run is your only hard session, and it is also the longest at 89 minutes.
+--- derived
+
+=== G-0040
+--- user
+Could you search flight options for the trip (limit 50)? Just show me the first 10 results, and I would like to compare Vueling and easyJet in particular.
+--- reference
+The search found 34 options; these are the first 10 with departure time, duration and price.
+```dyui
+{"ui":"table","columns":["Airline","Departs","Duration","Price"],"rows":[["Vueling","12:30","2h 10m","$403"],["easyJet","06:40","2h 45m","$273"],["Ryanair","18:05","3h 05m","$338"],["TAP","15:05","3h 05m","$214"],["Air France","18:05","2h 45m","$174"],["Iberia","15:05","2h 45m","$324"],["Iberia","18:05","2h 10m","$287"],["easyJet","12:30","2h 45m","$269"],["TAP","12:30","2h 45m","$338"],["Ryanair","06:40","1h 35m","$212"]]}
+```
+Of the two you asked about, easyJet is cheaper here at $273 for the 06:40 departure, against $403 for Vueling at 12:30.
+--- derived
+
+=== G-0113
+--- user
+hey, any open outages? I saw OUT-201, OUT-790 and OUT-435 mentioned in the team chat
+--- reference
+Here are the four outages the lookup returned, including the three you mentioned.
+```dyui
+{"ui":"table","columns":["ID","Area","Cause","Status","Customers"],"rows":[["OUT-201","Lagos","Software update","Fixed",9818],["OUT-790","Bangkok","Fibre cut","Fixed",3350],["OUT-435","Zurich","Congestion","Investigating",348],["OUT-618","Barcelona","Fibre cut","Investigating",248]]}
+```
+OUT-201 and OUT-790 are fixed, while OUT-435 and OUT-618 are still under investigation.
+--- derived
+
+=== G-0102
+--- user
+Please look up event K-600. I recall it being a Ranked event starting May 14 and running for 8 days; could you confirm the details?
+--- reference
+Here are the details for event K-600.
+```dyui
+{"ui":"keyvalue","items":[{"key":"Mode","value":"Ranked"},{"key":"Starts","value":"May 14"},{"key":"Duration (days)","value":8},{"key":"Reward","value":"Gems"},{"key":"Status","value":"Scheduled"}]}
+```
+Your recollection is right, and the event is still scheduled with Gems as the reward.
+--- derived
+
+=== G-0048
+--- user
+Please retrieve the bug list (limit 50) and show only the first 10 entries. BUG-615 and BUG-145 are the ones I am most concerned about.
+--- reference
+The tracker holds 42 bugs; here are the first 10 with their severity and owner.
+```dyui
+{"ui":"table","columns":["ID","Title","Severity","Owner"],"rows":[["BUG-615","Matchmaking stuck","Minor","Umar Yilmaz"],["BUG-145","Inventory duplicates","Major","Tomas Lindqvist"],["BUG-474","Inventory duplicates","Major","Isla Hoang"],["BUG-530","Lag on arena map","Critical","Dmitri Weber"],["BUG-161","Audio cuts out","Major","Yusuf Rossi"],["BUG-193","Lag on arena map","Minor","Pedro Silva"],["BUG-506","Lag on arena map","Minor","Priya Petrov"],["BUG-937","Lag on arena map","Critical","Elif Fischer"],["BUG-358","Daily reward not granted","Critical","Jun Sato"],["BUG-662","Audio cuts out","Major","Rosa Ferreira"]]}
+```
+BUG-615 is only Minor, while BUG-145 is Major and shares the Inventory duplicates title with BUG-474.
+--- derived
+
+=== G-0042
+--- user
+Which crops do we have in the ground right now? I would like to see North 40, Hill field and River plot at least, with hectares and stage.
+--- reference
+Here are all five fields with their crop, area and growth stage.
+```dyui
+{"ui":"table","columns":["Field","Crop","Hectares","Stage"],"rows":[["North 40","Sunflower",57,"Sowing"],["Hill field","Sunflower",24,"Flowering"],["River plot","Sunflower",40,"Growing"],["Orchard","Barley",13,"Harvest"],["Greenhouse","Sunflower",59,"Flowering"]]}
+```
+Sunflower is planted in four of the five fields, and only the Orchard barley is at harvest.
+--- derived
+
+=== G-0053
+--- user
+Please pull up the current claims list for me.
+--- reference
+The claims request could not be completed.
+```dyui
+{"ui":"callout","level":"error","title":"Claims unavailable","text":"The service returned status 429 (service_unavailable): Too many requests, retry after 30 seconds."}
+```
+No claims were loaded, so please retry once the 30 seconds have passed.
+--- derived
+
+=== G-0034
+--- user
+Give me the account overview, please: Northwind, Orbit Freight and Fernhill for sure, plus the rest, with plan, seats, MRR and owner.
+--- reference
+Here are all six accounts with plan, seats, MRR and owner.
+```dyui
+{"ui":"table","columns":["Account","Plan","Seats","MRR","Owner"],"rows":[["Northwind","Pro",190,"$7,668","Xavier Castillo"],["Orbit Freight","Enterprise",394,"$1,005","Zainab Fischer"],["Fernhill","Team",190,"$5,507","Ivan Silva"],["Aperture","Team",258,"$5,519","Quinn Castillo"],["Globex","Enterprise",340,"$3,537","Umar Almeida"],["Vandelay","Enterprise",17,"$6,099","Ivan Yilmaz"]]}
+```
+Orbit Freight has the most seats at 394 but only $1,005 in MRR, while Northwind brings in $7,668.
+--- derived
+
+=== G-0015
+--- user
+carrier scorecard? need UPS, GLS and FedEx on there with on-time, claims and cost per parcel
+--- reference
+Here is the scorecard for all five carriers.
+```dyui
+{"ui":"table","columns":["Carrier","On time (%)","Claims","Cost per parcel"],"rows":[["UPS",93.9,19,"$18"],["GLS",96.2,31,"$14"],["FedEx",89.9,38,"$12"],["DHL",78.2,35,"$19"],["Correos",90.6,12,"$7"]]}
+```
+GLS is the most punctual at 96.2, and DHL is the weakest at 78.2 while costing $19 per parcel.
+--- derived
+
+=== G-0084
+--- user
+any campaigns running atm?
+--- reference
+The campaigns lookup returned nothing, so there are no campaigns in the data right now.
+Once one is created it should show up in the next lookup.
+--- derived
+

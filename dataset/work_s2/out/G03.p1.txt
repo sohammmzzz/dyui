@@ -1,0 +1,110 @@
+=== G-0045
+--- user
+I am planning next month's budget and need to know which bills are coming due. Could you pull up the upcoming bills for me?
+--- reference
+I could not retrieve your upcoming bills just now.
+```dyui
+{"ui":"callout","level":"error","title":"Bills unavailable","text":"The request was rate limited with status 429 (rate_limited): The service is temporarily unavailable."}
+```
+No bill data was loaded, so the budget cannot be checked against it yet; the request needs to be retried shortly.
+--- derived
+
+=== G-0008
+--- user
+show me the listings (limit 50) but just the first 10 please. i need 7 Harbour Row and 301 Elm Court in there
+--- reference
+There are 45 listings in total; here are the first 10.
+```dyui
+{"ui":"table","columns":["Address","Beds","Price","Status"],"rows":[["7 Harbour Row",2,"$951","Active"],["301 Elm Court",5,"$238","Active"],["5 Orchard Way",4,"$224","Active"],["48 Rua Verde",2,"$978","Reduced"],["19 Quay Street",2,"$474","Reduced"],["12 Mill Lane",4,"$426","Under offer"],["301 Elm Court",5,"$514","Active"],["48 Rua Verde",4,"$441","Under offer"],["19 Quay Street",4,"$978","Under offer"],["19 Quay Street",2,"$828","Under offer"]]}
+```
+7 Harbour Row is active at $951, and 301 Elm Court appears twice, at $238 and $514.
+--- derived
+
+=== G-0017
+--- user
+open grants: City Arts Board, Sunrise Foundation, Lakeshore Trust?
+--- reference
+Four open grants came back, including those three funders.
+```dyui
+{"ui":"table","columns":["Funder","Amount","Deadline","Status"],"rows":[["City Arts Board","$164,088","Apr 21","Declined"],["Sunrise Foundation","$169,434","Jun 11","Drafting"],["Lakeshore Trust","$109,624","Nov 11","Drafting"],["Meridian Fund","$158,903","Jun 25","Awarded"]]}
+```
+City Arts Board was declined, Sunrise Foundation and Lakeshore Trust are drafting, and Meridian Fund has been awarded.
+--- derived
+
+=== G-0010
+--- user
+what showings do we have today? esp the 17:15, 11:00 and 15:00 ones
+--- reference
+Five showings are on the schedule today, in the order they came back.
+```dyui
+{"ui":"table","columns":["Time","Property","Buyer","Agent"],"rows":[["17:15","48 Rua Verde","Isla Larsen","Tomas Torres"],["11:00","48 Rua Verde","Wen Silva","Jun Haddad"],["15:00","19 Quay Street","Kofi Weber","Jun Nakamura"],["13:30","12 Mill Lane","Mateo Quispe","Priya Almeida"],["09:30","19 Quay Street","Yusuf Dubois","Elif Nguyen"]]}
+```
+48 Rua Verde has two showings today, at 17:15 and 11:00.
+--- derived
+
+=== G-0059
+--- user
+Could you fetch the outages for me with a limit of 50, but display only the first 10? I need to see OUT-403 and OUT-275, and I would like the area, cause, status and number of affected customers for each.
+--- reference
+The system lists 33 outages in total; here are the first 10 with their status and customer impact.
+```dyui
+{"ui":"table","columns":["ID","Area","Cause","Status","Customers"],"rows":[["OUT-403","Brussels","Fibre cut","Monitoring",9542],["OUT-275","Denver","Fibre cut","Monitoring",960],["OUT-446","Boston","Fibre cut","Investigating",6365],["OUT-300","Tokyo","Congestion","Monitoring",3540],["OUT-574","Toronto","Software update","Monitoring",9277],["OUT-503","Delhi","Power failure","Monitoring",4267],["OUT-631","Miami","Congestion","Investigating",1349],["OUT-943","Warsaw","Software update","Fixed",1272],["OUT-702","Warsaw","Power failure","Monitoring",2555],["OUT-239","Vienna","Software update","Monitoring",5327]]}
+```
+OUT-403 in Brussels affects the most customers at 9542, while OUT-275 in Denver affects 960.
+--- derived
+
+=== G-0033
+--- user
+Good morning. Please show me the open grants, including Meridian Fund, Sunrise Foundation and Lakeshore Trust, with amounts and deadlines.
+--- reference
+Here are the five open grants with their amounts, deadlines and current status.
+```dyui
+{"ui":"table","columns":["Funder","Amount","Deadline","Status"],"rows":[["Meridian Fund","$34,925","Nov 1","Awarded"],["Sunrise Foundation","$93,153","Apr 4","Submitted"],["Lakeshore Trust","$140,487","Mar 8","Awarded"],["City Arts Board","$66,962","Apr 6","Drafting"],["Meridian Fund","$116,433","Nov 18","Drafting"]]}
+```
+Meridian Fund is on the list twice: the $34,925 grant is awarded and the $116,433 one is still being drafted.
+--- derived
+
+=== G-0107
+--- user
+hey, what services are due on the fleet? limit 50 but only show me the first 10. CM-4204 and CM-4391 are the ones I'm after
+--- reference
+The fleet has 37 services due; here are the first 10.
+```dyui
+{"ui":"table","columns":["Plate","Service","Due","Depot"],"rows":[["CM-4204","Tyres","Feb 14","Campus"],["CM-4391","Annual inspection","Nov 11","Central"],["CM-3420","Tyres","Apr 2","Airport"],["CM-9375","Brake pads","Nov 11","Airport"],["CM-2832","Battery check","Jun 10","Harbour"],["CM-5642","Tyres","Dec 10","Airport"],["CM-9901","Battery check","Apr 17","Campus"],["CM-3087","Brake pads","Feb 2","Campus"],["CM-6914","Oil change","Sep 12","Central"],["CM-3328","Tyres","Feb 27","Central"]]}
+```
+CM-4204 needs tyres by Feb 14 at Campus, and CM-4391 has its annual inspection due Nov 11 at Central.
+--- derived
+
+=== G-0097
+--- user
+open assignments? i want Essay on the Treaty of Utrecht, Linear equations set, Stats project
+--- reference
+Here are the four assignments the lookup returned, with the three you named included.
+```dyui
+{"ui":"table","columns":["Assignment","Due","Weight","Status"],"rows":[["Essay on the Treaty of Utrecht","Aug 18",16,"Late"],["Linear equations set","May 5",7,"Open"],["Stats project","Apr 10",8,"Submitted"],["Cell biology lab","Feb 17",37,"Graded"]]}
+```
+The essay is marked Late, while the Linear equations set is still open.
+--- derived
+
+=== G-0035
+--- user
+whats on the release calendar? limit 50, first 10 is fine. the Jul 5 and Jan 24 ones especially
+--- reference
+The calendar has 41 releases in total; these are the first 10.
+```dyui
+{"ui":"table","columns":["Date","Release","Artist","Format"],"rows":[["Jul 5","Static Bloom","Vera Nakamura","Single"],["Jan 24","Paper Lanterns LP","Ana Jensen","EP"],["Mar 21","Static Bloom","Elif Ibrahim","Album"],["Jul 27","Paper Lanterns LP","Hugo Almeida","EP"],["Sep 9","Neon Harbour EP","Carla Rossi","EP"],["Dec 4","Static Bloom","Wen Ueda","EP"],["Mar 11","Slow Weather","Yara Ueda","EP"],["Aug 4","Neon Harbour EP","Zoe Okafor","EP"],["Aug 15","Static Bloom","Greta Ueda","EP"],["Sep 26","Neon Harbour EP","Dmitri Larsen","EP"]]}
+```
+The Jul 5 slot is the Static Bloom single by Vera Nakamura, and Jan 24 is the Paper Lanterns LP EP by Ana Jensen.
+--- derived
+
+=== G-0105
+--- user
+campaign results: Webinar series, App install, Spring launch + whatever else
+--- reference
+Here are all four campaigns with spend, leads and cost per lead.
+```dyui
+{"ui":"table","columns":["Campaign","Spend","Leads","CPL"],"rows":[["Webinar series","$18,597",259,"$42"],["App install","$17,234",1324,"$37"],["Spring launch","$32,505",1318,"$47"],["Brand refresh","$17,331",249,"$79"]]}
+```
+App install has the lowest cost per lead at $37, and Brand refresh the highest at $79.
+--- derived
+

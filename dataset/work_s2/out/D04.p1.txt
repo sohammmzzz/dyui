@@ -1,0 +1,124 @@
+=== D-0049
+--- user
+I'd like two collapsible sections. The first, "Main section", should hold two small tags: "New" in the accent colour and "Beta" in amber. The second, "More detail", should hold our order type as TypeScript, saved as types.ts:
+interface Order {
+  id: string;
+  total: number;
+  status: "open" | "paid" | "refunded";
+}
+--- reference
+The tags sit in the first section and the order type waits in a second one.
+```dyui
+{"ui":"accordion","items":[{"title":"Main section","children":[{"ui":"badges","items":[{"label":"New","color":"accent"},{"label":"Beta","color":"amber"}]}]},{"title":"More detail","children":[{"ui":"code","code":"interface Order {\n  id: string;\n  total: number;\n  status: \"open\" | \"paid\" | \"refunded\";\n}","language":"typescript","filename":"types.ts"}]}]}
+```
+The tags sit up front, and the type definition stays folded until someone opens it.
+--- derived
+
+
+=== D-0005
+--- user
+Make a card called "Trip overview" and put one more card inside it: "Lisbon · 3 nights", subtitle "Limited seats", badge "Popular". Inside that one, the facts: address 48 Rua Verde, type Apartment, 4 beds, area 60 m2, price $672. Give the inner card a Book button.
+--- reference
+The Lisbon stay is nested inside the trip overview card, with a Book button on the inner card.
+```dyui
+{"ui":"card","title":"Trip overview","children":[{"ui":"card","title":"Lisbon · 3 nights","subtitle":"Limited seats","badge":"Popular","children":[{"ui":"keyvalue","items":[{"key":"Address","value":"48 Rua Verde"},{"key":"Type","value":"Apartment"},{"key":"Beds","value":4},{"key":"Area m2","value":60},{"key":"Price","value":"$672"}]}],"actions":[{"label":"Book","action":"book_item"}]}]}
+```
+Pressing Book sends the choice back to me.
+--- derived
+
+
+=== D-0087
+--- user
+put these side by side so I can swipe: video https://www.youtube.com/watch?v=YcWtZfSVZtN captioned "The onboarding walkthrough", then image https://www.example.org/img/annual-review-30.jpg, alt "The stage before doors opened"
+--- reference
+Both media items are in one swipeable row.
+```dyui
+{"ui":"carousel","children":[{"ui":"video","src":"https://www.youtube.com/watch?v=YcWtZfSVZtN","caption":"The onboarding walkthrough"},{"ui":"image","src":"https://www.example.org/img/annual-review-30.jpg","alt":"The stage before doors opened"}]}
+```
+Swipe sideways to move from the video to the photo.
+--- derived
+
+
+=== D-0101
+--- user
+2-column layout please. Left: card "Lisbon · 3 nights", subtitle "Best value this season", with SKU-382, price $85, stock 345, supplier Nordhaus, rating 4.0. Right: a list of hotels: Quinta Verde (Sintra, $164/night), Mar & Sol (Valencia, $96/night), Casa Alfama (Lisbon, $142/night).
+--- reference
+The product card takes the left column and the three hotels fill the right.
+```dyui
+{"ui":"grid","columns":2,"children":[{"ui":"card","title":"Lisbon · 3 nights","subtitle":"Best value this season","children":[{"ui":"keyvalue","items":[{"key":"SKU","value":"SKU-382"},{"key":"Price","value":"$85"},{"key":"Stock","value":345},{"key":"Supplier","value":"Nordhaus"},{"key":"Rating","value":4.0}]}]},{"ui":"list","items":[{"title":"Quinta Verde","subtitle":"Sintra","meta":"$164/night"},{"title":"Mar & Sol","subtitle":"Valencia","meta":"$96/night"},{"title":"Casa Alfama","subtitle":"Lisbon","meta":"$142/night"}]}]}
+```
+Casa Alfama and Mar & Sol are the lower-priced stays in the list.
+--- derived
+
+
+=== D-0010
+--- user
+Please lay out two items next to each other in two columns. On the left, two action buttons: "Dismiss alert" and "Start review". On the right, a single-choice question, "Which topic interests you most?", with the options Statistics, Biology, History and Chemistry, and a submit button labelled "Start".
+--- reference
+Actions on one side and the topic question on the other, laid out in two columns.
+```dyui
+{"ui":"grid","columns":2,"children":[{"ui":"buttons","items":[{"label":"Dismiss alert","action":"dismiss_alert"},{"label":"Start review","action":"start_review"}]},{"ui":"choice","question":"Which topic interests you most?","options":["Statistics","Biology","History","Chemistry"],"submit_label":"Start"}]}
+```
+Either control sends its result back to me when used.
+--- derived
+
+
+=== D-0124
+--- user
+Can you build a card called "Trip overview" and, inside it, a two-column grid? In the left column I want three buttons: "Not now", "See full report" and "Assign owner". In the right column, two tappable suggestions: "Set an alert for this" and "Show it as a table".
+--- reference
+The trip overview card carries three actions on the left and two suggestions on the right.
+```dyui
+{"ui":"card","title":"Trip overview","children":[{"ui":"grid","children":[{"ui":"buttons","items":[{"label":"Not now","action":"not_now"},{"label":"See full report","action":"see_full_report"},{"label":"Assign owner","action":"assign_owner"}]},{"ui":"quick_replies","options":["Set an alert for this","Show it as a table"]}],"columns":2}]}
+```
+The buttons trigger actions, while the suggestions arrive as ordinary messages.
+--- derived
+
+
+=== D-0069
+--- user
+two columns: link preview for https://cdn.fernhill.example.com/security (title "Pricing that scales with your team", image https://static.brasa.example.com/img/guide-18.png) next to the video https://www.youtube.com/watch?v=FqkscYvKs4W
+--- reference
+Both items now share a row: a link preview on the left and the video beside it.
+```dyui
+{"ui":"grid","columns":2,"children":[{"ui":"link_preview","url":"https://cdn.fernhill.example.com/security","title":"Pricing that scales with your team","image":"https://static.brasa.example.com/img/guide-18.png"},{"ui":"video","src":"https://www.youtube.com/watch?v=FqkscYvKs4W"}]}
+```
+The video plays inline, and the preview card links out to the page.
+--- derived
+
+
+=== D-0116
+--- user
+I need a swipeable row with one slide. In it, two columns: on the left an area chart called "Idle time, Aug–Dec" with the values 21, 22, 24, 25 and 26 in percent (series name "Idle time"); on the right three headline numbers: Maintenance backlog 29, Fuel economy 30 mpg, Accidents 4.
+--- reference
+One slide holds idle time on the left and the three fleet figures on the right.
+```dyui
+{"ui":"carousel","children":[{"ui":"grid","children":[{"ui":"chart","kind":"area","series":[{"name":"Idle time","data":[21,22,24,25,26]}],"title":"Idle time, Aug–Dec","unit":"%"},{"ui":"stats","items":[{"label":"Maintenance backlog","value":"29"},{"label":"Fuel economy","value":"30 mpg"},{"label":"Accidents","value":"4"}]}],"columns":2}]}
+```
+Idle time has crept upward across the period.
+--- derived
+
+
+=== D-0057
+--- user
+Swipeable row with two things: the image https://docs.acme-cloud.example.com/img/release-notes-31.png (caption "Approved by marketing") and then a gallery of these four: https://assets.lumen.example.io/img/overview-19.webp?v=1, https://files.example.com/img/case-study-15.png?v=2, https://docs.acme-cloud.example.com/img/roadmap-27.png?v=3, https://blog.northwind.example.com/img/case-study-33.jpg?v=4
+--- reference
+The row starts with the approved image, then moves on to the four-picture gallery.
+```dyui
+{"ui":"carousel","children":[{"ui":"image","src":"https://docs.acme-cloud.example.com/img/release-notes-31.png","caption":"Approved by marketing"},{"ui":"gallery","images":[{"src":"https://assets.lumen.example.io/img/overview-19.webp?v=1"},{"src":"https://files.example.com/img/case-study-15.png?v=2"},{"src":"https://docs.acme-cloud.example.com/img/roadmap-27.png?v=3"},{"src":"https://blog.northwind.example.com/img/case-study-33.jpg?v=4"}]}]}
+```
+The first slide is the approved image, and the second holds the other four.
+--- derived
+
+
+=== D-0095
+--- user
+Put the hotels in a card titled "Trip overview": Hotel Avenida in Porto, Mar & Sol in Valencia, Quinta Verde in Sintra, Casa Alfama in Lisbon.
+--- reference
+All four hotels now sit inside the trip overview card, each with its city.
+```dyui
+{"ui":"card","title":"Trip overview","children":[{"ui":"list","items":[{"title":"Hotel Avenida","subtitle":"Porto"},{"title":"Mar & Sol","subtitle":"Valencia"},{"title":"Quinta Verde","subtitle":"Sintra"},{"title":"Casa Alfama","subtitle":"Lisbon"}]}]}
+```
+Each hotel is paired with its city.
+--- derived
+

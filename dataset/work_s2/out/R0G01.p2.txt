@@ -1,0 +1,95 @@
+=== G-0015
+--- user
+carrier scorecard? need UPS, GLS and FedEx on there with on-time, claims and cost per parcel
+--- reference
+All five carriers are on the scorecard below.
+```dyui
+{"ui":"table","columns":["Carrier","On time (%)","Claims","Cost per parcel"],"rows":[["UPS",93.9,19,"$18"],["GLS",96.2,31,"$14"],["FedEx",89.9,38,"$12"],["DHL",78.2,35,"$19"],["Correos",90.6,12,"$7"]]}
+```
+GLS leads on punctuality, while DHL trails the field and is also the priciest per parcel.
+--- derived
+
+
+=== G-0008
+--- user
+show me the listings (limit 50) but just the first 10 please. need 7 Harbour Row and 301 Elm Court in there
+--- reference
+The system holds forty-five listings in total, and the table shows the first ten.
+```dyui
+{"ui":"table","columns":["Address","Beds","Price","Status"],"rows":[["7 Harbour Row",2,"$951","Active"],["301 Elm Court",5,"$238","Active"],["5 Orchard Way",4,"$224","Active"],["48 Rua Verde",2,"$978","Reduced"],["19 Quay Street",2,"$474","Reduced"],["12 Mill Lane",4,"$426","Under offer"],["301 Elm Court",5,"$514","Active"],["48 Rua Verde",4,"$441","Under offer"],["19 Quay Street",4,"$978","Under offer"],["19 Quay Street",2,"$828","Under offer"]]}
+```
+Both of your addresses are in the first rows, and Elm Court shows up twice at different prices.
+--- derived
+
+
+=== G-0010
+--- user
+what showings do we have today? esp the 17:15, 11:00 and 15:00 ones
+--- reference
+Five showings are on today's schedule, in the order the system sent them.
+```dyui
+{"ui":"table","columns":["Time","Property","Buyer","Agent"],"rows":[["17:15","48 Rua Verde","Isla Larsen","Tomas Torres"],["11:00","48 Rua Verde","Wen Silva","Jun Haddad"],["15:00","19 Quay Street","Kofi Weber","Jun Nakamura"],["13:30","12 Mill Lane","Mateo Quispe","Priya Almeida"],["09:30","19 Quay Street","Yusuf Dubois","Elif Nguyen"]]}
+```
+Rua Verde and Quay Street each host two showings, and Mill Lane has just the one.
+--- derived
+
+
+=== G-0107
+--- user
+hey, what services are due on the fleet? limit 50 but only show me the first 10. CM-4204 and CM-4391 are the ones I'm after
+--- reference
+The fleet has thirty-seven services due, and the table lists the first ten.
+```dyui
+{"ui":"table","columns":["Plate","Service","Due","Depot"],"rows":[["CM-4204","Tyres","Feb 14","Campus"],["CM-4391","Annual inspection","Nov 11","Central"],["CM-3420","Tyres","Apr 2","Airport"],["CM-9375","Brake pads","Nov 11","Airport"],["CM-2832","Battery check","Jun 10","Harbour"],["CM-5642","Tyres","Dec 10","Airport"],["CM-9901","Battery check","Apr 17","Campus"],["CM-3087","Brake pads","Feb 2","Campus"],["CM-6914","Oil change","Sep 12","Central"],["CM-3328","Tyres","Feb 27","Central"]]}
+```
+Your two plates are a tyre job at Campus and an annual inspection at Central, so they need different workshops.
+--- derived
+
+
+=== G-0024
+--- user
+I need to see which vehicles have services coming due. Please run it with a limit of 50, show me only the first 10, and include CM-2866 and CM-6531 in what you display.
+--- reference
+The lookup found forty-three services due, and the table shows the first ten with your two plates at the top.
+```dyui
+{"ui":"table","columns":["Plate","Service","Due","Depot"],"rows":[["CM-2866","Annual inspection","Sep 28","Airport"],["CM-6531","Oil change","Dec 25","Airport"],["CM-8647","Battery check","May 21","Campus"],["CM-1028","Battery check","Aug 4","Central"],["CM-2392","Annual inspection","Feb 15","Central"],["CM-6567","Battery check","Feb 20","Harbour"],["CM-7567","Tyres","Nov 14","Campus"],["CM-5841","Annual inspection","Jun 3","Airport"],["CM-8542","Oil change","Apr 10","Harbour"],["CM-7269","Battery check","May 5","Central"]]}
+```
+Both of those vehicles belong to the Airport depot, so one trip could cover them.
+--- derived
+
+
+=== G-0091
+--- user
+accounts list, limit 50, first 10 only. Vandelay and Gringotts mainly
+--- reference
+The list holds thirty-seven accounts, and these are the first ten.
+```dyui
+{"ui":"table","columns":["Account","Plan","Seats","MRR","Owner"],"rows":[["Vandelay","Pro",169,"$1,849","Zoe Jensen"],["Gringotts","Starter",136,"$6,437","Ben Yilmaz"],["Bluth Homes","Team",270,"$6,053","Mateo Okafor"],["Wonka Foods","Starter",203,"$3,517","Katya Silva"],["Fernhill","Starter",170,"$6,296","Aiden Ueda"],["Soylent","Team",136,"$7,486","Wen Okafor"],["Hooli","Starter",306,"$1,246","Jamal Park"],["Aperture","Team",158,"$3,826","Sofia Larsen"],["Acme","Enterprise",342,"$7,976","Mia Torres"],["Pied Piper","Pro",143,"$7,142","Hana Almeida"]]}
+```
+Gringotts out-earns Vandelay even though it sits on the Starter plan and has fewer seats.
+--- derived
+
+
+=== G-0064
+--- user
+Could you pull the top dishes for the shift with a limit of 50? I only need the first 10 rows. I'm especially curious how Grilled sea bass and Mushroom risotto are doing, with sales, margin and station.
+--- reference
+The lookup holds thirty-two dish entries, so the table covers only the first ten.
+```dyui
+{"ui":"table","columns":["Dish","Sold","Margin","Station"],"rows":[["Grilled sea bass",86,61,"Pasta"],["Mushroom risotto",60,41,"Grill"],["Tonkotsu ramen",54,76,"Pasta"],["Charred octopus",159,72,"Pasta"],["Lamb shoulder",154,57,"Grill"],["Flan",71,39,"Cold"],["Burrata salad",120,65,"Cold"],["Grilled sea bass",59,64,"Grill"],["Flan",89,39,"Pasta"],["Burrata salad",159,46,"Grill"]]}
+```
+Grilled sea bass appears twice, once from the Pasta station and once from the Grill, while Mushroom risotto has a single entry in this slice.
+--- derived
+
+
+=== G-0082
+--- user
+Good morning. Would you show me today's schedule? I am looking at the 13:45, 10:00 and 16:20 appointments in particular.
+--- reference
+Four appointments are scheduled for today, listed in the order the system returned them.
+```dyui
+{"ui":"table","columns":["Time","Patient","Service","Room"],"rows":[["13:45","Quinn Okafor","Check-up",3],["10:00","Uma Ferreira","Vaccination",2],["16:20","Rosa Singh","Lab work",7],["11:30","Rin Kim","Check-up",5]]}
+```
+The three slots you named are a check-up, a vaccination and a lab visit, and each takes place in a different room.
+--- derived
+

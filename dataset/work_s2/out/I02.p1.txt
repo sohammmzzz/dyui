@@ -1,0 +1,131 @@
+=== I-0001
+--- user
+Please set out three bookings for my review. Pilot batch includes notes, laptop and badge. Morning session includes samples, charger and keys. Quarterly review includes keys and notes.
+--- reference
+Here are the three bookings with the items for each.
+```dyui
+{"ui":"booking","title":"Pilot batch","items":["notes","laptop","badge"]}
+{"ui":"booking","title":"Morning session","items":["samples","charger","keys"]}
+{"ui":"booking","title":"Quarterly review","items":["keys","notes"]}
+```
+Keys appear in two of the bookings, and Quarterly review has the shortest list.
+--- derived
+
+
+=== I-0015
+--- user
+log an entry for Pilot batch, marked urgent
+--- reference
+Here is the log entry for the pilot batch.
+```dyui
+{"ui":"log_entry","title":"Pilot batch","urgent":true}
+```
+It is flagged as urgent.
+--- derived
+
+
+=== I-0045
+--- user
+tickets: Priya Singh 17:00, Priya Singh 15:15, Kofi Mensah (no time yet)
+--- reference
+Here are the three tickets.
+```dyui
+{"ui":"ticket","name":"Priya Singh","time":"17:00"}
+{"ui":"ticket","name":"Priya Singh","time":"15:15"}
+{"ui":"ticket","name":"Kofi Mensah"}
+```
+Kofi Mensah's ticket still has no time set.
+--- derived
+
+
+=== I-0052
+--- user
+ok so can you show my course lesson? it's called Night shift, it's active, and the amount is 8372
+--- reference
+Here is the course lesson.
+```dyui
+{"ui":"course_lesson","title":"Night shift","active":true,"amount":8372}
+```
+The Night shift lesson is active and carries an amount of 8372.
+--- derived
+
+
+=== I-0049
+--- user
+Kindly show the two remittances: ZN-3432 at https://docs.example.com/status/31 and PR-7350 at https://docs.example.com/status/96.
+--- reference
+Here are the two remittances with their links.
+```dyui
+{"ui":"remittance","id":"ZN-3432","url":"https://docs.example.com/status/31"}
+{"ui":"remittance","id":"PR-7350","url":"https://docs.example.com/status/96"}
+```
+Each remittance links to its own status page.
+--- derived
+
+
+=== I-0006
+--- user
+patient arrivals: Kofi Mensah, urgent, Oslo, 10:30, samples. Omar Haddad, urgent, Lisbon, 53 percent, Spring bundle, 09:45, badge and laptop, note "Second floor". Mia Novak, not urgent, Milan, 58 percent, Harbour route, 21:30, charger, laptop and keys, note "Call before arrival".
+--- reference
+Here are the three arrivals with their details.
+```dyui
+{"ui":"air_quality","name":"Kofi Mensah","urgent":true,"city":"Oslo","time":"10:30","items":["samples"]}
+{"ui":"air_quality","name":"Omar Haddad","notes":"Second floor","urgent":true,"city":"Lisbon","percent":53,"title":"Spring bundle","time":"09:45","items":["badge","laptop"]}
+{"ui":"air_quality","name":"Mia Novak","notes":"Call before arrival","urgent":false,"city":"Milan","percent":58,"title":"Harbour route","time":"21:30","items":["charger","laptop","keys"]}
+```
+Kofi Mensah and Omar Haddad are both urgent, and Mia Novak is the only non-urgent one.
+--- derived
+
+
+=== I-0028
+--- user
+dental visits: MV-1353 Lisbon, Room B12, code EARLYBIRD, Sep 27, Platform, 75 min, active, items badge and laptop. ZN-1064 Austin, Aisle 7, EARLYBIRD, Mar 2, Operations, 70 min, done, badge, keys and samples. AX-6253 Lisbon, Apr 4, 41 min, done.
+--- reference
+Here are the three dental visits.
+```dyui
+{"ui":"dental_visit","id":"MV-1353","city":"Lisbon","location":"Room B12","code":"EARLYBIRD","date":"Sep 27","category":"Platform","duration_min":75,"state":"active","items":["badge","laptop"]}
+{"ui":"dental_visit","id":"ZN-1064","city":"Austin","location":"Aisle 7","code":"EARLYBIRD","date":"Mar 2","category":"Operations","duration_min":70,"state":"done","items":["badge","keys","samples"]}
+{"ui":"dental_visit","id":"AX-6253","city":"Lisbon","date":"Apr 4","duration_min":41,"state":"done"}
+```
+MV-1353 is the only visit still active.
+--- derived
+
+
+=== I-0042
+--- user
+Here are three allergen notes I need displayed. ZN-8466 lists laptop and keys, city Milan, tier fail, weight 35.1 kg. MV-1277 lists keys, city Milan, tier ok, weight 88.9 kg. PR-2801 lists samples, badge and charger, city Lyon, tier fail, with no weight recorded.
+--- reference
+Here are the three allergen notes.
+```dyui
+{"ui":"allergen_note","id":"ZN-8466","items":["laptop","keys"],"city":"Milan","tier":"fail","weight_kg":35.1}
+{"ui":"allergen_note","id":"MV-1277","items":["keys"],"city":"Milan","tier":"ok","weight_kg":88.9}
+{"ui":"allergen_note","id":"PR-2801","items":["samples","badge","charger"],"city":"Lyon","tier":"fail"}
+```
+Two of the three notes are in the fail tier, and only MV-1277 is ok.
+--- derived
+
+
+=== I-0014
+--- user
+shelter bed AX-9111 for the editorial retreat: count 215, attendee Carla, temperature 9
+--- reference
+Here is the shelter bed record.
+```dyui
+{"ui":"shelter_bed","id":"AX-9111","count":215,"attendees":["Carla"],"temperature":9}
+```
+It lists one attendee, Carla.
+--- derived
+
+
+=== I-0016
+--- user
+risk entries: Night shift, rating 5.0, low, not active, tag audit. Quarterly review, rating 3.4, medium, active, tags eu and new.
+--- reference
+Here are the two risk entries.
+```dyui
+{"ui":"risk_entry","title":"Night shift","rating":5.0,"tier":"low","active":false,"tags":["audit"]}
+{"ui":"risk_entry","title":"Quarterly review","rating":3.4,"tier":"medium","active":true,"tags":["eu","new"]}
+```
+The low-risk Night shift entry is inactive, while the medium-risk Quarterly review is the active one.
+--- derived
+

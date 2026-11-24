@@ -1,0 +1,143 @@
+=== F-0013
+--- user
+Please change it to a bar chart and add September at 31. I'd like the earlier months kept as they are.
+--- reference
+With September added, the bars now run from April to September.
+```dyui
+{"ui":"chart","kind":"bar","labels":["Apr","May","Jun","Jul","Aug","Sep"],"series":[{"name":"Downtime","data":[66,58,51,40,28,31]}],"title":"Downtime, Apr–Aug","unit":"min"}
+```
+September's 31 minutes is slightly up on August. The title still reads Apr–Aug since you only asked for the new point.
+--- derived
+
+
+=== F-0019
+--- user
+Add a column called Notes. In row order the values are: APAC, new, ok, APAC, EU, APAC.
+--- reference
+Notes is now the fifth column of the deployments table.
+```dyui
+{"ui":"table","columns":["Service","Version","Status","Duration","Notes"],"rows":[["auth","v2.6.7","Rolled back",18,"APAC"],["search","v2.8.6","In progress",16,"new"],["api-gateway","v2.6.19","Rolled back",24,"ok"],["checkout","v2.1.13","Succeeded",3,"APAC"],["notifications","v2.4.7","Succeeded",5,"EU"],["billing","v2.1.12","Rolled back",26,"APAC"]],"caption":"Deployments"}
+```
+Only the Notes column is new; the other cells are as they were.
+--- derived
+
+
+=== F-0032
+--- user
+remove CLM-430
+--- reference
+CLM-430 is removed, leaving six claims.
+```dyui
+{"ui":"table","columns":["Claim","Type","Amount","Status","Adjuster"],"rows":[["CLM-747","Home","$7,598","Filed","Hana Bergstrom"],["CLM-285","Travel","$489","Assessing","Isla Fischer"],["CLM-784","Auto","$15,131","Filed","Ivan Vasquez"],["CLM-785","Health","$10,630","Paid","Aiden Tanaka"],["CLM-227","Pet","$8,696","Filed","Felix Kim"],["CLM-365","Home","$14,986","Filed","Isla Yilmaz"]],"caption":"Claims"}
+```
+Six claims remain, in the original order.
+--- derived
+
+
+=== F-0099
+--- user
+Would you please translate the chart's labels and title into French? The numbers should stay as they are.
+--- reference
+The labels and the title now read in French.
+```dyui
+{"ui":"chart","kind":"area","labels":["Lun","Mar","Mer","Jeu","Ven","Sam","Dim"],"series":[{"name":"Abonnements","data":[136,152,168,185,197,212,231]}],"title":"Abonnements, lun–dim","unit":"$"}
+```
+Only the text changed; the seven values and the chart type are untouched.
+--- derived
+
+
+=== F-0054
+--- user
+Instead of the table, can I see the Votes for each ID as a bar chart?
+--- reference
+Votes per request ID work well as bars, so the table becomes this chart.
+```dyui
+{"ui":"chart","kind":"bar","labels":["FR-331","FR-933","FR-585","FR-725","FR-938","FR-864","FR-523"],"series":[{"name":"Votes","data":[106,79,113,93,150,67,167]}],"title":"Votes per feature request"}
+```
+FR-523 has the most votes at 167, and the Request and Status columns are no longer shown.
+--- derived
+
+
+=== F-0064
+--- user
+ok make it shorter, just the last 3
+--- reference
+Keeping only the last three queues gives this view.
+```dyui
+{"ui":"chart","kind":"bar","labels":["Technical","Billing","Account"],"series":[{"name":"Backlog age","data":[6.8,7.7,8.6]}],"title":"Backlog age by queue","unit":"days"}
+```
+Account is still the oldest backlog at 8.6 days.
+--- derived
+
+
+=== F-0085
+--- user
+Can you turn this into a bar chart and append September with a value of 30? Please keep everything else exactly the same.
+--- reference
+Appending September's 30 turns the chart into five bars.
+```dyui
+{"ui":"chart","kind":"bar","labels":["May","Jun","Jul","Aug","Sep"],"series":[{"name":"Contracts expiring in 90 days","data":[24,24,25,27,30]}],"title":"Contracts expiring in 90 days, May–Aug"}
+```
+September's 30 is the highest bar. The title still reads May–Aug because only the new point was requested.
+--- derived
+
+
+=== F-0082
+--- user
+sort it by Counterparty, descending
+--- reference
+Sorting Z to A by Counterparty puts Soylent first.
+```dyui
+{"ui":"table","columns":["Counterparty","Type","Value","Expires"],"rows":[["Soylent","SOW","$267,269","Oct 9"],["Northwind","MSA","$64,441","Apr 14"],["Initech","DPA","$407,688","Sep 14"],["Initech","DPA","$235,103","Jul 25"],["Hooli","NDA","$211,120","Apr 28"],["Globex","MSA","$252,644","Mar 18"],["Acme","DPA","$210,991","Sep 27"]],"caption":"Contracts"}
+```
+The two Initech rows keep their original relative order.
+--- derived
+
+
+=== F-0031
+--- user
+Please add another column named Flag, with these values in row order: US, APAC, ok, EU, ok.
+--- reference
+Flag joins the transactions as a fifth column.
+```dyui
+{"ui":"table","columns":["Date","Merchant","Amount","Category","Flag"],"rows":[["Apr 25","Pharmacy Lux","$173","Groceries","US"],["Oct 11","Mercado Verde","$5","Dining","APAC"],["Nov 9","Pharmacy Lux","$95","Transport","ok"],["Dec 22","Café Beira","$70","Leisure","EU"],["Oct 22","Spotify","$130","Leisure","ok"]]}
+```
+The original four columns and their rows are unchanged.
+--- derived
+
+
+=== F-0056
+--- user
+remove CLM-470
+--- reference
+With CLM-470 gone, four claims are left.
+```dyui
+{"ui":"table","columns":["Claim","Type","Amount","Status","Adjuster"],"rows":[["CLM-735","Health","$3,114","Filed","Sven Moreau"],["CLM-714","Pet","$17,711","Filed","Wanjiru Nguyen"],["CLM-373","Auto","$4,611","Paid","Nadia Dubois"],["CLM-807","Auto","$11,615","Paid","Ana Nguyen"]]}
+```
+Four claims remain, all unchanged.
+--- derived
+
+
+=== F-0076
+--- user
+too busy, can you only show the last 3 towers?
+--- reference
+Three towers remain after the cut, still stacked by planned and unplanned.
+```dyui
+{"ui":"chart","kind":"bar","labels":["Campus","Harbour","Airport"],"series":[{"name":"Planned","data":[15.6,112.7,111.6]},{"name":"Unplanned","data":[14.9,88.2,80.2]}],"title":"Data used by tower","unit":"GB","stacked":true}
+```
+South is left out; the figures for the three remaining towers are the same as before.
+--- derived
+
+
+=== F-0074
+--- user
+drop Nov
+--- reference
+Without November, the line stops at October.
+```dyui
+{"ui":"chart","kind":"line","labels":["Jun","Jul","Aug","Sep","Oct"],"series":[{"name":"Active learners","data":[3980,4444,4696,5101,5552]}],"title":"Active learners, Jun–Oct"}
+```
+October at 5552 is the final point now, and the title range was adjusted to match.
+--- derived
+

@@ -1,0 +1,101 @@
+=== G-0056
+--- user
+Please list the connected devices (limit 50), showing only the first 10. I would like to see the EV charger and the Dryer with their power draw and current status.
+--- reference
+Your account has 42 devices; here are the first 10.
+```dyui
+{"ui":"table","columns":["Device","Power (kW)","Status"],"rows":[["EV charger",4.4,"On"],["Dryer",7.0,"Scheduled"],["Dishwasher",6.0,"Fault"],["Heat pump",6.1,"Fault"],["Oven",5.7,"Off"],["Pool pump",0.5,"Fault"],["EV charger",7.1,"Fault"],["Dishwasher",4.8,"Off"],["Oven",3.9,"Off"],["Heat pump",1.1,"On"]]}
+```
+The first EV charger is on at 4.4 kW, while the Dryer is scheduled at 7.0 kW.
+--- derived
+
+=== G-0026
+--- user
+daily usage? esp Fri, Thu, Tue
+--- reference
+Here is the daily usage for the six days returned.
+```dyui
+{"ui":"table","columns":["Day","Usage (kWh)","Peak hour","Cost"],"rows":[["Fri",14,"07:00","$5"],["Thu",39,"08:00","$10"],["Tue",21,"07:00","$4"],["Wed",14,"08:00","$8"],["Mon",35,"20:00","$3"],["Sat",42,"20:00","$8"]]}
+```
+Saturday used the most at 42 kWh, and Thursday cost the most at $10.
+--- derived
+
+=== G-0087
+--- user
+I need the list of open tickets for the shift handover. Please make sure TCK-229, TCK-416 and TCK-761 are covered, and include subject, priority and who is on each one.
+--- reference
+There are five open tickets; here they are with subject, priority and assigned agent.
+```dyui
+{"ui":"table","columns":["ID","Subject","Priority","Agent"],"rows":[["TCK-229","App crashes on launch","High","Sven Nakamura"],["TCK-416","App crashes on launch","High","Zainab Mendes"],["TCK-761","Invoice shows wrong VAT","Low","Uma Singh"],["TCK-131","App crashes on launch","Urgent","Mateo Castillo"],["TCK-522","Invoice shows wrong VAT","High","Wen Tanaka"]]}
+```
+TCK-131 is the only Urgent one, and it is also an App crashes on launch ticket.
+--- derived
+
+=== G-0013
+--- user
+any showings booked rn?
+--- reference
+The showings request failed.
+```dyui
+{"ui":"callout","level":"error","title":"Showings unavailable","text":"The service returned status 504 (service_unavailable): The service is temporarily unavailable."}
+```
+No showings were loaded, so try again in a moment.
+--- derived
+
+=== G-0024
+--- user
+I need to see which vehicles have services coming due. Please run it with a limit of 50, show me only the first 10, and include CM-2866 and CM-6531.
+--- reference
+The lookup found 43 services due; here are the first 10.
+```dyui
+{"ui":"table","columns":["Plate","Service","Due","Depot"],"rows":[["CM-2866","Annual inspection","Sep 28","Airport"],["CM-6531","Oil change","Dec 25","Airport"],["CM-8647","Battery check","May 21","Campus"],["CM-1028","Battery check","Aug 4","Central"],["CM-2392","Annual inspection","Feb 15","Central"],["CM-6567","Battery check","Feb 20","Harbour"],["CM-7567","Tyres","Nov 14","Campus"],["CM-5841","Annual inspection","Jun 3","Airport"],["CM-8542","Oil change","Apr 10","Harbour"],["CM-7269","Battery check","May 5","Central"]]}
+```
+CM-2866 needs its annual inspection by Sep 28, and CM-6531 an oil change by Dec 25, both at the Airport depot.
+--- derived
+
+=== G-0091
+--- user
+accounts list, limit 50, first 10 only. Vandelay and Gringotts mainly
+--- reference
+There are 37 accounts; here are the first 10 with plan, seats, MRR and owner.
+```dyui
+{"ui":"table","columns":["Account","Plan","Seats","MRR","Owner"],"rows":[["Vandelay","Pro",169,"$1,849","Zoe Jensen"],["Gringotts","Starter",136,"$6,437","Ben Yilmaz"],["Bluth Homes","Team",270,"$6,053","Mateo Okafor"],["Wonka Foods","Starter",203,"$3,517","Katya Silva"],["Fernhill","Starter",170,"$6,296","Aiden Ueda"],["Soylent","Team",136,"$7,486","Wen Okafor"],["Hooli","Starter",306,"$1,246","Jamal Park"],["Aperture","Team",158,"$3,826","Sofia Larsen"],["Acme","Enterprise",342,"$7,976","Mia Torres"],["Pied Piper","Pro",143,"$7,142","Hana Almeida"]]}
+```
+Gringotts brings in $6,437 on 136 seats, far more than Vandelay's $1,849.
+--- derived
+
+=== G-0028
+--- user
+top tracks atm?
+--- reference
+The top tracks lookup came back empty, so there is nothing to list right now.
+No tracks were returned in the data.
+--- derived
+
+=== G-0108
+--- user
+Could you please tell me what bills are due in the coming weeks?
+--- reference
+No upcoming bills were returned, so nothing is due according to the data available.
+The lookup came back empty.
+--- derived
+
+=== G-0007
+--- user
+open assignments? Cell biology lab, Newton's laws quiz, Stats project
+--- reference
+Here are the three assignments returned, matching the ones you named.
+```dyui
+{"ui":"table","columns":["Assignment","Due","Weight","Status"],"rows":[["Cell biology lab","May 11",35,"Submitted"],["Newton's laws quiz","Jun 10",26,"Open"],["Stats project","May 7",33,"Graded"]]}
+```
+Only the Newton's laws quiz is still open, due Jun 10.
+--- derived
+
+=== G-0044
+--- user
+any open redlines on the contracts? thx
+--- reference
+No open redlines were found.
+The lookup returned an empty list, so nothing is waiting for review in this data.
+--- derived
+

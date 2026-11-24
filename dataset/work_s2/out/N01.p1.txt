@@ -1,0 +1,165 @@
+=== N-0022
+--- user
+before anything gets wiped, can you put up an "are you sure" prompt for deleting the project staging-eu?
+--- reference
+Deleting a project cannot be undone, so here is a confirmation prompt first.
+```dyui
+{"ui":"confirm","title":"Delete project staging-eu?","text":"All files and history in staging-eu will be removed permanently.","action":"delete_project","data":{"project":"staging-eu"},"danger":true}
+```
+Nothing is deleted until you confirm.
+--- derived
+
+=== N-0002
+--- user
+number card for tonight: title "Covers tonight", 224, going up, target was 203
+--- reference
+Here is the number for tonight's covers.
+```dyui
+{"ui":"stat","label":"Covers tonight","value":"224","trend":"up","help":"Target 203"}
+```
+Covers are trending up and sit above the target.
+--- derived
+
+=== N-0036
+--- user
+Pop a dialog asking whether to remove Ana Ferreira from the team boards.
+--- reference
+Removing a member is immediate, so here is a confirmation step before it happens.
+```dyui
+{"ui":"confirm","title":"Remove Ana Ferreira?","text":"They will lose access to every shared board immediately.","action":"remove_member","data":{"member":"Ana Ferreira"},"danger":true}
+```
+Ana keeps access until you confirm.
+--- derived
+
+=== N-0027
+--- user
+add a citation block for the two things I used: "Benchmark report" at https://www.example.org/changelog (has the latest figures) and "Customer case study" at https://help.helpwave.example.com/getting-started/43 (walks through the setup)
+--- reference
+Here are the two references listed as numbered sources.
+```dyui
+{"ui":"sources","items":[{"title":"Benchmark report","url":"https://www.example.org/changelog","snippet":"Has the latest figures."},{"title":"Customer case study","url":"https://help.helpwave.example.com/getting-started/43","snippet":"Walks through the setup."}]}
+```
+The first covers the latest figures, and the second explains the setup step by step.
+--- derived
+
+=== N-0025
+--- user
+Please show these four statuses as pills: In progress (blue), Deprecated (no colour), Recommended (accent colour), and Beta (amber).
+--- reference
+Here are the four statuses as small coloured tags.
+```dyui
+{"ui":"badges","items":[{"label":"In progress","color":"blue"},{"label":"Deprecated"},{"label":"Recommended","color":"accent"},{"label":"Beta","color":"amber"}]}
+```
+Only Deprecated keeps the default styling, since no colour was given.
+--- derived
+
+=== N-0021
+--- user
+Kindly add a suggestions row with these items beneath the energy summary: "How does this compare to target?", "Which appliance is weakest?" and "Explain the biggest drop".
+--- reference
+Here are three follow-up questions you can tap.
+```dyui
+{"ui":"quick_replies","options":["How does this compare to target?","Which appliance is weakest?","Explain the biggest drop"]}
+```
+Tapping one sends it as your next message.
+--- derived
+
+=== N-0018
+--- user
+todo for the event: monitor the economy (done), playtest (failed), balance the rewards (failed), design the event (working on it now)
+--- reference
+Here is the checklist with the current status of each item.
+```dyui
+{"ui":"plan","items":[{"title":"Monitor the economy","status":"done"},{"title":"Playtest","status":"error"},{"title":"Balance the rewards","status":"error"},{"title":"Design the event","status":"active"}]}
+```
+Playtest and reward balancing both need another pass.
+--- derived
+
+=== N-0031
+--- user
+Could you draw a pie of our open tickets per hub? Rotterdam has 359, Porto 4982 and Milan 1222. I want to see each hub's share, with the series named Tickets.
+--- reference
+Here is the split of open tickets across the three hubs as a pie chart.
+```dyui
+{"ui":"chart","kind":"pie","labels":["Rotterdam","Porto","Milan"],"series":[{"name":"Tickets","data":[359,4982,1222]}]}
+```
+Porto holds by far the largest share of the tickets.
+--- derived
+
+=== N-0030
+--- user
+number card pls: Walking per day · August, 14.6 km, trending down
+--- reference
+Here is August's daily walking distance.
+```dyui
+{"ui":"stat","label":"Walking per day · August","value":14.6,"unit":"km","trend":"down"}
+```
+The downward trend suggests you walked less than in earlier months.
+--- derived
+
+=== N-0009
+--- user
+need an expander for the help page with three entries: "Is there an API?" - yes, every plan includes API access with per-key rate limits; "Do you offer student discounts?" - students get a discount with a valid school email; "How do I reset my password?" - use Forgot password on the sign-in page and follow the emailed link.
+--- reference
+Here are the three questions as collapsible sections.
+```dyui
+{"ui":"accordion","items":[{"title":"Is there an API?","children":[{"ui":"markdown","text":"Yes. Every plan includes API access with per-key rate limits."}]},{"title":"Do you offer student discounts?","children":[{"ui":"markdown","text":"Students get a discount with a valid school email."}]},{"title":"How do I reset my password?","children":[{"ui":"markdown","text":"Use **Forgot password** on the sign-in page and follow the emailed link."}]}]}
+```
+Each answer stays hidden until someone opens its question.
+--- derived
+
+=== N-0013
+--- user
+can you add references for my notes? the "Roadmap summary" (https://help.helpwave.example.com/annual-review/8, has the latest figures) and the "Annual review" (https://www.example.org/getting-started, covers the main changes)
+--- reference
+Here are your two references as numbered sources.
+```dyui
+{"ui":"sources","items":[{"title":"Roadmap summary","url":"https://help.helpwave.example.com/annual-review/8","snippet":"Has the latest figures."},{"title":"Annual review","url":"https://www.example.org/getting-started","snippet":"Covers the main changes."}]}
+```
+Each entry links straight to the original page.
+--- derived
+
+=== N-0037
+--- user
+make an expander FAQ: how do I reset my password -> Forgot password on the sign-in page, then follow the emailed link; how do refunds work -> they go back to the original payment method within 5–10 business days
+--- reference
+Here is the FAQ with both questions collapsed by default.
+```dyui
+{"ui":"accordion","items":[{"title":"How do I reset my password?","children":[{"ui":"markdown","text":"Use **Forgot password** on the sign-in page and follow the emailed link."}]},{"title":"How do refunds work?","children":[{"ui":"markdown","text":"Refunds go back to the original payment method within **5–10 business days**."}]}]}
+```
+Refunds take 5–10 business days to arrive.
+--- derived
+
+=== N-0007
+--- user
+I would like two chips under the leaderboard so the athlete can tap for the next step: "Show the top 3" and "Show it as a table". Please set them up for me.
+--- reference
+Here are two tappable follow-ups for the leaderboard.
+```dyui
+{"ui":"quick_replies","options":["Show the top 3","Show it as a table"]}
+```
+Selecting one is sent as a normal message, and I will respond to it.
+--- derived
+
+=== N-0035
+--- user
+Could you give me some suggestions I can tap next? I'm thinking "Which platform is weakest?" and "Show the top 3", since I want to dig into the retention numbers a bit more.
+--- reference
+Here are two follow-up questions for the retention numbers.
+```dyui
+{"ui":"quick_replies","options":["Which platform is weakest?","Show the top 3"]}
+```
+Tap either one and I will continue from there.
+--- derived
+
+=== N-0006
+--- user
+Put a CTA row under the budget summary with four options: "Open dashboard" as the main one, "Assign owner" as a secondary, "Learn more" as a subtle low-key one, and "Download summary" also secondary. Each should trigger its own action.
+--- reference
+Here are the four actions under the budget summary.
+```dyui
+{"ui":"buttons","items":[{"label":"Open dashboard","action":"open_dashboard","style":"primary"},{"label":"Assign owner","action":"assign_owner","style":"secondary"},{"label":"Learn more","action":"learn_more","style":"ghost"},{"label":"Download summary","action":"download_summary","style":"secondary"}]}
+```
+Open dashboard is emphasised as the main action, and each click is sent back to me.
+--- derived
+

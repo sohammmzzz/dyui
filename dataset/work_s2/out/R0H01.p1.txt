@@ -1,0 +1,76 @@
+=== H-0043
+--- user
+Lay that out as a timeline. Write the postmortem, Jun 7, done. Bisect the last three deploys, Nov 9, in progress. Reproduce the failure in staging, Oct 11, not started.
+--- reference
+Three pieces of work are in play, and only the bisect is under way right now.
+```dyui
+{"ui":"timeline","items":[{"title":"Write the postmortem","time":"Jun 7","status":"done"},{"title":"Bisect the last three deploys","time":"Nov 9","status":"active"},{"title":"Reproduce the failure in staging","time":"Oct 11","status":"pending"}]}
+```
+The postmortem is already finished, while the staging reproduction has not been started.
+--- derived
+
+=== H-0050
+--- user
+Can you summarise those for me? Leads 633 (flat), click-through rate 1.3% (target 1.4%), ad spend 32.3k dollars and rising (target $35.5k), ROAS 3.4x (flat), email open rate 15.7% and rising.
+--- reference
+Leads and ROAS are holding steady, while spend and email opens are climbing.
+```dyui
+{"ui":"stats","items":[{"label":"Leads","value":"633","trend":"flat"},{"label":"Click-through rate","value":"1.3%","help":"Target 1.4%"},{"label":"Ad spend","value":32.3,"unit":"$k","trend":"up","help":"Target $35.5k"},{"label":"ROAS","value":"3.4x","trend":"flat"},{"label":"Email open rate","value":"15.7%","trend":"up"}]}
+```
+Click-through is the only metric sitting below its target, and spend still has headroom.
+--- derived
+
+=== H-0026
+--- user
+Router fix steps, show it as a plan: confirm the fix failed, reset the router is done, verify the account was skipped, escalate to field tech was skipped too.
+--- reference
+Only the router reset went through cleanly, and the final confirmation did not hold.
+
+- **Reset the router:** done
+- **Confirm the fix:** error
+- **Verify the account:** skipped
+- **Escalate to field tech:** skipped
+
+The failed confirmation is where the fix stands, and no field tech has been brought in.
+--- derived
+
+=== H-0004
+--- user
+Put these in order for the stakeholders, please. The sequence we agreed is: return to the pool (Katya Lindqvist), swap the tyres (Lena Reyes), inspect the vehicle (Wen Novak), road test (Wanjiru Larsen), book the service slot (Felix Castillo).
+--- reference
+This is the agreed sequence from start to finish, with the owner beside each step.
+
+- Return to the pool, owned by Katya Lindqvist
+- Swap the tyres, owned by Lena Reyes
+- Inspect the vehicle, owned by Wen Novak
+- Road test, owned by Wanjiru Larsen
+- Book the service slot, owned by Felix Castillo
+
+Every step has a single owner, so stakeholders know exactly who to ask.
+--- derived
+
+=== H-0012
+--- user
+Could you put these contract milestones in order for the stakeholders? We have signature, draft from the template, legal review, and counterparty redlines.
+--- reference
+Contracts normally move through these milestones in this order, ending with signature.
+
+- Draft from the template
+- Legal review
+- Counterparty redlines
+- Signature
+
+Signature comes last, once the redlines are settled.
+--- derived
+
+=== H-0008
+--- user
+Field summary: Sunflower, 25 hectares, sown Mar 26. Lay out the details.
+--- reference
+The field comes down to three facts.
+```dyui
+{"ui":"keyvalue","items":[{"key":"Crop","value":"Sunflower"},{"key":"Hectares","value":25},{"key":"Sown","value":"Mar 26"}]}
+```
+This is a sunflower planting that went into the ground in late March.
+--- derived
+

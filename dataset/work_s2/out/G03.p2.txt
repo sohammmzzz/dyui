@@ -1,0 +1,104 @@
+=== G-0039
+--- user
+hey can u check the open grants? Meridian Fund, Lakeshore Trust and City Arts Board are the ones I'm tracking
+--- reference
+Here are the four open grants, including the three you are tracking.
+```dyui
+{"ui":"table","columns":["Funder","Amount","Deadline","Status"],"rows":[["Meridian Fund","$87,013","Apr 7","Awarded"],["Lakeshore Trust","$30,459","Dec 25","Drafting"],["City Arts Board","$133,441","Sep 5","Declined"],["Sunrise Foundation","$195,531","Sep 4","Declined"]]}
+```
+Meridian Fund is awarded, Lakeshore Trust is still drafting with a Dec 25 deadline, and City Arts Board was declined.
+--- derived
+
+=== G-0047
+--- user
+I would like a quick look at our best sellers, specifically the Cotton duvet, the Glass carafe and the Brass desk lamp, with units sold, revenue and what we have left in stock.
+--- reference
+Here are the three top products with units, revenue and remaining stock.
+```dyui
+{"ui":"table","columns":["Product","Units","Revenue","Stock"],"rows":[["Cotton duvet",1765,"$1,320",437],["Glass carafe",533,"$26,739",179],["Brass desk lamp",503,"$29,085",37]]}
+```
+The Brass desk lamp earns the most at $29,085 but is down to 37 in stock.
+--- derived
+
+=== G-0076
+--- user
+showings today?
+--- reference
+There are no showings in the data returned.
+The lookup came back empty, so nothing is scheduled.
+--- derived
+
+=== G-0030
+--- user
+Can you pull up account X-358 for me? I need to double-check that it is on the Pro plan with 151 seats and renews on Sep 19, since the renewal conversation is coming up and I do not want to go in with stale numbers.
+--- reference
+Here is the current record for account X-358.
+```dyui
+{"ui":"keyvalue","items":[{"key":"Plan","value":"Pro"},{"key":"Seats","value":151},{"key":"Renewal","value":"Sep 19"},{"key":"Owner","value":"Wanjiru Rahman"},{"key":"Health","value":"At risk"}]}
+```
+The plan, seats and renewal date all match; the account is flagged At risk, with Wanjiru Rahman as owner.
+--- derived
+
+=== G-0118
+--- user
+Please look up field K-330. I understand it is Maize, 29 hectares, sown on Nov 7; I would like the remaining details.
+--- reference
+Here is the record for field K-330.
+```dyui
+{"ui":"keyvalue","items":[{"key":"Crop","value":"Maize"},{"key":"Hectares","value":29},{"key":"Sown","value":"Nov 7"},{"key":"Soil","value":"Loam"},{"key":"Irrigation","value":"Rain-fed"}]}
+```
+The field is Maize on Loam soil and is rain-fed.
+--- derived
+
+=== G-0002
+--- user
+open feature requests? FR-517, FR-402, FR-503 plus the rest
+--- reference
+Here are the five feature requests with their votes and status.
+```dyui
+{"ui":"table","columns":["ID","Request","Votes","Status"],"rows":[["FR-517","Webhooks v2",46,"Planned"],["FR-402","Webhooks v2",55,"Shipped"],["FR-503","Audit log",88,"Open"],["FR-590","Webhooks v2",46,"Open"],["FR-975","Webhooks v2",53,"Open"]]}
+```
+FR-503 for the Audit log has the most votes at 88, and FR-402 is already shipped.
+--- derived
+
+=== G-0020
+--- user
+I am trying to explain our options to a customer. Could you retrieve the list of plans that are currently available on the account system?
+--- reference
+The plans lookup returned no results, so there are no plans to list from this system.
+It may be worth checking whether the plan catalogue has been configured for this account.
+--- derived
+
+=== G-0104
+--- user
+I am deciding on a hotel for the trip. Please list the hotels (limit 50), showing only the first 10, and make sure Hotel Avenida and Quinta Verde are included with their star rating, nightly price and guest rating.
+--- reference
+The search found 35 hotels; here are the first 10.
+```dyui
+{"ui":"table","columns":["Hotel","Stars","Per night","Rating"],"rows":[["Hotel Avenida",3,"$308",7.7],["Quinta Verde",3,"$214",7.3],["Mar & Sol",4,"$71",8.3],["Porto Riverside",4,"$272",8.2],["Casa Alfama",4,"$285",8.5],["Praça Suites",5,"$165",7.4],["Praça Suites",4,"$287",8.1],["Praça Suites",5,"$141",7.1],["Casa Alfama",4,"$296",8.6],["Hotel Avenida",3,"$277",8.3]]}
+```
+Mar & Sol stands out in this slice with a rating of 8.3 at only $71 per night.
+--- derived
+
+=== G-0089
+--- user
+policies expiring soon? POL-637, POL-902, POL-301 especially
+--- reference
+Six policies are expiring, including the three you named.
+```dyui
+{"ui":"table","columns":["Policy","Holder","Type","Expires","Premium"],"rows":[["POL-637","Tara Nguyen","Travel","Jun 4","$1,956"],["POL-902","Umar Weber","Home","Sep 24","$1,261"],["POL-301","Gabriel Rahman","Auto","Dec 18","$1,259"],["POL-959","Mia Fischer","Auto","May 26","$1,082"],["POL-600","Tara Moreau","Home","Nov 23","$713"],["POL-293","Rosa Ibrahim","Auto","Oct 18","$1,644"]]}
+```
+POL-959 expires first, on May 26, and POL-637 carries the highest premium at $1,956.
+--- derived
+
+=== G-0065
+--- user
+Please list the bugs we have on file. I am chiefly interested in BUG-500, BUG-256 and BUG-627.
+--- reference
+Three bugs are on file, and they are the ones you named.
+```dyui
+{"ui":"table","columns":["ID","Title","Severity","Owner"],"rows":[["BUG-500","Lag on arena map","Critical","Elif Tanaka"],["BUG-256","Audio cuts out","Major","Rin Nakamura"],["BUG-627","Daily reward not granted","Critical","Ana Ferreira"]]}
+```
+BUG-500 and BUG-627 are both Critical, so they should be handled before BUG-256.
+--- derived
+

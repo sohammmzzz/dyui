@@ -1,0 +1,167 @@
+=== C-0141
+--- user
+Kindly tabulate the contract redlines: Governing law (Pedro Reyes, accepted), Limitation of liability (Gabriel Eriksson, accepted), Data processing (Ana Eriksson, accepted), Termination (Wanjiru Quispe, accepted). Which actions could I take from there? I see "Flag as fraud", "Edit details" and "Not now".
+--- reference
+Every redline on the list has been accepted, each with a named owner.
+```dyui
+{"ui":"table","columns":["Clause","Owner","Status"],"rows":[["Governing law","Pedro Reyes","Accepted"],["Limitation of liability","Gabriel Eriksson","Accepted"],["Data processing","Ana Eriksson","Accepted"],["Termination","Wanjiru Quispe","Accepted"]],"caption":"Redlines"}
+```
+These three actions are available from this point.
+```dyui
+{"ui":"buttons","items":[{"label":"Flag as fraud","action":"flag_as_fraud"},{"label":"Edit details","action":"edit_details"},{"label":"Not now","action":"not_now"}]}
+```
+With nothing left open, "Not now" is the natural way to move on.
+--- derived
+
+
+=== C-0071
+--- user
+offers received in February: 10, up 10.6% vs last month. show it nicely, and put up a warning that showings this week is at 30, above the 25 threshold, review before Friday
+--- reference
+February brought in 10 offers, a solid rise on January.
+```dyui
+{"ui":"stat","label":"Offers received · February","value":"10","delta":"+10.6% vs last month","trend":"up"}
+```
+Showings need a second look as well.
+```dyui
+{"ui":"callout","text":"Showings this week is at 30, above the 25 threshold. Review it before Friday.","level":"warning"}
+```
+Offers are climbing, so the busy showing schedule is worth keeping an eye on.
+--- derived
+
+
+=== C-0136
+--- user
+Il corso è al 40%, fammi vedere i progressi. Cosa posso fare da qui? Segnalare come frode, ignorare l'avviso o saltare per ora.
+--- reference
+Sei a quota 40% nel completamento del corso.
+```dyui
+{"ui":"progress","value":40,"label":"Completamento del corso"}
+```
+Da qui puoi scegliere una di queste azioni.
+```dyui
+{"ui":"buttons","items":[{"label":"Segnala come frode","action":"flag_as_fraud"},{"label":"Ignora avviso","action":"dismiss_alert"},{"label":"Salta per ora","action":"skip_for_now"}]}
+```
+Saltare per ora non cambia nulla e ti lascia riprendere il corso più tardi.
+--- derived
+
+
+=== C-0036
+--- user
+Please show my resting heart rate for January nicely: 65 bpm, no change vs last month, target 66 bpm. And make a line chart of weekly distance in km over four weeks: 42.4, 39.2, 37.1, 33.8.
+--- reference
+Your resting heart rate sits just under its target.
+```dyui
+{"ui":"stat","label":"Resting heart rate · January","value":"65 bpm","delta":"0% vs last month","help":"Target 66 bpm"}
+```
+Weekly distance tells a different story over the four weeks.
+```dyui
+{"ui":"chart","kind":"line","series":[{"name":"Weekly distance","data":[42.4,39.2,37.1,33.8]}],"unit":"km"}
+```
+Distance is dropping every week while the heart rate holds steady.
+--- derived
+
+
+=== C-0126
+--- user
+outages please, easy to scan: OUT-325 Buenos Aires power failure fixed 2055 customers; OUT-134 Nairobi power failure investigating 6050; OUT-318 Boston fibre cut investigating 3158; OUT-242 Lima fibre cut fixed 4791. what are my options? decline offer, open dashboard, approve
+--- reference
+Two of the four outages are fixed, and Nairobi affects the most customers.
+```dyui
+{"ui":"table","columns":["ID","Area","Cause","Status","Customers"],"rows":[["OUT-325","Buenos Aires","Power failure","Fixed",2055],["OUT-134","Nairobi","Power failure","Investigating",6050],["OUT-318","Boston","Fibre cut","Investigating",3158],["OUT-242","Lima","Fibre cut","Fixed",4791]]}
+```
+Your options from this list are as follows.
+```dyui
+{"ui":"buttons","items":[{"label":"Decline offer","action":"decline_offer"},{"label":"Open dashboard","action":"open_dashboard"},{"label":"Approve","action":"approve"}]}
+```
+The dashboard is the quickest route to the two outages still under investigation.
+--- derived
+
+
+=== C-0009
+--- user
+leads by clinic: Harbour 3111, Old Town 4316, Riverside 1574 - where are they coming from? and today's appointments: 15:00 Sven Nguyen check-up room 2, 10:00 Zainab Park physio room 2, 09:15 Aiden Okafor physio room 8, 13:45 Tomas Novak check-up room 4
+--- reference
+Old Town supplies the largest share of leads.
+```dyui
+{"ui":"chart","kind":"donut","labels":["Harbour","Old Town","Riverside"],"series":[{"name":"Leads","data":[3111,4316,1574]}]}
+```
+Today's appointments, cleanly laid out, come next.
+```dyui
+{"ui":"table","columns":["Time","Patient","Service","Room"],"rows":[["15:00","Sven Nguyen","Check-up",2],["10:00","Zainab Park","Physio",2],["09:15","Aiden Okafor","Physio",8],["13:45","Tomas Novak","Check-up",4]]}
+```
+Riverside trails well behind the other two clinics on leads.
+--- derived
+
+
+=== C-0076
+--- user
+Could you summarise these for me, please: study streak 35 days (+6.2%, up), active learners 7,135 (+8.7%, up), assignments due 11 (+10.4%, up, target 12), forum questions 27 (0%, target 30). The leaderboard should be shown cleanly: Greta Ueda 907 points, 12 badges, 59-day streak; Yara Nguyen 713, 5, 20; Rin Silva 660, 1, 47; Ben Haddad 525, 7, 40. Please also notify them in the app that the import job finished and study streak is back to 51 days, within the 45 days limit.
+--- reference
+Study activity is up across the board, as these four figures indicate.
+```dyui
+{"ui":"stats","items":[{"label":"Study streak","value":"35 days","delta":"+6.2%","trend":"up"},{"label":"Active learners","value":"7,135","delta":"+8.7%","trend":"up"},{"label":"Assignments due","value":"11","delta":"+10.4%","trend":"up","help":"Target 12"},{"label":"Forum questions","value":"27","delta":"0%","help":"Target 30"}]}
+```
+The leaderboard shows who is setting the pace.
+```dyui
+{"ui":"table","columns":["Student","Points","Badges","Streak"],"rows":[["Greta Ueda",907,12,59],["Yara Nguyen",713,5,20],["Rin Silva",660,1,47],["Ben Haddad",525,7,40]],"caption":"Leaderboard"}
+```
+The in-app notice follows.
+```dyui
+{"ui":"callout","text":"The import job finished and Study streak is back to 51 days, within the 45 days limit.","level":"success"}
+```
+Greta Ueda leads on both points and badges.
+--- derived
+
+
+=== C-0012
+--- user
+Mi dia il quadro generale del viaggio: camminata al giorno 13,5 km in aumento, hotel a notte $326 (obiettivo $359), costo del volo 152 dollari stabile (obiettivo $167). Chi è in testa sul costo dei voli per città? Marsiglia 608, Siviglia 649, Porto 371, Lisbona 857, Napoli 508. Suggeriscimi anche qualche domanda successiva: "Which mode is weakest?", "Forecast next month" e "Break it down by mode".
+--- reference
+Lisbona guida la classifica con il volo più caro, mentre Porto è il più economico.
+```dyui
+{"ui":"stats","items":[{"label":"Camminata al giorno","value":13.5,"unit":"km","trend":"up"},{"label":"Hotel a notte","value":"$326","help":"Obiettivo $359"},{"label":"Costo del volo","value":152,"unit":"$","trend":"flat","help":"Obiettivo $167"}]}
+```
+Il confronto per città è nel grafico a barre.
+```dyui
+{"ui":"chart","kind":"bar","labels":["Marsiglia","Siviglia","Porto","Lisbona","Napoli"],"series":[{"name":"Costo del volo","data":[608,649,371,857,508]}],"title":"Costo del volo per città"}
+```
+Per continuare puoi toccare una di queste domande.
+```dyui
+{"ui":"quick_replies","options":["Which mode is weakest?","Forecast next month","Break it down by mode"]}
+```
+Hotel e volo sono entrambi sotto gli obiettivi indicati.
+--- derived
+
+
+=== C-0032
+--- user
+Tickets per field: Greenhouse 3468, Hill field 2272, Orchard 4715, River plot 2395 - what's the breakdown? Then put the fields in a table: Orchard, sunflower, 49 ha, growing; Hill field, olives, 52 ha, flowering; River plot, sunflower, 59 ha, growing; North 40, wheat, 38 ha, flowering.
+--- reference
+Orchard accounts for the biggest slice of tickets.
+```dyui
+{"ui":"chart","kind":"donut","labels":["Greenhouse","Hill field","Orchard","River plot"],"series":[{"name":"Tickets","data":[3468,2272,4715,2395]}],"title":"Tickets per field","unit":"tickets"}
+```
+The field details are in the table below.
+```dyui
+{"ui":"table","columns":["Field","Crop","Hectares","Stage"],"rows":[["Orchard","Sunflower",49,"Growing"],["Hill field","Olives",52,"Flowering"],["River plot","Sunflower",59,"Growing"],["North 40","Wheat",38,"Flowering"]],"caption":"Fields"}
+```
+River plot is the largest field at 59 hectares, yet it produces fewer tickets than the Orchard.
+--- derived
+
+
+=== C-0006
+--- user
+Tonight's reservations, please: 20:00 Farah Bergstrom party of 10, no notes; 20:45 Zoe Costa party of 2, none; 18:30 Wen Silva 7, birthday; 21:30 Yara Tanaka 3, window table. I'd like to be able to dismiss the alert or have a reminder later.
+--- reference
+Wen Silva's birthday booking at 18:30 is the earliest on tonight's list.
+```dyui
+{"ui":"table","columns":["Time","Name","Party","Notes"],"rows":[["20:00","Farah Bergstrom",10,"None"],["20:45","Zoe Costa",2,"None"],["18:30","Wen Silva",7,"Birthday"],["21:30","Yara Tanaka",3,"Window table"]],"caption":"Reservations"}
+```
+Use these buttons to act from here.
+```dyui
+{"ui":"buttons","items":[{"label":"Dismiss alert","action":"dismiss_alert"},{"label":"Remind me later","action":"remind_me_later"}]}
+```
+A reminder is the safer pick if the birthday booking needs prep.
+--- derived
+

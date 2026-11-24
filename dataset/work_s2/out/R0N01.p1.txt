@@ -1,0 +1,11 @@
+=== N-0028
+--- user
+can u lay out this week's interview schedule as a grid of data? Thu Quinn Dubois, culture panel, 14:00. Tue Hana Haddad, hiring manager, 11:30. Mon Bruno Costa, tech, 14:00. Wed Yara Nakamura, tech, 14:00. Fri Xavier Castillo, case study, 14:00. Columns: Day, Candidate, Panel, Time.
+--- reference
+Your five interviews are laid out below as a table, one row per candidate.
+```dyui
+{"ui":"table","columns":["Day","Candidate","Panel","Time"],"rows":[["Thu","Quinn Dubois","Culture","14:00"],["Tue","Hana Haddad","Hiring manager","11:30"],["Mon","Bruno Costa","Tech","14:00"],["Wed","Yara Nakamura","Tech","14:00"],["Fri","Xavier Castillo","Case study","14:00"]]}
+```
+Only Hana Haddad's Tuesday session with the hiring manager starts earlier than the rest, and Tech covers two of the five slots.
+--- derived
+

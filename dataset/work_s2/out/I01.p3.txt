@@ -1,0 +1,131 @@
+=== I-0011
+--- user
+For the campaign kickoff I need two records shown. The first is an onboarding task called Morning session, with the note "Fragile", at 11:00. The second is a pet profile with id AX-7651: capacity 561, score 28, 176 minutes, items samples, keys and laptop, and the note "Bring ID".
+--- reference
+Here are the onboarding task and the pet profile for the kickoff.
+```dyui
+{"ui":"onboarding_task","title":"Morning session","notes":"Fragile","time":"11:00"}
+{"ui":"pet_profile","id":"AX-7651","capacity":561,"score":28,"duration_min":176,"items":["samples","keys","laptop"],"notes":"Bring ID"}
+```
+The task starts at 11:00 and carries a fragile flag, while the profile asks for ID to be brought.
+--- derived
+
+
+=== I-0041
+--- user
+Pager here, I need these three press mentions displayed for the incident review. KT-1411 is a draft owned by Elena Rossi, titled Harbour route. PR-7808 is a draft owned by Ana Silva, no title. PR-1183 is also a draft owned by Ana Silva, titled Pilot batch.
+--- reference
+Here are the three press mentions for the review.
+```dyui
+{"ui":"press_mention","id":"KT-1411","tier":"draft","owner":"Elena Rossi","title":"Harbour route"}
+{"ui":"press_mention","id":"PR-7808","tier":"draft","owner":"Ana Silva"}
+{"ui":"press_mention","id":"PR-1183","tier":"draft","owner":"Ana Silva","title":"Pilot batch"}
+```
+All three are still drafts, and Ana Silva owns two of them.
+--- derived
+
+
+=== I-0021
+--- user
+Citations to display: MV-8263, not urgent, Priya Singh, 206.0 km, code TEAM15. And KT-8013, urgent, Ana Silva, 376.6 km, code EARLYBIRD.
+--- reference
+Here are the two citation entries.
+```dyui
+{"ui":"citation_entry","id":"MV-8263","urgent":false,"name":"Priya Singh","distance_km":206.0,"code":"TEAM15"}
+{"ui":"citation_entry","id":"KT-8013","urgent":true,"name":"Ana Silva","distance_km":376.6,"code":"EARLYBIRD"}
+```
+KT-8013 is the urgent one and is also the farther of the two.
+--- derived
+
+
+=== I-0032
+--- user
+Can you show these? Build result for the Spring bundle at 13:00 from provider Northwind. And a test suite called Harbour route, -3 degrees, in Studio 2, state fail.
+--- reference
+Here are the build result and the test suite.
+```dyui
+{"ui":"build_result","title":"Spring bundle","time":"13:00","provider":"Northwind"}
+{"ui":"test_suite","title":"Harbour route","temperature":-3,"location":"Studio 2","state":"fail"}
+```
+The Harbour route test suite failed, so it needs attention first.
+--- derived
+
+
+=== I-0044
+--- user
+two telescope slots: Harbour route, code EARLYBIRD, inactive, count 101, owner Dev Patel, warn, score 15, capacity 505, summary "Needs a decision this week". Pilot batch, code SPRING20, active, count 41, owner Ana Silva, fail, score 61, capacity 446, same summary.
+--- reference
+Here are the two telescope slots.
+```dyui
+{"ui":"telescope_slot","title":"Harbour route","code":"EARLYBIRD","active":false,"count":101,"owner":"Dev Patel","state":"warn","score":15,"capacity":505,"summary":"Needs a decision this week"}
+{"ui":"telescope_slot","title":"Pilot batch","code":"SPRING20","active":true,"count":41,"owner":"Ana Silva","state":"fail","score":61,"capacity":446,"summary":"Needs a decision this week"}
+```
+Both slots need a decision this week, and Pilot batch is the one in a failing state.
+--- derived
+
+
+=== I-0012
+--- user
+Show me my two festival stages please. Spring bundle: rated 4.5, capacity 293, note "Bring ID", balance 4022, at Studio 2, details at https://docs.example.com/status/51. Pilot batch: rated 3.7, capacity 109, amount 4741, balance 6512, at Dock 4, details at https://docs.example.com/status/10.
+--- reference
+Here are your two festival stages.
+```dyui
+{"ui":"festival_stage","title":"Spring bundle","rating":4.5,"capacity":293,"notes":"Bring ID","balance":4022,"url":"https://docs.example.com/status/51","location":"Studio 2"}
+{"ui":"festival_stage","title":"Pilot batch","rating":3.7,"capacity":109,"amount":4741,"balance":6512,"url":"https://docs.example.com/status/10","location":"Dock 4"}
+```
+Spring bundle is rated higher and has the larger capacity, while Pilot batch has the bigger balance.
+--- derived
+
+
+=== I-0029
+--- user
+Could you present the following per diems? Harbour route, rating 3.8, quantity 10, owner Ana Silva, 26 degrees, Dock 4, approved. Harbour route again, rating 3.9, quantity 8, owner Elena Rossi, 26 degrees, Aisle 7, new. And Night shift, rating 4.1, quantity 12, owner Ana Silva, Studio 2, in review.
+--- reference
+Here are the three per diems.
+```dyui
+{"ui":"per_diem","title":"Harbour route","rating":3.8,"quantity":10,"owner":"Ana Silva","temperature":26,"location":"Dock 4","state":"approved"}
+{"ui":"per_diem","title":"Harbour route","rating":3.9,"quantity":8,"owner":"Elena Rossi","temperature":26,"location":"Aisle 7","state":"new"}
+{"ui":"per_diem","title":"Night shift","rating":4.1,"quantity":12,"owner":"Ana Silva","location":"Studio 2","state":"in_review"}
+```
+Only the first Harbour route per diem is approved, and Night shift is still in review.
+--- derived
+
+
+=== I-0010
+--- user
+weather alerts for the clinic: Night shift, capacity 791, attendees Ben and Ana, score 42, live, quantity 60. Pilot batch, not refundable, capacity 241, attendee Ben, score 40, live, quantity 59, amount 2913.
+--- reference
+Here are the two weather alerts.
+```dyui
+{"ui":"weather_alert","title":"Night shift","capacity":791,"attendees":["Ben","Ana"],"score":42,"stage":"live","quantity":60}
+{"ui":"weather_alert","title":"Pilot batch","refundable":false,"capacity":241,"attendees":["Ben"],"score":40,"stage":"live","quantity":59,"amount":2913}
+```
+Both alerts are live right now.
+--- derived
+
+
+=== I-0055
+--- user
+Can you pull up these volunteer shifts for me? Mia Novak, rated 4.8, "Bring ID", 09:45, https://docs.example.com/plan/79. Sven Larsen, rated 4.7, "Second floor", 19:45, https://docs.example.com/guide/45. And another one for Sven Larsen, rated 3.5, "Second floor", 20:30, https://docs.example.com/status/55.
+--- reference
+Here are the three volunteer shifts.
+```dyui
+{"ui":"volunteer_shift","name":"Mia Novak","rating":4.8,"notes":"Bring ID","time":"09:45","url":"https://docs.example.com/plan/79"}
+{"ui":"volunteer_shift","name":"Sven Larsen","rating":4.7,"notes":"Second floor","time":"19:45","url":"https://docs.example.com/guide/45"}
+{"ui":"volunteer_shift","name":"Sven Larsen","rating":3.5,"notes":"Second floor","time":"20:30","url":"https://docs.example.com/status/55"}
+```
+Sven Larsen has two evening shifts, and Mia Novak's morning shift has the highest rating.
+--- derived
+
+
+=== I-0033
+--- user
+nda status ZN-6007: count 207, published, 21:15, score 74, quantity 29
+--- reference
+Here is the NDA status for ZN-6007.
+```dyui
+{"ui":"nda_status","id":"ZN-6007","count":207,"stage":"published","time":"21:15","score":74,"quantity":29}
+```
+It is published, with a score of 74.
+--- derived
+

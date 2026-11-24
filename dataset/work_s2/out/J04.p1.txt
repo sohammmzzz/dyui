@@ -1,0 +1,105 @@
+=== J-0097
+--- user
+Could you clarify the distinction between an SLO and an SLA? I need to describe it accurately in a client-facing report.
+--- reference
+An SLO is a target a team sets for itself, such as how available a service should be, while an SLA is the formal promise made to customers, often with penalties or credits if it is missed. In a client report, quote the SLA as the commitment and the SLO as the internal goal that gives you a safety margin.
+--- derived
+
+=== J-0029
+--- user
+Traduci in tedesco: "Thanks for waiting; the refund was issued and should appear in three to five business days."
+--- reference
+Ecco la traduzione in tedesco: "Danke für Ihre Geduld; die Rückerstattung wurde veranlasst und sollte innerhalb von drei bis fünf Werktagen eintreffen." Ho usato il "Sie", la forma di cortesia adatta a una risposta di assistenza.
+--- derived
+
+=== J-0045
+--- user
+does our internal fleet dashboard need https? it's only reachable from the office
+--- reference
+Yes, I'd still use it. Being on the office network doesn't stop someone on that network from reading or altering traffic, and HTTPS also keeps logins safe. Setting it up is cheap and the browser won't show warnings.
+--- derived
+
+=== J-0072
+--- user
+Notre disponibilité est à 99.97% et le SLO est de 99.9%. C'est bon, non ?
+--- reference
+Oui, 99.97% dépasse le SLO de 99.9%, donc l'objectif est atteint. Vérifiez juste que la mesure couvre bien la même période que le SLO.
+--- derived
+
+=== J-0042
+--- user
+We're putting up a dashboard for our dispatchers that runs only on the internal network. Is HTTPS needed there as well?
+--- reference
+Yes, it is advisable even on an internal network. HTTPS keeps dispatcher logins and shipment details from being read or modified in transit, and it guards against a compromised machine on the same network. I have no data about your network setup, so this is the general practice.
+--- derived
+
+=== J-0001
+--- user
+Pouvez-vous m'expliquer ce que signifie le taux de désabonnement, ou churn rate ? Je dois l'utiliser dans un dossier d'indemnisation et je veux être sûr de la définition.
+--- reference
+Le churn rate est la proportion de clients, ou de contrats, perdus sur une période donnée. On le calcule en divisant le nombre de clients perdus par le nombre de clients présents au début de la période, et plus il est bas, meilleure est la fidélisation.
+--- derived
+
+=== J-0050
+--- user
+nps - what does it measure
+--- reference
+NPS, or Net Promoter Score, measures how likely customers are to recommend you, based on a single "would you recommend us" question. The score is the share of promoters minus the share of detractors.
+--- derived
+
+=== J-0002
+--- user
+The telematics report says Miles driven 10338 for the van. Is that past the 10000-mile service mark?
+--- reference
+Yes, 10338 miles is past the 10000-mile mark. I don't have this van's actual service interval, so check its own schedule before booking anything.
+--- derived
+
+=== J-0041
+--- user
+translate to italian: "Thanks for waiting; the refund was issued and should appear in three to five business days."
+--- reference
+In Italian: "Grazie per l'attesa; il rimborso è stato emesso e dovrebbe comparire da tre a cinque giorni lavorativi dopo l'emissione." "Business days" becomes "giorni lavorativi", the usual wording in support replies.
+--- derived
+
+=== J-0055
+--- user
+Do you think dark mode should be the default setting for our reporting dashboard?
+--- reference
+I would default to the user's system setting rather than forcing dark mode. Reports with dense charts and tables are read in all kinds of lighting, so people should be able to switch easily.
+--- derived
+
+=== J-0024
+--- user
+ok makes sense. is there a downside?
+--- reference
+Yes: flags that stay around pile up as dead code and make behavior harder to reason about, because every flag multiplies the paths your code can take. Remove a flag once its rollout is finished.
+--- derived
+
+=== J-0078
+--- user
+make this friendlier pls: "Thanks for waiting; the refund was issued and should appear in three to five business days."
+--- reference
+Something like this: "Thanks so much for hanging in there! Your refund is on its way and should show up within three to five business days." Only the tone is softer; the timing and the fact that it was issued stay the same.
+--- derived
+
+=== J-0068
+--- user
+hi! just joined the team and was told to come talk to you. what do you do?
+--- reference
+Welcome aboard! I'm the on-call copilot for the platform team, so I can help with incident and on-call questions based on the information you share with me.
+--- derived
+
+=== J-0083
+--- user
+We're hosting a reporting page for the media team that's only reachable inside our office VPN. Do we still need HTTPS for it?
+--- reference
+Yes, it is still advisable. A VPN limits who can reach the page, but HTTPS keeps logins and report contents from being read or altered by anyone or anything on the same network. I only know what you described, so this is the general recommendation.
+--- derived
+
+=== J-0102
+--- user
+Buenas tardes, ¿hay alguien ahí que pueda ayudarme?
+--- reference
+Buenas tardes, sí, estoy aquí. Cuénteme qué necesita sobre el catálogo o los pedidos.
+--- derived
+

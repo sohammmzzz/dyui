@@ -1,0 +1,165 @@
+=== N-0015
+--- user
+Add a notice, warning type: parcels today are at 3,491, which is over the 2,659 threshold. Needs a review before Friday.
+--- reference
+Here is the warning about today's parcel volume.
+```dyui
+{"ui":"callout","text":"Parcels today is at 3,491, above the 2,659 threshold. Review it before Friday.","level":"warning"}
+```
+Volume is well past the limit, so it is worth checking before Friday.
+--- derived
+
+=== N-0004
+--- user
+Please make me a todo for the incident, called "Engineering operations plan". Status: reproducing the failure in staging is done, bisecting the last three deploys is in progress, the load test failed, shipping the fix behind a flag was skipped, and writing the postmortem failed.
+--- reference
+Here is the incident checklist with each task's status.
+```dyui
+{"ui":"plan","title":"Engineering operations plan","items":[{"title":"Reproduce the failure in staging","status":"done"},{"title":"Bisect the last three deploys","status":"active"},{"title":"Run the load test","status":"error"},{"title":"Ship the fix behind a flag","status":"skipped"},{"title":"Write the postmortem","status":"error"}]}
+```
+The bisect is the live task, and the load test and postmortem both need attention.
+--- derived
+
+=== N-0044
+--- user
+Could you show the KPI for MTTR in November? It is 109 min, up 10.5% against last month, and our target is 120 min.
+--- reference
+Here is November's mean time to recovery.
+```dyui
+{"ui":"stat","label":"MTTR · November","value":109,"unit":"min","delta":"+10.5% vs last month","help":"Target 120 min"}
+```
+It rose from last month but remains under the 120 min target.
+--- derived
+
+=== N-0034
+--- user
+For the reviewer's screen I would like a CTA row with four actions: "Approve" (primary), "View history" (secondary), "Start review" (primary), and "Confirm details" (primary). Each one should send its own action back to you when pressed.
+--- reference
+Here are the four actions for the reviewer.
+```dyui
+{"ui":"buttons","items":[{"label":"Approve","action":"approve","style":"primary"},{"label":"View history","action":"view_history","style":"secondary"},{"label":"Start review","action":"start_review","style":"primary"},{"label":"Confirm details","action":"confirm_details","style":"primary"}]}
+```
+Pressing one sends its action back to me.
+--- derived
+
+=== N-0014
+--- user
+spreadsheet of the deploys: search v2.6.11 in progress 14; api-gateway v2.3.4 succeeded 16; checkout v2.6.0 succeeded 10; notifications v2.5.3 succeeded 11; auth v2.2.6 succeeded 13; billing v2.8.6 rolled back 31; auth v2.6.1 rolled back 12. columns service, version, status, duration. caption Deployments
+--- reference
+Here are the seven deployments in a table.
+```dyui
+{"ui":"table","columns":["Service","Version","Status","Duration"],"rows":[["search","v2.6.11","In progress",14],["api-gateway","v2.3.4","Succeeded",16],["checkout","v2.6.0","Succeeded",10],["notifications","v2.5.3","Succeeded",11],["auth","v2.2.6","Succeeded",13],["billing","v2.8.6","Rolled back",31],["auth","v2.6.1","Rolled back",12]]}
+```
+Two deployments were rolled back, and billing v2.8.6 took the longest at 31.
+--- derived
+
+=== N-0028
+--- user
+can u put the interview schedule in a grid of data? Thu Quinn Dubois, culture panel, 14:00. Tue Hana Haddad, hiring manager, 11:30. Mon Bruno Costa, tech, 14:00. Wed Yara Nakamura, tech, 14:00. Fri Xavier Castillo, case study, 14:00. Columns: Day, Candidate, Panel, Time.
+--- reference
+Here are the five interviews with their panels and times.
+```dyui
+{"ui":"table","columns":["Day","Candidate","Panel","Time"],"rows":[["Thu","Quinn Dubois","Culture","14:00"],["Tue","Hana Haddad","Hiring manager","11:30"],["Mon","Bruno Costa","Tech","14:00"],["Wed","Yara Nakamura","Tech","14:00"],["Fri","Xavier Castillo","Case study","14:00"]]}
+```
+Hana Haddad's Tuesday slot at 11:30 is the only one not at 14:00.
+--- derived
+
+=== N-0017
+--- user
+line graph of grant applications this week, Mon to Sun: 8, 8, 9, 10, 10, 11, 11. title it "Grant applications, Mon–Sun"
+--- reference
+Here are the daily grant applications across the week.
+```dyui
+{"ui":"chart","kind":"line","series":[{"name":"Grant applications","data":[8,8,9,10,10,11,11]}],"title":"Grant applications, Mon–Sun"}
+```
+Applications crept up from 8 on Monday to 11 by the weekend.
+--- derived
+
+=== N-0041
+--- user
+add references to the menu doc, 4 of them: "Annual review" https://files.example.com/overview (walks through the setup), "Customer case study" https://news.example.com/changelog/11 (covers the main changes), "Compliance handbook" https://files.example.com/faq (walks through the setup), and "Roadmap summary" https://cdn.fernhill.example.com/annual-review/72 (has the latest figures)
+--- reference
+Here are the four references as numbered sources.
+```dyui
+{"ui":"sources","items":[{"title":"Annual review","url":"https://files.example.com/overview","snippet":"Walks through the setup."},{"title":"Customer case study","url":"https://news.example.com/changelog/11","snippet":"Covers the main changes."},{"title":"Compliance handbook","url":"https://files.example.com/faq","snippet":"Walks through the setup."},{"title":"Roadmap summary","url":"https://cdn.fernhill.example.com/annual-review/72","snippet":"Has the latest figures."}]}
+```
+Each entry links to its original page, with a one-line note on what it covers.
+--- derived
+
+=== N-0039
+--- user
+Please show these as pills: Unassigned (gray), Overdue, Internal, and Stable (green). The ones without a colour should keep the default.
+--- reference
+Here are the four tags for the product listing.
+```dyui
+{"ui":"badges","items":[{"label":"Unassigned","color":"gray"},{"label":"Overdue"},{"label":"Internal"},{"label":"Stable","color":"green"}]}
+```
+Overdue and Internal use the default colour, as requested.
+--- derived
+
+=== N-0012
+--- user
+Mi servirebbe un code block con il comando per vedere gli ultimi dieci commit in forma compatta: git log --oneline -n 10. Grazie.
+--- reference
+Ecco il comando per vedere gli ultimi dieci commit in forma compatta.
+```dyui
+{"ui":"code","code":"git log --oneline -n 10","language":"bash"}
+```
+L'opzione --oneline mostra un commit per riga e -n 10 limita l'elenco agli ultimi dieci.
+--- derived
+
+=== N-0008
+--- user
+I would like a dialog asking whether the project staging-eu should really be deleted. The buttons should read "Delete project" and "Keep it".
+--- reference
+Deleting a project cannot be undone, so here is a confirmation step.
+```dyui
+{"ui":"confirm","title":"Delete project staging-eu?","text":"All files and history in staging-eu will be removed permanently.","confirm_label":"Delete project","cancel_label":"Keep it","action":"delete_project","data":{"project":"staging-eu"},"danger":true}
+```
+The project stays as it is unless you press Delete project.
+--- derived
+
+=== N-0038
+--- user
+Could you lay out a swiper of three stays we are considering for the customer? Quinta Verde in Sintra costs $164 per night, Casa Alfama in Lisbon is $142 per night, and Hotel Avenida in Porto is $118 per night. I want each as its own card with the nightly price shown.
+--- reference
+Here are the three stays as cards in a scrolling row.
+```dyui
+{"ui":"carousel","children":[{"ui":"card","title":"Quinta Verde","subtitle":"Sintra","children":[{"ui":"stat","label":"Per night","value":"$164"}]},{"ui":"card","title":"Casa Alfama","subtitle":"Lisbon","children":[{"ui":"stat","label":"Per night","value":"$142"}]},{"ui":"card","title":"Hotel Avenida","subtitle":"Porto","children":[{"ui":"stat","label":"Per night","value":"$118"}]}]}
+```
+Hotel Avenida in Porto is the cheapest option at $118 per night.
+--- derived
+
+=== N-0016
+--- user
+Zeig mir mal die KPI für den Tischumschlag: 109 min, Tendenz fallend, Ziel waren 125 min.
+--- reference
+Hier ist der aktuelle Tischumschlag auf einen Blick.
+```dyui
+{"ui":"stat","label":"Tischumschlag","value":"109 min","trend":"down","help":"Ziel 125 min"}
+```
+Mit 109 min liegt der Wert unter dem Ziel von 125 min.
+--- derived
+
+=== N-0043
+--- user
+Please add a banner with the title "Needs attention", warning level: course completion is at 58%, above the 49% threshold, and it should be reviewed before Friday.
+--- reference
+Here is the warning about course completion.
+```dyui
+{"ui":"callout","text":"Course completion is at 58%, above the 49% threshold. Review it before Friday.","level":"warning","title":"Needs attention"}
+```
+The figure is past the threshold, so a review before Friday is advisable.
+--- derived
+
+=== N-0005
+--- user
+need a select where I can tick several integrations: Slack, Google Sheets, Zapier and Webhooks. Question should be "Which integrations do you want to enable?", button "Enable", and send it back as enable_integrations.
+--- reference
+Here is the multi-select for the integrations.
+```dyui
+{"ui":"choice","question":"Which integrations do you want to enable?","options":["Slack","Google Sheets","Zapier","Webhooks"],"multiple":true,"action":"enable_integrations","submit_label":"Enable"}
+```
+Your selection comes back as an action message listing the chosen integrations.
+--- derived
+

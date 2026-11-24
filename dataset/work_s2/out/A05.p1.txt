@@ -1,0 +1,127 @@
+=== A-0233
+--- user
+Could you display the "Check inventory" step for me? It completed successfully and took 1841 ms, and I would like to follow along with how it ran.
+--- reference
+The inventory check finished cleanly, and the step below shows how long it took.
+```dyui
+{"ui":"step","title":"Check inventory","status":"done","duration_ms":1841}
+```
+The step finished without errors, taking just under two seconds.
+--- derived
+
+=== A-0188
+--- user
+Please flag this in the app for the customer: the data export failed after 8 retries, so Churn could not be read. Use the title "Something went wrong" and mark it as an error.
+--- reference
+The failed export is flagged below as an error for the customer.
+```dyui
+{"ui":"callout","level":"error","title":"Something went wrong","text":"The data export failed after 8 retries, so Churn could not be read."}
+```
+Churn figures stay unavailable until the export runs successfully again.
+--- derived
+
+=== A-0247
+--- user
+show all 6 in a grid pls:
+https://media.example.net/img/guide-30.jpg?v=1 (A team offsite on the beach)
+https://static.brasa.example.com/img/roadmap-28.webp?v=2 (The stage before doors opened)
+https://news.example.com/img/getting-started-24.jpg?v=3 (The stage before doors opened)
+https://assets.lumen.example.io/img/q3-summary-39.png?v=4 (The old tram climbing Rua da Bica)
+https://media.example.net/img/security-06.webp?v=5 (The old tram climbing Rua da Bica)
+https://help.helpwave.example.com/img/report-39.png?v=6 (The old tram climbing Rua da Bica)
+--- reference
+All six images sit together in one grid.
+```dyui
+{"ui":"gallery","images":[{"src":"https://media.example.net/img/guide-30.jpg?v=1","alt":"A team offsite on the beach"},{"src":"https://static.brasa.example.com/img/roadmap-28.webp?v=2","alt":"The stage before doors opened"},{"src":"https://news.example.com/img/getting-started-24.jpg?v=3","alt":"The stage before doors opened"},{"src":"https://assets.lumen.example.io/img/q3-summary-39.png?v=4","alt":"The old tram climbing Rua da Bica"},{"src":"https://media.example.net/img/security-06.webp?v=5","alt":"The old tram climbing Rua da Bica"},{"src":"https://help.helpwave.example.com/img/report-39.png?v=6","alt":"The old tram climbing Rua da Bica"}]}
+```
+Each image keeps the description you gave it as alt text.
+--- derived
+
+=== A-0203
+--- user
+hey, something broke on one of my campaigns and I need to file an incident report. I'd like to give the time, the date, a priority (Low, Normal, High or Urgent) and a free-text description.
+--- reference
+Four fields cover everything the incident report needs.
+```dyui
+{"ui":"form","fields":[{"name":"time","type":"time"},{"name":"priority","type":"select","options":["Low","Normal","High","Urgent"]},{"name":"description","type":"textarea"},{"name":"date","type":"date"}]}
+```
+Submitting it sends the values back to me so the report can be logged.
+--- derived
+
+=== A-0178
+--- user
+Gostaria de reservar o voo das 13:30, o TP983, que custa $918. Pode preparar a reserva para eu confirmar antes de ser cobrado? Prefiro rever tudo antes de avançar.
+--- reference
+Antes de reservar, preciso da sua confirmação.
+```dyui
+{"ui":"confirm","title":"Reservar o voo das 13:30 por $918?","text":"O seu cartão será cobrado quando confirmar.","action":"book_flight","data":{"flight":"TP983"}}
+```
+Nada é cobrado até você escolher confirmar a reserva do voo TP983.
+--- derived
+
+=== A-0293
+--- user
+For claim CLM-2966, which actions are available to me now? I would like to confirm the details, open the dashboard, or dismiss the alert, with the dismissal marked as the cautious option.
+--- reference
+Three actions are open for claim CLM-2966.
+```dyui
+{"ui":"buttons","items":[{"label":"Confirm details","action":"confirm_details","data":{"id":"CLM-2966"},"style":"primary"},{"label":"Open dashboard","action":"open_dashboard","data":{"id":"CLM-2966"},"style":"primary"},{"label":"Dismiss alert","action":"dismiss_alert","data":{"id":"CLM-2966"},"style":"danger"}]}
+```
+Each button sends the claim ID back to me, so the action applies to CLM-2966 directly.
+--- derived
+
+=== A-0289
+--- user
+Please show this image inline in the chat: https://blog.northwind.example.com/img/overview-28.webp
+--- reference
+Your image is shown inline below.
+```dyui
+{"ui":"image","src":"https://blog.northwind.example.com/img/overview-28.webp"}
+```
+It is displayed directly in the conversation.
+--- derived
+
+=== A-0290
+--- user
+I would like a rich preview for this link: https://www.example.org/roadmap. The description should read "A plain-language walkthrough of plans and limits." and the thumbnail is https://static.brasa.example.com/img/case-study-08.jpg. Please present it as a proper preview card for the candidates.
+--- reference
+The roadmap link becomes a preview card with its description and thumbnail.
+```dyui
+{"ui":"link_preview","url":"https://www.example.org/roadmap","description":"A plain-language walkthrough of plans and limits.","image":"https://static.brasa.example.com/img/case-study-08.jpg"}
+```
+Selecting the card opens the roadmap page.
+--- derived
+
+=== A-0192
+--- user
+Where are we on the vehicle inspection round? We're at 15 percent. Please show the progress.
+--- reference
+Progress on the inspection round is shown below.
+```dyui
+{"ui":"progress","value":15}
+```
+At 15 percent, the round has only just begun.
+--- derived
+
+=== A-0005
+--- user
+Pull this out as a testimonial: "We stopped arguing about the numbers once everyone saw the same chart." It came from a support interview.
+--- reference
+That line works as a testimonial, so it is pulled out below.
+```dyui
+{"ui":"quote","text":"We stopped arguing about the numbers once everyone saw the same chart.","source":"Support interview"}
+```
+The quote is credited to the support interview it came from.
+--- derived
+
+=== A-0037
+--- user
+Can you show the Pro plan as a card? Subtitle "Fri – Mon", image https://static.brasa.example.com/img/case-study-26.webp, badge "Last seats". Inside: crop Sunflower, 57 hectares, sown Nov 14. Add a quiet "Details" button too.
+--- reference
+The Pro plan is laid out as a card, with the crop details inside.
+```dyui
+{"ui":"card","title":"Pro plan","subtitle":"Fri – Mon","image":"https://static.brasa.example.com/img/case-study-26.webp","badge":"Last seats","children":[{"ui":"keyvalue","items":[{"key":"Crop","value":"Sunflower"},{"key":"Hectares","value":57},{"key":"Sown","value":"Nov 14"}]}],"actions":[{"label":"Details","action":"view_details","style":"ghost"}]}
+```
+The Details button sends its action back to me when pressed, so I can open the full record.
+--- derived
+

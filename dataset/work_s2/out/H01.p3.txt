@@ -1,0 +1,112 @@
+=== H-0050
+--- user
+Can you summarise those for me? Leads 633 (flat), click-through rate 1.3% (target 1.4%), ad spend 32.3k dollars and rising (target $35.5k), ROAS 3.4x (flat), email open rate 15.7% and rising.
+--- reference
+Leads and ROAS are holding steady, and spend is climbing.
+```dyui
+{"ui":"stats","items":[{"label":"Leads","value":"633","trend":"flat"},{"label":"Click-through rate","value":"1.3%","help":"Target 1.4%"},{"label":"Ad spend","value":32.3,"unit":"$k","trend":"up","help":"Target $35.5k"},{"label":"ROAS","value":"3.4x","trend":"flat"},{"label":"Email open rate","value":"15.7%","trend":"up"}]}
+```
+Click-through at 1.3% is slightly under its 1.4% target, and spend still has room before the $35.5k mark.
+--- derived
+
+=== H-0036
+--- user
+plot it for me - new customers by period: 185, 204, 229, 244, 258, 282, 291, 305
+--- reference
+New customers climb in every one of the eight periods.
+```dyui
+{"ui":"chart","kind":"line","series":[{"name":"New customers","data":[185,204,229,244,258,282,291,305]}]}
+```
+The series rises from 185 to 305 without a single dip.
+--- derived
+
+=== H-0019
+--- user
+summarise this event for me: venue Arena, Aug 12, doors at 20:00, capacity 2127, sold 3981
+--- reference
+The event is at the Arena on Aug 12, with doors opening at 20:00.
+
+- **Capacity:** 2127
+- **Sold:** 3981
+
+The sold figure is higher than the stated capacity, so one of those two numbers needs checking.
+--- derived
+
+=== H-0035
+--- user
+Royalties are at $152.3k this month, up 4.7% vs last month, and the target is $153.4k. How does it look?
+--- reference
+Royalties are close to target and moving the right way.
+```dyui
+{"ui":"stat","label":"Royalties","value":152.3,"unit":"$k","delta":"+4.7% vs last month","trend":"up","help":"Target $153.4k"}
+```
+At $152.3k they are $1.1k short of the $153.4k target.
+--- derived
+1.1
+
+=== H-0058
+--- user
+Show me where we are on this ticket as a timeline: reproduce the issue, acknowledge the customer, escalate to tier 2, close the ticket.
+--- reference
+The ticket moves through four steps, laid out in order.
+```dyui
+{"ui":"plan","items":[{"title":"Reproduce the issue"},{"title":"Acknowledge the customer"},{"title":"Escalate to tier 2"},{"title":"Close the ticket"}]}
+```
+No status has been given for any step, so none is marked as started yet.
+--- derived
+
+=== H-0045
+--- user
+Body fat is 15.7% now and trending up. Is this on track?
+--- reference
+Your latest reading is 15.7%, and the direction is upward.
+```dyui
+{"ui":"stat","label":"Body fat","value":15.7,"unit":"%","trend":"up"}
+```
+Whether that counts as on track depends on the target you have set, which I do not have.
+--- derived
+
+=== H-0056
+--- user
+show it as a plan: draft the job post (in progress), send the offer (done), schedule panel interviews (done), run the screens (in progress)
+--- reference
+Two steps are finished and two are still moving.
+```dyui
+{"ui":"plan","title":"Recruiting and people ops plan","items":[{"title":"Draft the job post","status":"active"},{"title":"Send the offer","status":"done"},{"title":"Schedule panel interviews","status":"done"},{"title":"Run the screens","status":"active"}]}
+```
+The offer and the panel interviews are complete, while the job post and the screens are still open.
+--- derived
+
+=== H-0018
+--- user
+Could you give me the overview for tonight as a set of headline number cards? Table turn is 107 min (up 15.2%), average ticket $41 (up 9.5%, target $45), covers tonight 242 (target 266), delivery time 35 min and rising, and waste 16.8 kg and rising (target 18.5 kg).
+--- reference
+Tonight's service is running slower but earning more per table: the table turn is 107 min, up 15.2%, and the average ticket is $41, up 9.5% though under the $45 target.
+Covers are at 242 against a target of 266, and waste at 16.8 kg is still below its 18.5 kg target even though it is rising.
+--- derived
+
+=== H-0029
+--- user
+On en est où avec la mise en ligne du catalogue ? On est à 40 %.
+--- reference
+Le catalogue est à 40 % de sa mise en ligne.
+```dyui
+{"ui":"progress","value":40}
+```
+Il reste donc un peu plus de la moitié du travail à faire.
+--- derived
+
+=== H-0026
+--- user
+Router fix steps, show it as a plan: confirm the fix failed, reset the router is done, verify the account was skipped, escalate to field tech was skipped too.
+--- reference
+Only one step went through cleanly, and the final confirmation did not hold:
+
+1. **Reset the router:** done
+2. **Confirm the fix:** error
+3. **Verify the account:** skipped
+4. **Escalate to field tech:** skipped
+
+The failed confirmation is where the fix stands, and escalation to a field tech was skipped.
+--- derived
+

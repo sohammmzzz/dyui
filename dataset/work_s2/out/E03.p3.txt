@@ -1,0 +1,83 @@
+=== E-0106
+--- reference
+Understood, I will hold TCK-7150 for later.
+```dyui
+{"ui":"callout","level":"info","text":"TCK-7150 is parked and you will be reminded about it later. Nothing has been confirmed or changed on the ticket."}
+```
+The other actions remain possible whenever you return to it.
+--- derived
+
+=== E-0017
+--- reference
+Thanks, I have noted 2 out of 3 for the onboarding session.
+If something specific cost it a point, tell me and I will pass it along.
+--- derived
+
+=== E-0063
+--- user
+need a table tonight, can you book?
+--- reference
+Yes, I only need to know when you want to eat.
+```dyui
+{"ui":"choice","question":"What time works for you?","options":["6:00 pm","7:30 pm","9:00 pm"],"multiple":true,"allow_other":true,"action":"pick_time","submit_label":"Reserve"}
+```
+Pick a slot or type your own, and I will take it from there.
+--- derived
+
+=== E-0118
+--- user
+Before I touch anything on TCK-9937, could you remind me what details a customer needs to supply for a refund request to be processed?
+--- reference
+A refund request normally needs the order or booking reference, the reason for the refund, the amount claimed and the original payment method.
+Having these in the ticket upfront avoids a back-and-forth with the customer.
+--- derived
+
+=== E-0124
+--- user
+what are my options for ticket TCK-2861, give me the next actions
+--- reference
+Here are the actions available for TCK-2861.
+```dyui
+{"ui":"buttons","items":[{"label":"Continue","action":"continue","data":{"id":"TCK-2861"},"style":"primary"},{"label":"Download summary","action":"download_summary","data":{"id":"TCK-2861"},"style":"secondary"},{"label":"Skip for now","action":"skip_for_now","data":{"id":"TCK-2861"},"style":"ghost"},{"label":"Reject request","action":"reject_request","data":{"id":"TCK-2861"},"style":"danger"}]}
+```
+Each button sends its action back to me when you press it.
+--- derived
+
+=== E-0055
+--- user
+Hold on, if v3.7.4 misbehaves after it ships, what is the usual way to roll it back?
+--- reference
+The usual way is to redeploy the last known good release, then investigate the failing one separately. If the release included database migrations, check first that they can be reversed.
+It helps to agree who calls the rollback before shipping.
+--- derived
+
+=== E-0129
+--- reference
+"JSON lines" is not a time I can reserve, and the open slots were 6:00 pm, 7:30 pm and 9:00 pm.
+Tell me which of those you want, or give me a clock time you prefer.
+--- derived
+
+=== E-0071
+--- reference
+Thank you, 2 out of 5 is noted and it is a fair signal that I fell short.
+If you tell me what was missing, I can try to put it right in this conversation.
+--- derived
+
+=== E-0128
+--- reference
+Thanks, I have your project quote details below.
+```dyui
+{"ui":"keyvalue","items":[{"key":"Company","value":"Acme Ltd"},{"key":"Email","value":"kofi@northwind.example"},{"key":"Budget","value":"$3500"},{"key":"Preferred date","value":"2026-01-27"}]}
+```
+I will build the quote on a $3500 budget for 2026-01-27.
+--- derived
+
+=== E-0104
+--- reference
+I received the report, but one thing blocks it.
+```dyui
+{"ui":"callout","level":"warning","title":"Terms not accepted","text":"The terms checkbox was left unticked, so the incident report has not been filed."}
+```
+Tick the terms box and resubmit; the other answers, including the 17:00 arrival, can stay as they are.
+--- derived
+

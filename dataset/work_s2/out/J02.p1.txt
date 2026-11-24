@@ -1,0 +1,105 @@
+=== J-0015
+--- user
+how does a rate limiter actually work? like in simple terms
+--- reference
+A rate limiter counts how many requests each client sends within a time window and rejects or delays anything above the allowed amount. A popular design is the token bucket: tokens refill at a steady pace, every request spends one, and an empty bucket means the client has to wait. That allows short bursts while still holding the long-run average down, and blocked clients typically get a "too many requests" error.
+--- derived
+
+=== J-0035
+--- user
+Preciso responder a um cliente italiano e queria a tradução para italiano desta frase de suporte: "Your ticket has been escalated to tier 2 and we will update you within 24 hours." O tom deve ser cortês, por favor.
+--- reference
+Aqui está a tradução para italiano, em tom cortês: "Il Suo ticket è stato inoltrato al livello 2 e La aggiorneremo entro 24 ore." Usei a forma de tratamento formal (Lei), que é a mais adequada para respostas de suporte.
+--- derived
+
+=== J-0005
+--- user
+quick one - what's 'technical debt'?
+--- reference
+Technical debt is the future cost of shortcuts taken in code or design to ship faster. Like financial debt it accrues interest: the longer it stays, the slower and riskier every later change becomes.
+--- derived
+
+=== J-0093
+--- user
+That's me done for today. The handover notes are in the channel, and thanks for the help with the noisy alerts this afternoon. Signing off now.
+--- reference
+Good work today, and thanks for writing up the handover notes. Enjoy your evening; whoever picks up the pager can start from what you left in the channel.
+--- derived
+
+=== J-0028
+--- user
+Could you rewrite the following status message so that it sounds friendlier while keeping the meaning intact? "We noticed unusual sign-in activity and temporarily locked your account for your safety."
+--- reference
+A warmer way to say it: "Hi there! We spotted some unusual sign-in activity on your account, so we've locked it for the time being to keep it safe." The greeting and plainer wording soften the tone while the facts stay exactly the same.
+--- derived
+
+=== J-0061
+--- user
+Thank you for explaining the recurring-gift reports so patiently. It was genuinely helpful, and I now understand how to read them.
+--- reference
+You're welcome, and I'm glad the explanation made sense. If a figure in the next report looks off, send it over and we can go through it the same way.
+--- derived
+
+=== J-0079
+--- user
+p95 latency meaning?
+--- reference
+p95 latency is the response time that 95% of requests come in under, so it describes the slow end of your traffic rather than the typical case. A p95 far above the average means some users are getting a noticeably worse experience.
+--- derived
+
+=== J-0037
+--- user
+Stiamo rifinendo il portale per i candidati e il team è diviso: secondo te la modalità scura dovrebbe essere quella predefinita? Mi interessa un parere sincero, non una risposta diplomatica.
+--- reference
+Io non imporrei né il chiaro né lo scuro: lascerei come predefinita la preferenza del sistema operativo di chi visita il portale. Così chi ha già scelto il tema scuro lo trova subito e gli altri non vengono sorpresi, purché ci sia un selettore ben visibile per cambiare tema.
+--- derived
+
+=== J-0091
+--- user
+Le taux d'achèvement du cours est de 57%. Est-ce que cela veut bien dire qu'un peu plus de la moitié des élèves inscrits sont allés au bout ?
+--- reference
+Oui, 57% correspond à un peu plus de la moitié des élèves inscrits. Il reste donc un peu moins de la moitié qui n'a pas terminé le cours.
+--- derived
+
+=== J-0085
+--- user
+p95 latency = ?
+--- reference
+p95 latency is the response time that 95% of requests beat, with the slowest ones sitting above it. It exposes slow-tail problems, like a sluggish checkout, that an average hides.
+--- derived
+
+=== J-0006
+--- user
+Poderia dar-me um exemplo prático de como isso funciona?
+--- reference
+Claro: no seu sistema de recrutamento, regista um endereço seu como webhook; quando um candidato passa para a fase de entrevista, o sistema envia de imediato um pedido HTTP com os dados desse candidato para esse endereço. Assim, o seu calendário ou a sua ferramenta de mensagens reage logo, sem precisar de consultar o sistema de tempos a tempos.
+--- derived
+
+=== J-0004
+--- user
+Hello, are you there? I'm about to pull together this week's campaign report and wanted to make sure you're available before I start.
+--- reference
+I'm here and ready. Send over the campaign data, or tell me which report you need, and we can begin.
+--- derived
+
+=== J-0022
+--- user
+idempotent api - what's that
+--- reference
+An idempotent endpoint can be called repeatedly with the same input and leaves the system in the same state as a single call. That is why PUT and DELETE are meant to be idempotent, while a plain POST usually is not.
+--- derived
+
+=== J-0059
+--- user
+¿Puedes reescribir este aviso para que suene más cercano y amable? Es para jugadores que reclamaron un reembolso y hay que dejarlo en inglés: "Thanks for waiting; the refund was issued and should appear in three to five business days."
+--- reference
+Aquí tienes una versión más cálida, manteniendo el inglés del original: "Thanks so much for your patience! Your refund has been issued, and you should see it within three to five business days." Solo cambié el tono; el plazo y el hecho de que el reembolso ya se emitió siguen igual.
+--- derived
+
+=== J-0069
+--- user
+morning!
+--- reference
+Good morning! I'm ready whenever you are, so send over the figures or the question you want to start with.
+--- derived
+

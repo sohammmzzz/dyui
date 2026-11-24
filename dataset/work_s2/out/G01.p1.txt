@@ -1,0 +1,118 @@
+=== G-0100
+--- user
+Could you check whether I have any upcoming bills to pay? I'd like to know before I plan the month.
+--- reference
+I checked your upcoming bills and the lookup came back empty, so no bills were found. Nothing is listed as due right now.
+--- derived
+
+
+=== G-0115
+--- user
+Please pull up our top 50 tracks. I'm especially interested in how Midnight Tram and Slow Weather are doing.
+--- reference
+The service returned 45 tracks, and the first 10 are shown below, including Midnight Tram and Slow Weather.
+```dyui
+{"ui":"table","columns":["Track","Artist","Streams","Skips"],"rows":[["Midnight Tram","Noor Lindqvist",695,10],["Slow Weather","Priya Vasquez",225,5],["Static Bloom","Noor Jensen",310,29],["Salt & Honey","Dmitri Dubois",744,37],["Paper Lanterns","Pedro Silva",108,10],["Neon Harbour","Chloe Rossi",704,37],["Static Bloom","Yusuf Larsen",316,42],["Slow Weather","Wanjiru Torres",101,14],["Static Bloom","Katya Mendes",552,43],["Paper Lanterns","Tomas Bergstrom",539,17]]}
+```
+Within these ten, Salt & Honey by Dmitri Dubois has the most streams at 744. The other entries from the list are not shown here.
+--- derived
+10
+
+
+=== G-0009
+--- user
+open incidents?
+--- reference
+There are three open incidents, listed below with severity and owner.
+```dyui
+{"ui":"table","columns":["ID","Title","Severity","Owner"],"rows":[["INC-126","Disk pressure on db-3","SEV1","Dev Lindqvist"],["INC-474","Disk pressure on db-3","SEV2","Mateo Kowalski"],["INC-889","Checkout timeouts","SEV1","Omar Tanaka"]]}
+```
+INC-126 and INC-889 are both SEV1.
+--- derived
+
+
+=== G-0031
+--- user
+Show me today's showings. I have 09:30, 11:00 and 15:00 in my calendar and want to check them against the system.
+--- reference
+Six showings came back from the system.
+```dyui
+{"ui":"table","columns":["Time","Property","Buyer","Agent"],"rows":[["09:30","12 Mill Lane","Hugo Castillo","Gabriel Vasquez"],["15:00","12 Mill Lane","Yusuf Castillo","Yusuf Jensen"],["11:00","19 Quay Street","Greta Almeida","Sven Sato"],["17:15","7 Harbour Row","Ivan Mendes","Liam Vasquez"],["13:30","7 Harbour Row","Hugo Kowalski","Omar Almeida"],["11:00","19 Quay Street","Noor Vasquez","Jun Costa"]]}
+```
+The 09:30, 15:00 and 11:00 slots are all there, and 11:00 appears twice for 19 Quay Street.
+--- derived
+
+
+=== G-0005
+--- user
+I need the list of accounts for the weekly report. Can you pull them for me, please?
+--- reference
+I could not load the accounts.
+```dyui
+{"ui":"callout","level":"error","title":"Accounts unavailable","text":"The accounts request failed with status 403: the service is temporarily unavailable."}
+```
+No account data came back, so the report needs to wait until the request succeeds.
+--- derived
+
+
+=== G-0011
+--- user
+Give me the donor list, up to 50 of them. I mainly want to see where Sven Ferreira and Carla Rossi stand.
+--- reference
+The service returned 33 donors, and the first 10, including Sven Ferreira and Carla Rossi, are below.
+```dyui
+{"ui":"table","columns":["Donor","Last gift","Gifts","Segment"],"rows":[["Sven Ferreira","$730",20,"Monthly"],["Carla Rossi","$4,710",21,"Lapsed"],["Quinn Petrov","$2,178",13,"Major"],["Quinn Rahman","$2,497",24,"Mid-level"],["Ben Sato","$3,342",17,"Major"],["Yusuf Garcia","$4,563",7,"Mid-level"],["Hugo Kim","$654",27,"Lapsed"],["Zoe Nguyen","$4,728",29,"Monthly"],["Elena Singh","$4,807",30,"Mid-level"],["Gabriel Park","$3,095",39,"Mid-level"]]}
+```
+Carla Rossi is marked Lapsed despite a $4,710 last gift. The remaining donors are not shown in this view.
+--- derived
+10
+
+
+=== G-0016
+--- user
+Which bills are coming up? Show me up to 50, and I especially care about the Electricity and Insurance ones.
+--- reference
+The service found 44 upcoming bills, and the first 10 are shown below, including Electricity and Insurance.
+```dyui
+{"ui":"table","columns":["Bill","Due","Amount","Autopay"],"rows":[["Electricity","Jan 9","$1,182","No"],["Insurance","Feb 28","$1,270","No"],["Internet","Sep 6","$65","Yes"],["Phone","Feb 18","$708","No"],["Rent","Mar 5","$1,058","Yes"],["Gym","Jun 6","$553","No"],["Phone","Mar 21","$422","No"],["Gym","Nov 14","$864","No"],["Electricity","Dec 11","$283","Yes"],["Rent","Jul 24","$43","Yes"]]}
+```
+The largest of these is Insurance at $1,270, due Feb 28 with autopay off.
+--- derived
+10
+
+
+=== G-0037
+--- user
+Could you list all our currently open orders? I'm preparing the merchandising review and need the full picture.
+--- reference
+The open orders could not be retrieved.
+```dyui
+{"ui":"callout","level":"error","title":"Access denied","text":"The request returned status 403: your role cannot read this resource."}
+```
+The data has to come from someone whose role can read the open orders.
+--- derived
+
+
+=== G-0074
+--- user
+Give me the campaign numbers, especially Brand refresh, App install and Webinar series.
+--- reference
+The report returned four campaigns, shown below with spend, leads and cost per lead.
+```dyui
+{"ui":"table","columns":["Campaign","Spend","Leads","CPL"],"rows":[["Brand refresh","$14,384",146,"$18"],["App install","$17,322",1297,"$35"],["Webinar series","$23,906",114,"$22"],["Spring launch","$11,136",1199,"$60"]]}
+```
+App install produced the most leads at 1297, while Spring launch has the highest cost per lead at $60.
+--- derived
+
+
+=== G-0021
+--- user
+Pull up the open incidents right now, please.
+--- reference
+I could not retrieve the open incidents.
+```dyui
+{"ui":"callout","level":"error","title":"Incident lookup failed","text":"The request returned status 429: your role cannot read this resource."}
+```
+No incident data came back, so there is nothing to triage from this call.
+--- derived
+

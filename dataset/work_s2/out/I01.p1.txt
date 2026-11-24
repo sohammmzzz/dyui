@@ -1,0 +1,130 @@
+=== I-0053
+--- user
+Please log the equipment loan for the Morning session. It's tagged "new", the stage is closed but it is still flagged active, the provider is Lumen Labs, and the attendees are Dmitri, Ana and Elif.
+--- reference
+Here is the loan record for the Morning session.
+```dyui
+{"ui":"equipment_loan","title":"Morning session","tags":["new"],"stage":"closed","active":true,"provider":"Lumen Labs","attendees":["Dmitri","Ana","Elif"]}
+```
+The loan is closed while still flagged active, so those two fields disagree.
+--- derived
+
+
+=== I-0004
+--- user
+3 episodes to check: Night shift with Dmitri and Elif, refundable. Morning session with Elif and Ana, not refundable. Night shift again with Ben, Ana and Carla, not refundable.
+--- reference
+Here are the three episodes with their attendees and refund status.
+```dyui
+{"ui":"tv_episode","title":"Night shift","attendees":["Dmitri","Elif"],"refundable":true}
+{"ui":"tv_episode","title":"Morning session","attendees":["Elif","Ana"],"refundable":false}
+{"ui":"tv_episode","title":"Night shift","attendees":["Ben","Ana","Carla"],"refundable":false}
+```
+Only the first Night shift episode is refundable.
+--- derived
+
+
+=== I-0036
+--- user
+I need the three mortgage estimates from today's batch written up. The first is for Sven Larsen, id PR-2566, price 121, still a draft, 124 minutes, link https://docs.example.com/plan/50, temperature 2, attendees Elif, Dmitri and Ben. The second is also Sven Larsen, 172 minutes, https://docs.example.com/plan/96, temperature 10, attendee Elif only. The third is Kofi Mensah, id KT-6151, published, 21 minutes, https://docs.example.com/status/90, temperature 29, attendees Ana, Dmitri and Ben.
+--- reference
+Here are the three mortgage estimates from today's batch.
+```dyui
+{"ui":"mortgage_estimate","name":"Sven Larsen","id":"PR-2566","price":121,"stage":"draft","duration_min":124,"url":"https://docs.example.com/plan/50","temperature":2,"attendees":["Elif","Dmitri","Ben"]}
+{"ui":"mortgage_estimate","name":"Sven Larsen","duration_min":172,"url":"https://docs.example.com/plan/96","temperature":10,"attendees":["Elif"]}
+{"ui":"mortgage_estimate","name":"Kofi Mensah","id":"KT-6151","stage":"published","duration_min":21,"url":"https://docs.example.com/status/90","temperature":29,"attendees":["Ana","Dmitri","Ben"]}
+```
+Kofi Mensah's estimate is the only one marked published, and the second one for Sven Larsen has no id or stage yet.
+--- derived
+
+
+=== I-0051
+--- user
+two things for the store review: remittance KT-3939 (https://docs.example.com/status/9) and the Morning session per diem, rated 3.2, quantity 31, owner Tomas Weber, at Aisle 7, state approved.
+--- reference
+Here are the remittance and the per diem for the review.
+```dyui
+{"ui":"remittance","id":"KT-3939","url":"https://docs.example.com/status/9"}
+{"ui":"per_diem","title":"Morning session","rating":3.2,"quantity":31,"owner":"Tomas Weber","location":"Aisle 7","state":"approved"}
+```
+The per diem is already approved, so only the remittance link needs checking.
+--- derived
+
+
+=== I-0039
+--- user
+Kindly record two museum tickets for the fleet account. The first has id PR-1877, temperature -2, balance 936, on the pro tier. The second has id ZN-368, temperature 15, balance 859, on the team tier.
+--- reference
+Here are the two museum tickets for the fleet account.
+```dyui
+{"ui":"museum_ticket","id":"PR-1877","temperature":-2,"balance":936,"tier":"pro"}
+{"ui":"museum_ticket","id":"ZN-368","temperature":15,"balance":859,"tier":"team"}
+```
+PR-1877 carries the higher balance, by 77, even though it sits on the lower tier.
+--- derived
+77
+
+=== I-0020
+--- user
+Cron job for the pilot: title "Pilot batch", assigned to Priya Singh, provider Northwind, weight 51.9 kg. Can you show it?
+--- reference
+Here is the cron job for the pilot batch.
+```dyui
+{"ui":"cron_job","title":"Pilot batch","name":"Priya Singh","provider":"Northwind","weight_kg":51.9}
+```
+Priya Singh is the assigned contact, and Northwind is the provider.
+--- derived
+
+
+=== I-0057
+--- user
+lab sample for the Quarterly review, verified, items: samples
+--- reference
+Here is the lab sample for the Quarterly review.
+```dyui
+{"ui":"lab_sample","title":"Quarterly review","verified":true,"items":["samples"]}
+```
+It is verified and lists a single item.
+--- derived
+
+
+=== I-0043
+--- user
+three equipment loans please. Spring bundle, tagged eu, closed, active, provider Orbit Freight, attendees Dmitri, Carla, Ben. Pilot batch, tagged priority and beta, closed, active, provider Globex, attendee Ben. Morning session, tagged audit and vip, closed, not active, provider Globex, attendees Ana and Dmitri.
+--- reference
+Here are the three equipment loans.
+```dyui
+{"ui":"equipment_loan","title":"Spring bundle","tags":["eu"],"stage":"closed","active":true,"provider":"Orbit Freight","attendees":["Dmitri","Carla","Ben"]}
+{"ui":"equipment_loan","title":"Pilot batch","tags":["priority","beta"],"stage":"closed","active":true,"provider":"Globex","attendees":["Ben"]}
+{"ui":"equipment_loan","title":"Morning session","tags":["audit","vip"],"stage":"closed","active":false,"provider":"Globex","attendees":["Ana","Dmitri"]}
+```
+All three loans are closed, and the Morning session one is the only one no longer active.
+--- derived
+
+
+=== I-0030
+--- user
+hey, can you show me the two sponsor tiers for the trip? Mia Novak's is refundable, 6565, medium priority, called Harbour route, count 223. Priya Singh's is not refundable, 5074, at the North gate, called Night shift, count 107.
+--- reference
+Here are the two sponsor tiers for the trip.
+```dyui
+{"ui":"sponsor_tier","name":"Mia Novak","refundable":true,"amount":6565,"priority":"medium","title":"Harbour route","count":223}
+{"ui":"sponsor_tier","name":"Priya Singh","refundable":false,"amount":5074,"location":"North gate","title":"Night shift","count":107}
+```
+Mia Novak's tier is larger by 1491 and is also the refundable one.
+--- derived
+1491
+
+=== I-0038
+--- user
+Here are three contract clauses for the donor agreement. Priya Singh: level medium, 156 minutes, not refundable, tags vip, priority and beta, rating 4.4, temperature -4, score 64. Sven Larsen: level high, 9 minutes, refundable, tags eu and beta, rating 4.4, temperature 5, score 75. Kofi Mensah: level medium, 156 minutes, refundable, tags vip and audit, rating 4.7, temperature 7, score 37.
+--- reference
+Here are the three contract clauses.
+```dyui
+{"ui":"contract_clause","name":"Priya Singh","level":"medium","duration_min":156,"refundable":false,"tags":["vip","priority","beta"],"rating":4.4,"temperature":-4,"score":64}
+{"ui":"contract_clause","name":"Sven Larsen","level":"high","duration_min":9,"refundable":true,"tags":["eu","beta"],"rating":4.4,"temperature":5,"score":75}
+{"ui":"contract_clause","name":"Kofi Mensah","level":"medium","duration_min":156,"refundable":true,"tags":["vip","audit"],"rating":4.7,"temperature":7,"score":37}
+```
+Sven Larsen's clause is the only high-level one and has the top score of 75, while Kofi Mensah's has the best rating at 4.7.
+--- derived
+

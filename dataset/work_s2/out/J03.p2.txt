@@ -1,0 +1,105 @@
+=== J-0104
+--- user
+¿Hola, estás ahí?
+--- reference
+Sí, aquí estoy. ¿En qué te puedo ayudar con las entradas?
+--- derived
+
+=== J-0065
+--- user
+Could you give me a concrete example? I'm trying to picture it for the billing side of our app.
+--- reference
+Setting a customer's plan to "basic" is idempotent: repeating it any number of times leaves the plan at basic. Adding a charge is not, because every repeat creates another charge, which is why payment calls often carry a unique key so retries don't bill twice.
+--- derived
+
+=== J-0056
+--- user
+La ringrazio per l'aiuto così rapido, mi ha fatto risparmiare parecchio tempo prima dell'allenamento di oggi.
+--- reference
+Prego, sono contento che sia stato utile. Le auguro un buon allenamento.
+--- derived
+
+=== J-0019
+--- user
+what's a canary deploy?
+--- reference
+A canary deploy sends a new version to a small slice of traffic first while everyone else stays on the old one. If the metrics look healthy you widen the rollout, and if not you roll back with limited impact.
+--- derived
+
+=== J-0075
+--- user
+Good morning! Hope your day is off to a good start. I'm heading out to the north fields soon, but first I wanted to check in with you.
+--- reference
+Good morning, and a good start to your day too. Tell me what you need before you head out to the north fields.
+--- derived
+
+=== J-0044
+--- user
+Is 2.1% churn better than 2.8%?
+--- reference
+Yes. Lower churn means fewer subscribers leaving, so 2.1% beats 2.8%, provided both cover the same period.
+--- derived
+
+=== J-0087
+--- user
+ok so give me an example
+--- reference
+Deleting a user by ID is idempotent: the first call removes them, and repeating it leaves things in the same state. A counter increment is not, since every repeat changes the result.
+--- derived
+
+=== J-0007
+--- user
+what does an index do in a db? need to explain it to a new agent
+--- reference
+An index lets the database jump straight to the matching rows instead of scanning the whole table, much like the index at the back of a book. The tradeoff is extra storage and slightly slower writes.
+--- derived
+
+=== J-0076
+--- user
+monolith or microservices for our 5-person startup? be honest
+--- reference
+Start with a monolith. With five people, the coordination cost of many services (deploys, networking, debugging across boundaries) outweighs the benefits, and you can split a piece out later once a real bottleneck appears.
+--- derived
+
+=== J-0011
+--- user
+The campaign report says Leads 2008 for last month. Can I read that as 2008 leads generated in total? I'm just sanity-checking before I paste it into the summary.
+--- reference
+Yes, taken at face value, 2008 is the total number of leads the report credits to the campaign. The report doesn't say whether duplicates or unqualified leads were removed, so I wouldn't present it as 2008 sales-ready contacts.
+--- derived
+
+=== J-0092
+--- user
+Guten Morgen! Ich hoffe, Sie sind gut in den Tag gestartet.
+--- reference
+Guten Morgen! Ich bin bereit, sobald Sie mir sagen, was heute ansteht, zum Beispiel Besichtigungstermine oder Objektdaten.
+--- derived
+
+=== J-0038
+--- user
+do we really need https for our internal hr dashboard? its only on the company network
+--- reference
+Yes, it is still worth it. HTTPS protects logins and employee data from anyone snooping on the internal network and stops tampering in transit. Certificates for internal sites are cheap and easy to automate nowadays.
+--- derived
+
+=== J-0077
+--- user
+hey you there?
+--- reference
+Yep, I'm here. What do you need for the building?
+--- derived
+
+=== J-0105
+--- user
+Wir sind zu fünft und bauen gerade eine Bestell-App für die Werkstatt. Monolith oder Microservices, was würdest du nehmen?
+--- reference
+Ich würde mit einem Monolithen starten: Bei einem so kleinen Team kosten viele einzelne Dienste mehr Abstimmung und Betriebsaufwand, als sie bringen. Wenn später ein Teil wirklich getrennt skaliert werden muss, kannst du ihn gezielt herauslösen.
+--- derived
+
+=== J-0064
+--- user
+Fünf Leute im Startup, Monolith oder Microservices?
+--- reference
+Monolith. Bei fünf Leuten bremsen Microservices eher durch den Mehraufwand bei Deployment und Fehlersuche, und trennen kannst du später immer noch.
+--- derived
+

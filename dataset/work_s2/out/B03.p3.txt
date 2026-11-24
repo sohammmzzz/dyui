@@ -1,0 +1,101 @@
+=== B-0059
+--- user
+Sun: 10 kWh, peak 18:00, $4. Tue: 42 kWh, peak 18:00, $3. Compare?
+--- reference
+Tue used far more energy than Sun, 42 kWh against 10 kWh, yet its bill was lower at $3 versus $4. Both days peaked at 18:00, so the cost difference does not come from when the peak happened.
+--- derived
+
+=== B-0036
+--- user
+Today's appointments, please lay them out: 15:00 Felix Reyes check-up room 5; 13:45 Olga Sato physio room 7; 08:30 Vera Garcia check-up room 8; 09:15 Ivan Reyes physio room 9; 10:00 Yusuf Quispe dental room 7; 16:20 Lena Bergstrom lab work room 6.
+--- reference
+Today's patients are listed below by time, each with a service and a room.
+```dyui
+{"ui":"table","columns":["Time","Patient","Service","Room"],"rows":[["15:00","Felix Reyes","Check-up",5],["13:45","Olga Sato","Physio",7],["08:30","Vera Garcia","Check-up",8],["09:15","Ivan Reyes","Physio",9],["10:00","Yusuf Quispe","Dental",7],["16:20","Lena Bergstrom","Lab work",6]],"caption":"Today's schedule"}
+```
+Room 7 is used twice, by Olga Sato and by Yusuf Quispe, at different times.
+--- derived
+
+=== B-0038
+--- user
+Batería en julio: 15%, va subiendo. El objetivo era 17%. ¿Está bien?
+--- reference
+En julio la batería quedó en 15%.
+```dyui
+{"ui":"stat","label":"Nivel de batería · julio","value":"15%","trend":"up","help":"Objetivo 17%"}
+```
+Va en la dirección correcta, pero todavía está por debajo del objetivo de 17%.
+--- derived
+
+=== B-0042
+--- user
+Ad spend in $k against leads, one point per campaign: 2.8 spend gave 139.1 leads, 3.3 gave 163.9, 4.4 gave 207, 4.5 gave 200.8, 5.9 gave 248.1, 6.7 gave 295.2, 6.9 gave 273.1. Does one drive the other?
+--- reference
+Lead volume against ad spend, campaign by campaign, looks like this.
+```dyui
+{"ui":"chart","kind":"scatter","series":[{"name":"Leads vs ad spend ($k)","data":[[2.8,139.1],[3.3,163.9],[4.4,207],[4.5,200.8],[5.9,248.1],[6.7,295.2],[6.9,273.1]]}],"title":"Leads vs ad spend ($k)"}
+```
+Leads climb with spend across the range, though the data only shows they move together, not that spend alone causes it.
+--- derived
+
+=== B-0101
+--- user
+Comparar: Ceramic planter, 1686 unidades, $45,325 de receita, estoque 483. Brass desk lamp, 1333 unidades, $3,301, estoque 296.
+--- reference
+O Ceramic planter vendeu mais, com 1686 unidades contra 1333 do Brass desk lamp, e a diferença na receita é grande: $45,325 contra $3,301. O estoque dos dois é de 483 e 296 unidades, respectivamente.
+--- derived
+
+=== B-0108
+--- user
+Estoy revisando el progreso de los alumnos en el curso de ciencias y la finalización del curso es del 85%, que ha bajado respecto a la medición anterior. ¿Cómo se ve?
+--- reference
+La finalización del curso se sitúa en 85%.
+```dyui
+{"ui":"stat","label":"Finalización del curso","value":85,"unit":"%","trend":"down"}
+```
+El 85% muestra una tendencia a la baja, aunque no tengo la cifra anterior para medir cuánto cayó.
+--- derived
+
+=== B-0106
+--- user
+Voilà les événements, rends ça facile à lire : Boss Rush 33114 joueurs, $11,205, Live ; Speedrun Cup 8678 joueurs, $18,666, Live ; Spring Festival 153374 joueurs, $42,053, Ended ; Double XP Weekend 54859 joueurs, $38,565, Scheduled ; Lunar Hunt 20746 joueurs, $74,215, Scheduled ; Boss Rush 70920 joueurs, $21,781, Scheduled ; Double XP Weekend 142074 joueurs, $74,661, Ended
+--- reference
+Les sept événements tiennent dans un seul tableau, avec joueurs, revenus et statut.
+```dyui
+{"ui":"table","columns":["Événement","Joueurs","Revenus","Statut"],"rows":[["Boss Rush",33114,"$11,205","Live"],["Speedrun Cup",8678,"$18,666","Live"],["Spring Festival",153374,"$42,053","Ended"],["Double XP Weekend",54859,"$38,565","Scheduled"],["Lunar Hunt",20746,"$74,215","Scheduled"],["Boss Rush",70920,"$21,781","Scheduled"],["Double XP Weekend",142074,"$74,661","Ended"]]}
+```
+Boss Rush et Double XP Weekend apparaissent chacun deux fois, avec des chiffres différents.
+--- derived
+
+=== B-0158
+--- user
+Interviews this week, table please: Thu Ana Ferreira Tech 14:00; Mon Tara Rossi Culture 10:00; Tue Zoe Moreau Culture 14:00; Wed Liam Yilmaz Case study 11:30; Fri Felix Quispe Hiring manager 11:30; Thu Tomas Fischer Hiring manager 16:15
+--- reference
+Six interviews fill the week.
+```dyui
+{"ui":"table","columns":["Day","Candidate","Panel","Time"],"rows":[["Thu","Ana Ferreira","Tech","14:00"],["Mon","Tara Rossi","Culture","10:00"],["Tue","Zoe Moreau","Culture","14:00"],["Wed","Liam Yilmaz","Case study","11:30"],["Fri","Felix Quispe","Hiring manager","11:30"],["Thu","Tomas Fischer","Hiring manager","16:15"]],"caption":"Interviews this week"}
+```
+Thursday is the busiest day, with two interviews.
+--- derived
+
+=== B-0011
+--- user
+Kindly show me where we are on this patient visit. The steps are: See the clinician, Dec 3, completed, owner Sven Lindqvist; Send the visit summary, Sep 5, under way, owner Greta Park; Take vitals, Aug 7, still to do, owner Yusuf Okafor; Book the follow-up, Jul 9, still to do, owner Yusuf Almeida.
+--- reference
+The visit has reached its second step out of four, as the sequence shows.
+```dyui
+{"ui":"timeline","items":[{"title":"See the clinician","time":"Dec 3","status":"done","text":"Owner: Sven Lindqvist"},{"title":"Send the visit summary","time":"Sep 5","status":"active","text":"Owner: Greta Park"},{"title":"Take vitals","time":"Aug 7","status":"pending","text":"Owner: Yusuf Okafor"},{"title":"Book the follow-up","time":"Jul 9","status":"pending","text":"Owner: Yusuf Almeida"}]}
+```
+The visit summary is being sent now, and vitals and the follow-up booking are still pending.
+--- derived
+
+=== B-0168
+--- user
+Plot these against each other. Hours studied vs exam score: 3.7 h and 54, 3.9 and 54.7, 7.4 and 69, 8 and 77, 12.1 and 69.8, 12.5 and 77.5, 14.2 and 84.9, 16.9 and 97.3, 17.6 and 90.6.
+--- reference
+Study hours against exam score, point by point, give a clear picture.
+```dyui
+{"ui":"chart","kind":"scatter","series":[{"name":"Exam score vs hours studied","data":[[3.7,54],[3.9,54.7],[7.4,69],[8,77],[12.1,69.8],[12.5,77.5],[14.2,84.9],[16.9,97.3],[17.6,90.6]]}],"title":"Exam score vs hours studied"}
+```
+More study time generally goes with higher scores, from 54 at 3.7 hours to 97.3 at 16.9 hours.
+--- derived

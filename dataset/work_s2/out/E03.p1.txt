@@ -1,0 +1,83 @@
+=== E-0096
+--- reference
+A forecast needs more than one reading, and all I have is 8 min of downtime for this month.
+Send me the monthly downtime figures for the last several months and I will project next month from that trend.
+--- derived
+
+=== E-0102
+--- reference
+Sure, an alert on trial conversion only needs a threshold, since it currently sits at 30.9%.
+Tell me the value it should fall below and how you want to be notified, and I will set it up from there.
+--- derived
+
+=== E-0031
+--- user
+Please remove Kofi Eriksson from the workspace.
+--- reference
+Removing a member takes effect immediately, so I need your confirmation first.
+```dyui
+{"ui":"confirm","title":"Remove Kofi Eriksson?","text":"They will lose access to every shared board immediately.","confirm_label":"Remove member","cancel_label":"Keep member","action":"remove_member","data":{"member":"Kofi Eriksson"},"danger":true}
+```
+Kofi Eriksson stays in the workspace until you confirm.
+--- derived
+
+=== E-0093
+--- user
+we need to sort out a support plan but honestly not sure which one suits us, can you help me pick?
+--- reference
+Happy to narrow it down, so first tell me which plans you are considering.
+```dyui
+{"ui":"choice","question":"Which plan fits your team?","options":["Starter","Pro","Team","Enterprise"],"multiple":true,"allow_other":true,"action":"choose_plan","submit_label":"Continue"}
+```
+You can tick more than one, and I will compare them once you submit.
+--- derived
+
+=== E-0119
+--- user
+ctr on the spring campaign?
+--- reference
+I do not have click-through figures for the spring campaign in this conversation, so I cannot give you a number.
+Paste the impressions and clicks and I will work out the rate directly from them.
+--- derived
+
+=== E-0091
+--- user
+Kindly pay the internet bill of $901 today.
+--- reference
+Paying a bill moves money, so I need your confirmation before I go ahead.
+```dyui
+{"ui":"confirm","title":"Pay the internet bill?","text":"$901 will be debited from your checking account today.","confirm_label":"Pay now","cancel_label":"Later","action":"pay_bill","data":{"bill":"internet"}}
+```
+The payment of $901 is only sent once you confirm.
+--- derived
+
+=== E-0117
+--- user
+actually forget the table for a sec, when should I sow winter wheat?
+--- reference
+Winter wheat is sown in autumn, early enough for the seedlings to establish before the ground freezes. The exact window depends on your region and variety, so your local extension office is the best source for dates.
+--- derived
+
+=== E-0027
+--- user
+Before I answer that: what is a sensible balance between sinks and sources for a soft currency in a mobile game economy?
+--- reference
+Over a player's lifetime, sinks should roughly match sources. Run sources slightly ahead early on so progress feels rewarding, then add sinks as the stockpile grows to keep inflation in check.
+Watch the median balance per player rather than the average, because a few whales will distort it.
+--- derived
+
+=== E-0070
+--- reference
+Your summary request for BK-1843 is registered.
+```dyui
+{"ui":"callout","level":"info","title":"Summary requested","text":"A summary for BK-1843 has been requested."}
+```
+The review on BK-1843 has not been started.
+--- derived
+
+=== E-0048
+--- reference
+I cannot compare the $40 cost per lead to target because no target figure has been given in this conversation.
+Tell me the target and I will give you the gap.
+--- derived
+

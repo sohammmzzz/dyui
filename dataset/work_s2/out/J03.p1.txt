@@ -1,0 +1,105 @@
+=== J-0027
+--- user
+oauth refresh token - what's it for?
+--- reference
+A refresh token lets an app obtain a new access token after the old one expires, without making the user sign in again. Access tokens stay short-lived for safety, while the refresh token is stored more carefully and can be revoked if it leaks.
+--- derived
+
+=== J-0057
+--- user
+can you make this less jargony for a customer? "Your ticket has been escalated to tier 2 and we will update you within 24 hours."
+--- reference
+Plain-language option: "Your request has been passed to our specialist team, and we'll get back to you within 24 hours." The jargon "escalated to tier 2" is gone, while the 24-hour promise is untouched.
+--- derived
+
+=== J-0032
+--- user
+We run nightly backups of our customer records, but nobody has ever tried restoring one. Can you explain why testing backups matters?
+--- reference
+A backup is only useful if it can actually be restored, and problems like corrupted files, missing data or an outdated restore procedure usually show up only when you try. Testing on a schedule tells you how long recovery really takes and whether the team knows the steps, so nobody is learning them in the middle of an outage.
+--- derived
+
+=== J-0016
+--- user
+e dá pra usar isso pra liberar só pra alguns usuários?
+--- reference
+Dá sim, e é justamente um dos usos mais comuns. Você liga a flag só para um grupo, como a equipe interna ou uma pequena parcela dos usuários, e vai ampliando conforme vê que tudo está estável.
+--- derived
+
+=== J-0080
+--- user
+why not just redeploy?
+--- reference
+A redeploy takes time and carries risk for the whole app, while flipping a flag is instant and touches only that one feature. It also lets you switch a broken feature off right away.
+--- derived
+
+=== J-0008
+--- user
+Olá, está aí?
+--- reference
+Olá, estou aqui. Pode dizer o que precisa sobre o edifício.
+--- derived
+
+=== J-0031
+--- user
+I'm writing a one-off script to rename a bunch of files in my training-log folder. Is it worth writing tests for a throwaway script?
+--- reference
+Usually not full tests: if you will run it once and can check the result by eye, your time is better spent elsewhere. The exception is a script that deletes or overwrites files, where a dry-run mode or a trial on a copy of the folder is cheap insurance.
+--- derived
+
+=== J-0030
+--- user
+Our service recorded 99.97% uptime this quarter and the SLO is 99.9%. Does that meet the target?
+--- reference
+Yes, 99.97% is above the 99.9% SLO, so the target was met. That holds as long as the uptime was measured over the same window the SLO defines.
+--- derived
+
+=== J-0058
+--- user
+ok but why not just poll every few mins
+--- reference
+Polling wastes calls when nothing has changed and still leaves a delay of up to the polling interval. A webhook fires only when something happens, so a delivery status update reaches you at once.
+--- derived
+
+=== J-0026
+--- user
+is 2.1% churn better than 2.8%? trying to read our retention sheet
+--- reference
+Yes, 2.1% is better, since fewer customers are leaving than at 2.8%. Just make sure both numbers are measured over the same time period.
+--- derived
+
+=== J-0049
+--- user
+what happens when you type a url in the browser? short version
+--- reference
+The browser looks up the site's IP address through DNS, opens a connection (with TLS for HTTPS) and sends an HTTP request. The server returns HTML, and the browser fetches the linked files and renders the page.
+--- derived
+
+=== J-0012
+--- user
+rate limiter, how does it work, few sentences
+--- reference
+It counts requests per client over a time window and blocks or delays those beyond a set limit. That protects a system from overload and abuse, for example a booking form being hit by a script. Common designs are the fixed window and the token bucket.
+--- derived
+
+=== J-0090
+--- user
+Our owner keeps mixing up MRR and ARR in the delivery-subscription report. What exactly is the difference between the two?
+--- reference
+MRR is monthly recurring revenue: the predictable subscription income you expect in a single month. ARR is annual recurring revenue, usually MRR scaled up to a full year, so it describes the same revenue base as a larger number.
+--- derived
+
+=== J-0082
+--- user
+Estamos montando um painel interno de contratos que só funciona dentro da rede da empresa. É necessário usar HTTPS mesmo assim?
+--- reference
+Sim, é recomendável. O HTTPS impede que credenciais e dados dos contratos sejam lidos ou alterados por quem estiver na mesma rede, e redes internas também podem ter máquinas comprometidas. Hoje o custo de configurar certificados é baixo.
+--- derived
+
+=== J-0021
+--- user
+Taux d'épargne 34% : ça fait bien environ un tiers de mes revenus ?
+--- reference
+Oui, 34% correspond à un peu plus d'un tiers de vos revenus, ce qui est cohérent avec votre estimation. Vérifiez simplement que le calcul porte sur le revenu net et non sur le brut.
+--- derived
+

@@ -1,0 +1,71 @@
+=== F-0101
+--- user
+Please reduce the table to the three machines with the most Hours, highest first.
+--- reference
+Three machines make the cut, ranked by hours from highest.
+```dyui
+{"ui":"table","columns":["Machine","Hours","Status"],"rows":[["Sprayer S2",4896,"Ready"],["Claas Lexion",3315,"In field"],["John Deere 6130",1080,"In field"]]}
+```
+Sprayer S2 leads with 4,896 hours; Baler B1 and Kubota M7 are no longer listed.
+--- derived
+
+
+=== F-0084
+--- user
+Please set the Read on field to "Paused".
+--- reference
+Read on now shows Paused.
+```dyui
+{"ui":"keyvalue","items":[{"key":"Meter id","value":"MTR-303"},{"key":"Tariff","value":"Time-of-use"},{"key":"Last reading","value":41426},{"key":"Read on","value":"Paused"},{"key":"Status","value":"Check"}]}
+```
+The other four fields are unchanged, and Status still shows Check.
+--- derived
+
+
+=== F-0040
+--- user
+Could you make it shorter and show only the last 3 points, please?
+--- reference
+The chart only has three points, so the last three are the whole chart.
+```dyui
+{"ui":"chart","kind":"bar","labels":["Employment","Lease","MSA"],"series":[{"name":"New","data":[30,25,12]},{"name":"Returning","data":[27,20,10]}],"title":"Open redlines by type","stacked":true}
+```
+Employment, Lease and MSA all stay, so nothing needed to be cut.
+--- derived
+
+
+=== F-0087
+--- user
+Could you translate the labels and the title to French? Don't touch the numbers.
+--- reference
+Labels and title are now French, with the numbers untouched.
+```dyui
+{"ui":"chart","kind":"area","labels":["Lun","Mar","Mer","Jeu","Ven","Sam","Dim"],"series":[{"name":"Effectif","data":[379,401,419,431,455,472,502]}],"title":"Effectif, lun–dim"}
+```
+The values and the area style are exactly as before.
+--- derived
+
+
+=== F-0006
+--- user
+Actually, show the Hours per Machine as a bar chart rather than a table.
+--- reference
+As a bar chart, hours per machine are easy to compare.
+```dyui
+{"ui":"chart","kind":"bar","labels":["John Deere 6130","Sprayer S2","Kubota M7","Claas Lexion","Baler B1","John Deere 6130"],"series":[{"name":"Hours","data":[3530,4398,2989,2498,4197,1780]}],"title":"Hours per machine"}
+```
+John Deere 6130 appears twice because it has two rows in your list, and Sprayer S2 has the most hours at 4,398.
+--- derived
+
+
+=== F-0052
+--- user
+Make it shorter please. I only need the last 3 activities.
+--- reference
+Yoga, Hiking and Cycling remain, still split into planned and unplanned.
+```dyui
+{"ui":"chart","kind":"bar","labels":["Yoga","Hiking","Cycling"],"series":[{"name":"Planned","data":[18.5,10.1,26.3]},{"name":"Unplanned","data":[28.7,28.5,9.8]}],"title":"Body fat by activity","unit":"%","stacked":true}
+```
+Strength is dropped, and the numbers for the other three are unchanged.
+--- derived
+

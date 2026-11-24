@@ -1,0 +1,164 @@
+=== A-0101
+--- user
+Hier ist das Roadmap-Video: https://assets.lumen.example.io/video/roadmap.mp4 – kannst du das direkt hier im Chat abspielen?
+--- reference
+Das Roadmap-Video ist unten eingebettet und kann direkt abgespielt werden.
+```dyui
+{"ui":"video","src":"https://assets.lumen.example.io/video/roadmap.mp4"}
+```
+Ein Klick auf Play genügt, du musst den Chat nicht verlassen.
+--- derived
+
+=== A-0239
+--- user
+Can I rate today's support chat?
+--- reference
+Sure, here is a quick rating prompt for today's support chat.
+```dyui
+{"ui":"rating"}
+```
+Pick a star count and your answer comes straight back to me.
+--- derived
+
+=== A-0252
+--- user
+SKU-281, price $34, stock 231, tags beta + renewal, version 5, dry_run false. Show the structure.
+--- reference
+SKU-281 is laid out below as an expandable tree.
+```dyui
+{"ui":"json","data":{"sku":"SKU-281","price":"$34","stock":231,"tags":["beta","renewal"],"meta":{"version":5,"dry_run":false}}}
+```
+Open the nested `meta` node to see the version and the dry-run flag.
+--- derived
+
+=== A-0023
+--- user
+I would like to book an appointment. Please collect what you need: a date, my order ID, any notes, a satisfaction score from 0 to 10, and my agreement to the terms.
+--- reference
+Please fill in the details below to request your appointment.
+```dyui
+{"ui":"form","fields":[{"name":"terms","type":"checkbox"},{"name":"date","type":"date"},{"name":"satisfaction","type":"slider","min":0,"max":10},{"name":"order_id","type":"text"},{"name":"notes","type":"textarea"}]}
+```
+Once you submit, I will take these values as your booking request.
+--- derived
+
+=== A-0120
+--- user
+Hôtels retenus : Hotel Avenida (Porto, $118/night, https://static.brasa.example.com/img/faq-35.png), Casa Alfama (Lisbon, $142/night, https://files.example.com/img/faq-27.webp), Mar & Sol (Valencia, $96/night, https://news.example.com/img/security-11.png), Praça Suites (Lisbon, $187/night, https://files.example.com/img/overview-10.webp). Liste-les en bref.
+--- reference
+Voici les quatre hôtels retenus, chacun sur une ligne cliquable.
+```dyui
+{"ui":"list","items":[{"title":"Hotel Avenida","subtitle":"Porto","meta":"$118/night","image":"https://static.brasa.example.com/img/faq-35.png","action":"pick_hotel","data":{"hotel":"Hotel Avenida"}},{"title":"Casa Alfama","subtitle":"Lisbon","meta":"$142/night","image":"https://files.example.com/img/faq-27.webp","action":"pick_hotel","data":{"hotel":"Casa Alfama"}},{"title":"Mar & Sol","subtitle":"Valencia","meta":"$96/night","image":"https://news.example.com/img/security-11.png","action":"pick_hotel","data":{"hotel":"Mar & Sol"}},{"title":"Praça Suites","subtitle":"Lisbon","meta":"$187/night","image":"https://files.example.com/img/overview-10.webp","action":"pick_hotel","data":{"hotel":"Praça Suites"}}]}
+```
+Mar & Sol est le moins cher à $96 la nuit ; touchez une ligne pour choisir l'hôtel.
+--- derived
+
+=== A-0119
+--- user
+the "Summarise thread" step blew up. It was an llm step, got 24 messages as input and the output was just a timeout error. Display it in the trace
+--- reference
+The failed step would show up in the trace like this.
+```dyui
+{"ui":"step","title":"Summarise thread","status":"error","type":"llm","input":{"messages":24},"output":{"error":"timeout"}}
+```
+The step timed out on a 24-message thread, so a retry with a shorter input is the obvious next move.
+--- derived
+
+=== A-0050
+--- user
+Necesito la estructura de la reclamación CLM-302: tipo Health, presentada el Aug 20, importe $16,742 y las etiquetas audit y priority. Muéstrela como "Claim payload", por favor.
+--- reference
+La reclamación CLM-302 queda como un árbol de datos que se puede expandir.
+```dyui
+{"ui":"json","data":{"claim":"CLM-302","type":"Health","filed":"Aug 20","amount":"$16,742","tags":["audit","priority"]},"title":"Claim payload"}
+```
+Puede desplegar o contraer cada nivel para revisar los campos con calma.
+--- derived
+
+=== A-0013
+--- user
+I have a product record I'd like to explore interactively rather than read as raw text: sku SKU-434, price $73, stock 487, tags priority and eu, and a meta object with version 7 and dry_run false. Please label it "Product payload".
+--- reference
+Explore the SKU-434 record through the collapsible tree below.
+```dyui
+{"ui":"json","data":{"sku":"SKU-434","price":"$73","stock":487,"tags":["priority","eu"],"meta":{"version":7,"dry_run":false}},"title":"Product payload"}
+```
+Expand `meta` and `tags` to inspect the nested values without scrolling through raw text.
+--- derived
+
+=== A-0267
+--- user
+Prenota il volo delle 14:30 da $88, è il TP651.
+--- reference
+Prima di procedere ho bisogno della tua conferma, perché la prenotazione addebita la carta.
+```dyui
+{"ui":"confirm","title":"Prenotare il volo delle 14:30 per $88?","text":"La tua carta verrà addebitata quando confermi.","confirm_label":"Prenota il volo","cancel_label":"Indietro","action":"book_flight","data":{"flight":"TP651"}}
+```
+Finché non confermi, non viene prenotato né addebitato nulla.
+--- derived
+
+=== A-0272
+--- user
+claim CLM-382, Auto, filed Feb 9, tags trial + vip. show the structure, call it Claim payload
+--- reference
+Claim CLM-382 as an expandable structure.
+```dyui
+{"ui":"json","data":{"claim":"CLM-382","type":"Auto","filed":"Feb 9","tags":["trial","vip"]},"title":"Claim payload"}
+```
+The two tags sit in an array under the claim fields.
+--- derived
+
+=== A-0051
+--- user
+https://blog.northwind.example.com/benchmark/21 - make that link look nice. Site is blog.northwind.example.com, blurb "Everything that shipped, grouped by area." and the image is https://cdn.fernhill.example.com/img/benchmark-07.png
+--- reference
+That link now reads as a proper preview card.
+```dyui
+{"ui":"link_preview","url":"https://blog.northwind.example.com/benchmark/21","description":"Everything that shipped, grouped by area.","image":"https://cdn.fernhill.example.com/img/benchmark-07.png","site":"blog.northwind.example.com"}
+```
+Agents can open the page straight from the card.
+--- derived
+
+=== A-0078
+--- user
+Here's the contract record: counterparty Acme, type MSA, signed Aug 21, tags renewal and priority, meta version 3 with dry_run false. Can you show the structure as it would look in JSON, in a form I can click open?
+--- reference
+The Acme MSA record, laid out as a tree you can click open.
+```dyui
+{"ui":"json","data":{"counterparty":"Acme","type":"MSA","signed":"Aug 21","tags":["renewal","priority"],"meta":{"version":3,"dry_run":false}}}
+```
+The tags and meta sit in nested nodes you can open or collapse.
+--- derived
+
+=== A-0183
+--- user
+Leg diese sechs Bilder bitte zusammen in einem Raster aus: https://cdn.fernhill.example.com/img/annual-review-08.jpg?v=1 (The new front entrance), https://media.example.net/img/overview-29.jpg?v=2 (The new front entrance), https://docs.acme-cloud.example.com/img/report-02.jpg?v=3 (The old tram climbing Rua da Bica), https://news.example.com/img/guide-03.jpg?v=4 (The rooftop terrace at sunset), https://www.example.org/img/release-notes-29.jpg?v=5 (The trail marker at the summit) und https://help.helpwave.example.com/img/handbook-20.webp?v=6 (The old tram climbing Rua da Bica).
+--- reference
+Alle sechs Bilder liegen nun zusammen in einer Galerie.
+```dyui
+{"ui":"gallery","images":[{"src":"https://cdn.fernhill.example.com/img/annual-review-08.jpg?v=1","alt":"The new front entrance"},{"src":"https://media.example.net/img/overview-29.jpg?v=2","alt":"The new front entrance"},{"src":"https://docs.acme-cloud.example.com/img/report-02.jpg?v=3","alt":"The old tram climbing Rua da Bica"},{"src":"https://news.example.com/img/guide-03.jpg?v=4","alt":"The rooftop terrace at sunset"},{"src":"https://www.example.org/img/release-notes-29.jpg?v=5","alt":"The trail marker at the summit"},{"src":"https://help.helpwave.example.com/img/handbook-20.webp?v=6","alt":"The old tram climbing Rua da Bica"}]}
+```
+Der Eingang und die alte Tram kommen jeweils zweimal vor, falls du Dubletten aussortieren willst.
+--- derived
+
+=== A-0284
+--- user
+Kindly give me the overview for tonight's show: capacity filled is at 84%, down 12.4%, and tickets sold stand at 785, up 10.8%.
+--- reference
+Tonight's show comes down to two headline figures.
+```dyui
+{"ui":"stats","items":[{"label":"Capacity filled","value":"84%","delta":"-12.4%"},{"label":"Tickets sold","value":"785","delta":"+10.8%","trend":"up"}]}
+```
+Sales are growing while the filled share of capacity has dropped.
+--- derived
+
+=== A-0080
+--- user
+Could you present this as a preview card, please? https://files.example.com/changelog/44
+--- reference
+Shown as a preview card, the link is easier to spot.
+```dyui
+{"ui":"link_preview","url":"https://files.example.com/changelog/44"}
+```
+The card opens the changelog page directly.
+--- derived

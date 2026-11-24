@@ -1,0 +1,179 @@
+=== D-0133
+--- user
+Could you provide the command to install PostgreSQL, with one version for Windows and one for Docker? For Windows please use winget with the PostgreSQL.PostgreSQL package, and for Docker run postgres:16 detached on port 5432.
+--- reference
+One tab per platform keeps the two install commands apart.
+```dyui
+{"ui":"tabs","tabs":[{"label":"Windows","children":[{"ui":"code","code":"winget install PostgreSQL.PostgreSQL","language":"powershell"}]},{"label":"Docker","children":[{"ui":"code","code":"docker run -d -p 5432:5432 postgres:16","language":"bash"}]}]}
+```
+The Docker variant publishes port 5432 so local tools can connect to it.
+--- derived
+
+
+=== D-0053
+--- user
+I'm putting together a hotel pick for a client and would like it in two collapsible sections. In "Main section", a clickable list of hotels where each row sends pick_hotel with the hotel's name: Praça Suites (https://cdn.fernhill.example.com/img/report-27.png), Mar & Sol (https://cdn.fernhill.example.com/img/guide-14.webp), Quinta Verde (https://media.example.net/img/guide-21.jpg), Hotel Avenida (https://assets.lumen.example.io/img/annual-review-13.png) and Casa Alfama (https://files.example.com/img/handbook-09.png). In "More detail", a card titled "Pro plan" with the badge "Sale" containing a markdown note headed "Handover notes" with four bullets, first word bold: Pick the dates, Book the flights, Reserve the hotel, Share the itinerary.
+--- reference
+Hotels to choose from sit up top, and the handover notes are folded underneath.
+```dyui
+{"ui":"accordion","items":[{"title":"Main section","children":[{"ui":"list","items":[{"title":"Praça Suites","image":"https://cdn.fernhill.example.com/img/report-27.png","action":"pick_hotel","data":{"hotel":"Praça Suites"}},{"title":"Mar & Sol","image":"https://cdn.fernhill.example.com/img/guide-14.webp","action":"pick_hotel","data":{"hotel":"Mar & Sol"}},{"title":"Quinta Verde","image":"https://media.example.net/img/guide-21.jpg","action":"pick_hotel","data":{"hotel":"Quinta Verde"}},{"title":"Hotel Avenida","image":"https://assets.lumen.example.io/img/annual-review-13.png","action":"pick_hotel","data":{"hotel":"Hotel Avenida"}},{"title":"Casa Alfama","image":"https://files.example.com/img/handbook-09.png","action":"pick_hotel","data":{"hotel":"Casa Alfama"}}]}]},{"title":"More detail","children":[{"ui":"card","title":"Pro plan","badge":"Sale","children":[{"ui":"markdown","text":"### Handover notes\n- **Pick** the dates\n- **Book** the flights\n- **Reserve** the hotel\n- **Share** the itinerary"}]}]}]}
+```
+Selecting a hotel row sends its name back to me.
+--- derived
+
+
+=== D-0006
+--- user
+Put a card called "Trip overview" together and drop a tool step in it: "Check inventory", which failed with the output {"error":"timeout"}.
+--- reference
+The inventory check failed, and the trip overview card shows how.
+```dyui
+{"ui":"card","title":"Trip overview","children":[{"ui":"step","title":"Check inventory","status":"error","type":"tool","output":{"error":"timeout"}}]}
+```
+The inventory check timed out, so retrying it is the next move.
+--- derived
+
+
+=== D-0091
+--- user
+card "Trip overview" w/ two sources: Release notes https://news.example.com/overview and Compliance handbook https://blog.northwind.example.com/getting-started
+--- reference
+Two references now sit inside the trip overview card.
+```dyui
+{"ui":"card","title":"Trip overview","children":[{"ui":"sources","items":[{"title":"Release notes","url":"https://news.example.com/overview"},{"title":"Compliance handbook","url":"https://blog.northwind.example.com/getting-started"}]}]}
+```
+Each source is numbered so it can be cited.
+--- derived
+
+
+=== D-0031
+--- user
+Please place the following quotation inside a card titled "Account overview": "We stopped arguing about the numbers once everyone saw the same chart."
+--- reference
+The quotation appears inside the account overview card.
+```dyui
+{"ui":"card","title":"Account overview","children":[{"ui":"quote","text":"We stopped arguing about the numbers once everyone saw the same chart."}]}
+```
+It is shown without an attribution, since none was given.
+--- derived
+
+
+=== D-0016
+--- user
+Kindly prepare two tabs. On "Overview", ask for confirmation to cancel the Starter subscription: the title should read "Cancel your Starter subscription?", the confirm button "Cancel subscription", action cancel_subscription, with plan starter as data, and it should be marked as destructive. On "More", ask "Which topic interests you most?" with the options Statistics, Biology, History and Chemistry, action pick_topic, button "Start".
+--- reference
+Cancellation lives on the first tab and the topic question on the second.
+```dyui
+{"ui":"tabs","tabs":[{"label":"Overview","children":[{"ui":"confirm","title":"Cancel your Starter subscription?","confirm_label":"Cancel subscription","action":"cancel_subscription","data":{"plan":"starter"},"danger":true}]},{"label":"More","children":[{"ui":"choice","question":"Which topic interests you most?","options":["Statistics","Biology","History","Chemistry"],"action":"pick_topic","submit_label":"Start"}]}]}
+```
+Nothing is cancelled until you press the confirm button on the first tab.
+--- derived
+
+
+=== D-0090
+--- user
+can you do a swipeable thing for my workout? slide one is a plan "Fitness coaching app plan": Main set (active), Plan tomorrow (skipped), Warm up (done), Log the session (pending), Cool down (error). slide two is my reasoning: "Comparing the two fares: TAP at $249 is $66 cheaper than easyJet at $315. Price is the deciding factor, so TAP is the better pick."
+--- reference
+Swipe between the coaching plan and the fare reasoning.
+```dyui
+{"ui":"carousel","children":[{"ui":"plan","title":"Fitness coaching app plan","items":[{"title":"Main set","status":"active"},{"title":"Plan tomorrow","status":"skipped"},{"title":"Warm up","status":"done"},{"title":"Log the session","status":"pending"},{"title":"Cool down","status":"error"}]},{"ui":"reasoning","text":"Comparing the two fares: TAP at $249 is $66 cheaper than easyJet at $315. Price is the deciding factor, so TAP is the better pick."}]}
+```
+The cool down step is the one marked as failed.
+--- derived
+
+
+=== D-0122
+--- user
+Visits per service this week, shown as a pie in a card called "Weekly summary": Dermatology 646, Check-up 2253, Physio 4777, Vaccination 4815, Dental 2216. Chart title "Visits per service".
+--- reference
+Visits per service are shown as a pie inside the weekly summary card.
+```dyui
+{"ui":"card","title":"Weekly summary","children":[{"ui":"chart","kind":"pie","labels":["Dermatology","Check-up","Physio","Vaccination","Dental"],"series":[{"name":"Visits","data":[646,2253,4777,4815,2216]}],"title":"Visits per service"}]}
+```
+Vaccination and Physio are the two largest slices.
+--- derived
+
+
+=== D-0018
+--- user
+Please set up two tabs for me. The Overview tab should show the reasoning: "Comparing the two fares: TAP at $131 is $173 cheaper than easyJet at $304. Price is the deciding factor, so TAP is the better pick." The More tab should show the "Music streaming plan": Upload the artwork is done, Pitch to editors is pending, Master the track is skipped, Schedule the release is error, and Promote on socials is active.
+--- reference
+Reasoning goes on the first tab and the release plan on the second.
+```dyui
+{"ui":"tabs","tabs":[{"label":"Overview","children":[{"ui":"reasoning","text":"Comparing the two fares: TAP at $131 is $173 cheaper than easyJet at $304. Price is the deciding factor, so TAP is the better pick."}]},{"label":"More","children":[{"ui":"plan","title":"Music streaming plan","items":[{"title":"Upload the artwork","status":"done"},{"title":"Pitch to editors","status":"pending"},{"title":"Master the track","status":"skipped"},{"title":"Schedule the release","status":"error"},{"title":"Promote on socials","status":"active"}]}]}]}
+```
+Scheduling the release is the step that needs fixing.
+--- derived
+
+
+=== D-0009
+--- user
+I'd like these two next to each other in a two-column layout: a download for the file price-list.xlsx at https://news.example.com/files/price-list.xlsx, and the image https://cdn.fernhill.example.com/img/getting-started-07.webp with the alt text "The stage before doors opened".
+--- reference
+Two columns put the price list download next to the picture.
+```dyui
+{"ui":"grid","columns":2,"children":[{"ui":"file","name":"price-list.xlsx","url":"https://news.example.com/files/price-list.xlsx"},{"ui":"image","src":"https://cdn.fernhill.example.com/img/getting-started-07.webp","alt":"The stage before doors opened"}]}
+```
+The file is on the left and can be downloaded directly.
+--- derived
+
+
+=== D-0099
+--- user
+Kindly show, in two columns, the file invoice-batch.pdf (application/pdf) at https://blog.northwind.example.com/files/invoice-batch.pdf and the image https://news.example.com/img/faq-08.jpg.
+--- reference
+The PDF download and the image share a two-column row.
+```dyui
+{"ui":"grid","columns":2,"children":[{"ui":"file","name":"invoice-batch.pdf","url":"https://blog.northwind.example.com/files/invoice-batch.pdf","type":"application/pdf"},{"ui":"image","src":"https://news.example.com/img/faq-08.jpg"}]}
+```
+The PDF downloads from its card, and the image is displayed beside it.
+--- derived
+
+
+=== D-0011
+--- user
+Two columns, please. Left: a card "Orion Dashboard", subtitle "Fri – Mon", image https://files.example.com/img/roadmap-22.jpg, badge "Popular", a Save button, and inside it a markdown checklist headed "Checklist" with bold lead words: Final approval, Signature, Draft from the template, Counterparty redlines. Right: a clickable hotel list (each row sends pick_hotel with the hotel name): Hotel Avenida, Porto (https://static.brasa.example.com/img/benchmark-01.png); Casa Alfama, Lisbon (https://media.example.net/img/pricing-08.webp); Praça Suites, Lisbon (https://static.brasa.example.com/img/getting-started-01.webp).
+--- reference
+The checklist card fills the left column and the pickable hotels fill the right.
+```dyui
+{"ui":"grid","columns":2,"children":[{"ui":"card","title":"Orion Dashboard","subtitle":"Fri – Mon","image":"https://files.example.com/img/roadmap-22.jpg","badge":"Popular","children":[{"ui":"markdown","text":"### Checklist\n- **Final** approval\n- **Signature** \n- **Draft** from the template\n- **Counterparty** redlines"}],"actions":[{"label":"Save","action":"save_item"}]},{"ui":"list","items":[{"title":"Hotel Avenida","subtitle":"Porto","image":"https://static.brasa.example.com/img/benchmark-01.png","action":"pick_hotel","data":{"hotel":"Hotel Avenida"}},{"title":"Casa Alfama","subtitle":"Lisbon","image":"https://media.example.net/img/pricing-08.webp","action":"pick_hotel","data":{"hotel":"Casa Alfama"}},{"title":"Praça Suites","subtitle":"Lisbon","image":"https://static.brasa.example.com/img/getting-started-01.webp","action":"pick_hotel","data":{"hotel":"Praça Suites"}}]}]}
+```
+Save and the hotel rows each send their action back to me.
+--- derived
+
+
+=== D-0055
+--- user
+swipe row w/ some status tags (Approved in green, Draft with no colour, New in accent, Pending review in amber) and then a divider labelled Appendix
+--- reference
+Status tags lead the row, and an Appendix divider follows.
+```dyui
+{"ui":"carousel","children":[{"ui":"badges","items":[{"label":"Approved","color":"green"},{"label":"Draft"},{"label":"New","color":"accent"},{"label":"Pending review","color":"amber"}]},{"ui":"divider","label":"Appendix"}]}
+```
+Swipe across to move past the tags to the divider.
+--- derived
+
+
+=== D-0056
+--- user
+ok so trip numbers in a swipeable row: first slide flight cost $865, hotel per night $170, walking per day 18.5 km. second slide a timeline: Share the itinerary (Mia Weber), Pick the dates (Uma Singh), Reserve the hotel (Jamal Ferreira), Plan the day trips (Mateo Jensen), each with "Owner: name" as the note.
+--- reference
+Slide one carries the trip costs and slide two the planning timeline.
+```dyui
+{"ui":"carousel","children":[{"ui":"stats","items":[{"label":"Flight cost","value":"$865"},{"label":"Hotel per night","value":"$170"},{"label":"Walking per day","value":"18.5 km"}]},{"ui":"timeline","items":[{"title":"Share the itinerary","text":"Owner: Mia Weber"},{"title":"Pick the dates","text":"Owner: Uma Singh"},{"title":"Reserve the hotel","text":"Owner: Jamal Ferreira"},{"title":"Plan the day trips","text":"Owner: Mateo Jensen"}]}]}
+```
+Each planning step has a named owner on the second slide.
+--- derived
+
+
+=== D-0039
+--- user
+In two columns I'd like a link preview of https://help.helpwave.example.com/release-notes (title "Security overview", description "Controls, audits and data handling in one place.") next to a gallery of three photos: https://docs.acme-cloud.example.com/img/pricing-27.webp?v=1 (alt "A team offsite on the beach", caption "Final"), https://help.helpwave.example.com/img/faq-30.webp?v=2 (alt "The new front entrance", caption "Close-up"), and https://blog.northwind.example.com/img/report-12.jpg?v=3 (alt "A team offsite on the beach", caption "After").
+--- reference
+A link preview sits beside a three-photo gallery.
+```dyui
+{"ui":"grid","columns":2,"children":[{"ui":"link_preview","url":"https://help.helpwave.example.com/release-notes","title":"Security overview","description":"Controls, audits and data handling in one place."},{"ui":"gallery","images":[{"src":"https://docs.acme-cloud.example.com/img/pricing-27.webp?v=1","alt":"A team offsite on the beach","caption":"Final"},{"src":"https://help.helpwave.example.com/img/faq-30.webp?v=2","alt":"The new front entrance","caption":"Close-up"},{"src":"https://blog.northwind.example.com/img/report-12.jpg?v=3","alt":"A team offsite on the beach","caption":"After"}]}]}
+```
+The preview links out, while the gallery shows each photo with its caption.
+--- derived
+

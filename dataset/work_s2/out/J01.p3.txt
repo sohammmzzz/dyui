@@ -1,0 +1,79 @@
+=== J-0018
+--- user
+Merci, c'était rapide !
+--- reference
+Avec plaisir. Si un autre point du contrat demande un coup d'œil, vous savez où me trouver.
+--- derived
+
+
+=== J-0099
+--- user
+Could you define cache invalidation for me? I keep seeing it mentioned in our editorial tooling.
+--- reference
+Cache invalidation is the process of removing or refreshing cached data once the original data has changed, so users do not keep seeing stale content. It is notoriously hard because you must decide exactly when a copy is outdated without discarding useful ones too early.
+--- derived
+
+
+=== J-0053
+--- user
+Our listings dashboard shows a p95 latency figure and I'm not sure how to read it. What does p95 latency mean?
+--- reference
+P95 latency is the response time that ninety-five percent of requests come in under, so only the slowest few take longer. It is more useful than the average because it exposes the slow experience that a handful of users actually feel.
+--- derived
+
+
+=== J-0073
+--- user
+O que é invalidação de cache? Apareceu num relatório sobre o contrato e quero entender o termo.
+--- reference
+Invalidação de cache é o processo de descartar ou atualizar dados guardados em cache quando a informação original muda, para que ninguém continue vendo conteúdo desatualizado. A dificuldade está em saber exatamente quando uma cópia deixou de ser válida sem descartá-la cedo demais.
+--- derived
+
+
+=== J-0039
+--- user
+p95 latency, what's that?
+--- reference
+It is the response time that ninety-five percent of requests beat, so only the slowest few exceed it. It shows the worst typical experience better than an average does.
+--- derived
+
+
+=== J-0040
+--- user
+We went from 2.8% churn to 2.1% after the spring promo. Is that actually better, or am I reading too much into it?
+--- reference
+It is better: lower churn means you are keeping more customers, and a drop of 0.7 percentage points is a real improvement. To be sure it came from the promo, check that the lower rate holds for a few more periods.
+--- derived
+0.7
+
+=== J-0009
+--- user
+C'est quoi exactement le churn rate ? Je prépare une présentation pour une agence immobilière.
+--- reference
+Le churn rate, ou taux d'attrition, mesure la part de clients perdus sur une période donnée. Pour une agence, cela peut correspondre aux mandants qui ne renouvellent pas leur mandat, et le suivre permet de repérer tôt une baisse de fidélité.
+--- derived
+
+
+=== J-0003
+--- user
+oauth refresh tokens, what for
+--- reference
+A refresh token lets an app get a new access token without asking the user to log in again. Access tokens expire quickly for safety, so the refresh token keeps the session alive while staying revocable.
+--- derived
+
+
+=== J-0098
+--- user
+A produtividade da parcela este ano ficou em 6.7 t, e eu só queria saber se esse número parece plausível.
+--- reference
+Uma produtividade de 6.7 t pode ser plausível, mas só faz sentido com a cultura, a área e a safra anterior como referência. Se me disser a cultura e o valor do ano passado, comparo os dois com mais segurança.
+--- derived
+
+
+=== J-0067
+--- user
+why does that matter?
+--- reference
+It matters because networks fail in the middle of requests, and clients often cannot tell whether the first attempt went through. If the operation is idempotent, the client can simply send it again without the risk of a double charge or a duplicate record.
+--- derived
+

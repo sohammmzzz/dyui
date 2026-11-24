@@ -1,0 +1,109 @@
+=== B-0050
+--- user
+I am comparing the five mobile plans we offer and would like them in a table, please. Max has 169 GB of data, 802 Mbps and costs $59. Family has 71 GB, 624 Mbps, $46. Business has 57 GB, 361 Mbps, $11. Basic has 125 GB, 623 Mbps, $55. Plus has 17 GB, 427 Mbps, $55.
+--- reference
+Data, speed and price vary widely across the five plans.
+```dyui
+{"ui":"table","columns":["Plan","Data GB","Speed Mbps","Price"],"rows":[["Max",169,802,"$59"],["Family",71,624,"$46"],["Business",57,361,"$11"],["Basic",125,623,"$55"],["Plus",17,427,"$55"]]}
+```
+Max has the most speed at 802 Mbps, and Business is the cheapest at $11.
+--- derived
+
+=== B-0085
+--- user
+average ticket for May was $44, how are we doing?
+--- reference
+May's average ticket was $44.
+```dyui
+{"ui":"stat","label":"Average ticket · May","value":44,"unit":"$"}
+```
+There is no target or earlier month in the data, so I can only report the $44 figure without calling it good or bad.
+--- derived
+
+=== B-0040
+--- user
+keep track of my money setup for me: salary account linked, subscriptions review is in progress, last month's categorising hasn't started, transfer scheduled, savings goal set
+--- reference
+Three of your five setup tasks are already finished.
+```dyui
+{"ui":"plan","items":[{"title":"Link the salary account","status":"done"},{"title":"Review subscriptions","status":"active"},{"title":"Categorise last month","status":"pending"},{"title":"Schedule the transfer","status":"done"},{"title":"Set the savings goal","status":"done"}]}
+```
+Reviewing subscriptions is what you are working on now, and categorising last month is next in line.
+--- derived
+
+=== B-0086
+--- user
+what's the picture tonight? food cost 26.3% (+3.6%), waste 24.3 kg (+11.7%, target 26.7 kg), covers tonight 73 and up 14.6%, delivery time 36 min, steady, target 40 min
+--- reference
+Tonight's service comes down to four numbers.
+```dyui
+{"ui":"stats","items":[{"label":"Food cost","value":"26.3%","delta":"+3.6%"},{"label":"Waste","value":"24.3 kg","delta":"+11.7%","help":"Target 26.7 kg"},{"label":"Covers tonight","value":"73","delta":"+14.6%","trend":"up"},{"label":"Delivery time","value":36,"unit":"min","trend":"flat","help":"Target 40 min"}]}
+```
+Waste and delivery time are both inside their targets, and covers are up 14.6%.
+--- derived
+
+=== B-0010
+--- user
+Attrition for November is 20.3%, up 13.9% vs last month. Is this on track?
+--- reference
+Attrition reached 20.3% in November.
+```dyui
+{"ui":"stat","label":"Attrition · November","value":"20.3%","delta":"+13.9% vs last month","trend":"up"}
+```
+Attrition is climbing, but no target was provided, so I cannot say whether 20.3% is on track.
+--- derived
+
+=== B-0079
+--- user
+Of the 55 items in the sprint scope, 29 have been completed. How far along are we?
+--- reference
+The sprint has 29 of its 55 items completed.
+```dyui
+{"ui":"progress","value":29,"max":55,"label":"Sprint scope"}
+```
+Just over half of the 55 items are done.
+--- derived
+
+=== B-0156
+--- user
+Kindly summarise the campaign figures. Leads: 1,372, flat, against a target of 1,509. Ad spend: $25.1k, up 16.4%, target $27.6k. ROAS: 1.5x, target 1.7x. Cost per lead: $32, which is up 9.4%.
+--- reference
+The campaign's four figures, summarised, show a mixed picture.
+```dyui
+{"ui":"stats","items":[{"label":"Leads","value":"1,372","trend":"flat","help":"Target 1,509"},{"label":"Ad spend","value":"$25.1k","delta":"+16.4%","help":"Target $27.6k"},{"label":"ROAS","value":1.5,"unit":"x","help":"Target 1.7x"},{"label":"Cost per lead","value":"$32","delta":"+9.4%","trend":"up"}]}
+```
+Leads and ROAS are both below target, while cost per lead is rising at 9.4%.
+--- derived
+
+=== B-0041
+--- user
+mortgage rate % by neighbourhood, new vs returning: Greenfield 5.94 / 3.49, Harbour 5.52 / 4.15, Hillcrest 3.78 / 5.11, Riverside 3.75 / 5.02, Old Town 3.41 / 4.88, Northgate 3.65 / 5.4. can you stack them so I see both parts per neighbourhood?
+--- reference
+Stacking new and returning rates puts both parts of each neighbourhood in one bar.
+```dyui
+{"ui":"chart","kind":"bar","labels":["Greenfield","Harbour","Hillcrest","Riverside","Old Town","Northgate"],"series":[{"name":"New","data":[5.94,5.52,3.78,3.75,3.41,3.65]},{"name":"Returning","data":[3.49,4.15,5.11,5.02,4.88,5.4]}],"title":"Mortgage rate by neighbourhood","unit":"%","stacked":true}
+```
+Greenfield and Harbour are driven by new rates, such as 5.94 in Greenfield, while Northgate leans on returning at 5.4.
+--- derived
+
+=== B-0067
+--- user
+For the incident channel, please lay this out as a timeline. Write the postmortem, Apr 4, done, Mia Yilmaz. Run the load test, Apr 6, in progress, Priya Rahman. Reproduce the failure in staging, Dec 8, not started, Quinn Eriksson. Ship the fix behind a flag, Nov 10, not started, Isla Rossi.
+--- reference
+The incident work runs in the order below, each step with an owner.
+```dyui
+{"ui":"timeline","items":[{"title":"Write the postmortem","time":"Apr 4","status":"done","text":"Owner: Mia Yilmaz"},{"title":"Run the load test","time":"Apr 6","status":"active","text":"Owner: Priya Rahman"},{"title":"Reproduce the failure in staging","time":"Dec 8","status":"pending","text":"Owner: Quinn Eriksson"},{"title":"Ship the fix behind a flag","time":"Nov 10","status":"pending","text":"Owner: Isla Rossi"}]}
+```
+The postmortem is done and the load test is running, so the two staging and rollout steps remain.
+--- derived
+
+=== B-0078
+--- user
+can you lay this out? Basic 10 GB, 225 Mbps, $66. Plus 7 GB, 300 Mbps, $68. Max 29 GB, 148 Mbps, $47. Family 172 GB, 343 Mbps, $26. Business 126 GB, 542 Mbps, $54.
+--- reference
+Side by side, the five plans show where each one stands on data, speed and price.
+```dyui
+{"ui":"table","columns":["Plan","Data GB","Speed Mbps","Price"],"rows":[["Basic",10,225,"$66"],["Plus",7,300,"$68"],["Max",29,148,"$47"],["Family",172,343,"$26"],["Business",126,542,"$54"]],"caption":"Plans"}
+```
+Family gives the most data at 172 GB and also has the lowest price at $26.
+--- derived

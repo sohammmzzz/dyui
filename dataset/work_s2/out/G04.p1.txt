@@ -1,0 +1,110 @@
+=== G-0062
+--- user
+Could you look up appointment ID-183 for me? I believe it is Dev Castillo's Vaccination on Aug 5, and I need to confirm the room and the clinician before I call him.
+--- reference
+Here are the details of appointment ID-183.
+```dyui
+{"ui":"keyvalue","items":[{"key":"Patient","value":"Dev Castillo"},{"key":"Service","value":"Vaccination"},{"key":"Date","value":"Aug 5"},{"key":"Room","value":7},{"key":"Clinician","value":"Hugo Quispe"}]}
+```
+The booking is for Aug 5 in room 7 with Hugo Quispe.
+--- derived
+
+=== G-0018
+--- user
+any open shipments? TRK-301, TRK-475 and TRK-528 are the ones i'm chasing
+--- reference
+Here are the six open shipments, including the three you are chasing.
+```dyui
+{"ui":"table","columns":["Tracking","Origin","Destination","Status","ETA"],"rows":[["TRK-301","Munich","Chicago","Delayed","Jun 21"],["TRK-475","Nairobi","Boston","Delayed","Jun 26"],["TRK-528","Porto","Austin","Delivered","Feb 10"],["TRK-894","Lyon","Madrid","At customs","Jan 9"],["TRK-799","Vienna","Lyon","Delivered","Dec 16"],["TRK-129","Osaka","Dublin","Delivered","Jun 20"]]}
+```
+TRK-301 and TRK-475 are both delayed, while TRK-528 has already been delivered.
+--- derived
+
+=== G-0101
+--- user
+Good morning. Could you show me my training plan for this week, please?
+--- reference
+I could not load this week's training plan.
+```dyui
+{"ui":"callout","level":"error","title":"Plan unavailable","text":"The service returned status 503 (service_unavailable): The service is temporarily unavailable."}
+```
+Your plan was not retrieved, so please try again in a little while.
+--- derived
+
+=== G-0090
+--- user
+Good evening. Please show me the top dishes of the day, in particular the Tonkotsu ramen, the Flan and the Charred octopus, with sales, margin and station.
+--- reference
+Here are the six top dishes with units sold, margin and station.
+```dyui
+{"ui":"table","columns":["Dish","Sold","Margin","Station"],"rows":[["Tonkotsu ramen",31,49,"Cold"],["Flan",81,49,"Cold"],["Charred octopus",124,59,"Pastry"],["Lamb shoulder",39,71,"Grill"],["Mushroom risotto",79,40,"Grill"],["Grilled sea bass",23,76,"Pasta"]]}
+```
+The Charred octopus sold the most at 124, while the Grilled sea bass has the highest margin at 76.
+--- derived
+
+=== G-0070
+--- user
+athlete ID-364 - half marathon, 6 sessions/wk, coach Uma Petrov?
+--- reference
+Here is the profile for athlete ID-364.
+```dyui
+{"ui":"keyvalue","items":[{"key":"Goal","value":"Half marathon"},{"key":"Weekly sessions","value":6},{"key":"Coach","value":"Uma Petrov"},{"key":"Plan","value":"Taper"},{"key":"Next test","value":"Apr 12"}]}
+```
+That is correct, and the athlete is on the Taper plan with the next test on Apr 12.
+--- derived
+
+=== G-0119
+--- user
+open machines. M-482, M-786, M-214 esp
+--- reference
+Four machines came back, including those three.
+```dyui
+{"ui":"table","columns":["Machine","Line","Status","Last service"],"rows":[["M-482","Line A","Idle","Aug 14"],["M-786","Line C","Running","Feb 4"],["M-214","Line B","Down","Jun 2"],["M-588","Packaging","Running","Feb 13"]]}
+```
+M-214 on Line B is down, and M-482 is idle.
+--- derived
+
+=== G-0001
+--- user
+what's my plan for this week? need Thu, Fri and Wed
+--- reference
+Here are your three sessions for the week.
+```dyui
+{"ui":"table","columns":["Day","Session","Minutes"],"rows":[["Thu","Intervals",39],["Fri","Rest",52],["Wed","Intervals",65]]}
+```
+Wednesday's intervals are the longest session at 65 minutes.
+--- derived
+
+=== G-0081
+--- user
+Please list the open tickets, including TCK-547, TCK-396 and TCK-238, with priority and assigned agent.
+--- reference
+Four tickets are open; here they are with priority and agent.
+```dyui
+{"ui":"table","columns":["ID","Subject","Priority","Agent"],"rows":[["TCK-547","Refund not received","Urgent","Chloe Petrov"],["TCK-396","App crashes on launch","High","Katya Nakamura"],["TCK-238","Refund not received","Urgent","Priya Garcia"],["TCK-481","Invoice shows wrong VAT","High","Tomas Rahman"]]}
+```
+TCK-547 and TCK-238 are Urgent and both concern refunds that have not been received.
+--- derived
+
+=== G-0103
+--- user
+Potresti mostrarmi i bandi aperti? Mi servono Lakeshore Trust, City Arts Board e Sunrise Foundation, con importo, scadenza e stato di ciascuno, perché devo aggiornare il report per il consiglio.
+--- reference
+Ecco i quattro bandi aperti, compresi i tre che hai indicato.
+```dyui
+{"ui":"table","columns":["Ente","Importo","Scadenza","Stato"],"rows":[["Lakeshore Trust","$180,713","Oct 8","Awarded"],["City Arts Board","$48,640","Mar 16","Submitted"],["Sunrise Foundation","$16,596","Feb 21","Awarded"],["Meridian Fund","$156,504","Nov 11","Awarded"]]}
+```
+Lakeshore Trust, Sunrise Foundation e Meridian Fund risultano assegnati, mentre City Arts Board è ancora in stato Submitted.
+--- derived
+
+=== G-0098
+--- user
+open orders? ORD-225, ORD-414 and ORD-589 mostly
+--- reference
+Here are the six open orders, including the three you mentioned.
+```dyui
+{"ui":"table","columns":["Order","Customer","Total","Status"],"rows":[["ORD-225","Jun Novak","$301","Delayed"],["ORD-414","Isla Dubois","$175","Delayed"],["ORD-589","Farah Quispe","$375","Pending payment"],["ORD-739","Umar Silva","$132","Shipped"],["ORD-950","Carla Haddad","$125","Shipped"],["ORD-372","Pedro Ueda","$476","Pending payment"]]}
+```
+ORD-225 and ORD-414 are delayed, and ORD-589 is waiting on payment.
+--- derived
+

@@ -1,0 +1,119 @@
+=== D-0043
+--- user
+2 tabs. Overview: four status labels, Draft (gray), Beta (no color), Overdue (red), Stable (green). More: a short checklist with the heading Checklist and three bold items: Quality sampling, Changeover, Run the first article.
+--- reference
+Status labels and the checklist are split across two tabs.
+```dyui
+{"ui":"tabs","tabs":[{"label":"Overview","children":[{"ui":"badges","items":[{"label":"Draft","color":"gray"},{"label":"Beta"},{"label":"Overdue","color":"red"},{"label":"Stable","color":"green"}]}]},{"label":"More","children":[{"ui":"markdown","text":"### Checklist\n- **Quality** sampling\n- **Changeover** \n- **Run** the first article"}]}]}
+```
+Overdue is the only red label, and the checklist covers the line steps in order.
+--- derived
+
+
+=== D-0046
+--- user
+tabs pls. first tab Overview: ask me to confirm deleting project staging-eu, text "All files and history in staging-eu will be removed permanently.", cancel button "Keep it", action delete_project with project staging-eu, destructive. second tab More: tappable suggestions "Compare with last month", "Set an alert for this", "Show it as a table".
+--- reference
+Deleting staging-eu needs your confirmation, with suggestions waiting in the second tab.
+```dyui
+{"ui":"tabs","tabs":[{"label":"Overview","children":[{"ui":"confirm","title":"Delete project staging-eu?","text":"All files and history in staging-eu will be removed permanently.","cancel_label":"Keep it","action":"delete_project","data":{"project":"staging-eu"},"danger":true}]},{"label":"More","children":[{"ui":"quick_replies","options":["Compare with last month","Set an alert for this","Show it as a table"]}]}]}
+```
+Nothing is deleted until you confirm, and the suggestions stay one tab away.
+--- derived
+
+
+=== D-0105
+--- user
+Please arrange the following in two tabs. "Overview" should show a link card for https://news.example.com/overview, titled "2026 industry benchmark report", described as "A look at the changes behind the speedup.", with the image https://cdn.fernhill.example.com/img/case-study-14.webp. "More" should contain an audio player for https://files.example.com/audio/faq-25.mp3 titled "Interview with the founder".
+--- reference
+The benchmark report preview and the founder interview each get a tab.
+```dyui
+{"ui":"tabs","tabs":[{"label":"Overview","children":[{"ui":"link_preview","url":"https://news.example.com/overview","title":"2026 industry benchmark report","description":"A look at the changes behind the speedup.","image":"https://cdn.fernhill.example.com/img/case-study-14.webp"}]},{"label":"More","children":[{"ui":"audio","src":"https://files.example.com/audio/faq-25.mp3","title":"Interview with the founder"}]}]}
+```
+The report preview opens first, with the founder interview in the second tab.
+--- derived
+
+
+=== D-0020
+--- user
+Two collapsible sections please. "Main section" has two things in two columns: headline numbers (energy per unit 5.9 kWh, units produced 13,322, scrap rate 4.9%) and a timeline of Set up the line on Jan 7, Changeover on Apr 9, Quality sampling on Apr 11 and Run the first article on Apr 13. "More detail" has a pie chart of leads by shift: Night 3305, Afternoon 1110, Morning 1579.
+--- reference
+Line metrics and the timeline open first, and the leads split is held back in the second section.
+```dyui
+{"ui":"accordion","items":[{"title":"Main section","children":[{"ui":"grid","columns":2,"children":[{"ui":"stats","items":[{"label":"Energy per unit","value":"5.9 kWh"},{"label":"Units produced","value":"13,322"},{"label":"Scrap rate","value":"4.9%"}]},{"ui":"timeline","items":[{"title":"Set up the line","time":"Jan 7"},{"title":"Changeover","time":"Apr 9"},{"title":"Quality sampling","time":"Apr 11"},{"title":"Run the first article","time":"Apr 13"}]}]}]},{"title":"More detail","children":[{"ui":"chart","kind":"pie","labels":["Night","Afternoon","Morning"],"series":[{"name":"Leads","data":[3305,1110,1579]}],"unit":"leads"}]}]}
+```
+The night shift accounts for the most leads at 3305, well ahead of the morning shift at 1579.
+--- derived
+
+
+=== D-0071
+--- user
+Place two hotel lists side by side in two columns. Left: clickable rows for Hotel Avenida ($118/night), Mar & Sol ($96/night), Quinta Verde ($164/night). Right: Mar & Sol, Valencia, $96/night, image https://docs.acme-cloud.example.com/img/security-27.webp; Hotel Avenida, Porto, $118/night, image https://blog.northwind.example.com/img/roadmap-09.jpg; Praça Suites, Lisbon, $187/night, image https://files.example.com/img/guide-14.webp. Every row should send pick_hotel with its hotel name.
+--- reference
+Two hotel lists now sit side by side.
+```dyui
+{"ui":"grid","columns":2,"children":[{"ui":"list","items":[{"title":"Hotel Avenida","meta":"$118/night","action":"pick_hotel","data":{"hotel":"Hotel Avenida"}},{"title":"Mar & Sol","meta":"$96/night","action":"pick_hotel","data":{"hotel":"Mar & Sol"}},{"title":"Quinta Verde","meta":"$164/night","action":"pick_hotel","data":{"hotel":"Quinta Verde"}}]},{"ui":"list","items":[{"title":"Mar & Sol","subtitle":"Valencia","meta":"$96/night","image":"https://docs.acme-cloud.example.com/img/security-27.webp","action":"pick_hotel","data":{"hotel":"Mar & Sol"}},{"title":"Hotel Avenida","subtitle":"Porto","meta":"$118/night","image":"https://blog.northwind.example.com/img/roadmap-09.jpg","action":"pick_hotel","data":{"hotel":"Hotel Avenida"}},{"title":"Praça Suites","subtitle":"Lisbon","meta":"$187/night","image":"https://files.example.com/img/guide-14.webp","action":"pick_hotel","data":{"hotel":"Praça Suites"}}]}]}
+```
+Selecting any row sends the hotel name back to me, and Mar & Sol is the cheapest at $96/night.
+--- derived
+
+
+=== D-0064
+--- user
+Can you put three tappable suggestions inside a card titled "Account overview"? They are "What changed the most?", "Set an alert for this" and "Break it down by type".
+--- reference
+Three suggestions are tucked inside the card.
+```dyui
+{"ui":"card","title":"Account overview","children":[{"ui":"quick_replies","options":["What changed the most?","Set an alert for this","Break it down by type"]}]}
+```
+Tapping one sends it to me as your next message.
+--- derived
+
+
+=== D-0013
+--- user
+How do I install PostgreSQL on Ubuntu, Windows and macOS? I'd like each platform shown on its own.
+--- reference
+Pick your platform's tab for the matching PostgreSQL install command.
+```dyui
+{"ui":"tabs","tabs":[{"label":"Ubuntu","children":[{"ui":"code","code":"sudo apt install postgresql","language":"bash"}]},{"label":"Windows","children":[{"ui":"code","code":"winget install PostgreSQL.PostgreSQL","language":"powershell"}]},{"label":"macOS","children":[{"ui":"code","code":"brew install postgresql@16","language":"bash"}]}]}
+```
+Each platform uses its native package manager: apt, winget and Homebrew.
+--- derived
+
+
+=== D-0088
+--- user
+Please put these in a horizontally scrolling row: two buttons, "Assign owner" (action assign_owner) and "Download summary" (action download_summary), and then a star rating labelled "Rate this session" that sends session_feedback.
+--- reference
+Two buttons and a star rating share one scrolling row.
+```dyui
+{"ui":"carousel","children":[{"ui":"buttons","items":[{"label":"Assign owner","action":"assign_owner"},{"label":"Download summary","action":"download_summary"}]},{"ui":"rating","label":"Rate this session","style":"stars","action":"session_feedback"}]}
+```
+Each button and the rating send their own action back to me when used.
+--- derived
+
+
+=== D-0120
+--- user
+Give me a swipeable row with two slides. The first is my reasoning, which took 2986 ms: Iberia at $155 is $211 cheaper than Vueling at $366, price is the deciding factor, so Iberia is the better pick. The second is a plan called "Contract management plan": Draft from the template (pending), Signature (done), Final approval (active), Counterparty redlines (skipped), Legal review (pending).
+--- reference
+Fare reasoning and the contract plan sit in one swipeable row.
+```dyui
+{"ui":"carousel","children":[{"ui":"reasoning","text":"Comparing the two fares: Iberia at $155 is $211 cheaper than Vueling at $366. Price is the deciding factor, so Iberia is the better pick.","duration_ms":2986},{"ui":"plan","title":"Contract management plan","items":[{"title":"Draft from the template","status":"pending"},{"title":"Signature","status":"done"},{"title":"Final approval","status":"active"},{"title":"Counterparty redlines","status":"skipped"},{"title":"Legal review","status":"pending"}]}]}
+```
+Final approval is the active step, with the signature already done.
+--- derived
+
+
+=== D-0131
+--- user
+two columns pls. left: a Pro plan card, subtitle "Best value this season", image https://blog.northwind.example.com/img/benchmark-37.png, with channel Email, budget $9,390, start Sep 14. right: a list of hotels, Hotel Avenida $118/night, Casa Alfama $142/night, Quinta Verde $164/night, Praça Suites $187/night.
+--- reference
+The plan card and the hotel list fill two columns.
+```dyui
+{"ui":"grid","columns":2,"children":[{"ui":"card","title":"Pro plan","subtitle":"Best value this season","image":"https://blog.northwind.example.com/img/benchmark-37.png","children":[{"ui":"keyvalue","items":[{"key":"Channel","value":"Email"},{"key":"Budget","value":"$9,390"},{"key":"Start","value":"Sep 14"}]}]},{"ui":"list","items":[{"title":"Hotel Avenida","meta":"$118/night"},{"title":"Casa Alfama","meta":"$142/night"},{"title":"Quinta Verde","meta":"$164/night"},{"title":"Praça Suites","meta":"$187/night"}]}]}
+```
+The hotels run from $118 to $187 a night, with Hotel Avenida the cheapest.
+--- derived
+

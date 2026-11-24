@@ -1,0 +1,25 @@
+{"id": "N-0025", "intro": "Two tap-ready follow-ups now sit under the leaderboard.", "outro": "A tap goes out as an ordinary message, and I pick it up from there."}
+{"id": "N-0027", "intro": "Your help page gets an expander with the three questions.", "outro": "Answers stay folded away until a visitor opens the matching question."}
+{"id": "N-0028", "intro": "Swipe sideways through the four hotel options.", "outro": "At $96 a night, Mar & Sol undercuts every other option."}
+{"id": "N-0029", "intro": "The slot now carries two tags.", "outro": "Archived renders in gray, while Staff pick keeps the default colour."}
+{"id": "N-0031", "intro": "Your notes now cite two numbered sources.", "outro": "Clicking an entry opens the original page."}
+{"id": "N-0033", "intro": "Parcel volume today has crossed its limit, so it gets a warning notice.", "outro": "With the count this far over, a check before Friday makes sense."}
+{"id": "N-0035", "intro": "Grant applications over the week plot as a line.", "outro": "Monday's 8 grew to 11 by the weekend."}
+{"id": "N-0036", "intro": "The event todo list shows where each item stands.", "outro": "Two items failed, playtest and reward balancing, so both need rework."}
+{"id": "N-0038", "intro": "Order ORD-5670 gets a row of four buttons.", "outro": "A click comes back as its action plus the order id."}
+{"id": "N-0039", "intro": "Three tappable questions now follow the energy summary.", "outro": "Whichever one is tapped goes out as your next message."}
+{"id": "N-0041", "intro": "The student FAQ becomes three expandable entries.", "outro": "Students open just the answer they are after."}
+{"id": "N-0042", "intro": "Five lodging cards sit in a row you can swipe.", "outro": "Mar & Sol is the lowest at $96 a night, and the row scrolls sideways for the rest."}
+{"id": "N-0043", "intro": "Four statuses render as small coloured pills.", "outro": "Since Deprecated had no colour assigned, it keeps the default look."}
+{"id": "N-0044", "intro": "Your config loader is ready as env.py.", "outro": "A missing API_KEY raises an error, while REGION quietly defaults to eu-west-1."}
+{"id": "N-0045", "intro": "Both works you used are cited as numbered sources.", "outro": "Figures come from the benchmark report, and setup details come from the case study."}
+{"id": "N-0047", "intro": "Average wait has overshot its threshold, so it is flagged as a warning.", "outro": "Four minutes over the cap is enough to warrant a look."}
+{"id": "N-0049", "intro": "Open tickets per hub split into a pie, with the series named Tickets.", "outro": "Porto dominates the pie by a wide margin."}
+{"id": "N-0050", "intro": "Service tasks are tracked in a checklist with live status.", "outro": "Prep is the only task done, and the other three are all in progress at once."}
+{"id": "N-0052", "intro": "The reviewer's screen gets a row of four actions.", "outro": "Each press reports its own action back to me."}
+{"id": "N-0053", "intro": "Digging deeper into retention takes two tappable prompts.", "outro": "I will carry on from whichever one you tap."}
+{"id": "N-0055", "intro": "Both FAQ questions start collapsed.", "outro": "Refund money lands within 5-10 business days."}
+{"id": "N-0056", "intro": "Three candidate stays appear as swipeable cards with nightly prices.", "outro": "Porto's Hotel Avenida costs least, at $118 per night."}
+{"id": "N-0057", "intro": "Four pills tag the product listing.", "outro": "Overdue and Internal were given no colour, so they stay default."}
+{"id": "N-0058", "intro": "Your ci.yml is formatted for one-click copying.", "outro": "Every push triggers the test job, which installs with a clean npm ci before running the tests."}
+{"id": "N-0059", "intro": "The menu doc gets four numbered references.", "outro": "Every entry links to its source page and adds a short note on its content."}

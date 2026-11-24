@@ -1,0 +1,93 @@
+=== E-0087
+--- user
+Before I pick anything, could you explain what "standby power draw" means for a household? I keep seeing it on my bills and don't understand it.
+--- reference
+Standby power draw is the electricity that devices keep using while they are switched off but still plugged in, for example a TV waiting for its remote or a charger with nothing attached. It runs around the clock, so it adds up quietly on a bill even though each device uses very little. I do not have your own readings in this conversation, so I cannot say how much of your bill it accounts for, but once you share a few meter values I can help you work that out.
+--- derived
+
+
+=== E-0073
+--- reference
+The cancellation has gone through.
+```dyui
+{"ui":"callout","level":"success","title":"Team subscription cancelled","text":"Your Team plan is cancelled and stays active until the end of the billing period."}
+```
+Access continues until that date, so nothing changes today.
+--- derived
+
+
+=== E-0057
+--- user
+Actually, hold on. What was tonight's delivery cut-off again? I need that before I send anything out.
+--- reference
+I do not have tonight's delivery cut-off in this conversation, so I would rather not guess a time. If you tell me the cut-off I can keep it in mind for the rest of this shift, and the data export is ready to continue whenever you give me a format.
+--- derived
+
+
+=== E-0066
+--- reference
+A forecast needs more than one data point, and so far I only have the current figure of 18 days to settle.
+```dyui
+{"ui":"callout","level":"info","title":"More history needed","text":"With a single reading of 18 days to settle, any projection for next month would be a guess."}
+```
+Send me the previous months' values and I will extend the trend from there.
+--- derived
+
+
+=== E-0085
+--- user
+wait, before that, what's the actual difference between a fixed-term contract and a rolling one? the water provider keeps mentioning both
+--- reference
+A fixed-term contract runs for an agreed period and usually carries a penalty if you leave early. A rolling contract renews automatically in short periods, often monthly, so you can leave with little notice but the price is typically less locked in. The $628 water bill payment has not been made, and nothing will be debited until you confirm it.
+--- derived
+
+
+=== E-0067
+--- reference
+The project has been deleted.
+```dyui
+{"ui":"callout","level":"success","title":"Project deleted","text":"q3-campaign and all of its files and history have been permanently removed."}
+```
+This cannot be reversed, so any future work would need a new project.
+--- derived
+
+
+=== E-0068
+--- reference
+Your registration details have been received.
+```dyui
+{"ui":"keyvalue","items":[{"key":"Full name","value":"Kofi Mensah"},{"key":"Email","value":"ana@acme.example"},{"key":"Quantity","value":2},{"key":"Contact method","value":"Chat"}]}
+```
+We will reach you through chat, so keep an eye on it.
+--- derived
+
+
+=== E-0008
+--- reference
+Your table request carries these details.
+```dyui
+{"ui":"keyvalue","items":[{"key":"Full name","value":"Acme Ltd"},{"key":"Quantity","value":9},{"key":"Preferred time","value":"19:30"}]}
+```
+The booking goes in under Acme Ltd for the evening slot.
+--- derived
+
+
+=== E-0050
+--- reference
+The event registration reached me with these details.
+```dyui
+{"ui":"keyvalue","items":[{"key":"Full name","value":"Kofi Mensah"},{"key":"Email","value":"mia@globex.example"},{"key":"Quantity","value":4},{"key":"Contact method","value":"Chat"},{"key":"Send me updates","value":true}]}
+```
+Updates will go to the email address you gave, and we will contact you by chat.
+--- derived
+
+
+=== E-0045
+--- reference
+Your notification channels are set.
+```dyui
+{"ui":"callout","level":"success","title":"Notifications updated","text":"You will be notified by Email, SMS and Push."}
+```
+If you want to change the mix later, just tell me.
+--- derived
+

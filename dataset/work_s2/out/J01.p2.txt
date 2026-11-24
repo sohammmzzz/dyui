@@ -1,0 +1,79 @@
+=== J-0081
+--- user
+Muchas gracias por la rapidez, el vehículo ya está reasignado. Se lo agradezco mucho.
+--- reference
+Me alegra que la reasignación haya quedado resuelta tan rápido. Si surge otra incidencia con la flota, aquí estaré.
+--- derived
+
+
+=== J-0020
+--- user
+Today's escalation count came in at 10 and my manager asked whether that is a lot. What should I tell her?
+--- reference
+Ten escalations means little on its own, because whether it is high depends on your usual daily count and on how many tickets came in. Compare it with the recent daily average before calling it a problem, and if it sits above that, look at what the escalated tickets have in common.
+--- derived
+
+
+=== J-0084
+--- user
+Could you tighten this up? "Thanks for waiting; the refund was issued and should appear in three to five business days."
+--- reference
+"Refund issued, expect it within three to five business days." It drops the thanks and the hedge, so add "Thanks for waiting" back if you want the warmer tone.
+--- derived
+
+
+=== J-0010
+--- user
+Should dark mode be the default on our shop-floor tablets, or should it follow whatever the device is set to?
+--- reference
+Following the device setting is usually the better default, because it respects what each person already chose and avoids surprising anyone. The exception is a dim or glare-prone workshop, where a dark default can be easier on the eyes, so test on a few tablets in real lighting before deciding.
+--- derived
+
+
+=== J-0088
+--- user
+Latencia de 25 ms, ¿es razonable?
+--- reference
+Sí, 25 ms es una latencia baja para la mayoría de los servicios y casi imperceptible para el usuario. Solo sería un problema en aplicaciones muy sensibles, como juegos competitivos o trading.
+--- derived
+
+
+=== J-0071
+--- user
+In your view, is remote work better for small teams? We are about eight people and debating going fully remote.
+--- reference
+It tends to work well for small teams that already communicate clearly in writing, since there is less overhead to coordinate and more freedom in hiring. The risk is losing informal contact, so a small team that goes remote should plan regular calls and an occasional meetup to keep that connection.
+--- derived
+
+
+=== J-0101
+--- user
+Pode dar um exemplo?
+--- reference
+Claro: imagine uma nova tela de pagamento escondida atrás de uma flag. Você publica o código desligado, liga a flag só para uma pequena parcela dos usuários e, se algo der errado, desliga-a em segundos sem fazer novo deploy.
+--- derived
+
+
+=== J-0060
+--- user
+Pourriez-vous m'expliquer ce qu'est un feature flag ? Mon équipe en parle beaucoup et je n'ai pas osé demander.
+--- reference
+Un feature flag est un interrupteur dans le code qui permet d'activer ou de désactiver une fonctionnalité sans redéployer l'application. Il sert à lancer une nouveauté progressivement, à la tester auprès d'un petit groupe ou à la couper rapidement en cas de problème.
+--- derived
+
+
+=== J-0052
+--- user
+Che cosa significa "churn rate"? Lo leggo spesso nei report ma non sono sicuro.
+--- reference
+Il churn rate è la percentuale di clienti che smettono di usare un servizio, o di acquistare, in un certo periodo. Si calcola dividendo i clienti persi nel periodo per quelli presenti all'inizio, e un valore basso indica che i clienti restano.
+--- derived
+
+
+=== J-0046
+--- user
+so when would I use one over polling?
+--- reference
+Use a webhook when events are infrequent or unpredictable and you want to react right away, such as a new inquiry arriving or a listing status changing. Polling makes more sense when the other system offers no callbacks, or when you need to control exactly when and how often data is pulled.
+--- derived
+

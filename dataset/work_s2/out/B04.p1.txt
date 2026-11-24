@@ -1,0 +1,106 @@
+=== B-0100
+--- user
+Please give me the overview for this week. Weekly active users are 2,526 and rising against a target of 2,779. MRR is $85.4k, flat, against a target of $93.9k. Churn rate is 1.0%, up 3.0% on the previous reading, with a target of 1.1%. New customers came to 305, which is down.
+--- reference
+Four numbers sum up the week, and two of them are lagging.
+```dyui
+{"ui":"stats","items":[{"label":"Weekly active users","value":"2,526","trend":"up","help":"Target 2,779"},{"label":"MRR","value":"$85.4k","trend":"flat","help":"Target $93.9k"},{"label":"Churn rate","value":"1.0%","delta":"+3.0%","trend":"up","help":"Target 1.1%"},{"label":"New customers","value":"305","trend":"down"}]}
+```
+Both weekly active users and MRR are still short of their targets, while churn, at 1.0%, sits just under its own target of 1.1%.
+--- derived
+
+=== B-0024
+--- user
+Our June yield came in at 9.0 t, which is up 15.3% on last month. Can you show that nicely?
+--- reference
+June's yield reached 9.0 t.
+```dyui
+{"ui":"stat","label":"Yield · June","value":9.0,"unit":"t","delta":"+15.3% vs last month","trend":"up"}
+```
+The 15.3% rise over last month is the main takeaway; no target was provided to compare against.
+--- derived
+
+=== B-0003
+--- user
+Training log: Sat was upper body for 66 minutes, Sun was rest with 69 minutes. How do the two compare?
+--- reference
+Sun logged 69 minutes against 66 on Sat, so the two days are close in length. The difference is that Sat was an upper-body session while Sun was marked as rest.
+--- derived
+
+=== B-0173
+--- user
+Voici les commandes par dépôt pour le mois : Airport 4012, Campus 628, Harbour 2757, Central 3537. Fais-moi un camembert de ça, avec la répartition entre les dépôts.
+--- reference
+Sur le camembert, les quatre dépôts se partagent ainsi les commandes.
+```dyui
+{"ui":"chart","kind":"pie","labels":["Airport","Campus","Harbour","Central"],"series":[{"name":"Commandes","data":[4012,628,2757,3537]}],"unit":"commandes"}
+```
+Airport est le dépôt le plus important avec 4012 commandes, tandis que Campus reste le plus petit avec 628.
+--- derived
+
+=== B-0021
+--- user
+profile for ticket TCK-986, customer Carla Almeida, Technical queue
+--- reference
+TCK-986 is a short record.
+```dyui
+{"ui":"keyvalue","items":[{"key":"ID","value":"TCK-986"},{"key":"Customer","value":"Carla Almeida"},{"key":"Queue","value":"Technical"}]}
+```
+It belongs to Carla Almeida and is routed to the Technical queue.
+--- derived
+
+=== B-0110
+--- user
+residential real estate plan, track this: offers collected (done), open house happening now, photographer not booked yet, move to contract done
+--- reference
+Two of the four residential steps are finished, one is live and one is waiting.
+```dyui
+{"ui":"plan","title":"Residential real estate plan","items":[{"title":"Collect offers","status":"done"},{"title":"Hold the open house","status":"active"},{"title":"Book the photographer","status":"pending"},{"title":"Move to contract","status":"done"}]}
+```
+The open house is the live item, and booking the photographer is the one still waiting.
+--- derived
+
+=== B-0054
+--- user
+Nonprofit fundraising plan, track it: goal set, appeal written, list send in progress, impact report not started, donor thank-yous failed.
+--- reference
+One step in the fundraising plan has failed, and it is the last one.
+```dyui
+{"ui":"plan","title":"Nonprofit fundraising plan","items":[{"title":"Set the goal","status":"done"},{"title":"Send to the list","status":"active"},{"title":"Report the impact","status":"pending"},{"title":"Write the appeal","status":"done"},{"title":"Thank the donors","status":"error"}]}
+```
+Thanking the donors failed and needs attention before the plan can close out.
+--- derived
+
+=== B-0130
+--- user
+lista de reservas de hoje: 21:30 Yusuf Park, 11 pessoas, alergia a nozes; 19:15 Sven Costa, 4, alergia a nozes; 20:00 Ivan Eriksson, 4, mesa na janela; 18:30 Vera Petrov, 3, alergia a nozes; 18:00 Wanjiru Silva, 11, mesa na janela; 20:45 Quinn Novak, 3, nenhuma; 18:30 Zoe Kim, 8, aniversário
+--- reference
+A lista de hoje tem sete reservas, cada uma com horário, grupo e observações.
+```dyui
+{"ui":"table","columns":["Hora","Nome","Pessoas","Notas"],"rows":[["21:30","Yusuf Park",11,"Alergia: nozes"],["19:15","Sven Costa",4,"Alergia: nozes"],["20:00","Ivan Eriksson",4,"Mesa na janela"],["18:30","Vera Petrov",3,"Alergia: nozes"],["18:00","Wanjiru Silva",11,"Mesa na janela"],["20:45","Quinn Novak",3,"Nenhuma"],["18:30","Zoe Kim",8,"Aniversário"]],"caption":"Reservas"}
+```
+Três mesas têm alergia a nozes, e as 18:30 têm duas reservas ao mesmo tempo.
+--- derived
+3
+
+=== B-0114
+--- user
+fleet picture? accidents 3, steady. fuel economy 43 mpg, up 13.4%, target was 47 mpg. miles driven 224205. maintenance backlog 3, target 3
+--- reference
+Four fleet numbers answer that in one row.
+```dyui
+{"ui":"stats","items":[{"label":"Accidents","value":"3","trend":"flat"},{"label":"Fuel economy","value":"43 mpg","delta":"+13.4%","trend":"up","help":"Target 47 mpg"},{"label":"Miles driven","value":"224205"},{"label":"Maintenance backlog","value":"3","help":"Target 3"}]}
+```
+Fuel economy is improving but still short of its 47 mpg target, while the maintenance backlog is right on target at 3.
+--- derived
+
+=== B-0005
+--- user
+signups per depot: Airport 3904, Harbour 1923, Campus 2951, Central 4006. how is it split?
+--- reference
+Signups are spread fairly evenly over the four depots, with one clear laggard.
+```dyui
+{"ui":"chart","kind":"pie","labels":["Airport","Harbour","Campus","Central"],"series":[{"name":"Signups","data":[3904,1923,2951,4006]}],"title":"Signups per depot"}
+```
+Central has the largest share at 4006, with Airport close behind at 3904.
+--- derived

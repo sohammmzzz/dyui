@@ -1,0 +1,110 @@
+=== G-0077
+--- user
+I would like to prepare the thank-you letters for this month. Could you pull the donor list so I can see who has given recently?
+--- reference
+I could not retrieve the donor list.
+```dyui
+{"ui":"callout","level":"error","title":"Donor list unavailable","text":"The request failed with status 403 (rate_limited): Your role cannot read this resource."}
+```
+No donor data came back, and the message says your role cannot read this resource, so access has to be granted before the letters can be prepared from it.
+--- derived
+
+=== G-0049
+--- user
+Please show me the open equipment: the Kubota M7, the Sprayer S2 and the Claas Lexion, with hours and status.
+--- reference
+Here are the three machines with their hours and status.
+```dyui
+{"ui":"table","columns":["Machine","Hours","Status"],"rows":[["Kubota M7",2112,"Service due"],["Sprayer S2",3356,"Ready"],["Claas Lexion",4522,"Service due"]]}
+```
+The Kubota M7 and the Claas Lexion are both due for service, while the Sprayer S2 is ready.
+--- derived
+
+=== G-0027
+--- user
+Kindly pull the donor records (limit 50) and show me the first 10 only. I am especially interested in Aiden Hoang and Dmitri Hoang.
+--- reference
+There are 40 donors in the data; here are the first 10 with their last gift, number of gifts and segment.
+```dyui
+{"ui":"table","columns":["Donor","Last gift","Gifts","Segment"],"rows":[["Aiden Hoang","$4,792",2,"Monthly"],["Dmitri Hoang","$3,495",33,"Lapsed"],["Zoe Ueda","$2,306",36,"Lapsed"],["Jun Kowalski","$783",25,"Mid-level"],["Isla Larsen","$4,013",25,"Mid-level"],["Elif Weber","$3,763",11,"Monthly"],["Gabriel Jensen","$46",4,"Major"],["Priya Reyes","$700",31,"Lapsed"],["Jamal Vasquez","$2,671",17,"Mid-level"],["Hana Castillo","$1,709",25,"Monthly"]]}
+```
+Dmitri Hoang has given 33 times but is listed as Lapsed, while Aiden Hoang is a Monthly donor with a last gift of $4,792.
+--- derived
+
+=== G-0064
+--- user
+Could you pull the top dishes for the shift (limit 50)? I only need the first 10 rows. I am especially curious how the Grilled sea bass and the Mushroom risotto are doing, with sales, margin and station.
+--- reference
+The lookup has 32 dishes in total; here are the first 10.
+```dyui
+{"ui":"table","columns":["Dish","Sold","Margin","Station"],"rows":[["Grilled sea bass",86,61,"Pasta"],["Mushroom risotto",60,41,"Grill"],["Tonkotsu ramen",54,76,"Pasta"],["Charred octopus",159,72,"Pasta"],["Lamb shoulder",154,57,"Grill"],["Flan",71,39,"Cold"],["Burrata salad",120,65,"Cold"],["Grilled sea bass",59,64,"Grill"],["Flan",89,39,"Pasta"],["Burrata salad",159,46,"Grill"]]}
+```
+The first Grilled sea bass entry sold 86 at a margin of 61, and the Mushroom risotto sold 60 at 41.
+--- derived
+
+=== G-0032
+--- user
+top productos (limit 50), solo los primeros 10. Cotton duvet y Brass desk lamp sobre todo
+--- reference
+Hay 32 productos en total; aquí están los primeros 10.
+```dyui
+{"ui":"table","columns":["Producto","Unidades","Ingresos","Stock"],"rows":[["Cotton duvet",830,"$44,523",413],["Brass desk lamp",110,"$35,417",170],["Ceramic planter",1325,"$40,905",539],["Oak shelf",1306,"$35,411",472],["Glass carafe",1562,"$32,853",440],["Linen throw",174,"$11,362",184],["Wool rug",173,"$27,445",473],["Wool rug",1358,"$10,642",311],["Glass carafe",514,"$19,428",50],["Ceramic planter",476,"$33,251",572]]}
+```
+El Cotton duvet lidera en ingresos con $44,523 y el Brass desk lamp tiene 170 unidades en stock.
+--- derived
+
+=== G-0082
+--- user
+Good morning. Would you show me today's schedule? I am looking at the 13:45, 10:00 and 16:20 appointments in particular.
+--- reference
+Four appointments are scheduled today, listed here in the order they came back.
+```dyui
+{"ui":"table","columns":["Time","Patient","Service","Room"],"rows":[["13:45","Quinn Okafor","Check-up",3],["10:00","Uma Ferreira","Vaccination",2],["16:20","Rosa Singh","Lab work",7],["11:30","Rin Kim","Check-up",5]]}
+```
+The 13:45 check-up is in room 3, the 10:00 vaccination in room 2 and the 16:20 lab work in room 7.
+--- derived
+
+=== G-0063
+--- user
+what contracts do we have? Soylent, Initech and Acme especially
+--- reference
+Here are the five contracts with type, value and expiry.
+```dyui
+{"ui":"table","columns":["Counterparty","Type","Value","Expires"],"rows":[["Soylent","NDA","$434,140","Mar 6"],["Initech","MSA","$242,740","Aug 3"],["Acme","DPA","$204,963","May 2"],["Northwind","SOW","$111,606","Mar 28"],["Globex","MSA","$61,059","Apr 27"]]}
+```
+Soylent's NDA is the highest value at $434,140 and also expires earliest, on Mar 6.
+--- derived
+
+=== G-0054
+--- user
+Hi, could you pull up event ID-389 for me? I need the venue (Main Hall), the date (Jan 21) and when the doors open (20:00) confirmed, plus the ticket numbers.
+--- reference
+Here are the details for event ID-389.
+```dyui
+{"ui":"keyvalue","items":[{"key":"Venue","value":"Main Hall"},{"key":"Date","value":"Jan 21"},{"key":"Doors","value":"20:00"},{"key":"Capacity","value":11639},{"key":"Sold","value":5371},{"key":"Status","value":"Sold out"}]}
+```
+The venue, date and doors match what you gave. The status reads Sold out even though 5371 is below the capacity of 11639, so that mismatch is worth checking.
+--- derived
+
+=== G-0112
+--- user
+Please retrieve the candidate list (limit 50), but show only the first 10. I would like to see Dmitri Weber and Kofi Torres in particular, with role, stage and score.
+--- reference
+There are 33 candidates in total; here are the first 10.
+```dyui
+{"ui":"table","columns":["Candidate","Role","Stage","Score"],"rows":[["Dmitri Weber","Product designer","Applied",3.9],["Kofi Torres","Account executive","Offer",4.8],["Rin Hoang","Data analyst","Interview",2.6],["Pedro Almeida","Account executive","Applied",2.3],["Viktor Larsen","Data analyst","Offer",2.9],["Zainab Garcia","Data analyst","Applied",3.7],["Felix Kim","Data analyst","Screen",4.1],["Isla Oliveira","Product designer","Interview",4.2],["Jun Yilmaz","Data analyst","Screen",3.4],["Priya Moreau","Backend engineer","Screen",2.8]]}
+```
+Kofi Torres has the highest score here at 4.8 and is at the Offer stage, while Dmitri Weber is at 3.9 and has just applied.
+--- derived
+
+=== G-0055
+--- user
+Please pull the open grants. I mainly need Lakeshore Trust, Meridian Fund and Sunrise Foundation, with amount, deadline and status for the report.
+--- reference
+Here are the three open grants with amount, deadline and status.
+```dyui
+{"ui":"table","columns":["Funder","Amount","Deadline","Status"],"rows":[["Lakeshore Trust","$97,379","Jun 16","Declined"],["Meridian Fund","$26,570","Oct 22","Submitted"],["Sunrise Foundation","$88,146","Jun 20","Declined"]]}
+```
+Only the Meridian Fund grant is still in play, as submitted.
+--- derived
+

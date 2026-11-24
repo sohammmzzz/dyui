@@ -1,0 +1,99 @@
+=== B-0115
+--- user
+For the study group, Jun Weber has 183 points, 6 badges and a 10-day streak, and Dev Yilmaz has 213 points, 6 badges and an 11-day streak. Could you tell me how they stand against each other?
+--- reference
+Dev Yilmaz is ahead of Jun Weber on points, 213 to 183, and by one day on the streak, 11 against 10. Both students hold the same number of badges, 6 each, so points and streak are the only differences.
+--- derived
+1
+
+=== B-0073
+--- user
+quick check on two devices: oven 1.2 kW, fault. dishwasher 2.9 kW, scheduled. anything to worry about?
+--- reference
+The Oven is the one to look at, since it reports a fault even at 1.2 kW. The Dishwasher is simply scheduled at 2.9 kW and shows no problem.
+--- derived
+
+=== B-0088
+--- user
+what does our contract list look like? Hooli NDA $221,839 expires Feb 6, Soylent NDA $478,347 Dec 14, Northwind SOW $208,568 Feb 18, Initech MSA $243,956 Jul 20, Acme DPA $309,702 Dec 18, Globex NDA $301,725 Dec 15, a second Hooli, MSA, $237,560 Jan 6, and a second Acme, MSA, $129,520 Jun 16
+--- reference
+Eight contracts are listed below, with Hooli and Acme each appearing twice under different types.
+```dyui
+{"ui":"table","columns":["Counterparty","Type","Value","Expires"],"rows":[["Hooli","NDA","$221,839","Feb 6"],["Soylent","NDA","$478,347","Dec 14"],["Northwind","SOW","$208,568","Feb 18"],["Initech","MSA","$243,956","Jul 20"],["Acme","DPA","$309,702","Dec 18"],["Globex","NDA","$301,725","Dec 15"],["Hooli","MSA","$237,560","Jan 6"],["Acme","MSA","$129,520","Jun 16"]],"caption":"Contracts"}
+```
+Soylent carries the highest value at $478,347, and its NDA expires on Dec 14.
+--- derived
+
+=== B-0068
+--- user
+Please turn the incident work into a live checklist. Reproduce the failure in staging is complete, Run the load test is in progress, Ship the fix behind a flag has not started, and Bisect the last three deploys was skipped. It sits under the engineering operations plan.
+--- reference
+The load test is the item in motion, with the fix shipment queued behind it.
+```dyui
+{"ui":"plan","title":"Engineering operations plan","items":[{"title":"Reproduce the failure in staging","status":"done"},{"title":"Run the load test","status":"active"},{"title":"Ship the fix behind a flag","status":"pending"},{"title":"Bisect the last three deploys","status":"skipped"}]}
+```
+The bisect was skipped, so the staging reproduction and the load test carry the investigation.
+--- derived
+
+=== B-0039
+--- user
+put these in order for the stakeholders pls: Review subscriptions Feb 8 (done, Hugo Dubois), Set the savings goal Feb 10 (in progress, Jamal Larsen), Schedule the transfer Apr 12 (Gabriel Dubois), Categorise last month Feb 14 (Ben Singh), Link the salary account Jan 16 (Pedro Lindqvist)
+--- reference
+Stakeholders can follow all five tasks from this sequence, each with a date and an owner.
+```dyui
+{"ui":"timeline","items":[{"title":"Review subscriptions","time":"Feb 8","status":"done","text":"Owner: Hugo Dubois"},{"title":"Set the savings goal","time":"Feb 10","status":"active","text":"Owner: Jamal Larsen"},{"title":"Schedule the transfer","time":"Apr 12","status":"pending","text":"Owner: Gabriel Dubois"},{"title":"Categorise last month","time":"Feb 14","status":"pending","text":"Owner: Ben Singh"},{"title":"Link the salary account","time":"Jan 16","status":"pending","text":"Owner: Pedro Lindqvist"}]}
+```
+Only the subscription review is closed, and setting the savings goal is the live task.
+--- derived
+
+=== B-0104
+--- user
+Peak demand for the building rose month on month: 7.1 kW in August, 7.4 in September, 7.8 in October and 8.2 in November. Can I get that as an area graph?
+--- reference
+Peak demand climbed in each of the four months.
+```dyui
+{"ui":"chart","kind":"area","labels":["Aug","Sep","Oct","Nov"],"series":[{"name":"Peak demand","data":[7.1,7.4,7.8,8.2]}],"unit":"kW"}
+```
+It moved from 7.1 kW in Aug to 8.2 kW in Nov, without a single month going down.
+--- derived
+
+=== B-0017
+--- user
+two charges to compare: Aug 23 Mercado Verde $50 transport, Jul 11 Metro pass $171 transport
+--- reference
+The Jul 11 Metro pass was the bigger charge at $171, while the Aug 23 Mercado Verde purchase was $50. Both are filed under Transport.
+--- derived
+
+=== B-0111
+--- user
+showings this week by type: apartment 44, townhouse 53, studio 52, loft 15. which one is ahead?
+--- reference
+Townhouses are ahead this week, with studios close behind.
+```dyui
+{"ui":"chart","kind":"bar","labels":["Apartment","Townhouse","Studio","Loft"],"series":[{"name":"Showings this week","data":[44,53,52,15]}],"title":"Showings this week by type"}
+```
+Townhouse leads at 53 against 52 for Studio, and Loft is far behind at 15.
+--- derived
+
+=== B-0006
+--- user
+fuel economy May to Dec: 39, 38, 40, 40, 43, 40, 39, 40. line chart of that
+--- reference
+Fuel economy hovered around 40 for the whole stretch from May to December.
+```dyui
+{"ui":"chart","kind":"line","series":[{"name":"Fuel economy","data":[39,38,40,40,43,40,39,40]}],"title":"Fuel economy, May–Dec"}
+```
+The 43 reading is the one standout, and the line otherwise stays between 38 and 40.
+--- derived
+
+=== B-0135
+--- user
+For the editorial team's hiring plan we have filled 5 of the 10 positions. Where are we against the goal?
+--- reference
+You are exactly halfway through the hiring plan.
+```dyui
+{"ui":"progress","value":5,"max":10,"label":"Hiring plan"}
+```
+Five more positions remain to reach the full 10.
+--- derived
+5

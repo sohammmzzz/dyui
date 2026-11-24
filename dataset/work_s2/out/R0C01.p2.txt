@@ -1,0 +1,147 @@
+=== C-0109
+--- user
+Show me this in the chat: https://docs.acme-cloud.example.com/img/overview-37.jpg (product on a white background, taken last week). And give me the rundown on the campaign: Social channel, $39,177 budget, starts Jul 9, owner Elena Vasquez, status Live.
+--- reference
+The product shot from last week goes up first.
+```dyui
+{"ui":"image","src":"https://docs.acme-cloud.example.com/img/overview-37.jpg","alt":"The product on a white background","caption":"Taken last week"}
+```
+After the image comes the campaign rundown.
+```dyui
+{"ui":"keyvalue","items":[{"key":"Channel","value":"Social"},{"key":"Budget","value":"$39,177"},{"key":"Start","value":"Jul 9"},{"key":"Owner","value":"Elena Vasquez"},{"key":"Status","value":"Live"}]}
+```
+Elena Vasquez owns a campaign that is already Live on the Social channel.
+--- derived
+
+
+=== C-0085
+--- user
+Summarise shipment TRK-279 for me: Porto to Delhi, carrier CTT, 521 kg. I also want to see where we are on it. Steps so far: "Collect proof of delivery" on Aug 7, done, Pedro Fischer; "Pick up at the dock" May 9, done, Yara Rahman; "Clear customs" May 11, in progress, Lena Ueda; "Out for delivery" Jan 13, still pending, Ben Castillo.
+--- reference
+CTT is moving shipment TRK-279 from Porto to Delhi, and its summary comes first.
+```dyui
+{"ui":"keyvalue","items":[{"key":"Tracking","value":"TRK-279"},{"key":"Origin","value":"Porto"},{"key":"Destination","value":"Delhi"},{"key":"Carrier","value":"CTT"},{"key":"Weight kg","value":521}]}
+```
+Progress to date is traced step by step below.
+```dyui
+{"ui":"timeline","items":[{"title":"Collect proof of delivery","time":"Aug 7","status":"done","text":"Owner: Pedro Fischer"},{"title":"Pick up at the dock","time":"May 9","status":"done","text":"Owner: Yara Rahman"},{"title":"Clear customs","time":"May 11","status":"active","text":"Owner: Lena Ueda"},{"title":"Out for delivery","time":"Jan 13","status":"pending","text":"Owner: Ben Castillo"}]}
+```
+Customs clearance under Lena Ueda stands between the shipment and its final delivery leg.
+--- derived
+
+
+=== C-0137
+--- user
+Kindly display this image (taken last week): https://help.helpwave.example.com/img/faq-10.jpg. Please also lay out the trip details: Vienna, Mar 3-7, 4 travellers, budget $4,533, status Awaiting payment.
+--- reference
+The image from last week is displayed first.
+```dyui
+{"ui":"image","src":"https://help.helpwave.example.com/img/faq-10.jpg","caption":"Taken last week"}
+```
+The trip details sit right beneath it.
+```dyui
+{"ui":"keyvalue","items":[{"key":"Destination","value":"Vienna"},{"key":"Dates","value":"Mar 3-7"},{"key":"Travellers","value":4},{"key":"Budget","value":"$4,533"},{"key":"Status","value":"Awaiting payment"}]}
+```
+Payment is the one open item before the Vienna booking can be confirmed.
+--- derived
+
+
+=== C-0088
+--- user
+Car CM-8005, a Corolla, 28142 on the clock, based at the Campus depot, next service Oct 9. Lay out those details and then put the jobs in order for the stakeholders: "Return to the pool" (Sep 1, done), "Swap the tyres" (Dec 3, in progress), "Inspect the vehicle" (Feb 5, still to do).
+--- reference
+The Corolla is based at the Campus depot, and its record is below.
+```dyui
+{"ui":"keyvalue","items":[{"key":"Plate","value":"CM-8005"},{"key":"Model","value":"Corolla"},{"key":"Mileage","value":28142},{"key":"Depot","value":"Campus"},{"key":"Next service","value":"Oct 9"}]}
+```
+The jobs for the stakeholders run in this order.
+```dyui
+{"ui":"timeline","items":[{"title":"Return to the pool","time":"Sep 1","status":"done"},{"title":"Swap the tyres","time":"Dec 3","status":"active"},{"title":"Inspect the vehicle","time":"Feb 5","status":"pending"}]}
+```
+The tyre swap is under way, and the inspection is the only job after it.
+--- derived
+
+
+=== C-0018
+--- user
+Could you lay out the details of the client's programme? Goal: Lose 5 kg. Weekly sessions: 4, coach Zoe Park, Build plan, next test Dec 24. Then set the session out in order for the stakeholders: "Plan tomorrow" (Feb 8, done), "Main set" (Jul 10, in progress), "Log the session" (Feb 12, pending).
+--- reference
+The programme details are set out first, starting from the client's goal.
+```dyui
+{"ui":"keyvalue","items":[{"key":"Goal","value":"Lose 5 kg"},{"key":"Weekly sessions","value":4},{"key":"Coach","value":"Zoe Park"},{"key":"Plan","value":"Build"},{"key":"Next test","value":"Dec 24"}]}
+```
+For the stakeholders, the session steps are sequenced next.
+```dyui
+{"ui":"timeline","items":[{"title":"Plan tomorrow","time":"Feb 8","status":"done"},{"title":"Main set","time":"Jul 10","status":"active"},{"title":"Log the session","time":"Feb 12","status":"pending"}]}
+```
+The main set is the step in progress, and logging it closes the loop.
+--- derived
+
+
+=== C-0086
+--- user
+Please put the delivery steps in order for the stakeholders: "Out for delivery" (Oct 8, done, Priya Park); "Scan at the hub" (Jan 10, in progress, Yusuf Fischer); "Collect proof of delivery" (Aug 12, pending, Zainab Novak); "Clear customs" (Sep 14, pending, Katya Haddad); "Pick up at the dock" (Nov 16, pending, Rin Nakamura). Also, how should we word to the customer that "Damage rate is recalculated every 2 hours, so today's figure is provisional."? Title it "Good to know".
+--- reference
+One step is in progress and three are still waiting, as the timeline shows.
+```dyui
+{"ui":"timeline","items":[{"title":"Out for delivery","time":"Oct 8","status":"done","text":"Owner: Priya Park"},{"title":"Scan at the hub","time":"Jan 10","status":"active","text":"Owner: Yusuf Fischer"},{"title":"Collect proof of delivery","time":"Aug 12","status":"pending","text":"Owner: Zainab Novak"},{"title":"Clear customs","time":"Sep 14","status":"pending","text":"Owner: Katya Haddad"},{"title":"Pick up at the dock","time":"Nov 16","status":"pending","text":"Owner: Rin Nakamura"}]}
+```
+For the customer, a short note can carry the caveat.
+```dyui
+{"ui":"callout","text":"Damage rate is recalculated every 2 hours, so today's figure is provisional.","level":"info","title":"Good to know"}
+```
+Yusuf Fischer owns the step that is moving right now.
+--- derived
+
+
+=== C-0012
+--- user
+Mi dia il quadro generale del viaggio: camminata al giorno 13.5 km in aumento, hotel a notte $326 (obiettivo $359), costo del volo 152 dollari stabile (obiettivo $167). Chi è in testa sul costo dei voli per città? Marsiglia 608, Siviglia 649, Porto 371, Lisbona 857, Napoli 508. Suggeriscimi anche qualche domanda successiva: "Which mode is weakest?", "Forecast next month" e "Break it down by mode".
+--- reference
+Lisbona guida la classifica con il volo più caro, mentre Porto è il più economico.
+```dyui
+{"ui":"stats","items":[{"label":"Camminata al giorno","value":13.5,"unit":"km","trend":"up"},{"label":"Hotel a notte","value":"$326","help":"Obiettivo $359"},{"label":"Costo del volo","value":152,"unit":"$","trend":"flat","help":"Obiettivo $167"}]}
+```
+Il confronto per città è nel grafico a barre.
+```dyui
+{"ui":"chart","kind":"bar","labels":["Marsiglia","Siviglia","Porto","Lisbona","Napoli"],"series":[{"name":"Costo del volo","data":[608,649,371,857,508]}],"title":"Costo del volo per città"}
+```
+Per proseguire puoi toccare una di queste domande.
+```dyui
+{"ui":"quick_replies","options":["Which mode is weakest?","Forecast next month","Break it down by mode"]}
+```
+Hotel e volo risultano entrambi sotto gli obiettivi indicati.
+--- derived
+
+
+=== C-0049
+--- user
+nginx config to proxy example.com (listening on port 80) to a local app at http://127.0.0.1:3000? and let them know in the app: assignments due is at 4, above the 3 threshold, review it before Friday
+--- reference
+A single server block that forwards requests with `proxy_pass` does the job.
+```dyui
+{"ui":"code","code":"server {\n  listen 80;\n  server_name example.com;\n  location / {\n    proxy_pass http://127.0.0.1:3000;\n  }\n}","language":"nginx"}
+```
+The in-app message goes out as a warning.
+```dyui
+{"ui":"callout","text":"Assignments due is at 4, above the 3 threshold. Review it before Friday.","level":"warning"}
+```
+Run `nginx -t` after saving the config and reload nginx so the proxy takes effect.
+--- derived
+
+
+=== C-0138
+--- user
+Show me the profile of my Credit card: balance $10,815, in EUR, opened Jun 28, status Active. Next actions I need: Dismiss alert (red), Flag as fraud (red), View history, Decline offer (red).
+--- reference
+The card's profile is summarised first.
+```dyui
+{"ui":"keyvalue","items":[{"key":"Type","value":"Credit card"},{"key":"Balance","value":"$10,815"},{"key":"Currency","value":"EUR"},{"key":"Opened","value":"Jun 28"},{"key":"Status","value":"Active"}]}
+```
+Four actions are available on it, with the risky ones marked in red.
+```dyui
+{"ui":"buttons","items":[{"label":"Dismiss alert","action":"dismiss_alert","style":"danger"},{"label":"Flag as fraud","action":"flag_as_fraud","style":"danger"},{"label":"View history","action":"view_history","style":"secondary"},{"label":"Decline offer","action":"decline_offer","style":"danger"}]}
+```
+View history is the only choice that changes nothing on the account.
+--- derived
+

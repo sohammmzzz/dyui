@@ -1,0 +1,175 @@
+=== N-0001
+--- user
+Please put up a toast warning that resolved tickets today are at 136, which is above our 118 threshold, and that it should be reviewed before Friday.
+--- reference
+Here is the warning about today's resolved count.
+```dyui
+{"ui":"callout","text":"Resolved today is at 136, above the 118 threshold. Review it before Friday.","level":"warning"}
+```
+It stays in the conversation, so it can be checked again before Friday.
+--- derived
+
+=== N-0019
+--- user
+Potrebbe mostrare un menu a tendina per scegliere il piano adatto al nostro team? Le opzioni sono Starter, Pro, Team ed Enterprise, con il pulsante "Continua".
+--- reference
+Ecco la scelta del piano con le quattro opzioni.
+```dyui
+{"ui":"choice","question":"Quale piano è adatto al tuo team?","options":["Starter","Pro","Team","Enterprise"],"submit_label":"Continua"}
+```
+Dopo la selezione riceverò la tua risposta e potrò proseguire da lì.
+--- derived
+
+=== N-0023
+--- user
+expander for the student FAQ please. 1) Can I change my plan later? Yes, upgrades apply immediately; downgrades start at the next billing date. 2) Where is my data stored? In the region you pick at signup, encrypted at rest. 3) How do I reset my password? Forgot password on the sign-in page, then follow the emailed link.
+--- reference
+Here are the three FAQ entries as collapsible sections.
+```dyui
+{"ui":"accordion","items":[{"title":"Can I change my plan later?","children":[{"ui":"markdown","text":"Yes. Upgrades apply immediately; downgrades start at the next billing date."}]},{"title":"Where is my data stored?","children":[{"ui":"markdown","text":"Data lives in the region you pick at signup and is encrypted at rest."}]},{"title":"How do I reset my password?","children":[{"ui":"markdown","text":"Use **Forgot password** on the sign-in page and follow the emailed link."}]}]}
+```
+Students can open only the answer they need.
+--- derived
+
+=== N-0033
+--- user
+dropdown for picking a day: Monday, Wednesday or Friday, button says Schedule
+--- reference
+Here is the day picker with the three options.
+```dyui
+{"ui":"choice","question":"Which day suits you best?","options":["Monday","Wednesday","Friday"],"submit_label":"Schedule"}
+```
+Your pick comes back to me as a message and I will book it.
+--- derived
+
+=== N-0040
+--- user
+Could you put this CI workflow in a proper code block so I can copy it? It's the file .github/workflows/ci.yml:
+
+name: ci
+on: [push]
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - run: npm ci && npm test
+--- reference
+Here is the workflow file, ready to copy.
+```dyui
+{"ui":"code","code":"name: ci\non: [push]\njobs:\n  test:\n    runs-on: ubuntu-latest\n    steps:\n      - uses: actions/checkout@v4\n      - run: npm ci && npm test","language":"yaml","filename":".github/workflows/ci.yml"}
+```
+It runs the test job on every push, installing dependencies cleanly before testing.
+--- derived
+
+=== N-0032
+--- user
+Kindly create a todo for service under the title "Restaurant and delivery plan": plating the mains is under way, the mise en place prep is complete, sending desserts is under way, and closing the kitchen is under way as well.
+--- reference
+Here is the service checklist with the current status of each task.
+```dyui
+{"ui":"plan","title":"Restaurant and delivery plan","items":[{"title":"Plate the mains","status":"active"},{"title":"Prep the mise en place","status":"done"},{"title":"Send desserts","status":"active"},{"title":"Close the kitchen","status":"active"}]}
+```
+Only the prep is finished, and three tasks are running at the same time.
+--- derived
+
+=== N-0011
+--- user
+can you add a label for the appointment slot "Staff pick" and another one "Archived" in gray
+--- reference
+Here are the two tags for the slot.
+```dyui
+{"ui":"badges","items":[{"label":"Staff pick"},{"label":"Archived","color":"gray"}]}
+```
+Staff pick uses the default colour, while Archived is shown in gray.
+--- derived
+
+=== N-0020
+--- user
+I need a button row for order ORD-5670 with four options: Approve (the main one), Assign owner (secondary), Flag as fraud (red, danger), and Learn more (ghost). They should all carry the order id.
+--- reference
+Here are the four actions for order ORD-5670.
+```dyui
+{"ui":"buttons","items":[{"label":"Approve","action":"approve","data":{"id":"ORD-5670"},"style":"primary"},{"label":"Assign owner","action":"assign_owner","data":{"id":"ORD-5670"},"style":"secondary"},{"label":"Flag as fraud","action":"flag_as_fraud","data":{"id":"ORD-5670"},"style":"danger"},{"label":"Learn more","action":"learn_more","data":{"id":"ORD-5670"},"style":"ghost"}]}
+```
+Each click returns its action along with the order id.
+--- derived
+
+=== N-0026
+--- user
+I'm setting up a trip-search service and need the Python for reading config from the environment. I'd like a code block named env.py that reads API_KEY (required) and REGION, which should default to eu-west-1.
+--- reference
+Here is the config loader as a Python file.
+```dyui
+{"ui":"code","code":"import os\n\napi_key = os.environ[\"API_KEY\"]\nregion = os.environ.get(\"REGION\", \"eu-west-1\")","language":"python","filename":"env.py"}
+```
+API_KEY raises an error if it is missing, while REGION falls back to eu-west-1.
+--- derived
+
+=== N-0010
+--- user
+swiper of hotel options: Mar & Sol in Valencia $96 a night, Hotel Avenida in Porto $118, Praça Suites in Lisbon $187, Casa Alfama in Lisbon $142
+--- reference
+Here are the four hotels in a scrolling row.
+```dyui
+{"ui":"carousel","children":[{"ui":"card","title":"Mar & Sol","subtitle":"Valencia","children":[{"ui":"stat","label":"Per night","value":"$96"}]},{"ui":"card","title":"Hotel Avenida","subtitle":"Porto","children":[{"ui":"stat","label":"Per night","value":"$118"}]},{"ui":"card","title":"Praça Suites","subtitle":"Lisbon","children":[{"ui":"stat","label":"Per night","value":"$187"}]},{"ui":"card","title":"Casa Alfama","subtitle":"Lisbon","children":[{"ui":"stat","label":"Per night","value":"$142"}]}]}
+```
+Mar & Sol is the cheapest at $96 a night, and Praça Suites the priciest.
+--- derived
+
+=== N-0029
+--- user
+toast of type warning, title "Needs attention": average wait is 16 min, over the 12 min threshold, review before Friday
+--- reference
+Here is the warning with the wait-time figures.
+```dyui
+{"ui":"callout","text":"Average wait is at 16 min, above the 12 min threshold. Review it before Friday.","level":"warning","title":"Needs attention"}
+```
+The wait is 4 minutes over the limit.
+--- derived
+4
+
+=== N-0003
+--- user
+Please produce a pie of this month's tickets by category, in tickets: Technical 1954, Account 3041, Feedback 2390, Billing 2203. I would like to see how they split.
+--- reference
+Here is the split of tickets across the four categories.
+```dyui
+{"ui":"chart","kind":"pie","labels":["Technical","Account","Feedback","Billing"],"series":[{"name":"Tickets","data":[1954,3041,2390,2203]}],"unit":"tickets"}
+```
+Account is the largest category and Technical the smallest.
+--- derived
+
+=== N-0042
+--- user
+Please set up a spreadsheet of the vehicles, with headers Plate, Model, Mileage and Status, and rows like {plate: CM-1967, model: Transit, mileage: 141172, status: In service}, {plate: CM-6562, model: Model 3, mileage: 15020, status: Available}, {plate: CM-2801, model: Model 3, mileage: 26912, status: In service} and {plate: CM-3619, model: Transit, mileage: 98784, status: Rented}. Caption it "Vehicles".
+--- reference
+Here is the vehicle list as a table.
+```dyui
+{"ui":"table","columns":["Plate","Model","Mileage","Status"],"rows":[["CM-1967","Transit",141172,"In service"],["CM-6562","Model 3",15020,"Available"],["CM-2801","Model 3",26912,"In service"],["CM-3619","Transit",98784,"Rented"]],"caption":"Vehicles"}
+```
+CM-1967 has the highest mileage at 141172.
+--- derived
+
+=== N-0024
+--- user
+cards row for the lodging shortlist pls: Mar & Sol (Valencia, $96/night), Praça Suites (Lisbon, $187), Quinta Verde (Sintra, $164), Hotel Avenida (Porto, $118), Casa Alfama (Lisbon, $142)
+--- reference
+Here are the five places in a scrolling row of cards.
+```dyui
+{"ui":"carousel","children":[{"ui":"card","title":"Mar & Sol","subtitle":"Valencia","children":[{"ui":"stat","label":"Per night","value":"$96"}]},{"ui":"card","title":"Praça Suites","subtitle":"Lisbon","children":[{"ui":"stat","label":"Per night","value":"$187"}]},{"ui":"card","title":"Quinta Verde","subtitle":"Sintra","children":[{"ui":"stat","label":"Per night","value":"$164"}]},{"ui":"card","title":"Hotel Avenida","subtitle":"Porto","children":[{"ui":"stat","label":"Per night","value":"$118"}]},{"ui":"card","title":"Casa Alfama","subtitle":"Lisbon","children":[{"ui":"stat","label":"Per night","value":"$142"}]}]}
+```
+Swipe sideways to compare them; Mar & Sol is the cheapest at $96.
+--- derived
+
+=== N-0045
+--- user
+can you make a line graph of average days to settle a claim, Jan to Jun: 17, 16, 15, 14, 13, 12
+--- reference
+Here is the settlement time from January to June.
+```dyui
+{"ui":"chart","kind":"line","labels":["Jan","Feb","Mar","Apr","May","Jun"],"series":[{"name":"Days to settle","data":[17,16,15,14,13,12]}],"unit":"days"}
+```
+Settlement time dropped steadily from 17 to 12 days.
+--- derived
+

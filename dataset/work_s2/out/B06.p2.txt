@@ -1,0 +1,127 @@
+=== B-0023
+--- user
+Course completion is currently 9 out of the 10 modules. Could you tell me where we stand against the goal?
+--- reference
+Nine of the ten modules are done, which leaves a single one to go.
+```dyui
+{"ui":"progress","value":9,"max":10,"label":"Course completion"}
+```
+Finishing the last module brings the course to the full 10.
+--- derived
+
+=== B-0124
+--- user
+make this a live checklist: read the meter is done, compare tariffs is in progress, shift the heavy loads not started, review next bill skipped. it's the utilities and energy plan
+--- reference
+Comparing tariffs is the live step in the utilities and energy plan.
+```dyui
+{"ui":"plan","title":"Utilities and energy plan","items":[{"title":"Read the meter","status":"done"},{"title":"Compare tariffs","status":"active"},{"title":"Shift the heavy loads","status":"pending"},{"title":"Review next bill","status":"skipped"}]}
+```
+The bill review was skipped, so shifting the heavy loads is the next real task.
+--- derived
+
+=== B-0159
+--- user
+Verteilung der Konten bitte: Kreditkarte 4885, Depot 4215, Sparkonto 2534, Girokonto 461. wie sieht der Split aus?
+--- reference
+Kreditkarte und Depot machen den Löwenanteil aus, das Girokonto fällt kaum ins Gewicht.
+```dyui
+{"ui":"chart","kind":"pie","labels":["Kreditkarte","Depot","Sparkonto","Girokonto"],"series":[{"name":"Einheiten","data":[4885,4215,2534,461]}],"unit":"Einheiten"}
+```
+Mit 4885 liegt die Kreditkarte vorn, das Girokonto kommt nur auf 461.
+--- derived
+
+=== B-0037
+--- user
+meta de recaudación: llevamos 22055 de 54710. muéstrame el avance
+--- reference
+La recaudación avanza, pero aún no llega ni a la mitad de la meta.
+```dyui
+{"ui":"progress","value":22055,"max":54710,"label":"Meta de recaudación"}
+```
+Todavía queda un buen tramo para llegar a los 54710 previstos.
+--- derived
+
+=== B-0123
+--- user
+lay that out as a timeline: Shift the heavy loads, Jun 3, done, Xavier Larsen. Read the meter, Jun 5, in progress, Katya Almeida. Review next bill, Oct 7, not started, Tomas Dubois. Install the smart plug, Jan 9, not started, Ivan Hoang.
+--- reference
+Two of the four tasks have started, with the meter reading the one still open.
+```dyui
+{"ui":"timeline","items":[{"title":"Shift the heavy loads","time":"Jun 3","status":"done","text":"Owner: Xavier Larsen"},{"title":"Read the meter","time":"Jun 5","status":"active","text":"Owner: Katya Almeida"},{"title":"Review next bill","time":"Oct 7","status":"pending","text":"Owner: Tomas Dubois"},{"title":"Install the smart plug","time":"Jan 9","status":"pending","text":"Owner: Ivan Hoang"}]}
+```
+The bill review and the smart plug install are both still waiting to begin.
+--- derived
+
+=== B-0171
+--- user
+I would like a comparison of two accounts, please. Northwind is on the Starter plan with 231 seats and $1,198 MRR, owned by Quinn Reyes. Acme is on the Team plan with 384 seats and $4,293 MRR, owned by Ben Lindqvist.
+--- reference
+Acme is the larger account on every measure: 384 seats and $4,293 MRR, against 231 seats and $1,198 for Northwind. Acme is on the Team plan under Ben Lindqvist, while Northwind sits on Starter under Quinn Reyes.
+--- derived
+
+=== B-0137
+--- user
+fundraising tasks, lay that out as a timeline for me: Report the impact, Jun 4, done, owner Zoe Larsen. Set the goal, Sep 6, in progress, Sofia Jensen. Thank the donors, Aug 8, not yet, Bruno Castillo.
+--- reference
+Three tasks carry the fundraising push, and only the impact report is behind us.
+```dyui
+{"ui":"timeline","items":[{"title":"Report the impact","time":"Jun 4","status":"done","text":"Owner: Zoe Larsen"},{"title":"Set the goal","time":"Sep 6","status":"active","text":"Owner: Sofia Jensen"},{"title":"Thank the donors","time":"Aug 8","status":"pending","text":"Owner: Bruno Castillo"}]}
+```
+Sofia Jensen currently holds the goal-setting step.
+--- derived
+
+=== B-0141
+--- user
+tiempo de entrega de este mes: 27 min, igual que el mes pasado (0%). dame el titular
+--- reference
+El tiempo de entrega se mantiene en 27 min.
+```dyui
+{"ui":"stat","label":"Tiempo de entrega","value":"27 min","delta":"0% vs mes anterior"}
+```
+No hubo cambio frente al mes anterior, y no hay un objetivo con el que compararlo.
+--- derived
+
+=== B-0097
+--- user
+average settlement by claim type: pet 906, travel 7964, home 7061. which one is ahead?
+--- reference
+Travel claims settle highest on average, with home claims close behind.
+```dyui
+{"ui":"chart","kind":"bar","labels":["Pet","Travel","Home"],"series":[{"name":"Average settlement","data":[906,7964,7061]}]}
+```
+Pet is the outlier at 906, a small fraction of the 7964 for Travel.
+--- derived
+
+=== B-0169
+--- user
+Este mes la línea produjo 19,278 unidades y la cifra se ha mantenido estable respecto a periodos anteriores. ¿Vamos bien encaminados?
+--- reference
+La producción se mantiene estable en 19,278 unidades.
+```dyui
+{"ui":"stat","label":"Unidades producidas","value":"19,278","trend":"flat"}
+```
+No tengo un objetivo en los datos, así que no puedo decir si ese nivel es suficiente.
+--- derived
+
+=== B-0077
+--- user
+account profile: Business plan, 146 GB of data, $64, renews Feb 22
+--- reference
+The account is on the Business plan, renewing on Feb 22.
+```dyui
+{"ui":"keyvalue","items":[{"key":"Plan","value":"Business"},{"key":"Data GB","value":146},{"key":"Price","value":"$64"},{"key":"Renews","value":"Feb 22"}]}
+```
+It includes 146 GB of data for $64.
+--- derived
+
+=== B-0030
+--- user
+Please give me the picture for the campaign. Leads are 1,286, up 9.6%. ROAS is 1.9x, up 13.4%, against a target of 2.1x. Ad spend is $43.2k and trending down, with a target of $47.5k. Click-through rate is 3.1%, trending up, target 3.4%.
+--- reference
+Leads and ROAS are both growing, though ROAS and click-through rate still trail their targets.
+```dyui
+{"ui":"stats","items":[{"label":"Leads","value":"1,286","delta":"+9.6%","trend":"up"},{"label":"ROAS","value":"1.9x","delta":"+13.4%","trend":"up","help":"Target 2.1x"},{"label":"Ad spend","value":43.2,"unit":"$k","trend":"down","help":"Target $47.5k"},{"label":"Click-through rate","value":3.1,"unit":"%","trend":"up","help":"Target 3.4%"}]}
+```
+Ad spend is running below its $47.5k target while leads still rise.
+--- derived

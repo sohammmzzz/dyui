@@ -1,0 +1,105 @@
+=== J-0054
+--- user
+Thanks for walking me through the difference between preventive and predictive maintenance so patiently. I kept mixing them up, and it finally clicked.
+--- reference
+Glad it finally clicked. When you plan the next maintenance round, remember that preventive work follows a fixed schedule, while predictive work follows the actual condition of the equipment.
+--- derived
+
+=== J-0086
+--- user
+Estamos revisando el informe trimestral de clientes. ¿Una tasa de abandono del 2.1% es mejor que una del 2.8%? Solo quiero confirmar que lo estoy leyendo bien.
+--- reference
+Sí, 2.1% es mejor que 2.8%, porque una tasa de abandono menor significa que se pierden menos clientes. Eso sí, la comparación solo es válida si ambas cifras cubren el mismo periodo y la misma base de clientes.
+--- derived
+
+=== J-0047
+--- user
+Nel report della flotta compare la voce "Accidents 2". Posso leggerla come due incidenti registrati in totale?
+--- reference
+Sì, il valore 2 indica due incidenti registrati. Il report però non specifica il periodo né il numero di veicoli coinvolti, quindi non posso dire se sia un dato alto o basso.
+--- derived
+
+=== J-0062
+--- user
+c'est quoi l'invalidation de cache, en gros ?
+--- reference
+L'invalidation de cache consiste à retirer ou à marquer comme périmée une copie mise en cache quand la donnée d'origine change, pour que personne ne voie d'anciennes informations. On la déclenche soit à l'expiration d'un délai, soit explicitement lors d'une mise à jour.
+--- derived
+
+=== J-0023
+--- user
+Why would I use that instead of simply checking for updates on a schedule?
+--- reference
+Checking on a schedule means asking over and over, and most of those requests come back empty, which wastes calls and adds delay. A webhook delivers the event the moment it happens, so for something like a booking confirmation your system can react straight away.
+--- derived
+
+=== J-0033
+--- user
+Good afternoon. Are you available to assist me?
+--- reference
+Good afternoon, I'm here and available. Tell me what you need, whether it's a delivery question or something in the warehouse.
+--- derived
+
+=== J-0070
+--- user
+A customer got confused by this message from our portal. Could you simplify it so a non-technical person understands it right away? "We noticed unusual sign-in activity and temporarily locked your account for your safety."
+--- reference
+Try this: "Your account activity looked unusual, so we've locked it for now to keep it safe." Dropping the phrase "sign-in activity" lets a non-technical reader see what happened and why in one line.
+--- derived
+
+=== J-0034
+--- user
+Could you clarify the distinction between an SLO and an SLA? I need to get it right in a report.
+--- reference
+An SLO is an internal reliability target, such as a level of availability a team aims to hit. An SLA is a contractual commitment to customers that usually spells out remedies, like credits, if it is missed. SLOs are normally set stricter than the SLA so there is a buffer before the contract is breached.
+--- derived
+
+=== J-0043
+--- user
+A cosa serve un indice in un database?
+--- reference
+Un indice è una struttura di supporto che permette al database di trovare le righe senza scorrere l'intera tabella, un po' come l'indice analitico di un libro. In cambio occupa spazio e rende leggermente più lente le scritture.
+--- derived
+
+=== J-0063
+--- user
+can you explain how a rate limiter works? we want to cap how often a player can hit the trade endpoint
+--- reference
+A rate limiter tracks how many requests each player or API key makes within a time window and refuses the extras once the cap is reached. A token bucket is a common design: tokens refill at a steady rate, each request spends one, and an empty bucket means the player waits. That keeps short bursts possible while holding the long-run average under the cap.
+--- derived
+
+=== J-0089
+--- user
+I'm designing the new study portal and a lot of our students work late at night. In your opinion, should dark mode be the default?
+--- reference
+I'd default to the device's own light or dark setting instead of forcing one, since many students have already chosen that preference on their phones and laptops. Late-night studying is a good reason to make the toggle easy to find, but a forced dark default can make long passages harder to read for some people in bright rooms.
+--- derived
+
+=== J-0100
+--- user
+Tasa de abandono 3.6%: ¿es mucho?
+--- reference
+Depende del periodo y del sector: un 3.6% mensual es mucho más preocupante que un 3.6% anual, y no tengo datos de referencia de tu negocio. Si me dices a qué periodo corresponde, puedo ayudarte a interpretarlo.
+--- derived
+
+=== J-0013
+--- user
+O que é churn rate?
+--- reference
+Churn rate é a percentagem de clientes, ou de receita, que se perde num determinado período. Calcula-se dividindo os clientes perdidos pelos clientes que existiam no início desse período, e quanto mais baixa, melhor a retenção.
+--- derived
+
+=== J-0095
+--- user
+For a retention summary we're drafting, is a 2.1% churn rate better than 2.8%? Just checking that my reading is correct before it goes into the document.
+--- reference
+Yes, 2.1% is better than 2.8%, since lower churn means fewer customers are leaving. Make sure both rates cover the same period before you put them side by side.
+--- derived
+
+=== J-0017
+--- user
+Could you give me an example of when a team would actually use one?
+--- reference
+A team ships a new booking screen but keeps its flag off for everyone, then turns it on for a small group of users first. If problems appear, switching the flag off disables the screen immediately without a new deployment.
+--- derived
+

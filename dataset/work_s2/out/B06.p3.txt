@@ -1,0 +1,88 @@
+=== B-0174
+--- user
+Voici les miles parcourus par la flotte sur quatre mois : 99522 en mai, 110762 en juin, 120334 en juillet et 129253 en août. Quelle est la trajectoire, s'il vous plaît ? J'aimerais bien la voir tracée.
+--- reference
+La flotte roule de plus en plus, mois après mois.
+```dyui
+{"ui":"chart","kind":"area","labels":["Mai","Juin","Juil","Août"],"series":[{"name":"Miles parcourus","data":[99522,110762,120334,129253]}]}
+```
+Le total passe de 99522 en mai à 129253 en août, sans aucun mois en recul.
+--- derived
+
+=== B-0048
+--- user
+Pourriez-vous me montrer la latence de mai à août sous forme d'aire ? Les relevés sont 42, 46, 46 et 48.
+--- reference
+La latence monte légèrement sur ces quatre mois.
+```dyui
+{"ui":"chart","kind":"area","series":[{"name":"Latence","data":[42,46,46,48]}],"title":"Latence, mai–août"}
+```
+Elle passe de 42 à 48, avec un palier à 46 entre les deux relevés du milieu.
+--- derived
+
+=== B-0081
+--- user
+bring das mal für die Stakeholder in die richtige Reihenfolge: Pull the supplier invoices, Apr 8, erledigt, Gabriel Rossi. Update the product feed, Mar 10, läuft, Sofia Nguyen. Reconcile stock counts, Nov 12, offen, Sven Kim. Launch the weekend promo, Mar 14, läuft, Ivan Yilmaz. Review returns, Aug 16, offen, Isla Park.
+--- reference
+Von fünf Aufgaben ist eine abgeschlossen, zwei laufen gerade und zwei stehen noch aus.
+```dyui
+{"ui":"timeline","items":[{"title":"Pull the supplier invoices","time":"Apr 8","status":"done","text":"Owner: Gabriel Rossi"},{"title":"Update the product feed","time":"Mar 10","status":"active","text":"Owner: Sofia Nguyen"},{"title":"Reconcile stock counts","time":"Nov 12","status":"pending","text":"Owner: Sven Kim"},{"title":"Launch the weekend promo","time":"Mar 14","status":"active","text":"Owner: Ivan Yilmaz"},{"title":"Review returns","time":"Aug 16","status":"pending","text":"Owner: Isla Park"}]}
+```
+Der Feed-Update und die Weekend-Promo laufen parallel bei Sofia Nguyen und Ivan Yilmaz.
+--- derived
+
+=== B-0032
+--- user
+Today's appointments in a table please: 13:45 Dmitri Castillo, vaccination, room 7. 11:30 Uma Park, check-up, room 8. 15:00 Bruno Lindqvist, lab work, room 5. 16:20 Ivan Reyes, lab work, room 5. 10:00 Carla Bergstrom, dental, room 9. 09:15 Tomas Quispe, check-up, room 2. 08:30 Wen Oliveira, check-up, room 8.
+--- reference
+Seven patients are booked today, each with a time, service and room.
+```dyui
+{"ui":"table","columns":["Time","Patient","Service","Room"],"rows":[["13:45","Dmitri Castillo","Vaccination",7],["11:30","Uma Park","Check-up",8],["15:00","Bruno Lindqvist","Lab work",5],["16:20","Ivan Reyes","Lab work",5],["10:00","Carla Bergstrom","Dental",9],["09:15","Tomas Quispe","Check-up",2],["08:30","Wen Oliveira","Check-up",8]]}
+```
+Room 5 hosts both lab work slots, at 15:00 and 16:20, and room 8 is used twice for check-ups.
+--- derived
+
+=== B-0152
+--- user
+track the shipment for me: scan at the hub is done, out for delivery is happening now, collect proof of delivery is still to come, clear customs is done
+--- reference
+The shipment is out for delivery right now.
+```dyui
+{"ui":"plan","items":[{"title":"Scan at the hub","status":"done"},{"title":"Out for delivery","status":"active"},{"title":"Collect proof of delivery","status":"pending"},{"title":"Clear customs","status":"done"}]}
+```
+Customs clearance is already behind it, so proof of delivery is the last open item.
+--- derived
+
+=== B-0004
+--- user
+Kindly show me this week's training plan cleanly: Mon, Mobility, 3 minutes. Thu, Tempo, 87. Tue, Mobility, 34. Fri, Intervals, 36. Sat, Tempo, 16. Wed, Upper body, 68. Sun, Long run, 12, and also Sun, Upper body, 54.
+--- reference
+The week has eight sessions, and Sunday carries two of them.
+```dyui
+{"ui":"table","columns":["Day","Session","Minutes"],"rows":[["Mon","Mobility",3],["Thu","Tempo",87],["Tue","Mobility",34],["Fri","Intervals",36],["Sat","Tempo",16],["Wed","Upper body",68],["Sun","Long run",12],["Sun","Upper body",54]],"caption":"Plan this week"}
+```
+Thursday's tempo session is the longest at 87 minutes, and Monday's mobility is the shortest at 3.
+--- derived
+8
+
+=== B-0103
+--- user
+Orders per appliance this quarter: heating 4708, fridge 2083, water heater 4549. Please give me a pie chart of that.
+--- reference
+Heating and water heater together take the bulk of the orders.
+```dyui
+{"ui":"chart","kind":"pie","labels":["Heating","Fridge","Water heater"],"series":[{"name":"Orders","data":[4708,2083,4549]}],"title":"Orders per appliance"}
+```
+Heating leads at 4708, and the fridge is the smallest slice at 2083.
+--- derived
+
+=== B-0180
+--- user
+suis-moi ça pour le plan d'exploitation de la boutique en ligne : Launch the weekend promo c'est fini, Update the product feed est en cours, Review returns pas commencé, Pull the supplier invoices pas commencé, Reconcile stock counts en cours
+--- reference
+Deux tâches sont en cours sur le plan d'exploitation de la boutique en ligne, et une seule est terminée.
+```dyui
+{"ui":"plan","title":"Plan d'exploitation de la boutique en ligne","items":[{"title":"Launch the weekend promo","status":"done"},{"title":"Update the product feed","status":"active"},{"title":"Review returns","status":"pending"},{"title":"Pull the supplier invoices","status":"pending"},{"title":"Reconcile stock counts","status":"active"}]}
+```
+La promo du week-end est lancée, et les retours restent à examiner.
+--- derived

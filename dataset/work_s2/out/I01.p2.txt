@@ -1,0 +1,131 @@
+=== I-0002
+--- user
+Please record two ad creatives for the co-op's seasonal campaign: MV-8048 with a capacity of 451, and MV-5704 with a capacity of 365.
+--- reference
+Here are the two ad creatives and their capacity.
+```dyui
+{"ui":"ad_creative","id":"MV-8048","capacity":451}
+{"ui":"ad_creative","id":"MV-5704","capacity":365}
+```
+MV-8048 has 86 more capacity than MV-5704.
+--- derived
+86
+
+=== I-0024
+--- user
+build result: Spring bundle, 20:45, draft, provider Globex
+--- reference
+Here is the build result for the Spring bundle.
+```dyui
+{"ui":"build_result","title":"Spring bundle","time":"20:45","stage":"draft","provider":"Globex"}
+```
+It is still a draft, so it has not been published yet.
+--- derived
+
+
+=== I-0040
+--- user
+I would like the three concert sets for the trip listed in detail. ZN-2294 is on Sep 19, AX-5482 is on Jun 28, and MV-4617 is on Apr 19.
+--- reference
+Here are the three concert sets with their dates.
+```dyui
+{"ui":"concert_set","id":"ZN-2294","date":"Sep 19"}
+{"ui":"concert_set","id":"AX-5482","date":"Jun 28"}
+{"ui":"concert_set","id":"MV-4617","date":"Apr 19"}
+```
+MV-4617 comes first on the calendar, followed by AX-5482 and then ZN-2294.
+--- derived
+
+
+=== I-0050
+--- user
+For the shop floor, please show three price drops. ZN-6424 is tagged beta, priority and new. KT-950 is tagged audit, beta and vip. AX-2020 is tagged audit only.
+--- reference
+Here are the three price drops with their tags.
+```dyui
+{"ui":"price_drop","id":"ZN-6424","tags":["beta","priority","new"]}
+{"ui":"price_drop","id":"KT-950","tags":["audit","beta","vip"]}
+{"ui":"price_drop","id":"AX-2020","tags":["audit"]}
+```
+AX-2020 is the only one with a single tag.
+--- derived
+
+
+=== I-0058
+--- user
+Quick one, can you show the two open houses? MV-9520 has ended, score 65, not urgent, 45 percent, count 89, hosted by Priya Singh, 102 minutes. MV-1603 has also ended, urgent, 64 percent, count 148, 134 minutes.
+--- reference
+Here are the two open houses.
+```dyui
+{"ui":"open_house","id":"MV-9520","state":"ended","score":65,"urgent":false,"percent":45,"count":89,"name":"Priya Singh","duration_min":102}
+{"ui":"open_house","id":"MV-1603","state":"ended","urgent":true,"percent":64,"count":148,"duration_min":134}
+```
+MV-1603 is the urgent one, and it also has the higher count.
+--- derived
+
+
+=== I-0054
+--- user
+Can you list the size guides for the fleet? Night shift at the North gate: balance 4857, state warn, weight 1.6 kg, 37 minutes, score 27. Spring bundle in Studio 2: balance 409, ok, 29.6 kg, 25 minutes, score 89. Quarterly review in Room B12: balance 4789, fail, 65.0 kg, 49 minutes, score 22.
+--- reference
+Here are the three size guides for the fleet.
+```dyui
+{"ui":"size_guide","title":"Night shift","location":"North gate","balance":4857,"state":"warn","weight_kg":1.6,"duration_min":37,"score":27}
+{"ui":"size_guide","title":"Spring bundle","location":"Studio 2","balance":409,"state":"ok","weight_kg":29.6,"duration_min":25,"score":89}
+{"ui":"size_guide","title":"Quarterly review","location":"Room B12","balance":4789,"state":"fail","weight_kg":65.0,"duration_min":49,"score":22}
+```
+Spring bundle is the only one in an ok state and has the best score at 89, while Quarterly review is failing.
+--- derived
+
+
+=== I-0060
+--- user
+We have three flights to put on record, please. AX-2941 is not refundable, balance 2504, titled Night shift. KT-490 is refundable, balance 6933, titled Harbour route, currently draft. AX-6268 is not refundable, balance 5192, titled Spring bundle, published.
+--- reference
+Here are the three flights with their balances and status.
+```dyui
+{"ui":"flight","id":"AX-2941","refundable":false,"balance":2504,"title":"Night shift"}
+{"ui":"flight","id":"KT-490","refundable":true,"balance":6933,"title":"Harbour route","state":"draft"}
+{"ui":"flight","id":"AX-6268","refundable":false,"balance":5192,"title":"Spring bundle","state":"published"}
+```
+KT-490 is the only refundable flight and also carries the highest balance.
+--- derived
+
+
+=== I-0023
+--- user
+Please show the volunteer shift for Mia Novak at 16:30. Her rating is 3.5 and the details are at https://docs.example.com/plan/78.
+--- reference
+Here is the volunteer shift for Mia Novak.
+```dyui
+{"ui":"volunteer_shift","name":"Mia Novak","rating":3.5,"time":"16:30","url":"https://docs.example.com/plan/78"}
+```
+The link holds the full plan for the shift.
+--- derived
+
+
+=== I-0017
+--- user
+three toll charges for the listing trip: MV-9853, Platform, warn, Sep 10. AX-7652, ok, Nov 7, no category. PR-9827, Finance, fail, Jun 22.
+--- reference
+Here are the three toll charges from the trip.
+```dyui
+{"ui":"toll_charge","id":"MV-9853","category":"Platform","level":"warn","date":"Sep 10"}
+{"ui":"toll_charge","id":"AX-7652","level":"ok","date":"Nov 7"}
+{"ui":"toll_charge","id":"PR-9827","category":"Finance","level":"fail","date":"Jun 22"}
+```
+Only PR-9827 is failing, and AX-7652 is clear.
+--- derived
+
+
+=== I-0046
+--- user
+harvest lot: Kofi Mensah, code SPRING20, active, balance 5966, count 165, temp 5, draft
+--- reference
+Here is the harvest lot for Kofi Mensah.
+```dyui
+{"ui":"harvest_lot","name":"Kofi Mensah","code":"SPRING20","active":true,"balance":5966,"count":165,"temperature":5,"status":"draft"}
+```
+The lot is active but still a draft.
+--- derived
+

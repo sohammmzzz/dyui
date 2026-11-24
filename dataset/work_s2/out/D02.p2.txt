@@ -1,0 +1,119 @@
+=== D-0015
+--- user
+Our field briefing needs two tabs. The first has a video (https://www.youtube.com/watch?v=WCJXmJ0QADi) and an audio file (https://news.example.com/audio/handbook-21.mp3) shown side by side in two columns. The second has a download, customer-export.xlsx, at https://docs.acme-cloud.example.com/files/customer-export.xlsx.
+--- reference
+Video and audio play side by side on the first tab, and the spreadsheet download waits on the second.
+```dyui
+{"ui":"tabs","tabs":[{"label":"Overview","children":[{"ui":"grid","children":[{"ui":"video","src":"https://www.youtube.com/watch?v=WCJXmJ0QADi"},{"ui":"audio","src":"https://news.example.com/audio/handbook-21.mp3"}],"columns":2}]},{"label":"More","children":[{"ui":"file","name":"customer-export.xlsx","url":"https://docs.acme-cloud.example.com/files/customer-export.xlsx"}]}]}
+```
+The YouTube link is embedded directly, so the video plays without leaving the chat.
+--- derived
+
+
+=== D-0002
+--- user
+Could you place an area chart inside a card named "Account overview"? It tracks patient satisfaction in points from May to August: 3.9, 3.9, 3.8, 3.7.
+--- reference
+Patient satisfaction has slipped slightly since June, and the chart sits in the account overview card.
+```dyui
+{"ui":"card","title":"Account overview","children":[{"ui":"chart","kind":"area","labels":["May","Jun","Jul","Aug"],"series":[{"name":"Patient satisfaction","data":[3.9,3.9,3.8,3.7]}],"unit":"pts"}]}
+```
+The score held at 3.9 for two months before easing to 3.7 by August.
+--- derived
+
+
+=== D-0003
+--- user
+card "Account overview", four photos inside: https://docs.acme-cloud.example.com/img/getting-started-26.webp?v=1, https://files.example.com/img/faq-40.png?v=2, https://docs.acme-cloud.example.com/img/case-study-13.jpg?v=3, https://www.example.org/img/faq-13.jpg?v=4
+--- reference
+Four photos now fill the account overview card as a gallery.
+```dyui
+{"ui":"card","title":"Account overview","children":[{"ui":"gallery","images":[{"src":"https://docs.acme-cloud.example.com/img/getting-started-26.webp?v=1"},{"src":"https://files.example.com/img/faq-40.png?v=2"},{"src":"https://docs.acme-cloud.example.com/img/case-study-13.jpg?v=3"},{"src":"https://www.example.org/img/faq-13.jpg?v=4"}]}]}
+```
+They carry no captions, so the card shows only the pictures.
+--- derived
+
+
+=== D-0076
+--- user
+Set up a two-tab panel for claim CLM-513. In the first tab, two columns: on one side suggestion chips "Explain the biggest drop", "Show it as a table", "How does this compare to target?", and on the other four buttons: "See full report" (see_full_report, ghost), "View history" (view_history, secondary), "Flag as fraud" (flag_as_fraud, danger) and "Remind me later" (remind_me_later, ghost), each carrying the id CLM-513. In the second tab, a thumbs up/down rating.
+--- reference
+Claim CLM-513 gets its follow-ups and actions in the first tab and a thumbs rating in the second.
+```dyui
+{"ui":"tabs","tabs":[{"label":"Overview","children":[{"ui":"grid","children":[{"ui":"quick_replies","options":["Explain the biggest drop","Show it as a table","How does this compare to target?"]},{"ui":"buttons","items":[{"label":"See full report","action":"see_full_report","data":{"id":"CLM-513"},"style":"ghost"},{"label":"View history","action":"view_history","data":{"id":"CLM-513"},"style":"secondary"},{"label":"Flag as fraud","action":"flag_as_fraud","data":{"id":"CLM-513"},"style":"danger"},{"label":"Remind me later","action":"remind_me_later","data":{"id":"CLM-513"},"style":"ghost"}]}],"columns":2}]},{"label":"More","children":[{"ui":"rating","style":"thumbs"}]}]}
+```
+Flag as fraud is styled as the dangerous option, so it stands apart from the other three buttons.
+--- derived
+
+
+=== D-0067
+--- user
+dashboard strip, two columns: an error notice titled "Something went wrong" saying the backup failed after 6 retries so Weekly distance could not be read; next to it three tags: Unassigned (no color), Experimental (violet), Deprecated (red).
+--- reference
+After 6 failed retries the backup could not read weekly distance, so the error notice leads and the three tags follow.
+```dyui
+{"ui":"grid","columns":2,"children":[{"ui":"callout","text":"The backup failed after 6 retries, so Weekly distance could not be read.","level":"error","title":"Something went wrong"},{"ui":"badges","items":[{"label":"Unassigned"},{"label":"Experimental","color":"violet"},{"label":"Deprecated","color":"red"}]}]}
+```
+Until the backup is rerun, any distance figure you see is not current.
+--- derived
+
+
+=== D-0112
+--- user
+Itinerary desk, two collapsible sections. "Main section": an incident report form with a time field "Preferred time" (required), a dropdown "Priority" (Low, Normal, High, Urgent; required), and an optional text area "What happened?", submit label "Submit report", action report_incident. "More detail": thumbs rating.
+--- reference
+The incident form opens first, with a thumbs rating tucked into the second section.
+```dyui
+{"ui":"accordion","items":[{"title":"Main section","children":[{"ui":"form","title":"Incident report","fields":[{"name":"time","label":"Preferred time","type":"time","required":true},{"name":"priority","label":"Priority","type":"select","options":["Low","Normal","High","Urgent"],"required":true},{"name":"description","label":"What happened?","type":"textarea"}],"submit_label":"Submit report","action":"report_incident"}]},{"title":"More detail","children":[{"ui":"rating","style":"thumbs"}]}]}
+```
+Only the time and priority are mandatory, so the description can be left blank.
+--- derived
+
+
+=== D-0050
+--- user
+Can you lay out my athlete data in two collapsible sections? Main section: the raw payload titled "Athlete payload": goal 10K in under 50 min, weekly_sessions 4, coach Viktor Torres, plan Taper, next_test Mar 19, tags audit and renewal, meta with version 3 and dry_run false. More detail: a bar chart of workouts this month: Running 5, Strength 6, Swimming 11, Cycling 19, Yoga 21.
+--- reference
+Yoga leads the month's workouts at 21, and the athlete payload is one section above it.
+```dyui
+{"ui":"accordion","items":[{"title":"Main section","children":[{"ui":"json","data":{"goal":"10K in under 50 min","weekly_sessions":4,"coach":"Viktor Torres","plan":"Taper","next_test":"Mar 19","tags":["audit","renewal"],"meta":{"version":3,"dry_run":false}},"title":"Athlete payload"}]},{"title":"More detail","children":[{"ui":"chart","kind":"bar","labels":["Running","Strength","Swimming","Cycling","Yoga"],"series":[{"name":"Workouts this month","data":[5,6,11,19,21]}]}]}]}
+```
+Running is the least frequent workout at 5, even though the goal is a 10K.
+--- derived
+
+
+=== D-0092
+--- user
+Give me a card "Account overview" with a smaller card titled "Summary" inside, and in it one figure: energy per unit for December, 4.5 kWh, up 3.7% vs last month, target 4.0 kWh.
+--- reference
+December's energy per unit is 4.5 kWh, above its target, and it sits in a card inside the account overview.
+```dyui
+{"ui":"card","title":"Account overview","children":[{"ui":"card","children":[{"ui":"stat","label":"Energy per unit · December","value":"4.5 kWh","delta":"+3.7% vs last month","trend":"up","help":"Target 4.0 kWh"}],"title":"Summary"}]}
+```
+The upward trend moves the figure further from the 4.0 kWh target.
+--- derived
+
+
+=== D-0065
+--- user
+Weekly summary card please, and inside it another card called "Orion Dashboard" showing the average settlement of $5,846 with a Details button (view_details).
+--- reference
+Average settlement stands at $5,846 on the Orion Dashboard card, nested inside the weekly summary.
+```dyui
+{"ui":"card","title":"Weekly summary","children":[{"ui":"card","title":"Orion Dashboard","children":[{"ui":"stat","label":"Average settlement","value":"$5,846"}],"actions":[{"label":"Details","action":"view_details"}]}]}
+```
+Pressing Details sends view_details back so I can expand on the figure.
+--- derived
+
+
+=== D-0086
+--- user
+swipeable row pls (no speculating): one slide is storage quota at 31, the other is the crop timeline. Harvest, Dec 1, done, Jun Lindqvist. Store and sell, May 3, done, Ivan Sato. Sow the seed, Feb 5, active, Nadia Weber. Irrigate and monitor, Nov 7, pending, Hana Hoang.
+--- reference
+Storage quota is at 31, and the crop timeline sits one swipe away.
+```dyui
+{"ui":"carousel","children":[{"ui":"progress","value":31,"label":"Storage quota"},{"ui":"timeline","items":[{"title":"Harvest","time":"Dec 1","status":"done","text":"Owner: Jun Lindqvist"},{"title":"Store and sell","time":"May 3","status":"done","text":"Owner: Ivan Sato"},{"title":"Sow the seed","time":"Feb 5","status":"active","text":"Owner: Nadia Weber"},{"title":"Irrigate and monitor","time":"Nov 7","status":"pending","text":"Owner: Hana Hoang"}]}]}
+```
+Sowing is the only active stage, owned by Nadia Weber.
+--- derived
+

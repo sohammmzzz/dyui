@@ -1,0 +1,99 @@
+=== D-0073
+--- user
+I'm setting up a dev box and need PostgreSQL on macOS (Homebrew, postgresql@16) and on Ubuntu (plain apt). Could you lay out the command for each system on its own?
+--- reference
+Each system gets its own tab with the matching install command.
+```dyui
+{"ui":"tabs","tabs":[{"label":"macOS","children":[{"ui":"code","code":"brew install postgresql@16","language":"bash"}]},{"label":"Ubuntu","children":[{"ui":"code","code":"sudo apt install postgresql","language":"bash"}]}]}
+```
+Homebrew pins the major version on macOS, while apt on Ubuntu installs whichever release the distribution ships.
+--- derived
+
+=== D-0071
+--- user
+Please set two hotel lists next to each other in two columns. The left one should have clickable rows: Hotel Avenida at $118/night, Mar & Sol at $96/night, Quinta Verde at $164/night. The right one has Mar & Sol in Valencia, $96/night (https://docs.acme-cloud.example.com/img/security-27.webp), Hotel Avenida in Porto, $118/night (https://blog.northwind.example.com/img/roadmap-09.jpg), and Praça Suites in Lisbon, $187/night (https://files.example.com/img/guide-14.webp). Every row should fire pick_hotel with its hotel name.
+--- reference
+Two columns now hold the hotel lists, plain on the left and illustrated on the right.
+```dyui
+{"ui":"grid","columns":2,"children":[{"ui":"list","items":[{"title":"Hotel Avenida","meta":"$118/night","action":"pick_hotel","data":{"hotel":"Hotel Avenida"}},{"title":"Mar & Sol","meta":"$96/night","action":"pick_hotel","data":{"hotel":"Mar & Sol"}},{"title":"Quinta Verde","meta":"$164/night","action":"pick_hotel","data":{"hotel":"Quinta Verde"}}]},{"ui":"list","items":[{"title":"Mar & Sol","subtitle":"Valencia","meta":"$96/night","image":"https://docs.acme-cloud.example.com/img/security-27.webp","action":"pick_hotel","data":{"hotel":"Mar & Sol"}},{"title":"Hotel Avenida","subtitle":"Porto","meta":"$118/night","image":"https://blog.northwind.example.com/img/roadmap-09.jpg","action":"pick_hotel","data":{"hotel":"Hotel Avenida"}},{"title":"Praça Suites","subtitle":"Lisbon","meta":"$187/night","image":"https://files.example.com/img/guide-14.webp","action":"pick_hotel","data":{"hotel":"Praça Suites"}}]}]}
+```
+Clicking a row reports the chosen hotel name back to me, and Mar & Sol is the lowest rate at $96/night.
+--- derived
+
+=== D-0134
+--- user
+Could you build the fleet dashboard with two tabs? The first, Overview, needs three headline figures: fuel economy 49 mpg, miles driven 29,407 and accidents 7. The second, More, should hold a scatter plot named "Leads vs ad spend ($k)" with unit leads and these points: (2, 102.7), (4.3, 193.7), (4.9, 209), (5.3, 230), (5.4, 223), (7, 301.9), (8.8, 368.9).
+--- reference
+The dashboard splits into an overview tab for the fleet figures and a second tab for the lead scatter.
+```dyui
+{"ui":"tabs","tabs":[{"label":"Overview","children":[{"ui":"stats","items":[{"label":"Fuel economy","value":"49 mpg"},{"label":"Miles driven","value":"29,407"},{"label":"Accidents","value":"7"}]}]},{"label":"More","children":[{"ui":"chart","kind":"scatter","series":[{"name":"Leads vs ad spend ($k)","data":[[2,102.7],[4.3,193.7],[4.9,209],[5.3,230],[5.4,223],[7,301.9],[8.8,368.9]]}],"unit":"leads"}]}]}
+```
+The points climb almost in a straight line, so more ad spend has gone hand in hand with more leads.
+--- derived
+
+=== D-0103
+--- user
+What is the command to install PostgreSQL on each of Docker, Ubuntu, macOS and Windows? For Docker I'd run postgres:16 detached on port 5432, on Ubuntu a plain apt install, on macOS Homebrew's postgresql@16, and on Windows winget with PostgreSQL.PostgreSQL. A separate view per platform would be ideal.
+--- reference
+There is one tab per platform, each with its own install command.
+```dyui
+{"ui":"tabs","tabs":[{"label":"Docker","children":[{"ui":"code","code":"docker run -d -p 5432:5432 postgres:16","language":"bash"}]},{"label":"Ubuntu","children":[{"ui":"code","code":"sudo apt install postgresql","language":"bash"}]},{"label":"macOS","children":[{"ui":"code","code":"brew install postgresql@16","language":"bash"}]},{"label":"Windows","children":[{"ui":"code","code":"winget install PostgreSQL.PostgreSQL","language":"powershell"}]}]}
+```
+The Docker variant runs the database in the background and publishes its standard port to the host.
+--- derived
+
+=== D-0029
+--- user
+Kindly arrange a scrolling row of two slides. The first lists five properties with pictures: Mar & Sol (https://help.helpwave.example.com/img/changelog-35.jpg), Hotel Avenida (https://blog.northwind.example.com/img/pricing-34.jpg), Praça Suites (https://blog.northwind.example.com/img/benchmark-04.png), Quinta Verde (https://cdn.fernhill.example.com/img/overview-02.jpg) and Casa Alfama (https://news.example.com/img/guide-08.webp). The second is a card titled "Spring Festival" with these facts: Address 12 Mill Lane, Type Apartment, Beds 4, Area m2 73, Price $768, Status New. Add a secondary Save button that sends save_item.
+--- reference
+A scrolling row now carries the pictured property list first and the Spring Festival card second.
+```dyui
+{"ui":"carousel","children":[{"ui":"list","items":[{"title":"Mar & Sol","image":"https://help.helpwave.example.com/img/changelog-35.jpg"},{"title":"Hotel Avenida","image":"https://blog.northwind.example.com/img/pricing-34.jpg"},{"title":"Praça Suites","image":"https://blog.northwind.example.com/img/benchmark-04.png"},{"title":"Quinta Verde","image":"https://cdn.fernhill.example.com/img/overview-02.jpg"},{"title":"Casa Alfama","image":"https://news.example.com/img/guide-08.webp"}]},{"ui":"card","title":"Spring Festival","children":[{"ui":"keyvalue","items":[{"key":"Address","value":"12 Mill Lane"},{"key":"Type","value":"Apartment"},{"key":"Beds","value":4},{"key":"Area m2","value":73},{"key":"Price","value":"$768"},{"key":"Status","value":"New"}]}],"actions":[{"label":"Save","action":"save_item","style":"secondary"}]}]}
+```
+Pressing Save sends save_item back to me so the listing can be stored.
+--- derived
+
+=== D-0068
+--- user
+Active learners for July came to 7,406, which is 3.8% lower than last month, and the target was 8,360. Could you present that as a headline figure inside a card titled "Summary", with the card placed in a two-column layout?
+--- reference
+The July figure sits in a summary card, set inside a two-column layout.
+```dyui
+{"ui":"grid","columns":2,"children":[{"ui":"card","children":[{"ui":"stat","label":"Active learners · July","value":"7,406","delta":"-3.8% vs last month","help":"Target 8,360"}],"title":"Summary"}]}
+```
+Learner numbers are falling and remain short of the goal, so the gap is widening rather than closing.
+--- derived
+
+=== D-0014
+--- user
+quick one: machine M-430 on Line A, Status: Down, last service Oct 21, operator Hana Garcia. Put those in a first tab. Second tab: energy per unit for August is 3.9 kWh, flat (0% vs last month), target 4.1 kWh.
+--- reference
+Machine details go in the first tab and the August energy reading in the second.
+```dyui
+{"ui":"tabs","tabs":[{"label":"Overview","children":[{"ui":"keyvalue","items":[{"key":"Machine","value":"M-430"},{"key":"Line","value":"Line A"},{"key":"Status","value":"Down"},{"key":"Last service","value":"Oct 21"},{"key":"Operator","value":"Hana Garcia"}]}]},{"label":"More","children":[{"ui":"stat","label":"Energy per unit · August","value":"3.9 kWh","delta":"0% vs last month","trend":"flat","help":"Target 4.1 kWh"}]}]}
+```
+Energy use is under target, so the machine's downtime is the only concern on the floor.
+--- derived
+
+=== D-0032
+--- user
+Please put our fundraising order inside a card called "Account overview". The steps are: Send to the list, Write the appeal, Report the impact, Set the goal.
+--- reference
+The fundraising steps are listed in sequence inside an account overview card.
+```dyui
+{"ui":"card","title":"Account overview","children":[{"ui":"timeline","items":[{"title":"Send to the list"},{"title":"Write the appeal"},{"title":"Report the impact"},{"title":"Set the goal"}]}]}
+```
+Goal setting comes last in this order, which you may want to move to the front.
+--- derived
+
+=== D-0118
+--- user
+swipe row: thumbs up/down rating, then suggestions "What changed the most?", "Set an alert for this", "Which genre is weakest?"
+--- reference
+Swiping moves from the thumbs rating to the suggested questions.
+```dyui
+{"ui":"carousel","children":[{"ui":"rating","style":"thumbs"},{"ui":"quick_replies","options":["What changed the most?","Set an alert for this","Which genre is weakest?"]}]}
+```
+A thumb press arrives as a positive or negative score, and a tapped suggestion comes through as an ordinary message.
+--- derived
+

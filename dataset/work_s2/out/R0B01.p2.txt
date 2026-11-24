@@ -1,0 +1,105 @@
+=== B-0098
+--- user
+price vs units sold, does one drive the other? price $25.7 sold 654.3, $28.8 sold 546.8, $35.3 sold 502.3, $41.3 sold 420.8, $52.8 sold 227.9, $58.4 sold 184.2
+--- reference
+Yes, the two are tied together, and the plot makes the direction obvious.
+```dyui
+{"ui":"chart","kind":"scatter","series":[{"name":"Units sold vs price ($)","data":[[25.7,654.3],[28.8,546.8],[35.3,502.3],[41.3,420.8],[52.8,227.9],[58.4,184.2]]}]}
+```
+Higher prices go with fewer units sold, which points to a strong inverse link.
+--- derived
+
+=== B-0080
+--- user
+For the review: the number of contracts expiring in 90 days is 24, which is up 5.0% vs last month, and our target was 22. Where do we stand?
+--- reference
+The expiry count has moved above its goal.
+```dyui
+{"ui":"stat","label":"Contracts expiring in 90 days","value":"24","delta":"+5.0% vs last month","trend":"up","help":"Target 22"}
+```
+It keeps climbing from month to month, so the renewal pipeline deserves attention.
+--- derived
+
+=== B-0126
+--- user
+tamanho da equipa vs tickets fechados por semana, há relação? 3.4 pessoas e 85 tickets, 6.3 e 159.9, 7.4 e 166.7, 10 e 235.1, 13.8 e 324.6, 14.9 e 328.2
+--- reference
+Sim, e o gráfico de dispersão mostra isso bem.
+```dyui
+{"ui":"chart","kind":"scatter","series":[{"name":"Tickets fechados por semana vs tamanho da equipa","data":[[3.4,85],[6.3,159.9],[7.4,166.7],[10,235.1],[13.8,324.6],[14.9,328.2]]}]}
+```
+Equipas maiores fecham mais tickets, e os pontos sobem quase em linha reta.
+--- derived
+
+=== B-0084
+--- user
+Kindly plot these against each other, price in dollars against units sold: 10.6 sold 692.3, 14.5 sold 806.1, 31.5 sold 546.7, 32.2 sold 555.6, 32.4 sold 574, 34 sold 422.6, 35 sold 506.5, 41 sold 399.4.
+--- reference
+Each price point is plotted against the units it sold.
+```dyui
+{"ui":"chart","kind":"scatter","series":[{"name":"Units sold vs price ($)","data":[[10.6,692.3],[14.5,806.1],[31.5,546.7],[32.2,555.6],[32.4,574],[34,422.6],[35,506.5],[41,399.4]]}],"title":"Units sold vs price ($)"}
+```
+Sales are strongest at the lowest prices and drift downward as the price rises.
+--- derived
+
+=== B-0091
+--- user
+I need the profile of the barley plot. Crop: Barley, 42 hectares, sown Apr 18, Sandy soil, Pivot irrigation.
+--- reference
+The plot's key attributes are listed as labeled facts.
+```dyui
+{"ui":"keyvalue","items":[{"key":"Crop","value":"Barley"},{"key":"Hectares","value":42},{"key":"Sown","value":"Apr 18"},{"key":"Soil","value":"Sandy"},{"key":"Irrigation","value":"Pivot"}]}
+```
+Light, free-draining soil paired with pivot watering is a sensible setup for a spring-sown cereal.
+--- derived
+
+=== B-0161
+--- user
+event details: Venue Arena, Nov 20, doors 18:00, capacity 9557, sold 5930, Status Postponed
+--- reference
+The arena show has been pushed back, and its details are below.
+```dyui
+{"ui":"keyvalue","items":[{"key":"Venue","value":"Arena"},{"key":"Date","value":"Nov 20"},{"key":"Doors","value":"18:00"},{"key":"Capacity","value":9557},{"key":"Sold","value":5930},{"key":"Status","value":"Postponed"}]}
+```
+A little over half the seats were already sold when the postponement came.
+--- derived
+
+=== B-0073
+--- user
+quick check on two devices: Oven 1.2 kW, Fault. Dishwasher 2.9 kW, Scheduled. anything to worry about?
+--- reference
+Only the Oven needs attention, because it is reporting a fault even though it draws just 1.2 kW. The Dishwasher is simply scheduled at 2.9 kW and shows no problem, so it can be left alone.
+--- derived
+
+=== B-0111
+--- user
+showings this week by type: Apartment 44, Townhouse 53, Studio 52, Loft 15. which one is ahead?
+--- reference
+Townhouses are ahead, with studios right behind them.
+```dyui
+{"ui":"chart","kind":"bar","labels":["Apartment","Townhouse","Studio","Loft"],"series":[{"name":"Showings this week","data":[44,53,52,15]}],"title":"Showings this week by type"}
+```
+The top two are nearly level, while lofts are far behind the rest.
+--- derived
+
+=== B-0006
+--- user
+fuel economy May–Dec: 39, 38, 40, 40, 43, 40, 39, 40. line chart of that
+--- reference
+Fuel economy stayed in a tight band across the whole stretch.
+```dyui
+{"ui":"chart","kind":"line","series":[{"name":"Fuel economy","data":[39,38,40,40,43,40,39,40]}],"title":"Fuel economy, May–Dec"}
+```
+One month stands out as a peak, and the line is otherwise nearly flat.
+--- derived
+
+=== B-0032
+--- user
+Today's appointments in a table please: 13:45 Dmitri Castillo, Vaccination, room 7. 11:30 Uma Park, Check-up, room 8. 15:00 Bruno Lindqvist, Lab work, room 5. 16:20 Ivan Reyes, Lab work, room 5. 10:00 Carla Bergstrom, Dental, room 9. 09:15 Tomas Quispe, Check-up, room 2. 08:30 Wen Oliveira, Check-up, room 8.
+--- reference
+Every patient is listed with a time, service and room.
+```dyui
+{"ui":"table","columns":["Time","Patient","Service","Room"],"rows":[["13:45","Dmitri Castillo","Vaccination",7],["11:30","Uma Park","Check-up",8],["15:00","Bruno Lindqvist","Lab work",5],["16:20","Ivan Reyes","Lab work",5],["10:00","Carla Bergstrom","Dental",9],["09:15","Tomas Quispe","Check-up",2],["08:30","Wen Oliveira","Check-up",8]]}
+```
+Both lab work slots share a room, and two of the check-ups do as well.
+--- derived

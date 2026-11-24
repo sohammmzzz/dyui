@@ -1,0 +1,81 @@
+=== E-0080
+--- reference
+Your reservation details came through, summarised below.
+```dyui
+{"ui":"keyvalue","items":[{"key":"Name","value":"Kofi Mensah"},{"key":"Quantity","value":3},{"key":"Time","value":"13:00"},{"key":"Seating","value":"Terrace"},{"key":"Note","value":"The export failed twice yesterday."}]}
+```
+These are the details I will use for the Terrace reservation at 13:00.
+--- derived
+
+=== E-0088
+--- user
+attends, avant de choisir : c'est quoi exactement la différence entre un quai de réception et un quai d'expédition ?
+--- reference
+Le quai de réception sert à décharger les marchandises qui arrivent et à les contrôler avant leur mise en stock, alors que le quai d'expédition sert à regrouper, charger et sortir les commandes préparées.
+Dans beaucoup d'entrepôts les deux sont séparés pour éviter que les flux entrants et sortants se croisent.
+--- derived
+
+=== E-0044
+--- reference
+Voici ce que j'ai bien reçu pour votre réservation.
+```dyui
+{"ui":"keyvalue","items":[{"key":"Name","value":"Kofi Mensah"},{"key":"Quantity","value":2},{"key":"Arrival","value":"13:00"},{"key":"Contact","value":"Email"}]}
+```
+We will contact you by email about the booking for 2.
+--- derived
+
+=== E-0052
+--- reference
+The dashboard for INV-6731 is being opened.
+```dyui
+{"ui":"callout","level":"info","text":"Dashboard opened for INV-6731. The request itself has not been approved or reassigned."}
+```
+Approving or assigning an owner remains available whenever you decide.
+--- derived
+
+=== E-0133
+--- reference
+Understood, the invoice stays where it is.
+```dyui
+{"ui":"callout","level":"info","text":"Invoice INV-464 was not sent to Globex."}
+```
+Ask me again whenever you are ready to send it.
+--- derived
+
+=== E-0023
+--- reference
+Thanks for the thumbs up, glad the answer was useful.
+--- derived
+
+=== E-0110
+--- reference
+Your appointment request has been captured as follows.
+```dyui
+{"ui":"keyvalue","items":[{"key":"Name","value":"Acme Ltd"},{"key":"Start date","value":"2026-04-21"},{"key":"Arrival","value":"14:30"}]}
+```
+Arrival is set for 14:30 on 2026-04-21.
+--- derived
+
+=== E-0125
+--- user
+Gostaria de deixar uma avaliação sobre aquele tutorial, por favor.
+--- reference
+Segue um campo de avaliação para o tutorial.
+```dyui
+{"ui":"rating","label":"Your feedback","style":"thumbs","action":"session_feedback"}
+```
+Basta um toque para registrar a sua opinião.
+--- derived
+
+=== E-0018
+--- reference
+A table needs rows to compare, and for now I only have the total of 609 applicants this week.
+Send me the counts per stage or per role and I will lay them out as a table.
+--- derived
+
+=== E-0046
+--- reference
+I have no history log for TCK-9040 in this conversation, so there is nothing to display yet.
+Paste its log entries and I will summarise what happened and in what order.
+--- derived
+

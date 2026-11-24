@@ -1,0 +1,25 @@
+{"id":"L-0004","intro":"Your shipment is now tracked step by step, with the current state on every line.","outro":"Proof of delivery is still being collected, and customs is behind you."}
+{"id":"L-0007","intro":"Before it runs, the flight lookup sits in the trace as a queued step.","outro":"Nothing is recorded for output or timing until the search kicks off."}
+{"id":"L-0009","intro":"Price decides this one, and the logic is laid out below.","outro":"Without that fare difference, the pick would not be clear-cut."}
+{"id":"L-0010","intro":"Your fitness coaching session is tracked below, item by item.","outro":"The cool down and logging the session are still ahead of you."}
+{"id":"L-0011","intro":"Live-ops status for the mobile game, laid out one task at a time.","outro":"Sort out the failed playtest first, since monitoring the economy waits on it."}
+{"id":"L-0012","intro":"Campaign tasks are listed with their current progress.","outro":"Reporting was skipped, and the brief is the one finished item."}
+{"id":"L-0013","intro":"Contract stages are lined up in order, each with its status.","outro":"Legal review has to clear before signature can happen, since the redlines are already finished."}
+{"id":"L-0014","intro":"Tracking the release starts with a checklist of every task.","outro":"Every task has begun except scheduling the release."}
+{"id":"L-0015","intro":"Your study progress is captured in this checklist.","outro":"Stay on the practice set for now, then review your mistakes before another try at the quiz."}
+{"id":"L-0016","intro":"Utilities and energy tasks are listed with their outcomes.","outro":"Three of the five were skipped, and the remaining two are done."}
+{"id":"L-0018","intro":"The failed inventory call is recorded in the trace, ready to attach to your claim file.","outro":"A timeout means the stock level for SKU-2210 remains unconfirmed."}
+{"id":"L-0019","intro":"Queued in the trace: the inventory check for SKU-2210.","outro":"Its status flips to running the moment the lookup starts."}
+{"id":"L-0020","intro":"The thread summary ran as an llm step, shown with what it produced.","outro":"Three action items came out in under a second."}
+{"id":"L-0021","intro":"The cheaper fare wins here, and the comparison is spelled out below.","outro":"The $70 difference is the whole case for TAP."}
+{"id":"L-0022","intro":"Your SaaS analytics work is broken down task by task below.","outro":"Publishing the dashboard failed and needs attention while the cohort rebuild keeps running."}
+{"id":"L-0023","intro":"Analytics progress becomes a checklist showing each task's state.","outro":"Last quarter's events are missing from the live dashboard because the backfill was skipped."}
+{"id":"L-0025","intro":"Performance marketing tasks are listed below, each with its state.","outro":"With the creatives launch failed, the results report will describe a partial launch."}
+{"id":"L-0026","intro":"Tonight's service is mapped out step by step.","outro":"Closing the kitchen errored out, so take another look at it."}
+{"id":"L-0027","intro":"The flight search is mid-run right now.","outro":"Once the search returns, its results show up on this step."}
+{"id":"L-0028","intro":"The timed-out flight search is logged in the trace.","outro":"No flights came back because the search timed out."}
+{"id":"L-0030","intro":"Follow the thread summarisation as an llm step below.","outro":"The run is done, and 3 action items were extracted."}
+{"id":"L-0031","intro":"Choosing Iberia comes down to price, as the comparison shows.","outro":"Saving $41 is what tips the decision."}
+{"id":"L-0032","intro":"Your workout is laid out task by task.","outro":"Only the main set has yet to begin, since you are in the cool down now."}
+{"id":"L-0033","intro":"Live-ops progress is listed per step below.","outro":"Before retrying, look into the failed build and the skipped reward balancing."}
+{"id":"L-0034","intro":"The router ticket is laid out step by step.","outro":"Verifying the account has not begun yet."}

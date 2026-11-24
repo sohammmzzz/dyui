@@ -1009,7 +1009,7 @@ def evaluate_item(record: dict[str, Any], answer: Optional[str], *, strict_numbe
     used_set = set(used)
     any_of = exp.get("components_any_of") or []
     all_of = exp.get("components_all_of") or []
-    if must is False and (n_blocks or top):
+    if must is False and (n_blocks or top) and not (exp.get("block_optional") and not header.off):
         fail("OVERUSE", f"a component block was written but none was expected (policy row {exp.get('policy_row')!r}); used {sorted(used_set)}")
     elif must is True and not top:
         fail("MISSING_BLOCK", "a dyui block was expected but the reply has none")

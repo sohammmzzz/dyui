@@ -1,0 +1,110 @@
+=== A-0041
+--- user
+Could you please give me a rich preview of this link? https://files.example.com/faq. The page description is "A look at the changes behind the speedup." and the cover image is https://news.example.com/img/release-notes-12.png.
+--- reference
+Here is a preview card for the link you shared.
+```dyui
+{"ui":"link_preview","url":"https://files.example.com/faq","description":"A look at the changes behind the speedup.","image":"https://news.example.com/img/release-notes-12.png"}
+```
+The card shows the cover image and description, so you can judge the page before opening it.
+--- derived
+
+=== A-0261
+--- user
+can you lay this out as a timeline? Categorise last month (May 3, done, owner Kofi Kowalski), Link the salary account (May 5, in progress, owner Yusuf Singh), Review subscriptions (Apr 7, not started, owner Jun Vasquez), Schedule the transfer (Nov 9, not started, owner Kofi Vasquez), Set the savings goal (Mar 11, not started, owner Nadia Rahman)
+--- reference
+Here are the five budgeting steps in the order you listed them.
+```dyui
+{"ui":"timeline","items":[{"title":"Categorise last month","time":"May 3","status":"done","text":"Owner: Kofi Kowalski"},{"title":"Link the salary account","time":"May 5","status":"active","text":"Owner: Yusuf Singh"},{"title":"Review subscriptions","time":"Apr 7","status":"pending","text":"Owner: Jun Vasquez"},{"title":"Schedule the transfer","time":"Nov 9","status":"pending","text":"Owner: Kofi Vasquez"},{"title":"Set the savings goal","time":"Mar 11","status":"pending","text":"Owner: Nadia Rahman"}]}
+```
+Only the first step is finished, and linking the salary account is the one in progress.
+--- derived
+
+=== A-0068
+--- user
+player for https://help.helpwave.example.com/audio/report-19.mp3 pls
+--- reference
+Here is a player for that recording.
+```dyui
+{"ui":"audio","src":"https://help.helpwave.example.com/audio/report-19.mp3"}
+```
+Press play to listen to it directly in the chat.
+--- derived
+
+=== A-0067
+--- user
+Kindly generate a rich preview for the following link: https://assets.lumen.example.io/guide. Its title is "Release notes: what's new this month" and the site is assets.lumen.example.io.
+--- reference
+Here is the preview for the guide link.
+```dyui
+{"ui":"link_preview","url":"https://assets.lumen.example.io/guide","title":"Release notes: what's new this month","site":"assets.lumen.example.io"}
+```
+The card names the page and its site, so travellers know where the link leads.
+--- derived
+
+=== A-0133
+--- user
+Can you display this quote properly? "Support answered before I finished my coffee." That's Bruno Kowalski, Head of Support, from a community forum post.
+--- reference
+Here is the quote with its attribution.
+```dyui
+{"ui":"quote","text":"Support answered before I finished my coffee.","author":"Bruno Kowalski, Head of Support","source":"Community forum post"}
+```
+It works well as a short testimonial in a campaign deck.
+--- derived
+
+=== A-0033
+--- user
+make a card for Hotel Avenida with a Book button. Under it list next steps: compare tariffs, shift the heavy loads, review next bill, install the smart plug.
+--- reference
+Here is the Hotel Avenida card with its next steps and a Book button.
+```dyui
+{"ui":"card","title":"Hotel Avenida","children":[{"ui":"markdown","text":"### Next steps\n- **Compare** tariffs\n- **Shift** the heavy loads\n- **Review** next bill\n- **Install** the smart plug"}],"actions":[{"label":"Book","action":"book_item","style":"primary"}]}
+```
+Pressing Book sends the choice back to me.
+--- derived
+
+=== A-0294
+--- user
+Posso avaliar a conversa de suporte de hoje, por favor?
+--- reference
+Claro, aqui está o pedido de avaliação para a conversa de hoje.
+```dyui
+{"ui":"rating"}
+```
+A sua nota fica registada assim que a selecionar.
+--- derived
+
+=== A-0002
+--- user
+hey can you set me up for the event? seating (indoor, terrace or bar), email, how many tickets (1 to 50), priority (low, normal, high, urgent) and a checkbox to get updates
+--- reference
+Here is a registration form with the fields you described.
+```dyui
+{"ui":"form","title":"Event registration","fields":[{"name":"seating","label":"Seating","type":"radio","options":["Indoor","Terrace","Bar"],"required":true},{"name":"email","label":"Email","type":"email","required":true,"placeholder":"you@company.com"},{"name":"quantity","label":"Quantity","type":"number","required":true,"min":1,"max":50},{"name":"priority","label":"Priority","type":"select","options":["Low","Normal","High","Urgent"],"required":true},{"name":"newsletter","label":"Send me updates","type":"checkbox","required":true,"default":false}],"submit_label":"Register","action":"event_registration"}
+```
+Submitting it sends the values back to me so I can complete the registration.
+--- derived
+
+=== A-0253
+--- user
+I need a short FAQ section for our help center with four questions. First, "Is there an API?" Answer: yes, every plan includes API access with per-key rate limits. Second, "Can I change my plan later?" Answer: yes, upgrades apply immediately and downgrades start at the next billing date. Third, "Do you offer student discounts?" Answer: students get a discount with a valid school email. Fourth, "How do I reset my password?" Answer: use Forgot password on the sign-in page and follow the emailed link.
+--- reference
+Here is the FAQ with the four questions as collapsible sections.
+```dyui
+{"ui":"accordion","items":[{"title":"Is there an API?","children":[{"ui":"markdown","text":"Yes. Every plan includes API access with per-key rate limits."}]},{"title":"Can I change my plan later?","children":[{"ui":"markdown","text":"Yes. Upgrades apply immediately; downgrades start at the next billing date."}]},{"title":"Do you offer student discounts?","children":[{"ui":"markdown","text":"Students get a discount with a valid school email."}]},{"title":"How do I reset my password?","children":[{"ui":"markdown","text":"Use **Forgot password** on the sign-in page and follow the emailed link."}]}]}
+```
+Each answer stays hidden until a visitor opens it, which keeps the page compact.
+--- derived
+
+=== A-0024
+--- user
+Could you show this ticket as a readable tree? id TCK-127, customer Umar Ferreira, queue Shipping, priority High, tags renewal and beta, and meta with version 5 and dry_run false.
+--- reference
+Here is the ticket as an expandable tree.
+```dyui
+{"ui":"json","data":{"id":"TCK-127","customer":"Umar Ferreira","queue":"Shipping","priority":"High","tags":["renewal","beta"],"meta":{"version":5,"dry_run":false}}}
+```
+The nested meta object and the tags list can be collapsed when you only need the top-level fields.
+--- derived
+

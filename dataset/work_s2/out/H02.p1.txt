@@ -1,0 +1,126 @@
+=== H-0051
+--- user
+Here's what we have lined up in the live-ops calendar: Speedrun Cup, 20763 players, $16,837 revenue, Live. Lunar Hunt, 157861 players, $67,869, Scheduled. Spring Festival, 110215 players, $15,051, Live. Boss Rush, 111482 players, $77,772, Scheduled. Double XP Weekend, 72656 players, $76,804, Scheduled. And a second Lunar Hunt run at 46597 players, $3,686, Ended. Could you put that into a clean table for me?
+--- reference
+Here are the six events side by side with their player counts, revenue and status.
+
+| Event | Players | Revenue | Status |
+|---|---|---|---|
+| Speedrun Cup | 20763 | $16,837 | Live |
+| Lunar Hunt | 157861 | $67,869 | Scheduled |
+| Spring Festival | 110215 | $15,051 | Live |
+| Boss Rush | 111482 | $77,772 | Scheduled |
+| Double XP Weekend | 72656 | $76,804 | Scheduled |
+| Lunar Hunt | 46597 | $3,686 | Ended |
+
+Boss Rush has the highest revenue at $77,772, and Lunar Hunt appears twice with different statuses, so the two rows are worth keeping apart.
+--- derived
+
+
+=== H-0013
+--- user
+Resting heart rate 63 bpm (target 69 bpm). Calories burned 2252, trending up. Workouts this month 23, up 1.9%, target 25. What's the picture?
+--- reference
+Here are your three headline numbers for the month.
+```dyui
+{"ui":"stats","items":[{"label":"Resting heart rate","value":"63 bpm","help":"Target 69 bpm"},{"label":"Calories burned","value":"2252","trend":"up"},{"label":"Workouts this month","value":"23","delta":"+1.9%","trend":"up","help":"Target 25"}]}
+```
+Your resting heart rate is under its target, and you are two workouts away from the monthly goal of 25.
+--- derived
+2
+
+=== H-0037
+--- user
+Thank you for pulling the donor numbers together. For the three programs, new versus returning donor figures are: Clean water, 102.0 new and 124.9 returning; School meals, 118.1 new and 133.8 returning; Emergency relief, 152.2 new and 35.5 returning. Can you stack them so I see both parts per program?
+--- reference
+Here are the new and returning figures laid out for each program.
+```dyui
+{"ui":"keyvalue","items":[{"key":"Clean water","value":"New 102.0 · Returning 124.9"},{"key":"School meals","value":"New 118.1 · Returning 133.8"},{"key":"Emergency relief","value":"New 152.2 · Returning 35.5"}]}
+```
+Emergency relief is the only program where new donors clearly outweigh returning ones, while the other two lean on returning support.
+--- derived
+
+
+=== H-0009
+--- user
+Track this for me pls: master the track is still pending, pitch to editors is done, upload the artwork hit an error, and promote on socials is pending. Can you make it a little checklist?
+--- reference
+Here is the checklist for the music streaming plan with where each step stands.
+
+- Master the track: pending
+- Pitch to editors: done
+- Upload the artwork: error
+- Promote on socials: pending
+
+The artwork upload is the step that failed, and the socials push probably should not start until it is fixed.
+--- derived
+
+
+=== H-0014
+--- user
+Can you tell the building team that the report refresh finished? Solar generation is back to 462 kWh, which is within the 414 kWh limit.
+--- reference
+Here is the update for the team.
+```dyui
+{"ui":"callout","level":"success","title":"All set","text":"The report refresh finished and Solar generation is back to 462 kWh, within the 414 kWh limit."}
+```
+Nothing further is needed on the refresh itself.
+--- derived
+
+
+=== H-0030
+--- user
+So the clinic sent me an offer for the physio package. What are my options? I see Continue, Decline offer, Not now and Learn more, and I'd like them as buttons I can tap.
+--- reference
+You have four ways to respond to the offer: continue with it, decline it, put it off with Not now, or ask for more details with Learn more.
+If you are undecided, Learn more or Not now keeps the offer open without committing you.
+--- derived
+
+
+=== H-0034
+--- user
+For the front desk dashboard: open slots this week are 34, up 8.9% with a target of 37. No-show rate is 3.5%, down 14.2%. Average wait is 25 min and trending up. Appointments today are 22, trending down against a target of 24. Show them as headline numbers.
+--- reference
+Here are the four front-desk numbers as headline figures.
+```dyui
+{"ui":"stats","items":[{"label":"Open slots this week","value":"34","delta":"+8.9%","trend":"up","help":"Target 37"},{"label":"No-show rate","value":"3.5%","delta":"-14.2%","trend":"down"},{"label":"Average wait","value":"25 min","trend":"up"},{"label":"Appointments today","value":"22","trend":"down","help":"Target 24"}]}
+```
+No-shows are falling, but the average wait is moving the wrong way.
+--- derived
+
+
+=== H-0003
+--- user
+onboarding completion is at 73. show me the progress
+--- reference
+Here is where onboarding completion stands.
+```dyui
+{"ui":"progress","value":73}
+```
+That is a little under three quarters of the way there.
+--- derived
+
+
+=== H-0038
+--- user
+my balance is $17,511 right now and my target was $16,261, though it's been trending down lately. how does it look?
+--- reference
+Here is your balance next to the target you set.
+```dyui
+{"ui":"stat","label":"Balance","value":"$17,511","trend":"down","help":"Target $16,261"}
+```
+You are still above target, but the downward trend is worth watching.
+--- derived
+
+
+=== H-0041
+--- user
+For the claim file, the status of the steps is as follows: issue the payment is done, file the claim is pending, approve the amount has an error, and assess the damage is active. Please give me the plan view.
+--- reference
+Here is the claim workflow with the status of each step.
+```dyui
+{"ui":"plan","items":[{"title":"Issue the payment","status":"done"},{"title":"File the claim","status":"pending"},{"title":"Approve the amount","status":"error"},{"title":"Assess the damage","status":"active"}]}
+```
+The error on the amount approval is the item to resolve before anything else moves forward.
+--- derived
+

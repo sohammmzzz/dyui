@@ -1,0 +1,25 @@
+{"id":"D-0011","intro":"Hotels go on the left as a pickable list, with the vehicle card on the right.","outro":"A tap on any hotel fires pick_hotel carrying its name, and the vehicle card is there purely for reference."}
+{"id":"D-0015","intro":"Your candidate pack now has two tabs, the demo video under the first and the approved image under the second.","outro":"Press play in the first tab to watch the demo without leaving the page, while the cleared artwork waits in the second."}
+{"id":"D-0016","intro":"Overview asks for a star rating, and More asks which plan suits the team.","outro":"You can tick several plans, and pressing Continue returns everything you selected."}
+{"id":"D-0019","intro":"Handover notes sit in the first collapsible, with the green success note folded into the second.","outro":"The checklist is readable at a glance, whereas the refresh result expands only on demand."}
+{"id":"D-0020","intro":"On-time delivery leads the first section, and the raw shipment payload is parked under the second header.","outro":"The headline needs no click, but the payload stays collapsed until someone wants the details."}
+{"id":"D-0021","intro":"Images fill the first section, and the audio clip goes in the second.","outro":"Expand the second section when you want to listen to the call."}
+{"id":"D-0023","intro":"Each section carries its own hotel list, every entry with a thumbnail.","outro":"Three of the hotels show up in both sections, each time with a different photo."}
+{"id":"D-0025","intro":"Swipe sideways through two slides for the design review, the customer quote first and the button CSS after it.","outro":"A sideways scroll connects the feedback to the style that produced it."}
+{"id":"D-0028","intro":"The Overview card sits in a carousel and carries two tappable suggestions.","outro":"Whichever suggestion you tap comes back to me as your next message."}
+{"id":"D-0032","intro":"Your track record is wrapped in a card as an expandable tree.","outro":"The nested tags and meta fields are one expand away, all inside the card."}
+{"id":"D-0034","intro":"The cancellation prompt for the Starter plan sits inside the Weekly summary card.","outro":"No cancellation happens until you confirm, and declining leaves the plan as it is."}
+{"id":"D-0035","intro":"One card holds the whole list of stays.","outro":"Every property is paired with its city, and Lisbon turns up twice."}
+{"id":"D-0041","intro":"Two lists sit side by side in a grid, with every row tappable for your hotel choice.","outro":"Whichever row you tap, I get your pick along with that hotel's name."}
+{"id":"D-0043","intro":"Reading API_KEY takes one tab per language: Python, Node.js and Ruby.","outro":"A missing variable gives undefined in Node.js but raises an error in Python and Ruby."}
+{"id":"D-0046","intro":"Overview carries the booking form, and More carries the session rating.","outro":"Submitting the form reports the reservation as reserve_table, and the rating goes back as session_feedback."}
+{"id":"D-0048","intro":"The fare reasoning fills Overview, and the recruiting plan fills More.","outro":"Just the offer went out, and every other step was skipped."}
+{"id":"D-0050","intro":"The first section shows how far along things are, and the second holds the podcast downloads headline.","outro":"Progress toward the target is visible straight away, while the downloads count is one click away."}
+{"id":"D-0053","intro":"Two collapsible sections split the content, the Orion card in the first and the hotel list in the second.","outro":"The second section stays closed until someone opens it, and the Save button reports back with save_item."}
+{"id":"E-0004","intro":"CLM-9721 can go several ways, and the choices are below.","outro":"Press a button and its action comes straight back to me."}
+{"id":"E-0145","intro":"ORD-6040 has a few next steps open to it.","outro":"Choose one and I will run it for ORD-6040."}
+{"id":"F-0004","intro":"Cutting the chart to the last three services leaves a compact view for the staff meeting.","outro":"Among the three, Check-up has the highest no-show rate."}
+{"id":"F-0005","intro":"Ranked by Streak, the top three students come out longest first, ready for the awards slide.","outro":"Priya Sato leads on Streak by a wide margin despite modest Points."}
+{"id":"F-0007","intro":"Team is now the last column of the usage table.","outro":"Values were assigned in the order you gave them, row by row."}
+{"id":"F-0009","intro":"Only the first three events remain after the trim.","outro":"Row order is as it was, and nothing else changed."}
+{"id":"F-0010","intro":"Usage kWh now runs from highest to lowest down the table.","outro":"Mon uses the most at 42, and Thu the least."}

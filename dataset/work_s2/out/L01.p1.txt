@@ -1,0 +1,166 @@
+=== L-0028
+--- user
+The geocode address step finished: it was a tool call with city Porto, returned "41.15, -8.61" and took 1949 ms. Display it in the trace.
+--- reference
+Here is the geocoding step as it appears in the trace.
+```dyui
+{"ui":"step","title":"Geocode address","status":"done","type":"tool","input":{"city":"Porto"},"output":{"result":"41.15, -8.61"},"duration_ms":1949}
+```
+The lookup completed without errors and returned coordinates for Porto.
+--- derived
+
+=== L-0005
+--- user
+Query orders is still going, sql step on table orders over a 7d window. Put it in the trace.
+--- reference
+The query is still in progress, so it shows as running.
+```dyui
+{"ui":"step","title":"Query orders","status":"running","type":"sql","input":{"table":"orders","window":"7d"}}
+```
+There is no output yet; it will fill in once the query returns.
+--- derived
+
+=== L-0030
+--- user
+Here is where the online store stands: the product feed update is complete, the weekend promo launch is in progress, the returns review has not begun, pulling the supplier invoices failed, and reconciling stock counts is waiting. Please turn that into a live checklist titled "Online store operations plan".
+--- reference
+Here is the operations plan with the current status of each task.
+```dyui
+{"ui":"plan","title":"Online store operations plan","items":[{"title":"Update the product feed","status":"done"},{"title":"Launch the weekend promo","status":"active"},{"title":"Review returns","status":"pending"},{"title":"Pull the supplier invoices","status":"error"},{"title":"Reconcile stock counts","status":"pending"}]}
+```
+The failed supplier invoice pull is the item to fix before stock reconciliation can be trusted.
+--- derived
+
+=== L-0001
+--- user
+ok for the contract: final approval is pending, counterparty redlines are done, signature pending, legal review pending. give me the plan view
+--- reference
+Here is the contract plan with each stage's status.
+```dyui
+{"ui":"plan","items":[{"title":"Final approval","status":"pending"},{"title":"Counterparty redlines","status":"done"},{"title":"Signature","status":"pending"},{"title":"Legal review","status":"pending"}]}
+```
+Only the counterparty redlines are finished, so legal review is the next gate before signature.
+--- derived
+
+=== L-0009
+--- user
+TAP is $348 and Vueling is $418. Show how you picked the cheaper one.
+--- reference
+Here is how I compared the two fares.
+```dyui
+{"ui":"reasoning","text":"Comparing the two fares: TAP at $348 is $70 cheaper than Vueling at $418. Price is the deciding factor, so TAP is the better pick."}
+```
+The $70 gap is what settles the choice.
+--- derived
+70
+
+=== L-0023
+--- user
+Line status: quality sampling failed, first article run is done, changeover done, full production not started. Turn that into a live checklist, title it "Plant operations plan".
+--- reference
+Here is the plant checklist with the current status of each step.
+```dyui
+{"ui":"plan","title":"Plant operations plan","items":[{"title":"Quality sampling","status":"error"},{"title":"Run the first article","status":"done"},{"title":"Changeover","status":"done"},{"title":"Full production","status":"pending"}]}
+```
+Full production should wait until the quality sampling failure is resolved.
+--- derived
+
+=== L-0025
+--- user
+I would like to see the tool step that is currently executing so I can follow it: it is called "Query orders", of type sql, and its input is table orders with a window of 7d. It has not finished yet.
+--- reference
+Here is the step as it is running right now.
+```dyui
+{"ui":"step","title":"Query orders","status":"running","type":"sql","input":{"table":"orders","window":"7d"}}
+```
+It will show its output and duration once the query completes.
+--- derived
+
+=== L-0006
+--- user
+The Check inventory call failed. It was a tool step with input sku SKU-2210, it timed out after 2228 ms and the output was {"error":"timeout"}. Could you display it in the trace so I can attach it to the claim file?
+--- reference
+Here is the failed inventory check as it appears in the trace.
+```dyui
+{"ui":"step","title":"Check inventory","status":"error","type":"tool","input":{"sku":"SKU-2210"},"output":{"error":"timeout"},"duration_ms":2228}
+```
+The step ended in a timeout, so the stock level for SKU-2210 is still unknown.
+--- derived
+
+=== L-0007
+--- user
+Kindly display in the trace the inventory check for SKU-2210. It is a tool step called "Check inventory" and has not started yet.
+--- reference
+Here is the inventory check, queued but not yet started.
+```dyui
+{"ui":"step","title":"Check inventory","status":"pending","type":"tool","input":{"sku":"SKU-2210"}}
+```
+It will switch to running as soon as the lookup begins.
+--- derived
+
+=== L-0017
+--- user
+Please show the step so I can follow along: a tool step named "Fetch invoice" for invoice INV-0412, waiting to be run.
+--- reference
+Here is the invoice fetch, currently waiting its turn.
+```dyui
+{"ui":"step","title":"Fetch invoice","status":"pending","type":"tool","input":{"invoice":"INV-0412"}}
+```
+Nothing has been requested for INV-0412 yet.
+--- derived
+
+=== L-0003
+--- user
+My study status: the quiz went badly and failed, office hours are booked, lesson 1 is still to watch, I'm working on the practice set right now, and reviewing mistakes comes last. Could you turn that into a live checklist?
+--- reference
+Here is your study checklist with where each task stands.
+```dyui
+{"ui":"plan","items":[{"title":"Take the quiz","status":"error"},{"title":"Book office hours","status":"done"},{"title":"Watch lesson 1","status":"pending"},{"title":"Do the practice set","status":"active"},{"title":"Review mistakes","status":"pending"}]}
+```
+The practice set is your current focus, and the quiz is worth retaking after you review your mistakes.
+--- derived
+
+=== L-0015
+--- user
+Render that tool step: Search flights, search type, input from LIS to MAD, still running.
+--- reference
+Here is the flight search in progress.
+```dyui
+{"ui":"step","title":"Search flights","status":"running","type":"search","input":{"from":"LIS","to":"MAD"}}
+```
+Results will appear on this step once the search returns.
+--- derived
+
+=== L-0008
+--- user
+render the summarise thread step: llm type, 24 messages in, output "3 action items", done in 192 ms
+--- reference
+Here is the summarisation step with its output.
+```dyui
+{"ui":"step","title":"Summarise thread","status":"done","type":"llm","input":{"messages":24},"output":{"result":"3 action items"},"duration_ms":192}
+```
+It condensed the thread into 3 action items in well under a second.
+--- derived
+
+=== L-0022
+--- user
+Status on the router ticket: resetting the router is in progress, confirming the fix is done, account verification is still to do, escalation to the field tech is done, and the line test is done. Please give me the plan view.
+--- reference
+Here is the plan for the router ticket with each step's status.
+```dyui
+{"ui":"plan","items":[{"title":"Reset the router","status":"active"},{"title":"Confirm the fix","status":"done"},{"title":"Verify the account","status":"pending"},{"title":"Escalate to field tech","status":"done"},{"title":"Run the line test","status":"done"}]}
+```
+Account verification is the only step that has not been started.
+--- derived
+
+=== L-0024
+--- user
+claim status: payment skipped, claim filed, documents still to collect, damage assessment skipped. plan view pls
+--- reference
+Here is the claim plan with each step's status.
+```dyui
+{"ui":"plan","items":[{"title":"Issue the payment","status":"skipped"},{"title":"File the claim","status":"done"},{"title":"Collect the documents","status":"pending"},{"title":"Assess the damage","status":"skipped"}]}
+```
+Only filing is complete, and collecting the documents is the remaining open task.
+--- derived
+

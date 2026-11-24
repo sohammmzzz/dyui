@@ -1,0 +1,104 @@
+=== G-0094
+--- user
+Good morning. Would you check appointment K-797 for me? I need to confirm that Xavier Rahman is booked for Physio on Mar 25.
+--- reference
+Here are the details of appointment K-797.
+```dyui
+{"ui":"keyvalue","items":[{"key":"Patient","value":"Xavier Rahman"},{"key":"Service","value":"Physio"},{"key":"Date","value":"Mar 25"},{"key":"Room","value":1},{"key":"Clinician","value":"Xavier Oliveira"}]}
+```
+The booking is confirmed for Mar 25 in room 1 with Xavier Oliveira.
+--- derived
+
+=== G-0006
+--- user
+K-425 profile pls. goal was 10K in under 50 min, 4 sessions a week, coach Viktor Petrov, right?
+--- reference
+Here is the profile for athlete K-425.
+```dyui
+{"ui":"keyvalue","items":[{"key":"Goal","value":"10K in under 50 min"},{"key":"Weekly sessions","value":4},{"key":"Coach","value":"Viktor Petrov"},{"key":"Plan","value":"Base"},{"key":"Next test","value":"Feb 9"}]}
+```
+Yes, that matches, and the next test is on Feb 9 under the Base plan.
+--- derived
+
+=== G-0111
+--- user
+Could you pull up the open claims? I am especially looking for CLM-652, CLM-792 and CLM-390, and I would like to see their amounts and adjusters.
+--- reference
+Here are the four open claims with their type, amount and adjuster.
+```dyui
+{"ui":"table","columns":["Claim","Type","Amount","Status","Adjuster"],"rows":[["CLM-652","Health","$16,341","Approved","Sofia Larsen"],["CLM-792","Health","$1,150","Assessing","Dmitri Haddad"],["CLM-390","Home","$5,672","Assessing","Jun Tanaka"],["CLM-119","Travel","$8,752","Approved","Zainab Almeida"]]}
+```
+CLM-652 and CLM-119 are approved, while CLM-792 and CLM-390 are still being assessed.
+--- derived
+
+=== G-0058
+--- user
+I need the open grants for my report: Sunrise Foundation, Meridian Fund and City Arts Board should be in there, plus whatever else is open. Please include amounts, deadlines and where each one stands.
+--- reference
+Five grants came back as open; here they are with amount, deadline and status.
+```dyui
+{"ui":"table","columns":["Funder","Amount","Deadline","Status"],"rows":[["Sunrise Foundation","$100,010","Feb 13","Drafting"],["Meridian Fund","$43,711","Oct 27","Declined"],["City Arts Board","$10,212","Apr 18","Drafting"],["Lakeshore Trust","$110,602","Feb 5","Drafting"],["Meridian Fund","$70,144","Jul 1","Submitted"]]}
+```
+Meridian Fund appears twice: the $43,711 request was declined and the $70,144 one is submitted.
+--- derived
+
+=== G-0083
+--- user
+what are the top tracks right now? give me the first 10 (limit 50), esp. Midnight Tram and Slow Weather
+--- reference
+The lookup returned 40 tracks, and these are the first 10.
+```dyui
+{"ui":"table","columns":["Track","Artist","Streams","Skips"],"rows":[["Midnight Tram","Priya Castillo",519,47],["Slow Weather","Yara Silva",162,17],["Paper Lanterns","Yara Ueda",857,28],["Neon Harbour","Sofia Mendes",749,41],["Salt & Honey","Jun Ueda",886,20],["Static Bloom","Xavier Ferreira",803,22],["Slow Weather","Greta Vasquez",633,26],["Midnight Tram","Yara Singh",462,18],["Neon Harbour","Jamal Vasquez",405,42],["Midnight Tram","Chloe Petrov",740,45]]}
+```
+Salt & Honey by Jun Ueda leads this slice with 886 streams, and Midnight Tram and Slow Weather each show up several times.
+--- derived
+
+=== G-0067
+--- user
+whats coming up on my bills? show the first 10 of the list (limit 50), I mostly care about Electricity and Rent
+--- reference
+There are 38 upcoming bills in total; here are the first 10.
+```dyui
+{"ui":"table","columns":["Bill","Due","Amount","Autopay"],"rows":[["Electricity","Jan 8","$1,032","No"],["Rent","Jan 11","$545","Yes"],["Phone","Feb 1","$1,309","No"],["Internet","May 24","$1,020","Yes"],["Insurance","Jun 5","$1,345","Yes"],["Gym","Jan 23","$1,244","Yes"],["Internet","Jan 5","$415","No"],["Phone","May 19","$133","No"],["Insurance","Jun 28","$232","Yes"],["Electricity","Nov 25","$713","Yes"]]}
+```
+Electricity on Jan 8 has no autopay, while Rent on Jan 11 does.
+--- derived
+
+=== G-0023
+--- user
+Can you show me today's schedule? I want to check the 13:45, 16:20 and 15:00 slots in particular, with the service and room for each.
+--- reference
+Six appointments are booked for today, listed here in the order they came back.
+```dyui
+{"ui":"table","columns":["Time","Patient","Service","Room"],"rows":[["13:45","Sven Jensen","Check-up",2],["16:20","Carla Rahman","Lab work",8],["15:00","Ivan Rossi","Physio",4],["08:30","Wanjiru Garcia","Check-up",4],["09:15","Hugo Fischer","Physio",8],["11:30","Noor Ueda","Vaccination",3]]}
+```
+The 13:45 check-up is in room 2, the 16:20 lab work in room 8 and the 15:00 physio in room 4.
+--- derived
+
+=== G-0052
+--- user
+open vehicles?
+--- reference
+No vehicles with an open status came back from the lookup.
+There is nothing to schedule from this result.
+--- derived
+
+=== G-0092
+--- user
+any bills coming up?
+--- reference
+There are no upcoming bills in the data returned.
+The list came back empty, so nothing is due according to this result.
+--- derived
+
+=== G-0051
+--- user
+Kindly retrieve the agent performance figures (limit 50). Please display only the first 10, and note Wanjiru Torres and Elif Castillo in particular.
+--- reference
+The report covers 37 agents; here are the first 10 with resolved tickets, CSAT and average handle time.
+```dyui
+{"ui":"table","columns":["Agent","Resolved","CSAT","Avg handle"],"rows":[["Wanjiru Torres",46,89,12],["Elif Castillo",59,80,6],["Quinn Haddad",27,88,11],["Ben Quispe",39,98,9],["Carla Weber",30,98,17],["Felix Singh",69,87,18],["Carla Yilmaz",58,93,10],["Felix Reyes",20,91,20],["Ivan Tanaka",18,85,6],["Greta Rahman",41,82,9]]}
+```
+Elif Castillo resolved 59 tickets with a 6 average handle time, while Wanjiru Torres resolved 46 at a CSAT of 89.
+--- derived
+

@@ -1,0 +1,79 @@
+=== J-0025
+--- user
+Was passiert eigentlich genau, wenn ich eine URL in den Browser eintippe? Bitte kurz erklären.
+--- reference
+Der Browser zerlegt die URL zuerst in Protokoll, Host und Pfad und fragt per DNS die IP-Adresse des Hosts ab. Danach baut er eine Verbindung auf (bei https inklusive TLS-Handshake), sendet die HTTP-Anfrage und rendert die Antwort des Servers als Seite, wobei er weitere Ressourcen wie Bilder und Skripte nachlädt.
+--- derived
+
+
+=== J-0066
+--- user
+quick check, is a 2.1% churn rate better than 2.8%?
+--- reference
+Yes, lower churn is better, and 2.1% is 0.7 percentage points below 2.8%. Fewer customers leaving each period means more of your revenue sticks around.
+--- derived
+0.7
+
+=== J-0036
+--- user
+morning!
+--- reference
+Good morning! Ready when you are, just tell me what you need on the account.
+--- derived
+
+
+=== J-0051
+--- user
+A customer needs this in French and I'd like it to sound polite and natural: "We noticed unusual sign-in activity and temporarily locked your account for your safety."
+--- reference
+Nous avons remarqué une activité de connexion inhabituelle et avons temporairement verrouillé votre compte pour votre sécurité. This keeps the formal "vous" register, which is the right fit for a message to a customer.
+--- derived
+
+
+=== J-0014
+--- user
+Is 4.6 out of 5 a good customer rating for a product page?
+--- reference
+Yes, 4.6 out of 5 is a strong rating, well into the range where shoppers tend to trust a product. It matters how many reviews sit behind it, since a high score from a handful of reviews is less convincing.
+--- derived
+
+
+=== J-0074
+--- user
+We're sitting at a 4.6 out of 5 average on the player store listing. Would you call that a good customer rating, or should we be worried?
+--- reference
+That is a good rating, and there is no reason to worry on the score alone. What would change the picture is a downward trend or a cluster of recent low reviews, so those are the two things to watch over time.
+--- derived
+
+
+=== J-0048
+--- user
+can you give me an example?
+--- reference
+Sure: setting a user's status to "active" is idempotent, because running it ten times leaves them just as active as running it once. Adding an item to a cart is not, since every call adds another copy.
+--- derived
+
+
+=== J-0103
+--- user
+Est-ce qu'un index de base de données peut ralentir les écritures ? Je veux comprendre avant d'en ajouter un de plus sur la table des relevés.
+--- reference
+Oui, car chaque insertion, mise à jour ou suppression doit aussi mettre à jour tous les index de la table, ce qui ajoute du travail et de l'espace disque. Un index supplémentaire vaut donc la peine si les lectures qu'il accélère sont plus fréquentes que le coût qu'il impose aux écritures.
+--- derived
+
+
+=== J-0094
+--- user
+Ist es sicher, einen GET-Request einfach zu wiederholen, wenn die Verbindung abgebrochen ist? Für unsere Fahrzeugabfrage wäre das wichtig.
+--- reference
+Ja, GET gilt als sicher und idempotent: Eine Wiederholung ändert nichts auf dem Server, solange die API sich an die HTTP-Konventionen hält. Prüfen sollten Sie nur, ob Ihr Endpunkt wirklich keine Nebenwirkungen wie Zähler oder Buchungen auslöst.
+--- derived
+
+
+=== J-0096
+--- user
+Can you translate this into Italian for a customer? "The export job failed because the file exceeded the size limit, so please split it and retry."
+--- reference
+"Il processo di esportazione non è riuscito perché il file supera il limite di dimensione; la preghiamo di suddividerlo e riprovare." The "la preghiamo" form keeps the tone polite and formal for a customer.
+--- derived
+

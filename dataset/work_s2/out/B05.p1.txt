@@ -1,0 +1,110 @@
+=== B-0057
+--- user
+where do we stand on food cost? April came in at 40.9%, no change vs last month (0%), and we were aiming for 47.0%
+--- reference
+April's food cost came in flat against last month.
+```dyui
+{"ui":"stat","label":"Food cost · April","value":40.9,"unit":"%","delta":"0% vs last month","trend":"flat","help":"Target 47.0%"}
+```
+Food cost held steady and sits at 40.9%, below the 47.0% figure you were aiming for.
+--- derived
+
+=== B-0138
+--- user
+track this for me, fundraising stuff: thank the donors is done, set the goal is in progress, send to the list hasn't started, write the appeal is in progress, report the impact is in progress too
+--- reference
+Five fundraising items are in flight, and most of them are active.
+```dyui
+{"ui":"plan","items":[{"title":"Thank the donors","status":"done"},{"title":"Set the goal","status":"active"},{"title":"Send to the list","status":"pending"},{"title":"Write the appeal","status":"active"},{"title":"Report the impact","status":"active"}]}
+```
+Three items are in progress at once, and only the donor thank-yous are finished.
+--- derived
+3
+
+=== B-0165
+--- user
+where are we on the electricity bill project? Review next bill, Jun 6, done, Vera Petrov. Compare tariffs, Mar 8, in progress, Olga Lindqvist. Shift the heavy loads, Jun 10, not started, Hana Costa. Read the meter, Jan 12, not started, Uma Rahman.
+--- reference
+On the electricity bill project, the first step is done and the next is moving.
+```dyui
+{"ui":"timeline","items":[{"title":"Review next bill","time":"Jun 6","status":"done","text":"Owner: Vera Petrov"},{"title":"Compare tariffs","time":"Mar 8","status":"active","text":"Owner: Olga Lindqvist"},{"title":"Shift the heavy loads","time":"Jun 10","status":"pending","text":"Owner: Hana Costa"},{"title":"Read the meter","time":"Jan 12","status":"pending","text":"Owner: Uma Rahman"}]}
+```
+Reviewing the next bill is done and comparing tariffs is under way.
+--- derived
+
+=== B-0022
+--- user
+tickets: TCK-606 Change billing email Urgent Zainab Okafor / TCK-154 Invoice shows wrong VAT High Viktor Tanaka / TCK-996 Change billing email Normal Ana Park / TCK-696 Where is my parcel Urgent Yara Torres. make it easy to scan
+--- reference
+Four tickets, each with its priority and agent, are set out below.
+```dyui
+{"ui":"table","columns":["ID","Subject","Priority","Agent"],"rows":[["TCK-606","Change billing email","Urgent","Zainab Okafor"],["TCK-154","Invoice shows wrong VAT","High","Viktor Tanaka"],["TCK-996","Change billing email","Normal","Ana Park"],["TCK-696","Where is my parcel","Urgent","Yara Torres"]]}
+```
+TCK-606 and TCK-696 are the Urgent ones.
+--- derived
+
+=== B-0160
+--- user
+Meine Abos von Mar bis Okt: 79, 80, 71, 73, 79, 74, 80, 68. Wird es besser?
+--- reference
+Im Verlauf von März bis Oktober sieht deine Abo-Zahl so aus.
+```dyui
+{"ui":"chart","kind":"area","labels":["Mar","Apr","Mai","Jun","Jul","Aug","Sep","Okt"],"series":[{"name":"Abos","data":[79,80,71,73,79,74,80,68]}]}
+```
+Nicht wirklich: die Werte schwanken zwischen 71 und 80, und im Oktober liegt der Wert mit 68 am niedrigsten.
+--- derived
+
+=== B-0014
+--- user
+despliegues por semana contra incidentes, un punto por equipo: 11.3 y 6.9, 11.4 y 7.3, 12.9 y 7.5, 14.3 y 7.4, 15.7 y 7.9, 24.4 y 12. ¿hay correlación?
+--- reference
+Al cruzar despliegues por semana con incidentes, la relación se ve enseguida.
+```dyui
+{"ui":"chart","kind":"scatter","series":[{"name":"Incidentes vs despliegues por semana","data":[[11.3,6.9],[11.4,7.3],[12.9,7.5],[14.3,7.4],[15.7,7.9],[24.4,12]]}]}
+```
+Sí, los incidentes suben junto con los despliegues, y el punto de 24.4 despliegues, con 12 incidentes, es el más alto.
+--- derived
+
+=== B-0131
+--- user
+Tickets by department this quarter: Design 2043, Operations 4083, Finance 4775, Support 4491. Which one dominates?
+--- reference
+Three of the four departments hold similar shares of the tickets.
+```dyui
+{"ui":"chart","kind":"pie","labels":["Design","Operations","Finance","Support"],"series":[{"name":"Tickets","data":[2043,4083,4775,4491]}],"unit":"tickets"}
+```
+Finance is the largest slice at 4775, though Support and Operations are not far behind, and only Design is clearly smaller.
+--- derived
+
+=== B-0179
+--- user
+on en est où ? Pull the supplier invoices, May 9, fait, Hana Dubois. Update the product feed, Dec 11, en cours, Farah Kowalski. Launch the weekend promo, Jul 13, à faire, Umar Nguyen. Review returns, Jun 15, à faire, Jun Ueda.
+--- reference
+Le travail avance dans cet ordre, et une seule étape est terminée.
+```dyui
+{"ui":"timeline","items":[{"title":"Pull the supplier invoices","time":"May 9","status":"done","text":"Owner: Hana Dubois"},{"title":"Update the product feed","time":"Dec 11","status":"active","text":"Owner: Farah Kowalski"},{"title":"Launch the weekend promo","time":"Jul 13","status":"pending","text":"Owner: Umar Nguyen"},{"title":"Review returns","time":"Jun 15","status":"pending","text":"Owner: Jun Ueda"}]}
+```
+Les factures fournisseurs sont terminées et la mise à jour du flux produit est en cours.
+--- derived
+
+=== B-0034
+--- user
+ARPDAU this week, Mon to Sun: 0.4, 0.33, 0.3, 0.27, 0.23, 0.2, 0.14. make me a line chart of that
+--- reference
+ARPDAU slid steadily through the week.
+```dyui
+{"ui":"chart","kind":"line","labels":["Mon","Tue","Wed","Thu","Fri","Sat","Sun"],"series":[{"name":"ARPDAU","data":[0.4,0.33,0.3,0.27,0.23,0.2,0.14]}]}
+```
+It falls every day, from 0.4 on Mon to 0.14 on Sun.
+--- derived
+
+=== B-0117
+--- user
+orders per department: Sales 1292, Support 676, Finance 2559, Design 3059, Engineering 1982, Operations 3838. show me the split
+--- reference
+Orders split unevenly across the six departments.
+```dyui
+{"ui":"chart","kind":"pie","labels":["Sales","Support","Finance","Design","Engineering","Operations"],"series":[{"name":"Orders","data":[1292,676,2559,3059,1982,3838]}],"title":"Orders per department"}
+```
+Operations leads with 3838 orders, and Support is the smallest slice at 676.
+--- derived

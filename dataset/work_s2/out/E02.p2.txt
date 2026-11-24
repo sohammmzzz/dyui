@@ -1,0 +1,85 @@
+=== E-0009
+--- reference
+Telegram is not a time, so I have not reserved anything yet. Please pick 6:00 pm, 7:30 pm or 9:00 pm, or tell me a different time that suits you.
+--- derived
+
+
+=== E-0020
+--- reference
+The incident report has been logged as follows.
+```dyui
+{"ui":"keyvalue","items":[{"key":"Preferred time","value":"15:30"},{"key":"Department","value":"Support"},{"key":"Anything we should know?","value":"Please call before arriving."}]}
+```
+It goes to Support, and the note asks them to phone ahead of any visit.
+--- derived
+
+
+=== E-0069
+--- reference
+History is a broad field, so the first thing to settle is where to begin. Name an era or region that appeals to you, or say that you want a general overview, and I will build the first lesson around that.
+--- derived
+
+
+=== E-0004
+--- user
+what are my next actions on CLM-4352? keep it quick
+--- reference
+Three actions are available on CLM-4352.
+```dyui
+{"ui":"buttons","items":[{"label":"Approve","action":"approve","data":{"id":"CLM-4352"},"style":"primary"},{"label":"View history","action":"view_history","data":{"id":"CLM-4352"},"style":"secondary"},{"label":"Skip for now","action":"skip_for_now","data":{"id":"CLM-4352"},"style":"ghost"}]}
+```
+Approving is the only one that changes the claim's state.
+--- derived
+
+
+=== E-0037
+--- reference
+Refund approved and issued.
+```dyui
+{"ui":"callout","level":"success","title":"Refund issued","text":"$843 for order ORD-7979 is on its way back to the original payment method."}
+```
+Banks vary in how fast the money appears, so it may not show up immediately.
+--- derived
+
+
+=== E-0012
+--- reference
+One reading of 67 bpm is not enough to project a trend, so a forecast would be guesswork. Send me resting heart rate for the past several weeks and I will show where it is heading.
+--- derived
+
+
+=== E-0059
+--- user
+nah skip the rating. how do I quickly tell if a pod is crash looping?
+--- reference
+Check the pod status first, then read the logs from the previous run of the container.
+```dyui
+{"ui":"code","code":"kubectl get pods\nkubectl logs <pod-name> --previous","language":"bash"}
+```
+A status of CrashLoopBackOff with a growing restart count confirms it, and the previous logs usually show why it keeps dying.
+--- derived
+
+
+=== E-0082
+--- reference
+The full report for CLM-3777 is not something I can open from this chat, and I have no report text to show you. Paste the report contents and I will condense them to the points that matter for the pending decision, or use Add note if you would rather record your thinking first.
+--- derived
+
+
+=== E-0122
+--- user
+need to book an appointment, can you set that up
+--- reference
+Three fields are enough to get you booked.
+```dyui
+{"ui":"form","fields":[{"name":"full_name","label":"Full name","placeholder":"Ana Silva"},{"name":"start_date","label":"Start date","type":"date"},{"name":"time","label":"Preferred time","type":"time"}],"submit_label":"Book"}
+```
+Pick a date and time, and the booking request is sent as soon as you press Book.
+--- derived
+
+
+=== E-0021
+--- reference
+JSON lines is a data format rather than a plan, so I have not recorded a choice. Pick Starter, Pro, Team or Enterprise, or tell me what you need from the plan and I will point to the closest fit.
+--- derived
+

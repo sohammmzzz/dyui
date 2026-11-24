@@ -1,0 +1,127 @@
+=== C-0002
+--- user
+Can you summarise this listing? 48 Rua Verde, Apartment, 3 beds. And show me where we are with the prep: "Hold the open house" on Mar 4 is done (Priya Ferreira), "Book the photographer" on May 6 is in progress with Viktor Reyes, and "Publish the listing" on Oct 8 is still pending, Sven Garcia owns it.
+--- reference
+The listing boils down to a three-bedroom apartment on Rua Verde.
+```dyui
+{"ui":"keyvalue","items":[{"key":"Address","value":"48 Rua Verde"},{"key":"Type","value":"Apartment"},{"key":"Beds","value":3}]}
+```
+Preparation progress is mapped out below, step by step.
+```dyui
+{"ui":"timeline","items":[{"title":"Hold the open house","time":"Mar 4","status":"done","text":"Owner: Priya Ferreira"},{"title":"Book the photographer","time":"May 6","status":"active","text":"Owner: Viktor Reyes"},{"title":"Publish the listing","time":"Oct 8","status":"pending","text":"Owner: Sven Garcia"}]}
+```
+The open house is behind you, and publishing hinges on the photographer booking.
+--- derived
+
+
+=== C-0133
+--- user
+We had 65 appointments today across the clinic, which feels busy. Can you show how we're doing and whether it has been improving? Monthly figures for comparison: Jan 49, Feb 52, Mar 54, Apr 50, May 51.
+--- reference
+Today's appointment count is the headline number.
+```dyui
+{"ui":"stat","label":"Appointments today","value":"65","trend":"up"}
+```
+The monthly series answers the improvement question.
+```dyui
+{"ui":"chart","kind":"line","labels":["Jan","Feb","Mar","Apr","May"],"series":[{"name":"Appointments today","data":[49,52,54,50,51]}]}
+```
+Today is well above anything in the monthly range, which itself has stayed fairly flat since January.
+--- derived
+
+
+=== C-0101
+--- user
+Can you lay out the details of this incident for me? Owner is Growth, language Python, on-call is Sofia Reyes. Then put the plan in order for the stakeholders, in this order: "Bisect the last three deploys", "Write the postmortem", "Run the load test", "Ship the fix behind a flag", "Reproduce the failure in staging".
+--- reference
+Ownership of the incident is pinned down in the facts below.
+```dyui
+{"ui":"keyvalue","items":[{"key":"Owner","value":"Growth"},{"key":"Language","value":"Python"},{"key":"On-call","value":"Sofia Reyes"}]}
+```
+The plan follows as a timeline, in the sequence you gave.
+```dyui
+{"ui":"timeline","items":[{"title":"Bisect the last three deploys"},{"title":"Write the postmortem"},{"title":"Run the load test"},{"title":"Ship the fix behind a flag"},{"title":"Reproduce the failure in staging"}]}
+```
+Stakeholders will read the steps exactly as ordered, so reproducing the failure may deserve an earlier slot.
+--- derived
+
+
+=== C-0072
+--- user
+retention is at 61% (target 63%) for the donor base, can you show that nicely? and make me a line chart of donations this month for Jul–Nov: 60.1, 54.7, 45.5, 43.0, 48.4 (in $k)
+--- reference
+Retention is shown against its target first.
+```dyui
+{"ui":"stat","label":"Retention","value":61,"unit":"%","help":"Target 63%"}
+```
+Then the donations line runs from July through November.
+```dyui
+{"ui":"chart","kind":"line","labels":["Jul","Aug","Sep","Oct","Nov"],"series":[{"name":"Donations this month","data":[60.1,54.7,45.5,43.0,48.4]}],"unit":"$k"}
+```
+Donations slid through the autumn and only ticked back up in the latest month.
+--- derived
+
+
+=== C-0116
+--- user
+Please post the candidate photo here: https://files.example.com/img/handbook-32.jpg, captioned "Approved by marketing" (the product on a white background). And show me the profile: Product designer role, currently at the Offer stage, sourced through an Agency, recruiter Yusuf Petrov.
+--- reference
+The candidate photo goes in the chat with its caption.
+```dyui
+{"ui":"image","src":"https://files.example.com/img/handbook-32.jpg","alt":"The product on a white background","caption":"Approved by marketing"}
+```
+Next to it, the profile shows where the hiring process stands.
+```dyui
+{"ui":"keyvalue","items":[{"key":"Role","value":"Product designer"},{"key":"Stage","value":"Offer"},{"key":"Source","value":"Agency"},{"key":"Recruiter","value":"Yusuf Petrov"}]}
+```
+Yusuf Petrov is the contact for an offer that came in through an agency.
+--- derived
+
+
+=== C-0001
+--- user
+Could you give me the rundown on the Barley field? It's 45 hectares and was sown on Feb 26. I'd also like to know what my options are from here: Continue, or View history.
+--- reference
+The Barley field's record is short and sweet.
+```dyui
+{"ui":"keyvalue","items":[{"key":"Crop","value":"Barley"},{"key":"Hectares","value":45},{"key":"Sown","value":"Feb 26"}]}
+```
+From here you can go in one of two directions.
+```dyui
+{"ui":"buttons","items":[{"label":"Continue","action":"continue","style":"primary"},{"label":"View history","action":"view_history","style":"secondary"}]}
+```
+Continuing picks up the record where it stands, while the history shows everything logged so far.
+--- derived
+
+
+=== C-0119
+--- user
+lay out the details for the 48 Rua Verde listing: Apartment, 4 beds, 253 m2, $776, Active. then show me where we are on the steps: "Book the photographer", "Collect offers", "Move to contract", "Publish the listing"
+--- reference
+The listing record for Rua Verde comes first.
+```dyui
+{"ui":"keyvalue","items":[{"key":"Address","value":"48 Rua Verde"},{"key":"Type","value":"Apartment"},{"key":"Beds","value":4},{"key":"Area m2","value":253},{"key":"Price","value":"$776"},{"key":"Status","value":"Active"}]}
+```
+The steps then run in the order you listed them.
+```dyui
+{"ui":"timeline","items":[{"title":"Book the photographer"},{"title":"Collect offers"},{"title":"Move to contract"},{"title":"Publish the listing"}]}
+```
+The listing is Active, and the sequence leads from the photographer through to going public.
+--- derived
+
+
+=== C-0078
+--- user
+Please show the venue image in the chat (https://static.brasa.example.com/img/report-35.webp) and give me the rundown: Arena, Apr 16, doors at 17:30, capacity 7770, 2159 sold, status Sold out.
+--- reference
+The venue image appears in the chat first.
+```dyui
+{"ui":"image","src":"https://static.brasa.example.com/img/report-35.webp"}
+```
+The event rundown comes next.
+```dyui
+{"ui":"keyvalue","items":[{"key":"Venue","value":"Arena"},{"key":"Date","value":"Apr 16"},{"key":"Doors","value":"17:30"},{"key":"Capacity","value":7770},{"key":"Sold","value":2159},{"key":"Status","value":"Sold out"}]}
+```
+The status reads Sold out even though sales sit far below the stated capacity, so that field is worth double-checking.
+--- derived
+

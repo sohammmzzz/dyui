@@ -1,0 +1,201 @@
+=== C-0093
+--- user
+Bonjour, voici les chiffres du mois pour la campagne : taux de clics 2.9% (+11.7% sur un mois), dépenses publicitaires $36.8k (+13.7%), et taux d'ouverture des emails 17.5%, stable, pour un objectif de 19.2%. Affiche-moi ces trois indicateurs en gros chiffres. Ensuite, quel canal est en tête côté dépenses ? J'ai le détail en milliers de dollars : Email 3.0, Affiliate 4.8, Display 8.5, Social 12.9, Influencer 14.9, Search 21.5. Et propose-moi ce que je pourrais regarder ensuite.
+--- reference
+Voici les trois indicateurs clés du mois.
+```dyui
+{"ui":"stats","items":[{"label":"Taux de clics","value":"2.9%","delta":"+11.7%","trend":"up"},{"label":"Dépenses publicitaires","value":"$36.8k","delta":"+13.7%","trend":"up"},{"label":"Taux d'ouverture des emails","value":"17.5%","trend":"flat","help":"Objectif 19.2%"}]}
+```
+Pour savoir quel canal domine côté dépenses, voici la comparaison.
+```dyui
+{"ui":"chart","kind":"bar","labels":["Email","Affiliate","Display","Social","Influencer","Search"],"series":[{"name":"Dépenses publicitaires","data":[3.0,4.8,8.5,12.9,14.9,21.5]}]}
+```
+Voici quelques pistes pour la suite.
+```dyui
+{"ui":"quick_replies","options":["Expliquer la plus forte baisse","Qu'est-ce qui a le plus changé ?","Détail par canal","Comparer avec le mois dernier"]}
+```
+Search arrive nettement en tête avec 21.5, devant Influencer à 14.9, tandis que l'ouverture des emails reste sous son objectif.
+--- derived
+
+
+=== C-0070
+--- user
+can you lay these contracts out for me? Northwind DPA $230,924 expires Feb 1, Globex DPA $393,352 Jul 12, Soylent DPA $83,328 Sep 7, Hooli MSA $52,071 Oct 25, Initech DPA $349,215 Apr 2. also write a note for the customer that the NDAs pending number refreshes every 8 hours so today's figure is provisional
+--- reference
+Northwind through Initech are laid out below with type, value and expiry date.
+```dyui
+{"ui":"table","columns":["Counterparty","Type","Value","Expires"],"rows":[["Northwind","DPA","$230,924","Feb 1"],["Globex","DPA","$393,352","Jul 12"],["Soylent","DPA","$83,328","Sep 7"],["Hooli","MSA","$52,071","Oct 25"],["Initech","DPA","$349,215","Apr 2"]]}
+```
+For the customer, the wording is below.
+```dyui
+{"ui":"callout","level":"info","text":"NDAs pending is recalculated every 8 hours, so today's figure is provisional."}
+```
+Northwind's DPA is the first to expire, so it is the one to renew soonest.
+--- derived
+
+
+=== C-0002
+--- user
+Can you summarise this listing? 48 Rua Verde, apartment, 3 beds. And show me where we are with the prep: open house on Mar 4 is done (Priya Ferreira), photographer booking on May 6 is in progress with Viktor Reyes, and publishing the listing on Oct 8 is still pending, Sven Garcia owns it.
+--- reference
+48 Rua Verde comes down to three basic facts.
+```dyui
+{"ui":"keyvalue","items":[{"key":"Address","value":"48 Rua Verde"},{"key":"Type","value":"Apartment"},{"key":"Beds","value":3}]}
+```
+Preparation progress follows.
+```dyui
+{"ui":"timeline","items":[{"title":"Hold the open house","time":"Mar 4","status":"done","text":"Owner: Priya Ferreira"},{"title":"Book the photographer","time":"May 6","status":"active","text":"Owner: Viktor Reyes"},{"title":"Publish the listing","time":"Oct 8","status":"pending","text":"Owner: Sven Garcia"}]}
+```
+The open house is finished, and the photographer booking is what stands between you and publishing.
+--- derived
+
+
+=== C-0133
+--- user
+We had 65 appointments today across the clinic, which feels busy. Can you show how we're doing and whether it has been improving? Monthly figures for comparison: Jan 49, Feb 52, Mar 54, Apr 50, May 51.
+--- reference
+Today's appointment count stands out.
+```dyui
+{"ui":"stat","label":"Appointments today","value":"65","trend":"up"}
+```
+Against that, the monthly figures from January to May look like this.
+```dyui
+{"ui":"chart","kind":"line","labels":["Jan","Feb","Mar","Apr","May"],"series":[{"name":"Appointments today","data":[49,52,54,50,51]}]}
+```
+Today's 65 is well above the monthly range of 49 to 54, though the monthly series itself has been fairly flat.
+--- derived
+
+
+=== C-0105
+--- user
+Hi! Could you give me the overview for the show's audience numbers and then make me a line chart of the listener trend? Podcast downloads are 192,243 (-16.9%, target 211,467). Monthly listeners 2,642,700 (+12.0%, target 2,906,970). Skip rate 29% (-16.1%, target 32%). For the chart, monthly listeners from June to December: 1460455, 1406471, 1542914, 1647111, 1568639, 1426738, 1280750.
+--- reference
+Audience numbers come first: downloads, listeners and skip rate.
+```dyui
+{"ui":"divider","label":"Details"}
+{"ui":"stats","items":[{"label":"Podcast downloads","value":"192,243","delta":"-16.9%","help":"Target 211,467"},{"label":"Monthly listeners","value":"2,642,700","delta":"+12.0%","help":"Target 2,906,970"},{"label":"Skip rate","value":"29%","delta":"-16.1%","trend":"down","help":"Target 32%"}]}
+```
+Next, the listener trend from June through December.
+```dyui
+{"ui":"divider","label":"Outlook"}
+{"ui":"chart","kind":"line","series":[{"name":"Monthly listeners","data":[1460455,1406471,1542914,1647111,1568639,1426738,1280750]}],"title":"Monthly listeners, Jun–Dec"}
+```
+Listeners peaked at 1647111 in September and have slid every month since, ending at 1280750.
+--- derived
+
+
+=== C-0016
+--- user
+quick one for the depot: avg transit 3.0 days, parcels today 2930 (target 3223, trending up), fuel cost $48.0k (+9.4%, target $52.8k), fleet utilisation 67%. show those as headline numbers, then put the carriers in a table: Correos 86.9 on-time, 23 claims, $8 per parcel; GLS 90.5, 2, $11; UPS 78.1, 1, $15; FedEx 97.8, 34, $18. also flag in the app that average transit is at 3.1 days, above the 2.7 days threshold, review before Friday
+--- reference
+The depot's four headline numbers come first.
+```dyui
+{"ui":"stats","items":[{"label":"Average transit","value":"3.0 days"},{"label":"Parcels today","value":"2930","trend":"up","help":"Target 3223"},{"label":"Fuel cost","value":"$48.0k","delta":"+9.4%","trend":"up","help":"Target $52.8k"},{"label":"Fleet utilisation","value":"67%"}]}
+```
+Carrier performance sits side by side below.
+```dyui
+{"ui":"table","columns":["Carrier","On-time","Claims","Cost per parcel"],"rows":[["Correos",86.9,23,"$8"],["GLS",90.5,2,"$11"],["UPS",78.1,1,"$15"],["FedEx",97.8,34,"$18"]]}
+```
+The in-app alert is below.
+```dyui
+{"ui":"callout","level":"warning","title":"Needs attention","text":"Average transit is at 3.1 days, above the 2.7 days threshold. Review it before Friday."}
+```
+FedEx has the best on-time rate but also the most claims at 34, so it is worth a look alongside transit.
+--- derived
+
+
+=== C-0101
+--- user
+Can you lay out the details of this incident for me? Owner is Growth, language Python, on-call is Sofia Reyes. Then put the plan in order for the stakeholders, in this order: bisect the last three deploys, write the postmortem, run the load test, ship the fix behind a flag, reproduce the failure in staging.
+--- reference
+Start with who owns the incident and who is on call.
+```dyui
+{"ui":"keyvalue","items":[{"key":"Owner","value":"Growth"},{"key":"Language","value":"Python"},{"key":"On-call","value":"Sofia Reyes"}]}
+```
+The five steps follow, in your order.
+```dyui
+{"ui":"timeline","items":[{"title":"Bisect the last three deploys"},{"title":"Write the postmortem"},{"title":"Run the load test"},{"title":"Ship the fix behind a flag"},{"title":"Reproduce the failure in staging"}]}
+```
+Stakeholders will see the steps exactly as you sequenced them, so reorder them first if reproducing the failure should come earlier.
+--- derived
+
+
+=== C-0129
+--- user
+lay out the details for the Initech contract: SOW, signed Feb 15, expires Jul 28, owner Zainab Silva, status Draft. I want to act on it from here too, so give me buttons for learn more, skip for now, compare options and add note, all tied to ORD-6192.
+--- reference
+Initech's contract is still a draft, and the details are below.
+```dyui
+{"ui":"keyvalue","items":[{"key":"Counterparty","value":"Initech"},{"key":"Type","value":"SOW"},{"key":"Signed","value":"Feb 15"},{"key":"Expires","value":"Jul 28"},{"key":"Owner","value":"Zainab Silva"},{"key":"Status","value":"Draft"}]}
+```
+Four actions are available from here.
+```dyui
+{"ui":"buttons","items":[{"label":"Learn more","action":"learn_more","data":{"id":"ORD-6192"},"style":"ghost"},{"label":"Skip for now","action":"skip_for_now","data":{"id":"ORD-6192"},"style":"ghost"},{"label":"Compare options","action":"compare_options","data":{"id":"ORD-6192"},"style":"secondary"},{"label":"Add note","action":"add_note","data":{"id":"ORD-6192"},"style":"secondary"}]}
+```
+Each button carries ORD-6192 back to me when pressed.
+--- derived
+
+
+=== C-0110
+--- user
+Could you show me how to read an environment variable in Rust, defaulting to an empty string? Please also post a clear warning in the chat that churn rate is at 1.8%, above the 1.3% threshold, and needs review before Friday.
+--- reference
+In Rust, std::env::var reads API_KEY from the environment.
+```dyui
+{"ui":"code","code":"use std::env;\n\nfn main() {\n    let key = env::var(\"API_KEY\").unwrap_or_default();\n    println!(\"{key}\");\n}","language":"rust","filename":"main.rs"}
+```
+The churn warning is flagged separately.
+```dyui
+{"ui":"callout","level":"warning","title":"Needs attention","text":"Churn rate is at 1.8%, above the 1.3% threshold. Review it before Friday."}
+```
+The `unwrap_or_default` call returns an empty string when the variable is missing instead of panicking.
+--- derived
+
+
+=== C-0054
+--- user
+Could you tell me how far along we are on CLM-5674? We have completed 9 of 10 steps. Please also provide the next actions I can take on this contract: compare options, learn more, start review and view history.
+--- reference
+CLM-5674 is nearly there.
+```dyui
+{"ui":"progress","value":9,"max":10}
+```
+Four actions are available next.
+```dyui
+{"ui":"buttons","items":[{"label":"Compare options","action":"compare_options","data":{"id":"CLM-5674"},"style":"secondary"},{"label":"Learn more","action":"learn_more","data":{"id":"CLM-5674"},"style":"ghost"},{"label":"Start review","action":"start_review","data":{"id":"CLM-5674"},"style":"primary"},{"label":"View history","action":"view_history","data":{"id":"CLM-5674"},"style":"secondary"}]}
+```
+Only one step remains, so starting the review is the natural next move.
+--- derived
+
+
+=== C-0047
+--- user
+Please list the following as sources for the playlist notes: "Getting started guide" at https://www.example.org/handbook/81, "Roadmap summary" at https://blog.northwind.example.com/case-study, and "Customer case study" at https://media.example.net/guide. I would also appreciate a few suggested follow-up questions.
+--- reference
+Three sources back this up.
+```dyui
+{"ui":"sources","items":[{"title":"Getting started guide","url":"https://www.example.org/handbook/81"},{"title":"Roadmap summary","url":"https://blog.northwind.example.com/case-study"},{"title":"Customer case study","url":"https://media.example.net/guide"}]}
+```
+These are questions you could ask next.
+```dyui
+{"ui":"quick_replies","options":["What changed the most?","Show it as a table","Compare with last month"]}
+```
+Each source links to the original page, and tapping a question sends it to me as your next message.
+--- derived
+
+
+=== C-0072
+--- user
+retention is at 61% (target 63%) for the donor base, can you show that nicely? and make me a line chart of donations this month for Jul–Nov: 60.1, 54.7, 45.5, 43.0, 48.4 (in $k)
+--- reference
+Retention sits just under its target.
+```dyui
+{"ui":"stat","label":"Retention","value":61,"unit":"%","help":"Target 63%"}
+```
+Donations over the same stretch tell a less steady story.
+```dyui
+{"ui":"chart","kind":"line","labels":["Jul","Aug","Sep","Oct","Nov"],"series":[{"name":"Donations this month","data":[60.1,54.7,45.5,43.0,48.4]}],"unit":"$k"}
+```
+Donations dropped from 60.1 in July to a low of 43.0 in October before recovering to 48.4.
+--- derived
+

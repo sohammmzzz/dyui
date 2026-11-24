@@ -1,0 +1,110 @@
+=== A-0199
+--- user
+render these as tags for the shop floor: Featured, Beta, Internal
+--- reference
+Three tags mark the shop-floor items.
+```dyui
+{"ui":"badges","items":[{"label":"Featured"},{"label":"Beta"},{"label":"Internal"}]}
+```
+They appear as a single row of small labels.
+--- derived
+
+=== A-0168
+--- user
+need a plain divider between the two sections, no label
+--- reference
+A plain divider separates the two sections.
+```dyui
+{"ui":"divider"}
+```
+It is an unlabeled line, so it only marks the break.
+--- derived
+
+=== A-0053
+--- user
+Could you display this track record as a readable tree? Artist Vera Vasquez, genre Classical, length 5:12, released Mar 26, and tags vip and eu.
+--- reference
+Vera Vasquez's track record is laid out as a readable tree.
+```dyui
+{"ui":"json","data":{"artist":"Vera Vasquez","genre":"Classical","length":"5:12","released":"Mar 26","tags":["vip","eu"]}}
+```
+The tags are grouped in a list you can expand.
+--- derived
+
+=== A-0174
+--- user
+show this as a proper quote: "It is the first tool our whole team actually opens."
+--- reference
+The line is set as a proper quote.
+```dyui
+{"ui":"quote","text":"It is the first tool our whole team actually opens."}
+```
+It appears without an author or source.
+--- derived
+
+=== A-0151
+--- user
+Please render the raw subscription data so I can expand it. The plan is Business with 144 GB of data, priced at $22, renewing Apr 12, with 4 lines. Title it "Subscription payload".
+--- reference
+The subscription data opens as an expandable tree.
+```dyui
+{"ui":"json","data":{"plan":"Business","data_gb":144,"price":"$22","renews":"Apr 12","lines":4},"title":"Subscription payload"}
+```
+Each field can be inspected individually in the tree.
+--- derived
+
+=== A-0100
+--- user
+Let me listen to the standup recording here: https://files.example.com/audio/security-19.mp3, titled "Standup recording".
+--- reference
+The standup recording is ready to play below.
+```dyui
+{"ui":"audio","src":"https://files.example.com/audio/security-19.mp3","title":"Standup recording"}
+```
+Press play to listen without leaving the channel.
+--- derived
+
+=== A-0257
+--- user
+Before the action items, I would like a labelled divider reading "Next steps" so the itinerary notes above are visually separated from what comes after.
+--- reference
+A labeled divider keeps the notes apart from what follows.
+```dyui
+{"ui":"divider","label":"Next steps"}
+```
+Everything below it reads as the next steps.
+--- derived
+
+=== A-0139
+--- user
+hi, I'd like a quote for the project. I'll give you my company name, email, a budget between 100 and 5000 in steps of 100 (required), and a start date. The button should say Get quote.
+--- reference
+Four fields are enough to request your quote.
+```dyui
+{"ui":"form","fields":[{"name":"company","label":"Company"},{"name":"email","label":"Email","type":"email"},{"name":"budget","label":"Budget ($)","type":"slider","required":true,"min":100,"max":5000,"step":100},{"name":"start_date","label":"Start date","type":"date"}],"submit_label":"Get quote","action":"request_quote"}
+```
+Only the budget is required, and submitting sends the details back to me.
+--- derived
+
+=== A-0296
+--- user
+Please show the "Geocode address" step so I can follow along. It is still pending.
+--- reference
+Geocoding the address is queued but has not started.
+```dyui
+{"ui":"step","title":"Geocode address","status":"pending"}
+```
+It is waiting and has not started yet.
+--- derived
+
+=== A-0201
+--- user
+I just went through the tutorial and I would like to leave a rating for it. Could you provide a way for me to score it?
+--- reference
+Score the tutorial with the control below.
+```dyui
+{"ui":"rating"}
+```
+Choose a score and it comes back to me as your rating.
+--- derived
+

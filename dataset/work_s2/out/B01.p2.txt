@@ -1,0 +1,163 @@
+=== B-0096
+--- user
+Where are we on the Fleet management plan? Inspect the vehicle is finished, Return to the pool is under way, Book the service slot hasn't started, Swap the tyres hit an error, and Road test is under way too. Give me the plan view.
+--- reference
+The fleet management plan has one finished step, two active ones and one error.
+```dyui
+{"ui":"plan","title":"Fleet management plan","items":[{"title":"Inspect the vehicle","status":"done"},{"title":"Return to the pool","status":"active"},{"title":"Book the service slot","status":"pending"},{"title":"Swap the tyres","status":"error"},{"title":"Road test","status":"active"}]}
+```
+Swapping the tyres failed, so that step needs attention before the road test can be trusted.
+--- derived
+
+=== B-0177
+--- user
+Our onboarding checklist stands at 7 out of 10 items completed. How much is left?
+--- reference
+The onboarding checklist is well advanced.
+```dyui
+{"ui":"progress","value":7,"max":10,"label":"Onboarding checklist"}
+```
+Seven of the 10 items are complete, so 3 remain.
+--- derived
+3
+
+=== B-0094
+--- user
+Average review time is sitting at 2.0 days and it keeps going up. Where do we stand?
+--- reference
+Reviews currently take 2.0 days on average.
+```dyui
+{"ui":"stat","label":"Average review time","value":"2.0 days","trend":"up"}
+```
+At 2.0 days and trending upward, it is worth watching.
+--- derived
+
+=== B-0055
+--- user
+Sales by plan, split into self-serve and assisted: Plus 70 self-serve and 36 assisted, Max 26 and 14, Basic 82 and 39. Can you stack them so I see both parts per plan?
+--- reference
+Stacking the two sales types shows each plan's total and its mix.
+```dyui
+{"ui":"chart","kind":"bar","labels":["Plus","Max","Basic"],"series":[{"name":"Self-serve","data":[70,26,82]},{"name":"Assisted","data":[36,14,39]}],"stacked":true}
+```
+Basic has the tallest stack, with 82 self-serve and 39 assisted.
+--- derived
+
+=== B-0066
+--- user
+ARPDAU is $0.27 this month, up 6.5% on last month. give me the headline
+--- reference
+ARPDAU closes the month at $0.27.
+```dyui
+{"ui":"stat","label":"ARPDAU","value":"$0.27","delta":"+6.5% vs last month","trend":"up"}
+```
+Revenue per daily active user rose 6.5% month on month.
+--- derived
+
+=== B-0044
+--- user
+Give me the overview for the building: peak demand 5.1 kW (+17.6%), consumption 410 kWh against a 451 kWh target with no change (0%), solar generation 343 kWh also flat at 0%, and grid carbon at 58%, up 17.1%.
+--- reference
+Four readings summarise the building's energy picture.
+```dyui
+{"ui":"stats","items":[{"label":"Peak demand","value":"5.1 kW","delta":"+17.6%","trend":"up"},{"label":"Consumption","value":"410 kWh","delta":"0%","help":"Target 451 kWh"},{"label":"Solar generation","value":"343 kWh","delta":"0%"},{"label":"Grid carbon","value":"58%","delta":"+17.1%","trend":"up"}]}
+```
+Peak demand and grid carbon both rose, while consumption stays under its 451 kWh target.
+--- derived
+
+=== B-0164
+--- user
+La generación solar de junio fue de 282 kWh, un 4.0% menos que el mes pasado (-4.0% vs last month). ¿Puedes mostrarlo bien, como dato destacado del mes?
+--- reference
+La generación solar de junio se resume en una sola cifra destacada.
+```dyui
+{"ui":"stat","label":"Solar generation · June","value":"282 kWh","delta":"-4.0% vs last month","trend":"down"}
+```
+La producción bajó frente a mayo, aunque el dato no explica el motivo.
+--- derived
+
+=== B-0083
+--- user
+Days booked by mode for this trip: Trains 9, Activities 4, Hotels 20. Who's leading?
+--- reference
+Hotels clearly lead the days booked by mode.
+```dyui
+{"ui":"chart","kind":"bar","labels":["Trains","Activities","Hotels"],"series":[{"name":"Days booked","data":[9,4,20]}],"title":"Days booked by mode"}
+```
+Hotels lead with 20 days booked, followed by trains at 9 and activities at 4.
+--- derived
+
+=== B-0121
+--- user
+we've raised 84720 so far and the goal is 118130. how far along are we?
+--- reference
+The fundraiser has covered a large part of the way to its goal.
+```dyui
+{"ui":"progress","value":84720,"max":118130,"label":"Fundraising goal"}
+```
+You have raised 84720 of the 118130 target.
+--- derived
+
+=== B-0095
+--- user
+Where we are on the vehicle service: Road test, Nov 2, done, Uma Eriksson. Inspect the vehicle, Nov 4, in progress, Dev Weber. Book the service slot, Jun 6, not started, Gabriel Silva. Show me where we are.
+--- reference
+The vehicle service runs in three steps, and the inspection is the live one.
+```dyui
+{"ui":"timeline","items":[{"title":"Road test","time":"Nov 2","status":"done","text":"Owner: Uma Eriksson"},{"title":"Inspect the vehicle","time":"Nov 4","status":"active","text":"Owner: Dev Weber"},{"title":"Book the service slot","time":"Jun 6","status":"pending","text":"Owner: Gabriel Silva"}]}
+```
+Dev Weber's inspection is the step in progress.
+--- derived
+
+=== B-0093
+--- user
+Reading list: 8 of 10 books done. How much is left?
+--- reference
+You are nearly through the reading list.
+```dyui
+{"ui":"progress","value":8,"max":10,"label":"Reading list"}
+```
+You have finished 8 of the 10 books, so 2 are left.
+--- derived
+2
+
+=== B-0178
+--- user
+Claims this week: 181, flat compared with last month (0%), and our target was 158. How are we doing?
+--- reference
+This week's claims total 181.
+```dyui
+{"ui":"stat","label":"Claims this week","value":"181","delta":"0% vs last month","help":"Target 158"}
+```
+Volume is unchanged from last month, though 181 sits above the target of 158.
+--- derived
+
+=== B-0129
+--- user
+reservas de hoje: 19:15 Bruno Moreau, mesa para 2, aniversário; 20:00 Sven Lindqvist, mesa para 3, alergia a frutos secos (Allergy: nuts). quais são?
+--- reference
+Hoje há duas reservas: às 19:15, Bruno Moreau, mesa para 2, com um aniversário, e às 20:00, Sven Lindqvist, mesa para 3, com alergia a frutos secos.
+A reserva das 20:00 pede atenção especial na cozinha por causa da alergia.
+--- derived
+
+=== B-0148
+--- user
+Top dishes this week, dish / sold / margin / station: Grilled sea bass 79, 55, Grill; Charred octopus 88, 56, Pastry; Burrata salad 21, 41, Cold; Tonkotsu ramen 101, 78, Cold; Flan 107, 53, Pastry; Lamb shoulder 70, 58, Pasta. Make it easy to scan.
+--- reference
+Six dishes with four attributes each read best as a table.
+```dyui
+{"ui":"table","columns":["Dish","Sold","Margin","Station"],"rows":[["Grilled sea bass",79,55,"Grill"],["Charred octopus",88,56,"Pastry"],["Burrata salad",21,41,"Cold"],["Tonkotsu ramen",101,78,"Cold"],["Flan",107,53,"Pastry"],["Lamb shoulder",70,58,"Pasta"]],"caption":"Top dishes"}
+```
+Flan sold the most at 107, while Tonkotsu ramen has the best margin at 78.
+--- derived
+
+=== B-0113
+--- user
+Accidents this month: 8, up 4.4% vs last month, target was 9. Can you show that nicely?
+--- reference
+Eight accidents were logged this month.
+```dyui
+{"ui":"stat","label":"Accidents","value":"8","delta":"+4.4% vs last month","trend":"up","help":"Target 9"}
+```
+The count rose 4.4% on last month but is still under the target of 9.
+--- derived

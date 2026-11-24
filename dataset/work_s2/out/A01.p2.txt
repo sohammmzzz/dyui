@@ -1,0 +1,110 @@
+=== A-0128
+--- user
+Would it be possible for me to rate today's support chat?
+--- reference
+Certainly, here is a short rating prompt for today's support chat.
+```dyui
+{"ui":"rating"}
+```
+Your score is sent back to me as soon as you pick one.
+--- derived
+
+=== A-0162
+--- user
+show me the structure of this: venue Rooftop, date Jul 16, doors 18:00, capacity 6283, sold 4267, tags priority and trial
+--- reference
+Here is the event record as a collapsible tree.
+```dyui
+{"ui":"json","data":{"venue":"Rooftop","date":"Jul 16","doors":"18:00","capacity":6283,"sold":4267,"tags":["priority","trial"]}}
+```
+The tags list can be folded away when you only need the venue details.
+--- derived
+
+=== A-0164
+--- user
+Highlight this as a testimonial: "The new dashboard saved me an hour a day."
+--- reference
+Here is the testimonial set apart as a quote.
+```dyui
+{"ui":"quote","text":"The new dashboard saved me an hour a day."}
+```
+It has no attribution yet, so adding a name and role would make it more credible.
+--- derived
+
+=== A-0118
+--- user
+Please display the following quote properly: "Onboarding felt like a conversation, not a manual."
+--- reference
+Here is the quote displayed on its own.
+```dyui
+{"ui":"quote","text":"Onboarding felt like a conversation, not a manual."}
+```
+Adding the customer's name would make it suitable for the app's marketing screens.
+--- derived
+
+=== A-0069
+--- user
+embed this so I can watch it: https://www.youtube.com/watch?v=IAOAFmnxhkt, caption it "The safety briefing", and use https://media.example.net/img/benchmark-25.jpg as the poster
+--- reference
+The safety briefing video is embedded below with its poster image.
+```dyui
+{"ui":"video","src":"https://www.youtube.com/watch?v=IAOAFmnxhkt","poster":"https://media.example.net/img/benchmark-25.jpg","caption":"The safety briefing"}
+```
+Press play to watch it right here in the chat.
+--- derived
+
+=== A-0018
+--- user
+Please make these into pills I can see at a glance: Internal in blue, Overdue in red, Draft in gray, and Featured in the accent color.
+--- reference
+Here are the four labels as colored pills.
+```dyui
+{"ui":"badges","items":[{"label":"Internal","color":"blue"},{"label":"Overdue","color":"red"},{"label":"Draft","color":"gray"},{"label":"Featured","color":"accent"}]}
+```
+Red marks Overdue, so it stands out first when scanning.
+--- derived
+
+=== A-0087
+--- user
+I'd like to put this customer feedback on our landing page, so please show it as a quote: "It is the first tool our whole team actually opens." It came in during last week's maintenance review, and I want it to read as a real endorsement rather than just a line of text.
+--- reference
+Here is the feedback styled as a quote for the landing page.
+```dyui
+{"ui":"quote","text":"It is the first tool our whole team actually opens."}
+```
+Adding the speaker's name and role would make it read as a more credible endorsement.
+--- derived
+
+=== A-0085
+--- user
+I'm out in the field and would like to listen to this recording here rather than download it: https://help.helpwave.example.com/audio/getting-started-28.mp3
+--- reference
+Here is the recording with a player so you can listen right away.
+```dyui
+{"ui":"audio","src":"https://help.helpwave.example.com/audio/getting-started-28.mp3"}
+```
+You can pause and resume it without leaving the chat.
+--- derived
+
+=== A-0142
+--- user
+show the step so i can follow along: Summarise thread, an llm step, still pending, input is 24 messages
+--- reference
+Here is the pending summarisation step.
+```dyui
+{"ui":"step","title":"Summarise thread","status":"pending","type":"llm","input":{"messages":24}}
+```
+It has not started yet, and its input is the 24 messages in the thread.
+--- derived
+
+=== A-0030
+--- user
+Please render these as tags: "Staff pick" in violet and "EU only" in blue.
+--- reference
+Here are the two tags.
+```dyui
+{"ui":"badges","items":[{"label":"Staff pick","color":"violet"},{"label":"EU only","color":"blue"}]}
+```
+The colors make it easy to tell the two labels apart on a candidate listing.
+--- derived
+

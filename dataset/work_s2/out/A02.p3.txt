@@ -1,0 +1,88 @@
+=== A-0237
+--- user
+Please insert a divider labelled Risks before the next part of the summary.
+--- reference
+Here is a separator that opens the risks section.
+```dyui
+{"ui":"divider","label":"Risks"}
+```
+The contract risks can follow directly beneath it.
+--- derived
+
+=== A-0235
+--- user
+lay these six images out together: https://media.example.net/img/annual-review-36.png?v=1, https://assets.lumen.example.io/img/pricing-06.webp?v=2, https://www.example.org/img/handbook-28.png?v=3, https://news.example.com/img/case-study-27.jpg?v=4, https://www.example.org/img/benchmark-16.png?v=5, https://cdn.fernhill.example.com/img/case-study-21.jpg?v=6
+--- reference
+Here are the six images together in one grid.
+```dyui
+{"ui":"gallery","images":[{"src":"https://media.example.net/img/annual-review-36.png?v=1"},{"src":"https://assets.lumen.example.io/img/pricing-06.webp?v=2"},{"src":"https://www.example.org/img/handbook-28.png?v=3"},{"src":"https://news.example.com/img/case-study-27.jpg?v=4"},{"src":"https://www.example.org/img/benchmark-16.png?v=5"},{"src":"https://cdn.fernhill.example.com/img/case-study-21.jpg?v=6"}]}
+```
+They keep the order you sent them in.
+--- derived
+
+=== A-0003
+--- user
+display that quote properly: "I trust the alerts now, and that changed how we work."
+--- reference
+Here is the quote on its own.
+```dyui
+{"ui":"quote","text":"I trust the alerts now, and that changed how we work."}
+```
+Adding who said it would give the line more weight.
+--- derived
+
+=== A-0179
+--- user
+I'd like to show this as a quote on our landing page: "I trust the alerts now, and that changed how we work." It was said by Ivan Moreau, Ops lead, and it comes from our customer survey, so please include both the name and the source.
+--- reference
+Here is the quote with the speaker and the survey source for the landing page.
+```dyui
+{"ui":"quote","text":"I trust the alerts now, and that changed how we work.","author":"Ivan Moreau, Ops lead","source":"Customer survey"}
+```
+Naming the role and the survey makes the endorsement easier to trust.
+--- derived
+
+=== A-0198
+--- user
+highlight it as a testimonial: "Finally, reports that explain themselves."
+--- reference
+Here is the testimonial as a highlighted quote.
+```dyui
+{"ui":"quote","text":"Finally, reports that explain themselves."}
+```
+It is short and punchy, which suits a testimonial strip.
+--- derived
+
+=== A-0146
+--- user
+Could you render the raw data below so that I can expand it? channel: Social, budget: $21,023, start: May 7, tags: vip and audit.
+--- reference
+Here is the raw record as an expandable tree.
+```dyui
+{"ui":"json","data":{"channel":"Social","budget":"$21,023","start":"May 7","tags":["vip","audit"]}}
+```
+Open the tags node to see both labels.
+--- derived
+
+=== A-0244
+--- user
+show the video: https://static.brasa.example.com/video/case-study.mp4 with the poster https://static.brasa.example.com/img/guide-14.jpg, caption "The onboarding walkthrough"
+--- reference
+The onboarding walkthrough is embedded below with its poster image.
+```dyui
+{"ui":"video","src":"https://static.brasa.example.com/video/case-study.mp4","poster":"https://static.brasa.example.com/img/guide-14.jpg","caption":"The onboarding walkthrough"}
+```
+Press play to watch it here.
+--- derived
+
+=== A-0008
+--- user
+Please render the raw claim data below so that I can expand it and title it "Claim payload". Claim CLM-517, type Health, filed May 21, amount $7,745, adjuster Tara Yilmaz, tags trial and vip, meta with version 2 and dry_run false.
+--- reference
+Here is the claim payload as an expandable tree.
+```dyui
+{"ui":"json","data":{"claim":"CLM-517","type":"Health","filed":"May 21","amount":"$7,745","adjuster":"Tara Yilmaz","tags":["trial","vip"],"meta":{"version":2,"dry_run":false}},"title":"Claim payload"}
+```
+The nested meta object and tags can be collapsed when you only need the claim fields.
+--- derived
+

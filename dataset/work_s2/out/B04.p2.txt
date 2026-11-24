@@ -1,0 +1,105 @@
+=== B-0031
+--- user
+what's on for the physio folks today? Dev Okafor at 13:45 in room 5, and Felix Oliveira at 10:00 in room 2
+--- reference
+Felix Oliveira is first, at 10:00 in room 2, and Dev Okafor follows at 13:45 in room 5. Both are down for physio, so the two rooms just need to be ready at those times.
+--- derived
+
+=== B-0046
+--- user
+I have six open tickets and want them readable at a glance. TCK-584, Cannot reset password, Normal priority, Isla Fischer. TCK-550, Change billing email, Low, Carla Ferreira. TCK-354, Invoice shows wrong VAT, High, Yusuf Vasquez. TCK-860, Cannot reset password, Low, Bruno Jensen. TCK-261, Where is my parcel, High, Felix Torres. TCK-841, Refund not received, Urgent, Xavier Singh.
+--- reference
+Six open tickets, each with its priority and the agent who has it.
+```dyui
+{"ui":"table","columns":["ID","Subject","Priority","Agent"],"rows":[["TCK-584","Cannot reset password","Normal","Isla Fischer"],["TCK-550","Change billing email","Low","Carla Ferreira"],["TCK-354","Invoice shows wrong VAT","High","Yusuf Vasquez"],["TCK-860","Cannot reset password","Low","Bruno Jensen"],["TCK-261","Where is my parcel","High","Felix Torres"],["TCK-841","Refund not received","Urgent","Xavier Singh"]]}
+```
+TCK-841 is the only Urgent one, and it is with Xavier Singh.
+--- derived
+
+=== B-0116
+--- user
+I would like the current standing of the study group presented cleanly. Pedro Castillo has 441 points, 8 badges and a 60-day streak. Noor Quispe has 735 points, 6 badges, a streak of 7. Tomas Weber has 966 points, 13 badges, streak 17. Aiden Tanaka has 405 points, 13 badges, streak 29. Noor Silva has 787 points, 6 badges, streak 55. Jamal Oliveira has 650 points, 11 badges, streak 34.
+--- reference
+All six students are ranked side by side below.
+```dyui
+{"ui":"table","columns":["Student","Points","Badges","Streak"],"rows":[["Pedro Castillo",441,8,60],["Noor Quispe",735,6,7],["Tomas Weber",966,13,17],["Aiden Tanaka",405,13,29],["Noor Silva",787,6,55],["Jamal Oliveira",650,11,34]],"caption":"Leaderboard"}
+```
+Tomas Weber leads on points with 966, and Pedro Castillo holds the longest streak at 60.
+--- derived
+
+=== B-0019
+--- user
+Sales by format this month: playlists 1503, podcasts 490, albums 3270, singles 3691. where are they coming from
+--- reference
+Two formats account for most of the units.
+```dyui
+{"ui":"chart","kind":"donut","labels":["Playlists","Podcasts","Albums","Singles"],"series":[{"name":"Units","data":[1503,490,3270,3691]}],"unit":"units"}
+```
+Singles and albums are the two biggest sources, while podcasts contribute the least at 490.
+--- derived
+
+=== B-0072
+--- user
+trip so far: hotel $124 per night (up 10.9%, target $136), 20 days booked (down 14.7%), walking 11.3 km a day (down 16.1%, target 12.4 km), budget $2221 against a target of $2,443. what's the picture?
+--- reference
+Four numbers capture the trip so far.
+```dyui
+{"ui":"stats","items":[{"label":"Hotel per night","value":"$124","delta":"+10.9%","trend":"up","help":"Target $136"},{"label":"Days booked","value":"20","delta":"-14.7%","trend":"down"},{"label":"Walking per day","value":"11.3 km","delta":"-16.1%","trend":"down","help":"Target 12.4 km"},{"label":"Trip budget","value":2221,"unit":"$","help":"Target $2,443"}]}
+```
+Hotel cost is rising while booked days and daily walking are both falling, and the budget is still under its target.
+--- derived
+
+=== B-0167
+--- user
+Active donors by source, online then in person: grants 17587 and 3822, corporate 12451 and 4580, events 7972 and 739, individuals 16850 and 16167. Show how each splits into its two parts.
+--- reference
+Stacking the two parts shows how every source divides between online and in-person donors.
+```dyui
+{"ui":"chart","kind":"bar","labels":["Grants","Corporate","Events","Individuals"],"series":[{"name":"Online","data":[17587,12451,7972,16850]},{"name":"In person","data":[3822,4580,739,16167]}],"title":"Active donors by source","stacked":true}
+```
+Online dominates in every source, but Individuals is the one where in-person donors, at 16167, come close to online.
+--- derived
+
+=== B-0128
+--- user
+event overview: 6 refund requests (up 14.8%), revenue $211.7k vs target $232.9k, check-in wait 10 min (up 8.5%, target 11 min), waitlist 67
+--- reference
+Refunds, revenue, wait and waitlist for the event fit on one line.
+```dyui
+{"ui":"stats","items":[{"label":"Refund requests","value":"6","delta":"+14.8%","trend":"up"},{"label":"Revenue","value":211.7,"unit":"$k","help":"Target $232.9k"},{"label":"Check-in wait","value":"10 min","delta":"+8.5%","help":"Target 11 min"},{"label":"Waitlist","value":"67"}]}
+```
+Revenue is still below its $232.9k target, while the check-in wait is within its 11 min target.
+--- derived
+
+=== B-0009
+--- user
+ok so we've raised 27850 out of 33120 for the fundraising goal. how far along are we?
+--- reference
+You have raised 27850 toward the goal of 33120.
+```dyui
+{"ui":"progress","value":27850,"max":33120,"label":"Fundraising goal"}
+```
+The raised amount is already well past the halfway mark toward 33120.
+--- derived
+
+=== B-0071
+--- user
+Trip budget for July is $1,410. Is that good?
+--- reference
+July's trip budget stands at $1,410.
+```dyui
+{"ui":"stat","label":"Trip budget · July","value":"$1,410"}
+```
+There is no target or earlier figure in what you gave me, so I cannot judge whether $1,410 is good.
+--- derived
+
+=== B-0142
+--- user
+Resumen del turno: ticket promedio $26 (objetivo $29), desperdicio 3.3 kg (+15.3%), rotación de mesa 56 min (-1.3%, objetivo 62 min), costo de comida 31.1%.
+--- reference
+El turno se resume en cuatro cifras, dos de ellas con objetivo.
+```dyui
+{"ui":"stats","items":[{"label":"Ticket promedio","value":26,"unit":"$","help":"Objetivo $29"},{"label":"Desperdicio","value":"3.3 kg","delta":"+15.3%"},{"label":"Rotación de mesa","value":"56 min","delta":"-1.3%","trend":"down","help":"Objetivo 62 min"},{"label":"Costo de comida","value":"31.1%"}]}
+```
+El ticket promedio sigue por debajo del objetivo de $29 y el desperdicio subió 15.3%.
+--- derived

@@ -1,0 +1,110 @@
+=== F-0058
+--- user
+sort it by Counterparty instead, Z to A
+--- reference
+Here are the contracts sorted by counterparty, Z to A.
+```dyui
+{"ui":"table","columns":["Counterparty","Type","Value","Expires"],"rows":[["Soylent","NDA","$183,229","Dec 27"],["Northwind","SOW","$42,861","Sep 19"],["Initech","DPA","$426,144","Oct 8"],["Hooli","DPA","$58,469","May 15"],["Globex","MSA","$54,968","Jun 9"],["Acme","SOW","$373,116","Aug 26"]],"caption":"Contracts"}
+```
+Only the order changed, not the contents of any row.
+--- derived
+
+=== F-0053
+--- user
+add a column called Flag, per row in order: APAC, US, EU, review, review, ok
+--- reference
+Here is the interview schedule with the Flag column added.
+```dyui
+{"ui":"table","columns":["Day","Candidate","Panel","Time","Flag"],"rows":[["Thu","Olga Jensen","Hiring manager","16:15","APAC"],["Fri","Carla Castillo","Tech","16:15","US"],["Mon","Aiden Lindqvist","Culture","14:00","EU"],["Wed","Sofia Rossi","Culture","10:00","review"],["Tue","Hugo Quispe","Hiring manager","14:00","review"],["Wed","Kofi Castillo","Culture","16:15","ok"]]}
+```
+The original four columns are untouched.
+--- derived
+
+=== F-0068
+--- user
+drop the Meridian Fund row
+--- reference
+Here are the grants without the Meridian Fund row.
+```dyui
+{"ui":"table","columns":["Funder","Amount","Deadline","Status"],"rows":[["City Arts Board","$142,126","May 24","Awarded"],["Sunrise Foundation","$95,179","Jun 8","Awarded"],["Lakeshore Trust","$183,829","Nov 16","Awarded"],["Sunrise Foundation","$98,302","Jul 20","Submitted"]],"caption":"Grants"}
+```
+The other four grants are exactly as before.
+--- derived
+
+=== F-0051
+--- user
+Could you put the labels and the chart title into French? The numbers stay as they are.
+--- reference
+Here is the chart with its labels and title in French.
+```dyui
+{"ui":"chart","kind":"area","labels":["mai","juin","juil.","août","sept.","oct.","nov."],"series":[{"name":"Carbone du réseau","data":[43,46,51,53,57,61,66]}],"title":"Carbone du réseau, mai–nov","unit":"%"}
+```
+The values are the same, still rising from 43 to 66.
+--- derived
+
+=== F-0015
+--- user
+translate the labels and title into Spanish, numbers the same
+--- reference
+Here is the chart with its labels and title in Spanish.
+```dyui
+{"ui":"chart","kind":"line","labels":["may","jun","jul","ago","sep","oct","nov"],"series":[{"name":"Demanda pico","data":[7.1,6.6,7.0,7.1,6.7,6.4,6.0]}],"title":"Demanda pico, may–nov","unit":"kW"}
+```
+The values are unchanged, with peak demand still falling from 7.1 to 6.0.
+--- derived
+
+=== F-0083
+--- user
+Add one more stat to that overview, please: Monthly listeners 1,849,999.
+--- reference
+Here are the figures with Monthly listeners added.
+```dyui
+{"ui":"stats","items":[{"label":"Streams","value":"21,117,045"},{"label":"Royalties","value":"$60.8k"},{"label":"Skip rate","value":"17%"},{"label":"Monthly listeners","value":"1,849,999"}]}
+```
+The earlier three values are unchanged.
+--- derived
+
+=== F-0100
+--- user
+make it shorter, just show the last 3 points
+--- reference
+Here is the chart limited to the last three formats.
+```dyui
+{"ui":"chart","kind":"bar","labels":["Podcasts","Playlists","Singles"],"series":[{"name":"Online","data":[7151083,19070318,755875]},{"name":"In person","data":[34115324,35524419,17441710]}],"title":"Streams by format","stacked":true}
+```
+It is still stacked, with Albums removed.
+--- derived
+
+=== F-0061
+--- user
+Switch it to a line chart and add January at 62480, please.
+--- reference
+Here is the line chart with January added.
+```dyui
+{"ui":"chart","kind":"line","labels":["Aug","Sep","Oct","Nov","Dec","Jan"],"series":[{"name":"Podcast downloads","data":[79998,75183,68095,63352,57851,62480]}],"title":"Podcast downloads, Aug–Dec"}
+```
+January at 62480 is the first rise after four months of decline, up from 57851 in December.
+--- derived
+
+=== F-0080
+--- user
+Please remove the row for TCK-951 from that table.
+--- reference
+Here are the open tickets without TCK-951.
+```dyui
+{"ui":"table","columns":["ID","Subject","Priority","Agent"],"rows":[["TCK-189","Change billing email","High","Tara Yilmaz"],["TCK-733","Refund not received","Normal","Carla Costa"],["TCK-347","App crashes on launch","Low","Isla Costa"],["TCK-507","Refund not received","Low","Ben Nakamura"],["TCK-384","Where is my parcel","Normal","Xavier Castillo"]],"caption":"Open tickets"}
+```
+The remaining five tickets are unchanged and in the same order.
+--- derived
+
+=== F-0078
+--- user
+Could you show the streak per student as a bar chart instead of the table?
+--- reference
+Here is the streak for each student as a bar chart.
+```dyui
+{"ui":"chart","kind":"bar","labels":["Vera Quispe","Aiden Novak","Tara Sato","Viktor Weber","Zainab Ibrahim","Liam Mendes","Sven Sato"],"series":[{"name":"Streak","data":[39,30,40,40,39,5,14]}],"title":"Streak per student"}
+```
+Tara Sato and Viktor Weber share the longest streak at 40.
+--- derived
+

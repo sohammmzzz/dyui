@@ -1,0 +1,110 @@
+=== A-0245
+--- user
+I would like to listen to this recording here, please: https://blog.northwind.example.com/audio/annual-review-10.mp3
+--- reference
+Here is the recording with a built-in player.
+```dyui
+{"ui":"audio","src":"https://blog.northwind.example.com/audio/annual-review-10.mp3"}
+```
+You can start, pause and resume it without leaving the conversation.
+--- derived
+
+=== A-0140
+--- user
+put a divider in there that says Risks
+--- reference
+Here is the divider with the Risks label.
+```dyui
+{"ui":"divider","label":"Risks"}
+```
+Whatever follows will read as a separate section.
+--- derived
+
+=== A-0095
+--- user
+I want to leave a rating for that tutorial, and I'd like the prompt to say "Your feedback".
+--- reference
+Here is a rating prompt for the tutorial.
+```dyui
+{"ui":"rating","label":"Your feedback"}
+```
+Select a score and it comes back to me.
+--- derived
+
+=== A-0099
+--- user
+Please display all of these in a grid. Image 1: https://news.example.com/img/overview-05.png?v=1 (alt: A team offsite on the beach, caption: Close-up). Image 2: https://cdn.fernhill.example.com/img/roadmap-02.webp?v=2 (alt: The old tram climbing Rua da Bica, caption: Detail). Image 3: https://static.brasa.example.com/img/faq-35.webp?v=3 (alt: The harvest at dawn, caption: Before). Image 4: https://news.example.com/img/benchmark-14.png?v=4 (alt: The harvest at dawn, caption: Before). Image 5: https://cdn.fernhill.example.com/img/handbook-40.png?v=5 (alt: The product on a white background, caption: Final). Image 6: https://assets.lumen.example.io/img/faq-14.webp?v=6 (alt: The stage before doors opened, caption: Wide shot).
+--- reference
+Here are the six images in a grid with their captions.
+```dyui
+{"ui":"gallery","images":[{"src":"https://news.example.com/img/overview-05.png?v=1","alt":"A team offsite on the beach","caption":"Close-up"},{"src":"https://cdn.fernhill.example.com/img/roadmap-02.webp?v=2","alt":"The old tram climbing Rua da Bica","caption":"Detail"},{"src":"https://static.brasa.example.com/img/faq-35.webp?v=3","alt":"The harvest at dawn","caption":"Before"},{"src":"https://news.example.com/img/benchmark-14.png?v=4","alt":"The harvest at dawn","caption":"Before"},{"src":"https://cdn.fernhill.example.com/img/handbook-40.png?v=5","alt":"The product on a white background","caption":"Final"},{"src":"https://assets.lumen.example.io/img/faq-14.webp?v=6","alt":"The stage before doors opened","caption":"Wide shot"}]}
+```
+They keep the order you listed, and each one carries its description for accessibility.
+--- derived
+
+=== A-0234
+--- user
+can you share this as a file? audit-report.pdf, a PDF of 3558384 bytes, at https://docs.acme-cloud.example.com/files/audit-report.pdf
+--- reference
+Here is the audit report ready to download.
+```dyui
+{"ui":"file","name":"audit-report.pdf","url":"https://docs.acme-cloud.example.com/files/audit-report.pdf","size":3558384,"type":"application/pdf"}
+```
+The PDF is shown with its size so the traveller knows what to expect before downloading.
+--- derived
+
+=== A-0166
+--- user
+Please show the step so I can follow along. It was the "Search flights" step, a search going from LIS to MAD, and it failed with a timeout after 3876 ms. I want to see what input it had and what error came back, because I'd like to decide whether to rerun it.
+--- reference
+Here is the failed flight search step with its input and error.
+```dyui
+{"ui":"step","title":"Search flights","status":"error","type":"search","input":{"from":"LIS","to":"MAD"},"output":{"error":"timeout"},"duration_ms":3876}
+```
+The search for LIS to MAD timed out after 3876 ms, so no results were returned.
+--- derived
+
+=== A-0170
+--- user
+player for https://static.brasa.example.com/audio/handbook-19.mp3, title "Episode recap"
+--- reference
+Here is the player for the episode recap.
+```dyui
+{"ui":"audio","src":"https://static.brasa.example.com/audio/handbook-19.mp3","title":"Episode recap"}
+```
+Press play to listen.
+--- derived
+
+=== A-0214
+--- user
+Escreva isto como uma mensagem para o cliente, por favor. A sincronização noturna falhou depois de 2 tentativas, por isso o indicador Monthly listeners não pôde ser lido. Quero que a mensagem seja clara e destacada como um erro.
+--- reference
+Aqui está a mensagem para o cliente, destacada como erro.
+```dyui
+{"ui":"callout","level":"error","text":"A sincronização noturna falhou após 2 tentativas, por isso não foi possível ler Monthly listeners."}
+```
+A mensagem indica a causa e o indicador afetado, sem acrescentar suposições.
+--- derived
+
+=== A-0232
+--- user
+I would like to listen here, please: https://assets.lumen.example.io/audio/release-notes-30.mp3
+--- reference
+Here is the audio player for the release notes.
+```dyui
+{"ui":"audio","src":"https://assets.lumen.example.io/audio/release-notes-30.mp3"}
+```
+You can play it directly in the chat.
+--- derived
+
+=== A-0286
+--- user
+Book the 11:45 flight for $177. It's TP530.
+--- reference
+Booking charges your card, so I need your confirmation first.
+```dyui
+{"ui":"confirm","title":"Book the 11:45 flight for $177?","text":"Your card will be charged when you confirm.","confirm_label":"Book flight","cancel_label":"Go back","action":"book_flight","data":{"flight":"TP530"}}
+```
+Nothing is booked until you confirm.
+--- derived
+

@@ -1,0 +1,92 @@
+=== A-0007
+--- user
+For the trip-planning labels, please render these as tags: Premium in violet, Internal in blue, Blocked in red, and Beta in amber.
+--- reference
+Four tags carry the colors you picked.
+```dyui
+{"ui":"badges","items":[{"label":"Premium","color":"violet"},{"label":"Internal","color":"blue"},{"label":"Blocked","color":"red"},{"label":"Beta","color":"amber"}]}
+```
+The red Blocked tag is the one that stands out most.
+--- derived
+
+=== A-0299
+--- user
+Could you offer me a couple of follow-up questions I might ask next? Something like "Forecast next month" and "Show the top 3".
+--- reference
+Two possible next questions are ready to tap.
+```dyui
+{"ui":"quick_replies","options":["Forecast next month","Show the top 3"]}
+```
+Tapping one sends it to me as your next message.
+--- derived
+
+=== A-0295
+--- user
+short FAQ pls, 3 questions: can I change my plan later (yes, upgrades apply immediately; downgrades start at the next billing date), how do I reset my password (use **Forgot password** on the sign-in page and follow the emailed link), where is data stored (in the region picked at signup, encrypted at rest)
+--- reference
+Three common questions are answered in the FAQ below.
+```dyui
+{"ui":"accordion","items":[{"title":"Can I change my plan later?","children":[{"ui":"markdown","text":"Yes. Upgrades apply immediately; downgrades start at the next billing date."}]},{"title":"How do I reset my password?","children":[{"ui":"markdown","text":"Use **Forgot password** on the sign-in page and follow the emailed link."}]},{"title":"Where is my data stored?","children":[{"ui":"markdown","text":"Data lives in the region you pick at signup and is encrypted at rest."}]}]}
+```
+Each answer stays collapsed until it is opened.
+--- derived
+
+=== A-0096
+--- user
+Vorrei che questo link avesse un aspetto più curato: https://help.helpwave.example.com/release-notes/39. Il titolo è "Security overview", la descrizione "A look at the changes behind the speedup.", l'immagine è https://cdn.fernhill.example.com/img/overview-12.jpg e il sito è help.helpwave.example.com. Puoi mostrarlo come anteprima?
+--- reference
+Ecco il link come anteprima con titolo, descrizione e immagine.
+```dyui
+{"ui":"link_preview","url":"https://help.helpwave.example.com/release-notes/39","title":"Security overview","description":"A look at the changes behind the speedup.","image":"https://cdn.fernhill.example.com/img/overview-12.jpg","site":"help.helpwave.example.com"}
+```
+La scheda mostra anche il sito di origine, così si capisce subito dove porta il link.
+--- derived
+
+=== A-0086
+--- user
+Bitte zeigen Sie mir diese vier Bilder als Galerie:
+https://cdn.fernhill.example.com/img/pricing-30.png?v=1
+https://blog.northwind.example.com/img/pricing-38.jpg?v=2
+https://media.example.net/img/annual-review-25.jpg?v=3
+https://static.brasa.example.com/img/security-22.webp?v=4
+--- reference
+Alle vier Bilder stehen unten gemeinsam in einer Galerie.
+```dyui
+{"ui":"gallery","images":[{"src":"https://cdn.fernhill.example.com/img/pricing-30.png?v=1"},{"src":"https://blog.northwind.example.com/img/pricing-38.jpg?v=2"},{"src":"https://media.example.net/img/annual-review-25.jpg?v=3"},{"src":"https://static.brasa.example.com/img/security-22.webp?v=4"}]}
+```
+Die Bilder erscheinen in der Reihenfolge, in der Sie sie genannt haben.
+--- derived
+
+=== A-0012
+--- user
+Pouvez-vous mettre en forme cette citation correctement ? « Support answered before I finished my coffee. » C'est de Ivan Lindqvist, Product manager, publiée sur le forum de la communauté (Community forum post).
+--- reference
+Voici la citation avec son auteur et sa provenance.
+```dyui
+{"ui":"quote","text":"Support answered before I finished my coffee.","author":"Ivan Lindqvist, Product manager","source":"Community forum post"}
+```
+L'attribution indique à la fois la personne et le message du forum d'où elle provient.
+--- derived
+
+=== A-0163
+--- user
+embed this so I can watch: https://www.youtube.com/watch?v=D1SXiYPnL2K
+--- reference
+Press play on the embedded video below.
+```dyui
+{"ui":"video","src":"https://www.youtube.com/watch?v=D1SXiYPnL2K"}
+```
+It plays directly in the chat.
+--- derived
+
+=== A-0280
+--- user
+I'd like three status labels shown as pills that I can take in at a glance: Stable in green, Internal in blue, and Unassigned in gray. They are for the team directory.
+--- reference
+The three statuses appear as pills, each in its own color.
+```dyui
+{"ui":"badges","items":[{"label":"Stable","color":"green"},{"label":"Internal","color":"blue"},{"label":"Unassigned","color":"gray"}]}
+```
+Green marks the stable item, and gray makes the unassigned one easy to spot.
+--- derived
+

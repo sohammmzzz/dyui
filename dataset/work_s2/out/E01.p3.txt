@@ -1,0 +1,71 @@
+=== E-0040
+--- reference
+Opening the dashboard for CLM-4088 has to happen in your own app, because I cannot render it inside this chat. If you paste the figures you see there, I can summarise them or turn them into a chart, and the history of the claim is one button away if you want to look back first.
+--- derived
+
+
+=== E-0038
+--- reference
+Your support request is filed with these details.
+```dyui
+{"ui":"keyvalue","items":[{"key":"Email","value":"kofi@northwind.example"},{"key":"Priority","value":"Normal"},{"key":"What happened?","value":"Please call before arriving."},{"key":"Available days","value":"Fri"},{"key":"Send me updates","value":false}]}
+```
+Friday is the only day on record for contact, and no update emails will be sent.
+--- derived
+
+
+=== E-0015
+--- reference
+Biology and History together make an interesting pairing, since both lean on evidence and long timelines. Tell me whether you want to start from the basics or from a specific question in either subject, and I will lay out a first step for each.
+--- derived
+
+
+=== E-0051
+--- reference
+Telegram is not among the report sections on offer, which are Summary, Charts, Raw tables and Recommendations, so nothing has been selected yet. Pick at least one of those four, or explain what Telegram should do in the report, and I will build it.
+--- derived
+
+
+=== E-0132
+--- reference
+A table would only have a single row right now: units produced, 10648 this month. Send me earlier months or other production lines and I will lay them out as a proper comparison table.
+--- derived
+
+
+=== E-0112
+--- reference
+Your request for a summary of CLM-7144 is noted, but I do not have a document for it in this conversation. If you paste the claim details, I will write the summary myself and you can copy it from the chat.
+--- derived
+
+
+=== E-0090
+--- user
+actually, can you just tell me what "budget variance" means? my partner keeps using the term for the $989
+--- reference
+Budget variance is the gap between what you planned to spend and what you actually spent, and it is usually reported as a positive or negative amount. Measured against the $989 trip budget, it tells you whether the month ended over or under plan. I would need your actual spending to put a number on it.
+--- derived
+
+
+=== E-0105
+--- reference
+Telegram was not in the list I offered, which covers Slack, Google Sheets, Zapier and Webhooks, so I have not switched anything on. Choose from those four, or tell me what you want Telegram to do and I will say how close a webhook could get.
+--- derived
+
+
+=== E-0134
+--- reference
+The reservation request is logged with the following details.
+```dyui
+{"ui":"keyvalue","items":[{"key":"Full name","value":"ORD-1042"},{"key":"Quantity","value":1},{"key":"Preferred time","value":"14:30"},{"key":"Contact method","value":"Email"},{"key":"Anything we should know?","value":"Please call before arriving."}]}
+```
+The note asks for a phone call, although the contact method on file is Email.
+--- derived
+
+
+=== E-0089
+--- user
+thanks, skip that. unrelated: how do I explain a demand charge to tenants without their eyes glazing over?
+--- reference
+Tell them a demand charge is based on the single highest burst of power the building used in a billing period, not on the total energy consumed. A useful comparison is a phone plan that bills for peak speed rather than data used. One tenant switching on every appliance at once can raise the charge for the whole building.
+--- derived
+

@@ -1,0 +1,124 @@
+=== A-0057
+--- user
+embed this so I can watch: https://www.youtube.com/watch?v=N1GQsDCf9hk
+--- reference
+Watch the video right here, embedded below.
+```dyui
+{"ui":"video","src":"https://www.youtube.com/watch?v=N1GQsDCf9hk"}
+```
+It plays directly in the chat.
+--- derived
+
+=== A-0059
+--- user
+I'd like a rich preview card for this link, please, so it is easy to recognise in the channel: https://files.example.com/annual-review
+--- reference
+The annual review link turns into a preview card.
+```dyui
+{"ui":"link_preview","url":"https://files.example.com/annual-review"}
+```
+The card opens the annual review page when selected.
+--- derived
+
+=== A-0062
+--- user
+let me download it: price-list.csv, 43.3 MB, CSV, https://files.example.com/files/price-list.csv
+--- reference
+The price list is ready to download as a CSV.
+```dyui
+{"ui":"file","name":"price-list.csv","url":"https://files.example.com/files/price-list.csv","size":"43.3 MB","type":"text/csv"}
+```
+At 43.3 MB it is a fairly large CSV, so allow a moment to download.
+--- derived
+
+=== A-0073
+--- user
+I would like to listen to the demo track here. It is at https://help.helpwave.example.com/audio/guide-20.mp3 and should be titled "Demo track".
+--- reference
+Listen to the demo track right here.
+```dyui
+{"ui":"audio","src":"https://help.helpwave.example.com/audio/guide-20.mp3","title":"Demo track"}
+```
+Press play to listen without leaving the chat.
+--- derived
+
+=== A-0152
+--- user
+dame una lista fácil de revisar de estos hoteles, con ciudad, precio y foto: Hotel Avenida, Porto, $118/night, https://static.brasa.example.com/img/benchmark-30.png; Quinta Verde, Sintra, $164/night, https://docs.acme-cloud.example.com/img/handbook-07.webp; Praça Suites, Lisbon, $187/night, https://files.example.com/img/pricing-40.jpg; Mar & Sol, Valencia, $96/night, https://www.example.org/img/roadmap-37.jpg. Que al pulsar uno se elija ese hotel.
+--- reference
+Aquí tienes los cuatro hoteles en una lista fácil de revisar.
+```dyui
+{"ui":"list","items":[{"title":"Hotel Avenida","subtitle":"Porto","meta":"$118/night","image":"https://static.brasa.example.com/img/benchmark-30.png","action":"pick_hotel","data":{"hotel":"Hotel Avenida"}},{"title":"Quinta Verde","subtitle":"Sintra","meta":"$164/night","image":"https://docs.acme-cloud.example.com/img/handbook-07.webp","action":"pick_hotel","data":{"hotel":"Quinta Verde"}},{"title":"Praça Suites","subtitle":"Lisbon","meta":"$187/night","image":"https://files.example.com/img/pricing-40.jpg","action":"pick_hotel","data":{"hotel":"Praça Suites"}},{"title":"Mar & Sol","subtitle":"Valencia","meta":"$96/night","image":"https://www.example.org/img/roadmap-37.jpg","action":"pick_hotel","data":{"hotel":"Mar & Sol"}}]}
+```
+Al pulsar una fila, me llega la elección de ese hotel.
+--- derived
+
+=== A-0102
+--- user
+Could you display this meter record as a readable tree? Meter ID MTR-546, tariff Green, last reading 92875, read on Apr 17, tags trial and priority, and meta with version 9 and dry_run false.
+--- reference
+The meter record opens as a readable tree.
+```dyui
+{"ui":"json","data":{"meter_id":"MTR-546","tariff":"Green","last_reading":92875,"read_on":"Apr 17","tags":["trial","priority"],"meta":{"version":9,"dry_run":false}}}
+```
+Expand the meta node to see the version and dry-run flag.
+--- derived
+
+=== A-0282
+--- user
+Put these three numbers in a grid for the incident review: MTTR is 116 min, uptime is 99.44%, and the error rate is 1.86%. One column is fine, I just want them stacked neatly.
+--- reference
+MTTR, uptime and error rate are stacked neatly in one column.
+```dyui
+{"ui":"grid","columns":1,"children":[{"ui":"stat","label":"MTTR","value":"116 min"},{"ui":"stat","label":"Uptime","value":"99.44%"},{"ui":"stat","label":"Error rate","value":"1.86%"}]}
+```
+Uptime is at 99.44% with an error rate of 1.86%.
+--- derived
+
+=== A-0055
+--- user
+Please show these three images as a gallery with their captions and descriptions:
+https://help.helpwave.example.com/img/overview-03.webp?v=1 (The stage before doors opened, "Wide shot")
+https://cdn.fernhill.example.com/img/benchmark-18.png?v=2 (The trail marker at the summit, "After")
+https://files.example.com/img/guide-25.jpg?v=3 (The finished kitchen, "After")
+--- reference
+Your three images are gathered in one gallery.
+```dyui
+{"ui":"gallery","images":[{"src":"https://help.helpwave.example.com/img/overview-03.webp?v=1","alt":"The stage before doors opened","caption":"Wide shot"},{"src":"https://cdn.fernhill.example.com/img/benchmark-18.png?v=2","alt":"The trail marker at the summit","caption":"After"},{"src":"https://files.example.com/img/guide-25.jpg?v=3","alt":"The finished kitchen","caption":"After"}]}
+```
+Each image keeps its caption and description.
+--- derived
+
+=== A-0250
+--- user
+I would like to give feedback on this answer with a simple thumbs up or thumbs down, and have it recorded under the action rate_tutorial.
+--- reference
+A thumbs control is ready for your feedback.
+```dyui
+{"ui":"rating","style":"thumbs","action":"rate_tutorial"}
+```
+A thumbs up comes back to me as 1 and a thumbs down as -1.
+--- derived
+
+=== A-0229
+--- user
+can you show this as a readable tree? plan Pro, 198 seats, renewal Aug 11, tags beta and trial, meta: version 5, dry_run false. title it "Account payload"
+--- reference
+The account data is grouped by nesting in a readable tree.
+```dyui
+{"ui":"json","data":{"plan":"Pro","seats":198,"renewal":"Aug 11","tags":["beta","trial"],"meta":{"version":5,"dry_run":false}},"title":"Account payload"}
+```
+Each nested group can be collapsed or expanded.
+--- derived
+
+=== A-0243
+--- user
+show it in the trace: the "Query orders" step is running right now, it's an sql step with input table orders and window 7d
+--- reference
+The order query is still running.
+```dyui
+{"ui":"step","title":"Query orders","status":"running","type":"sql","input":{"table":"orders","window":"7d"}}
+```
+It is still running, so there is no output yet.
+--- derived
+

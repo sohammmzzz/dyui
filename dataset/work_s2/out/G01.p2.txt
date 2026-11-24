@@ -1,0 +1,122 @@
+=== G-0041
+--- user
+I'm reviewing the contract register ahead of a meeting. Could you retrieve the contracts, especially the ones with Hooli, Initech and Soylent?
+--- reference
+Five contracts came back, and the three counterparties you named are all among them.
+```dyui
+{"ui":"table","columns":["Counterparty","Type","Value","Expires"],"rows":[["Hooli","NDA","$439,539","Jul 22"],["Initech","NDA","$274,696","Apr 21"],["Soylent","DPA","$400,541","Dec 8"],["Northwind","SOW","$106,021","Sep 19"],["Acme","NDA","$348,576","Apr 6"]]}
+```
+Acme's NDA expires first on Apr 6, with Initech's following on Apr 21.
+--- derived
+
+
+=== G-0072
+--- user
+Our support queue is a mess. Can you list the open tickets, up to 50? I have to follow TCK-156 and TCK-464 in particular.
+--- reference
+There are 45 open tickets in total, so the table covers only the first 10, which include TCK-156 and TCK-464.
+```dyui
+{"ui":"table","columns":["ID","Subject","Priority","Agent"],"rows":[["TCK-156","App crashes on launch","Normal","Ana Singh"],["TCK-464","Invoice shows wrong VAT","Low","Ana Ferreira"],["TCK-405","App crashes on launch","Low","Kofi Vasquez"],["TCK-532","App crashes on launch","Urgent","Wen Garcia"],["TCK-471","Cannot reset password","Normal","Dmitri Rahman"],["TCK-101","App crashes on launch","Urgent","Sven Reyes"],["TCK-176","App crashes on launch","High","Zainab Park"],["TCK-231","Invoice shows wrong VAT","Urgent","Gabriel Larsen"],["TCK-896","App crashes on launch","High","Zoe Ueda"],["TCK-752","Invoice shows wrong VAT","Urgent","Xavier Dubois"]]}
+```
+Four of these ten are Urgent: TCK-532, TCK-101, TCK-231 and TCK-752.
+--- derived
+10, 4
+
+
+=== G-0014
+--- user
+what do we have on listing X-806? i think it's the detached 1-bed at 7 Harbour Row
+--- reference
+Listing X-806 is indeed 7 Harbour Row, a detached one-bedroom.
+```dyui
+{"ui":"keyvalue","items":[{"key":"Address","value":"7 Harbour Row"},{"key":"Type","value":"Detached"},{"key":"Beds","value":1},{"key":"Area m2","value":116},{"key":"Price","value":"$354"},{"key":"Status","value":"New"}]}
+```
+It is marked New, so it has only just been listed.
+--- derived
+
+
+=== G-0078
+--- user
+Which team owns service X-677? I believe it's the Go one under Platform, and Omar Fischer should be on call.
+--- reference
+You were right on all counts: X-677 belongs to Platform, runs on Go, and Omar Fischer is on call.
+```dyui
+{"ui":"keyvalue","items":[{"key":"Owner","value":"Platform"},{"key":"Language","value":"Go"},{"key":"On call","value":"Omar Fischer"},{"key":"Last deploy","value":"Jun 12"},{"key":"SLO","value":"99.95%"}]}
+```
+The last deploy was on Jun 12 against a 99.95% SLO.
+--- derived
+
+
+=== G-0066
+--- user
+hey, can you grab the donor list? mostly curious about Mia Fischer, Ben Weber and Bruno Bergstrom
+--- reference
+Four donors came back, and your three are among them.
+```dyui
+{"ui":"table","columns":["Donor","Last gift","Gifts","Segment"],"rows":[["Mia Fischer","$3,545",38,"Mid-level"],["Ben Weber","$4,521",14,"Mid-level"],["Bruno Bergstrom","$4,266",40,"Major"],["Aiden Oliveira","$2,136",34,"Monthly"]]}
+```
+Bruno Bergstrom is the only Major donor and has given the most often at 40 gifts.
+--- derived
+
+
+=== G-0061
+--- user
+Would you please retrieve my workout log? I would like to review the past few sessions.
+--- reference
+The workout log did not load this time.
+```dyui
+{"ui":"callout","level":"error","title":"Workout log unavailable","text":"The request failed with status 504: too many requests, retry after 30 seconds."}
+```
+Ask again once the 30 seconds have passed and the log should be retrievable.
+--- derived
+
+
+=== G-0085
+--- user
+grants list
+--- reference
+Nothing came back for the grants request.
+```dyui
+{"ui":"callout","level":"error","title":"Grants service unavailable","text":"The request returned status 403 and the message: the service is temporarily unavailable."}
+```
+There are no grant records to report until the service responds.
+--- derived
+
+
+=== G-0075
+--- user
+Could you list the policies that are expiring, up to 50? Please keep an eye out for POL-591 and POL-137.
+--- reference
+Of the 45 expiring policies, the first 10 are tabulated below, with POL-591 and POL-137 at the top.
+```dyui
+{"ui":"table","columns":["Policy","Holder","Type","Expires","Premium"],"rows":[["POL-591","Zoe Kowalski","Auto","Jun 9","$471"],["POL-137","Wen Dubois","Pet","May 21","$1,113"],["POL-326","Quinn Reyes","Pet","Sep 16","$1,198"],["POL-792","Pedro Tanaka","Pet","Jun 21","$1,759"],["POL-521","Lena Haddad","Auto","Aug 11","$1,141"],["POL-117","Chloe Rahman","Auto","Sep 14","$209"],["POL-500","Priya Reyes","Auto","Sep 26","$1,379"],["POL-186","Zainab Kowalski","Pet","Dec 4","$544"],["POL-140","Kofi Ueda","Travel","Jul 7","$1,837"],["POL-986","Dmitri Singh","Travel","Apr 22","$2,380"]]}
+```
+POL-986 carries the largest premium in this group at $2,380, and it expires on Apr 22.
+--- derived
+10
+
+
+=== G-0019
+--- user
+We need to triage the bug backlog before the release. Show me up to 50 bugs; BUG-325 and BUG-538 are the ones I was asked about.
+--- reference
+The backlog holds 38 bugs, and the 10 below are the first ones returned, including BUG-325 and BUG-538.
+```dyui
+{"ui":"table","columns":["ID","Title","Severity","Owner"],"rows":[["BUG-325","Daily reward not granted","Critical","Hugo Jensen"],["BUG-538","Audio cuts out","Minor","Quinn Fischer"],["BUG-503","Inventory duplicates","Major","Ben Moreau"],["BUG-543","Inventory duplicates","Major","Viktor Rahman"],["BUG-355","Audio cuts out","Critical","Pedro Silva"],["BUG-181","Audio cuts out","Minor","Elena Silva"],["BUG-823","Daily reward not granted","Major","Katya Reyes"],["BUG-849","Audio cuts out","Major","Xavier Reyes"],["BUG-738","Lag on arena map","Major","Isla Nguyen"],["BUG-896","Audio cuts out","Critical","Tomas Oliveira"]]}
+```
+Three of them are Critical, so BUG-325, BUG-355 and BUG-896 are the ones to look at first.
+--- derived
+10, 3
+
+
+=== G-0114
+--- user
+How are our top dishes doing tonight? I'm watching Burrata salad, Tonkotsu ramen and Charred octopus.
+--- reference
+Charred octopus is leading tonight at 156 sold, ahead of Tonkotsu ramen at 124 and Burrata salad at 100.
+```dyui
+{"ui":"table","columns":["Dish","Sold","Margin","Station"],"rows":[["Burrata salad",100,45,"Grill"],["Tonkotsu ramen",124,75,"Cold"],["Charred octopus",156,43,"Grill"],["Grilled sea bass",90,78,"Pastry"],["Mushroom risotto",95,66,"Pasta"]]}
+```
+Grilled sea bass sells the least but carries the best margin at 78.
+--- derived
+

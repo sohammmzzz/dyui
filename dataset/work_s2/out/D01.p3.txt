@@ -1,0 +1,119 @@
+=== D-0085
+--- user
+For the event page I need a scroll-sideways row with a sources slide and a note. Sources: Roadmap summary https://media.example.net/getting-started ("Has the latest figures."), Release notes https://media.example.net/roadmap ("Walks through the setup."), Annual review https://blog.northwind.example.com/pricing/5 ("Covers the main changes."). The note says the waitlist is recalculated every 8 hours, so today's figure is provisional.
+--- reference
+Three citations and a caveat about the waitlist share one scrolling row.
+```dyui
+{"ui":"carousel","children":[{"ui":"sources","items":[{"title":"Roadmap summary","url":"https://media.example.net/getting-started","snippet":"Has the latest figures."},{"title":"Release notes","url":"https://media.example.net/roadmap","snippet":"Walks through the setup."},{"title":"Annual review","url":"https://blog.northwind.example.com/pricing/5","snippet":"Covers the main changes."}]},{"ui":"callout","text":"Waitlist is recalculated every 8 hours, so today's figure is provisional."}]}
+```
+Treat any waitlist number you read today as provisional until the next 8-hour recalculation.
+--- derived
+
+
+=== D-0079
+--- user
+Could you organise my fundraising handover into two collapsible parts? The first, titled "Main section", only needs a divider labelled "Open questions". The second, "More detail", should show a markdown note headed "Handover notes" with three bold lead words: Send to the list, Set the goal, Write the appeal.
+--- reference
+Handover is split into an open-questions marker and a short note, each in its own collapsible part.
+```dyui
+{"ui":"accordion","items":[{"title":"Main section","children":[{"ui":"divider","label":"Open questions"}]},{"title":"More detail","children":[{"ui":"markdown","text":"### Handover notes\n- **Send** to the list\n- **Set** the goal\n- **Write** the appeal"}]}]}
+```
+The note lists the work in the order it should happen: send, set, then write.
+--- derived
+
+
+=== D-0040
+--- user
+I want two things next to each other in two columns. On the left, ask which sections the report should include, allowing several answers: Summary, Charts, Raw tables, Recommendations, with a "Build report" submit that sends report_sections. On the right, ask me to confirm refunding order ORD-9858: $527 goes back to the original payment method, buttons "Issue refund" and "Cancel", action issue_refund with order ORD-9858.
+--- reference
+Report options sit on the left and the refund prompt on the right.
+```dyui
+{"ui":"grid","columns":2,"children":[{"ui":"choice","question":"Which sections should the report include?","options":["Summary","Charts","Raw tables","Recommendations"],"multiple":true,"action":"report_sections","submit_label":"Build report"},{"ui":"confirm","title":"Refund order ORD-9858?","text":"$527 goes back to the original payment method.","confirm_label":"Issue refund","cancel_label":"Cancel","action":"issue_refund","data":{"order":"ORD-9858"}}]}
+```
+No refund of $527 is issued until you confirm, and the report is built only after you submit your section choices.
+--- derived
+
+
+=== D-0078
+--- user
+recruiting: two tabs. Overview has my reasoning (677 ms): Vueling at $199 is $196 cheaper than TAP at $395, price decides it, Vueling is the better pick. More has a pending step "Check inventory" with sku SKU-2210.
+--- reference
+Vueling comes out $196 cheaper, and the tabs separate that reasoning from the pending inventory step.
+```dyui
+{"ui":"tabs","tabs":[{"label":"Overview","children":[{"ui":"reasoning","text":"Comparing the two fares: Vueling at $199 is $196 cheaper than TAP at $395. Price is the deciding factor, so Vueling is the better pick.","duration_ms":677}]},{"label":"More","children":[{"ui":"step","title":"Check inventory","status":"pending","input":{"sku":"SKU-2210"}}]}]}
+```
+The inventory check has not started, so the fare choice rests on price alone for now.
+--- derived
+
+
+=== D-0125
+--- user
+Build me a card called "Account overview" and nest a second card inside it titled "Lisbon · 3 nights", with the picture https://news.example.com/img/changelog-09.webp. The inner card should list claim CLM-378, type Pet, filed Dec 26.
+--- reference
+A nested card now carries the Lisbon claim inside the account overview.
+```dyui
+{"ui":"card","title":"Account overview","children":[{"ui":"card","title":"Lisbon · 3 nights","image":"https://news.example.com/img/changelog-09.webp","children":[{"ui":"keyvalue","items":[{"key":"Claim","value":"CLM-378"},{"key":"Type","value":"Pet"},{"key":"Filed","value":"Dec 26"}]}]}]}
+```
+Claim CLM-378 is a pet claim filed on Dec 26.
+--- derived
+
+
+=== D-0100
+--- user
+Set up a scheduling panel for me. Inside a two-column layout put another two-column layout, and in it a question "Which day suits you best?" with Monday, Wednesday, Friday plus an option to type another answer (submit button "Schedule", action pick_day), next to a form titled "Book an appointment" with a required "Full name" field with placeholder Ana Silva, a required date field "Preferred date", and a required time field "Preferred time".
+--- reference
+The scheduling panel pairs a day question with a booking form, both nested in a two-column layout.
+```dyui
+{"ui":"grid","columns":2,"children":[{"ui":"grid","children":[{"ui":"choice","question":"Which day suits you best?","options":["Monday","Wednesday","Friday"],"allow_other":true,"action":"pick_day","submit_label":"Schedule"},{"ui":"form","title":"Book an appointment","fields":[{"name":"full_name","label":"Full name","required":true,"placeholder":"Ana Silva"},{"name":"date","label":"Preferred date","type":"date","required":true},{"name":"time","label":"Preferred time","type":"time","required":true}]}],"columns":2}]}
+```
+Answers from either part come back to me as separate messages, so the day choice and the booking arrive independently.
+--- derived
+
+
+=== D-0121
+--- user
+Put a short checklist in a card titled "Weekly summary"? Heading "Checklist" and three items with the first word in bold: Pick the dates, Share the itinerary, Book the flights.
+--- reference
+Three trip tasks sit in the weekly summary card, each with its action word in bold.
+```dyui
+{"ui":"card","title":"Weekly summary","children":[{"ui":"markdown","text":"### Checklist\n- **Pick** the dates\n- **Share** the itinerary\n- **Book** the flights"}]}
+```
+Picking the dates comes first because the itinerary and the flights depend on it.
+--- derived
+
+
+=== D-0061
+--- user
+Our fleet references for the account overview, please, in a card with that title. Cite Release notes (https://cdn.fernhill.example.com/handbook/64), Customer case study (https://www.example.org/benchmark), Roadmap summary (https://static.brasa.example.com/changelog) and Benchmark report (https://media.example.net/case-study/68).
+--- reference
+Four references are cited inside the account overview card.
+```dyui
+{"ui":"card","title":"Account overview","children":[{"ui":"sources","items":[{"title":"Release notes","url":"https://cdn.fernhill.example.com/handbook/64"},{"title":"Customer case study","url":"https://www.example.org/benchmark"},{"title":"Roadmap summary","url":"https://static.brasa.example.com/changelog"},{"title":"Benchmark report","url":"https://media.example.net/case-study/68"}]}]}
+```
+Each title links straight to its page.
+--- derived
+
+
+=== D-0097
+--- user
+two cols: left, sources (Customer case study https://media.example.net/faq/23 "Walks through the setup."; Benchmark report https://cdn.fernhill.example.com/benchmark "Has the latest figures."; Annual review https://media.example.net/roadmap "Explains the controls in plain language."; Roadmap summary https://static.brasa.example.com/pricing "Covers the main changes."). right, a divider labelled "Open questions".
+--- reference
+Sources fill the left column while a divider titled Open questions marks the right.
+```dyui
+{"ui":"grid","columns":2,"children":[{"ui":"sources","items":[{"title":"Customer case study","url":"https://media.example.net/faq/23","snippet":"Walks through the setup."},{"title":"Benchmark report","url":"https://cdn.fernhill.example.com/benchmark","snippet":"Has the latest figures."},{"title":"Annual review","url":"https://media.example.net/roadmap","snippet":"Explains the controls in plain language."},{"title":"Roadmap summary","url":"https://static.brasa.example.com/pricing","snippet":"Covers the main changes."}]},{"ui":"divider","label":"Open questions"}]}
+```
+Only the benchmark report is flagged as having the latest figures.
+--- derived
+
+
+=== D-0134
+--- user
+Fleet dashboard in two tabs, formal tone please. Overview: three headline figures, fuel economy 49 mpg, miles driven 29,407, accidents 7. More: a scatter plot called "Leads vs ad spend ($k)" in leads, with the points (2, 102.7), (4.3, 193.7), (4.9, 209), (5.3, 230), (5.4, 223), (7, 301.9), (8.8, 368.9).
+--- reference
+The fleet figures lead in the first tab, and the scatter of leads against ad spend follows in the second.
+```dyui
+{"ui":"tabs","tabs":[{"label":"Overview","children":[{"ui":"stats","items":[{"label":"Fuel economy","value":"49 mpg"},{"label":"Miles driven","value":"29,407"},{"label":"Accidents","value":"7"}]}]},{"label":"More","children":[{"ui":"chart","kind":"scatter","series":[{"name":"Leads vs ad spend ($k)","data":[[2,102.7],[4.3,193.7],[4.9,209],[5.3,230],[5.4,223],[7,301.9],[8.8,368.9]]}],"unit":"leads"}]}]}
+```
+Leads rise steadily with spend, from 102.7 at a spend of 2 to 368.9 at 8.8.
+--- derived
+

@@ -1,0 +1,103 @@
+=== B-0157
+--- user
+Interviews booked: Mon, Wanjiru Ibrahim, Tech panel, 14:00. Wed, Dmitri Weber, Case study, 14:00. What do we have?
+--- reference
+Two interviews are on the books: Wanjiru Ibrahim sits the Tech panel on Mon, and Dmitri Weber sits the Case study panel on Wed.
+Both slots start at 14:00, so the afternoon is the time to keep clear for them.
+--- derived
+
+=== B-0053
+--- user
+Campaign steps for the stakeholders: Set the goal on Jun 7 (done, Nadia Bergstrom), Send to the list on Feb 9 (in progress, Elif Yilmaz), Report the impact on Jun 11 (Hugo Reyes), Thank the donors on Aug 13 (Uma Castillo). Put these in order for them please.
+--- reference
+Four steps stand between the campaign and its wrap-up, and each has a named owner.
+```dyui
+{"ui":"timeline","items":[{"title":"Set the goal","time":"Jun 7","status":"done","text":"Owner: Nadia Bergstrom"},{"title":"Send to the list","time":"Feb 9","status":"active","text":"Owner: Elif Yilmaz"},{"title":"Report the impact","time":"Jun 11","status":"pending","text":"Owner: Hugo Reyes"},{"title":"Thank the donors","time":"Aug 13","status":"pending","text":"Owner: Uma Castillo"}]}
+```
+Only the first step is finished and the send to the list is under way, so reporting and thank-yous are still ahead.
+--- derived
+
+=== B-0125
+--- user
+Taxa de refugo por turno: manhã 0.7%, tarde 2.1%, noite 5.0%. Quem lidera?
+--- reference
+Com os três turnos lado a lado, fica claro onde o refugo se concentra.
+```dyui
+{"ui":"chart","kind":"bar","labels":["Manhã","Tarde","Noite"],"series":[{"name":"Taxa de refugo","data":[0.7,2.1,5.0]}],"title":"Taxa de refugo por turno","unit":"%"}
+```
+O turno da noite lidera com 5.0%, e a manhã é a mais limpa.
+--- derived
+
+=== B-0029
+--- user
+Our email open rate for March came in at 35.0%. Could you present that nicely?
+--- reference
+March closed with a 35.0% email open rate.
+```dyui
+{"ui":"stat","label":"Email open rate · March","value":"35.0%"}
+```
+Without a target or prior month in hand, this is simply the March reading.
+--- derived
+
+=== B-0035
+--- user
+Please show me the booking profile for Hugo Ueda: physio, Jun 26, room 8.
+--- reference
+Hugo Ueda's booking comes down to four facts.
+```dyui
+{"ui":"keyvalue","items":[{"key":"Patient","value":"Hugo Ueda"},{"key":"Service","value":"Physio"},{"key":"Date","value":"Jun 26"},{"key":"Room","value":8}]}
+```
+The appointment is a physio session in room 8 on Jun 26.
+--- derived
+
+=== B-0105
+--- user
+Résume-moi l'événement : mode Co-op, démarre le Dec 9, dure 17 jours, récompense Title, statut Ended. Les infos clés quoi.
+--- reference
+L'essentiel sur cet événement tient en cinq lignes.
+```dyui
+{"ui":"keyvalue","items":[{"key":"Mode","value":"Co-op"},{"key":"Début","value":"Dec 9"},{"key":"Durée (jours)","value":17},{"key":"Récompense","value":"Title"},{"key":"Statut","value":"Ended"}]}
+```
+L'événement a duré 17 jours et il est déjà terminé, donc la récompense n'est plus à gagner.
+--- derived
+
+=== B-0143
+--- user
+Which of our devices are in trouble? I have the EV charger at 2.1 kW, scheduled, and the Pool pump at 1.7 kW, which shows a fault.
+--- reference
+The Pool pump is the one with a problem: it reports a fault at 1.7 kW. The EV charger, at 2.1 kW, is simply scheduled and shows no issue in the data you gave me.
+--- derived
+
+=== B-0112
+--- user
+ok so temp in C vs ice-cream sales, one point per day: 10.6 gives 365.5, 11.2 gives 388.5, 11.9 gives 406.9, 15.1 gives 543, 20.1 gives 693.7, 25.2 gives 821.3, 31.7 gives 1066.8. show me the correlation
+--- reference
+Plotting each day's temperature against its ice-cream sales shows the pattern directly.
+```dyui
+{"ui":"chart","kind":"scatter","series":[{"name":"Ice-cream sales vs temperature (C)","data":[[10.6,365.5],[11.2,388.5],[11.9,406.9],[15.1,543],[20.1,693.7],[25.2,821.3],[31.7,1066.8]]}]}
+```
+The points rise almost in a straight line, from 365.5 at 10.6 up to 1066.8 at 31.7, so warmer days clearly go with higher sales.
+--- derived
+
+=== B-0132
+--- user
+Attrition rate over the last seven periods, in percent: 12.7, 13.0, 13.9, 14.7, 15.0, 15.4, 16.1. What is the trajectory?
+--- reference
+Drawn as a line, the seven attrition readings tell a clear story.
+```dyui
+{"ui":"chart","kind":"line","series":[{"name":"Attrition","data":[12.7,13.0,13.9,14.7,15.0,15.4,16.1]}],"unit":"%"}
+```
+Attrition rose in every period, from 12.7% to 16.1%, with no reading going down.
+--- derived
+
+=== B-0099
+--- user
+NPS is 29 this month, 0% change vs last month, and our target is 27. Give me the headline.
+--- reference
+NPS holds at 29 this month.
+```dyui
+{"ui":"stat","label":"NPS","value":"29","delta":"0% vs last month","trend":"flat","help":"Target 27"}
+```
+At 29 it is two points above the target of 27 and unchanged from last month.
+--- derived
+2

@@ -1,0 +1,110 @@
+=== A-0297
+--- user
+can you show this as a readable tree? sku SKU-930, price $57, stock 310, meta version 4 and dry_run false
+--- reference
+Here is the product record as an expandable tree.
+```dyui
+{"ui":"json","data":{"sku":"SKU-930","price":"$57","stock":310,"meta":{"version":4,"dry_run":false}}}
+```
+Open the meta node to see the version details.
+--- derived
+
+=== A-0144
+--- user
+track this for me: review next bill is done, shift the heavy loads hasn't started, read the meter failed, and install the smart plug failed too
+--- reference
+Here is the checklist with the current status of each task.
+```dyui
+{"ui":"plan","items":[{"title":"Review next bill","status":"done"},{"title":"Shift the heavy loads","status":"pending"},{"title":"Read the meter","status":"error"},{"title":"Install the smart plug","status":"error"}]}
+```
+Two tasks failed, so reading the meter and installing the smart plug need attention before the rest can move on.
+--- derived
+
+=== A-0025
+--- user
+make a card for this: "Lisbon · 3 nights", subtitle "Best value this season", picture https://help.helpwave.example.com/img/getting-started-14.png, badge Popular. Details: plan Plus, 152 Data GB, price $35, renews Nov 27, 5 lines, status Suspended. Add a Save button.
+--- reference
+Here is the Lisbon card with its image, badge and account details.
+```dyui
+{"ui":"card","title":"Lisbon · 3 nights","subtitle":"Best value this season","image":"https://help.helpwave.example.com/img/getting-started-14.png","badge":"Popular","children":[{"ui":"keyvalue","items":[{"key":"Plan","value":"Plus"},{"key":"Data GB","value":152},{"key":"Price","value":"$35"},{"key":"Renews","value":"Nov 27"},{"key":"Lines","value":5},{"key":"Status","value":"Suspended"}]}],"actions":[{"label":"Save","action":"save_item","style":"secondary"}]}
+```
+The status reads Suspended, which is worth sorting out before the Nov 27 renewal.
+--- derived
+
+=== A-0075
+--- user
+Could you please show https://files.example.com/report as a preview card? Its title is "Pricing that scales with your team", the description is "Everything that shipped, grouped by area.", the cover image is https://blog.northwind.example.com/img/getting-started-40.png and the site is files.example.com.
+--- reference
+Here is the preview card for the report link.
+```dyui
+{"ui":"link_preview","url":"https://files.example.com/report","title":"Pricing that scales with your team","description":"Everything that shipped, grouped by area.","image":"https://blog.northwind.example.com/img/getting-started-40.png","site":"files.example.com"}
+```
+The card gives donors the title, summary and source before they click through.
+--- derived
+
+=== A-0138
+--- user
+Please share customer-export.csv as a file: https://blog.northwind.example.com/files/customer-export.csv
+--- reference
+Here is the customer export as a downloadable file.
+```dyui
+{"ui":"file","name":"customer-export.csv","url":"https://blog.northwind.example.com/files/customer-export.csv"}
+```
+Use the link to save the CSV.
+--- derived
+
+=== A-0105
+--- user
+mets un séparateur "Outlook" ici
+--- reference
+Voici le séparateur intitulé Outlook.
+```dyui
+{"ui":"divider","label":"Outlook"}
+```
+Ce qui suivra apparaîtra comme une section distincte.
+--- derived
+
+=== A-0281
+--- user
+I've been going through the monthly numbers and I'm out of ideas, so suggest what I could ask next. Maybe a forecast for next month, the top 3, or why the biggest drop happened.
+--- reference
+Here are a few follow-up questions you can tap.
+```dyui
+{"ui":"quick_replies","options":["Forecast next month","Show the top 3","Explain the biggest drop"]}
+```
+Tap one and I will take it from there.
+--- derived
+
+=== A-0054
+--- user
+mostra-me uma pré-visualização rica deste link: https://blog.northwind.example.com/q3-summary — título "2026 industry benchmark report", descrição "A look at the changes behind the speedup.", imagem https://news.example.com/img/getting-started-06.png, site blog.northwind.example.com
+--- reference
+Aqui está a pré-visualização do link.
+```dyui
+{"ui":"link_preview","url":"https://blog.northwind.example.com/q3-summary","title":"2026 industry benchmark report","description":"A look at the changes behind the speedup.","image":"https://news.example.com/img/getting-started-06.png","site":"blog.northwind.example.com"}
+```
+O cartão mostra o título, a descrição e a origem antes de abrires a página.
+--- derived
+
+=== A-0196
+--- user
+I'd like a player for this audio, please, so I can listen without leaving the page: https://www.example.org/audio/security-17.mp3
+--- reference
+Here is the audio player for the file.
+```dyui
+{"ui":"audio","src":"https://www.example.org/audio/security-17.mp3"}
+```
+Play and pause it from here whenever it suits you.
+--- derived
+
+=== A-0113
+--- user
+render the raw data so i can expand it: destination Vienna, dates Jun 2-9, 3 travellers, budget $5,716, status Booked
+--- reference
+Here is the trip record as an expandable tree.
+```dyui
+{"ui":"json","data":{"destination":"Vienna","dates":"Jun 2-9","travellers":3,"budget":"$5,716","status":"Booked"}}
+```
+The status is Booked.
+--- derived
+

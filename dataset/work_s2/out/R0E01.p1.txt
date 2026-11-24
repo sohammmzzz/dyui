@@ -1,0 +1,11 @@
+=== E-0059
+--- user
+nah skip the rating. quick q though: pod checkout-api-7d9f keeps restarting, how do I tell if it's crash looping?
+--- reference
+Start with the pod list to see its status, then pull the logs from the container's previous run.
+```dyui
+{"ui":"code","code":"kubectl get pods checkout-api-7d9f\nkubectl logs checkout-api-7d9f --previous","language":"bash"}
+```
+A CrashLoopBackOff status plus a restart count that keeps climbing confirms the loop, and the previous-run logs usually name the reason it dies.
+--- derived
+

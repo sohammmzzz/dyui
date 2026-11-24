@@ -1,0 +1,164 @@
+=== A-0238
+--- user
+ok what's the picture this week? dropped calls 2.9%, download speed 144 Mbps, data used 118.7 GB, latency 21 ms, churn 2.2% and 223,711 subscribers
+--- reference
+Six numbers describe the network this week.
+```dyui
+{"ui":"stats","items":[{"label":"Dropped calls","value":"2.9%"},{"label":"Download speed","value":"144 Mbps"},{"label":"Data used","value":"118.7 GB"},{"label":"Latency","value":"21 ms"},{"label":"Churn","value":"2.2%"},{"label":"Subscribers","value":"223,711"}]}
+```
+Dropped calls at 2.9% and churn at 2.2% are the two rates worth keeping an eye on.
+--- derived
+
+=== A-0077
+--- user
+a customer said this in the feedback call: "Finally, reports that explain themselves." That was Felix Torres, CFO. Can you display that quote properly?
+--- reference
+The customer's remark stands out better as a quote with its attribution.
+```dyui
+{"ui":"quote","text":"Finally, reports that explain themselves.","author":"Felix Torres, CFO"}
+```
+It works well as a short testimonial line.
+--- derived
+
+=== A-0182
+--- user
+Could you show this as a preview card? It's the page I mentioned about the van returns: https://www.example.org/overview/9, and I would rather the team see a card than a bare link.
+--- reference
+Turned into a preview card, the page is easier to recognise than a bare link.
+```dyui
+{"ui":"link_preview","url":"https://www.example.org/overview/9"}
+```
+The team can open the overview straight from the card.
+--- derived
+
+=== A-0031
+--- user
+render the raw data so i can expand it: channel Search, budget $28,934, start Aug 21, owner Chloe Ferreira, status Ended, tags beta + audit. name it Campaign payload
+--- reference
+Expand any node of the campaign record below.
+```dyui
+{"ui":"json","data":{"channel":"Search","budget":"$28,934","start":"Aug 21","owner":"Chloe Ferreira","status":"Ended","tags":["beta","audit"]},"title":"Campaign payload"}
+```
+The status field reads Ended, and the tags sit in an array you can open.
+--- derived
+
+=== A-0242
+--- user
+We recorded the donor thank-you walkthrough and it lives at https://cdn.fernhill.example.com/video/getting-started.mp4 - could you play it right here in the conversation so the team can watch it together?
+--- reference
+The donor walkthrough is embedded below and ready to play.
+```dyui
+{"ui":"video","src":"https://cdn.fernhill.example.com/video/getting-started.mp4"}
+```
+The whole team can watch it from this thread.
+--- derived
+
+=== A-0271
+--- user
+show the structure: role Product designer, stage Screen, source Careers page, recruiter Quinn Moreau, start date Dec 15, tags audit and trial, meta version 8, dry_run false. title Candidate payload
+--- reference
+The candidate record, structured exactly as you described it.
+```dyui
+{"ui":"json","data":{"role":"Product designer","stage":"Screen","source":"Careers page","recruiter":"Quinn Moreau","start_date":"Dec 15","tags":["audit","trial"],"meta":{"version":8,"dry_run":false}},"title":"Candidate payload"}
+```
+Quinn Moreau is the recruiter on record and the candidate is at the Screen stage.
+--- derived
+
+=== A-0173
+--- user
+hey, can you embed the audio? https://help.helpwave.example.com/audio/changelog-29.mp3
+--- reference
+The changelog audio is embedded below.
+```dyui
+{"ui":"audio","src":"https://help.helpwave.example.com/audio/changelog-29.mp3"}
+```
+Press play to listen to it here.
+--- derived
+
+=== A-0254
+--- user
+Can you display this image? https://files.example.com/img/changelog-22.webp
+--- reference
+Displayed below is the image you linked.
+```dyui
+{"ui":"image","src":"https://files.example.com/img/changelog-22.webp"}
+```
+It is shown as provided, with no changes.
+--- derived
+
+=== A-0016
+--- user
+We gathered a comment during the support interview: "Finally, reports that explain themselves." I'd like to highlight it as a testimonial, crediting the interview as the source.
+--- reference
+Set apart as a testimonial, the comment carries its source.
+```dyui
+{"ui":"quote","text":"Finally, reports that explain themselves.","source":"Support interview"}
+```
+It is credited to the support interview rather than a named person.
+--- derived
+
+=== A-0224
+--- user
+show the step so i can follow along: "Check inventory", a tool step, it finished (done) in 4318 ms. input was sku SKU-2210 and the result came back as "42 in stock"
+--- reference
+The inventory check completed, and the step below records it.
+```dyui
+{"ui":"step","title":"Check inventory","status":"done","type":"tool","input":{"sku":"SKU-2210"},"output":{"result":"42 in stock"},"duration_ms":4318}
+```
+SKU-2210 has 42 in stock according to the tool output.
+--- derived
+
+=== A-0148
+--- user
+Je veux écouter ça ici : https://help.helpwave.example.com/audio/pricing-13.mp3
+--- reference
+L'enregistrement est intégré ci-dessous, prêt à être lu.
+```dyui
+{"ui":"audio","src":"https://help.helpwave.example.com/audio/pricing-13.mp3"}
+```
+Appuyez sur lecture pour l'écouter sans quitter la conversation.
+--- derived
+
+=== A-0249
+--- user
+we're done with the first topic, can you put a separator in before we go on to the next one?
+--- reference
+A thin line marks the break between the two topics.
+```dyui
+{"ui":"divider"}
+```
+Everything after the line reads as the start of the next topic.
+--- derived
+
+=== A-0020
+--- user
+Can you show the next steps for Spring Festival as a card? The order is: close the kitchen, plate the mains, fire the starters, send desserts. I'd also like a subtle "Details" button on it.
+--- reference
+Spring Festival gets its own card, with the four next steps inside and a Details button.
+```dyui
+{"ui":"card","title":"Spring Festival","children":[{"ui":"markdown","text":"### Next steps\n- **Close** the kitchen\n- **Plate** the mains\n- **Fire** the starters\n- **Send** desserts"}],"actions":[{"label":"Details","action":"view_details","style":"ghost"}]}
+```
+The Details button sends its action back to me when it is pressed.
+--- derived
+
+=== A-0285
+--- user
+pay the phone bill ($103)
+--- reference
+Paying is an outward action, so I need your confirmation first.
+```dyui
+{"ui":"confirm","title":"Pay the phone bill?","confirm_label":"Pay now","action":"pay_bill","data":{"bill":"phone"}}
+```
+Nothing is paid until you confirm the $103.
+--- derived
+
+=== A-0209
+--- user
+add a divider before the next candidate
+--- reference
+A divider will keep the two candidates visually apart.
+```dyui
+{"ui":"divider"}
+```
+The next candidate starts below the line.
+--- derived

@@ -1,0 +1,179 @@
+=== F-0049
+--- user
+Could you switch that to a bar chart and add September at 1.2? Please leave the other months alone.
+--- reference
+September lands at 1.2 days on the bar version of the chart.
+```dyui
+{"ui":"chart","kind":"bar","labels":["Feb","Mar","Apr","May","Jun","Jul","Aug","Sep"],"series":[{"name":"Average review time","data":[3.8,3.2,2.8,2.4,2.1,1.8,1.1,1.2]}],"title":"Average review time, Feb–Aug","unit":"days"}
+```
+That is a small uptick after August's 1.1. The title still covers Feb–Aug, as only the new point was requested.
+--- derived
+
+
+=== F-0070
+--- user
+Please sort the table by Usage kWh, with the highest value at the top.
+--- reference
+Sorted by Usage kWh, Friday comes out on top.
+```dyui
+{"ui":"table","columns":["Day","Usage kWh","Peak hour","Cost"],"rows":[["Fri",43,"18:00","$12"],["Mon",41,"18:00","$2"],["Tue",27,"20:00","$2"],["Sun",24,"08:00","$14"],["Wed",21,"07:00","$12"],["Thu",13,"18:00","$3"]],"caption":"Daily usage"}
+```
+Friday uses 43 kWh against 13 on Thursday, and no cell values were changed.
+--- derived
+
+
+=== F-0098
+--- user
+Kindly remove the last point, July, from the chart.
+--- reference
+July is removed, so the line now stops in June.
+```dyui
+{"ui":"chart","kind":"line","labels":["Jan","Feb","Mar","Apr","May","Jun"],"series":[{"name":"Average order value","data":[72,68,64,62,59,54]}],"title":"Average order value, Jan–Jun","unit":"$"}
+```
+June at $54 is the last point, and the title range was updated to match.
+--- derived
+
+
+=== F-0027
+--- user
+traduis les libellés et le titre en français, chiffres inchangés
+--- reference
+Labels and title now read in French.
+```dyui
+{"ui":"chart","kind":"line","labels":["Janv","Févr","Mars","Avr"],"series":[{"name":"Abonnements","data":[123,114,109,103]}],"title":"Abonnements, janv–avr","unit":"$"}
+```
+The four values and the line style are unchanged.
+--- derived
+
+
+=== F-0012
+--- user
+Change the Station to "Resolved", please.
+--- reference
+Station now reads Resolved.
+```dyui
+{"ui":"keyvalue","items":[{"key":"Station","value":"Resolved"},{"key":"Price","value":"$17"},{"key":"Allergens","value":"None"}]}
+```
+Price and Allergens are as before, with Allergens still None.
+--- derived
+
+
+=== F-0073
+--- user
+can you make it a bar chart and put Jan on the end at 19?
+--- reference
+Bars now, with January added on the end.
+```dyui
+{"ui":"chart","kind":"bar","labels":["Jun","Jul","Aug","Sep","Oct","Nov","Dec","Jan"],"series":[{"name":"Workouts this month","data":[13,14,15,16,16,17,17,19]}],"title":"Workouts this month, Jun–Dec"}
+```
+January is the tallest bar at 19 workouts. The title is unchanged since only the new point was requested.
+--- derived
+
+
+=== F-0092
+--- user
+drop the CM-7560 row, that one's been done
+--- reference
+CM-7560 is out, leaving six services.
+```dyui
+{"ui":"table","columns":["Plate","Service","Due","Depot"],"rows":[["CM-9044","Brake pads","May 15","Central"],["CM-6660","Brake pads","Apr 10","Airport"],["CM-2745","Battery check","Sep 11","Central"],["CM-9503","Brake pads","Jul 2","Central"],["CM-5831","Battery check","Dec 3","Airport"],["CM-7214","Brake pads","Jan 20","Campus"]]}
+```
+The annual inspection was the only one removed, and the other six rows keep their order.
+--- derived
+
+
+=== F-0009
+--- user
+make it shorter, just the first 3 rows
+--- reference
+Only the first three releases remain.
+```dyui
+{"ui":"table","columns":["Date","Release","Artist","Format"],"rows":[["Aug 28","Static Bloom","Mia Silva","Single"],["Dec 26","Slow Weather","Carla Torres","Single"],["Jul 14","Slow Weather","Lena Kowalski","EP"]]}
+```
+The last two rows are cut and the three kept are exactly as listed before.
+--- derived
+
+
+=== F-0001
+--- user
+Please change the chart type to bar and append December with a value of 73.5.
+--- reference
+Data usage becomes a bar chart, with December appended.
+```dyui
+{"ui":"chart","kind":"bar","labels":["Jun","Jul","Aug","Sep","Oct","Nov","Dec"],"series":[{"name":"Data used","data":[47.3,52.3,54.9,59.6,64.3,67.6,73.5]}],"title":"Data used, Jun–Nov","unit":"GB"}
+```
+December reaches 73.5 GB, continuing the climb. The title still says Jun–Nov because it was not part of the request.
+--- derived
+
+
+=== F-0046
+--- user
+sort it by Clause, descending
+--- reference
+Sorting Clause from Z to A starts with Termination.
+```dyui
+{"ui":"table","columns":["Clause","Owner","Status"],"rows":[["Termination","Olga Singh","Open"],["Payment terms","Priya Rahman","Countered"],["Payment terms","Wen Weber","Open"],["Limitation of liability","Jun Torres","Accepted"],["Governing law","Ivan Mendes","Countered"],["Data processing","Elena Rahman","Open"],["Data processing","Dmitri Costa","Open"]]}
+```
+Rows sharing a clause keep their original relative order.
+--- derived
+
+
+=== F-0042
+--- user
+Actually, can you show the Party size for each Time as a bar chart?
+--- reference
+Party sizes by reservation time work well as bars.
+```dyui
+{"ui":"chart","kind":"bar","labels":["19:15","21:30","20:00","18:00","18:30"],"series":[{"name":"Party","data":[12,8,2,8,3]}],"title":"Party size by reservation time"}
+```
+The 19:15 booking is the largest at 12 guests. Times are in the order of your original list.
+--- derived
+
+
+=== F-0091
+--- user
+Please add a column named "Team" with these values, in row order: EU, new, review, ok, ok.
+--- reference
+Team is the new fifth column in the vehicles table.
+```dyui
+{"ui":"table","columns":["Plate","Model","Mileage","Status","Team"],"rows":[["CM-2723","Transit",60888,"Available","EU"],["CM-9390","Model 3",48102,"Out of order","new"],["CM-9370","Ranger",150045,"Rented","review"],["CM-2961","Corolla",37993,"In service","ok"],["CM-1994","Golf",138102,"In service","ok"]]}
+```
+All the earlier columns are unchanged.
+--- derived
+
+
+=== F-0066
+--- user
+add col Team: EU, review, new, US, new, APAC
+--- reference
+Team goes in as the last column, with the caption still reading Claims.
+```dyui
+{"ui":"table","columns":["Claim","Type","Amount","Status","Adjuster","Team"],"rows":[["CLM-577","Travel","$15,143","Approved","Wanjiru Petrov","EU"],["CLM-368","Health","$12,892","Approved","Gabriel Weber","review"],["CLM-894","Pet","$16,179","Approved","Sofia Rossi","new"],["CLM-999","Home","$3,948","Approved","Sven Weber","US"],["CLM-902","Health","$783","Assessing","Farah Sato","new"],["CLM-591","Travel","$8,888","Assessing","Jun Larsen","APAC"]],"caption":"Claims"}
+```
+The values were applied top to bottom, and the existing columns are unchanged.
+--- derived
+
+
+=== F-0007
+--- user
+can you add a Region column? values in order are EU, US, EU, ok, review
+--- reference
+Region becomes the new last column for the listings.
+```dyui
+{"ui":"table","columns":["Address","Beds","Price","Status","Region"],"rows":[["301 Elm Court",4,"$515","Under offer","EU"],["48 Rua Verde",5,"$230","New","US"],["7 Harbour Row",4,"$546","New","EU"],["12 Mill Lane",1,"$606","Under offer","ok"],["19 Quay Street",2,"$447","Under offer","review"]],"caption":"Listings"}
+```
+Everything else in the table is as it was.
+--- derived
+
+
+=== F-0055
+--- user
+Add a Notes column for me, please. Row by row it should be: US, ok, review, EU, review.
+--- reference
+Notes is added to the release calendar as a fifth column.
+```dyui
+{"ui":"table","columns":["Date","Release","Artist","Format","Notes"],"rows":[["Aug 1","Neon Harbour EP","Jun Mendes","Album","US"],["Sep 11","Neon Harbour EP","Xavier Quispe","EP","ok"],["Nov 9","Slow Weather","Carla Mendes","Single","review"],["Apr 7","Paper Lanterns LP","Felix Garcia","EP","EU"],["Dec 8","Paper Lanterns LP","Priya Costa","Single","review"]],"caption":"Release calendar"}
+```
+The original four columns and rows are untouched.
+--- derived
+

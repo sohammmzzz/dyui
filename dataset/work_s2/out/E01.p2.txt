@@ -1,0 +1,83 @@
+=== E-0062
+--- user
+start onboarding for me
+--- reference
+Onboarding starts with a short form, and the days and budget are the parts to set.
+```dyui
+{"ui":"form","fields":[{"name":"full_name","label":"Full name","required":true,"placeholder":"Ana Silva"},{"name":"company","label":"Company"},{"name":"days","label":"Available days","type":"multiselect","options":["Mon","Tue","Wed","Thu","Fri"],"required":true},{"name":"budget","label":"Budget ($)","type":"slider","default":1000,"min":100,"max":5000,"step":100},{"name":"newsletter","label":"Send me updates","type":"checkbox","required":true,"default":false}],"submit_label":"Continue"}
+```
+Your answers come back to me when you press Continue.
+--- derived
+
+
+=== E-0120
+--- user
+Hold on, before I tap anything: what exactly does ARPDAU measure? I want to be sure I'm reading the $0.68 correctly.
+--- reference
+ARPDAU stands for average revenue per daily active user: the revenue earned in a day divided by the number of players who were active that day. So the $0.68 is the average amount each active player generated on that day, spread across payers and non-payers alike. It says nothing by itself about whether that is high or low, because I have no target or earlier values in this conversation to compare it with.
+--- derived
+
+
+=== E-0003
+--- user
+I run the scheduling for a small dental and physio clinic and I'm not sure which integrations are actually worth turning on. Which ones should I enable?
+--- reference
+I need to know which of these tools you actually use before I can recommend anything.
+```dyui
+{"ui":"choice","question":"Which integrations do you want to enable?","options":["Slack","Google Sheets","Zapier","Webhooks"],"multiple":true,"allow_other":true,"action":"enable_integrations","submit_label":"Enable"}
+```
+You can tick several, or add one of your own if it is missing.
+--- derived
+
+
+=== E-0107
+--- reference
+Thanks for the 3 out of 10. That is a low score for the onboarding session, and I am sorry it fell short. If you tell me what was missing, I can adjust how I explain things next time.
+--- derived
+
+
+=== E-0019
+--- reference
+The invoice has been sent.
+```dyui
+{"ui":"callout","level":"success","title":"Invoice sent","text":"Invoice INV-599 was emailed to Globex."}
+```
+Globex now has it, so any follow-up depends on their reply.
+--- derived
+
+
+=== E-0043
+--- reference
+The payment has gone through.
+```dyui
+{"ui":"callout","level":"success","title":"Internet bill paid","text":"$746 was debited from your checking account for the internet bill."}
+```
+The bill is settled, so there is nothing further to do on it.
+--- derived
+
+
+=== E-0047
+--- reference
+Thanks for the thumbs up, I am glad that answer helped. If you want to dig into anything else, just ask.
+--- derived
+
+
+=== E-0111
+--- reference
+Telegram is not one of the report sections I offered, which are Summary, Charts, Raw tables and Recommendations, so I have not added anything yet. Tell me which of those four you want, or describe what you had in mind with Telegram, and I will build the report from there.
+--- derived
+
+
+=== E-0022
+--- reference
+You chose to assign an owner for CLM-8355. Tell me the name of the person who should take it, and I will record them as the owner of that item. If you would rather decide later, you can still book it or skip it for now.
+--- derived
+
+
+=== E-0116
+--- user
+Sorry, I'm not going to fill that in yet. What can you actually help me with when it comes to planning a trip?
+--- reference
+No problem, the table request can wait. For trip planning I can help you shape an itinerary, compare options you give me, keep track of dates and bookings, and take a reservation like the one we just started. I only work from the details you share in this conversation, so the more specifics you send, the more precise my suggestions will be.
+--- derived
+

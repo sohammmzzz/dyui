@@ -1,0 +1,133 @@
+=== A-0217
+--- user
+Please put these in order for the stakeholders: Ship the build, Playtest, Design the event. Keep that sequence.
+--- reference
+Here are the three items in the order you gave.
+```dyui
+{"ui":"timeline","items":[{"title":"Ship the build"},{"title":"Playtest"},{"title":"Design the event"}]}
+```
+No dates were provided, so the timeline shows the sequence only.
+--- derived
+
+=== A-0089
+--- user
+drop a divider in here that says Open questions
+--- reference
+Here is the divider with its label.
+```dyui
+{"ui":"divider","label":"Open questions"}
+```
+Whatever comes next will sit under it as a separate section.
+--- derived
+
+=== A-0220
+--- user
+Kindly let me rate the onboarding session. A simple thumbs up or down is sufficient, with the label "Your feedback".
+--- reference
+Here is a thumbs rating for the onboarding session.
+```dyui
+{"ui":"rating","label":"Your feedback","style":"thumbs"}
+```
+Your answer comes back to me as soon as you click.
+--- derived
+
+=== A-0165
+--- user
+can you play this here? https://www.youtube.com/watch?v=C_Hz270kU08 the thumbnail is https://blog.northwind.example.com/img/guide-38.png
+--- reference
+Here is the video with its thumbnail, ready to play.
+```dyui
+{"ui":"video","src":"https://www.youtube.com/watch?v=C_Hz270kU08","poster":"https://blog.northwind.example.com/img/guide-38.png"}
+```
+Press play to watch it without leaving the chat.
+--- derived
+
+=== A-0129
+--- user
+I would like to share the audit report as a file so the team can grab it. It is audit-report.csv, a text/csv file of 21.8 MB, available at https://docs.acme-cloud.example.com/files/audit-report.csv.
+--- reference
+Here is the audit report as a shareable file.
+```dyui
+{"ui":"file","name":"audit-report.csv","url":"https://docs.acme-cloud.example.com/files/audit-report.csv","size":"21.8 MB","type":"text/csv"}
+```
+At 21.8 MB it is a fairly large download, so it may take a moment.
+--- derived
+
+=== A-0122
+--- user
+Which integrations should I turn on? I'm weighing Slack, Google Sheets, Zapier and Webhooks for sending listing alerts to the agents on my team, and I'd rather pick from a short list than read an essay.
+--- reference
+Here is a quick question to settle which integration to enable.
+```dyui
+{"ui":"choice","question":"Which integrations do you want to enable?","options":["Slack","Google Sheets","Zapier","Webhooks"]}
+```
+Tell me which one fits your workflow and I will explain how to set it up.
+--- derived
+
+=== A-0103
+--- user
+let me download customer-export.pdf: https://cdn.fernhill.example.com/files/customer-export.pdf (application/pdf, 2578824 bytes)
+--- reference
+Here is the PDF ready for download.
+```dyui
+{"ui":"file","name":"customer-export.pdf","url":"https://cdn.fernhill.example.com/files/customer-export.pdf","size":2578824,"type":"application/pdf"}
+```
+The file is a PDF of 2578824 bytes, which is roughly 2.5 MB.
+--- derived
+2.5 MB
+
+=== A-0159
+--- user
+I want to book a table for tonight. I could do 6:00 pm, 7:30 pm or 9:00 pm, but another time might work too, so let me choose and then reserve.
+--- reference
+Here is a question about what time suits you.
+```dyui
+{"ui":"choice","question":"What time works for you?","options":["6:00 pm","7:30 pm","9:00 pm"],"allow_other":true,"action":"pick_time","submit_label":"Reserve"}
+```
+If none of those times works, you can type another one before reserving.
+--- derived
+
+=== A-0009
+--- user
+show as a readable tree: station Grill, price $31, allergens Gluten, prep_time 19, status 86'd, tags renewal and beta, meta version 7 dry_run false
+--- reference
+Here is the dish record as an expandable tree.
+```dyui
+{"ui":"json","data":{"station":"Grill","price":"$31","allergens":"Gluten","prep_time":19,"status":"86'd","tags":["renewal","beta"],"meta":{"version":7,"dry_run":false}}}
+```
+The status shows the item as 86'd, so it is off the menu for now.
+--- derived
+
+=== A-0083
+--- user
+puoi riprodurlo qui? https://www.youtube.com/watch?v=8nWh3-OXP-H, la copertina è https://media.example.net/img/overview-13.png e la didascalia è "The safety briefing"
+--- reference
+Ecco il video con la copertina e la didascalia.
+```dyui
+{"ui":"video","src":"https://www.youtube.com/watch?v=8nWh3-OXP-H","poster":"https://media.example.net/img/overview-13.png","caption":"The safety briefing"}
+```
+Premi play per guardarlo direttamente in chat.
+--- derived
+
+=== A-0154
+--- user
+list these as sources: Pricing overview (https://www.example.org/security/59) covers the main changes, Getting started guide (https://www.example.org/report) has the latest figures, and Security whitepaper (https://blog.northwind.example.com/benchmark) explains the controls in plain language.
+--- reference
+Here are the three references as numbered sources.
+```dyui
+{"ui":"sources","items":[{"title":"Pricing overview","url":"https://www.example.org/security/59","snippet":"Covers the main changes."},{"title":"Getting started guide","url":"https://www.example.org/report","snippet":"Has the latest figures."},{"title":"Security whitepaper","url":"https://blog.northwind.example.com/benchmark","snippet":"Explains the controls in plain language."}]}
+```
+Each entry links to its page with a one-line note on what it covers.
+--- derived
+
+=== A-0181
+--- user
+embed https://www.youtube.com/watch?v=7EhNduAHlZE so I can watch
+--- reference
+The video is embedded below.
+```dyui
+{"ui":"video","src":"https://www.youtube.com/watch?v=7EhNduAHlZE"}
+```
+You can play it right here in the chat.
+--- derived
+

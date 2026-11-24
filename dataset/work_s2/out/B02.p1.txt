@@ -1,0 +1,180 @@
+=== B-0102
+--- user
+Vendas da semana por produto, formato produto / unidades / receita / stock: Brass desk lamp 255, $25,632, 519; Linen throw 1227, $2,175, 429; Glass carafe 1272, $21,341, 264; Ceramic planter 455, $24,939, 568; Oak shelf 1464, $21,736, 408; Cotton duvet 1267, $29,618, 16; Wool rug 98, $35,029, 534. Mostra isto de forma limpa.
+--- reference
+Sete produtos, quatro medidas cada: a comparação fica mais fácil lado a lado.
+```dyui
+{"ui":"table","columns":["Product","Units","Revenue","Stock"],"rows":[["Brass desk lamp",255,"$25,632",519],["Linen throw",1227,"$2,175",429],["Glass carafe",1272,"$21,341",264],["Ceramic planter",455,"$24,939",568],["Oak shelf",1464,"$21,736",408],["Cotton duvet",1267,"$29,618",16],["Wool rug",98,"$35,029",534]],"caption":"Top products"}
+```
+O Cotton duvet quase esgotou, com apenas 16 em stock, enquanto o Wool rug lidera em receita com $35,029.
+--- derived
+
+=== B-0145
+--- user
+Visits so far this year by site: Riverside 4441, Old Town 3605, Harbour 1579. How is it split?
+--- reference
+Riverside takes the biggest slice of visits across the three clinics.
+```dyui
+{"ui":"chart","kind":"donut","labels":["Riverside","Old Town","Harbour"],"series":[{"name":"Visits","data":[4441,3605,1579]}],"title":"Visits per clinic","unit":"visits"}
+```
+Harbour is the smallest at 1579, well behind Old Town's 3605.
+--- derived
+
+=== B-0047
+--- user
+Pourriez-vous me donner un camembert des leads par offre ? Max 3840, Family 4764, Business 2130 et Plus 3245.
+--- reference
+Voici la répartition des leads entre les quatre offres.
+```dyui
+{"ui":"chart","kind":"pie","labels":["Max","Family","Business","Plus"],"series":[{"name":"Leads","data":[3840,4764,2130,3245]}],"unit":"leads"}
+```
+L'offre Family génère le plus de leads avec 4764, et Business le moins avec 2130.
+--- derived
+
+=== B-0147
+--- user
+Quick rundown on the new dish please: it runs on the Pasta station, priced $17, contains Gluten, prep time is 40, and it's marked as a Special.
+--- reference
+Five facts cover the new dish.
+```dyui
+{"ui":"keyvalue","items":[{"key":"Station","value":"Pasta"},{"key":"Price","value":"$17"},{"key":"Allergens","value":"Gluten"},{"key":"Prep time","value":40},{"key":"Status","value":"Special"}]}
+```
+Gluten is the allergen to flag to guests, and the 40 prep time is the figure to plan the station around.
+--- derived
+
+=== B-0176
+--- user
+Mettimi in tabella le spedizioni: TRK-495 da Cairo ad Austin, in transit, ETA Jul 11; TRK-876 da Cairo a Dublin, Delivered, Dec 7; TRK-209 da Bogota a Buenos Aires, Delayed, Apr 10; TRK-893 da Munich a Dublin, At customs, Nov 15.
+--- reference
+Ho messo le quattro spedizioni in una tabella, una riga ciascuna.
+```dyui
+{"ui":"table","columns":["Tracking","Origin","Destination","Status","ETA"],"rows":[["TRK-495","Cairo","Austin","In transit","Jul 11"],["TRK-876","Cairo","Dublin","Delivered","Dec 7"],["TRK-209","Bogota","Buenos Aires","Delayed","Apr 10"],["TRK-893","Munich","Dublin","At customs","Nov 15"]],"caption":"Shipments"}
+```
+TRK-209 è l'unica in ritardo, quindi è quella da seguire per prima.
+--- derived
+
+=== B-0163
+--- user
+Llevamos 9 de 10 tareas completadas en la lista de incorporación (Onboarding checklist). ¿Cómo vamos de avance?
+--- reference
+Casi terminada: falta una sola tarea.
+```dyui
+{"ui":"progress","value":9,"max":10,"label":"Onboarding checklist"}
+```
+Con 9 de 10 hechas, queda solo una tarea para cerrar la incorporación.
+--- derived
+1
+
+=== B-0107
+--- user
+Tengo que leer 20 libros para el curso y ya llevo 18 de la lista (Reading list). ¿Dónde estamos frente a la meta?
+--- reference
+Estás a dos libros de cumplir la meta de la lista de lectura.
+```dyui
+{"ui":"progress","value":18,"max":20,"label":"Reading list"}
+```
+Con 18 de 20 leídos, el último tramo es corto.
+--- derived
+2
+
+=== B-0090
+--- user
+Capacity filled at each event, latest last: 49, 45, 42, 40, 36, 33, 30. Show me the trend.
+--- reference
+Capacity filled has fallen at every step in the series.
+```dyui
+{"ui":"chart","kind":"line","series":[{"name":"Capacity filled","data":[49,45,42,40,36,33,30]}]}
+```
+It went from 49 down to 30, so the decline shows no sign of levelling off in these readings.
+--- derived
+
+=== B-0051
+--- user
+Del plan de contratación (Hiring plan) hemos cubierto 9 de 10 puestos. Enséñame el progreso.
+--- reference
+El plan de contratación va casi completo, con 9 de 10 puestos cubiertos.
+```dyui
+{"ui":"progress","value":9,"max":10,"label":"Hiring plan"}
+```
+Solo queda un puesto por cubrir.
+--- derived
+
+=== B-0012
+--- user
+Please set out the Outpatient clinic plan as a live checklist: Take vitals is done, Book the follow-up is in progress, Collect the insurance card is still to do, See the clinician was skipped, and Send the visit summary is done.
+--- reference
+Two of the five steps are finished, one is under way, and one was skipped.
+```dyui
+{"ui":"plan","title":"Outpatient clinic plan","items":[{"title":"Take vitals","status":"done"},{"title":"Book the follow-up","status":"active"},{"title":"Collect the insurance card","status":"pending"},{"title":"See the clinician","status":"skipped"},{"title":"Send the visit summary","status":"done"}]}
+```
+Booking the follow-up is the active step, and collecting the insurance card comes next.
+--- derived
+2, 5
+
+=== B-0065
+--- user
+hiring plan: 4 of 10 roles filled. where are we against the goal?
+--- reference
+Four roles filled out of ten puts the hiring plan below the halfway mark.
+```dyui
+{"ui":"progress","value":4,"max":10,"label":"Hiring plan"}
+```
+Six more hires are needed to reach the goal.
+--- derived
+6
+
+=== B-0149
+--- user
+For the contracts team's onboarding checklist we have finished 3 of the 10 items so far. Could you tell me where we are against the goal?
+--- reference
+The onboarding checklist is 3 items into a total of 10.
+```dyui
+{"ui":"progress","value":3,"max":10,"label":"Onboarding checklist"}
+```
+Seven items remain, so it is still early in the process.
+--- derived
+7
+
+=== B-0007
+--- user
+Can you summarise the north paddock record? Crop is Barley, 56 hectares, sown on Nov 28.
+--- reference
+The record boils down to a crop, an area and a sowing date.
+```dyui
+{"ui":"keyvalue","items":[{"key":"Crop","value":"Barley"},{"key":"Hectares","value":56},{"key":"Sown","value":"Nov 28"}]}
+```
+Barley went into 56 hectares on Nov 28.
+--- derived
+
+=== B-0060
+--- user
+usage log, day / kWh / peak hour / cost: Thu 27 07:00 $9, Wed 33 18:00 $15, Sun 29 18:00 $11, Tue 32 08:00 $14, Sat 24 20:00 $12, Fri 14 20:00 $8, Mon 19 08:00 $13, Thu 32 18:00 $13. can you lay this out
+--- reference
+Eight daily readings fit a grid with four columns.
+```dyui
+{"ui":"table","columns":["Day","Usage kWh","Peak hour","Cost"],"rows":[["Thu",27,"07:00","$9"],["Wed",33,"18:00","$15"],["Sun",29,"18:00","$11"],["Tue",32,"08:00","$14"],["Sat",24,"20:00","$12"],["Fri",14,"20:00","$8"],["Mon",19,"08:00","$13"],["Thu",32,"18:00","$13"]]}
+```
+Wednesday used the most at 33 kWh and cost $15, while Friday was the lightest at 14 kWh.
+--- derived
+
+=== B-0082
+--- user
+Ich brauche für heute eine Live-Checkliste für den Shop: Lieferantenrechnungen ziehen ist erledigt, Wochenend-Aktion starten läuft gerade, Lagerbestände abgleichen steht noch aus, Produkt-Feed aktualisieren wurde übersprungen.
+--- reference
+Der Shop-Betrieb steht bei vier Punkten, jeweils mit aktuellem Stand.
+```dyui
+{"ui":"plan","title":"Online store operations plan","items":[{"title":"Pull the supplier invoices","status":"done"},{"title":"Launch the weekend promo","status":"active"},{"title":"Reconcile stock counts","status":"pending"},{"title":"Update the product feed","status":"skipped"}]}
+```
+Als Nächstes steht der Abgleich der Lagerbestände an, sobald die Aktion läuft.
+--- derived
+
+=== B-0120
+--- user
+What does the list look like? TCK-204 "App crashes on launch", High, Ana Fischer. TCK-680 "Where is my parcel", Urgent, Priya Silva. TCK-699 "Where is my parcel", Low, Dmitri Torres. TCK-308 "Refund not received", Low, Umar Tanaka.
+--- reference
+Four open tickets with the same four fields line up cleanly in a grid.
+```dyui
+{"ui":"table","columns":["ID","Subject","Priority","Agent"],"rows":[["TCK-204","App crashes on launch","High","Ana Fischer"],["TCK-680","Where is my parcel","Urgent","Priya Silva"],["TCK-699","Where is my parcel","Low","Dmitri Torres"],["TCK-308","Refund not received","Low","Umar Tanaka"]]}
+```
+TCK-680 is the only Urgent one, and "Where is my parcel" appears twice.
+--- derived

@@ -1,0 +1,111 @@
+=== A-0207
+--- user
+Put these in order for stakeholders: Counterparty redlines (owner Katya Torres) comes after Legal review (owner Mateo Rossi), and Final approval (owner Yusuf Torres) comes last. Newest stage on top is fine, I just want the three listed in sequence.
+--- reference
+Three stages, in sequence, each with its owner.
+```dyui
+{"ui":"timeline","items":[{"title":"Final approval","text":"Owner: Yusuf Torres"},{"title":"Legal review","text":"Owner: Mateo Rossi"},{"title":"Counterparty redlines","text":"Owner: Katya Torres"}]}
+```
+Each stage names the person responsible for it.
+--- derived
+
+=== A-0056
+--- user
+can you give me a player for the founder interview? it's at https://media.example.net/audio/faq-20.mp3 - call it "Interview with the founder"
+--- reference
+The founder interview gets its own audio player.
+```dyui
+{"ui":"audio","src":"https://media.example.net/audio/faq-20.mp3","title":"Interview with the founder"}
+```
+Press play to listen in the chat.
+--- derived
+
+=== A-0260
+--- user
+Could you embed the audio for this claim call so I can play it here in the conversation? The recording is at https://files.example.com/audio/guide-15.mp3.
+--- reference
+The claim call recording is ready to play in the conversation.
+```dyui
+{"ui":"audio","src":"https://files.example.com/audio/guide-15.mp3"}
+```
+It plays directly in the conversation.
+--- derived
+
+=== A-0153
+--- user
+Cancel my Starter subscription.
+--- reference
+Cancelling cannot be undone from my side, so I need your confirmation first.
+```dyui
+{"ui":"confirm","title":"Cancel your Starter subscription?","text":"You keep access until the end of the billing period.","confirm_label":"Cancel subscription","cancel_label":"Keep Starter","action":"cancel_subscription","data":{"plan":"starter"},"danger":true}
+```
+Nothing changes until you choose.
+--- derived
+
+=== A-0275
+--- user
+add a divider that says Details
+--- reference
+A divider introduces the details.
+```dyui
+{"ui":"divider","label":"Details"}
+```
+Whatever follows sits under the Details heading.
+--- derived
+
+=== A-0052
+--- user
+let me download it: customer-export.zip, 4036491 bytes, at https://files.example.com/files/customer-export.zip
+--- reference
+The customer export is ready to download.
+```dyui
+{"ui":"file","name":"customer-export.zip","url":"https://files.example.com/files/customer-export.zip","size":4036491}
+```
+The size is shown in bytes, 4036491 in total.
+--- derived
+
+=== A-0145
+--- user
+Please display the "Search flights" step in the trace. It has not started yet, so it is still pending.
+--- reference
+The flight search is queued in the trace but has not started.
+```dyui
+{"ui":"step","title":"Search flights","status":"pending"}
+```
+It is queued and has not begun running.
+--- derived
+
+=== A-0006
+--- user
+I would like the Orion Dashboard in a card, with the badge "Last seats" and the image https://cdn.fernhill.example.com/img/pricing-13.png. Inside, show the calories burned stat, 1,956. Add a Save button in the secondary style, please.
+--- reference
+Orion Dashboard gets a card with its calories stat inside.
+```dyui
+{"ui":"card","title":"Orion Dashboard","image":"https://cdn.fernhill.example.com/img/pricing-13.png","badge":"Last seats","children":[{"ui":"stat","label":"Calories burned","value":"1,956"}],"actions":[{"label":"Save","action":"save_item","style":"secondary"}]}
+```
+The Save button reports back to me when it is pressed.
+--- derived
+
+=== A-0231
+--- user
+show how you picked the cheaper one: easyJet $131, TAP $252
+--- reference
+easyJet is the cheaper pick, and the comparison is spelled out below.
+```dyui
+{"ui":"reasoning","text":"Comparing the two fares: easyJet at $131 is $121 cheaper than TAP at $252. Price is the deciding factor, so easyJet is the better pick."}
+```
+The $121 difference decides it in favour of easyJet.
+--- derived
+121
+
+=== A-0125
+--- user
+one-liner to serve the current folder with nginx in docker?
+--- reference
+One docker command serves the current folder with nginx.
+```dyui
+{"ui":"code","code":"docker run --rm -p 8080:80 -v \"$PWD\":/usr/share/nginx/html:ro nginx:alpine","language":"bash"}
+```
+The folder is mounted read-only and is available on port 8080 until you stop the container.
+--- derived
+

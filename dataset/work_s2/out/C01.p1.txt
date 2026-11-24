@@ -1,0 +1,171 @@
+=== C-0111
+--- user
+hey, here are today's lab orders: LAB-564 HbA1c collected, LAB-508 CBC pending, LAB-282 lipid panel in lab, LAB-421 TSH in lab, LAB-297 CBC collected, LAB-335 TSH pending, LAB-128 CBC ready, LAB-696 lipid panel collected. also the import job finished and open slots this week is back to 16, limit was 14. can you show me the list and flag the import thing clearly?
+--- reference
+Eight lab orders are on the list, two of them still pending.
+```dyui
+{"ui":"table","columns":["Order","Test","Status"],"rows":[["LAB-564","HbA1c","Collected"],["LAB-508","CBC","Pending"],["LAB-282","Lipid panel","In lab"],["LAB-421","TSH","In lab"],["LAB-297","CBC","Collected"],["LAB-335","TSH","Pending"],["LAB-128","CBC","Ready"],["LAB-696","Lipid panel","Collected"]]}
+```
+The import result is worth knowing about too, so I have flagged it below.
+```dyui
+{"ui":"callout","text":"The import job finished and Open slots this week is back to 16, within the 14 limit.","level":"success"}
+```
+Two orders are still pending, and the import no longer needs any follow-up.
+--- derived
+
+
+=== C-0019
+--- user
+Orders by branch this month: Old Town 2447, Harbour 2604, Riverside 2987. How is that split? Also please show the lab orders cleanly: LAB-987 TSH ready, LAB-820 lipid panel collected, LAB-758 vitamin D in lab, LAB-720 TSH in lab.
+--- reference
+Riverside takes the biggest share of orders across the three branches.
+```dyui
+{"ui":"chart","kind":"donut","labels":["Old Town","Harbour","Riverside"],"series":[{"name":"Orders","data":[2447,2604,2987]}]}
+```
+The lab orders follow in a table so each one is easy to read.
+```dyui
+{"ui":"table","columns":["Order","Test","Status"],"rows":[["LAB-987","TSH","Ready"],["LAB-820","Lipid panel","Collected"],["LAB-758","Vitamin D","In lab"],["LAB-720","TSH","In lab"]],"caption":"Lab orders"}
+```
+Riverside carries the largest share of orders, and only LAB-987 is ready right now.
+--- derived
+
+
+=== C-0061
+--- user
+Please present the following as headline figures: dining out $376 (+15.0%, rising, target $414), investments $30.7k (target $33.8k), savings rate 24%, monthly spend 5799 dollars (flat). Please also tabulate the recent transactions: Jul 24 Mercado Verde $177 Leisure; Feb 21 Amazon $96 Leisure; Jul 2 Café Beira $111 Groceries; May 9 Mercado Verde $97 Health. Finally, notify me that the balance is at $13055, above the $9249 threshold, and should be reviewed before Friday.
+--- reference
+Four figures sum up where your budget stands this month.
+```dyui
+{"ui":"stats","items":[{"label":"Dining out","value":"$376","delta":"+15.0%","trend":"up","help":"Target $414"},{"label":"Investments","value":"$30.7k","help":"Target $33.8k"},{"label":"Savings rate","value":24,"unit":"%"},{"label":"Monthly spend","value":5799,"unit":"$","trend":"flat"}]}
+```
+The recent transactions are laid out below.
+```dyui
+{"ui":"table","columns":["Date","Merchant","Amount","Category"],"rows":[["Jul 24","Mercado Verde","$177","Leisure"],["Feb 21","Amazon","$96","Leisure"],["Jul 2","Café Beira","$111","Groceries"],["May 9","Mercado Verde","$97","Health"]],"caption":"Recent transactions"}
+```
+One point needs your attention before the week ends.
+```dyui
+{"ui":"callout","text":"Balance is at $13055, above the $9249 threshold. Review it before Friday.","level":"warning"}
+```
+Dining out is the figure moving fastest, and the balance review is the only deadline.
+--- derived
+
+
+=== C-0147
+--- user
+Covers tonight by month, in case it helps with planning: Jan 163, Feb 174, Mar 184, Apr 188, May 194, Jun 203, Jul 214. I'd like a line chart of those. Please also flag clearly that the backup finished and table turn is back to 60 min, within the 47 min limit. And suggest a few things I could ask next, such as showing it as a table, which dish is weakest, explaining the biggest drop, or the top 3.
+--- reference
+Covers rose from 163 in January to 214 in July, as the line chart shows.
+```dyui
+{"ui":"chart","kind":"line","labels":["Jan","Feb","Mar","Apr","May","Jun","Jul"],"series":[{"name":"Covers tonight","data":[163,174,184,188,194,203,214]}]}
+```
+The backup status is flagged here so it does not get lost.
+```dyui
+{"ui":"callout","text":"The backup finished and Table turn is back to 60 min, within the 47 min limit.","level":"success"}
+```
+These are the follow-ups you can tap next.
+```dyui
+{"ui":"quick_replies","options":["Show it as a table","Which dish is weakest?","Explain the biggest drop","Show the top 3"]}
+```
+The line climbs steadily with no dip, and the backup is done.
+--- derived
+
+
+=== C-0030
+--- user
+Yield for August came in at 5.5 t, flat (0%) vs last month, target 4.9 t. Separately, yield is at 4.2 t against a 3.4 t threshold - is this on track? Flag it clearly in the chat, titled "Needs attention", please.
+--- reference
+August yield came in above its target.
+```dyui
+{"ui":"stat","label":"Yield · August","value":"5.5 t","delta":"0% vs last month","help":"Target 4.9 t"}
+```
+The threshold breach is flagged below.
+```dyui
+{"ui":"callout","text":"Yield is at 4.2 t, above the 3.4 t threshold. Review it before Friday.","level":"warning","title":"Needs attention"}
+```
+August yield is above target, but the threshold alert still needs a review.
+--- derived
+
+
+=== C-0005
+--- user
+overview pls. irrigation 76 kl (+10.8%, target 84 kl), yield 5.6 t (-9.2%, down), soil moisture 31%, fuel use 655 L (0%, target 721 L). machines: John Deere 6130 3525 h ready, Kubota M7 3446 h service due, Claas Lexion 804 h service due, Sprayer S2 1061 h ready. warn that fuel use is at 832 L, above the 674 L threshold, review before Friday.
+--- reference
+Irrigation, yield, soil moisture and fuel use make up the overview.
+```dyui
+{"ui":"stats","items":[{"label":"Irrigation","value":"76 kl","delta":"+10.8%","help":"Target 84 kl"},{"label":"Yield","value":"5.6 t","delta":"-9.2%","trend":"down"},{"label":"Soil moisture","value":31,"unit":"%"},{"label":"Fuel use","value":"655 L","delta":"0%","help":"Target 721 L"}]}
+```
+Next, the machines with their hours and service status.
+```dyui
+{"ui":"table","columns":["Machine","Hours","Status"],"rows":[["John Deere 6130",3525,"Ready"],["Kubota M7",3446,"Service due"],["Claas Lexion",804,"Service due"],["Sprayer S2",1061,"Ready"]]}
+```
+One warning applies to fuel.
+```dyui
+{"ui":"callout","text":"Fuel use is at 832 L, above the 674 L threshold. Review it before Friday.","level":"warning"}
+```
+Two machines are due for service, and fuel is the metric to watch.
+--- derived
+
+
+=== C-0064
+--- user
+Today's outpatient visit: the clinician has been seen, vitals still to take, I'm booking the follow-up right now, and we're skipping the insurance card and the visit summary. Make it a live checklist, and give me buttons to dismiss the alert or download the summary.
+--- reference
+The visit is now a live checklist, with booking the follow-up in progress.
+```dyui
+{"ui":"plan","title":"Outpatient clinic plan","items":[{"title":"See the clinician","status":"done"},{"title":"Take vitals","status":"pending"},{"title":"Book the follow-up","status":"active"},{"title":"Collect the insurance card","status":"skipped"},{"title":"Send the visit summary","status":"skipped"}]}
+```
+You can act on the visit from these buttons.
+```dyui
+{"ui":"buttons","items":[{"label":"Dismiss alert","action":"dismiss_alert","style":"danger"},{"label":"Download summary","action":"download_summary","style":"secondary"}]}
+```
+Booking the follow-up is the active step, and vitals are still waiting.
+--- derived
+
+
+=== C-0144
+--- user
+Please give me the rundown on shipment TRK-524: it goes from Dublin to Lyon with UPS and weighs 79 kg. Lay the progress out as a timeline: out for delivery is done, the scan at the hub is in progress, then clearing customs, collecting proof of delivery and the pick-up at the dock are all still pending.
+--- reference
+Shipment TRK-524 is going from Dublin to Lyon with UPS.
+```dyui
+{"ui":"keyvalue","items":[{"key":"Tracking","value":"TRK-524"},{"key":"Origin","value":"Dublin"},{"key":"Destination","value":"Lyon"},{"key":"Carrier","value":"UPS"},{"key":"Weight kg","value":79}]}
+```
+The steps are shown in order with their current state.
+```dyui
+{"ui":"timeline","items":[{"title":"Out for delivery","status":"done"},{"title":"Scan at the hub","status":"active"},{"title":"Clear customs","status":"pending"},{"title":"Collect proof of delivery","status":"pending"},{"title":"Pick up at the dock","status":"pending"}]}
+```
+The hub scan is the current step, and three steps remain after it.
+--- derived
+three steps remain (count of pending items = 3)
+
+=== C-0107
+--- user
+I'd like to see the profile for this game mode: Events mode, starts Sep 27, runs 11 days. Also give me two buttons so I can act on it from here: "Mark as spam" and "Flag as fraud".
+--- reference
+Events mode starts on Sep 27 and runs for 11 days.
+```dyui
+{"ui":"keyvalue","items":[{"key":"Mode","value":"Events"},{"key":"Starts","value":"Sep 27"},{"key":"Duration days","value":11}]}
+```
+You can act on it with these buttons.
+```dyui
+{"ui":"buttons","items":[{"label":"Mark as spam","action":"mark_as_spam"},{"label":"Flag as fraud","action":"flag_as_fraud"}]}
+```
+Pressing either button sends your choice back to me.
+--- derived
+
+
+=== C-0102
+--- user
+leads by source: grid 4998, wind 3160, battery 1286, solar 4297. which dominates? and list the days: Thu 26 kWh peak 08:00 $4, Fri 30 kWh 07:00 $10, Tue 45 kWh 18:00 $1, Sat 9 kWh 18:00 $1
+--- reference
+Grid and solar lead the way when leads are split by source.
+```dyui
+{"ui":"chart","kind":"donut","labels":["Grid","Wind","Battery","Solar"],"series":[{"name":"Leads","data":[4998,3160,1286,4297]}],"title":"Leads per source","unit":"leads"}
+```
+And here is the list of days with usage, peak hour and cost.
+```dyui
+{"ui":"table","columns":["Day","Usage kWh","Peak hour","Cost"],"rows":[["Thu",26,"08:00","$4"],["Fri",30,"07:00","$10"],["Tue",45,"18:00","$1"],["Sat",9,"18:00","$1"]]}
+```
+Grid dominates the sources, with solar a close second.
+--- derived
+

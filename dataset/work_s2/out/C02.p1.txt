@@ -1,0 +1,159 @@
+=== C-0025
+--- user
+what does the plan list look like? Family 167 GB, 722 Mbps, $10. Max 190 GB, 75 Mbps, $35. Business 86 GB, 467 Mbps, $63. Basic 113 GB, 179 Mbps, $66. and what can I do with booking BK-3380 from here, edit the details or flag it as fraud?
+--- reference
+Four plans are compared by data, speed and price.
+```dyui
+{"ui":"table","columns":["Plan","Data GB","Speed Mbps","Price"],"rows":[["Family",167,722,"$10"],["Max",190,75,"$35"],["Business",86,467,"$63"],["Basic",113,179,"$66"]]}
+```
+For booking BK-3380 you can take one of these actions.
+```dyui
+{"ui":"buttons","items":[{"label":"Edit details","action":"edit_details","data":{"id":"BK-3380"}},{"label":"Flag as fraud","action":"flag_as_fraud","data":{"id":"BK-3380"}}]}
+```
+Family is the cheapest plan, while Basic costs the most.
+--- derived
+
+
+=== C-0121
+--- user
+Cite-moi les sources : Getting started guide (https://help.helpwave.example.com/case-study/40), Pricing overview (https://docs.acme-cloud.example.com/changelog) et Compliance handbook (https://static.brasa.example.com/release-notes). Propose-moi aussi deux questions pour la suite : « How does this compare to target? » et « Show the top 3 ».
+--- reference
+Voici les trois sources sur lesquelles repose la réponse.
+```dyui
+{"ui":"sources","items":[{"title":"Getting started guide","url":"https://help.helpwave.example.com/case-study/40"},{"title":"Pricing overview","url":"https://docs.acme-cloud.example.com/changelog"},{"title":"Compliance handbook","url":"https://static.brasa.example.com/release-notes"}]}
+```
+Voici deux pistes pour continuer.
+```dyui
+{"ui":"quick_replies","options":["How does this compare to target?","Show the top 3"]}
+```
+Chaque source s'ouvre directement depuis la liste numérotée.
+--- derived
+
+
+=== C-0040
+--- user
+Mostra como números de destaque: CSAT 83% (+0,5%, meta 91%), escalonamentos 7 (+17,2%, subindo), resolvidos hoje 44 (meta 48). E dá pra ter os tickets abertos num gráfico de área? Foram 424, 466, 486, 500.
+--- reference
+Aqui estão os três números de destaque do dia.
+```dyui
+{"ui":"stats","items":[{"label":"CSAT","value":"83%","delta":"+0.5%","help":"Meta 91%"},{"label":"Escalonamentos","value":"7","delta":"+17.2%","trend":"up"},{"label":"Resolvidos hoje","value":"44","help":"Meta 48"}]}
+```
+E aqui estão os tickets abertos como gráfico de área.
+```dyui
+{"ui":"chart","kind":"area","series":[{"name":"Tickets abertos","data":[424,466,486,500]}]}
+```
+Os tickets abertos só aumentam, e os resolvidos de hoje ainda estão abaixo da meta.
+--- derived
+
+
+=== C-0130
+--- user
+Could you put these policies into a table: POL-904, Olga Novak, Pet, expires Oct 19, premium $1,884; POL-566, Kofi Larsen, Travel, Mar 26, $2,277; POL-736, Rin Costa, Pet, Dec 3, $835; POL-718, Jamal Singh, Pet, Apr 25, $1,655. For request REQ-8989 I want to act from here: a quiet "Not now", a main "Confirm details", and a red "Mark as spam".
+--- reference
+Four policies are tabulated with holder, type, expiry and premium.
+```dyui
+{"ui":"table","columns":["Policy","Holder","Type","Expires","Premium"],"rows":[["POL-904","Olga Novak","Pet","Oct 19","$1,884"],["POL-566","Kofi Larsen","Travel","Mar 26","$2,277"],["POL-736","Rin Costa","Pet","Dec 3","$835"],["POL-718","Jamal Singh","Pet","Apr 25","$1,655"]]}
+```
+These are the actions available for request REQ-8989.
+```dyui
+{"ui":"buttons","items":[{"label":"Not now","action":"not_now","data":{"id":"REQ-8989"},"style":"ghost"},{"label":"Confirm details","action":"confirm_details","data":{"id":"REQ-8989"},"style":"primary"},{"label":"Mark as spam","action":"mark_as_spam","data":{"id":"REQ-8989"},"style":"danger"}]}
+```
+Three of the four policies are pet cover, and Kofi Larsen's travel policy has the highest premium.
+--- derived
+
+
+=== C-0139
+--- user
+hotels list: Porto Riverside 4 stars $182 rating 7.3; Casa Alfama 4 stars $255 8.8; Praça Suites 5 stars $113 7.5; Quinta Verde 3 stars $103 9.7; Hotel Avenida 5 stars $124 7.7; Mar & Sol 4 stars $202 9.1; Hotel Avenida 4 stars $299 9.0. tell the client flight cost is recalculated every 6 hours so today's figure is provisional
+--- reference
+Seven hotels are listed with stars, nightly price and rating.
+```dyui
+{"ui":"table","columns":["Hotel","Stars","Per night","Rating"],"rows":[["Porto Riverside",4,"$182",7.3],["Casa Alfama",4,"$255",8.8],["Praça Suites",5,"$113",7.5],["Quinta Verde",3,"$103",9.7],["Hotel Avenida",5,"$124",7.7],["Mar & Sol",4,"$202",9.1],["Hotel Avenida",4,"$299",9.0]],"caption":"Hotels"}
+```
+This is the note for the client.
+```dyui
+{"ui":"callout","text":"Flight cost is recalculated every 6 hours, so today's figure is provisional."}
+```
+Quinta Verde has the best rating at 9.7 and one of the lowest prices.
+--- derived
+
+
+=== C-0068
+--- user
+Please put the open bugs in a table: BUG-500 Audio cuts out, Major, Quinn Singh; BUG-884 Lag on arena map, Major, Rosa Okafor; BUG-662 Lag on arena map, Critical, Kofi Mendes; BUG-816 Audio cuts out, Minor, Dev Yilmaz. I would also like to act from here: "Not now" and "Remind me later" as subtle options, and "Edit details" as a secondary one.
+--- reference
+Four bugs are open, and one of them is critical.
+```dyui
+{"ui":"table","columns":["ID","Title","Severity","Owner"],"rows":[["BUG-500","Audio cuts out","Major","Quinn Singh"],["BUG-884","Lag on arena map","Major","Rosa Okafor"],["BUG-662","Lag on arena map","Critical","Kofi Mendes"],["BUG-816","Audio cuts out","Minor","Dev Yilmaz"]],"caption":"Bugs"}
+```
+You can act on them with these buttons.
+```dyui
+{"ui":"buttons","items":[{"label":"Not now","action":"not_now","style":"ghost"},{"label":"Remind me later","action":"remind_me_later","style":"ghost"},{"label":"Edit details","action":"edit_details","style":"secondary"}]}
+```
+BUG-662 is the only critical one, owned by Kofi Mendes.
+--- derived
+
+
+=== C-0145
+--- user
+We've handled 90 out of 255 tickets in the queue. Where are we against the goal, and what are my options: dismiss the alert or add a note?
+--- reference
+You have worked through 90 of the 255 tickets in the queue.
+```dyui
+{"ui":"progress","value":90,"max":255}
+```
+These are your options from here.
+```dyui
+{"ui":"buttons","items":[{"label":"Dismiss alert","action":"dismiss_alert"},{"label":"Add note","action":"add_note"}]}
+```
+A bit over a third of the tickets are done so far.
+--- derived
+90/255 = about 35%
+
+=== C-0077
+--- user
+Muéstrame esta imagen en el chat: https://www.example.org/img/overview-09.png. Y detalla el ticket: TCK-240, cliente Quinn Moreau, cola Technical.
+--- reference
+Aquí tienes la imagen en el chat.
+```dyui
+{"ui":"image","src":"https://www.example.org/img/overview-09.png"}
+```
+Y estos son los detalles del ticket.
+```dyui
+{"ui":"keyvalue","items":[{"key":"ID","value":"TCK-240"},{"key":"Cliente","value":"Quinn Moreau"},{"key":"Cola","value":"Technical"}]}
+```
+El ticket TCK-240 está en la cola Technical a nombre de Quinn Moreau.
+--- derived
+
+
+=== C-0148
+--- user
+need a dockerfile for a small python service, python 3.12 slim, requirements.txt, entrypoint main.py. also flag that fuel economy is at 40 mpg, above the 31 mpg threshold, review before Friday
+--- reference
+A compact Dockerfile for the service looks like this.
+```dyui
+{"ui":"code","code":"FROM python:3.12-slim\nWORKDIR /app\nCOPY requirements.txt .\nRUN pip install --no-cache-dir -r requirements.txt\nCOPY . .\nCMD [\"python\", \"main.py\"]","language":"dockerfile"}
+```
+Separately, this alert needs a look.
+```dyui
+{"ui":"callout","text":"Fuel economy is at 40 mpg, above the 31 mpg threshold. Review it before Friday.","level":"warning"}
+```
+Copying requirements.txt first lets Docker cache the dependency layer between builds.
+--- derived
+
+
+=== C-0123
+--- user
+rundown on the account: Starter plan, 379 seats, renewal Mar 14, owner Aiden Park, health at risk. what can I do with it? book now / reject request
+--- reference
+The account is a Starter plan with 379 seats and its health is at risk.
+```dyui
+{"ui":"keyvalue","items":[{"key":"Plan","value":"Starter"},{"key":"Seats","value":379},{"key":"Renewal","value":"Mar 14"},{"key":"Owner","value":"Aiden Park"},{"key":"Health","value":"At risk"}]}
+```
+You can act on it with these buttons.
+```dyui
+{"ui":"buttons","items":[{"label":"Book now","action":"book_now"},{"label":"Reject request","action":"reject_request"}]}
+```
+The renewal on Mar 14 is the date to watch given the at-risk health.
+--- derived
+

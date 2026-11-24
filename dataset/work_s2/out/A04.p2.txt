@@ -1,0 +1,111 @@
+=== A-0191
+--- user
+Vorrei mostrare questa frase come citazione nella landing page: "Finally, reports that explain themselves." È il commento di un cliente e voglio che risalti rispetto al testo intorno, senza altro contorno.
+--- reference
+Ecco la frase messa in evidenza come citazione per la landing page.
+```dyui
+{"ui":"quote","text":"Finally, reports that explain themselves."}
+```
+Senza nome dell'autore resta anonima, quindi aggiungerlo la renderebbe più credibile.
+--- derived
+
+=== A-0158
+--- user
+Cancel my Team subscription.
+--- reference
+Cancelling a subscription cannot be undone from my side, so I need your confirmation first.
+```dyui
+{"ui":"confirm","title":"Cancel your Team subscription?","action":"cancel_subscription","data":{"plan":"team"},"danger":true}
+```
+Nothing changes until you confirm.
+--- derived
+
+=== A-0147
+--- user
+thumbs up or down for this reply? ask me "How was this answer?"
+--- reference
+Here is a quick rating for this reply.
+```dyui
+{"ui":"rating","label":"How was this answer?"}
+```
+Your score comes back to me as soon as you pick one.
+--- derived
+
+=== A-0123
+--- user
+Please explain your reasoning for the choice. Vueling is $172 and Iberia is $408, and the comparison took 2769 ms. I would like to see why you recommended Vueling.
+--- reference
+Here is the reasoning behind the recommendation.
+```dyui
+{"ui":"reasoning","text":"Comparing the two fares: Vueling at $172 is $236 cheaper than Iberia at $408. Price is the deciding factor, so Vueling is the better pick.","duration_ms":2769}
+```
+The $236 gap in favour of Vueling decided it.
+--- derived
+236
+
+=== A-0177
+--- user
+show the structure: counterparty Acme, type SOW, signed May 10, expires Jul 9, tags vip and priority, meta version 5 and dry_run true
+--- reference
+Here is the contract record as an expandable tree.
+```dyui
+{"ui":"json","data":{"counterparty":"Acme","type":"SOW","signed":"May 10","expires":"Jul 9","tags":["vip","priority"],"meta":{"version":5,"dry_run":true}}}
+```
+The meta object shows dry_run as true.
+--- derived
+
+=== A-0197
+--- user
+can you play it here? https://www.youtube.com/watch?v=EjJkmLtMdyJ
+--- reference
+The video is embedded below.
+```dyui
+{"ui":"video","src":"https://www.youtube.com/watch?v=EjJkmLtMdyJ"}
+```
+Press play to watch it in the chat.
+--- derived
+
+=== A-0259
+--- user
+show me the references I can click: Annual review at https://help.helpwave.example.com/security and Pricing overview at https://help.helpwave.example.com/guide
+--- reference
+Here are the two references as clickable sources.
+```dyui
+{"ui":"sources","items":[{"title":"Annual review","url":"https://help.helpwave.example.com/security"},{"title":"Pricing overview","url":"https://help.helpwave.example.com/guide"}]}
+```
+Each one opens its page when you click it.
+--- derived
+
+=== A-0189
+--- user
+display that quote properly: "Finally, reports that explain themselves."
+--- reference
+Here is the quote on its own.
+```dyui
+{"ui":"quote","text":"Finally, reports that explain themselves."}
+```
+It stands out from the rest of the message.
+--- derived
+
+=== A-0094
+--- user
+player for https://assets.lumen.example.io/audio/case-study-19.mp3 — "Demo track"
+--- reference
+Here is the player for the demo track.
+```dyui
+{"ui":"audio","src":"https://assets.lumen.example.io/audio/case-study-19.mp3","title":"Demo track"}
+```
+Press play to hear it.
+--- derived
+
+=== A-0047
+--- user
+share this as a file: q3-summary.zip, 29.5 MB, application/zip, https://assets.lumen.example.io/files/q3-summary.zip
+--- reference
+Here is the Q3 summary archive as a download.
+```dyui
+{"ui":"file","name":"q3-summary.zip","url":"https://assets.lumen.example.io/files/q3-summary.zip","size":"29.5 MB","type":"application/zip"}
+```
+At 29.5 MB it may take a little while to download.
+--- derived
+

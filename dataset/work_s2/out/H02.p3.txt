@@ -1,0 +1,133 @@
+=== H-0012
+--- user
+Could you put these contract milestones in order for the stakeholders? We have signature, draft from the template, legal review, and counterparty redlines.
+--- reference
+Here is the contract flow in the order the steps normally happen.
+
+1. Draft from the template
+2. Legal review
+3. Counterparty redlines
+4. Signature
+
+Signature comes last, once the redlines are settled.
+--- derived
+
+
+=== H-0008
+--- user
+field summary: sunflower, 25 hectares, sown Mar 26. lay out the details
+--- reference
+Here are the details for the field.
+```dyui
+{"ui":"keyvalue","items":[{"key":"Crop","value":"Sunflower"},{"key":"Hectares","value":25},{"key":"Sown","value":"Mar 26"}]}
+```
+It is a 25-hectare sunflower planting that went in on Mar 26.
+--- derived
+
+
+=== H-0016
+--- user
+We logged 6 accidents in February and the trend is going up. How are we doing? Can you show that as a big number tile?
+--- reference
+This is the February safety picture.
+```dyui
+{"ui":"callout","level":"warning","title":"Accidents in February","text":"6 accidents were logged in February, and the trend is rising."}
+```
+A rising count is worth a closer look at what the incidents have in common.
+--- derived
+
+
+=== H-0057
+--- user
+Give me the rundown on my savings account: it's a Savings account, balance $10,243, in USD, opened Jun 7.
+--- reference
+Here are the details of your savings account.
+```dyui
+{"ui":"keyvalue","items":[{"key":"Type","value":"Savings"},{"key":"Balance","value":"$10,243"},{"key":"Currency","value":"USD"},{"key":"Opened","value":"Jun 7"}]}
+```
+The account has held $10,243 in USD since it was opened on Jun 7.
+--- derived
+
+
+=== H-0021
+--- user
+Show them as headline numbers: average wait 14 min (up 8.7%), appointments today 52 (flat, 0%), open slots this week 38 (target 42), patient satisfaction 3.8 (flat, 0%, target 4.2), and no-show rate 11.0% (flat, target 12.1%).
+--- reference
+Here are the five front-desk numbers at a glance.
+
+- **Average wait:** 14 min, up 8.7%
+- **Appointments today:** 52, flat at 0%
+- **Open slots this week:** 38, against a target of 42
+- **Patient satisfaction:** 3.8, flat at 0%, against a target of 4.2
+- **No-show rate:** 11.0%, flat, against a target of 12.1%
+
+Satisfaction is still short of its 4.2 target, while the no-show rate is within its target.
+--- derived
+
+
+=== H-0010
+--- user
+we've reviewed 22 of 30 contracts. how much is left?
+--- reference
+Here is how far along the contract review is.
+```dyui
+{"ui":"progress","value":22,"max":30}
+```
+That leaves 8 contracts still to review.
+--- derived
+8
+
+=== H-0060
+--- user
+Show me the progress of the dispatch run, please. It is at 93.
+--- reference
+The dispatch run is at 93% complete.
+That leaves only a small remainder to finish.
+--- derived
+
+
+=== H-0007
+--- user
+Can you tell me what the outage list looks like? OUT-134 in Buenos Aires, power failure, fixed, 5179 customers. OUT-983 in Bangkok, fibre cut, fixed, 7794 customers. OUT-805 in Oslo, fibre cut, still investigating, 3649 customers.
+--- reference
+Here is the outage list with the cause, status and affected customers for each one.
+
+| ID | Area | Cause | Status | Customers |
+|---|---|---|---|---|
+| OUT-134 | Buenos Aires | Power failure | Fixed | 5179 |
+| OUT-983 | Bangkok | Fibre cut | Fixed | 7794 |
+| OUT-805 | Oslo | Fibre cut | Investigating | 3649 |
+
+Only OUT-805 in Oslo is still open, and it affects 3649 customers.
+--- derived
+
+
+=== H-0024
+--- user
+Please plot the cycle time for the line from March to July: Mar 49, Apr 54, May 58, Jun 61, Jul 66.
+--- reference
+Here is the cycle time from March through July.
+```dyui
+{"ui":"chart","kind":"line","labels":["Mar","Apr","May","Jun","Jul"],"series":[{"name":"Cycle time","data":[49,54,58,61,66]}]}
+```
+Cycle time has gone up every single month in this period.
+--- derived
+
+
+=== H-0032
+--- user
+Churn by plan in percent: Max 0.8, Business 1.4, Family 2.3, Plus 3.4, Basic 1.8. Show me the comparison as a bar chart.
+--- reference
+Here is churn compared across the five plans.
+
+| Plan | Churn |
+|---|---|
+| Max | 0.8% |
+| Business | 1.4% |
+| Family | 2.3% |
+| Plus | 3.4% |
+| Basic | 1.8% |
+
+Plus churns the most at 3.4%, and Max the least at 0.8%.
+--- derived
+

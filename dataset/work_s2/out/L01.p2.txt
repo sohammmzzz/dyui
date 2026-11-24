@@ -1,0 +1,167 @@
+=== L-0027
+--- user
+Could you display the inventory check in the trace? Tool step "Check inventory", input sku SKU-2210, queued and not yet started. Thanks.
+--- reference
+Here is the inventory check, waiting to start.
+```dyui
+{"ui":"step","title":"Check inventory","status":"pending","type":"tool","input":{"sku":"SKU-2210"}}
+```
+It will move to running once the lookup begins.
+--- derived
+
+=== L-0010
+--- user
+track this for me, "SaaS analytics plan": review with the growth lead is done, rebuilding the retention cohort is in progress, backfilling last quarter's events hasn't started, publishing the dashboard failed, auditing the tracking plan not started
+--- reference
+Here is the plan with the status of each task.
+```dyui
+{"ui":"plan","title":"SaaS analytics plan","items":[{"title":"Review with the growth lead","status":"done"},{"title":"Rebuild the retention cohort","status":"active"},{"title":"Backfill last quarter's events","status":"pending"},{"title":"Publish the dashboard","status":"error"},{"title":"Audit the tracking plan","status":"pending"}]}
+```
+The failed dashboard publish is the item that needs attention, since the cohort rebuild is still running.
+--- derived
+
+=== L-0018
+--- user
+show the summarise thread step, llm, 24 messages as input, output 3 action items, took 3871 ms, done
+--- reference
+Here is the summarisation step so you can follow along.
+```dyui
+{"ui":"step","title":"Summarise thread","status":"done","type":"llm","input":{"messages":24},"output":{"result":"3 action items"},"duration_ms":3871}
+```
+The step finished and produced 3 action items.
+--- derived
+
+=== L-0013
+--- user
+Here is the state of the "Performance marketing plan": the creatives launch failed, the audiences are built, the results report is in progress, the brief was skipped, and the first 48 hours of monitoring are done. Please turn that into a live checklist.
+--- reference
+Here is the campaign plan with the current status of each task.
+```dyui
+{"ui":"plan","title":"Performance marketing plan","items":[{"title":"Launch the creatives","status":"error"},{"title":"Build the audiences","status":"done"},{"title":"Report the results","status":"active"},{"title":"Write the brief","status":"skipped"},{"title":"Monitor the first 48 hours","status":"done"}]}
+```
+The creatives launch failed, so the results report will reflect an incomplete launch.
+--- derived
+
+=== L-0002
+--- user
+Track this release for me: promoting on socials is in progress, the track is mastered, the release is yet to be scheduled, the artwork is uploaded, and pitching to editors is also in progress.
+--- reference
+Here is the release checklist with where each task stands.
+```dyui
+{"ui":"plan","items":[{"title":"Promote on socials","status":"active"},{"title":"Master the track","status":"done"},{"title":"Schedule the release","status":"pending"},{"title":"Upload the artwork","status":"done"},{"title":"Pitch to editors","status":"active"}]}
+```
+Scheduling the release is the only task that has not started.
+--- derived
+
+=== L-0021
+--- user
+plan view for "Live-ops for a mobile game plan": design the event pending, playtest done, balance the rewards skipped, ship the build errored out
+--- reference
+Here is the live-ops plan with each step's status.
+```dyui
+{"ui":"plan","title":"Live-ops for a mobile game plan","items":[{"title":"Design the event","status":"pending"},{"title":"Playtest","status":"done"},{"title":"Balance the rewards","status":"skipped"},{"title":"Ship the build","status":"error"}]}
+```
+The build failed to ship, and the reward balancing was skipped, so check that before retrying.
+--- derived
+
+=== L-0020
+--- user
+track my workout for me: planned tomorrow already, I'm cooling down now, main set still to do, and I'm skipping the session log
+--- reference
+Here is your workout checklist.
+```dyui
+{"ui":"plan","items":[{"title":"Plan tomorrow","status":"done"},{"title":"Cool down","status":"active"},{"title":"Main set","status":"pending"},{"title":"Log the session","status":"skipped"}]}
+```
+The cool down is under way, and the main set is the only task still waiting.
+--- derived
+
+=== L-0014
+--- user
+give me the plan view for tonight's service ("Restaurant and delivery plan"): mains plating skipped, mise en place prepped, closing the kitchen errored, desserts skipped, starters fired
+--- reference
+Here is tonight's service plan with each step's status.
+```dyui
+{"ui":"plan","title":"Restaurant and delivery plan","items":[{"title":"Plate the mains","status":"skipped"},{"title":"Prep the mise en place","status":"done"},{"title":"Close the kitchen","status":"error"},{"title":"Send desserts","status":"skipped"},{"title":"Fire the starters","status":"done"}]}
+```
+Closing the kitchen hit an error and needs a second look.
+--- derived
+
+=== L-0019
+--- user
+iberia is $314 and easyJet is $355. show how you picked the cheaper one
+--- reference
+Here is how I weighed the two fares.
+```dyui
+{"ui":"reasoning","text":"Comparing the two fares: Iberia at $314 is $41 cheaper than easyJet at $355. Price is the deciding factor, so Iberia is the better pick.","duration_ms":2830}
+```
+Iberia wins by $41.
+--- derived
+41
+
+=== L-0011
+--- user
+Where things stand on the analytics work: the retention cohort rebuild is pending, the dashboard is published, the backfill of last quarter's events was skipped, and the review with the growth lead was skipped as well. Please turn that into a live checklist.
+--- reference
+Here is the checklist with each item's status.
+```dyui
+{"ui":"plan","items":[{"title":"Rebuild the retention cohort","status":"pending"},{"title":"Publish the dashboard","status":"done"},{"title":"Backfill last quarter's events","status":"skipped"},{"title":"Review with the growth lead","status":"skipped"}]}
+```
+The dashboard is live, but the skipped backfill means it lacks last quarter's events.
+--- derived
+
+=== L-0029
+--- user
+TAP costs $184 and Vueling $257, so explain your reasoning for the choice!
+--- reference
+Here is the reasoning behind the pick.
+```dyui
+{"ui":"reasoning","text":"Comparing the two fares: TAP at $184 is $73 cheaper than Vueling at $257. Price is the deciding factor, so TAP is the better pick.","duration_ms":2843}
+```
+TAP is the cheaper option by $73.
+--- derived
+73
+
+=== L-0016
+--- user
+Please display in the trace the flight search that failed: input from LIS to MAD, type search, it timed out after 2669 ms with the output {"error":"timeout"}.
+--- reference
+Here is the failed flight search as recorded in the trace.
+```dyui
+{"ui":"step","title":"Search flights","status":"error","type":"search","input":{"from":"LIS","to":"MAD"},"output":{"error":"timeout"},"duration_ms":2669}
+```
+The search timed out, so no flight results were returned.
+--- derived
+
+=== L-0004
+--- user
+plan view for "Utilities and energy plan": compare tariffs skipped, review next bill done, read the meter done, install the smart plug skipped, shift the heavy loads skipped
+--- reference
+Here is the energy plan with the status of each item.
+```dyui
+{"ui":"plan","title":"Utilities and energy plan","items":[{"title":"Compare tariffs","status":"skipped"},{"title":"Review next bill","status":"done"},{"title":"Read the meter","status":"done"},{"title":"Install the smart plug","status":"skipped"},{"title":"Shift the heavy loads","status":"skipped"}]}
+```
+Two tasks are done and the other three were skipped.
+--- derived
+
+=== L-0012
+--- user
+fleet plan view: swapping the tyres is in progress, returning to the pool is done, the road test is skipped, booking the service slot is waiting. call it "Fleet management plan"
+--- reference
+Here is the fleet plan with the current status of each task.
+```dyui
+{"ui":"plan","title":"Fleet management plan","items":[{"title":"Swap the tyres","status":"active"},{"title":"Return to the pool","status":"done"},{"title":"Road test","status":"skipped"},{"title":"Book the service slot","status":"pending"}]}
+```
+The tyre swap is the live task, and the service slot can be booked after it.
+--- derived
+
+=== L-0026
+--- user
+render that tool step: check inventory failed on sku SKU-2210, tool type, output {"error":"timeout"}, 4376 ms
+--- reference
+Here is the failed inventory check.
+```dyui
+{"ui":"step","title":"Check inventory","status":"error","type":"tool","input":{"sku":"SKU-2210"},"output":{"error":"timeout"},"duration_ms":4376}
+```
+It timed out, so retry the check for SKU-2210 before relying on stock numbers.
+--- derived
+

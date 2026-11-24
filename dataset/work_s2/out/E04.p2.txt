@@ -1,0 +1,73 @@
+=== E-0084
+--- reference
+To say what changed the most about the 10 min session length, I would need last period's value or a breakdown by mode.
+Share either one and I will point to the biggest movement.
+--- derived
+
+=== E-0126
+--- reference
+I cannot compare the 20 grant applications to target because no target is given in this conversation.
+Tell me the target number and I will give you the gap.
+--- derived
+
+=== E-0076
+--- reference
+No history for CLM-5780 is available in this conversation, so I have nothing to show you yet.
+Paste the log entries and I will go through them with you.
+--- derived
+
+=== E-0079
+--- reference
+The invoice is on its way.
+```dyui
+{"ui":"callout","level":"success","title":"Invoice sent","text":"Invoice INV-863 was sent to Globex by email."}
+```
+Globex now has the invoice.
+--- derived
+
+=== E-0029
+--- user
+btw how would you word a rejection email to someone who made it to the final round? want it kind but clear
+--- reference
+Open by thanking them for the time they put into the process, then state the decision plainly in the first few lines so they are not left guessing. Add one specific positive about their interview and offer to keep them in mind for future roles.
+Avoid vague reasons, and do not promise feedback you cannot give.
+--- derived
+
+=== E-0053
+--- reference
+Noted, that answer missed. Tell me what was off and I will fix it.
+--- derived
+
+=== E-0013
+--- reference
+The release is going out.
+```dyui
+{"ui":"callout","level":"success","title":"Release published","text":"v2.4.6 is being deployed to all production regions."}
+```
+Check your monitoring while it rolls out.
+--- derived
+
+=== E-0007
+--- reference
+Your cancellation has gone through.
+```dyui
+{"ui":"callout","level":"success","title":"Subscription cancelled","text":"Your Team subscription is cancelled and stays active until the end of the billing period."}
+```
+You can resubscribe from the billing page whenever you like.
+--- derived
+
+=== E-0113
+--- reference
+Thank you for rating the tutorial 2 stars.
+If you tell me what fell short, I will gladly improve on it.
+--- derived
+
+=== E-0049
+--- reference
+The project has been removed.
+```dyui
+{"ui":"callout","level":"success","title":"Project deleted","text":"q3-campaign and all of its files and history were removed permanently."}
+```
+It cannot be restored, so any future work will need a new project.
+--- derived
+

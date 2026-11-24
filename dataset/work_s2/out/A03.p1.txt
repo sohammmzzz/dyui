@@ -1,0 +1,110 @@
+=== A-0040
+--- user
+Could you put this in a card for me? It is the Orion Dashboard, hotel per night $131, and I would like a Decline button on it in case we want to drop the option.
+--- reference
+Here is the Orion Dashboard card with the nightly rate and a Decline button.
+```dyui
+{"ui":"card","title":"Orion Dashboard","children":[{"ui":"stat","label":"Hotel per night","value":"$131"}],"actions":[{"label":"Decline","action":"decline_item","style":"danger"}]}
+```
+The red Decline button sends your choice back to me when pressed.
+--- derived
+
+=== A-0048
+--- user
+need a player for this: https://static.brasa.example.com/audio/benchmark-13.mp3 — title it "Episode recap"
+--- reference
+Here is the player for the episode recap.
+```dyui
+{"ui":"audio","src":"https://static.brasa.example.com/audio/benchmark-13.mp3","title":"Episode recap"}
+```
+Press play to hear it between shifts.
+--- derived
+
+=== A-0236
+--- user
+can you embed the audio? https://assets.lumen.example.io/audio/security-15.mp3, call it "Demo track"
+--- reference
+The demo track is embedded below.
+```dyui
+{"ui":"audio","src":"https://assets.lumen.example.io/audio/security-15.mp3","title":"Demo track"}
+```
+You can play and pause it right in the chat.
+--- derived
+
+=== A-0180
+--- user
+je voudrais laisser une note pour ce tutoriel, de 1 à 5 étoiles, et avec la question "Ce tutoriel vous a-t-il été utile ?"
+--- reference
+Voici une note à cinq étoiles pour évaluer le tutoriel.
+```dyui
+{"ui":"rating","label":"Ce tutoriel vous a-t-il été utile ?","max":5,"style":"stars","action":"session_feedback"}
+```
+Votre note me sera renvoyée dès que vous cliquerez sur une étoile.
+--- derived
+
+=== A-0149
+--- user
+Kindly attach the roadmap so that I can grab it: https://help.helpwave.example.com/files/roadmap.pdf (roadmap.pdf).
+--- reference
+The roadmap is attached below as a downloadable file.
+```dyui
+{"ui":"file","name":"roadmap.pdf","url":"https://help.helpwave.example.com/files/roadmap.pdf"}
+```
+Use the link to save the PDF.
+--- derived
+
+=== A-0026
+--- user
+make a card for Spring Festival with a Save button, and in it what happens next: source candidates, draft the job post, send the offer
+--- reference
+Here is the Spring Festival card with the next steps and a Save button.
+```dyui
+{"ui":"card","title":"Spring Festival","children":[{"ui":"markdown","text":"### What happens next\n- **Source** candidates\n- **Draft** the job post\n- **Send** the offer"}],"actions":[{"label":"Save","action":"save_item","style":"secondary"}]}
+```
+Save is a secondary button, so it stays visually quiet.
+--- derived
+
+=== A-0246
+--- user
+Could you please set me up for the event? I need a registration form with a full name field (with the placeholder Ana Silva), an email field, a required number-of-guests field that starts at 2 and allows at most 12, and a required seating choice among Indoor, Terrace and Bar. The button should say Register.
+--- reference
+Here is a registration form with the fields you listed.
+```dyui
+{"ui":"form","fields":[{"name":"full_name","label":"Full name","placeholder":"Ana Silva"},{"name":"email","label":"Email","type":"email"},{"name":"guests","label":"Number of guests","type":"number","required":true,"default":2,"max":12},{"name":"seating","label":"Seating","type":"radio","options":["Indoor","Terrace","Bar"],"required":true}],"submit_label":"Register"}
+```
+Guests and seating are required, and submitting sends the answers back to me.
+--- derived
+
+=== A-0263
+--- user
+how do i read an env var in php
+--- reference
+Here is how to read an environment variable in PHP.
+```dyui
+{"ui":"code","code":"<?php\n$key = getenv('API_KEY');","language":"php"}
+```
+`getenv` returns false when the variable is not set.
+--- derived
+
+=== A-0010
+--- user
+Faz um cartão para isto: "Riverside Studio", subtítulo "Best value this season", imagem https://blog.northwind.example.com/img/report-26.png, etiqueta "New", taxa de cliques 4.4% e um botão Book.
+--- reference
+Aqui está o cartão do Riverside Studio com a imagem, a etiqueta e o botão.
+```dyui
+{"ui":"card","title":"Riverside Studio","subtitle":"Best value this season","image":"https://blog.northwind.example.com/img/report-26.png","badge":"New","children":[{"ui":"stat","label":"Click-through rate","value":"4.4%"}],"actions":[{"label":"Book","action":"book_item","style":"primary"}]}
+```
+A taxa de cliques de 4.4% aparece em destaque dentro do cartão.
+--- derived
+
+=== A-0278
+--- user
+share q3-summary.csv as a file: https://help.helpwave.example.com/files/q3-summary.csv
+--- reference
+Here is the Q3 summary as a downloadable file.
+```dyui
+{"ui":"file","name":"q3-summary.csv","url":"https://help.helpwave.example.com/files/q3-summary.csv"}
+```
+It is a CSV, so it opens in any spreadsheet app.
+--- derived
+

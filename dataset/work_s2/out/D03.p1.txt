@@ -1,0 +1,119 @@
+=== D-0102
+--- user
+Two columns for the release review. One side: my fare reasoning (2569 ms), Vueling at $135 is $82 cheaper than TAP at $217, price decides, Vueling is the better pick. The other: the track plan, Promote on socials done, Upload the artwork pending, Master the track active, Pitch to editors skipped.
+--- reference
+Vueling's $82 advantage sits beside the release plan, where mastering is the active job.
+```dyui
+{"ui":"grid","columns":2,"children":[{"ui":"reasoning","text":"Comparing the two fares: Vueling at $135 is $82 cheaper than TAP at $217. Price is the deciding factor, so Vueling is the better pick.","duration_ms":2569},{"ui":"plan","items":[{"title":"Promote on socials","status":"done"},{"title":"Upload the artwork","status":"pending"},{"title":"Master the track","status":"active"},{"title":"Pitch to editors","status":"skipped"}]}]}
+```
+Uploading the artwork waits until the master is ready.
+--- derived
+
+
+=== D-0027
+--- user
+In a swipeable row, please show the image https://assets.lumen.example.io/img/case-study-24.png (alt "The rooftop terrace at sunset", caption "Draft version") followed by the video https://www.youtube.com/watch?v=OSOAfiDHtK1 with the poster https://www.example.org/img/roadmap-29.webp.
+--- reference
+A rooftop terrace image leads the row, and the video follows with its poster frame.
+```dyui
+{"ui":"carousel","children":[{"ui":"image","src":"https://assets.lumen.example.io/img/case-study-24.png","alt":"The rooftop terrace at sunset","caption":"Draft version"},{"ui":"video","src":"https://www.youtube.com/watch?v=OSOAfiDHtK1","poster":"https://www.example.org/img/roadmap-29.webp"}]}
+```
+The image is captioned as a draft version.
+--- derived
+
+
+=== D-0035
+--- user
+Release status card with a list in it, nothing fancy: Quinta Verde $164/night, Praça Suites $187/night, Hotel Avenida $118/night, Mar & Sol $96/night.
+--- reference
+Four hotels with their nightly rates are listed inside the release status card.
+```dyui
+{"ui":"card","title":"Release status","children":[{"ui":"list","items":[{"title":"Quinta Verde","meta":"$164/night"},{"title":"Praça Suites","meta":"$187/night"},{"title":"Hotel Avenida","meta":"$118/night"},{"title":"Mar & Sol","meta":"$96/night"}]}]}
+```
+Praça Suites costs the most at $187/night and Mar & Sol the least at $96.
+--- derived
+
+
+=== D-0060
+--- user
+I'd like a swipeable row containing one card titled "Details", and inside the card my reasoning: TAP at $166 is $129 cheaper than easyJet at $295, price is the deciding factor, so TAP is the better pick.
+--- reference
+TAP is $129 cheaper than easyJet, and the reasoning is tucked into a Details card within the row.
+```dyui
+{"ui":"carousel","children":[{"ui":"card","children":[{"ui":"reasoning","text":"Comparing the two fares: TAP at $166 is $129 cheaper than easyJet at $295. Price is the deciding factor, so TAP is the better pick."}],"title":"Details"}]}
+```
+Fare was the only criterion used in the comparison.
+--- derived
+
+
+=== D-0093
+--- user
+put the q3 video in a card called "Trip overview": https://docs.acme-cloud.example.com/video/q3-summary.mp4, caption "The product demo"
+--- reference
+The demo video plays from inside the trip overview card.
+```dyui
+{"ui":"card","title":"Trip overview","children":[{"ui":"video","src":"https://docs.acme-cloud.example.com/video/q3-summary.mp4","caption":"The product demo"}]}
+```
+Press play on the card to watch it without leaving the chat.
+--- derived
+
+
+=== D-0111
+--- user
+two collapsibles. main: audio https://help.helpwave.example.com/audio/security-19.mp3 called "Standup recording". more detail: image https://files.example.com/img/pricing-02.png, alt "The new front entrance"
+--- reference
+Listen to the standup recording first, then open the second section for the entrance photo.
+```dyui
+{"ui":"accordion","items":[{"title":"Main section","children":[{"ui":"audio","src":"https://help.helpwave.example.com/audio/security-19.mp3","title":"Standup recording"}]},{"title":"More detail","children":[{"ui":"image","src":"https://files.example.com/img/pricing-02.png","alt":"The new front entrance"}]}]}
+```
+The audio opens by default, so the image stays out of the way until needed.
+--- derived
+
+
+=== D-0051
+--- user
+Please set up collapsible sections for the tutoring pack. The main section should preview the link https://docs.acme-cloud.example.com/release-notes from docs.acme-cloud.example.com, titled "2026 industry benchmark report", described as "Everything that shipped, grouped by area.", with the image https://assets.lumen.example.io/img/getting-started-35.jpg. The "More detail" section should play the audio at https://blog.northwind.example.com/audio/security-06.mp3.
+--- reference
+The benchmark report preview takes the main section, and the audio clip is stored under More detail.
+```dyui
+{"ui":"accordion","items":[{"title":"Main section","children":[{"ui":"link_preview","url":"https://docs.acme-cloud.example.com/release-notes","title":"2026 industry benchmark report","description":"Everything that shipped, grouped by area.","image":"https://assets.lumen.example.io/img/getting-started-35.jpg","site":"docs.acme-cloud.example.com"}]},{"title":"More detail","children":[{"ui":"audio","src":"https://blog.northwind.example.com/audio/security-06.mp3"}]}]}
+```
+The audio clip has no title, so it appears as a bare player.
+--- derived
+
+
+=== D-0026
+--- user
+meter stuff in a scroll row. slide 1, raw payload titled "Meter payload": meter_id MTR-473, tariff Green, last_reading 22402, read_on Aug 15, status Check, tags eu and renewal, meta version 4 and dry_run false. slide 2, three numbers: bill estimate $173, peak demand 2.6 kW, consumption 312 kWh
+--- reference
+Meter MTR-473 is flagged Check, with its bill estimate at $173 on the second slide.
+```dyui
+{"ui":"carousel","children":[{"ui":"json","data":{"meter_id":"MTR-473","tariff":"Green","last_reading":22402,"read_on":"Aug 15","status":"Check","tags":["eu","renewal"],"meta":{"version":4,"dry_run":false}},"title":"Meter payload"},{"ui":"stats","items":[{"label":"Bill estimate","value":"$173"},{"label":"Peak demand","value":"2.6 kW"},{"label":"Consumption","value":"312 kWh"}]}]}
+```
+The payload's Check status is worth reviewing before trusting the estimate.
+--- derived
+
+
+=== D-0008
+--- user
+Within a two-column layout, kindly include a card called "Overview" that shows progress toward the fundraising goal: 26.
+--- reference
+Fundraising progress stands at 26 inside the overview card.
+```dyui
+{"ui":"grid","columns":2,"children":[{"ui":"card","children":[{"ui":"progress","value":26,"label":"Fundraising goal"}],"title":"Overview"}]}
+```
+The bar sits in the card titled Overview, labelled with the goal it tracks.
+--- derived
+
+
+=== D-0103
+--- user
+I need the PostgreSQL install command for Docker, Ubuntu, macOS and Windows, please. A separate view for each would be ideal.
+--- reference
+Pick the tab for your platform to get the matching PostgreSQL install command.
+```dyui
+{"ui":"tabs","tabs":[{"label":"Docker","children":[{"ui":"code","code":"docker run -d -p 5432:5432 postgres:16","language":"bash"}]},{"label":"Ubuntu","children":[{"ui":"code","code":"sudo apt install postgresql","language":"bash"}]},{"label":"macOS","children":[{"ui":"code","code":"brew install postgresql@16","language":"bash"}]},{"label":"Windows","children":[{"ui":"code","code":"winget install PostgreSQL.PostgreSQL","language":"powershell"}]}]}
+```
+The Docker command publishes port 5432 and runs PostgreSQL 16 in the background.
+--- derived
+

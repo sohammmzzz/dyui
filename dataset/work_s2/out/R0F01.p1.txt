@@ -1,0 +1,22 @@
+=== F-0044
+--- user
+Drop CM-1143 from that list.
+--- reference
+The rented Ranger is out of the list, and the other six vehicles stay as they were.
+```dyui
+{"ui":"table","columns":["Plate","Model","Mileage","Status"],"rows":[["CM-4555","Transit",27500,"Out of order"],["CM-2589","Ranger",6109,"In service"],["CM-3769","Transit",141437,"In service"],["CM-1572","Ranger",55026,"In service"],["CM-5885","Kona",54651,"In service"],["CM-5326","Golf",57472,"Out of order"]],"caption":"Vehicles"}
+```
+Two of the remaining vehicles are out of order, and the rest are in service.
+--- derived
+
+=== F-0042
+--- user
+Swap that for a bar chart of party size by time, would you?
+--- reference
+Party size by booking time reads well as bars, so the table becomes a chart.
+```dyui
+{"ui":"chart","kind":"bar","labels":["19:15","21:30","20:00","18:00","18:30"],"series":[{"name":"Party","data":[12,8,2,8,3]}],"title":"Party size by reservation time"}
+```
+The biggest party is the early-evening booking, and the window-table couple is by far the smallest. Bars follow the order of your original list.
+--- derived
+

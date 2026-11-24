@@ -1,0 +1,81 @@
+=== A-0158
+--- user
+cancel my team subscription
+--- reference
+That is a change I cannot reverse on my side, so I am asking you to confirm before anything happens.
+```dyui
+{"ui":"confirm","title":"Cancel your Team subscription?","action":"cancel_subscription","data":{"plan":"team"},"danger":true}
+```
+The subscription stays active until you answer.
+--- derived
+
+=== A-0153
+--- user
+cancel my starter subscription
+--- reference
+Ending a plan is not something I can undo, so please confirm it below first.
+```dyui
+{"ui":"confirm","title":"Cancel your Starter subscription?","text":"You keep access until the end of the billing period.","confirm_label":"Cancel subscription","cancel_label":"Keep Starter","action":"cancel_subscription","data":{"plan":"starter"},"danger":true}
+```
+Your access runs to the end of the current billing period either way, and nothing is cancelled until you choose.
+--- derived
+
+=== A-0125
+--- user
+one-liner to serve the current folder on port 8080 with nginx in docker?
+--- reference
+A single docker run command will do it, using the nginx alpine image.
+```dyui
+{"ui":"code","code":"docker run --rm -p 8080:80 -v \"$PWD\":/usr/share/nginx/html:ro nginx:alpine","language":"bash"}
+```
+The folder is mounted read-only and served on port 8080 until you stop the container.
+--- derived
+
+=== A-0152
+--- user
+dame una lista fácil de revisar de estos hoteles, con ciudad, precio y foto, y que al pulsar uno se elija ese hotel:
+Hotel Avenida, Porto, $118/night, foto https://static.brasa.example.com/img/benchmark-30.png
+Quinta Verde, Sintra, $164/night, foto https://docs.acme-cloud.example.com/img/handbook-07.webp
+Praça Suites, Lisbon, $187/night, foto https://files.example.com/img/pricing-40.jpg
+Mar & Sol, Valencia, $96/night, foto https://www.example.org/img/roadmap-37.jpg
+--- reference
+Los cuatro hoteles quedan en una lista compacta, con ciudad, precio y foto.
+```dyui
+{"ui":"list","items":[{"title":"Hotel Avenida","subtitle":"Porto","meta":"$118/night","image":"https://static.brasa.example.com/img/benchmark-30.png","action":"pick_hotel","data":{"hotel":"Hotel Avenida"}},{"title":"Quinta Verde","subtitle":"Sintra","meta":"$164/night","image":"https://docs.acme-cloud.example.com/img/handbook-07.webp","action":"pick_hotel","data":{"hotel":"Quinta Verde"}},{"title":"Praça Suites","subtitle":"Lisbon","meta":"$187/night","image":"https://files.example.com/img/pricing-40.jpg","action":"pick_hotel","data":{"hotel":"Praça Suites"}},{"title":"Mar & Sol","subtitle":"Valencia","meta":"$96/night","image":"https://www.example.org/img/roadmap-37.jpg","action":"pick_hotel","data":{"hotel":"Mar & Sol"}}]}
+```
+Cada fila es pulsable, así que al tocar un hotel me llega esa elección.
+--- derived
+
+=== A-0250
+--- user
+I would like to give feedback on this answer using a simple thumbs up or down, recorded under the action rate_tutorial.
+--- reference
+A thumbs control is ready below for your feedback on this answer.
+```dyui
+{"ui":"rating","style":"thumbs","action":"rate_tutorial"}
+```
+Your vote reaches me as a thumbs up or thumbs down value, which helps me judge whether the explanation worked.
+--- derived
+
+=== A-0124
+--- user
+Could you add a thumbs up or thumbs down for this reply, labelled "How helpful was this?", so I can tell you whether the scheduling answer was useful? Please record it under rate_tutorial.
+--- reference
+Please vote on this reply with the control below.
+```dyui
+{"ui":"rating","label":"How helpful was this?","style":"thumbs","action":"rate_tutorial"}
+```
+Whichever thumb you tap is sent back to me as your verdict on the scheduling answer.
+--- derived
+
+=== A-0137
+--- user
+Kindly cancel our team subscription.
+--- reference
+Before I proceed, this cancellation needs your explicit approval.
+```dyui
+{"ui":"confirm","title":"Cancel your Team subscription?","cancel_label":"Keep Team","action":"cancel_subscription","data":{"plan":"team"},"danger":true}
+```
+Choosing to keep the plan leaves everything exactly as it is.
+--- derived
+

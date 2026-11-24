@@ -1,0 +1,130 @@
+=== I-0013
+--- user
+Two items for the daily rundown, please. A passport renewal titled Quarterly review: amount 2575, pro priority, 11.3 kg, category Finance. And a wellness goal named Harbour route, not active, dated Sep 26, provider Orbit Freight, score 51, state open.
+--- reference
+The rundown has one renewal and one goal.
+```dyui
+{"ui":"passport_renewal","title":"Quarterly review","amount":2575,"priority":"pro","weight_kg":11.3,"category":"Finance"}
+{"ui":"wellness_goal","title":"Harbour route","active":false,"date":"Sep 26","provider":"Orbit Freight","score":51,"state":"open"}
+```
+The wellness goal is open but not active, so nothing is moving on it yet.
+--- derived
+
+
+=== I-0035
+--- user
+Study group data for the two fire incidents on file. Sven Larsen: code TEAM15, Mar 10, draft, count 98, 186.7 km, https://docs.example.com/status/15, balance 7817, id ZN-3000. Kofi Mensah: code TEAM15, Apr 19, draft, count 235, 420.1 km, https://docs.example.com/plan/81, balance 4847, id ZN-5055.
+--- reference
+Both incidents share the TEAM15 code and both remain drafts.
+```dyui
+{"ui":"fire_incident","name":"Sven Larsen","code":"TEAM15","date":"Mar 10","stage":"draft","count":98,"distance_km":186.7,"url":"https://docs.example.com/status/15","balance":7817,"id":"ZN-3000"}
+{"ui":"fire_incident","name":"Kofi Mensah","code":"TEAM15","date":"Apr 19","stage":"draft","count":235,"distance_km":420.1,"url":"https://docs.example.com/plan/81","balance":4847,"id":"ZN-5055"}
+```
+Kofi Mensah's incident covers the longer distance and the higher count, while Sven Larsen's has the larger balance.
+--- derived
+
+
+=== I-0056
+--- user
+floor plans: Kofi Mensah, unverified, 10 units, 21 percent. Mia Novak, verified, 26 units, id AX-538, 6 percent.
+--- reference
+Mia Novak's floor plan is the verified one.
+```dyui
+{"ui":"floor_plan","name":"Kofi Mensah","verified":false,"quantity":10,"percent":21}
+{"ui":"floor_plan","name":"Mia Novak","verified":true,"quantity":26,"id":"AX-538","percent":6}
+```
+Kofi Mensah's plan still lacks verification and has no id.
+--- derived
+
+
+=== I-0026
+--- user
+Pode mostrar as três cotações de fornecedor? KT-8335, Kofi Mensah, responsável Ana Silva, reembolsável, fornecedor Northwind. AX-4640, Mia Novak, responsável Elena Rossi, reembolsável, fornecedor Orbit Freight. ZN-7863, Kofi Mensah, responsável Ana Silva, não reembolsável, fornecedor Northwind.
+--- reference
+Duas das três cotações são reembolsáveis, e só a ZN-7863 não é.
+```dyui
+{"ui":"supplier_quote","id":"KT-8335","name":"Kofi Mensah","owner":"Ana Silva","refundable":true,"provider":"Northwind"}
+{"ui":"supplier_quote","id":"AX-4640","name":"Mia Novak","owner":"Elena Rossi","refundable":true,"provider":"Orbit Freight"}
+{"ui":"supplier_quote","id":"ZN-7863","name":"Kofi Mensah","owner":"Ana Silva","refundable":false,"provider":"Northwind"}
+```
+A Northwind aparece em duas cotações, ambas com Ana Silva como responsável.
+--- derived
+
+
+=== I-0022
+--- user
+Can you show the note card I made for a guest? It's for Mia Novak, tier ok, rated 4.3, items: samples, owner is Tomas Weber.
+--- reference
+Mia Novak's note card is in good standing.
+```dyui
+{"ui":"note_card","name":"Mia Novak","tier":"ok","rating":4.3,"items":["samples"],"owner":"Tomas Weber"}
+```
+Tomas Weber owns the card, and its single item is samples.
+--- derived
+
+
+=== I-0048
+--- user
+Could you chart out, well, display the tool wear records? AX-8353 count 218, AX-2039 count 195, AX-8197 count 85.
+--- reference
+AX-8353 has worn the most of the three tools.
+```dyui
+{"ui":"tool_wear","id":"AX-8353","count":218}
+{"ui":"tool_wear","id":"AX-2039","count":195}
+{"ui":"tool_wear","id":"AX-8197","count":85}
+```
+AX-8197 is well below the other two, which sit fairly close together.
+--- derived
+
+
+=== I-0009
+--- user
+Please record a color swatch, id PR-5806, for attendees Elif and Dmitri, titled Morning session, item badge, not refundable, balance 3840, note "Call before arrival", pro stage, active. Also a support ticket titled Morning session.
+--- reference
+Two records cover the Morning session, a swatch and a support ticket.
+```dyui
+{"ui":"color_swatch","id":"PR-5806","attendees":["Elif","Dmitri"],"title":"Morning session","items":["badge"],"refundable":false,"balance":3840,"notes":"Call before arrival","stage":"pro","active":true}
+{"ui":"support_ticket","title":"Morning session"}
+```
+The swatch is active on the pro stage, and the ticket has no notes attached.
+--- derived
+
+
+=== I-0018
+--- user
+Decision log, two entries. Omar Haddad, score 42, priority ok, urgent, "On track with one open risk", Harbour route, amount 7751. Omar Haddad again, score 95, priority fail, not urgent, "Completed ahead of plan", Pilot batch, amount 6202.
+--- reference
+Omar Haddad appears in both decisions, one per project.
+```dyui
+{"ui":"decision_log","name":"Omar Haddad","score":42,"priority":"ok","urgent":true,"summary":"On track with one open risk","title":"Harbour route","amount":7751}
+{"ui":"decision_log","name":"Omar Haddad","score":95,"priority":"fail","urgent":false,"summary":"Completed ahead of plan","title":"Pilot batch","amount":6202}
+```
+Only the Harbour route decision is urgent, though Pilot batch scores higher.
+--- derived
+
+
+=== I-0019
+--- user
+Potrebbe mostrarmi la prenotazione per Spring bundle? Comprende samples, notes e keys.
+--- reference
+Ecco la prenotazione Spring bundle con i tre elementi richiesti.
+```dyui
+{"ui":"booking","title":"Spring bundle","items":["samples","notes","keys"]}
+```
+Prima della partenza conviene controllare che tutti e tre gli elementi siano disponibili.
+--- derived
+
+
+=== I-0025
+--- user
+paint jobs for tonight: KT-8248, 7 min, Omar Haddad, 352.4 km, "Fragile". AX-694, 26 min, 153.4 km, "Bring ID", published. PR-384, 81 min, Omar Haddad, 208.4 km, "Second floor", draft.
+--- reference
+Three jobs are on tonight's list, and Omar Haddad has two of them.
+```dyui
+{"ui":"paint_job","id":"KT-8248","duration_min":7,"name":"Omar Haddad","distance_km":352.4,"notes":"Fragile"}
+{"ui":"paint_job","id":"AX-694","duration_min":26,"distance_km":153.4,"notes":"Bring ID","tier":"published"}
+{"ui":"paint_job","id":"PR-384","duration_min":81,"name":"Omar Haddad","distance_km":208.4,"notes":"Second floor","tier":"draft"}
+```
+PR-384 is the longest job at 81 minutes, and AX-694 is the only one published.
+--- derived
+

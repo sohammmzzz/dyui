@@ -1,0 +1,25 @@
+{"id": "A-0371", "intro": "To book the appointment, fill in this form.", "outro": "All four fields must be completed, and your answers come back to me so I can confirm the booking."}
+{"id": "A-0373", "intro": "Four help-center questions, each as a collapsible section.", "outro": "Hiding each answer until it is opened keeps the page compact for visitors."}
+{"id": "A-0379", "intro": "Two clickable sources for you.", "outro": "Click any of them to open its page."}
+{"id": "A-0381", "intro": "Your five budgeting steps follow, in the sequence you listed.", "outro": "Only the first is complete, and linking the salary account is underway."}
+{"id": "A-0383", "intro": "In PHP, call getenv to read an environment variable.", "outro": "When the variable is unset, `getenv` gives back false."}
+{"id": "A-0390", "intro": "Price was the deciding factor, and the reasoning is spelled out below.", "outro": "Vueling comes out $32 ahead, and the comparison ran in just 1717 ms."}
+{"id": "A-0398", "intro": "The Q3 summary is ready to download.", "outro": "As a CSV, it opens in any spreadsheet application."}
+{"id": "A-0401", "intro": "Stuck for next steps? Tap one of these follow-ups.", "outro": "Choose one and I will continue from there."}
+{"id": "A-0417", "intro": "The product record, unfolded as a tree you can expand.", "outro": "The meta node holds the version details once opened."}
+{"id": "`A-0004", "intro": "Your customer comment, presented as a testimonial.", "outro": "Short quotes like this serve well as social proof on a product page."}
+{"id": "B-0001", "intro": "December churn, set beside its target.", "outro": "Yes, that is good: churn finished below the 2.1% target."}
+{"id": "B-0005", "intro": "Tutoring orders split across six subjects, as you asked.", "outro": "History claims the largest share while Chemistry barely registers."}
+{"id": "B-0006", "intro": "Four weeks of forum questions, plotted to show the trajectory.", "outro": "The climb from 59 to 76 is flattening, since the final step was far smaller than the earlier ones."}
+{"id": "B-0008", "intro": "Seven machines, with line, status and last service date side by side.", "outro": "Start with M-636, the only machine that is down."}
+{"id": "B-0009", "intro": "The migration is well along, as the bar shows.", "outro": "417 records are still waiting to move."}
+{"id": "B-0010", "intro": "November fuel economy for the fleet, shown plainly.", "outro": "Nothing changed from last month, so no action is needed."}
+{"id": "B-0018", "intro": "The appliance log, tidied into a table with power draw and status for each device.", "outro": "Faults appear on three: the oven, a pool pump and a dishwasher."}
+{"id": "B-0019", "intro": "Signups split across the four campaigns.", "outro": "At 3929, Spring launch leads, and App install trails at 557."}
+{"id": "B-0023", "intro": "Hiring plan status, with the remaining work in view.", "outro": "Of the ten planned roles, six are still open."}
+{"id": "B-0024", "intro": "Active donors for the month, headline first.", "outro": "Growth is real, yet the 3053 target remains out of reach."}
+{"id": "B-0029", "intro": "September irrigation for the co-op closed at a single total.", "outro": "With no target or prior month in this conversation, I cannot judge it either way."}
+{"id": "B-0030", "intro": "Four headline figures sum up the co-op this month.", "outro": "Fuel use alone is climbing, while rainfall dropped most at -16.7%."}
+{"id": "B-0032", "intro": "Today's showing sheet, six viewings with time, property, buyer and agent.", "outro": "Two showings collide in the late morning, though at separate properties with different agents."}
+{"id": "B-0033", "intro": "Orders by location, with each site's share of the total.", "outro": "Harbour at 4622 and Old Town at 4537 are neck and neck, with Riverside behind at 2554."}
+{"id": "B-0034", "intro": "Appointments from February to June take shape as an area graph.", "outro": "The drop from 40 to 31 is steepest between Mar and Apr."}

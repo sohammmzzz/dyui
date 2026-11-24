@@ -1,0 +1,121 @@
+=== D-0048
+--- user
+Need two tabs. Overview has the reasoning behind my fare pick (2000 ms): easyJet at $132 is $113 cheaper than Iberia at $245, price decides, so easyJet is the better pick. More has a step called "Summarise thread" that is running right now.
+--- reference
+easyJet wins by $113, and the second tab shows the thread summary still in progress.
+```dyui
+{"ui":"tabs","tabs":[{"label":"Overview","children":[{"ui":"reasoning","text":"Comparing the two fares: easyJet at $132 is $113 cheaper than Iberia at $245. Price is the deciding factor, so easyJet is the better pick.","duration_ms":2000}]},{"label":"More","children":[{"ui":"step","title":"Summarise thread","status":"running"}]}]}
+```
+Check back on the second tab once the summary step finishes.
+--- derived
+
+
+=== D-0135
+--- user
+Could you arrange two tabs for the account? The first tab should offer the price list for download, price-list.csv, 4387914 bytes, at https://media.example.net/files/price-list.csv. The second should display the image https://help.helpwave.example.com/img/roadmap-36.png.
+--- reference
+The price list download sits on the first tab and the image on the second.
+```dyui
+{"ui":"tabs","tabs":[{"label":"Overview","children":[{"ui":"file","name":"price-list.csv","url":"https://media.example.net/files/price-list.csv","size":4387914}]},{"label":"More","children":[{"ui":"image","src":"https://help.helpwave.example.com/img/roadmap-36.png"}]}]}
+```
+The CSV is a few megabytes, so expect a short wait on a slow connection.
+--- derived
+
+
+
+=== D-0081
+--- user
+dropdown sections: first one "Main section" with the video https://docs.acme-cloud.example.com/video/changelog.mp4, captioned "The product demo". second "More detail" with the picture https://www.example.org/img/security-19.webp, alt "The stage before doors opened", caption "Draft version".
+--- reference
+Watch the demo in the first section, then open the second for the draft stage photo.
+```dyui
+{"ui":"accordion","items":[{"title":"Main section","children":[{"ui":"video","src":"https://docs.acme-cloud.example.com/video/changelog.mp4","caption":"The product demo"}]},{"title":"More detail","children":[{"ui":"image","src":"https://www.example.org/img/security-19.webp","alt":"The stage before doors opened","caption":"Draft version"}]}]}
+```
+The photo is captioned as a draft version, so it may change before doors open.
+--- derived
+
+
+=== D-0047
+--- user
+Two tabs for the hiring plan, keep it quick. Overview: a card "Spring Festival" with a "Popular" badge, containing a note headed Handover notes with bold first words: Source candidates, Draft the job post, Run the screens, Schedule panel interviews. More: a list of venues, Mar & Sol (Valencia), Praça Suites (Lisbon), Hotel Avenida (Porto), Casa Alfama (Lisbon), Quinta Verde (Sintra).
+--- reference
+Four hiring steps ride inside a badged card, and five venues wait on the second tab.
+```dyui
+{"ui":"tabs","tabs":[{"label":"Overview","children":[{"ui":"card","title":"Spring Festival","badge":"Popular","children":[{"ui":"markdown","text":"### Handover notes\n- **Source** candidates\n- **Draft** the job post\n- **Run** the screens\n- **Schedule** panel interviews"}]}]},{"label":"More","children":[{"ui":"list","items":[{"title":"Mar & Sol","subtitle":"Valencia"},{"title":"Praça Suites","subtitle":"Lisbon"},{"title":"Hotel Avenida","subtitle":"Porto"},{"title":"Casa Alfama","subtitle":"Lisbon"},{"title":"Quinta Verde","subtitle":"Sintra"}]}]}]}
+```
+Two of the five venues are in Lisbon, which narrows the choice if the panel is held there.
+--- derived
+
+
+=== D-0017
+--- user
+Please produce a two-tab view. Overview: the hotels with photos and prices, Hotel Avenida in Porto $118/night (https://media.example.net/img/guide-26.webp), Quinta Verde in Sintra $164/night (https://news.example.com/img/changelog-27.webp), Praça Suites in Lisbon $187/night (https://cdn.fernhill.example.com/img/changelog-15.jpg), Casa Alfama in Lisbon $142/night (https://www.example.org/img/report-30.webp), Mar & Sol in Valencia $96/night (https://blog.northwind.example.com/img/case-study-36.png). More: a card "Lisbon · 3 nights" with the image https://assets.lumen.example.io/img/faq-11.png, showing peak demand 10.4 kW and a Details button (action view_details).
+--- reference
+Five hotels fill the first tab, and the Lisbon stay card with its demand reading sits in the second.
+```dyui
+{"ui":"tabs","tabs":[{"label":"Overview","children":[{"ui":"list","items":[{"title":"Hotel Avenida","subtitle":"Porto","meta":"$118/night","image":"https://media.example.net/img/guide-26.webp"},{"title":"Quinta Verde","subtitle":"Sintra","meta":"$164/night","image":"https://news.example.com/img/changelog-27.webp"},{"title":"Praça Suites","subtitle":"Lisbon","meta":"$187/night","image":"https://cdn.fernhill.example.com/img/changelog-15.jpg"},{"title":"Casa Alfama","subtitle":"Lisbon","meta":"$142/night","image":"https://www.example.org/img/report-30.webp"},{"title":"Mar & Sol","subtitle":"Valencia","meta":"$96/night","image":"https://blog.northwind.example.com/img/case-study-36.png"}]}]},{"label":"More","children":[{"ui":"card","title":"Lisbon · 3 nights","image":"https://assets.lumen.example.io/img/faq-11.png","children":[{"ui":"stat","label":"Peak demand","value":"10.4 kW"}],"actions":[{"label":"Details","action":"view_details"}]}]}]}
+```
+Mar & Sol is the cheapest option at $96/night, and Details sends view_details back to me.
+--- derived
+
+
+=== D-0038
+--- user
+Show two things side by side in a pair of columns. Left: playlist adds 83107, streams 25314451, monthly listeners 2446995. Right: a single figure for September playlist adds, 14960, target 16793.
+--- reference
+September playlist adds landed at 14960, short of the 16793 target, and the left column carries the overall totals.
+```dyui
+{"ui":"grid","columns":2,"children":[{"ui":"stats","items":[{"label":"Playlist adds","value":"83107"},{"label":"Streams","value":"25314451"},{"label":"Monthly listeners","value":"2446995"}]},{"ui":"stat","label":"Playlist adds · September","value":"14960","help":"Target 16793"}]}
+```
+That is a gap of 1833 adds against target for the month.
+--- derived
+1833 (16793 - 14960)
+
+
+=== D-0063
+--- user
+Put the file roadmap.csv inside a card titled "Trip overview". It's at https://docs.acme-cloud.example.com/files/roadmap.csv, 21.5 MB, type text/csv.
+--- reference
+The roadmap export is attached to the trip overview card.
+```dyui
+{"ui":"card","title":"Trip overview","children":[{"ui":"file","name":"roadmap.csv","url":"https://docs.acme-cloud.example.com/files/roadmap.csv","size":"21.5 MB","type":"text/csv"}]}
+```
+At 21.5 MB it is a heavy download, so open it in a spreadsheet tool rather than a text editor.
+--- derived
+
+
+=== D-0012
+--- user
+line status: in a two-column layout, nest another two-column layout holding the running step "Check inventory" (input sku SKU-2210) and a plan: Full production pending, Run the first article skipped, Set up the line done, Changeover active.
+--- reference
+Changeover is the active stage, and the inventory check is still running alongside it.
+```dyui
+{"ui":"grid","columns":2,"children":[{"ui":"grid","children":[{"ui":"step","title":"Check inventory","status":"running","input":{"sku":"SKU-2210"}},{"ui":"plan","items":[{"title":"Full production","status":"pending"},{"title":"Run the first article","status":"skipped"},{"title":"Set up the line","status":"done"},{"title":"Changeover","status":"active"}]}],"columns":2}]}
+```
+Full production cannot begin until changeover completes.
+--- derived
+
+
+=== D-0104
+--- user
+For the contract tracker, two tabs. Overview: a timeline with the three stages Counterparty redlines, Legal review, Final approval. More: a bar chart of NDAs pending by state, In review 8, Draft 4, Expired 21, Signed 15.
+--- reference
+Is the pipeline healthy? The stages are in the first tab and the NDA counts by state are in the second.
+```dyui
+{"ui":"tabs","tabs":[{"label":"Overview","children":[{"ui":"timeline","items":[{"title":"Counterparty redlines"},{"title":"Legal review"},{"title":"Final approval"}]}]},{"label":"More","children":[{"ui":"chart","kind":"bar","labels":["In review","Draft","Expired","Signed"],"series":[{"name":"NDAs pending","data":[8,4,21,15]}]}]}]}
+```
+Expired NDAs are the largest group at 21, ahead of the 15 already signed.
+--- derived
+
+
+=== D-0132
+--- user
+Quick one: a two-column layout containing one card called "Summary", and inside the card a step "Search flights" that's currently running.
+--- reference
+The flight search is still running inside a summary card.
+```dyui
+{"ui":"grid","columns":2,"children":[{"ui":"card","children":[{"ui":"step","title":"Search flights","status":"running"}],"title":"Summary"}]}
+```
+The step will change from running to done once results come back.
+--- derived
+

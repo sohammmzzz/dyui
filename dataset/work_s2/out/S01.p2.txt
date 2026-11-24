@@ -1,0 +1,119 @@
+=== S-0016
+--- user
+For the check-in form in our training app, I'm trying to see which enum values the choice component accepts. Does it have fixed-value props like level or style, and what are its required props?
+--- reference
+The choice component has no enum-valued props, so there is no fixed list of values to memorize; here is an example with all its props.
+```dyui
+{"ui":"code","language":"json","code":"{\"ui\":\"choice\",\"question\":\"Which session do you prefer?\",\"options\":[\"Morning\",\"Evening\"],\"multiple\":false,\"allow_other\":true,\"action\":\"pick_session\",\"submit_label\":\"Send\"}"}
+```
+Only question and options are required; multiple, allow_other, action and submit_label are optional.
+--- derived
+
+
+=== S-0015
+--- user
+Would a confirm dialog be the right way to show how our plans split between prepaid 55 and postpaid 45?
+--- reference
+No, confirm asks the user to approve an action; a split of a whole belongs in a chart with kind donut or pie.
+```dyui
+{"ui":"code","language":"json","code":"{\"ui\":\"chart\",\"kind\":\"donut\",\"labels\":[\"Prepaid\",\"Postpaid\"],\"series\":[{\"name\":\"Plans\",\"data\":[55,45]}],\"title\":\"Plans by type\"}"}
+```
+Confirm only requires a title, and its optional props are text, confirm_label, cancel_label, action, data and danger.
+--- derived
+
+
+=== S-0010
+--- user
+For our maintenance backlog, preventive 14, corrective 9, inspections 5, how should I show their shares of the whole? Pie or donut, and what does the chart need at minimum?
+--- reference
+Use a chart for shares of a whole; here is the backlog as a donut.
+```dyui
+{"ui":"code","language":"json","code":"{\"ui\":\"chart\",\"kind\":\"donut\",\"labels\":[\"Preventive\",\"Corrective\",\"Inspections\"],\"series\":[{\"name\":\"Backlog\",\"data\":[14,9,5]}],\"title\":\"Maintenance backlog\"}"}
+```
+Either donut or pie works for a few slices; just change kind. The only required props are kind and series, with labels, title, unit and stacked optional.
+--- derived
+
+
+=== S-0029
+--- user
+does a chart send anything back when someone clicks it, like buttons or quick replies do? errors Mon 3, Tue 7
+--- reference
+A chart has no action prop, so nothing comes back from it; here is the data as a chart next to quick replies for contrast.
+```dyui
+{"ui":"code","language":"json","code":"{\"ui\":\"chart\",\"kind\":\"line\",\"labels\":[\"Mon\",\"Tue\"],\"series\":[{\"name\":\"Errors\",\"data\":[3,7]}]}\n{\"ui\":\"quick_replies\",\"options\":[\"Show Wednesday\"]}"}
+```
+Buttons, confirm, form, choice and rating send [action:<name>] {json}, while quick_replies arrive as plain user text.
+--- derived
+
+
+=== S-0009
+--- user
+Does the list component have any enumerated values, such as a style or status field? And which props are required? An example would be the campaign Spring Sale.
+--- reference
+The list component has no enum-valued props; here is a row built from your campaign example.
+```dyui
+{"ui":"code","language":"json","code":"{\"ui\":\"list\",\"items\":[{\"title\":\"Spring Sale\",\"subtitle\":\"Paid social\",\"meta\":\"Active\",\"action\":\"open_campaign\",\"data\":{\"campaign\":\"Spring Sale\"}}]}"}
+```
+Only items is required, and each item needs just a title; subtitle, image, meta, action and data are optional.
+--- derived
+
+
+=== S-0022
+--- user
+can i use a choice to show how headcount splits across teams? eng 40, sales 25, ops 15
+--- reference
+Not really, since choice asks the user a question; shares of a whole go in a chart with kind donut or pie.
+```dyui
+{"ui":"code","language":"json","code":"{\"ui\":\"chart\",\"kind\":\"pie\",\"labels\":[\"Eng\",\"Sales\",\"Ops\"],\"series\":[{\"name\":\"Headcount\",\"data\":[40,25,15]}],\"title\":\"Headcount by team\"}"}
+```
+Choice requires a question and its options, and everything else on it is optional.
+--- derived
+
+
+=== S-0027
+--- user
+table: how are rows nested? e.g. Bolt 40, Nut 75
+--- reference
+Rows are an array of arrays, one inner array per record, matching the order of columns.
+```dyui
+{"ui":"code","language":"json","code":"{\"ui\":\"table\",\"columns\":[\"Name\",\"Qty\"],\"rows\":[[\"Bolt\",40],[\"Nut\",75]],\"caption\":\"Parts\"}"}
+```
+Columns is an array of strings and rows holds strings or numbers per cell; both are required, while caption is optional.
+--- derived
+
+
+=== S-0019
+--- user
+Come si scrive un chart a barre? Es. ordini lun 5, mar 8. Mi serve la firma.
+--- reference
+Ecco un chart a barre con tutte le proprietà, basato sui tuoi ordini.
+```dyui
+{"ui":"code","language":"json","code":"{\"ui\":\"chart\",\"kind\":\"bar\",\"labels\":[\"lun\",\"mar\"],\"series\":[{\"name\":\"Ordini\",\"data\":[5,8]}],\"title\":\"Ordini\",\"unit\":\"ordini\",\"stacked\":false}"}
+```
+La firma è chart(kind, labels?, series, title?, unit?, stacked?): kind e series sono obbligatori, il resto è facoltativo. Kind può valere bar, line, area, pie, donut o scatter.
+--- derived
+
+
+=== S-0013
+--- user
+how does a form nest its fields? like name, email and a plan select (Basic or Plus)
+--- reference
+A form holds its inputs in a fields array, one object per field, as in this example.
+```dyui
+{"ui":"code","language":"json","code":"{\"ui\":\"form\",\"title\":\"Open an account\",\"fields\":[{\"name\":\"full_name\",\"label\":\"Name\",\"type\":\"text\",\"required\":true},{\"name\":\"email\",\"label\":\"Email\",\"type\":\"email\"},{\"name\":\"plan\",\"label\":\"Plan\",\"type\":\"select\",\"options\":[\"Basic\",\"Plus\"]}],\"submit_label\":\"Send\"}"}
+```
+Only fields is required on the form, and inside each field only name is required. The type is one of text, textarea, number, email, select, multiselect, date, time, checkbox, radio or slider.
+--- derived
+
+
+=== S-0003
+--- user
+rating for showing shares of a whole? 70/30 split
+--- reference
+No, rating collects a score from the user; shares of a whole go in a chart with kind donut or pie.
+```dyui
+{"ui":"code","language":"json","code":"{\"ui\":\"chart\",\"kind\":\"donut\",\"labels\":[\"Part A\",\"Part B\"],\"series\":[{\"name\":\"Share\",\"data\":[70,30]}]}"}
+```
+Rating has only optional props: label, max, style (stars or thumbs) and action.
+--- derived
+

@@ -1,0 +1,111 @@
+=== A-0264
+--- user
+Please give me the plan view for the music streaming release. Scheduling the release is done, mastering the track, pitching to editors and promoting on socials are all still pending, and uploading the artwork errored out.
+--- reference
+Five steps make up the music streaming plan, each with its current status.
+```dyui
+{"ui":"plan","title":"Music streaming plan","items":[{"title":"Schedule the release","status":"done"},{"title":"Master the track","status":"pending"},{"title":"Pitch to editors","status":"pending"},{"title":"Promote on socials","status":"pending"},{"title":"Upload the artwork","status":"error"}]}
+```
+The failed artwork upload is the item to resolve before the remaining steps proceed.
+--- derived
+
+=== A-0216
+--- user
+I have an audio file, an interview with the founder, at https://www.example.org/audio/report-03.mp3. Would you embed it in the chat with that title so I can listen to it right here in the app?
+--- reference
+The founder interview is loaded in the player below.
+```dyui
+{"ui":"audio","src":"https://www.example.org/audio/report-03.mp3","title":"Interview with the founder"}
+```
+Press play to listen without leaving the app.
+--- derived
+
+=== A-0082
+--- user
+share this as a file: audit-report.pdf, 7.1 MB, PDF, at https://assets.lumen.example.io/files/audit-report.pdf
+--- reference
+The audit report is attached below as a PDF download.
+```dyui
+{"ui":"file","name":"audit-report.pdf","url":"https://assets.lumen.example.io/files/audit-report.pdf","size":"7.1 MB","type":"application/pdf"}
+```
+It is a PDF of 7.1 MB, so it should download quickly.
+--- derived
+
+=== A-0185
+--- user
+can you embed the launch teaser so I can watch it here? video is https://www.youtube.com/watch?v=3FODUfbpp_q and the poster image is https://files.example.com/img/q3-summary-20.webp
+--- reference
+Your launch teaser is embedded below, poster included.
+```dyui
+{"ui":"video","src":"https://www.youtube.com/watch?v=3FODUfbpp_q","poster":"https://files.example.com/img/q3-summary-20.webp","caption":"The launch teaser"}
+```
+The poster image shows until you press play.
+--- derived
+
+=== A-0195
+--- user
+I would like to explore this vehicle record as a tree. Plate CM-4853, model Corolla, mileage 111051, depot Harbour, next service Nov 23, tags beta and priority, and meta with version 3 and dry_run true. Please title it "Vehicle payload".
+--- reference
+The vehicle record opens as a tree you can explore.
+```dyui
+{"ui":"json","data":{"plate":"CM-4853","model":"Corolla","mileage":111051,"depot":"Harbour","next_service":"Nov 23","tags":["beta","priority"],"meta":{"version":3,"dry_run":true}},"title":"Vehicle payload"}
+```
+Expand the meta node to see the version and the dry-run flag.
+--- derived
+
+=== A-0211
+--- user
+make this a quote for the landing page: "It is the first tool our whole team actually opens." - Lena Ibrahim, Head of Support
+--- reference
+Lena Ibrahim's line is set as a quote, ready for the landing page.
+```dyui
+{"ui":"quote","text":"It is the first tool our whole team actually opens.","author":"Lena Ibrahim, Head of Support"}
+```
+The author's name and role appear below the quote.
+--- derived
+
+=== A-0169
+--- user
+I compared two flights for the next load: Vueling costs $203 and Iberia costs $318. Walk me through why Vueling is the one you would go with.
+--- reference
+Price settles it in favour of Vueling, and the reasoning is spelled out below.
+```dyui
+{"ui":"reasoning","text":"Comparing the two fares: Vueling at $203 is $115 cheaper than Iberia at $318. Price is the deciding factor, so Vueling is the better pick."}
+```
+The $115 gap in price is what settles the choice.
+--- derived
+115
+
+=== A-0155
+--- user
+Pode mostrar os dados em bruto deste contrato para eu poder expandir? Contraparte Globex, tipo NDA, assinado em Jan 26, expira em Jun 27, e os metadados têm versão 8 com dry_run false. Chama-lhe "Contract payload".
+--- reference
+Aqui estão os dados do contrato numa árvore que pode expandir.
+```dyui
+{"ui":"json","data":{"counterparty":"Globex","type":"NDA","signed":"Jan 26","expires":"Jun 27","meta":{"version":8,"dry_run":false}},"title":"Contract payload"}
+```
+Abra o nó meta para ver a versão e o indicador dry_run.
+--- derived
+
+=== A-0014
+--- user
+Show Hotel Avenida as a card, please. Inside it put a short "Next steps" list: sow the seed, prepare the soil, irrigate and monitor. Add a quiet Details button.
+--- reference
+Hotel Avenida becomes a card, with the steps listed inside.
+```dyui
+{"ui":"card","title":"Hotel Avenida","children":[{"ui":"markdown","text":"### Next steps\n- **Sow** the seed\n- **Prepare** the soil\n- **Irrigate** and monitor"}],"actions":[{"label":"Details","action":"view_details","style":"ghost"}]}
+```
+The Details button sends its action back to me when pressed.
+--- derived
+
+=== A-0132
+--- user
+Could you define a TypeScript interface for an order? It should have an id (string), a total (number) and a status that is one of open, paid or refunded. I plan to save it as types.ts.
+--- reference
+The Order interface types its status as a string union.
+```dyui
+{"ui":"code","code":"interface Order {\n  id: string;\n  total: number;\n  status: \"open\" | \"paid\" | \"refunded\";\n}","language":"typescript","filename":"types.ts"}
+```
+The union restricts status to the three listed values, so any other string fails to compile.
+--- derived
+

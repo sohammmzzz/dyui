@@ -1,0 +1,119 @@
+=== E-0121
+--- user
+quita a Lena Reyes del workspace, ya no está en el equipo
+--- reference
+Quitar a un miembro surte efecto de inmediato, así que necesito tu confirmación antes.
+```dyui
+{"ui":"confirm","title":"Remove Lena Reyes?","text":"They will lose access to every shared board immediately.","confirm_label":"Remove member","cancel_label":"Keep member","action":"remove_member","data":{"member":"Lena Reyes"},"danger":true}
+```
+Lena Reyes sigue en el workspace hasta que confirmes.
+--- derived
+
+=== E-0094
+--- user
+ok so what can I do with order ORD-6040 now? give me the next actions
+--- reference
+Here are the actions available for ORD-6040.
+```dyui
+{"ui":"buttons","items":[{"label":"Confirm details","action":"confirm_details","data":{"id":"ORD-6040"},"style":"primary"},{"label":"Compare options","action":"compare_options","data":{"id":"ORD-6040"},"style":"secondary"},{"label":"Not now","action":"not_now","data":{"id":"ORD-6040"},"style":"ghost"}]}
+```
+Pick one and I will carry it out for ORD-6040.
+--- derived
+
+=== E-0058
+--- user
+Before I decide, could you remind me what a request normally goes through between being submitted and being approved?
+--- reference
+A request is usually submitted, checked for completeness, reviewed by the person with approval rights, and then approved or declined with a short reason.
+How many of those steps apply depends on your account's approval rules, which I cannot see from here.
+--- derived
+
+=== E-0026
+--- user
+Actually, before the form: how do I tell donors that their gift receipt will arrive later than usual?
+--- reference
+Be upfront and brief: thank them first, say the receipt is delayed and why, and give a date or a clear window when it will arrive. Add a contact for anyone who needs it sooner for tax purposes.
+Sending this as a short email rather than a mass notice keeps it personal.
+--- derived
+
+=== E-0060
+--- user
+Separate question: what usually pushes a return rate up in an online home-goods store?
+--- reference
+The usual drivers are product photos or descriptions that do not match the item, sizing or dimension mistakes, damage in transit, and a returns policy that is very easy to use. Categories like furniture and rugs tend to run higher than small accessories.
+Checking returns by reason code is the quickest way to see which of these applies to you.
+--- derived
+
+=== E-0006
+--- reference
+I can compare the 22 showings this week with last month only once I have last month's figure, which is not in this conversation.
+Send me that number and I will give you the difference.
+--- derived
+
+=== E-0115
+--- user
+Not yet, first tell me, how do I export a playlist's track list to a spreadsheet?
+--- reference
+Most playlist tools let you export a track list as CSV, which opens directly in a spreadsheet. If yours has no export option, copying the list and pasting it into a sheet usually works.
+I cannot do the export for you from here.
+--- derived
+
+=== E-0075
+--- reference
+Les intégrations sont sélectionnées.
+```dyui
+{"ui":"callout","level":"success","title":"Intégrations activées","text":"Google Sheets, Webhooks et Zapier sont maintenant activés."}
+```
+Slack reste désactivé.
+--- derived
+
+=== E-0001
+--- user
+Pay water bill, $308.
+--- reference
+Payments move money, so please confirm first.
+```dyui
+{"ui":"confirm","title":"Pay the water bill?","text":"$308 will be debited from your checking account today.","confirm_label":"Pay now","cancel_label":"Later","action":"pay_bill","data":{"bill":"water"}}
+```
+The $308 is only debited once you confirm.
+--- derived
+
+=== E-0041
+--- reference
+Thank you for the 5 stars, glad it helped.
+--- derived
+
+=== E-0011
+--- reference
+Thanks for the thumbs down. Tell me what was missing and I will go at it again.
+--- derived
+
+=== E-0097
+--- reference
+Understood, nothing was deleted.
+```dyui
+{"ui":"callout","level":"info","text":"Kept staging-eu: the project, its files and its history are untouched."}
+```
+Ask again whenever you want to remove it.
+--- derived
+
+=== E-0127
+--- reference
+Your cancellation is done.
+```dyui
+{"ui":"callout","level":"success","title":"Subscription cancelled","text":"Your Team subscription is cancelled and stays active until the end of the billing period."}
+```
+You can restart it from your account at any time.
+--- derived
+
+=== E-0054
+--- reference
+A breakdown by crop needs per-crop readings, and for now I only have the overall soil moisture of 29%.
+Send the readings for each crop and I will show them side by side.
+--- derived
+
+=== E-0131
+--- reference
+Thanks, 3 stars is logged.
+--- derived
+

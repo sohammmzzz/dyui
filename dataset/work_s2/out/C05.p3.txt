@@ -1,0 +1,119 @@
+=== C-0044
+--- user
+pre-orders 21433 (target 23576), session length 11 min flat, day-7 retention 25.7% holding steady vs 28.3% target. show those as headline numbers, then DAU as an area chart: 211373, 225991, 249638, 265872, 281856, 294954, 316545, 332547
+--- reference
+Three headline numbers lead.
+```dyui
+{"ui":"stats","items":[{"label":"Pre-orders","value":"21433","help":"Target 23576"},{"label":"Session length","value":"11 min","delta":"0%"},{"label":"Day-7 retention","value":"25.7%","trend":"flat","help":"Target 28.3%"}]}
+```
+Daily active users are charted as an area below.
+```dyui
+{"ui":"chart","kind":"area","series":[{"name":"Daily active users","data":[211373,225991,249638,265872,281856,294954,316545,332547]}]}
+```
+DAU has grown steadily from 211373 to 332547, while pre-orders and retention both sit under their targets.
+--- derived
+
+
+=== C-0051
+--- user
+Mira, unidades por servicio: checkout 3507, notifications 3825, api-gateway 1758. ¿Cómo se reparte? Y que sea fácil de escanear la lista de incidentes abiertos: INC-853 Checkout timeouts SEV1 Omar Hoang; INC-888 Webhook retries piling up SEV1 Vera Tanaka; INC-369 Elevated 5xx on api SEV2 Tomas Oliveira; INC-158 Stale search index SEV1 Kofi Okafor.
+--- reference
+Así se reparten las unidades entre los tres servicios.
+```dyui
+{"ui":"chart","kind":"donut","labels":["checkout","notifications","api-gateway"],"series":[{"name":"Unidades","data":[3507,3825,1758]}],"unit":"unidades"}
+```
+Y aquí están los incidentes abiertos en una tabla.
+```dyui
+{"ui":"table","columns":["ID","Título","Severidad","Responsable"],"rows":[["INC-853","Checkout timeouts","SEV1","Omar Hoang"],["INC-888","Webhook retries piling up","SEV1","Vera Tanaka"],["INC-369","Elevated 5xx on api","SEV2","Tomas Oliveira"],["INC-158","Stale search index","SEV1","Kofi Okafor"]],"caption":"Incidentes abiertos"}
+```
+Notifications lleva la mayor parte con 3825 unidades, y tres de los cuatro incidentes son SEV1.
+--- derived
+
+
+=== C-0045
+--- user
+Has the number of claims per week been improving? Figures for February to June: 92, 86, 83, 76, 69. Please also flag clearly in the chat that the migration finished and Fraud flags is back to 15, within the 11 limit, and suggest what I could ask next.
+--- reference
+Weekly claims have been falling since February.
+```dyui
+{"ui":"chart","kind":"line","labels":["Feb","Mar","Apr","May","Jun"],"series":[{"name":"Claims this week","data":[92,86,83,76,69]}]}
+```
+The notice for the chat is below.
+```dyui
+{"ui":"callout","level":"success","text":"The migration finished and Fraud flags is back to 15, within the 11 limit."}
+```
+Possible follow-ups are below.
+```dyui
+{"ui":"quick_replies","options":["Forecast next month","How does this compare to target?","Compare with last month","What changed the most?"]}
+```
+Weekly claims have fallen every month, from 92 in February to 69 in June.
+--- derived
+
+
+=== C-0089
+--- user
+Storefront snapshot: conversion rate 2.9% (+7.0%, target 3.2%), average order value $87 (+14.8%), revenue $23.9k (+15.8%, target $26.3k), cart abandonment 71% going up. Can you lay out the latest orders too: ORD-298 Katya Nakamura $68 packed; ORD-460 Yusuf Yilmaz $332 packed; ORD-872 Zoe Oliveira $182 shipped; ORD-550 Carla Park $178 pending payment. And let them know in the app that average order value is at $51, above the $40 threshold, review before Friday.
+--- reference
+The store's picture comes down to four headline numbers.
+```dyui
+{"ui":"stats","items":[{"label":"Conversion rate","value":"2.9%","delta":"+7.0%","trend":"up","help":"Target 3.2%"},{"label":"Average order value","value":"$87","delta":"+14.8%","trend":"up"},{"label":"Revenue","value":"$23.9k","delta":"+15.8%","help":"Target $26.3k"},{"label":"Cart abandonment","value":"71%","trend":"up"}]}
+```
+Now the latest four orders laid out together.
+```dyui
+{"ui":"table","columns":["Order","Customer","Total","Status"],"rows":[["ORD-298","Katya Nakamura","$68","Packed"],["ORD-460","Yusuf Yilmaz","$332","Packed"],["ORD-872","Zoe Oliveira","$182","Shipped"],["ORD-550","Carla Park","$178","Pending payment"]]}
+```
+The in-app notice follows.
+```dyui
+{"ui":"callout","level":"warning","text":"Average order value is at $51, above the $40 threshold. Review it before Friday."}
+```
+Both conversion rate and revenue are still short of their targets, and ORD-550 is the only order waiting on payment.
+--- derived
+
+
+=== C-0119
+--- user
+lay out the details for the 48 Rua Verde listing: apartment, 4 beds, 253 m2, $776, active. then show me where we are on the steps: book the photographer, collect offers, move to contract, publish the listing
+--- reference
+48 Rua Verde's details are below.
+```dyui
+{"ui":"keyvalue","items":[{"key":"Address","value":"48 Rua Verde"},{"key":"Type","value":"Apartment"},{"key":"Beds","value":4},{"key":"Area m2","value":253},{"key":"Price","value":"$776"},{"key":"Status","value":"Active"}]}
+```
+The four steps run in the order you listed them.
+```dyui
+{"ui":"timeline","items":[{"title":"Book the photographer"},{"title":"Collect offers"},{"title":"Move to contract"},{"title":"Publish the listing"}]}
+```
+The listing is active, and the steps run from booking the photographer through to publishing.
+--- derived
+
+
+=== C-0042
+--- user
+Salut, tu peux citer ces deux sources dans ta réponse ? « Security whitepaper » https://cdn.fernhill.example.com/faq/83 et « Compliance handbook » https://help.helpwave.example.com/handbook. Donne-moi aussi quelques questions de suivi sur lesquelles je peux taper.
+--- reference
+Voici les deux sources citées.
+```dyui
+{"ui":"sources","items":[{"title":"Security whitepaper","url":"https://cdn.fernhill.example.com/faq/83"},{"title":"Compliance handbook","url":"https://help.helpwave.example.com/handbook"}]}
+```
+Et voici quelques questions de suivi.
+```dyui
+{"ui":"quick_replies","options":["Prévoir le mois prochain","Quel département est le plus faible ?","Expliquer la plus forte baisse"]}
+```
+Chaque source mène à sa page d'origine, et un appui sur une question me l'envoie comme message.
+--- derived
+
+
+=== C-0078
+--- user
+Please show the venue image in the chat (https://static.brasa.example.com/img/report-35.webp) and give me the rundown: Arena, Apr 16, doors at 17:30, capacity 7770, 2159 sold, status sold out.
+--- reference
+The venue image appears first.
+```dyui
+{"ui":"image","src":"https://static.brasa.example.com/img/report-35.webp"}
+```
+The event rundown follows.
+```dyui
+{"ui":"keyvalue","items":[{"key":"Venue","value":"Arena"},{"key":"Date","value":"Apr 16"},{"key":"Doors","value":"17:30"},{"key":"Capacity","value":7770},{"key":"Sold","value":2159},{"key":"Status","value":"Sold out"}]}
+```
+Doors open at 17:30 on Apr 16 at the Arena.
+--- derived
+

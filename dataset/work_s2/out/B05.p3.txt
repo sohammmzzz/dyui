@@ -1,0 +1,110 @@
+=== B-0126
+--- user
+tamanho da equipa vs tickets fechados por semana, há relação? 3.4 pessoas e 85 tickets, 6.3 e 159.9, 7.4 e 166.7, 10 e 235.1, 13.8 e 324.6, 14.9 e 328.2
+--- reference
+Sim, há uma relação clara: quanto maior a equipa, mais tickets fecha por semana.
+```dyui
+{"ui":"chart","kind":"scatter","series":[{"name":"Tickets fechados por semana vs tamanho da equipa","data":[[3.4,85],[6.3,159.9],[7.4,166.7],[10,235.1],[13.8,324.6],[14.9,328.2]]}]}
+```
+Os pontos sobem quase em linha reta, de 85 com 3.4 até 328.2 com 14.9.
+--- derived
+
+=== B-0170
+--- user
+Necesito el panorama de la línea de producción de esta semana, por favor. El tiempo de inactividad fue de 211 min y bajó, con un objetivo de 232 min. La tasa de desecho es 4.9%, un 14.3% más que antes. El tiempo de ciclo está en 17 s y sube. Se produjeron 1,864 unidades, sin cambio (0%), con un objetivo de 2,050.
+--- reference
+La línea cierra la semana con un desecho al alza y la producción por debajo de lo previsto.
+```dyui
+{"ui":"stats","items":[{"label":"Tiempo de inactividad","value":"211 min","trend":"down","help":"Objetivo 232 min"},{"label":"Tasa de desecho","value":"4.9%","delta":"+14.3%","trend":"up"},{"label":"Tiempo de ciclo","value":"17 s","trend":"up"},{"label":"Unidades producidas","value":"1,864","delta":"0%","help":"Objetivo 2,050"}]}
+```
+Las 1,864 unidades quedan lejos del objetivo de 2,050, mientras que la inactividad sí está dentro del suyo.
+--- derived
+
+=== B-0049
+--- user
+Could you lay out the details of the account for the review? It is on the Plus plan with 34 GB of data, priced at $31, renews on Jul 19, has 5 lines, and the status is Pending port-in.
+--- reference
+The Plus account has five lines and a port-in that is still pending.
+```dyui
+{"ui":"keyvalue","items":[{"key":"Plan","value":"Plus"},{"key":"Data GB","value":34},{"key":"Price","value":"$31"},{"key":"Renews","value":"Jul 19"},{"key":"Lines","value":5},{"key":"Status","value":"Pending port-in"}]}
+```
+The renewal falls on Jul 19, while the port-in is still pending.
+--- derived
+
+=== B-0151
+--- user
+parcel status, where are we? Pick up at the dock Aug 5 done (Xavier Larsen), Out for delivery Feb 7 in progress (Felix Torres), Scan at the hub May 9 waiting (Bruno Haddad), Collect proof of delivery Apr 11 waiting (Bruno Singh), Clear customs Jun 13 waiting (Omar Ueda)
+--- reference
+Delivery is under way: the dock pickup is done and the parcel is out with Felix Torres.
+```dyui
+{"ui":"timeline","items":[{"title":"Pick up at the dock","time":"Aug 5","status":"done","text":"Owner: Xavier Larsen"},{"title":"Out for delivery","time":"Feb 7","status":"active","text":"Owner: Felix Torres"},{"title":"Scan at the hub","time":"May 9","status":"pending","text":"Owner: Bruno Haddad"},{"title":"Collect proof of delivery","time":"Apr 11","status":"pending","text":"Owner: Bruno Singh"},{"title":"Clear customs","time":"Jun 13","status":"pending","text":"Owner: Omar Ueda"}]}
+```
+Three steps remain, among them the hub scan and customs clearance.
+--- derived
+3
+
+=== B-0084
+--- user
+Kindly plot these against each other, price in dollars against units sold: 10.6 sold 692.3, 14.5 sold 806.1, 31.5 sold 546.7, 32.2 sold 555.6, 32.4 sold 574, 34 sold 422.6, 35 sold 506.5, 41 sold 399.4.
+--- reference
+Price against units sold is plotted below for all eight price points.
+```dyui
+{"ui":"chart","kind":"scatter","series":[{"name":"Units sold vs price ($)","data":[[10.6,692.3],[14.5,806.1],[31.5,546.7],[32.2,555.6],[32.4,574],[34,422.6],[35,506.5],[41,399.4]]}],"title":"Units sold vs price ($)"}
+```
+Sales peak at 806.1 for a price of 14.5 and drift down as the price passes 30, reaching 399.4 at 41.
+--- derived
+
+=== B-0162
+--- user
+can you lay this out: Food Fest Oct 27 sold 1081 at the Arena; Tech Summit Jul 11 sold 599 at the Studio; Marathon Expo Jul 26 sold 6507 at the Studio; Indie Film Night May 4 sold 5287 at the Rooftop
+--- reference
+Four events, one row each, with date, tickets sold and venue.
+```dyui
+{"ui":"table","columns":["Event","Date","Sold","Venue"],"rows":[["Food Fest","Oct 27",1081,"Arena"],["Tech Summit","Jul 11",599,"Studio"],["Marathon Expo","Jul 26",6507,"Studio"],["Indie Film Night","May 4",5287,"Rooftop"]]}
+```
+Marathon Expo leads on sales with 6507, while Tech Summit trails at 599.
+--- derived
+
+=== B-0061
+--- user
+Units by property type for the quarter: detached 4037, apartment 4396, townhouse 3007, studio 4368, loft 3997. I want to see the split.
+--- reference
+Apartments and studios take the biggest slices of the five property types.
+```dyui
+{"ui":"chart","kind":"pie","labels":["Detached","Apartment","Townhouse","Studio","Loft"],"series":[{"name":"Units","data":[4037,4396,3007,4368,3997]}],"title":"Units per type"}
+```
+Apartment is first at 4396 and Townhouse is last at 3007, so the spread is fairly narrow.
+--- derived
+
+=== B-0091
+--- user
+I need the profile of the barley plot: it covers 42 hectares, was sown on Apr 18, has sandy soil and uses pivot irrigation.
+--- reference
+The barley plot is a 42-hectare field with sandy soil.
+```dyui
+{"ui":"keyvalue","items":[{"key":"Crop","value":"Barley"},{"key":"Hectares","value":42},{"key":"Sown","value":"Apr 18"},{"key":"Soil","value":"Sandy"},{"key":"Irrigation","value":"Pivot"}]}
+```
+It was sown on Apr 18 and is watered by pivot irrigation.
+--- derived
+
+=== B-0161
+--- user
+event details: arena, Nov 20, doors 18:00, capacity 9557, sold 5930, postponed
+--- reference
+The Nov 20 show at the Arena has been postponed.
+```dyui
+{"ui":"keyvalue","items":[{"key":"Venue","value":"Arena"},{"key":"Date","value":"Nov 20"},{"key":"Doors","value":"18:00"},{"key":"Capacity","value":9557},{"key":"Sold","value":5930},{"key":"Status","value":"Postponed"}]}
+```
+5930 of the 9557 seats were sold before the postponement.
+--- derived
+
+=== B-0033
+--- user
+signups per platform: iOS 571, Console 1817, Android 4368. how is it split?
+--- reference
+Android takes the largest share of signups by a wide margin.
+```dyui
+{"ui":"chart","kind":"donut","labels":["iOS","Console","Android"],"series":[{"name":"Signups","data":[571,1817,4368]}],"title":"Signups per platform"}
+```
+Android has 4368 signups, against 1817 on Console and only 571 on iOS.
+--- derived

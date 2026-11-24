@@ -8,9 +8,10 @@ not for training.
   hard gates, targets.
 - The background plan (the fine-tuning dataset this eval supports) is in [`../DATASET_PLAN.md`](../DATASET_PLAN.md).
 
-Current state: **600 records**, all passing the hard gates, in `data/eval.jsonl`. The evaluator scores the
-dataset's own references at 599 of 600. The 3,000-item scale is *prepared but not written*, see
-[Continuing](#continuing-the-work).
+Current state: **2,089 records** in `data/eval.jsonl`, all passing the hard gates. The evaluator scores the
+dataset's own references at 2,089 of 2,089 with every target met. It was built in two runs (600 seeds with seed 1,
+then 1,500 seeds with seed 2), merged without duplicates, and put through a variety pass. See
+[Agile loop](#agile-loop-how-the-second-run-was-done) and [Continuing](#continuing-the-work).
 
 ## 1. The idea: code owns facts, Sonnet owns language
 
@@ -49,6 +50,29 @@ spec.py ─▶ seeds.py ─▶ [Sonnet writers] ─▶ assemble + gates.py ─�
    output because of an id remap.
 5. **`finalize`** de-duplicates (MinHash over the user turn plus component sequence), prints the coverage report,
    and writes `data/eval.jsonl` and `data/manifest.json` (dyui version, spec hash, seed, counts, coverage).
+
+## 2b. Agile loop: how the second run was done
+
+The second run (1,500 seeds, `--seed 2`, scratch in `work_s2/`) was built in short sprints where creating and testing
+overlapped, instead of one write-everything-then-check pass.
+
+| Sprint | What ran in parallel | Result |
+|---|---|---|
+| 0. Write | 14 Sonnet writers, 4 batches each (about 120 seeds) | all 1,500 seeds written |
+| 1. Test while writing | `assemble` and `quality.py` ran on the batches already finished | 1,406 of 1,500 passed the gates at that point; the quality report found the "Here is/are the…" opener on 32–80% of replies in several categories |
+| Retro | the still-running writers were sent a variety directive | fewer templated openers in later batches |
+| 2. Fix | 9 Sonnet rewriters, one per failing batch, each given its gate errors | 1,499 of 1,500 passed; one more rewrite cleared the last |
+| 3. Merge | `finalize` (dedupe inside the run), then `merge.py` against the original 600 | 7 dropped inside the run, 4 at the merge (1 same-ask, 3 near-duplicate), 2,089 records |
+| 4. Variety | `variety.py`: 10 Sonnet agents rewrote only the intro and outro of 485 records whose opener was over-represented | all 485 re-gated, none rejected; category-level opener warnings cleared |
+| 5. Verify | gates over every record, evaluator `--use-reference`, `quality.py`, evaluator tests | gates 0 failures, evaluator 2,089 of 2,089, tests 38 of 38 |
+
+What the verification step caught:
+- The evaluator ignored the generator's `block_optional` flag and reported 21 false over-use failures. It now honours
+  the flag (except under `[dyui off]`).
+- One record ended with "just ask", a filler phrase the generator's gate list did not contain. The phrase is now in
+  `spec.FILLER_PHRASES`, and that sentence was trimmed from the record (`meta.trimmed_filler`).
+- One record in the first run had the id `` `A-0004 `` (markdown left by a writer). `merge.py` and `variety.py` now
+  normalise ids, and it is stored as `A-0004`.
 
 ## 3. The gates (`gates.py`)
 
@@ -92,6 +116,14 @@ values and turns a bad child into an `invalid` node), so the gates re-validate o
 | `customs.py` | The fixed pool of 278 synthetic custom components. Each is exec'd and registered through the real component mechanism, so signatures come from DyUI itself. 60 are held out; the pool does not depend on `--seed`, so the held-out set is stable. |
 | `gold.py` | Hand-written gold examples, 3 per category. Used as few-shots for the writers and as a sanity check for the gates (`selftest`). |
 
+### Dataset-quality tools
+
+| File | Role |
+|---|---|
+| `merge.py` | Merges a new run into an existing dataset without duplicates (base records always win): exact match, same-ask match, then MinHash near-duplicate. Renumbers the new ids per category after the highest base id (old id kept in `meta.source_id`) and asserts ids are unique. |
+| `quality.py` | Variety report: opener concentration, repeated 5-word phrases, near-duplicates, length spread, domain/style/language mix. Warns above fixed thresholds (opener 12%, phrase 6%, near-dup 2%). Complements the gates, which only say whether a record is correct. |
+| `variety.py` | `prepare` picks records whose reply opener is over-represented (quota 8% per category) and writes batches; Sonnet rewrites only the intro and outro; `apply` splices them in and re-runs the gates, keeping the original text if a rewrite fails. |
+
 ### Evaluator
 
 | File | Role |
@@ -105,7 +137,8 @@ values and turns a bad child into an `invalid` node), so the gates re-validate o
 |---|---|
 | `data/eval.jsonl` | The dataset. One record per line. |
 | `data/manifest.json` | dyui version, spec hash, seed, per-category / split / language counts, coverage. |
-| `work/` | Pipeline scratch, kept so the run is reproducible and auditable: `seeds_all.jsonl` and `seeds/` (inputs), `brief.md` (the writer brief), `out/` (Sonnet writer outputs), `rewrite/roundN/` (failures sent back), `passed.jsonl`, `assemble_round*.json` (per-round gate stats). |
+| `work/` | Scratch of run 1 (seed 1, 600 seeds), kept so the run is reproducible and auditable: `seeds_all.jsonl` and `seeds/` (inputs), `brief.md` (the writer brief), `out/` (Sonnet writer outputs), `rewrite/roundN/` (failures sent back), `passed.jsonl`, `assemble_round*.json` (per-round gate stats). |
+| `work_s2/` | The same layout for run 2 (seed 2, 1,500 seeds), plus `variety/` (batches sent to the variety pass) and `variety_out/` (Sonnet's new intros and outros). The derived files (`passed.jsonl`, `merged*.jsonl`, `data/`) are not committed; they are rebuilt by `finalize`, `merge.py` and `variety.py apply`. Note: the variety pass also rewrote prose of run-1 records, and that is recorded only in `data/eval.jsonl` (`meta.varied`), not in `work/out/`. |
 
 ## 5. Record format
 
@@ -152,28 +185,45 @@ header adherence, prose wrap and filler, block/component limits, over-use, selec
 
 ## 7. Continuing the work
 
-### Regenerate or scale up
+### Add another run
+
+All commands need the DyUI package on the path (`PYTHONPATH=python` from the repo root).
 
 ```bash
-python dataset/generate.py prepare --n 3000 --seed 1 --work dataset/work3000
-# 3000 seeds, about 100 writer batches. The seed builder is verified at this size:
-# at least 39 replies per component and 10 per enum value, which meets the 30 / 10 floors.
+# 1. new seeds: use a seed not yet used (1 and 2 are taken) and a fresh work dir
+python dataset/generate.py prepare --n 1500 --seed 3 --work dataset/work_s3
+# 2. one Sonnet writer per 3-4 batches: read work_s3/brief.md and work_s3/seeds/<batch>.jsonl,
+#    write work_s3/out/<batch>.pN.txt. Give them the variety directive (never open with "Here is/are/'s",
+#    do not reuse phrases) so the variety pass has less to fix.
+# 3. gate; repeat with --round 1, 2 after Sonnet rewrites the cards in work_s3/rewrite/roundN/
+#    (rewriters write out/R<round><cat><nn>.pN.txt)
+python dataset/generate.py assemble --work dataset/work_s3 --round 0
+python dataset/generate.py finalize --work dataset/work_s3 --out dataset/work_s3/data/eval.jsonl
+# 4. merge with the current dataset (drops duplicates, renumbers ids), then the variety pass
+python dataset/merge.py --base dataset/data/eval.jsonl --new dataset/work_s3/data/eval.jsonl --out dataset/work_s3/merged.jsonl
+python dataset/variety.py prepare --in dataset/work_s3/merged.jsonl --work dataset/work_s3
+#    Sonnet writes work_s3/variety_out/V<nn>.jsonl ({"id","intro","outro"} per line)
+python dataset/variety.py apply --in dataset/work_s3/merged.jsonl --work dataset/work_s3 --out dataset/work_s3/merged_varied.jsonl
+# 5. verify before replacing data/eval.jsonl
+python dataset/quality.py dataset/work_s3/merged_varied.jsonl
+python -m dataset.evaluator --data dataset/work_s3/merged_varied.jsonl --use-reference
 ```
 
-Then:
-1. Spawn one Sonnet subagent per file in `dataset/work3000/seeds/`, each writing
-   `dataset/work3000/out/<batch>.pN.txt` (see `brief.md` for the output format).
-2. `python dataset/generate.py assemble --work dataset/work3000 --round 0`
-3. Send the failures in `work3000/rewrite/round0/` to Sonnet, then `assemble --round 1`, and again up to round 2 or 3.
-4. `python dataset/generate.py finalize --work dataset/work3000 --out dataset/data/eval.jsonl`
-
-Use a separate `--work` directory so the 600-item scratch isn't overwritten.
+The seed builder was also checked at 3,000 seeds in one run (at least 39 replies per component and 10 per enum
+value), so a single larger run works too.
 
 ### Known gaps
 
-- **Only the 600-item run was written and gated.** The 3,000-item run is the next step.
+- **2,089 records, not the 3,000 suggested.** Run another seed (see above) to scale up.
 - **No judge pass and no human render review.** MODEL_EVAL.md asks for an LLM judge (≥ 4/5, calibrated on the gold
-  set) and a human review through the real `NodeView`. At present the gates are the only quality filter.
+  set) and a human review through the real `NodeView`. The gates, `quality.py` and the evaluator are the only
+  quality filters. For training use, the variety of *prose* is what `quality.py` measures; it does not measure
+  whether a reply reads well.
+- **Two phrase repeats remain in `quality.py`:** K ("have a link or file", 8% of K) and S ("a chart with kind
+  donut", 14% of S). The S one comes from the shared topic (stacked and donut chart questions).
+- **Variety rewrites saw truncated input in places:** a few variety agents only saw the first 200–300 characters of
+  long user turns. All rewrites passed the gates again, so no number or URL is ungrounded, but the prose may lean on
+  the old intro or outro for facts.
 - **Optional-prop presence** lands in the 30–70% target for only 31 of the 63 measured props. For example
   `callout.level` is 100% and `chart.stacked` 8%. Fix it in the piece builders, then regenerate.
 - **E and F history turns:** the user turn and intro/outro prose inside history assistant messages come from the

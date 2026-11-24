@@ -1,0 +1,165 @@
+=== C-0015
+--- user
+data used May to Nov in GB: 30.4, 24.5, 20.9, 17.4, 15.2, 8.9, 4.6. trajectory? also word a customer note: migration finished, data used back to 68.9 GB, within the 51.9 GB limit (title "All set"). then 2 next questions: "Break it down by plan", "Show it as a table".
+--- reference
+Data used dropped from 30.4 GB in May to 4.6 GB in November.
+```dyui
+{"ui":"chart","kind":"line","series":[{"name":"Data used","data":[30.4,24.5,20.9,17.4,15.2,8.9,4.6]}],"title":"Data used, May–Nov","unit":"GB"}
+```
+This is the wording for the customer.
+```dyui
+{"ui":"callout","text":"The migration finished and Data used is back to 68.9 GB, within the 51.9 GB limit.","level":"success","title":"All set"}
+```
+Next questions you can tap are below.
+```dyui
+{"ui":"quick_replies","options":["Break it down by plan","Show it as a table"]}
+```
+Usage fell at every step across the seven months.
+--- derived
+
+
+=== C-0029
+--- user
+Can you summarise these? Waste 16.3 kg (-15.7%), average ticket $41 (-3.1%, target $45), delivery time 54 min (target 59 min). And can I get table turn as an area graph? It went 64, 62, 59, 56, 55, 54, 51.
+--- reference
+Waste, ticket size and delivery time give the kitchen picture at a glance.
+```dyui
+{"ui":"stats","items":[{"label":"Waste","value":"16.3 kg","delta":"-15.7%"},{"label":"Average ticket","value":"$41","delta":"-3.1%","help":"Target $45"},{"label":"Delivery time","value":"54 min","help":"Target 59 min"}]}
+```
+Table turn is shown as an area graph below.
+```dyui
+{"ui":"chart","kind":"area","series":[{"name":"Table turn","data":[64,62,59,56,55,54,51]}]}
+```
+Table turn has dropped steadily, and delivery is already under its target.
+--- derived
+
+
+=== C-0017
+--- user
+summarise: grid carbon 33%, solar generation 164 kWh (+5.8%, target 180 kWh), battery level 8% going up. bill estimate as an area graph in $: 167, 158, 154, 147, 141, 134, 126
+--- reference
+Grid carbon, solar generation and battery level are the three energy readings.
+```dyui
+{"ui":"stats","items":[{"label":"Grid carbon","value":"33%"},{"label":"Solar generation","value":"164 kWh","delta":"+5.8%","help":"Target 180 kWh"},{"label":"Battery level","value":"8%","trend":"up"}]}
+```
+And here is the bill estimate as an area graph.
+```dyui
+{"ui":"chart","kind":"area","series":[{"name":"Bill estimate","data":[167,158,154,147,141,134,126]}],"unit":"$"}
+```
+The estimate keeps falling, while solar is still short of its target.
+--- derived
+
+
+=== C-0033
+--- user
+Show the references I can click: Security whitepaper at https://docs.acme-cloud.example.com/q3-summary, Roadmap summary at https://www.example.org/benchmark, Benchmark report at https://static.brasa.example.com/changelog, Release notes at https://help.helpwave.example.com/changelog. And a few follow-up questions to tap: "How does this compare to target?", "Set an alert for this", "Show the top 3".
+--- reference
+Four references are ready to open.
+```dyui
+{"ui":"sources","items":[{"title":"Security whitepaper","url":"https://docs.acme-cloud.example.com/q3-summary"},{"title":"Roadmap summary","url":"https://www.example.org/benchmark"},{"title":"Benchmark report","url":"https://static.brasa.example.com/changelog"},{"title":"Release notes","url":"https://help.helpwave.example.com/changelog"}]}
+```
+Here are some follow-ups to tap.
+```dyui
+{"ui":"quick_replies","options":["How does this compare to target?","Set an alert for this","Show the top 3"]}
+```
+Each link opens its document directly.
+--- derived
+
+
+=== C-0124
+--- user
+Please show today's viewings cleanly: 15:00 at 12 Mill Lane, buyer Dmitri Fischer, agent Elif Weber; 11:00 at 48 Rua Verde, buyer Omar Park, agent Ana Larsen; 13:30 at 12 Mill Lane, buyer Vera Petrov, agent Hana Rahman; 17:15 at 19 Quay Street, buyer Elif Bergstrom, agent Vera Nguyen. What are my options? A reminder for later or the full report, as quiet buttons.
+--- reference
+Four viewings are scheduled today, each with its buyer and agent.
+```dyui
+{"ui":"table","columns":["Time","Property","Buyer","Agent"],"rows":[["15:00","12 Mill Lane","Dmitri Fischer","Elif Weber"],["11:00","48 Rua Verde","Omar Park","Ana Larsen"],["13:30","12 Mill Lane","Vera Petrov","Hana Rahman"],["17:15","19 Quay Street","Elif Bergstrom","Vera Nguyen"]]}
+```
+Your options from here are below.
+```dyui
+{"ui":"buttons","items":[{"label":"Remind me later","action":"remind_me_later","style":"ghost"},{"label":"See full report","action":"see_full_report","style":"ghost"}]}
+```
+12 Mill Lane has two viewings, at 13:30 and 15:00.
+--- derived
+
+
+=== C-0097
+--- user
+show me this image: https://cdn.fernhill.example.com/img/changelog-23.png (it's the product on a white background). and the service profile: owner Data, language TypeScript, on-call Yusuf Kim
+--- reference
+The product photo comes first.
+```dyui
+{"ui":"image","src":"https://cdn.fernhill.example.com/img/changelog-23.png","alt":"The product on a white background"}
+```
+And this is the service profile.
+```dyui
+{"ui":"keyvalue","items":[{"key":"Owner","value":"Data"},{"key":"Language","value":"TypeScript"},{"key":"On-call","value":"Yusuf Kim"}]}
+```
+Yusuf Kim is the person to contact if something breaks.
+--- derived
+
+
+=== C-0103
+--- user
+Kindly present these lab orders cleanly: LAB-297 CBC ready, LAB-814 vitamin D in lab, LAB-200 vitamin D pending, LAB-960 lipid panel pending. For invoice INV-782 I would like three actions available: see the full report (subtle), compare options, and assign an owner.
+--- reference
+Four lab orders are in progress, and only one is ready so far.
+```dyui
+{"ui":"table","columns":["Order","Test","Status"],"rows":[["LAB-297","CBC","Ready"],["LAB-814","Vitamin D","In lab"],["LAB-200","Vitamin D","Pending"],["LAB-960","Lipid panel","Pending"]]}
+```
+You can take these actions for invoice INV-782.
+```dyui
+{"ui":"buttons","items":[{"label":"See full report","action":"see_full_report","data":{"id":"INV-782"},"style":"ghost"},{"label":"Compare options","action":"compare_options","data":{"id":"INV-782"},"style":"secondary"},{"label":"Assign owner","action":"assign_owner","data":{"id":"INV-782"},"style":"secondary"}]}
+```
+Only LAB-297 is ready so far.
+--- derived
+
+
+=== C-0066
+--- user
+Résume-moi ça : questions ouvertes en premier, avec acceptation des offres 83 % (objectif 91 %), postes ouverts 19 (+12,0 %, en hausse, objectif 21), attrition 19.0 % en hausse. Ensuite en annexe la tendance de l'attrition de mars à août : 12.0, 12.7, 13.0, 13.7, 14.0, 14.6.
+--- reference
+Voici d'abord les trois indicateurs clés, sous la rubrique des questions ouvertes.
+```dyui
+{"ui":"divider","label":"Questions ouvertes"}
+{"ui":"stats","items":[{"label":"Acceptation des offres","value":83,"unit":"%","help":"Objectif 91%"},{"label":"Postes ouverts","value":"19","delta":"+12.0%","trend":"up","help":"Objectif 21"},{"label":"Attrition","value":"19.0%","trend":"up"}]}
+```
+L'annexe montre la tendance de l'attrition de mars à août.
+```dyui
+{"ui":"divider","label":"Annexe"}
+{"ui":"chart","kind":"line","series":[{"name":"Attrition","data":[12.0,12.7,13.0,13.7,14.0,14.6]}],"title":"Attrition, mars–août","unit":"%"}
+```
+L'attrition progresse chaque mois et l'acceptation des offres reste sous l'objectif.
+--- derived
+
+
+=== C-0087
+--- user
+Scrap rate is 3.1% this month, unchanged (0% vs last month), target 3.4%. Can you show that nicely? And how would we word a warning for the customer: cycle time is at 46 s, above the 35 s threshold, review before Friday.
+--- reference
+Scrap rate is 3.1%, comfortably under its target.
+```dyui
+{"ui":"stat","label":"Scrap rate","value":"3.1%","delta":"0% vs last month","trend":"flat","help":"Target 3.4%"}
+```
+This is a wording you can use for the customer.
+```dyui
+{"ui":"callout","text":"Cycle time is at 46 s, above the 35 s threshold. Review it before Friday.","level":"warning"}
+```
+Scrap is steady and under target, but cycle time needs attention.
+--- derived
+
+
+=== C-0106
+--- user
+Could you show the references I can click? Security whitepaper: https://www.example.org/changelog/54 and Roadmap summary: https://docs.acme-cloud.example.com/roadmap. Also give me some follow-up questions to tap: "Set an alert for this", "Show the top 3" and "Forecast next month".
+--- reference
+Two references are ready to open.
+```dyui
+{"ui":"sources","items":[{"title":"Security whitepaper","url":"https://www.example.org/changelog/54"},{"title":"Roadmap summary","url":"https://docs.acme-cloud.example.com/roadmap"}]}
+```
+These are the follow-ups you can tap.
+```dyui
+{"ui":"quick_replies","options":["Set an alert for this","Show the top 3","Forecast next month"]}
+```
+Tapping one sends it straight back as your next message.
+--- derived
+

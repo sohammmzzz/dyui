@@ -1,0 +1,125 @@
+=== D-0084
+--- user
+Please arrange this as collapsible sections. Section "Main section" has two columns: on the left a plan with five items (Approve the amount: error; File the claim: active; Assess the damage: pending; Collect the documents: skipped; Issue the payment: done), on the right my reasoning note: "Comparing the two fares: TAP at $142 is $79 cheaper than Vueling at $221. Price is the deciding factor, so TAP is the better pick." Section "More detail" holds a single tool step, "Check inventory", currently running.
+--- reference
+The claim workup is split in two: plan and reasoning up front, the inventory step behind a fold.
+```dyui
+{"ui":"accordion","items":[{"title":"Main section","children":[{"ui":"grid","children":[{"ui":"plan","items":[{"title":"Approve the amount","status":"error"},{"title":"File the claim","status":"active"},{"title":"Assess the damage","status":"pending"},{"title":"Collect the documents","status":"skipped"},{"title":"Issue the payment","status":"done"}]},{"ui":"reasoning","text":"Comparing the two fares: TAP at $142 is $79 cheaper than Vueling at $221. Price is the deciding factor, so TAP is the better pick."}],"columns":2}]},{"title":"More detail","children":[{"ui":"step","title":"Check inventory","status":"running","type":"tool"}]}]}
+```
+The approval step has failed, and the inventory check is still in progress.
+--- derived
+
+
+=== D-0080
+--- user
+Two expandable sections please. Main section: a line chart "Resolved today, Mar–Jul" (series "Resolved today": 162, 157, 153, 148, 140). More detail: a timeline of Escalate to tier 2 (Sep 4, Owner: Priya Ferreira), Confirm the fix (Jun 6, Owner: Quinn Moreau), Acknowledge the customer (Nov 8, Owner: Carla Eriksson), Close the ticket (Jan 10, Owner: Felix Singh), Reproduce the issue (Jun 12, Owner: Tara Yilmaz).
+--- reference
+Trend first, event history second, each behind its own expandable heading.
+```dyui
+{"ui":"accordion","items":[{"title":"Main section","children":[{"ui":"chart","kind":"line","series":[{"name":"Resolved today","data":[162,157,153,148,140]}],"title":"Resolved today, Mar–Jul"}]},{"title":"More detail","children":[{"ui":"timeline","items":[{"title":"Escalate to tier 2","time":"Sep 4","text":"Owner: Priya Ferreira"},{"title":"Confirm the fix","time":"Jun 6","text":"Owner: Quinn Moreau"},{"title":"Acknowledge the customer","time":"Nov 8","text":"Owner: Carla Eriksson"},{"title":"Close the ticket","time":"Jan 10","text":"Owner: Felix Singh"},{"title":"Reproduce the issue","time":"Jun 12","text":"Owner: Tara Yilmaz"}]}]}]}
+```
+Resolutions per day have drifted down over the period, and the timeline stays tucked away until opened.
+--- derived
+
+
+=== D-0072
+--- user
+Show two things in two columns: a pending sql step called "Query orders" with input {"table":"orders","window":"7d"}, and a reasoning block that took 3191 ms saying "Comparing the two fares: Iberia at $159 is $113 cheaper than easyJet at $272. Price is the deciding factor, so Iberia is the better pick."
+--- reference
+The query has not run yet, and the fare reasoning is shown next to it.
+```dyui
+{"ui":"grid","columns":2,"children":[{"ui":"step","title":"Query orders","status":"pending","type":"sql","input":{"table":"orders","window":"7d"}},{"ui":"reasoning","text":"Comparing the two fares: Iberia at $159 is $113 cheaper than easyJet at $272. Price is the deciding factor, so Iberia is the better pick.","duration_ms":3191}]}
+```
+The query has not started yet, so there is no output to show.
+--- derived
+
+
+=== D-0001
+--- user
+Can you make a card "Release status" with two columns inside? Left: the sources: Getting started guide (https://static.brasa.example.com/faq/57, "Has the latest figures."), Customer case study (https://static.brasa.example.com/pricing/75, "Explains the controls in plain language."), Roadmap summary (https://www.example.org/pricing/70, "Has the latest figures."), Pricing overview (https://media.example.net/q3-summary, "Covers the main changes."). Right: a markdown note with the heading "What happens next" and bullets: Plan the day trips, Book the flights, Reserve the hotel (the verbs in bold).
+--- reference
+Sources and next steps now share one release status card.
+```dyui
+{"ui":"card","title":"Release status","children":[{"ui":"grid","children":[{"ui":"sources","items":[{"title":"Getting started guide","url":"https://static.brasa.example.com/faq/57","snippet":"Has the latest figures."},{"title":"Customer case study","url":"https://static.brasa.example.com/pricing/75","snippet":"Explains the controls in plain language."},{"title":"Roadmap summary","url":"https://www.example.org/pricing/70","snippet":"Has the latest figures."},{"title":"Pricing overview","url":"https://media.example.net/q3-summary","snippet":"Covers the main changes."}]},{"ui":"markdown","text":"### What happens next\n- **Plan** the day trips\n- **Book** the flights\n- **Reserve** the hotel"}],"columns":2}]}
+```
+The references and the to-do list now share one card.
+--- derived
+
+
+=== D-0030
+--- user
+swipeable: slide 1 my reasoning ("Comparing the two fares: Vueling at $150 is $84 cheaper than Iberia at $234. Price is the deciding factor, so Vueling is the better pick."), slide 2 a plan called "Customer support desk plan": Close the ticket done, Escalate to tier 2 skipped, Confirm the fix pending, Acknowledge the customer error, Reproduce the issue skipped
+--- reference
+Swipe to move between the fare reasoning and the support desk plan.
+```dyui
+{"ui":"carousel","children":[{"ui":"reasoning","text":"Comparing the two fares: Vueling at $150 is $84 cheaper than Iberia at $234. Price is the deciding factor, so Vueling is the better pick."},{"ui":"plan","title":"Customer support desk plan","items":[{"title":"Close the ticket","status":"done"},{"title":"Escalate to tier 2","status":"skipped"},{"title":"Confirm the fix","status":"pending"},{"title":"Acknowledge the customer","status":"error"},{"title":"Reproduce the issue","status":"skipped"}]}]}
+```
+The failed acknowledgement is the item to look at in the plan.
+--- derived
+
+
+=== D-0115
+--- user
+Could you put these in a horizontally scrolling row? First a set of tags: Recommended (no colour), Approved (green) and Beta (amber). Then a text block with the heading "Checklist" and three bullets, bolding the first word of each: Bisect the last three deploys, Write the postmortem, Ship the fix behind a flag.
+--- reference
+The tags come first in the row, with the checklist one swipe away.
+```dyui
+{"ui":"carousel","children":[{"ui":"badges","items":[{"label":"Recommended"},{"label":"Approved","color":"green"},{"label":"Beta","color":"amber"}]},{"ui":"markdown","text":"### Checklist\n- **Bisect** the last three deploys\n- **Write** the postmortem\n- **Ship** the fix behind a flag"}]}
+```
+Scroll sideways to move from the tags to the checklist.
+--- derived
+
+
+=== D-0126
+--- user
+hey, in a card titled "Weekly summary" can you show my reasoning? It took 2363 ms: "Comparing the two fares: TAP at $298 is $112 cheaper than Vueling at $410. Price is the deciding factor, so TAP is the better pick."
+--- reference
+The weekly summary card holds the reasoning, which opens on demand.
+```dyui
+{"ui":"card","title":"Weekly summary","children":[{"ui":"reasoning","text":"Comparing the two fares: TAP at $298 is $112 cheaper than Vueling at $410. Price is the deciding factor, so TAP is the better pick.","duration_ms":2363}]}
+```
+The reasoning block can be expanded when you want the detail.
+--- derived
+
+
+=== D-0109
+--- user
+two foldable sections. Main section: sources Annual review https://blog.northwind.example.com/faq/99, Pricing overview https://www.example.org/faq/12, Compliance handbook https://static.brasa.example.com/getting-started/69, Roadmap summary https://news.example.com/benchmark. More detail: Rust snippet:
+use std::env;
+
+fn main() {
+    let key = env::var("API_KEY").unwrap_or_default();
+    println!("{key}");
+}
+--- reference
+References sit in the main section, and the Rust snippet is folded away below.
+```dyui
+{"ui":"accordion","items":[{"title":"Main section","children":[{"ui":"sources","items":[{"title":"Annual review","url":"https://blog.northwind.example.com/faq/99"},{"title":"Pricing overview","url":"https://www.example.org/faq/12"},{"title":"Compliance handbook","url":"https://static.brasa.example.com/getting-started/69"},{"title":"Roadmap summary","url":"https://news.example.com/benchmark"}]}]},{"title":"More detail","children":[{"ui":"code","code":"use std::env;\n\nfn main() {\n    let key = env::var(\"API_KEY\").unwrap_or_default();\n    println!(\"{key}\");\n}","language":"rust"}]}]}
+```
+The snippet falls back to an empty string when the variable is unset.
+--- derived
+
+
+=== D-0036
+--- user
+Card "Release status", and inside it a two-column grid. Left: a finished tool step "Fetch invoice" that took 2571 ms with input {"invoice":"INV-0412"}. Right: the plan "Farm management plan": Prepare the soil error, Irrigate and monitor error, Store and sell done, Harvest pending, Sow the seed pending.
+--- reference
+A finished invoice step and the farm plan now sit side by side in the release status card.
+```dyui
+{"ui":"card","title":"Release status","children":[{"ui":"grid","children":[{"ui":"step","title":"Fetch invoice","status":"done","type":"tool","input":{"invoice":"INV-0412"},"duration_ms":2571},{"ui":"plan","title":"Farm management plan","items":[{"title":"Prepare the soil","status":"error"},{"title":"Irrigate and monitor","status":"error"},{"title":"Store and sell","status":"done"},{"title":"Harvest","status":"pending"},{"title":"Sow the seed","status":"pending"}]}],"columns":2}]}
+```
+Two of the plan items are in error, and both come before the harvest.
+--- derived
+
+
+=== D-0007
+--- user
+I'd like a two-column layout. On the left, a checklist note headed "Checklist" with bold lead verbs: Run the load test, Write the postmortem, Reproduce the failure in staging. On the right, the sources: Getting started guide (https://docs.acme-cloud.example.com/overview/88, "Has the latest figures."), Compliance handbook (https://blog.northwind.example.com/benchmark, "Walks through the setup."), Benchmark report (https://media.example.net/guide, "Walks through the setup.").
+--- reference
+The checklist takes the left column and the supporting sources take the right.
+```dyui
+{"ui":"grid","columns":2,"children":[{"ui":"markdown","text":"### Checklist\n- **Run** the load test\n- **Write** the postmortem\n- **Reproduce** the failure in staging"},{"ui":"sources","items":[{"title":"Getting started guide","url":"https://docs.acme-cloud.example.com/overview/88","snippet":"Has the latest figures."},{"title":"Compliance handbook","url":"https://blog.northwind.example.com/benchmark","snippet":"Walks through the setup."},{"title":"Benchmark report","url":"https://media.example.net/guide","snippet":"Walks through the setup."}]}]}
+```
+The checklist is on the left, and the supporting references are alongside it.
+--- derived
+

@@ -1,0 +1,92 @@
+=== E-0064
+--- user
+Got REQ-7261 open in front of me and I'm not sure where to go from here, what are my options?
+--- reference
+Three moves are open on REQ-7261, from booking straight away to reading up first.
+```dyui
+{"ui":"buttons","items":[{"label":"Book now","action":"book_now","data":{"id":"REQ-7261"},"style":"primary"},{"label":"Compare options","action":"compare_options","data":{"id":"REQ-7261"},"style":"secondary"},{"label":"Learn more","action":"learn_more","data":{"id":"REQ-7261"},"style":"ghost"}]}
+```
+If you are undecided, comparing options costs nothing and keeps the request open.
+--- derived
+
+
+=== E-0098
+--- reference
+Your appointment request is in, with these details recorded.
+```dyui
+{"ui":"keyvalue","items":[{"key":"Full name","value":"ORD-1042"},{"key":"Start date","value":"2026-05-02"},{"key":"Preferred time","value":"09:00"},{"key":"Priority","value":"Normal"}]}
+```
+The slot is requested at normal priority, so the front desk will confirm it in the usual order.
+--- derived
+
+
+=== E-0002
+--- user
+hey, can you sign me up for the event? i'm happy to give you whatever you need
+--- reference
+Registering you takes just four details.
+```dyui
+{"ui":"form","fields":[{"name":"full_name","label":"Full name","required":true,"placeholder":"Ana Silva"},{"name":"email","label":"Email","type":"email","placeholder":"you@company.com"},{"name":"guests","label":"Number of guests","type":"number","required":true,"min":1},{"name":"contact_method","label":"How should we contact you?","type":"radio","options":["Email","Phone","Chat"]}],"submit_label":"Register"}
+```
+Only your name and the guest count are mandatory, so the rest can be skipped.
+--- derived
+
+
+=== E-0030
+--- user
+does ROAS count shipping costs?
+--- reference
+No. ROAS is revenue divided by ad spend, so shipping, discounts and product costs are left out unless you subtract them first. That means your 3.3x says how hard the ads work, not how profitable the sales are.
+--- derived
+
+
+=== E-0108
+--- reference
+A top 3 needs a breakdown, such as headcount by department or location, and all I have is the total of 629. Send me the split and I will rank the three largest groups.
+--- derived
+
+
+=== E-0123
+--- user
+which integrations should I switch on? not sure what's worth it for us
+--- reference
+That depends on which tools you already work in, so pick from these.
+```dyui
+{"ui":"choice","question":"Which integrations do you want to enable?","options":["Slack","Google Sheets","Zapier","Webhooks"],"multiple":true,"allow_other":true,"action":"enable_integrations","submit_label":"Enable"}
+```
+Select as many as you like, and anything missing can be typed in as another option.
+--- derived
+
+
+=== E-0101
+--- reference
+A 1 out of 5 is noted, and I am sorry the onboarding session missed the mark. Tell me what went wrong and I will change how I coach you from the next session.
+--- derived
+
+
+=== E-0072
+--- reference
+Breaking 213 Mbps down by plan needs the speed for each plan, and I only have the overall monthly figure. Share the per-plan readings and I will compare them side by side.
+--- derived
+
+
+=== E-0033
+--- user
+set up my notifications
+--- reference
+Pick the channels you want and I will save them.
+```dyui
+{"ui":"choice","question":"How should we notify you?","options":["Email","Push","SMS"],"multiple":true,"allow_other":true,"action":"notify_channels","submit_label":"Save"}
+```
+You can choose more than one channel.
+--- derived
+
+
+=== E-0056
+--- user
+oh wait, unrelated, but I'm stuck on a homework question: how do I solve 2x + 6 = 14?
+--- reference
+Subtract 6 from both sides to get 2x = 8, then divide both sides by 2, which gives x = 4. You can check it by putting 4 back in: 2 times 4 plus 6 is 14. The support request can wait until you are done with the homework.
+--- derived
+8, 4
+

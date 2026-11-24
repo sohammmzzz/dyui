@@ -115,7 +115,7 @@ WRONG_PROPS: dict[str, dict[str, str]] = {
 FILLER_PHRASES = [
     "feel free", "let me know", "hope this helps", "i hope", "don't hesitate", "do not hesitate", "happy to help",
     "is there anything else", "anything else you", "if you have any", "if you need anything", "as an ai",
-    "great question", "i'd be happy", "i would be happy", "glad to help", "reach out", "have a great day",
+    "great question", "i'd be happy", "i would be happy", "glad to help", "reach out", "have a great day", "just ask",
     "no hay de qué dudar", "n'hésitez pas", "zögern sie nicht", "não hesite", "non esitare", "no dudes en",
     "no dudes", "háganos saber", "fais-moi savoir", "sag mir bescheid", "avise-me", "fammi sapere",
 ]

@@ -1,0 +1,110 @@
+=== A-0058
+--- user
+highlight as a testimonial: "I trust the alerts now, and that changed how we work." Liam Kowalski, Data analyst, community forum post
+--- reference
+Here is the testimonial with its author and source.
+```dyui
+{"ui":"quote","text":"I trust the alerts now, and that changed how we work.","author":"Liam Kowalski, Data analyst","source":"Community forum post"}
+```
+A data analyst vouching for the alerts carries real weight for other users.
+--- derived
+
+=== A-0049
+--- user
+Bitte zeig mir diese sechs Bilder als Galerie: https://www.example.org/img/case-study-40.png?v=1, https://files.example.com/img/guide-09.png?v=2, https://cdn.fernhill.example.com/img/getting-started-32.jpg?v=3, https://assets.lumen.example.io/img/annual-review-16.webp?v=4, https://assets.lumen.example.io/img/handbook-27.png?v=5 und https://news.example.com/img/getting-started-40.png?v=6. Die Reihenfolge soll so bleiben.
+--- reference
+Hier sind die sechs Bilder in einer Galerie, in der Reihenfolge, die Sie genannt haben.
+```dyui
+{"ui":"gallery","images":[{"src":"https://www.example.org/img/case-study-40.png?v=1"},{"src":"https://files.example.com/img/guide-09.png?v=2"},{"src":"https://cdn.fernhill.example.com/img/getting-started-32.jpg?v=3"},{"src":"https://assets.lumen.example.io/img/annual-review-16.webp?v=4"},{"src":"https://assets.lumen.example.io/img/handbook-27.png?v=5"},{"src":"https://news.example.com/img/getting-started-40.png?v=6"}]}
+```
+Die Galerie ordnet sie in einem Raster an, sodass Sie alle auf einen Blick sehen.
+--- derived
+
+=== A-0079
+--- user
+lay them out together, 4 pics. 1) https://blog.northwind.example.com/img/pricing-32.webp?v=1 alt "The stage before doors opened", caption Detail. 2) https://www.example.org/img/changelog-15.jpg?v=2 same alt, caption Close-up. 3) https://cdn.fernhill.example.com/img/guide-13.png?v=3 alt "The rooftop terrace at sunset", caption After. 4) https://files.example.com/img/annual-review-19.jpg?v=4 alt "The product on a white background", caption After.
+--- reference
+Here are the four photos together with their captions.
+```dyui
+{"ui":"gallery","images":[{"src":"https://blog.northwind.example.com/img/pricing-32.webp?v=1","alt":"The stage before doors opened","caption":"Detail"},{"src":"https://www.example.org/img/changelog-15.jpg?v=2","alt":"The stage before doors opened","caption":"Close-up"},{"src":"https://cdn.fernhill.example.com/img/guide-13.png?v=3","alt":"The rooftop terrace at sunset","caption":"After"},{"src":"https://files.example.com/img/annual-review-19.jpg?v=4","alt":"The product on a white background","caption":"After"}]}
+```
+Each image keeps its own caption and description for accessibility.
+--- derived
+
+=== A-0135
+--- user
+add a divider here
+--- reference
+Here is a plain divider.
+```dyui
+{"ui":"divider"}
+```
+It separates what came before from what follows.
+--- derived
+
+=== A-0045
+--- user
+can i rate today's support chat? stars out of 10 please, and ask "How helpful was this?"
+--- reference
+Sure, here is a 10-star rating for today's chat.
+```dyui
+{"ui":"rating","label":"How helpful was this?","max":10,"style":"stars","action":"session_feedback"}
+```
+Pick a star and your score comes straight back to me.
+--- derived
+
+=== A-0184
+--- user
+Please show me the progress on the Hiring plan. We have filled 4 of the 15 planned roles.
+--- reference
+Here is the hiring plan progress.
+```dyui
+{"ui":"progress","value":4,"max":15,"label":"Hiring plan"}
+```
+Four of the 15 roles are filled so far.
+--- derived
+
+=== A-0061
+--- user
+player for https://files.example.com/audio/pricing-02.mp3
+--- reference
+Here is the audio player for that file.
+```dyui
+{"ui":"audio","src":"https://files.example.com/audio/pricing-02.mp3"}
+```
+Press play to listen to it here.
+--- derived
+
+=== A-0225
+--- user
+thumbs up or down for this reply? ask "How helpful was this?"
+--- reference
+Here is a quick thumbs rating for the reply.
+```dyui
+{"ui":"rating","label":"How helpful was this?","style":"thumbs","action":"rate_answer"}
+```
+One click is enough, and your answer comes back to me.
+--- derived
+
+=== A-0150
+--- user
+I would like to give feedback on this answer, please. A thumbs up or thumbs down, headed "Your feedback", would be ideal.
+--- reference
+Here is a thumbs rating for the answer.
+```dyui
+{"ui":"rating","label":"Your feedback","style":"thumbs","action":"rate_answer"}
+```
+Your vote is sent back to me as soon as you choose.
+--- derived
+
+=== A-0298
+--- user
+Could you play this here, please? The video is https://help.helpwave.example.com/video/pricing.mp4, the poster image is https://static.brasa.example.com/img/annual-review-16.jpg and the caption should read "The launch teaser".
+--- reference
+The launch teaser is embedded below with its poster image.
+```dyui
+{"ui":"video","src":"https://help.helpwave.example.com/video/pricing.mp4","poster":"https://static.brasa.example.com/img/annual-review-16.jpg","caption":"The launch teaser"}
+```
+Press play to watch it without leaving the chat.
+--- derived
+

@@ -1,0 +1,172 @@
+=== C-0038
+--- user
+Need the picture for donors this month, easy to scan. Grant applications 1, campaign goal reached 14% (target 15%), active donors 15,194 (flat, 0%, target 16,713), donations this month $124.4k (0%). Donor list: Umar Quispe last gift $811, 19 gifts, Lapsed; Elena Larsen $2,451, 29, Lapsed; Wen Larsen $2,028, 28, Major; Greta Nakamura $580, 23, Lapsed. Flag clearly: retention is at 53%, above the 41% threshold, review before Friday (title "Needs attention").
+--- reference
+Four numbers sum up the month for donors.
+```dyui
+{"ui":"stats","items":[{"label":"Grant applications","value":"1"},{"label":"Campaign goal reached","value":"14%","help":"Target 15%"},{"label":"Active donors","value":"15,194","delta":"0%","trend":"flat","help":"Target 16,713"},{"label":"Donations this month","value":"$124.4k","delta":"0%"}]}
+```
+The donors behind them are listed next, one row each.
+```dyui
+{"ui":"table","columns":["Donor","Last gift","Gifts","Segment"],"rows":[["Umar Quispe","$811",19,"Lapsed"],["Elena Larsen","$2,451",29,"Lapsed"],["Wen Larsen","$2,028",28,"Major"],["Greta Nakamura","$580",23,"Lapsed"]],"caption":"Donors"}
+```
+One item needs attention before the week ends.
+```dyui
+{"ui":"callout","text":"Retention is at 53%, above the 41% threshold. Review it before Friday.","level":"warning","title":"Needs attention"}
+```
+Three of the four listed donors are lapsed, so re-engagement is the obvious lever.
+--- derived
+
+
+=== C-0122
+--- user
+Kotlin: how do I print an env var called API_KEY, falling back to "missing"? Put it in Main.kt. Then word a note for the customer under the title "Needs attention": orders is at 2084, above the 1854 threshold, review before Friday.
+--- reference
+Reading the variable takes one line in Kotlin, with the Elvis operator supplying the fallback.
+```dyui
+{"ui":"code","code":"fun main() {\n    val key = System.getenv(\"API_KEY\") ?: \"missing\"\n    println(key)\n}","language":"kotlin","filename":"Main.kt"}
+```
+For the customer, the wording is as follows.
+```dyui
+{"ui":"callout","text":"Orders is at 2084, above the 1854 threshold. Review it before Friday.","level":"warning","title":"Needs attention"}
+```
+`System.getenv` returns null when the variable is unset, which is exactly when the fallback kicks in.
+--- derived
+
+
+=== C-0037
+--- user
+revenue Sep-Dec in $k: 117.1, 123.1, 140.5, 152.7 - line chart. customer note too: migration finished, check-in wait back to 3 min, within the 2 min limit, "All set". then offer: Explain the biggest drop / Forecast next month / Show it as a table
+--- reference
+Revenue climbed every month from September to December.
+```dyui
+{"ui":"chart","kind":"line","labels":["Sep","Oct","Nov","Dec"],"series":[{"name":"Revenue","data":[117.1,123.1,140.5,152.7]}],"unit":"$k"}
+```
+For the customer, the migration news can be worded like this.
+```dyui
+{"ui":"callout","text":"The migration finished and Check-in wait is back to 3 min, within the 2 min limit.","level":"success","title":"All set"}
+```
+Pick a follow-up to go deeper.
+```dyui
+{"ui":"quick_replies","options":["Explain the biggest drop","Forecast next month","Show it as a table"]}
+```
+Note that the chart has no drop at all, so the first follow-up will need a different angle.
+--- derived
+
+
+=== C-0085
+--- user
+Summarise shipment TRK-279 for me: Porto to Delhi, carrier CTT, 521 kg. I also want to see where we are on it. Steps so far: collect proof of delivery on Aug 7, done, Pedro Fischer; pick up at the dock May 9, done, Yara Rahman; clearing customs May 11, in progress, Lena Ueda; out for delivery Jan 13, still pending, Ben Castillo.
+--- reference
+Shipment TRK-279 is a 521 kg load travelling from Porto to Delhi with CTT.
+```dyui
+{"ui":"keyvalue","items":[{"key":"Tracking","value":"TRK-279"},{"key":"Origin","value":"Porto"},{"key":"Destination","value":"Delhi"},{"key":"Carrier","value":"CTT"},{"key":"Weight kg","value":521}]}
+```
+Progress so far, step by step, looks like this.
+```dyui
+{"ui":"timeline","items":[{"title":"Collect proof of delivery","time":"Aug 7","status":"done","text":"Owner: Pedro Fischer"},{"title":"Pick up at the dock","time":"May 9","status":"done","text":"Owner: Yara Rahman"},{"title":"Clear customs","time":"May 11","status":"active","text":"Owner: Lena Ueda"},{"title":"Out for delivery","time":"Jan 13","status":"pending","text":"Owner: Ben Castillo"}]}
+```
+Customs under Lena Ueda is the gate before the final delivery leg.
+--- derived
+
+
+=== C-0142
+--- user
+Can you turn this into a live checklist? Review with the growth lead is finished, I'm currently backfilling last quarter's events and rebuilding the retention cohort, and the tracking plan audit errored out. I'd like to start a review (main action) or skip for now (low-key) from there.
+--- reference
+Two tasks are running at once and one has failed, as the checklist shows.
+```dyui
+{"ui":"plan","items":[{"title":"Review with the growth lead","status":"done"},{"title":"Backfill last quarter's events","status":"active"},{"title":"Rebuild the retention cohort","status":"active"},{"title":"Audit the tracking plan","status":"error"}]}
+```
+From here you can pick one of two actions.
+```dyui
+{"ui":"buttons","items":[{"label":"Start review","action":"start_review","style":"primary"},{"label":"Skip for now","action":"skip_for_now","style":"ghost"}]}
+```
+The failed audit is the item to clear before a review makes sense.
+--- derived
+
+
+=== C-0024
+--- user
+i need a Dockerfile for a small python service (3.12 slim, requirements.txt, runs main.py). and how do we word this for the customer: peak demand is at 4.0 kW, above the 3.4 kW threshold, review before Friday
+--- reference
+This Dockerfile builds a slim Python 3.12 image and starts main.py.
+```dyui
+{"ui":"code","code":"FROM python:3.12-slim\nWORKDIR /app\nCOPY requirements.txt .\nRUN pip install --no-cache-dir -r requirements.txt\nCOPY . .\nCMD [\"python\", \"main.py\"]","language":"dockerfile","filename":"Dockerfile"}
+```
+The customer message could read as follows.
+```dyui
+{"ui":"callout","text":"Peak demand is at 4.0 kW, above the 3.4 kW threshold. Review it before Friday.","level":"warning"}
+```
+Installing requirements before copying the source keeps rebuilds fast when only code changes.
+--- derived
+
+
+=== C-0057
+--- user
+Which sources back this up? Compliance handbook at https://assets.lumen.example.io/report/29 and Annual review at https://cdn.fernhill.example.com/faq - both just walk through the setup. What should I look at next? Maybe: Break it down by vehicle, Forecast next month, Show it as a table, Show the top 3.
+--- reference
+Two documents support the answer, and both walk through the setup.
+```dyui
+{"ui":"sources","items":[{"title":"Compliance handbook","url":"https://assets.lumen.example.io/report/29","snippet":"Walks through the setup."},{"title":"Annual review","url":"https://cdn.fernhill.example.com/faq","snippet":"Walks through the setup."}]}
+```
+Good places to go next are these.
+```dyui
+{"ui":"quick_replies","options":["Break it down by vehicle","Forecast next month","Show it as a table","Show the top 3"]}
+```
+Open the handbook first if you need the setup steps.
+--- derived
+
+
+=== C-0137
+--- user
+Kindly display this image (taken last week): https://help.helpwave.example.com/img/faq-10.jpg. Please also lay out the trip details: Vienna, Mar 3-7, 4 travellers, budget $4,533, awaiting payment.
+--- reference
+The photo was taken last week and is shown first.
+```dyui
+{"ui":"image","src":"https://help.helpwave.example.com/img/faq-10.jpg","caption":"Taken last week"}
+```
+The Vienna trip details follow.
+```dyui
+{"ui":"keyvalue","items":[{"key":"Destination","value":"Vienna"},{"key":"Dates","value":"Mar 3-7"},{"key":"Travellers","value":4},{"key":"Budget","value":"$4,533"},{"key":"Status","value":"Awaiting payment"}]}
+```
+Payment is the only outstanding item before the trip is confirmed.
+--- derived
+
+
+=== C-0046
+--- user
+Prenotazioni di stasera, in modo leggibile: 20:45 Rosa Rahman, 6 persone, allergia alle noci; 20:00 Gabriel Kowalski, 9, allergia alle noci; 21:30 Viktor Haddad, 10, tavolo vicino alla finestra; 18:30 Zoe Silva, 11, tavolo vicino alla finestra; 18:00 Mateo Rossi, 3, tavolo vicino alla finestra; 19:15 Sofia Hoang, 7, tavolo vicino alla finestra. Scrivimi anche un messaggio per il cliente: la migrazione è fallita dopo 5 tentativi, quindi il Table turn non si è potuto leggere.
+--- reference
+Sei prenotazioni, due delle quali con allergia alle noci.
+```dyui
+{"ui":"table","columns":["Orario","Nome","Persone","Note"],"rows":[["20:45","Rosa Rahman",6,"Allergia: noci"],["20:00","Gabriel Kowalski",9,"Allergia: noci"],["21:30","Viktor Haddad",10,"Tavolo vicino alla finestra"],["18:30","Zoe Silva",11,"Tavolo vicino alla finestra"],["18:00","Mateo Rossi",3,"Tavolo vicino alla finestra"],["19:15","Sofia Hoang",7,"Tavolo vicino alla finestra"]]}
+```
+Per il cliente, il messaggio può essere formulato così.
+```dyui
+{"ui":"callout","text":"La migrazione è fallita dopo 5 tentativi, quindi Table turn non ha potuto essere letto.","level":"error"}
+```
+Finché la migrazione non riparte, il dato sul Table turn resta non disponibile.
+--- derived
+
+
+=== C-0050
+--- user
+idle time jan-jul: 16, 16, 17, 18, 19, 19, 20. trajectory? tell them in the app that the backup finished and maintenance backlog is back to 33, within the 28 limit ("All set"). what could I ask next? Show it as a table, Which depot is weakest?, Explain the biggest drop, Show the top 3
+--- reference
+Idle time has crept up from 16 to 20 over seven months.
+```dyui
+{"ui":"chart","kind":"line","labels":["Jan","Feb","Mar","Apr","May","Jun","Jul"],"series":[{"name":"Idle time","data":[16,16,17,18,19,19,20]}],"title":"Idle time, Jan–Jul"}
+```
+The in-app message about the backup reads like this.
+```dyui
+{"ui":"callout","text":"The backup finished and Maintenance backlog is back to 33, within the 28 limit.","level":"success","title":"All set"}
+```
+Any of these would make a good next question.
+```dyui
+{"ui":"quick_replies","options":["Show it as a table","Which depot is weakest?","Explain the biggest drop","Show the top 3"]}
+```
+There is no drop in this series, so a depot breakdown is the more useful follow-up.
+--- derived
+
+

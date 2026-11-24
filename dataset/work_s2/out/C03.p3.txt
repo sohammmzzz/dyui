@@ -1,0 +1,171 @@
+=== C-0108
+--- user
+My Quartz account in numbers, easy to scan please: balance $6,827 (+1.5%, rising), investments $33.4k rising, savings rate 16% (target 18%), monthly spend $2,085 (-8.7%, falling). Recent transactions: Apr 17 Amazon $155 Leisure; Jan 10 Uber $143 Leisure; Jun 27 Pharmacy Lux $59 Dining; Nov 1 Spotify $76 Health. And flag in the chat, titled "Good to know", that the balance is recalculated every 4 hours, so today's figure is provisional.
+--- reference
+Spending is down while the balance edges up, and four numbers show it.
+```dyui
+{"ui":"stats","items":[{"label":"Balance","value":"$6,827","delta":"+1.5%","trend":"up"},{"label":"Investments","value":33.4,"unit":"$k","trend":"up"},{"label":"Savings rate","value":"16%","help":"Target 18%"},{"label":"Monthly spend","value":"$2,085","delta":"-8.7%","trend":"down"}]}
+```
+The latest transactions sit underneath, one per row.
+```dyui
+{"ui":"table","columns":["Date","Merchant","Amount","Category"],"rows":[["Apr 17","Amazon","$155","Leisure"],["Jan 10","Uber","$143","Leisure"],["Jun 27","Pharmacy Lux","$59","Dining"],["Nov 1","Spotify","$76","Health"]],"caption":"Recent transactions"}
+```
+One caveat applies to the balance.
+```dyui
+{"ui":"callout","text":"Balance is recalculated every 4 hours, so today's figure is provisional.","title":"Good to know"}
+```
+Savings rate is the one figure still below its target.
+--- derived
+
+
+=== C-0081
+--- user
+weekly distance Jan to Aug in km: 34.7, 32.8, 31.7, 29.3, 26.2, 22.9, 21.1, 19.0. show the trend. for the customer, word that the import job finished and weekly distance is back to 20.0 km, within the 17.3 km limit. next questions: Forecast next month, Set an alert for this
+--- reference
+Weekly distance has fallen steadily since January, nearly halving by August.
+```dyui
+{"ui":"chart","kind":"line","labels":["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug"],"series":[{"name":"Weekly distance","data":[34.7,32.8,31.7,29.3,26.2,22.9,21.1,19.0]}],"unit":"km"}
+```
+A customer-facing line about the import could say this.
+```dyui
+{"ui":"callout","text":"The import job finished and Weekly distance is back to 20.0 km, within the 17.3 km limit.","level":"success"}
+```
+Tap one of these to continue.
+```dyui
+{"ui":"quick_replies","options":["Forecast next month","Set an alert for this"]}
+```
+Setting an alert now would catch the next dip early.
+--- derived
+
+
+=== C-0088
+--- user
+Car CM-8005, a Corolla, 28142 on the clock, based at the Campus depot, next service Oct 9. Lay out those details and then put the jobs in order for the stakeholders: return to the pool (Sep 1, done), swap the tyres (Dec 3, in progress), inspect the vehicle (Feb 5, still to do).
+--- reference
+CM-8005 is a Corolla at the Campus depot with its next service due on Oct 9.
+```dyui
+{"ui":"keyvalue","items":[{"key":"Plate","value":"CM-8005"},{"key":"Model","value":"Corolla"},{"key":"Mileage","value":28142},{"key":"Depot","value":"Campus"},{"key":"Next service","value":"Oct 9"}]}
+```
+The jobs for stakeholders run in this order.
+```dyui
+{"ui":"timeline","items":[{"title":"Return to the pool","time":"Sep 1","status":"done"},{"title":"Swap the tyres","time":"Dec 3","status":"active"},{"title":"Inspect the vehicle","time":"Feb 5","status":"pending"}]}
+```
+Swapping the tyres is under way, and the inspection is the last job left.
+--- derived
+
+
+=== C-0018
+--- user
+Could you lay out the details of the client's programme? Goal: lose 5 kg. Four sessions a week, coach Zoe Park, Build plan, next test Dec 24. Then set the session out in order for the stakeholders: plan tomorrow (Feb 8, done), main set (Jul 10, in progress), log the session (Feb 12, pending).
+--- reference
+The programme aims at losing 5 kg, with four sessions a week under Zoe Park.
+```dyui
+{"ui":"keyvalue","items":[{"key":"Goal","value":"Lose 5 kg"},{"key":"Weekly sessions","value":4},{"key":"Coach","value":"Zoe Park"},{"key":"Plan","value":"Build"},{"key":"Next test","value":"Dec 24"}]}
+```
+For the stakeholders, the session steps are sequenced below.
+```dyui
+{"ui":"timeline","items":[{"title":"Plan tomorrow","time":"Feb 8","status":"done"},{"title":"Main set","time":"Jul 10","status":"active"},{"title":"Log the session","time":"Feb 12","status":"pending"}]}
+```
+The main set is under way, with logging the session still to come.
+--- derived
+
+
+=== C-0026
+--- user
+sprint scope is 40 of 60 done. how far along are we, and what are my options for ORD-443? reject request, remind me later, or mark as spam
+--- reference
+Two thirds of the sprint scope is complete.
+```dyui
+{"ui":"progress","value":40,"max":60,"label":"Sprint scope"}
+```
+For ORD-443 you have three options.
+```dyui
+{"ui":"buttons","items":[{"label":"Reject request","action":"reject_request","data":{"id":"ORD-443"},"style":"danger"},{"label":"Remind me later","action":"remind_me_later","data":{"id":"ORD-443"},"style":"ghost"},{"label":"Mark as spam","action":"mark_as_spam","data":{"id":"ORD-443"},"style":"danger"}]}
+```
+Reminding yourself later is the only one of the three that is reversible.
+--- derived
+40/60 = two thirds
+
+=== C-0094
+--- user
+claim review is 40% done, show me. and what can I do with INV-9171: learn more, book now, or reject request?
+--- reference
+The review sits at 40 percent.
+```dyui
+{"ui":"progress","value":40}
+```
+Three actions are available for INV-9171.
+```dyui
+{"ui":"buttons","items":[{"label":"Learn more","action":"learn_more","data":{"id":"INV-9171"}},{"label":"Book now","action":"book_now","data":{"id":"INV-9171"}},{"label":"Reject request","action":"reject_request","data":{"id":"INV-9171"}}]}
+```
+Each button sends its choice back to me along with the invoice id.
+--- derived
+
+
+=== C-0075
+--- user
+details of the plan: Basic, 119 GB, $43. what can I do with it? mark as spam, assign owner, reject request, decline offer
+--- reference
+The Basic plan gives 119 GB for $43.
+```dyui
+{"ui":"keyvalue","items":[{"key":"Plan","value":"Basic"},{"key":"Data GB","value":119},{"key":"Price","value":"$43"}]}
+```
+You can act on it in four ways.
+```dyui
+{"ui":"buttons","items":[{"label":"Mark as spam","action":"mark_as_spam"},{"label":"Assign owner","action":"assign_owner"},{"label":"Reject request","action":"reject_request"},{"label":"Decline offer","action":"decline_offer"}]}
+```
+Assigning an owner is the only option that keeps the plan in play.
+--- derived
+
+
+=== C-0080
+--- user
+overview for tonight: covers 208 (target 229), food cost 34.8% (+0.8%), table turn 63 min. how do dishes stack up on food cost %: grilled sea bass 32.3, tonkotsu ramen 33.9, mushroom risotto 34.5, burrata salad 36.1, lamb shoulder 40.0, flan 25.8. what next: Which dish is weakest?, What changed the most?, Forecast next month
+--- reference
+Covers are 21 short of target tonight, with food cost nudging up.
+```dyui
+{"ui":"stats","items":[{"label":"Covers tonight","value":"208","help":"Target 229"},{"label":"Food cost","value":"34.8%","delta":"+0.8%"},{"label":"Table turn","value":63,"unit":"min"}]}
+```
+Food cost varies a lot by dish, as the comparison shows.
+```dyui
+{"ui":"chart","kind":"bar","labels":["Grilled sea bass","Tonkotsu ramen","Mushroom risotto","Burrata salad","Lamb shoulder","Flan"],"series":[{"name":"Food cost","data":[32.3,33.9,34.5,36.1,40.0,25.8]}],"unit":"%"}
+```
+These are the natural questions to ask next.
+```dyui
+{"ui":"quick_replies","options":["Which dish is weakest?","What changed the most?","Forecast next month"]}
+```
+Lamb shoulder is the dish pushing food cost up, while flan pulls it down.
+--- derived
+229-208 = 21
+
+=== C-0086
+--- user
+Please put the delivery steps in order for the stakeholders: out for delivery (Oct 8, done, Priya Park); scan at the hub (Jan 10, in progress, Yusuf Fischer); collect proof of delivery (Aug 12, pending, Zainab Novak); clear customs (Sep 14, pending, Katya Haddad); pick up at the dock (Nov 16, pending, Rin Nakamura). Also, how should we word to the customer that damage rate is recalculated every 2 hours, so today's figure is provisional? Title "Good to know".
+--- reference
+The delivery has one step in progress and three still waiting.
+```dyui
+{"ui":"timeline","items":[{"title":"Out for delivery","time":"Oct 8","status":"done","text":"Owner: Priya Park"},{"title":"Scan at the hub","time":"Jan 10","status":"active","text":"Owner: Yusuf Fischer"},{"title":"Collect proof of delivery","time":"Aug 12","status":"pending","text":"Owner: Zainab Novak"},{"title":"Clear customs","time":"Sep 14","status":"pending","text":"Owner: Katya Haddad"},{"title":"Pick up at the dock","time":"Nov 16","status":"pending","text":"Owner: Rin Nakamura"}]}
+```
+For the customer, you could word the caveat this way.
+```dyui
+{"ui":"callout","text":"Damage rate is recalculated every 2 hours, so today's figure is provisional.","level":"info","title":"Good to know"}
+```
+Yusuf Fischer owns the step that is currently moving.
+--- derived
+
+
+=== C-0112
+--- user
+List these as sources: Benchmark report (https://blog.northwind.example.com/report/61), explains the controls in plain language; Release notes (https://files.example.com/getting-started), covers the main changes. Then a couple of next questions I can tap: "Which status is weakest?" and "Set an alert for this".
+--- reference
+Two documents are cited, one on the controls and one on the main changes.
+```dyui
+{"ui":"sources","items":[{"title":"Benchmark report","url":"https://blog.northwind.example.com/report/61","snippet":"Explains the controls in plain language."},{"title":"Release notes","url":"https://files.example.com/getting-started","snippet":"Covers the main changes."}]}
+```
+Two follow-ups are ready to tap.
+```dyui
+{"ui":"quick_replies","options":["Which status is weakest?","Set an alert for this"]}
+```
+The benchmark report is the better starting point for the controls.
+--- derived
+

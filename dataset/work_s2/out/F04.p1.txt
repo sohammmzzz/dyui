@@ -1,0 +1,179 @@
+=== F-0033
+--- user
+shorter, first 3 rows only
+--- reference
+Three tracks remain, the first three of the list.
+```dyui
+{"ui":"table","columns":["Track","Artist","Streams","Skips"],"rows":[["Neon Harbour","Aiden Kowalski",643,43],["Static Bloom","Tomas Yilmaz",887,6],["Salt & Honey","Rosa Fischer",437,7]]}
+```
+The other four tracks are hidden, and these three are as listed before.
+--- derived
+
+
+=== F-0069
+--- user
+Could you cut this down to the first three rows? The rest isn't needed for now.
+--- reference
+Trimmed down to B-483, B-767 and B-988.
+```dyui
+{"ui":"table","columns":["Batch","Defects","Inspector","Result"],"rows":[["B-483",7,"Farah Lindqvist","Reject"],["B-767",22,"Rosa Ibrahim","Pass"],["B-988",1,"Jamal Sato","Pass"]]}
+```
+B-413 and B-623 are removed; the remaining rows are unchanged.
+--- derived
+
+
+=== F-0075
+--- user
+Pásalo al español, por favor: las etiquetas y el título. Los números se quedan igual.
+--- reference
+The chart now reads in Spanish, from the labels to the title.
+```dyui
+{"ui":"chart","kind":"area","labels":["Mar","Abr","May","Jun","Jul","Ago"],"series":[{"name":"Valor medio del pedido","data":[73,77,84,90,95,100]}],"title":"Valor medio del pedido, mar–ago","unit":"$"}
+```
+The six values and the area style are exactly as before.
+--- derived
+
+
+=== F-0020
+--- user
+remove the Data processing row
+--- reference
+Data processing is removed, leaving five clauses.
+```dyui
+{"ui":"table","columns":["Clause","Owner","Status"],"rows":[["Termination","Dmitri Torres","Accepted"],["Limitation of liability","Mia Garcia","Countered"],["Governing law","Bruno Eriksson","Countered"],["Payment terms","Vera Okafor","Accepted"],["Governing law","Rin Rahman","Accepted"]],"caption":"Redlines"}
+```
+Five rows remain in their original order.
+--- derived
+
+
+=== F-0035
+--- user
+Please add one more figure alongside the others: Covers tonight, 62.
+--- reference
+Covers tonight joins the row as a fourth figure.
+```dyui
+{"ui":"stats","items":[{"label":"Table turn","value":"73 min"},{"label":"Food cost","value":"26.2%"},{"label":"Average ticket","value":"$40"},{"label":"Covers tonight","value":"62"}]}
+```
+The three earlier figures are unchanged, with the new one at the end.
+--- derived
+
+
+=== F-0047
+--- user
+add one more: Balance $7449
+--- reference
+Balance goes in as the fourth number.
+```dyui
+{"ui":"stats","items":[{"label":"Monthly spend","value":"$4275"},{"label":"Dining out","value":"$602"},{"label":"Savings rate","value":"25%"},{"label":"Balance","value":"$7449"}]}
+```
+The first three are exactly as before, and Balance comes last.
+--- derived
+
+
+=== F-0097
+--- user
+Please change it to an area chart and add November at 10.0. Everything else should stay the same.
+--- reference
+November pushes attrition to 10.0% on the new area chart.
+```dyui
+{"ui":"chart","kind":"area","labels":["Apr","May","Jun","Jul","Aug","Sep","Oct","Nov"],"series":[{"name":"Attrition","data":[9.7,9.4,9.5,9.2,8.9,9.4,9.5,10.0]}],"title":"Attrition, Apr–Oct","unit":"%"}
+```
+That is the highest point in the series. The title still says Apr–Oct because only the new point was requested.
+--- derived
+
+
+=== F-0089
+--- user
+top 3 by beds only, most beds first
+--- reference
+12 Mill Lane leads on bedrooms, with two three-bed listings behind it.
+```dyui
+{"ui":"table","columns":["Address","Beds","Price","Status"],"rows":[["12 Mill Lane",5,"$338","Under offer"],["48 Rua Verde",3,"$770","New"],["5 Orchard Way",3,"$229","Under offer"]],"caption":"Listings"}
+```
+48 Rua Verde and 5 Orchard Way tie at 3 beds and keep their original order; the other three listings are dropped.
+--- derived
+
+
+=== F-0014
+--- user
+drop May
+--- reference
+Without May, the area chart ends in April.
+```dyui
+{"ui":"chart","kind":"area","labels":["Feb","Mar","Apr"],"series":[{"name":"Fraud flags","data":[34,32,31]}],"title":"Fraud flags, Feb–Apr"}
+```
+April at 31 is the last point, and the title range is updated to match.
+--- derived
+
+
+=== F-0045
+--- user
+Could you shorten the table, keeping just the first 3 rows? The other two aren't needed in this view.
+--- reference
+Only three service items stay on the list.
+```dyui
+{"ui":"table","columns":["Plate","Service","Due","Depot"],"rows":[["CM-4537","Annual inspection","Jan 22","Harbour"],["CM-8259","Tyres","Jan 25","Harbour"],["CM-3199","Annual inspection","Aug 18","Airport"]],"caption":"Service due"}
+```
+CM-1057 and CM-6146 are no longer shown; the three kept rows are unchanged.
+--- derived
+
+
+=== F-0103
+--- user
+can you add a Team column? in row order: new, ok, US, ok, new, EU
+--- reference
+Team is added as the last column for the interviews.
+```dyui
+{"ui":"table","columns":["Day","Candidate","Panel","Time","Team"],"rows":[["Tue","Chloe Nguyen","Culture","10:00","new"],["Wed","Jun Bergstrom","Hiring manager","10:00","ok"],["Mon","Dev Lindqvist","Culture","16:15","US"],["Fri","Priya Petrov","Tech","14:00","ok"],["Thu","Farah Nakamura","Tech","11:30","new"],["Wed","Xavier Vasquez","Culture","14:00","EU"]]}
+```
+The existing columns and the row order are untouched.
+--- derived
+
+
+=== F-0011
+--- user
+Add a fourth stat to that row: On-time delivery at 92.3%.
+--- reference
+On-time delivery becomes the fourth headline number.
+```dyui
+{"ui":"stats","items":[{"label":"Damage rate","value":"0.5%"},{"label":"Parcels today","value":"5,208"},{"label":"Fuel cost","value":"$45.2k"},{"label":"On-time delivery","value":"92.3%"}]}
+```
+The original three are unchanged, and the new one sits at the end.
+--- derived
+
+
+=== F-0036
+--- user
+Por favor, cambie el campo Price a "Paused".
+--- reference
+Aquí está la suscripción con el campo Price actualizado.
+```dyui
+{"ui":"keyvalue","items":[{"key":"Plan","value":"Max"},{"key":"Data GB","value":33},{"key":"Price","value":"Paused"},{"key":"Renews","value":"Sep 4"}]}
+```
+Los demás campos no han cambiado; Plan sigue siendo Max y Renews sigue en Sep 4.
+--- derived
+
+
+=== F-0081
+--- user
+first 3 rows only pls
+--- reference
+Only the first three bugs are left.
+```dyui
+{"ui":"table","columns":["ID","Title","Severity","Owner"],"rows":[["BUG-498","Matchmaking stuck","Minor","Rosa Eriksson"],["BUG-583","Audio cuts out","Critical","Lena Silva"],["BUG-931","Inventory duplicates","Major","Sven Costa"]],"caption":"Bugs"}
+```
+The remaining three bugs are left out, and these rows are unchanged.
+--- derived
+
+
+=== F-0079
+--- user
+add a column called Flag: US, APAC, review, review, APAC (in row order)
+--- reference
+Flag becomes the fifth column of the donors table.
+```dyui
+{"ui":"table","columns":["Donor","Last gift","Gifts","Segment","Flag"],"rows":[["Ana Garcia","$4,805",28,"Lapsed","US"],["Hugo Bergstrom","$4,109",23,"Lapsed","APAC"],["Yusuf Singh","$737",22,"Major","review"],["Wen Weber","$460",22,"Mid-level","review"],["Nadia Vasquez","$4,911",2,"Lapsed","APAC"]],"caption":"Donors"}
+```
+Only the Flag column is new; everything else is as it was.
+--- derived
+

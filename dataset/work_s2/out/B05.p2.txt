@@ -1,0 +1,109 @@
+=== B-0172
+--- user
+I need the account book in a form that is easy to scan. Fernhill is on Starter with 28 seats, MRR $8,071, owner Wen Weber. Initech is Enterprise, 351 seats, $3,338, owner Elena Novak. Lumen Labs is Pro, 239 seats, $7,271, owner Mateo Novak. Quartz Bank is Pro, 57 seats, $3,876, owner Viktor Ferreira. Hooli is Team, 196 seats, $3,423, owner Lena Quispe. Acme is Enterprise, 105 seats, $632, owner Hana Yilmaz. Northwind is Team, 189 seats, $6,820, owner Jun Haddad. Gringotts is Starter, 17 seats, $6,551, owner Pedro Weber.
+--- reference
+All eight accounts fit one table, with plan, seats, MRR and owner per row.
+```dyui
+{"ui":"table","columns":["Account","Plan","Seats","MRR","Owner"],"rows":[["Fernhill","Starter",28,"$8,071","Wen Weber"],["Initech","Enterprise",351,"$3,338","Elena Novak"],["Lumen Labs","Pro",239,"$7,271","Mateo Novak"],["Quartz Bank","Pro",57,"$3,876","Viktor Ferreira"],["Hooli","Team",196,"$3,423","Lena Quispe"],["Acme","Enterprise",105,"$632","Hana Yilmaz"],["Northwind","Team",189,"$6,820","Jun Haddad"],["Gringotts","Starter",17,"$6,551","Pedro Weber"]],"caption":"Accounts"}
+```
+Fernhill has the highest MRR at $8,071 despite being on the Starter plan.
+--- derived
+
+=== B-0122
+--- user
+we got 7 grant applications this month, same as last month (0%). is that good?
+--- reference
+Grant applications stand at 7 this month.
+```dyui
+{"ui":"stat","label":"Grant applications","value":"7","delta":"0% vs last month"}
+```
+It is unchanged from last month, and with no target in the data I cannot say whether 7 is good.
+--- derived
+
+=== B-0008
+--- user
+Could you put the field list in a form that is easy to scan? Orchard is sunflower, 58 hectares, flowering. North 40 is barley, 23 hectares, sowing. Hill field is olives, 22 hectares, growing. River plot is maize, 32 hectares, sowing. Greenhouse is wheat, 20 hectares, at harvest.
+--- reference
+Each of the five fields gets a row for crop, size and growth stage.
+```dyui
+{"ui":"table","columns":["Field","Crop","Hectares","Stage"],"rows":[["Orchard","Sunflower",58,"Flowering"],["North 40","Barley",23,"Sowing"],["Hill field","Olives",22,"Growing"],["River plot","Maize",32,"Sowing"],["Greenhouse","Wheat",20,"Harvest"]]}
+```
+Orchard is the largest field at 58 hectares, and the Greenhouse wheat is the only one at harvest.
+--- derived
+
+=== B-0020
+--- user
+podcast downloads Mar to Jul: 110214, 106421, 99273, 90803, 84478. has it been improving?
+--- reference
+Podcast downloads have moved the wrong way since March.
+```dyui
+{"ui":"chart","kind":"line","labels":["Mar","Apr","May","Jun","Jul"],"series":[{"name":"Podcast downloads","data":[110214,106421,99273,90803,84478]}]}
+```
+No, downloads fell every month, from 110214 in March to 84478 in July.
+--- derived
+
+=== B-0098
+--- user
+price vs units sold, does one drive the other? price $25.7 sold 654.3, $28.8 sold 546.8, $35.3 sold 502.3, $41.3 sold 420.8, $52.8 sold 227.9, $58.4 sold 184.2
+--- reference
+Yes, price and units sold are tied together, as each point shows.
+```dyui
+{"ui":"chart","kind":"scatter","series":[{"name":"Units sold vs price ($)","data":[[25.7,654.3],[28.8,546.8],[35.3,502.3],[41.3,420.8],[52.8,227.9],[58.4,184.2]]}]}
+```
+Units fall as the price rises, from 654.3 at 25.7 to 184.2 at 58.4, which points to a strong inverse link.
+--- derived
+
+=== B-0076
+--- user
+Churn rate by month, February through August, in percent: 2.5, 2.5, 2.5, 2.5, 2.4, 2.4, 2.5. Has it been improving?
+--- reference
+Churn has barely moved from February to August.
+```dyui
+{"ui":"chart","kind":"area","labels":["Feb","Mar","Apr","May","Jun","Jul","Aug"],"series":[{"name":"Churn rate","data":[2.5,2.5,2.5,2.5,2.4,2.4,2.5]}],"title":"Churn rate, Feb–Aug","unit":"%"}
+```
+The rate sat at 2.5% for four months, dipped to 2.4% in Jun and Jul, and returned to 2.5% in Aug, so it is stable rather than improving.
+--- derived
+
+=== B-0134
+--- user
+incidentes abiertos, límpialo en una tabla: INC-748 índice de búsqueda obsoleto SEV2 Ana Silva; INC-687 presión de disco en db-3 SEV3 Carla Bergstrom; INC-288 timeouts en checkout SEV1 Zoe Nakamura; INC-783 bucle de login en SSO SEV2 Tara Bergstrom; INC-108 timeouts en checkout SEV1 Elena Moreau; INC-441 bucle de login en SSO SEV2 Wen Vasquez; INC-431 timeouts en checkout SEV3 Nadia Novak
+--- reference
+Los siete incidentes abiertos quedan ordenados con su gravedad y responsable.
+```dyui
+{"ui":"table","columns":["ID","Título","Gravedad","Responsable"],"rows":[["INC-748","Índice de búsqueda obsoleto","SEV2","Ana Silva"],["INC-687","Presión de disco en db-3","SEV3","Carla Bergstrom"],["INC-288","Timeouts en checkout","SEV1","Zoe Nakamura"],["INC-783","Bucle de login en SSO","SEV2","Tara Bergstrom"],["INC-108","Timeouts en checkout","SEV1","Elena Moreau"],["INC-441","Bucle de login en SSO","SEV2","Wen Vasquez"],["INC-431","Timeouts en checkout","SEV3","Nadia Novak"]],"caption":"Incidentes abiertos"}
+```
+INC-288 e INC-108 son los dos SEV1, ambos de timeouts en checkout.
+--- derived
+
+=== B-0144
+--- user
+Please set out the device readings so they are easy to scan: Dishwasher 1.6 kW, fault; Heat pump 1.5 kW, scheduled; Dryer 4.1 kW, on; Pool pump 7.0 kW, scheduled; EV charger 1.2 kW, scheduled; Oven 4.0 kW, fault; and a second Pool pump at 3.3 kW, on.
+--- reference
+Seven device readings, with power and status, are laid out below.
+```dyui
+{"ui":"table","columns":["Device","Power kW","Status"],"rows":[["Dishwasher",1.6,"Fault"],["Heat pump",1.5,"Scheduled"],["Dryer",4.1,"On"],["Pool pump",7.0,"Scheduled"],["EV charger",1.2,"Scheduled"],["Oven",4.0,"Fault"],["Pool pump",3.3,"On"]]}
+```
+The Dishwasher and the Oven are the two devices in a fault state.
+--- derived
+
+=== B-0080
+--- user
+For the review: the number of contracts expiring in 90 days is 24, which is up 5.0% vs last month, and our target was 22. Where do we stand?
+--- reference
+24 contracts expire within the next 90 days.
+```dyui
+{"ui":"stat","label":"Contracts expiring in 90 days","value":"24","delta":"+5.0% vs last month","trend":"up","help":"Target 22"}
+```
+The count is rising and sits above the target of 22.
+--- derived
+
+=== B-0016
+--- user
+overview: churn 2.9%, subscribers 413006 (target 454307), data used 45.7 GB up 14.5% (target 50.3 GB), latency 87 ms up 0.9% (target 96 ms)
+--- reference
+Churn, subscribers, data and latency make up the account overview.
+```dyui
+{"ui":"stats","items":[{"label":"Churn","value":"2.9%"},{"label":"Subscribers","value":"413006","help":"Target 454307"},{"label":"Data used","value":"45.7 GB","delta":"+14.5%","help":"Target 50.3 GB"},{"label":"Latency","value":"87 ms","delta":"+0.9%","help":"Target 96 ms"}]}
+```
+Subscribers are below the 454307 target, while data use and latency are both still inside theirs.
+--- derived

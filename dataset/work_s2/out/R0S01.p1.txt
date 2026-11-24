@@ -1,0 +1,44 @@
+=== S-0002
+--- user
+Does a plan component send anything back when someone clicks it? Say I have a plan called Claim steps with Photos received (done) and Review (active), plus a Next button with the action next_step. How does the action roundtrip work?
+--- reference
+A plan only displays progress and has no action prop, so a button placed beside it is what carries the click back.
+```dyui
+{"ui":"code","language":"json","code":"{\"ui\":\"plan\",\"title\":\"Claim steps\",\"items\":[{\"title\":\"Photos received\",\"status\":\"done\"},{\"title\":\"Review\",\"status\":\"active\"}]}\n{\"ui\":\"buttons\",\"items\":[{\"label\":\"Next\",\"action\":\"next_step\",\"style\":\"primary\"}]}"}
+```
+Buttons, confirm, form, choice and rating return a message shaped like [action:name] followed by JSON, whereas quick_replies come back as plain user text.
+--- derived
+
+=== S-0029
+--- user
+does a chart send anything back when someone clicks it, like buttons or quick replies do? say errors Mon 3, Tue 7, and a quick reply that reads Show Wednesday
+--- reference
+Nothing is sent back from a chart, because it has no action prop; the example below pairs one with a quick reply to show the contrast.
+```dyui
+{"ui":"code","language":"json","code":"{\"ui\":\"chart\",\"kind\":\"line\",\"labels\":[\"Mon\",\"Tue\"],\"series\":[{\"name\":\"Errors\",\"data\":[3,7]}]}\n{\"ui\":\"quick_replies\",\"options\":[\"Show Wednesday\"]}"}
+```
+Tapping a quick reply arrives as ordinary user text, while buttons, confirm, form, choice and rating send an [action:name] message with JSON attached.
+--- derived
+
+=== S-0017
+--- user
+When should confirm be used instead of quick replies or buttons? Our example is cancelling the Lisbon trip: title "Cancel the Lisbon trip?", text "The booking will be released.", labels "Cancel trip" and "Keep it", action cancel_trip, data with trip set to Lisbon, marked as dangerous.
+--- reference
+Confirm suits an outward or irreversible step that needs explicit approval first, such as cancelling the Lisbon trip.
+```dyui
+{"ui":"code","language":"json","code":"{\"ui\":\"confirm\",\"title\":\"Cancel the Lisbon trip?\",\"text\":\"The booking will be released.\",\"confirm_label\":\"Cancel trip\",\"cancel_label\":\"Keep it\",\"action\":\"cancel_trip\",\"data\":{\"trip\":\"Lisbon\"},\"danger\":true}"}
+```
+Only title is required. Its answer comes back as [action:name] with your data plus a confirmed flag, as buttons do, while quick_replies arrive as plain user text.
+--- derived
+
+=== S-0026
+--- user
+choice vs quick replies, whats the difference? e.g. asking "Which pickup window works?" with Morning or Afternoon, action pick_window
+--- reference
+Choice poses one question with fixed options and reports the pick as an action, as in this pickup example.
+```dyui
+{"ui":"code","language":"json","code":"{\"ui\":\"choice\",\"question\":\"Which pickup window works?\",\"options\":[\"Morning\",\"Afternoon\"],\"action\":\"pick_window\"}"}
+```
+The selection returns as [action:name] with the selected options in JSON, while quick_replies arrive as a plain user message carrying no action.
+--- derived
+

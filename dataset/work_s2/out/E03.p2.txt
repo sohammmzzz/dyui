@@ -1,0 +1,83 @@
+=== E-0077
+--- reference
+Thanks for the honest score, it tells me the tutorial did not land for you.
+If you say which part was unclear, I can explain it another way.
+--- derived
+
+=== E-0036
+--- reference
+To explain the biggest drop I need the history behind the 37 open roles, and I only have today's total.
+Send me the counts per week or per department and I will point out where the fall was largest.
+--- derived
+
+=== E-0032
+--- user
+Can you set me up for the event? I'm Ana Silva and I'll probably bring 2 guests, though I think the limit is 12 and the minimum is 1.
+--- reference
+I need a few details to complete your registration.
+```dyui
+{"ui":"form","title":"Event registration","fields":[{"name":"full_name","label":"Full name","placeholder":"Ana Silva"},{"name":"email","label":"Email","type":"email","placeholder":"you@company.com"},{"name":"guests","label":"Number of guests","type":"number","default":2,"min":1,"max":12}],"action":"event_registration"}
+```
+Submit it and I will finish the registration.
+--- derived
+
+=== E-0095
+--- user
+Could you give me a simple way to mark this reply as good or bad? A thumbs up or thumbs down would be perfect.
+--- reference
+Here is a thumbs rating for this reply.
+```dyui
+{"ui":"rating","label":"Your feedback","style":"thumbs","action":"session_feedback"}
+```
+One tap is enough, and it comes straight back to me.
+--- derived
+
+=== E-0099
+--- reference
+Slack and Google Sheets are selected for activation.
+```dyui
+{"ui":"callout","level":"success","title":"Integrations enabled","text":"Slack and Google Sheets are now enabled."}
+```
+Zapier and Webhooks stay off.
+--- derived
+
+=== E-0025
+--- user
+Quick one while that is pending: where can I find my last invoice?
+--- reference
+Invoices normally sit in the billing section of your account settings, listed by date, and each one can be downloaded as a PDF there.
+I cannot see your account from here, so the exact menu name may differ on your plan.
+--- derived
+
+=== E-0114
+--- reference
+I can compare the 72% quiz average with last month only once I have last month's score, which is not in this conversation.
+Give me that figure and I will tell you the difference.
+--- derived
+
+=== E-0061
+--- user
+cancel my team sub pls
+--- reference
+Cancelling cannot be undone from my side, so please confirm it first.
+```dyui
+{"ui":"confirm","title":"Cancel your Team subscription?","text":"You keep access until the end of the billing period.","confirm_label":"Cancel subscription","cancel_label":"Keep Team","action":"cancel_subscription","data":{"plan":"team"},"danger":true}
+```
+Your Team plan stays as it is until you choose.
+--- derived
+
+=== E-0024
+--- reference
+To break down 324,965 daily active users by mode, I need the per-mode counts, since only the total is known here.
+Share them and I will show the split and which mode is smallest.
+--- derived
+
+=== E-0100
+--- reference
+Okay, REQ-3554 is set aside for now.
+```dyui
+{"ui":"callout","level":"info","text":"REQ-3554 was skipped for now. It has not been approved or changed."}
+```
+It remains waiting on a decision whenever you come back to it.
+--- derived
+

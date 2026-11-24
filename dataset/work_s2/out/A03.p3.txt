@@ -1,0 +1,110 @@
+=== A-0202
+--- user
+render the raw data so I can expand it: channel Social, budget $55,684, start Sep 6, tags beta and vip
+--- reference
+Here is the campaign record as an expandable tree.
+```dyui
+{"ui":"json","data":{"channel":"Social","budget":"$55,684","start":"Sep 6","tags":["beta","vip"]}}
+```
+Expand the tags node to see both labels.
+--- derived
+
+=== A-0038
+--- user
+display all of these in a grid: https://assets.lumen.example.io/img/handbook-07.jpg?v=1 https://news.example.com/img/benchmark-35.png?v=2 https://static.brasa.example.com/img/overview-15.webp?v=3
+--- reference
+Here are the three images in a grid.
+```dyui
+{"ui":"gallery","images":[{"src":"https://assets.lumen.example.io/img/handbook-07.jpg?v=1"},{"src":"https://news.example.com/img/benchmark-35.png?v=2"},{"src":"https://static.brasa.example.com/img/overview-15.webp?v=3"}]}
+```
+They are shown side by side in the order you pasted them.
+--- derived
+
+=== A-0206
+--- user
+tu peux me montrer ce lien sous forme de carte d'aperçu ? https://docs.acme-cloud.example.com/benchmark, titre "Pricing that scales with your team", site docs.acme-cloud.example.com
+--- reference
+Voici l'aperçu du lien sous forme de carte.
+```dyui
+{"ui":"link_preview","url":"https://docs.acme-cloud.example.com/benchmark","title":"Pricing that scales with your team","site":"docs.acme-cloud.example.com"}
+```
+La carte indique le titre et le site, ce qui permet de savoir où mène le lien avant de cliquer.
+--- derived
+
+=== A-0065
+--- user
+I would like these three vehicle photos laid out together, in this order: https://help.helpwave.example.com/img/overview-27.webp?v=1, then https://static.brasa.example.com/img/roadmap-08.jpg?v=2, then https://docs.acme-cloud.example.com/img/changelog-05.webp?v=3.
+--- reference
+Here are the three photos laid out together.
+```dyui
+{"ui":"gallery","images":[{"src":"https://help.helpwave.example.com/img/overview-27.webp?v=1"},{"src":"https://static.brasa.example.com/img/roadmap-08.jpg?v=2"},{"src":"https://docs.acme-cloud.example.com/img/changelog-05.webp?v=3"}]}
+```
+They appear in the order you specified.
+--- derived
+
+=== A-0109
+--- user
+highlight it as a testimonial: "I trust the alerts now, and that changed how we work."
+--- reference
+Here is the testimonial as a highlighted quote.
+```dyui
+{"ui":"quote","text":"I trust the alerts now, and that changed how we work."}
+```
+Adding a name would make it more convincing.
+--- derived
+
+=== A-0240
+--- user
+I need a short FAQ section, please, with three entries. How do refunds work? Refunds go back to the original payment method within 5–10 business days. Where is my data stored? In the region you pick at signup, and it is encrypted at rest. Is there an API? Yes, every plan includes API access with per-key rate limits.
+--- reference
+Here is the FAQ with the three questions as collapsible sections.
+```dyui
+{"ui":"accordion","items":[{"title":"How do refunds work?","children":[{"ui":"markdown","text":"Refunds go back to the original payment method within **5–10 business days**."}]},{"title":"Where is my data stored?","children":[{"ui":"markdown","text":"Data lives in the region you pick at signup and is encrypted at rest."}]},{"title":"Is there an API?","children":[{"ui":"markdown","text":"Yes. Every plan includes API access with per-key rate limits."}]}]}
+```
+Each answer opens on demand, so the section stays short.
+--- derived
+
+=== A-0262
+--- user
+Can you set me up for the event, please? I'll need to provide my full name, my email, the number of tickets, and how you should contact me: by email, phone or chat.
+--- reference
+Here is a short event form with the details I need.
+```dyui
+{"ui":"form","fields":[{"name":"full_name"},{"name":"email","type":"email"},{"name":"quantity","type":"number"},{"name":"contact_method","type":"radio","options":["Email","Phone","Chat"]}]}
+```
+Submit it and your answers come back to me so I can finish the setup.
+--- derived
+
+=== A-0215
+--- user
+render that tool step: Search flights, a search step, done in 3049 ms and it came back with 12 results
+--- reference
+Here is the finished flight search step.
+```dyui
+{"ui":"step","title":"Search flights","status":"done","type":"search","output":{"result":"12 results"},"duration_ms":3049}
+```
+The search completed in 3049 ms with 12 results.
+--- derived
+
+=== A-0141
+--- user
+I would like to make this trip record explorable, and please title it "Trip payload". Destination is Istanbul, dates Apr 14-19, 6 travellers, budget $1,967, and tags vip and eu.
+--- reference
+Here is the trip record as an explorable tree.
+```dyui
+{"ui":"json","data":{"destination":"Istanbul","dates":"Apr 14-19","travellers":6,"budget":"$1,967","tags":["vip","eu"]},"title":"Trip payload"}
+```
+You can open and close each branch, including the tags list.
+--- derived
+
+=== A-0084
+--- user
+display that quote properly: "I trust the alerts now, and that changed how we work." Sven Kowalski, Ops lead, support interview
+--- reference
+Here is the quote with its author and source.
+```dyui
+{"ui":"quote","text":"I trust the alerts now, and that changed how we work.","author":"Sven Kowalski, Ops lead","source":"Support interview"}
+```
+The role and interview source add credibility to the line.
+--- derived
+

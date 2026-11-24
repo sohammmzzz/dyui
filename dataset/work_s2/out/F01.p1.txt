@@ -1,0 +1,110 @@
+=== F-0005
+--- user
+only the top 3 by stock please, biggest first
+--- reference
+Here is the table trimmed to the three products with the most stock.
+```dyui
+{"ui":"table","columns":["Product","Units","Revenue","Stock"],"rows":[["Brass desk lamp",905,"$46,219",519],["Glass carafe",710,"$37,669",407],["Wool rug",1345,"$21,237",228]]}
+```
+Brass desk lamp still leads with 519 in stock.
+--- derived
+
+=== F-0095
+--- user
+Could you add one more stat to that: Open redlines, 34.
+--- reference
+Here are the headline numbers with Open redlines added.
+```dyui
+{"ui":"stats","items":[{"label":"Average review time","value":"10.6 days"},{"label":"Contracts expiring in 90 days","value":"13"},{"label":"Signed this month","value":"6"},{"label":"Open redlines","value":"34"}]}
+```
+The first three figures are unchanged.
+--- derived
+
+=== F-0017
+--- user
+add a column Team, values in row order: new, new, US, review, US, EU, new
+--- reference
+Here is the redlines table with the Team column added.
+```dyui
+{"ui":"table","columns":["Clause","Owner","Status","Team"],"rows":[["Governing law","Uma Haddad","Accepted","new"],["Termination","Ivan Ueda","Countered","new"],["Data processing","Elena Ibrahim","Accepted","US"],["Limitation of liability","Felix Tanaka","Open","review"],["Payment terms","Katya Vasquez","Accepted","US"],["Governing law","Carla Kowalski","Accepted","EU"],["Data processing","Rosa Novak","Accepted","new"]]}
+```
+The existing columns and their order are untouched.
+--- derived
+
+=== F-0021
+--- user
+make it shorter, just the first 3 rows
+--- reference
+Here are the first three devices.
+```dyui
+{"ui":"table","columns":["Device","Power kW","Status"],"rows":[["Dryer",5.0,"Fault"],["Pool pump",3.9,"Fault"],["Heat pump",0.2,"On"]],"caption":"Devices"}
+```
+The dryer and pool pump are both in Fault.
+--- derived
+
+=== F-0071
+--- user
+Please add one more stat to the overview: Irrigation, 86 kl.
+--- reference
+Here are the headline numbers with Irrigation added.
+```dyui
+{"ui":"stats","items":[{"label":"Soil moisture","value":"36%"},{"label":"Rainfall","value":"94 mm"},{"label":"Yield","value":"2.4 t"},{"label":"Irrigation","value":"86 kl"}]}
+```
+The other three values stay exactly as before.
+--- derived
+
+=== F-0034
+--- user
+sort by rating, best first
+--- reference
+Here are the hotels ordered by rating, highest first.
+```dyui
+{"ui":"table","columns":["Hotel","Stars","Per night","Rating"],"rows":[["Hotel Avenida",5,"$132",9.6],["Porto Riverside",4,"$306",9.3],["Mar & Sol",5,"$168",8.5],["Quinta Verde",5,"$230",7.9],["Casa Alfama",5,"$115",7.5]]}
+```
+Hotel Avenida is at the top with 9.6.
+--- derived
+
+=== F-0094
+--- user
+Kindly sort the table by Seats, largest first.
+--- reference
+Here are the accounts sorted by seat count, largest first.
+```dyui
+{"ui":"table","columns":["Account","Plan","Seats","MRR","Owner"],"rows":[["Tyrell","Enterprise",174,"$2,428","Pedro Jensen"],["Fernhill","Starter",119,"$2,006","Chloe Torres"],["Gringotts","Pro",44,"$1,674","Greta Kim"],["Stark Works","Enterprise",38,"$8,274","Lena Sato"],["Vandelay","Pro",20,"$606","Jamal Kowalski"]]}
+```
+Tyrell has the most seats at 174.
+--- derived
+
+=== F-0096
+--- user
+ok change Starts to Resolved
+--- reference
+Here is the course with Starts updated.
+```dyui
+{"ui":"keyvalue","items":[{"key":"Subject","value":"Physics"},{"key":"Level","value":"Beginner"},{"key":"Lessons","value":25},{"key":"Instructor","value":"Elena Tanaka"},{"key":"Starts","value":"Resolved"}]}
+```
+Only the Starts value changed.
+--- derived
+
+=== F-0059
+--- user
+Please add one more stat: OEE at 50%.
+--- reference
+Here are the headline numbers with OEE added.
+```dyui
+{"ui":"stats","items":[{"label":"Scrap rate","value":"3.9%"},{"label":"Downtime","value":"171 min"},{"label":"Units produced","value":"18,238"},{"label":"OEE","value":"50%"}]}
+```
+The three earlier figures are exactly as they were.
+--- derived
+
+=== F-0041
+--- user
+can you add a Notes column? values in row order: ok, EU, review, review, APAC, ok, US
+--- reference
+Here is the redlines table with a Notes column.
+```dyui
+{"ui":"table","columns":["Clause","Owner","Status","Notes"],"rows":[["Termination","Tara Dubois","Open","ok"],["Governing law","Nadia Oliveira","Countered","EU"],["Payment terms","Quinn Nguyen","Open","review"],["Limitation of liability","Farah Castillo","Accepted","review"],["Data processing","Felix Vasquez","Accepted","APAC"],["Limitation of liability","Hana Park","Open","ok"],["Governing law","Yusuf Jensen","Accepted","US"]],"caption":"Redlines"}
+```
+Everything else in the table is unchanged.
+--- derived
+

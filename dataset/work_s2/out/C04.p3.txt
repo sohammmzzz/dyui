@@ -1,0 +1,165 @@
+=== C-0073
+--- user
+open incidents, lay them out: INC-147 Webhook retries piling up SEV1 Wen Yilmaz; INC-372 Login loop on SSO SEV1 Priya Eriksson; INC-459 Elevated 5xx on api SEV3 Omar Bergstrom; INC-434 Login loop on SSO SEV2 Vera Tanaka; INC-692 Disk pressure on db-3 SEV3 Quinn Hoang. and compare error rate by team: Growth 0.08, Data 1.38, Mobile 2.41
+--- reference
+Two of the five open incidents are SEV1, and the SSO login loop appears twice.
+```dyui
+{"ui":"table","columns":["ID","Title","Severity","Owner"],"rows":[["INC-147","Webhook retries piling up","SEV1","Wen Yilmaz"],["INC-372","Login loop on SSO","SEV1","Priya Eriksson"],["INC-459","Elevated 5xx on api","SEV3","Omar Bergstrom"],["INC-434","Login loop on SSO","SEV2","Vera Tanaka"],["INC-692","Disk pressure on db-3","SEV3","Quinn Hoang"]],"caption":"Open incidents"}
+```
+Error rates compare across the three teams like this.
+```dyui
+{"ui":"chart","kind":"bar","labels":["Growth","Data","Mobile"],"series":[{"name":"Error rate","data":[0.08,1.38,2.41]}]}
+```
+Mobile has the highest error rate by a clear margin.
+--- derived
+
+
+=== C-0022
+--- user
+Kindly show the headline numbers: irrigation 88 kl (+12.7%, rising, target 97 kl), fuel use 532 L (+16.1%, rising, target 585 L), rainfall 56 mm (+5.9%, rising, target 62 mm). Then rainfall by field, stacked so both parts per field are visible: Orchard 69 online and 49 in person, North 40 has 2 and 80, Hill field 132 and 43, Greenhouse 89 and 127. Finally, please give me follow-up questions to tap: "How does this compare to target?" and "Forecast next month".
+--- reference
+All three headline figures are rising and still short of their targets.
+```dyui
+{"ui":"stats","items":[{"label":"Irrigation","value":"88 kl","delta":"+12.7%","trend":"up","help":"Target 97 kl"},{"label":"Fuel use","value":"532 L","delta":"+16.1%","trend":"up","help":"Target 585 L"},{"label":"Rainfall","value":"56 mm","delta":"+5.9%","trend":"up","help":"Target 62 mm"}]}
+```
+Per field, both parts are stacked in one bar.
+```dyui
+{"ui":"chart","kind":"bar","labels":["Orchard","North 40","Hill field","Greenhouse"],"series":[{"name":"Online","data":[69,2,132,89]},{"name":"In person","data":[49,80,43,127]}],"title":"Rainfall by field","stacked":true}
+```
+Two follow-ups are ready to tap.
+```dyui
+{"ui":"quick_replies","options":["How does this compare to target?","Forecast next month"]}
+```
+Greenhouse has the tallest stack, and North 40 is almost entirely in person.
+--- derived
+
+
+=== C-0049
+--- user
+nginx config to proxy example.com to a local app on port 3000? and let them know in the app: assignments due is at 4, above the 3 threshold, review before Friday
+--- reference
+A single server block with a `proxy_pass` to the local port does the job.
+```dyui
+{"ui":"code","code":"server {\n  listen 80;\n  server_name example.com;\n  location / {\n    proxy_pass http://127.0.0.1:3000;\n  }\n}","language":"nginx"}
+```
+The in-app message is a warning.
+```dyui
+{"ui":"callout","text":"Assignments due is at 4, above the 3 threshold. Review it before Friday.","level":"warning"}
+```
+Reload nginx after saving the config so the proxy takes effect.
+--- derived
+
+
+=== C-0099
+--- user
+signups per carrier: DHL 1678, FedEx 5155, UPS 3516, Correos 2882, CTT 3919 - what's the breakdown? And the list of shipments: TRK-797 Cairo to Paris delivered Jul 21; TRK-158 Toronto to Milan delivered Feb 19; TRK-841 Milan to Warsaw delayed Feb 20; TRK-737 Miami to Warsaw delivered Feb 8
+--- reference
+FedEx brings in the most signups of the five carriers.
+```dyui
+{"ui":"chart","kind":"donut","labels":["DHL","FedEx","UPS","Correos","CTT"],"series":[{"name":"Signups","data":[1678,5155,3516,2882,3919]}],"title":"Signups per carrier","unit":"signups"}
+```
+Shipment status for the four tracking numbers is tabulated next.
+```dyui
+{"ui":"table","columns":["Tracking","Origin","Destination","Status","ETA"],"rows":[["TRK-797","Cairo","Paris","Delivered","Jul 21"],["TRK-158","Toronto","Milan","Delivered","Feb 19"],["TRK-841","Milan","Warsaw","Delayed","Feb 20"],["TRK-737","Miami","Warsaw","Delivered","Feb 8"]]}
+```
+Only TRK-841 is delayed, so the other three need no action.
+--- derived
+
+
+=== C-0096
+--- user
+What's the picture today? Damage rate 1.9%, on-time delivery 98.1% (no change), parcels today 8,441 (trending up, target 9,285). Then show average transit in days as an area chart: 4.0, 4.3, 4.6, 4.9, 5.1, 5.5.
+--- reference
+Deliveries are on time and damage is low, but volume trails its target.
+```dyui
+{"ui":"stats","items":[{"label":"Damage rate","value":1.9,"unit":"%"},{"label":"On-time delivery","value":"98.1%","delta":"0%","trend":"flat"},{"label":"Parcels today","value":"8,441","trend":"up","help":"Target 9,285"}]}
+```
+Transit time tells the opposite story as an area chart.
+```dyui
+{"ui":"chart","kind":"area","series":[{"name":"Average transit","data":[4.0,4.3,4.6,4.9,5.1,5.5]}],"unit":"days"}
+```
+Transit has lengthened at every step, which could erode on-time performance if it continues.
+--- derived
+
+
+=== C-0128
+--- user
+Average review time is 3.3 days, unchanged vs last month - show that nicely. And the trend of open redlines June to December: 14, 15, 16, 17, 17, 18, 18.
+--- reference
+Review time is holding steady at 3.3 days.
+```dyui
+{"ui":"stat","label":"Average review time","value":"3.3 days","delta":"0% vs last month"}
+```
+Open redlines trend upward over the same stretch.
+```dyui
+{"ui":"chart","kind":"line","labels":["Jun","Jul","Aug","Sep","Oct","Nov","Dec"],"series":[{"name":"Open redlines","data":[14,15,16,17,17,18,18]}]}
+```
+Steady review speed has not stopped the backlog from growing slowly.
+--- derived
+
+
+=== C-0039
+--- user
+Comment on s'en sort ? Offres reçues en avril : 9, objectif 10. Et la tendance des visites cette semaine de mai à novembre : 45, 42, 41, 41, 37, 34, 38.
+--- reference
+Avril s'est terminé avec une offre de moins que prévu.
+```dyui
+{"ui":"stat","label":"Offres reçues · avril","value":"9","help":"Objectif 10"}
+```
+Les visites suivent une tendance différente sur sept mois.
+```dyui
+{"ui":"chart","kind":"line","labels":["mai","juin","juil.","août","sept.","oct.","nov."],"series":[{"name":"Visites cette semaine","data":[45,42,41,41,37,34,38]}]}
+```
+Les visites ont reculé jusqu'en octobre avant de remonter légèrement en novembre.
+--- derived
+
+
+=== C-0125
+--- user
+Give me the overview: refund requests 70, revenue $130.5k (target $143.6k), check-in wait 11 min (target 12 min). Waitlist April to October as an area chart: 920, 1062, 1189, 1274, 1331, 1384, 1481.
+--- reference
+Revenue is short of target, while the check-in wait comes in under its goal.
+```dyui
+{"ui":"stats","items":[{"label":"Refund requests","value":"70"},{"label":"Revenue","value":"$130.5k","help":"Target $143.6k"},{"label":"Check-in wait","value":"11 min","help":"Target 12 min"}]}
+```
+The waitlist has grown every month.
+```dyui
+{"ui":"chart","kind":"area","labels":["Apr","May","Jun","Jul","Aug","Sep","Oct"],"series":[{"name":"Waitlist","data":[920,1062,1189,1274,1331,1384,1481]}],"title":"Waitlist, Apr–Oct"}
+```
+Demand is clearly there, so converting the waitlist could close the revenue gap.
+--- derived
+
+
+=== C-0127
+--- user
+overview please. risks: support tickets 248 (flat, 0%), new customers 380 (-17.9%, target 418), weekly active users 8,926 (+17.8%). outlook: trial conversion Feb to May in %, 19.2, 20.7, 21.7, 22.7 as a line chart
+--- reference
+New customers are the weak spot among the risks.
+```dyui
+{"ui":"divider","label":"Risks"}
+{"ui":"stats","items":[{"label":"Support tickets","value":"248","delta":"0%","trend":"flat"},{"label":"New customers","value":"380","delta":"-17.9%","help":"Target 418"},{"label":"Weekly active users","value":"8,926","delta":"+17.8%"}]}
+```
+The outlook is more encouraging, with conversion improving.
+```dyui
+{"ui":"divider","label":"Outlook"}
+{"ui":"chart","kind":"line","labels":["Feb","Mar","Apr","May"],"series":[{"name":"Trial conversion","data":[19.2,20.7,21.7,22.7]}],"unit":"%"}
+```
+Better conversion may offset the shortfall in new customers over time.
+--- derived
+
+
+=== C-0138
+--- user
+Show me the profile of my credit card: balance $10,815, in EUR, opened Jun 28, active. Next actions I need: dismiss alert (red), flag as fraud (red), view history, decline offer (red).
+--- reference
+The card is active and carries a balance of $10,815 in euros.
+```dyui
+{"ui":"keyvalue","items":[{"key":"Type","value":"Credit card"},{"key":"Balance","value":"$10,815"},{"key":"Currency","value":"EUR"},{"key":"Opened","value":"Jun 28"},{"key":"Status","value":"Active"}]}
+```
+These are the next actions you can take.
+```dyui
+{"ui":"buttons","items":[{"label":"Dismiss alert","action":"dismiss_alert","style":"danger"},{"label":"Flag as fraud","action":"flag_as_fraud","style":"danger"},{"label":"View history","action":"view_history","style":"secondary"},{"label":"Decline offer","action":"decline_offer","style":"danger"}]}
+```
+View history is the only non-destructive choice of the four.
+--- derived
+

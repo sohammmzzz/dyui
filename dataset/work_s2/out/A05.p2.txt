@@ -1,0 +1,126 @@
+=== A-0116
+--- user
+Kindly process a refund for order ORD-3370, the amount is $679.
+--- reference
+A refund cannot be reversed once issued, so please confirm it first.
+```dyui
+{"ui":"confirm","title":"Refund order ORD-3370?","text":"$679 goes back to the original payment method.","confirm_label":"Issue refund","cancel_label":"Cancel","action":"issue_refund","data":{"order":"ORD-3370"}}
+```
+Nothing is refunded until you confirm.
+--- derived
+
+=== A-0222
+--- user
+We have an offer sitting in front of me and I would like to handle it from this chat instead of switching screens. The options I need are: decline the offer, see the full report, open the dashboard, or skip it for now.
+--- reference
+Four actions are ready for the offer.
+```dyui
+{"ui":"buttons","items":[{"label":"Decline offer","action":"decline_offer"},{"label":"See full report","action":"see_full_report"},{"label":"Open dashboard","action":"open_dashboard"},{"label":"Skip for now","action":"skip_for_now"}]}
+```
+Pressing one sends its action back to me, and I will carry it out.
+--- derived
+
+=== A-0088
+--- user
+Please lay these five photos out together, with their descriptions and captions:
+1. https://cdn.fernhill.example.com/img/guide-29.png?v=1 - The pilot batch on the line, caption "Detail"
+2. https://assets.lumen.example.io/img/faq-24.png?v=2 - The updated storefront, caption "Day one"
+3. https://cdn.fernhill.example.com/img/guide-03.jpg?v=3 - The harvest at dawn, caption "Close-up"
+4. https://assets.lumen.example.io/img/handbook-07.webp?v=4 - The old tram climbing Rua da Bica, caption "Close-up"
+5. https://files.example.com/img/roadmap-23.jpg?v=5 - The harvest at dawn, caption "After"
+--- reference
+Your five photos are grouped into one gallery below.
+```dyui
+{"ui":"gallery","images":[{"src":"https://cdn.fernhill.example.com/img/guide-29.png?v=1","alt":"The pilot batch on the line","caption":"Detail"},{"src":"https://assets.lumen.example.io/img/faq-24.png?v=2","alt":"The updated storefront","caption":"Day one"},{"src":"https://cdn.fernhill.example.com/img/guide-03.jpg?v=3","alt":"The harvest at dawn","caption":"Close-up"},{"src":"https://assets.lumen.example.io/img/handbook-07.webp?v=4","alt":"The old tram climbing Rua da Bica","caption":"Close-up"},{"src":"https://files.example.com/img/roadmap-23.jpg?v=5","alt":"The harvest at dawn","caption":"After"}]}
+```
+Every image carries the caption and description you supplied.
+--- derived
+
+=== A-0143
+--- user
+I would like to set up how I get notified about new claims. Email, push or SMS would all work for me, though I might want something else, so please leave room for that. I'll save it once I've picked.
+--- reference
+Pick the channel you want for notifications below.
+```dyui
+{"ui":"choice","question":"How should we notify you?","options":["Email","Push","SMS"],"allow_other":true,"submit_label":"Save"}
+```
+If none of these suits you, you can type another channel in the other field.
+--- derived
+
+=== A-0097
+--- user
+For the landing page I would like this displayed as a quote: "It is the first tool our whole team actually opens." It was posted on the community forum, so please credit it that way.
+--- reference
+For the landing page, the line is set as a quote below.
+```dyui
+{"ui":"quote","text":"It is the first tool our whole team actually opens.","source":"Community forum post"}
+```
+The attribution points to the community forum post it was taken from.
+--- derived
+
+=== A-0121
+--- user
+quick list of the four hotels please: Casa Alfama in Lisbon (https://cdn.fernhill.example.com/img/benchmark-35.png), Mar & Sol in Valencia (https://static.brasa.example.com/img/security-36.webp), Hotel Avenida in Porto (https://media.example.net/img/roadmap-02.jpg) and Praça Suites in Lisbon (https://files.example.com/img/report-09.jpg)
+--- reference
+Four hotels, one row each, are listed below.
+```dyui
+{"ui":"list","items":[{"title":"Casa Alfama","subtitle":"Lisbon","image":"https://cdn.fernhill.example.com/img/benchmark-35.png"},{"title":"Mar & Sol","subtitle":"Valencia","image":"https://static.brasa.example.com/img/security-36.webp"},{"title":"Hotel Avenida","subtitle":"Porto","image":"https://media.example.net/img/roadmap-02.jpg"},{"title":"Praça Suites","subtitle":"Lisbon","image":"https://files.example.com/img/report-09.jpg"}]}
+```
+Two of the four properties are in Lisbon, one in Valencia and one in Porto.
+--- derived
+
+=== A-0218
+--- user
+Could you present this record as a readable, expandable tree? Subject: Algebra; level: Beginner; lessons: 11; instructor: Rosa Novak; tags: audit and eu.
+--- reference
+The record opens up as a collapsible tree.
+```dyui
+{"ui":"json","data":{"subject":"Algebra","level":"Beginner","lessons":11,"instructor":"Rosa Novak","tags":["audit","eu"]}}
+```
+You can expand the tags list to see both entries.
+--- derived
+
+=== A-0266
+--- user
+need to log an incident. the form should ask for a preferred time, a department (Sales, Support, Billing or Engineering), what happened, and a preferred date. the description and date are required.
+--- reference
+The incident report form is ready with the four fields you asked for.
+```dyui
+{"ui":"form","title":"Incident report","fields":[{"name":"time","label":"Preferred time","type":"time"},{"name":"department","label":"Department","type":"select","options":["Sales","Support","Billing","Engineering"]},{"name":"description","label":"What happened?","type":"textarea","required":true},{"name":"date","label":"Preferred date","type":"date","required":true}],"action":"report_incident"}
+```
+Description and date must be filled in before the report can be submitted.
+--- derived
+
+=== A-0043
+--- user
+Please embed the audio recap from this address so I can play it here: https://www.example.org/audio/roadmap-12.mp3. The title should be "Episode recap".
+--- reference
+Your episode recap is loaded in the player below.
+```dyui
+{"ui":"audio","src":"https://www.example.org/audio/roadmap-12.mp3","title":"Episode recap"}
+```
+Press play to listen without leaving the chat.
+--- derived
+
+=== A-0156
+--- user
+We just wrapped the onboarding session for the new players' feedback round, and I would like to collect a rating for it. Could you put up a way for me to rate the session?
+--- reference
+Rate the onboarding session with the control below.
+```dyui
+{"ui":"rating"}
+```
+Your selection comes back to me as a rating value once you choose.
+--- derived
+
+=== A-0114
+--- user
+so how far along are we on the course completion goal? 6 out of 10 done.
+--- reference
+You are 6 of 10 of the way through course completion.
+```dyui
+{"ui":"progress","value":6,"max":10,"label":"Course completion"}
+```
+Four items remain before the goal is met.
+--- derived
+4

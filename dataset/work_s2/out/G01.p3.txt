@@ -1,0 +1,119 @@
+=== G-0120
+--- user
+Show me our daily power usage, up to 50 rows. I want to compare the Sat and Sun readings first.
+--- reference
+The meter log has 35 daily readings, and the table lists the first 10, which start with Sat and Sun.
+```dyui
+{"ui":"table","columns":["Day","Usage kWh","Peak hour","Cost"],"rows":[["Sat",16,"08:00","$8"],["Sun",46,"20:00","$4"],["Tue",48,"19:00","$9"],["Wed",35,"07:00","$6"],["Fri",29,"07:00","$14"],["Thu",14,"19:00","$7"],["Mon",46,"19:00","$11"],["Thu",22,"19:00","$11"],["Mon",11,"19:00","$6"],["Sat",31,"19:00","$8"]]}
+```
+Sun used 46 kWh against 16 kWh for the first Sat entry. The peak among these ten is Tue at 48.
+--- derived
+10
+
+
+=== G-0057
+--- user
+open feature requests please, esp FR-824, FR-465 and FR-538
+--- reference
+Six requests were returned, and FR-824, FR-465 and FR-538 are the first three.
+```dyui
+{"ui":"table","columns":["ID","Request","Votes","Status"],"rows":[["FR-824","Audit log",52,"Shipped"],["FR-465","SSO for Team plan",50,"Planned"],["FR-538","SSO for Team plan",44,"Planned"],["FR-694","Webhooks v2",87,"Shipped"],["FR-364","CSV export",27,"Open"],["FR-223","Dark mode",165,"Shipped"]]}
+```
+Dark mode has the most votes at 165, and only FR-364 still has the status Open.
+--- derived
+
+
+=== G-0012
+--- user
+Are there any open claims at the moment?
+--- reference
+The claims system returned no open claims, so the list is empty at the moment.
+--- derived
+
+
+=== G-0022
+--- user
+where's shipment K-597? it should be TRK-867 going from Seattle to Cairo
+--- reference
+Shipment K-597 is TRK-867, travelling from Seattle to Cairo with CTT.
+```dyui
+{"ui":"keyvalue","items":[{"key":"Tracking","value":"TRK-867"},{"key":"Origin","value":"Seattle"},{"key":"Destination","value":"Cairo"},{"key":"Carrier","value":"CTT"},{"key":"Weight kg","value":372},{"key":"ETA","value":"Jul 22"}]}
+```
+Its ETA is Jul 22 for the 372 kg load.
+--- derived
+
+
+=== G-0088
+--- user
+Can you fetch the campaign results, up to 50? I'd like to see where Winter sale and Spring launch landed.
+--- reference
+The 33 campaign rows are too many to read at once, so the table shows the first 10, led by Winter sale and Spring launch.
+```dyui
+{"ui":"table","columns":["Campaign","Spend","Leads","CPL"],"rows":[["Winter sale","$35,385",979,"$39"],["Spring launch","$29,535",927,"$29"],["Brand refresh","$29,468",1031,"$64"],["App install","$8,511",168,"$66"],["Webinar series","$17,730",1340,"$10"],["Webinar series","$17,911",1030,"$76"],["Brand refresh","$5,582",510,"$68"],["Winter sale","$17,689",555,"$52"],["Brand refresh","$10,000",966,"$43"],["Winter sale","$30,676",334,"$49"]]}
+```
+The first Webinar series row stands out with 1340 leads at a $10 CPL.
+--- derived
+10
+
+
+=== G-0106
+--- user
+Please retrieve the policies that are expiring. I need POL-234, POL-627 and POL-653 in particular.
+--- reference
+All three policies you asked about, and no others, are due to expire.
+```dyui
+{"ui":"table","columns":["Policy","Holder","Type","Expires","Premium"],"rows":[["POL-234","Farah Sato","Home","Apr 21","$2,068"],["POL-627","Rin Haddad","Pet","Aug 9","$1,169"],["POL-653","Liam Garcia","Travel","Feb 24","$1,852"]]}
+```
+POL-653 is the soonest, expiring on Feb 24.
+--- derived
+
+
+=== G-0080
+--- user
+Could you run through our creative tests? Up to 50, and I mean to compare variants A and B first.
+--- reference
+Variants A and B open the list of 35 creative tests, and the table below holds the first 10 results.
+```dyui
+{"ui":"table","columns":["Variant","Headline","CTR","Winner"],"rows":[["A","Save 20% today",1.9,"Yes"],["B","Free for 14 days",2.5,"Yes"],["C","Free for 14 days",2.8,"Running"],["D","Free for 14 days",4.5,"Running"],["C","Save 20% today",4.6,"No"],["C","See it in action",1.9,"Running"],["B","See it in action",1.9,"No"],["D","Free for 14 days",5.0,"No"],["D","Save 20% today",0.6,"Yes"],["C","Built for busy teams",2.0,"Yes"]]}
+```
+B beats A on CTR, 2.5 against 1.9, and both are marked Yes. The highest CTR here, 5.0, belongs to a D entry that is marked No.
+--- derived
+10
+
+
+=== G-0003
+--- user
+List the hotels we have on file, up to 50. Hotel Avenida and Praça Suites are the ones the client asked about.
+--- reference
+The system holds 33 hotel entries; the first 10 are shown here, with Hotel Avenida on top and Praça Suites second.
+```dyui
+{"ui":"table","columns":["Hotel","Stars","Per night","Rating"],"rows":[["Hotel Avenida",5,"$212",8.6],["Praça Suites",4,"$160",9.0],["Quinta Verde",4,"$220",9.4],["Mar & Sol",3,"$77",8.1],["Porto Riverside",4,"$255",7.4],["Casa Alfama",5,"$95",7.9],["Praça Suites",4,"$260",7.5],["Praça Suites",5,"$131",7.7],["Mar & Sol",5,"$310",9.2],["Mar & Sol",4,"$284",7.6]]}
+```
+Quinta Verde has the best rating among them at 9.4. Praça Suites appears three times at different prices.
+--- derived
+10
+
+
+=== G-0095
+--- user
+Who's booked tonight? I know about the 20:45, 20:00 and 19:15 tables but want the whole list.
+--- reference
+Four reservations are on the book tonight, including your 20:45, 20:00 and 19:15 tables.
+```dyui
+{"ui":"table","columns":["Time","Name","Party","Notes"],"rows":[["20:45","Olga Lindqvist",11,"Birthday"],["20:00","Rin Rahman",2,"Window table"],["19:15","Greta Torres",8,"Window table"],["18:30","Carla Park",4,"Window table"]]}
+```
+The 20:45 booking is the biggest at 11 guests and is a birthday.
+--- derived
+
+
+=== G-0071
+--- user
+quick overview of the fields, esp Orchard, Greenhouse and River plot
+--- reference
+River plot is the largest of the four fields at 49 hectares, and Orchard is the only one at harvest.
+```dyui
+{"ui":"table","columns":["Field","Crop","Hectares","Stage"],"rows":[["Orchard","Barley",17,"Harvest"],["Greenhouse","Olives",31,"Growing"],["River plot","Wheat",49,"Growing"],["Hill field","Maize",45,"Growing"]]}
+```
+Hill field is close behind at 45 hectares and is still growing, like Greenhouse and River plot.
+--- derived
+

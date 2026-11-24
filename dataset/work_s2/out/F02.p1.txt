@@ -1,0 +1,143 @@
+=== F-0065
+--- user
+Could you add a Notes column to that? In row order it should read: US, EU, review, EU, review.
+--- reference
+Notes now sits as a fifth column, filled in row order.
+```dyui
+{"ui":"table","columns":["Funder","Amount","Deadline","Status","Notes"],"rows":[["Sunrise Foundation","$175,632","Jul 2","Declined","US"],["Meridian Fund","$85,365","Jul 8","Declined","EU"],["Lakeshore Trust","$39,477","Apr 27","Declined","review"],["City Arts Board","$135,529","Jan 19","Submitted","EU"],["City Arts Board","$63,020","Feb 23","Awarded","review"]]}
+```
+Every original cell is unchanged; only the Notes values are new.
+--- derived
+
+
+=== F-0090
+--- user
+Please append a "Region" column to the table, with these entries in row order: new, APAC, ok, APAC, EU, APAC, US.
+--- reference
+Region is added as the last column, and the caption stays Showings.
+```dyui
+{"ui":"table","columns":["Time","Property","Buyer","Agent","Region"],"rows":[["15:00","7 Harbour Row","Uma Lindqvist","Rin Weber","new"],["13:30","12 Mill Lane","Ben Nguyen","Ivan Costa","APAC"],["11:00","7 Harbour Row","Viktor Lindqvist","Xavier Bergstrom","ok"],["17:15","19 Quay Street","Umar Bergstrom","Zainab Tanaka","APAC"],["09:30","19 Quay Street","Tomas Ferreira","Wen Kowalski","EU"],["13:30","12 Mill Lane","Wen Novak","Ivan Haddad","APAC"],["11:00","7 Harbour Row","Gabriel Ueda","Gabriel Weber","US"]],"caption":"Showings"}
+```
+The existing columns and their order are untouched.
+--- derived
+
+
+=== F-0002
+--- user
+Can you cut off the last point, September? I only want to show up to August.
+--- reference
+September is gone, so the series now ends in August.
+```dyui
+{"ui":"chart","kind":"area","labels":["Feb","Mar","Apr","May","Jun","Jul","Aug"],"series":[{"name":"Session length","data":[12,10,9,8,7,6,6]}],"title":"Session length, Feb–Aug","unit":"min"}
+```
+Session length still falls from 12 minutes in February to 6 in August, and the title was adjusted to match.
+--- derived
+
+
+=== F-0037
+--- user
+switch it to a bar chart and tack on Dec at 26.5
+--- reference
+Swapped to bars, with December appended as the new last point.
+```dyui
+{"ui":"chart","kind":"bar","labels":["Aug","Sep","Oct","Nov","Dec"],"series":[{"name":"Trial conversion","data":[22.2,23.3,24.3,25.0,26.5]}],"title":"Trial conversion, Aug–Nov","unit":"%"}
+```
+December comes in at 26.5%, the highest bar of the five. The title still says Aug–Nov because you did not ask to change it.
+--- derived
+
+
+=== F-0105
+--- user
+shorter pls, first 3 rows only
+--- reference
+Three workouts remain, the first three in the log.
+```dyui
+{"ui":"table","columns":["Date","Activity","Duration","Calories"],"rows":[["Sep 6","Running",46,960],["May 12","Yoga",72,892],["Jun 12","Yoga",37,295]],"caption":"Workout log"}
+```
+The remaining three rows are left out, and the columns and caption are as before.
+--- derived
+
+
+=== F-0050
+--- user
+drop Sunday
+--- reference
+Sunday is off the chart, which now finishes on Saturday.
+```dyui
+{"ui":"chart","kind":"area","labels":["Mon","Tue","Wed","Thu","Fri","Sat"],"series":[{"name":"Forum questions","data":[67,61,55,51,45,42]}],"title":"Forum questions, Mon–Sat"}
+```
+It now ends on Saturday at 42, and the title range matches.
+--- derived
+
+
+=== F-0038
+--- user
+can you take December off the graph? the last month's not complete yet
+--- reference
+Taking December off leaves four months on the graph.
+```dyui
+{"ui":"chart","kind":"area","labels":["Aug","Sep","Oct","Nov"],"series":[{"name":"Grant applications","data":[13,13,13,12]}],"title":"Grant applications, Aug–Nov"}
+```
+November at 12 applications is now the final point, and the title range was shortened to match.
+--- derived
+
+
+=== F-0025
+--- user
+Please convert this into a bar chart and add a December value of 40 at the end. Leave the rest as it is.
+--- reference
+Switching to bars and adding December gives a ninth data point.
+```dyui
+{"ui":"chart","kind":"bar","labels":["Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"],"series":[{"name":"Contracts expiring in 90 days","data":[26,29,31,33,34,34,35,37,40]}],"title":"Contracts expiring in 90 days, Apr–Nov"}
+```
+December adds a ninth bar at 40, and all earlier values are unchanged.
+--- derived
+
+
+=== F-0104
+--- user
+drop the EVT-186 row please, that one was a duplicate
+--- reference
+EVT-186 is out, which leaves four orders.
+```dyui
+{"ui":"table","columns":["Order","Buyer","Tickets","Tier","Total"],"rows":[["EVT-341","Katya Almeida",5,"General","$116"],["EVT-567","Wen Castillo",5,"Early bird","$188"],["EVT-944","Aiden Rossi",6,"VIP","$267"],["EVT-976","Zainab Costa",6,"General","$686"]]}
+```
+Four orders remain, in their original order.
+--- derived
+
+
+=== F-0072
+--- user
+Kindly change the Machine entry to "Review".
+--- reference
+Machine now reads Review.
+```dyui
+{"ui":"keyvalue","items":[{"key":"Machine","value":"Review"},{"key":"Line","value":"Line B"},{"key":"Status","value":"Down"}]}
+```
+Line and Status are unchanged, with Status still Down.
+--- derived
+
+
+=== F-0018
+--- user
+Could you show the Claims for each carrier as a bar chart rather than a table?
+--- reference
+Claims per carrier are easier to compare as bars.
+```dyui
+{"ui":"chart","kind":"bar","labels":["DHL","UPS","CTT","FedEx","GLS","Correos","Correos"],"series":[{"name":"Claims","data":[6,8,11,11,15,39,1]}],"title":"Claims per carrier"}
+```
+Correos appears twice because your list had two Correos rows, and the first one stands out at 39 claims.
+--- derived
+
+
+=== F-0093
+--- user
+Could you trim that down to just the first three rows? Thanks.
+--- reference
+Only the first three campaigns are kept.
+```dyui
+{"ui":"table","columns":["Campaign","Spend","Leads","CPL"],"rows":[["Winter sale","$30,832",99,"$49"],["App install","$30,795",699,"$79"],["Webinar series","$23,689",480,"$53"]]}
+```
+The other three rows are removed and the figures in these three are exactly as before.
+--- derived
+

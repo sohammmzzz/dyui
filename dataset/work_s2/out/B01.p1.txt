@@ -1,0 +1,159 @@
+=== B-0109
+--- user
+Sale prep: Move to contract, Jan 4, done (Noor Haddad). Publish the listing, Oct 6, in progress (Ben Oliveira). Hold the open house, Jun 8, not started (Tara Ibrahim). Collect offers, Aug 10, not started (Yusuf Tanaka). Show me where we are.
+--- reference
+The sale currently sits at publishing the listing, with earlier work already done.
+```dyui
+{"ui":"timeline","items":[{"title":"Move to contract","time":"Jan 4","status":"done","text":"Owner: Noor Haddad"},{"title":"Publish the listing","time":"Oct 6","status":"active","text":"Owner: Ben Oliveira"},{"title":"Hold the open house","time":"Jun 8","status":"pending","text":"Owner: Tara Ibrahim"},{"title":"Collect offers","time":"Aug 10","status":"pending","text":"Owner: Yusuf Tanaka"}]}
+```
+Publishing the listing is the step in progress, and Ben Oliveira owns it.
+--- derived
+
+=== B-0013
+--- user
+Roles abiertos por etapa: Applied 32, Interview 39, Screen 37, Hired 23. ¿Cómo se comparan?
+--- reference
+Aquí se comparan los roles abiertos en las cuatro etapas.
+```dyui
+{"ui":"chart","kind":"bar","labels":["Applied","Interview","Screen","Hired"],"series":[{"name":"Open roles","data":[32,39,37,23]}]}
+```
+Interview concentra más roles abiertos con 39, y Hired es la etapa con menos, con 23.
+--- derived
+
+=== B-0153
+--- user
+subscriptions I'm paying per account: Checking 248, Brokerage 249, Savings 34. how do they stack up?
+--- reference
+Which account carries the most subscriptions? Checking and Brokerage, by a wide margin.
+```dyui
+{"ui":"chart","kind":"bar","labels":["Checking","Brokerage","Savings"],"series":[{"name":"Subscriptions","data":[248,249,34]}]}
+```
+Checking and Brokerage are nearly level at 248 and 249, while Savings is far lower at 34.
+--- derived
+
+=== B-0146
+--- user
+Patient satisfaction scores, Jun 4.2, Jul 4.3, Aug 4.3, Sep 4.4 (pts). Show me the trend.
+--- reference
+Patient satisfaction has crept upward since June.
+```dyui
+{"ui":"chart","kind":"line","labels":["Jun","Jul","Aug","Sep"],"series":[{"name":"Patient satisfaction","data":[4.2,4.3,4.3,4.4]}],"unit":"pts"}
+```
+The score edged up from 4.2 to 4.4, with July and August level at 4.3.
+--- derived
+
+=== B-0118
+--- user
+time to hire in days, last eight readings: 44, 45, 47, 48, 49, 51, 53, 55. Can I get that as an area graph?
+--- reference
+Time to hire, drawn as an area graph across all the readings you gave.
+```dyui
+{"ui":"chart","kind":"area","series":[{"name":"Time to hire","data":[44,45,47,48,49,51,53,55]}],"unit":"days"}
+```
+Hiring has slowed steadily, from 44 days to 55 days.
+--- derived
+
+=== B-0045
+--- user
+Two tickets are still open in my queue: TCK-409, "Change billing email", Low priority, assigned to Rin Fischer, and TCK-521, "Where is my parcel", Urgent, assigned to Jamal Silva. Can you tell me where we stand on these?
+--- reference
+Two tickets are open: TCK-409 (Change billing email, Low priority, handled by Rin Fischer) and TCK-521 (Where is my parcel, Urgent, handled by Jamal Silva).
+TCK-521 is the Urgent one, so it should be picked up first.
+--- derived
+
+=== B-0028
+--- user
+Daily temperature vs ice-cream sales: 18.2 C -> 610.9, 23 -> 820, 24.6 -> 856.1, 25.4 -> 874.3, 25.5 -> 835.2, 25.8 -> 837.2, 30.7 -> 1035.8. Does one drive the other?
+--- reference
+Plotting temperature against ice-cream sales, day by day, shows the pattern quickly.
+```dyui
+{"ui":"chart","kind":"scatter","series":[{"name":"Ice-cream sales vs temperature (C)","data":[[18.2,610.9],[23,820],[24.6,856.1],[25.4,874.3],[25.5,835.2],[25.8,837.2],[30.7,1035.8]]}],"title":"Ice-cream sales vs temperature (C)"}
+```
+Sales climb with the temperature, from 610.9 at 18.2 C to 1035.8 at 30.7 C. This shows an association but cannot prove that heat is the cause.
+--- derived
+
+=== B-0043
+--- user
+Peak demand in April was 7.1 kW. Can you show that nicely?
+--- reference
+April's peak demand reached 7.1 kW.
+```dyui
+{"ui":"stat","label":"Peak demand · April","value":7.1,"unit":"kW"}
+```
+That is the highest draw recorded for the month.
+--- derived
+
+=== B-0075
+--- user
+Tickets by plan this quarter: Pro 4859, Enterprise 2062, Starter 1405, Team 3231, Free 3612. Please show me the split.
+--- reference
+Pro leads the ticket volume among the five plans.
+```dyui
+{"ui":"chart","kind":"donut","labels":["Pro","Enterprise","Starter","Team","Free"],"series":[{"name":"Tickets","data":[4859,2062,1405,3231,3612]}]}
+```
+Pro accounts for the largest share at 4859 tickets, and Starter the smallest at 1405.
+--- derived
+
+=== B-0002
+--- user
+Please show the following as headline numbers: playlist adds 49,474 (+5.2%); streams 13,667,888 against a target of 15,034,677; skip rate 25%, unchanged at 0% against a 28% target; podcast downloads 61,155, trending up.
+--- reference
+Four numbers sum up the playlist's performance.
+```dyui
+{"ui":"stats","items":[{"label":"Playlist adds","value":"49,474","delta":"+5.2%"},{"label":"Streams","value":"13,667,888","help":"Target 15,034,677"},{"label":"Skip rate","value":"25%","delta":"0%","trend":"flat","help":"Target 28%"},{"label":"Podcast downloads","value":"61,155","trend":"up"}]}
+```
+Streams are still short of their 15,034,677 target, while the skip rate sits below its 28% target.
+--- derived
+
+=== B-0087
+--- user
+two contracts are on my desk: Globex, an SOW worth $444,610 that expires Aug 19, and Hooli, an NDA at $250,029 expiring Aug 11. what's the situation?
+--- reference
+You have two contracts to watch: the Globex SOW, worth $444,610, expires Aug 19, and the Hooli NDA, worth $250,029, expires Aug 11.
+The Hooli NDA runs out first, eight days before the Globex SOW.
+--- derived
+8
+
+=== B-0070
+--- user
+Tickets closed per week against team size: team of 5.5 closed 134.3, 7.8 closed 194, 8.4 closed 194.1, 8.6 closed 192.5, 10.8 closed 237, 13.4 closed 298.2, 13.7 closed 301.7 and 15 closed 326.6. Is there a relationship?
+--- reference
+Yes, a relationship shows up once team size is plotted against tickets closed per week.
+```dyui
+{"ui":"chart","kind":"scatter","series":[{"name":"Tickets closed per week vs team size","data":[[5.5,134.3],[7.8,194],[8.4,194.1],[8.6,192.5],[10.8,237],[13.4,298.2],[13.7,301.7],[15,326.6]]}],"unit":"tickets closed per week"}
+```
+Larger teams close more tickets, from 134.3 at 5.5 to 326.6 at 15, with a clear upward line.
+--- derived
+
+=== B-0089
+--- user
+Leads per venue for the season: Main Hall 594, Rooftop 4734, Studio 4480, Arena 5045. Where are they coming from? I'd like it titled "Leads per venue".
+--- reference
+Three of the four venues produce the bulk of the season's leads.
+```dyui
+{"ui":"chart","kind":"pie","labels":["Main Hall","Rooftop","Studio","Arena"],"series":[{"name":"Leads","data":[594,4734,4480,5045]}],"title":"Leads per venue","unit":"leads"}
+```
+Arena, Rooftop and Studio each bring in thousands of leads, while Main Hall contributes only 594.
+--- derived
+
+=== B-0026
+--- user
+Ticket checklist, please: Confirm the fix is done; Acknowledge the customer is in progress right now; Close the ticket hasn't started; Escalate to tier 2 failed; Reproduce the issue was skipped.
+--- reference
+The ticket is partway through its checklist, with one item failed.
+```dyui
+{"ui":"plan","items":[{"title":"Confirm the fix","status":"done"},{"title":"Acknowledge the customer","status":"active"},{"title":"Close the ticket","status":"pending"},{"title":"Escalate to tier 2","status":"error"},{"title":"Reproduce the issue","status":"skipped"}]}
+```
+The failed escalation to tier 2 is the item that needs attention before the ticket can close.
+--- derived
+
+=== B-0062
+--- user
+Median price by period, in order: 474, 507, 551, 608, 636, 658. Can I get that as an area graph?
+--- reference
+As an area graph, the median price shows a steady climb.
+```dyui
+{"ui":"chart","kind":"area","series":[{"name":"Median price","data":[474,507,551,608,636,658]}]}
+```
+The median price has risen every period, from 474 to 658.
+--- derived

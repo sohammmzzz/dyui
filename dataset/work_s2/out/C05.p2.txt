@@ -1,0 +1,183 @@
+=== C-0060
+--- user
+M-928 pic: https://www.example.org/img/release-notes-08.png (caption it "Approved by marketing"). Also summarise: Line A, status Down, last service Jul 27, operator Rin Larsen, output 798 per hour.
+--- reference
+Machine M-928 first, as a photo.
+```dyui
+{"ui":"image","src":"https://www.example.org/img/release-notes-08.png","alt":"A team offsite on the beach","caption":"Approved by marketing"}
+```
+Its current state is summarised below.
+```dyui
+{"ui":"keyvalue","items":[{"key":"Machine","value":"M-928"},{"key":"Line","value":"Line A"},{"key":"Status","value":"Down"},{"key":"Last service","value":"Jul 27"},{"key":"Operator","value":"Rin Larsen"},{"key":"Output per hour","value":798}]}
+```
+The machine on Line A is down, and its last service was on Jul 27.
+--- derived
+
+
+=== C-0023
+--- user
+hc 429, offer acceptance 85% and rising, attrition 11.4% (+15.8%). time to hire by month Feb-Sep: 47, 48, 50, 51, 54, 55, 56, 59 days. whats the picture and the trajectory
+--- reference
+Headcount, offer acceptance and attrition give the picture.
+```dyui
+{"ui":"stats","items":[{"label":"Headcount","value":"429"},{"label":"Offer acceptance","value":"85%","trend":"up"},{"label":"Attrition","value":"11.4%","delta":"+15.8%"}]}
+```
+The trajectory is clearest in time to hire, February through September.
+```dyui
+{"ui":"chart","kind":"area","labels":["Feb","Mar","Apr","May","Jun","Jul","Aug","Sep"],"series":[{"name":"Time to hire","data":[47,48,50,51,54,55,56,59]}],"unit":"days"}
+```
+Time to hire has climbed every month, from 47 days to 59.
+--- derived
+
+
+=== C-0021
+--- user
+Units by channel this quarter: Partners 2942, Organic 3478, Referral 4770, Social 4458, Email 2032. Where are they coming from? Also, make the account list easy to scan: Maple & Oak, Starter, 119 seats, $5,621 MRR, owner Olga Vasquez; Quartz Bank, Starter, 8 seats, $919, Greta Nguyen; Acme, Pro, 329 seats, $2,011, Liam Almeida; Hooli, Team, 343 seats, $2,853, Katya Kim.
+--- reference
+Referral and Social carry the most units across the five channels.
+```dyui
+{"ui":"chart","kind":"donut","labels":["Partners","Organic","Referral","Social","Email"],"series":[{"name":"Units","data":[2942,3478,4770,4458,2032]}],"title":"Units per channel","unit":"units"}
+```
+The account list is easier to scan as a table.
+```dyui
+{"ui":"table","columns":["Account","Plan","Seats","MRR","Owner"],"rows":[["Maple & Oak","Starter",119,"$5,621","Olga Vasquez"],["Quartz Bank","Starter",8,"$919","Greta Nguyen"],["Acme","Pro",329,"$2,011","Liam Almeida"],["Hooli","Team",343,"$2,853","Katya Kim"]]}
+```
+Referral is the largest channel with 4770 units, and Hooli has the most seats at 343.
+--- derived
+
+
+=== C-0116
+--- user
+Please post the candidate photo here: https://files.example.com/img/handbook-32.jpg, captioned "Approved by marketing". And show me the profile: product designer role, currently at the Offer stage, sourced through an Agency, recruiter Yusuf Petrov.
+--- reference
+The candidate's photo comes first.
+```dyui
+{"ui":"image","src":"https://files.example.com/img/handbook-32.jpg","alt":"The product on a white background","caption":"Approved by marketing"}
+```
+Their profile follows.
+```dyui
+{"ui":"keyvalue","items":[{"key":"Role","value":"Product designer"},{"key":"Stage","value":"Offer"},{"key":"Source","value":"Agency"},{"key":"Recruiter","value":"Yusuf Petrov"}]}
+```
+The candidate is at the Offer stage, with Yusuf Petrov as the recruiter.
+--- derived
+
+
+=== C-0069
+--- user
+Can you summarise this week's claims numbers and make it easy to scan? Approval rate 74% (+4.0%, target 81%), claims this week 123 (0%), days to settle 35 days (-3.8%, target 38 days), average settlement 6991 dollars, up, target $7,690. Policies: POL-555 Umar Kim, Pet, expires Mar 7, premium $133; POL-755 Noor Garcia, Travel, Dec 9, $1,834; POL-787 Mateo Eriksson, Auto, Jun 18, $1,248; POL-562 Isla Lindqvist, Home, Jan 26, $982. Then write that up as a message for the customer: the migration finished and Average settlement is back to $9,464, within the $7,262 limit.
+--- reference
+Four claims metrics set the scene for the week.
+```dyui
+{"ui":"stats","items":[{"label":"Approval rate","value":"74%","delta":"+4.0%","help":"Target 81%"},{"label":"Claims this week","value":"123","delta":"0%"},{"label":"Days to settle","value":"35 days","delta":"-3.8%","help":"Target 38 days"},{"label":"Average settlement","value":6991,"unit":"$","trend":"up","help":"Target $7,690"}]}
+```
+Next, the four policies in a table.
+```dyui
+{"ui":"table","columns":["Policy","Holder","Type","Expires","Premium"],"rows":[["POL-555","Umar Kim","Pet","Mar 7","$133"],["POL-755","Noor Garcia","Travel","Dec 9","$1,834"],["POL-787","Mateo Eriksson","Auto","Jun 18","$1,248"],["POL-562","Isla Lindqvist","Home","Jan 26","$982"]]}
+```
+Finally, the message for the customer.
+```dyui
+{"ui":"callout","level":"success","title":"All set","text":"The migration finished and Average settlement is back to $9,464, within the $7,262 limit."}
+```
+Days to settle is already below its 38-day target, while the approval rate still trails its 81% goal.
+--- derived
+
+
+=== C-0058
+--- user
+Bonsoir, en PowerShell, comment trouver les fichiers de log de plus de 1 Mo dans le dossier courant et ses sous-dossiers ? Et ajoute aussi une alerte bien visible pour dire que le taux d'ouverture des emails est à 43.5%, au-dessus du seuil de 31.9%, à vérifier avant vendredi.
+--- reference
+Voici la commande PowerShell qui liste les fichiers .log de plus de 1 Mo, sous-dossiers compris.
+```dyui
+{"ui":"code","code":"Get-ChildItem -Recurse -Filter *.log | Where-Object Length -gt 1MB","language":"powershell"}
+```
+Voici maintenant l'alerte à signaler.
+```dyui
+{"ui":"callout","level":"warning","title":"À surveiller","text":"Le taux d'ouverture des emails est à 43.5%, au-dessus du seuil de 31.9%. À vérifier avant vendredi."}
+```
+Le paramètre `-Recurse` parcourt les sous-dossiers et `Length -gt 1MB` ne garde que les fichiers dépassant 1 Mo.
+--- derived
+
+
+=== C-0056
+--- user
+can you list these as sources? Release notes (https://docs.acme-cloud.example.com/report) covers the main changes; Pricing overview (https://news.example.com/faq) explains the controls in plain language; Compliance handbook (https://news.example.com/pricing) walks through the setup. and offer me a few next questions
+--- reference
+Three sources are cited, each with a one-line description.
+```dyui
+{"ui":"sources","items":[{"title":"Release notes","url":"https://docs.acme-cloud.example.com/report","snippet":"Covers the main changes."},{"title":"Pricing overview","url":"https://news.example.com/faq","snippet":"Explains the controls in plain language."},{"title":"Compliance handbook","url":"https://news.example.com/pricing","snippet":"Walks through the setup."}]}
+```
+Questions you could ask next are below.
+```dyui
+{"ui":"quick_replies","options":["Show it as a table","Break it down by account","Compare with last month"]}
+```
+The compliance handbook is the one to open first if you need the setup steps.
+--- derived
+
+
+=== C-0117
+--- user
+Vehicle list for the maintenance board, please make it easy to scan: CM-7481 Transit 40167 km out of order; CM-6158 Golf 68703 rented; CM-2324 Corolla 112754 in service; CM-3590 Golf 110524 available; CM-1267 Golf 34910 rented; CM-3209 Ranger 48349 in service. And add a success notice saying the nightly sync finished and Accidents is back to 8, within the 6 limit.
+--- reference
+Six vehicles are on the board, each with mileage and status.
+```dyui
+{"ui":"table","columns":["Plate","Model","Mileage","Status"],"rows":[["CM-7481","Transit",40167,"Out of order"],["CM-6158","Golf",68703,"Rented"],["CM-2324","Corolla",112754,"In service"],["CM-3590","Golf",110524,"Available"],["CM-1267","Golf",34910,"Rented"],["CM-3209","Ranger",48349,"In service"]],"caption":"Vehicles"}
+```
+The sync result is confirmed below.
+```dyui
+{"ui":"callout","level":"success","title":"All set","text":"The nightly sync finished and Accidents is back to 8, within the 6 limit."}
+```
+CM-7481 is the only vehicle out of order, and CM-2324 has the highest mileage at 112754.
+--- derived
+
+
+=== C-0001
+--- user
+Could you give me the rundown on the barley field? It's 45 hectares and was sown on Feb 26. I'd also like to know what my options are from here.
+--- reference
+The barley field's rundown comes first.
+```dyui
+{"ui":"keyvalue","items":[{"key":"Crop","value":"Barley"},{"key":"Hectares","value":45},{"key":"Sown","value":"Feb 26"}]}
+```
+From here you can carry on or look back.
+```dyui
+{"ui":"buttons","items":[{"label":"Continue","action":"continue","style":"primary"},{"label":"View history","action":"view_history","style":"secondary"}]}
+```
+Continue picks up where the field record stands, while the history shows what has been logged so far.
+--- derived
+
+
+=== C-0118
+--- user
+Kindly plot grant applications for May to August: 11, 10, 10 and 9. Please also notify the team that the backup finished and Campaign goal reached is back to 53%, within the 39% limit. Finally, suggest what I should look at next.
+--- reference
+Grant applications have crept downward from May to August.
+```dyui
+{"ui":"chart","kind":"line","labels":["May","Jun","Jul","Aug"],"series":[{"name":"Grant applications","data":[11,10,10,9]}],"title":"Grant applications, May–Aug"}
+```
+The team notice is next.
+```dyui
+{"ui":"callout","level":"success","text":"The backup finished and Campaign goal reached is back to 53%, within the 39% limit."}
+```
+Follow-ups worth looking at are below.
+```dyui
+{"ui":"quick_replies","options":["Forecast next month","How does this compare to target?"]}
+```
+Applications slipped from 11 in May to 9 in August without any increase along the way.
+--- derived
+
+
+=== C-0013
+--- user
+outages board pls: OUT-927 Tokyo power failure investigating 189 customers; OUT-977 Barcelona software update monitoring 8398; OUT-687 Miami power failure investigating 11621; OUT-454 Amsterdam congestion investigating 7241; OUT-831 Nairobi software update investigating 2978. how do we word for the customer that the subscribers figure is recalculated every 4 hours so today's is provisional
+--- reference
+Five outages sit on a single board below.
+```dyui
+{"ui":"table","columns":["ID","Area","Cause","Status","Customers"],"rows":[["OUT-927","Tokyo","Power failure","Investigating",189],["OUT-977","Barcelona","Software update","Monitoring",8398],["OUT-687","Miami","Power failure","Investigating",11621],["OUT-454","Amsterdam","Congestion","Investigating",7241],["OUT-831","Nairobi","Software update","Investigating",2978]],"caption":"Outages"}
+```
+A customer-facing caveat about the subscriber figure follows.
+```dyui
+{"ui":"callout","title":"Good to know","text":"Subscribers is recalculated every 4 hours, so today's figure is provisional."}
+```
+Miami affects the most customers at 11621, and only Barcelona has moved on to monitoring.
+--- derived
+

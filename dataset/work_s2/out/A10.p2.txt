@@ -1,0 +1,164 @@
+=== A-0046
+--- user
+A new customer told us: "Onboarding felt like a conversation, not a manual." I want to use it on the landing page, so can you show it as a quote? No name attached, they asked to stay anonymous.
+--- reference
+Formatted as a quote, the line is ready for the landing page.
+```dyui
+{"ui":"quote","text":"Onboarding felt like a conversation, not a manual."}
+```
+It stands on its own without a name, which fits an anonymous comment.
+--- derived
+
+=== A-0134
+--- user
+hey, how far along are we with the trip planning? I'm at 64 percent I think
+--- reference
+Trip planning is moving along nicely.
+```dyui
+{"ui":"progress","value":64}
+```
+At 64 you are well past the halfway point.
+--- derived
+
+=== A-0277
+--- user
+I would like the link to the latest release notes to look nice when I send it to the drivers: https://media.example.net/release-notes. Could you make that link look nice in the chat as a card?
+--- reference
+The release notes link now appears as a preview card.
+```dyui
+{"ui":"link_preview","url":"https://media.example.net/release-notes"}
+```
+Drivers can open the release notes straight from the card.
+--- derived
+
+=== A-0063
+--- user
+Please highlight the following as a testimonial. It was posted by Vera Okafor, Data analyst, on the community forum: "I trust the alerts now, and that changed how we work."
+--- reference
+Vera Okafor's forum post works well as a testimonial.
+```dyui
+{"ui":"quote","text":"I trust the alerts now, and that changed how we work.","author":"Vera Okafor, Data analyst","source":"Community forum post"}
+```
+The attribution names the author and where the comment was posted.
+--- derived
+
+=== A-0021
+--- user
+I have four labels for the apartment listings and I'd like to show them as small badges, each with its own colour: "Staff pick" in violet, "Blocked" in red, "EU only" in blue and "Archived" in gray.
+--- reference
+Four labels become four small badges, each in its own colour.
+```dyui
+{"ui":"badges","items":[{"label":"Staff pick","color":"violet"},{"label":"Blocked","color":"red"},{"label":"EU only","color":"blue"},{"label":"Archived","color":"gray"}]}
+```
+Each badge keeps the colour you chose, so Blocked stands out in red.
+--- derived
+
+=== A-0172
+--- user
+Please show this image in the chat so the dispatch team can see it: https://blog.northwind.example.com/img/benchmark-30.png
+--- reference
+The dispatch team can view the image right in the chat.
+```dyui
+{"ui":"image","src":"https://blog.northwind.example.com/img/benchmark-30.png"}
+```
+It is displayed directly in the conversation.
+--- derived
+
+=== A-0106
+--- user
+the offer came in, let me act on it from here: decline offer or compare options
+--- reference
+Two buttons cover what you can do with the offer.
+```dyui
+{"ui":"buttons","items":[{"label":"Decline offer","action":"decline_offer"},{"label":"Compare options","action":"compare_options"}]}
+```
+Whichever button you press is sent back to me as an action.
+--- derived
+
+=== A-0076
+--- user
+I put the zipped roadmap on the media server at https://media.example.net/files/roadmap.zip, file name roadmap.zip. Could you let me download it from here so the kitchen team can grab it?
+--- reference
+The roadmap archive is attached below for download.
+```dyui
+{"ui":"file","name":"roadmap.zip","url":"https://media.example.net/files/roadmap.zip"}
+```
+Anyone in the chat can save it from the attachment.
+--- derived
+
+=== A-0126
+--- user
+need a short faq section for the listing page. three questions: how do I reset my password (use Forgot password on the sign-in page and follow the emailed link), where is my data stored (in the region you pick at signup, encrypted at rest), and do you offer student discounts (yes, with a valid school email)
+--- reference
+Three questions cover the basics, each collapsed until opened.
+```dyui
+{"ui":"accordion","items":[{"title":"How do I reset my password?","children":[{"ui":"markdown","text":"Use **Forgot password** on the sign-in page and follow the emailed link."}]},{"title":"Where is my data stored?","children":[{"ui":"markdown","text":"Data lives in the region you pick at signup and is encrypted at rest."}]},{"title":"Do you offer student discounts?","children":[{"ui":"markdown","text":"Students get a discount with a valid school email."}]}]}
+```
+Each answer stays hidden until a visitor opens its question.
+--- derived
+
+=== A-0092
+--- user
+Embed this so I can watch it in the report review: https://www.youtube.com/watch?v=MiubBx75quq. The poster image is https://blog.northwind.example.com/img/getting-started-15.png and the caption should be "The launch teaser".
+--- reference
+The launch teaser is embedded below, poster image included.
+```dyui
+{"ui":"video","src":"https://www.youtube.com/watch?v=MiubBx75quq","poster":"https://blog.northwind.example.com/img/getting-started-15.png","caption":"The launch teaser"}
+```
+The poster shows first, and the teaser plays inline once you press play.
+--- derived
+
+=== A-0194
+--- user
+Quiero mostrar esto como cita para la página de inicio: "We stopped arguing about the numbers once everyone saw the same chart." Lo dijo Lena Dubois, Data analyst, en una Customer survey.
+--- reference
+Aquí tienes la frase como cita para la página de inicio, con su autora y su fuente.
+```dyui
+{"ui":"quote","text":"We stopped arguing about the numbers once everyone saw the same chart.","author":"Lena Dubois, Data analyst","source":"Customer survey"}
+```
+La cita se mantiene en su idioma original, tal como se recogió en la encuesta.
+--- derived
+
+=== A-0027
+--- user
+make a card for it: Pro plan, subtitle "Best value this season". Below, what happens next: backfill last quarter's events, audit the tracking plan, review with the growth lead. add a Decline button, make it look like a warning one
+--- reference
+The Pro plan fits on a single card, next steps and Decline button included.
+```dyui
+{"ui":"card","title":"Pro plan","subtitle":"Best value this season","children":[{"ui":"markdown","text":"### What happens next\n- **Backfill** last quarter's events\n- **Audit** the tracking plan\n- **Review** with the growth lead"}],"actions":[{"label":"Decline","action":"decline_item","style":"danger"}]}
+```
+The Decline button is styled in the danger look and sends its action back to me when pressed.
+--- derived
+
+=== A-0019
+--- user
+I'd like the trip as a card, please: "Lisbon · 3 nights", subtitle "Fri – Mon", with the picture https://help.helpwave.example.com/img/roadmap-36.png and a Sale badge. Inside it show my resting heart rate, 72 bpm, and add a primary Book button.
+--- reference
+Lisbon for three nights gets a card with a badge, your heart-rate stat and a Book button.
+```dyui
+{"ui":"card","title":"Lisbon · 3 nights","subtitle":"Fri – Mon","image":"https://help.helpwave.example.com/img/roadmap-36.png","badge":"Sale","children":[{"ui":"stat","label":"Resting heart rate","value":"72 bpm"}],"actions":[{"label":"Book","action":"book_item","style":"primary"}]}
+```
+The Book button sends its action back to me when you press it.
+--- derived
+
+=== A-0160
+--- user
+can you play it here? the product demo is at https://static.brasa.example.com/video/changelog.mp4 and the thumbnail is https://docs.acme-cloud.example.com/img/pricing-13.webp, caption it "The product demo"
+--- reference
+The product demo is embedded below with its thumbnail.
+```dyui
+{"ui":"video","src":"https://static.brasa.example.com/video/changelog.mp4","poster":"https://docs.acme-cloud.example.com/img/pricing-13.webp","caption":"The product demo"}
+```
+Press play to watch it inside the chat.
+--- derived
+
+=== A-0104
+--- user
+render them as tags: Experimental (violet) and Overdue (red)
+--- reference
+Two tags, two colours.
+```dyui
+{"ui":"badges","items":[{"label":"Experimental","color":"violet"},{"label":"Overdue","color":"red"}]}
+```
+Violet marks the experimental item and red flags the overdue one.
+--- derived

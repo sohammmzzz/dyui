@@ -1,0 +1,164 @@
+=== C-0063
+--- user
+Ordena estos pasos para los interesados: reservar el turno de servicio, devolver al pool, prueba en carretera, cambiar los neumáticos, inspeccionar el vehículo. Y avisa claramente en el chat de que el consumo de combustible se recalcula cada 2 horas, así que la cifra de hoy es provisional (título "Conviene saber").
+--- reference
+Aquí tienes los pasos en el orden pedido.
+```dyui
+{"ui":"timeline","items":[{"title":"Reservar el turno de servicio"},{"title":"Devolver al pool"},{"title":"Prueba en carretera"},{"title":"Cambiar los neumáticos"},{"title":"Inspeccionar el vehículo"}]}
+```
+Y este es el aviso para el chat.
+```dyui
+{"ui":"callout","text":"El consumo de combustible se recalcula cada 2 horas, así que la cifra de hoy es provisional.","level":"info","title":"Conviene saber"}
+```
+Los pasos están listos para compartir con los interesados, con la salvedad de la cifra provisional.
+--- derived
+
+
+=== C-0027
+--- user
+How far along is the migration? 3066 of 4025 records are done. Give me the next actions too: open the dashboard (primary), edit details (secondary), book now (primary), and dismiss alert (as a red one).
+--- reference
+The migration has processed 3066 of 4025 records.
+```dyui
+{"ui":"progress","value":3066,"max":4025,"label":"Migration"}
+```
+These are the next actions you can take.
+```dyui
+{"ui":"buttons","items":[{"label":"Open dashboard","action":"open_dashboard","style":"primary"},{"label":"Edit details","action":"edit_details","style":"secondary"},{"label":"Book now","action":"book_now","style":"primary"},{"label":"Dismiss alert","action":"dismiss_alert","style":"danger"}]}
+```
+The migration is roughly three quarters complete.
+--- derived
+3066/4025 = about 76%
+
+=== C-0120
+--- user
+Mi faccia il quadro del sinistro CLM-185: tipo Home, presentato il Oct 13, importo $4,675, perito Gabriel Oliveira. Quali sono le mie opzioni? Non ora, salta per ora, avvia la revisione o rifiuta la richiesta.
+--- reference
+Ecco il quadro del sinistro CLM-185.
+```dyui
+{"ui":"keyvalue","items":[{"key":"Sinistro","value":"CLM-185"},{"key":"Tipo","value":"Home"},{"key":"Presentato il","value":"Oct 13"},{"key":"Importo","value":"$4,675"},{"key":"Perito","value":"Gabriel Oliveira"}]}
+```
+Queste sono le opzioni a sua disposizione.
+```dyui
+{"ui":"buttons","items":[{"label":"Non ora","action":"not_now"},{"label":"Salta per ora","action":"skip_for_now"},{"label":"Avvia revisione","action":"start_review"},{"label":"Rifiuta richiesta","action":"reject_request"}]}
+```
+La pratica è assegnata a Gabriel Oliveira e può essere avviata alla revisione da qui.
+--- derived
+
+
+=== C-0090
+--- user
+cite sources: "Customer case study" https://static.brasa.example.com/security (explains the controls in plain language) and "Getting started guide" https://static.brasa.example.com/pricing (has the latest figures). give me follow-ups to tap: Explain the biggest drop, How does this compare to target?, Break it down by category, Compare with last month
+--- reference
+Two sources back this up, each with a short note.
+```dyui
+{"ui":"sources","items":[{"title":"Customer case study","url":"https://static.brasa.example.com/security","snippet":"Explains the controls in plain language."},{"title":"Getting started guide","url":"https://static.brasa.example.com/pricing","snippet":"Has the latest figures."}]}
+```
+Here are some follow-ups you can tap.
+```dyui
+{"ui":"quick_replies","options":["Explain the biggest drop","How does this compare to target?","Break it down by category","Compare with last month"]}
+```
+The pricing guide is the one to open for current figures.
+--- derived
+
+
+=== C-0041
+--- user
+How are we doing on volunteer hours? We're at 1608 h, up 9.1% vs last month. Also write up a message for the customer, titled "Needs attention": campaign goal reached is at 56%, above the 49% threshold, review before Friday.
+--- reference
+Volunteer hours grew 9.1% on last month.
+```dyui
+{"ui":"stat","label":"Volunteer hours","value":"1608 h","delta":"+9.1% vs last month"}
+```
+The message for the customer is below.
+```dyui
+{"ui":"callout","text":"Campaign goal reached is at 56%, above the 49% threshold. Review it before Friday.","level":"warning","title":"Needs attention"}
+```
+Volunteer hours are growing, and the campaign goal is the item to review.
+--- derived
+
+
+=== C-0010
+--- user
+Please give me the picture for this month: dining out $563 (-10.7%, falling), monthly spend $2,260 (falling, target $2,486), investments $61.4k. Then show how each category splits into planned and unplanned: Health 5207 and 2336, Leisure 9922 and 19611, Rent 8470 and 16017, Subscriptions 14261 and 11544, Groceries 20603 and 7008. Finally, please suggest what I could ask next: "How does this compare to target?" and "Which account is weakest?".
+--- reference
+The month's headline figures come first.
+```dyui
+{"ui":"stats","items":[{"label":"Dining out","value":"$563","delta":"-10.7%","trend":"down"},{"label":"Monthly spend","value":"$2,260","trend":"down","help":"Target $2,486"},{"label":"Investments","value":"$61.4k"}]}
+```
+Each category is split into its planned and unplanned parts below.
+```dyui
+{"ui":"chart","kind":"bar","labels":["Health","Leisure","Rent","Subscriptions","Groceries"],"series":[{"name":"Planned","data":[5207,9922,8470,14261,20603]},{"name":"Unplanned","data":[2336,19611,16017,11544,7008]}],"title":"Balance by category","stacked":true}
+```
+These are sensible questions to ask next.
+```dyui
+{"ui":"quick_replies","options":["How does this compare to target?","Which account is weakest?"]}
+```
+Spending is below its target, and leisure has the largest unplanned share.
+--- derived
+
+
+=== C-0011
+--- user
+Where do we stand on headcount for August? We are at 331, up 16.5% vs last month, with a target of 366. Please also write up a message for the customer (title: "Needs attention"): time to hire is at 27 days, above the 21 days threshold, review before Friday.
+--- reference
+August headcount is 331 against a target of 366.
+```dyui
+{"ui":"stat","label":"Headcount · August","value":"331","delta":"+16.5% vs last month","help":"Target 366"}
+```
+The message below covers the hiring-time issue.
+```dyui
+{"ui":"callout","text":"Time to hire is at 27 days, above the 21 days threshold. Review it before Friday.","level":"warning","title":"Needs attention"}
+```
+Headcount is still short of its target, and time to hire is the issue to review.
+--- derived
+
+
+=== C-0134
+--- user
+quick summary of the legal aid program: goal $133,754, raised $167,947, ends Jul 28. and put the work in order for stakeholders: report the impact (Dec 7, done, Sofia Mendes), set the goal (Jan 9, done, Vera Quispe), thank the donors (Jun 11, in progress, Priya Kim), write the appeal (Jun 13, pending, Gabriel Quispe), send to the list (Jan 15, pending, Liam Moreau)
+--- reference
+The Legal aid program has raised more than its goal.
+```dyui
+{"ui":"keyvalue","items":[{"key":"Program","value":"Legal aid"},{"key":"Goal","value":"$133,754"},{"key":"Raised","value":"$167,947"},{"key":"Ends","value":"Jul 28"}]}
+```
+The steps are listed below in order with owners and dates.
+```dyui
+{"ui":"timeline","items":[{"title":"Report the impact","time":"Dec 7","status":"done","text":"Owner: Sofia Mendes"},{"title":"Set the goal","time":"Jan 9","status":"done","text":"Owner: Vera Quispe"},{"title":"Thank the donors","time":"Jun 11","status":"active","text":"Owner: Priya Kim"},{"title":"Write the appeal","time":"Jun 13","status":"pending","text":"Owner: Gabriel Quispe"},{"title":"Send to the list","time":"Jan 15","status":"pending","text":"Owner: Liam Moreau"}]}
+```
+The program has already passed its goal, and thanking the donors is the step in progress.
+--- derived
+
+
+=== C-0035
+--- user
+visits per region: APAC 2860, North America 2569, EMEA 1667 - how is it split? and show the accounts cleanly: Wonka Foods, Team, 185 seats, $7,276 MRR, Quinn Okafor; Northwind, Pro, 383, $7,525, Hugo Park; Vandelay, Starter, 331, $8,548, Bruno Quispe; Fernhill, Pro, 159, $277, Aiden Weber
+--- reference
+APAC, North America and EMEA split the visits as shown.
+```dyui
+{"ui":"chart","kind":"donut","labels":["APAC","North America","EMEA"],"series":[{"name":"Visits","data":[2860,2569,1667]}],"title":"Visits per region"}
+```
+The accounts are laid out below.
+```dyui
+{"ui":"table","columns":["Account","Plan","Seats","MRR","Owner"],"rows":[["Wonka Foods","Team",185,"$7,276","Quinn Okafor"],["Northwind","Pro",383,"$7,525","Hugo Park"],["Vandelay","Starter",331,"$8,548","Bruno Quispe"],["Fernhill","Pro",159,"$277","Aiden Weber"]]}
+```
+APAC leads on visits, and Vandelay brings in the most MRR.
+--- derived
+
+
+=== C-0104
+--- user
+fundraising goal: raised 49582 of 75510. how much is left, and what can I do with it? ticket TCK-2279, continue (primary) or remind me later (quiet).
+--- reference
+Fundraising has reached 49582 of its 75510 goal.
+```dyui
+{"ui":"progress","value":49582,"max":75510,"label":"Fundraising goal"}
+```
+You can act on ticket TCK-2279 with these buttons.
+```dyui
+{"ui":"buttons","items":[{"label":"Continue","action":"continue","data":{"id":"TCK-2279"},"style":"primary"},{"label":"Remind me later","action":"remind_me_later","data":{"id":"TCK-2279"},"style":"ghost"}]}
+```
+Roughly two thirds of the goal has been raised.
+--- derived
+49582/75510 = about 66%
+

@@ -1,0 +1,179 @@
+=== F-0010
+--- user
+sort by Usage kWh, biggest first
+--- reference
+Sunday takes the top spot at 35 kWh once the days are ranked.
+```dyui
+{"ui":"table","columns":["Day","Usage kWh","Peak hour","Cost"],"rows":[["Sun",35,"18:00","$8"],["Fri",34,"19:00","$13"],["Mon",29,"20:00","$2"],["Sat",27,"20:00","$7"],["Wed",27,"20:00","$5"],["Thu",19,"18:00","$2"],["Tue",11,"18:00","$11"]],"caption":"Daily usage"}
+```
+Saturday and Wednesday tie at 27 and stay in their original order.
+--- derived
+
+
+=== F-0062
+--- user
+drop May from the chart, it's not a full month yet
+--- reference
+May is off the chart, which now ends in April.
+```dyui
+{"ui":"chart","kind":"area","labels":["Jan","Feb","Mar","Apr"],"series":[{"name":"Volunteer hours","data":[1126,1059,949,851]}],"title":"Volunteer hours, Jan–Apr","unit":"h"}
+```
+It now ends in April at 851 hours, and the title range matches.
+--- derived
+
+
+=== F-0057
+--- user
+Could you shorten the table so that only the first three rows remain?
+--- reference
+Three orders remain, the first three on the list.
+```dyui
+{"ui":"table","columns":["Order","Buyer","Tickets","Tier","Total"],"rows":[["EVT-405","Omar Ibrahim",8,"Student","$656"],["EVT-676","Viktor Kowalski",4,"VIP","$391"],["EVT-366","Kofi Petrov",5,"General","$229"]],"caption":"Orders"}
+```
+The other four orders are no longer shown, and these three are exactly as before.
+--- derived
+
+
+=== F-0008
+--- user
+Please remove the row for batch B-360.
+--- reference
+B-360 is removed, leaving four batches.
+```dyui
+{"ui":"table","columns":["Batch","Defects","Inspector","Result"],"rows":[["B-703",9,"Greta Bergstrom","Reject"],["B-570",2,"Isla Costa","Reject"],["B-684",12,"Kofi Garcia","Pass"],["B-105",27,"Wen Ferreira","Pass"]]}
+```
+Four batches remain in their original order.
+--- derived
+
+
+=== F-0043
+--- user
+Please add a Region column to the table. In row order the values are: EU, US, EU, ok, US, ok, ok.
+--- reference
+Region is added as a fifth column on the candidates.
+```dyui
+{"ui":"table","columns":["Candidate","Role","Stage","Score","Region"],"rows":[["Katya Rossi","Support lead","Screen",2.7,"EU"],["Sofia Rossi","Account executive","Offer",4.8,"US"],["Lena Eriksson","Account executive","Screen",4.6,"EU"],["Rin Eriksson","Support lead","Interview",3.8,"ok"],["Ivan Ibrahim","Account executive","Interview",4.6,"US"],["Zainab Bergstrom","Support lead","Interview",4.1,"ok"],["Rin Nakamura","Backend engineer","Interview",2.7,"ok"]]}
+```
+All earlier columns are as they were.
+--- derived
+
+
+=== F-0004
+--- user
+Please make it shorter and show only the last 3 points, keeping the split into new and returning.
+--- reference
+Employment, Lease and NDA remain, with the new and returning split kept.
+```dyui
+{"ui":"chart","kind":"bar","labels":["Employment","Lease","NDA"],"series":[{"name":"New","data":[8.3,11.8,11.5]},{"name":"Returning","data":[4.0,11.2,8.3]}],"title":"Average review time by type","unit":"days","stacked":true}
+```
+DPA, MSA and SOW are left out, and the values shown are the same as before.
+--- derived
+
+
+=== F-0026
+--- user
+quita el último punto (sep)
+--- reference
+Aquí está el gráfico sin el último punto, septiembre.
+```dyui
+{"ui":"chart","kind":"line","labels":["Feb","Mar","Apr","May","Jun","Jul","Aug"],"series":[{"name":"Fleet utilisation","data":[73,73,74,73,72,72,73]}],"title":"Fleet utilisation, Feb–Aug","unit":"%"}
+```
+La serie termina ahora en agosto con 73, y el título se ajustó al nuevo rango.
+--- derived
+
+
+=== F-0067
+--- user
+add Notes column: US, US, US, APAC, ok, EU
+--- reference
+Notes joins the quality checks as a fifth column.
+```dyui
+{"ui":"table","columns":["Batch","Defects","Inspector","Result","Notes"],"rows":[["B-329",20,"Kofi Park","Rework","US"],["B-422",25,"Tara Mendes","Rework","US"],["B-587",16,"Ben Moreau","Pass","US"],["B-342",2,"Hana Novak","Reject","APAC"],["B-754",20,"Hugo Fischer","Rework","ok"],["B-611",24,"Umar Moreau","Reject","EU"]],"caption":"Quality checks"}
+```
+The values were applied in row order, and nothing else changed.
+--- derived
+
+
+=== F-0028
+--- user
+that's a lot of bars, can you just keep the last 3?
+--- reference
+SUV, Pickup and Compact are all that remain.
+```dyui
+{"ui":"chart","kind":"bar","labels":["SUV","Pickup","Compact"],"series":[{"name":"Accidents","data":[5,6,9]}],"title":"Accidents by vehicle"}
+```
+Compact still has the most accidents at 9. Van and EV are no longer shown.
+--- derived
+
+
+=== F-0060
+--- user
+change the Meter id to Paused please
+--- reference
+Meter id now reads Paused.
+```dyui
+{"ui":"keyvalue","items":[{"key":"Meter id","value":"Paused"},{"key":"Tariff","value":"Flat"},{"key":"Last reading","value":56290}]}
+```
+Tariff and Last reading are unchanged.
+--- derived
+
+
+=== F-0039
+--- user
+Can you translate the chart's labels and title into Spanish? Keep the numbers as they are, please.
+--- reference
+Spanish now replaces the English labels and title.
+```dyui
+{"ui":"chart","kind":"area","labels":["Abr","May","Jun","Jul"],"series":[{"name":"Tickets abiertos","data":[234,261,269,280]}],"title":"Tickets abiertos, abr–jul"}
+```
+The four values and the area style are untouched.
+--- derived
+
+
+=== F-0077
+--- user
+only keep the 3 biggest fields by hectares, biggest at the top
+--- reference
+Three fields cover the largest hectares.
+```dyui
+{"ui":"table","columns":["Field","Crop","Hectares","Stage"],"rows":[["Orchard","Sunflower",54,"Flowering"],["Greenhouse","Wheat",25,"Sowing"],["North 40","Barley",24,"Growing"]],"caption":"Fields"}
+```
+Orchard is far ahead at 54 hectares; the other four fields are dropped.
+--- derived
+
+
+=== F-0048
+--- user
+Please set the Artist to "Closed".
+--- reference
+Artist now reads Closed.
+```dyui
+{"ui":"keyvalue","items":[{"key":"Artist","value":"Closed"},{"key":"Genre","value":"Classical"},{"key":"Length","value":"5:12"}]}
+```
+Genre and Length are the same as before.
+--- derived
+
+
+=== F-0022
+--- user
+Sort the hotels by Rating, best first, please.
+--- reference
+Hotel Avenida moves to the top once the list is sorted by Rating.
+```dyui
+{"ui":"table","columns":["Hotel","Stars","Per night","Rating"],"rows":[["Hotel Avenida",4,"$202",9.5],["Praça Suites",5,"$138",9.3],["Casa Alfama",5,"$299",9.0],["Mar & Sol",3,"$242",8.2],["Quinta Verde",3,"$238",8.0],["Porto Riverside",4,"$304",7.3]]}
+```
+Hotel Avenida leads at 9.5, and every other cell is unchanged.
+--- derived
+
+
+=== F-0024
+--- user
+set Weekly sessions to 17
+--- reference
+Weekly sessions is updated to 17.
+```dyui
+{"ui":"keyvalue","items":[{"key":"Goal","value":"Half marathon"},{"key":"Weekly sessions","value":17},{"key":"Coach","value":"Aiden Jensen"}]}
+```
+Goal and Coach are unchanged.
+--- derived
+

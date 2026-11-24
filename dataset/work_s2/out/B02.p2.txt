@@ -1,0 +1,155 @@
+=== B-0155
+--- user
+Per the July campaign report, the email open rate came in at 41.7%, which is 12.2% lower than last month (-12.2% vs last month). The target was 39.8%. Please give me the headline.
+--- reference
+July's email open rate lands at 41.7%.
+```dyui
+{"ui":"stat","label":"Email open rate · July","value":"41.7%","delta":"-12.2% vs last month","help":"Target 39.8%"}
+```
+The rate fell against last month but still clears the 39.8% target.
+--- derived
+
+=== B-0127
+--- user
+capacity filled 56%, no change vs last month (0%), target 63%. headline?
+--- reference
+Capacity filled stands at 56%, short of its goal.
+```dyui
+{"ui":"stat","label":"Capacity filled","value":"56%","delta":"0% vs last month","help":"Target 63%"}
+```
+Flat month on month, and still below the 63% target.
+--- derived
+
+=== B-0133
+--- user
+Datos clave del servicio de cobros: lo lleva el equipo Payments, está escrito en Go y el on-call es Kofi Okafor.
+--- reference
+Tres datos resumen el servicio.
+```dyui
+{"ui":"keyvalue","items":[{"key":"Owner","value":"Payments"},{"key":"Language","value":"Go"},{"key":"On-call","value":"Kofi Okafor"}]}
+```
+Si algo falla, quien responde primero es Kofi Okafor.
+--- derived
+
+=== B-0139
+--- user
+Donations this month by program, in $k: Clean water 160.6, Emergency relief 177.5, Legal aid 133.5, School meals 47.3. How do they stack up against each other? Title it "Donations this month by program".
+--- reference
+Emergency relief tops the four programs this month.
+```dyui
+{"ui":"chart","kind":"bar","labels":["Clean water","Emergency relief","Legal aid","School meals"],"series":[{"name":"Donations this month","data":[160.6,177.5,133.5,47.3]}],"title":"Donations this month by program","unit":"$k"}
+```
+School meals trails far behind at 47.3, well under the other three.
+--- derived
+
+=== B-0150
+--- user
+We have 19 NDAs pending for February, rising, and our target was 17. Is this on track?
+--- reference
+Nineteen NDAs are waiting, two more than the target.
+```dyui
+{"ui":"stat","label":"NDAs pending · February","value":"19","trend":"up","help":"Target 17"}
+```
+The count is above the 17 target and still climbing, so the backlog is not on track.
+--- derived
+2
+
+=== B-0140
+--- user
+Leads against ad spend ($k): 1.6 -> 89.2, 3.1 -> 148.8, 3.7 -> 179.1, 5.9 -> 256.8, 6.4 -> 286.2, 8.3 -> 358.9, 8.7 -> 364.2. Plot these against each other, title "Leads vs ad spend ($k)".
+--- reference
+Spend on the horizontal axis and leads on the vertical show a steady climb.
+```dyui
+{"ui":"chart","kind":"scatter","series":[{"name":"Leads vs ad spend ($k)","data":[[1.6,89.2],[3.1,148.8],[3.7,179.1],[5.9,256.8],[6.4,286.2],[8.3,358.9],[8.7,364.2]]}],"title":"Leads vs ad spend ($k)","unit":"leads"}
+```
+Leads rise from 89.2 at 1.6 to 364.2 at 8.7, with no point breaking the pattern.
+--- derived
+
+=== B-0063
+--- user
+vehicle CM-5032: Corolla, mileage 48401, based at Campus, next service Aug 10, currently Available. what are the key facts?
+--- reference
+CM-5032 is a Corolla at the Campus depot, ready for use.
+```dyui
+{"ui":"keyvalue","items":[{"key":"Plate","value":"CM-5032"},{"key":"Model","value":"Corolla"},{"key":"Mileage","value":48401},{"key":"Depot","value":"Campus"},{"key":"Next service","value":"Aug 10"},{"key":"Status","value":"Available"}]}
+```
+The next service on Aug 10 is the date to keep it free for.
+--- derived
+
+=== B-0166
+--- user
+Utilities plan, as a live checklist: Compare tariffs (done), Install the smart plug (in progress), Review next bill (not yet), Shift the heavy loads (done), Read the meter (in progress).
+--- reference
+Your utilities plan has two steps done and two running.
+```dyui
+{"ui":"plan","title":"Utilities and energy plan","items":[{"title":"Compare tariffs","status":"done"},{"title":"Install the smart plug","status":"active"},{"title":"Review next bill","status":"pending"},{"title":"Shift the heavy loads","status":"done"},{"title":"Read the meter","status":"active"}]}
+```
+Reviewing the next bill is the only step that has not started.
+--- derived
+2, 2
+
+=== B-0092
+--- user
+Our fields right now, field / crop / hectares / stage: River plot, Wheat, 23, Growing. Greenhouse, Sunflower, 3, Flowering. North 40, Sunflower, 26, Growing. Orchard, Olives, 9, Flowering. Hill field, Maize, 32, Sowing. Hill field, Maize, 19, Flowering. North 40, Wheat, 34, Harvest. Make it easy to scan.
+--- reference
+Seven plots with four attributes each scan best in rows and columns.
+```dyui
+{"ui":"table","columns":["Field","Crop","Hectares","Stage"],"rows":[["River plot","Wheat",23,"Growing"],["Greenhouse","Sunflower",3,"Flowering"],["North 40","Sunflower",26,"Growing"],["Orchard","Olives",9,"Flowering"],["Hill field","Maize",32,"Sowing"],["Hill field","Maize",19,"Flowering"],["North 40","Wheat",34,"Harvest"]]}
+```
+North 40 and Hill field each appear twice, and the North 40 wheat at 34 hectares is already at harvest.
+--- derived
+
+=== B-0056
+--- user
+Could you show the correlation between ad spend ($k) and leads? Pairs: 2.5 and 129.1, 3.7 and 178.4, 4.6 and 203.4, 5.3 and 235.5, 5.5 and 233.8, 5.7 and 255.4, 7.3 and 297.3, 7.8 and 334.4, 8.4 and 346.8.
+--- reference
+Plotting each spend level against its leads brings out the relationship.
+```dyui
+{"ui":"chart","kind":"scatter","series":[{"name":"Leads vs ad spend ($k)","data":[[2.5,129.1],[3.7,178.4],[4.6,203.4],[5.3,235.5],[5.5,233.8],[5.7,255.4],[7.3,297.3],[7.8,334.4],[8.4,346.8]]}],"unit":"leads"}
+```
+Higher spend goes with more leads throughout, though the data alone does not prove the spend is the cause.
+--- derived
+
+=== B-0058
+--- user
+Shift numbers, show them as headline numbers: average ticket $30 (flat), waste 16.7 kg, up 11.9% against a target of 18.4 kg, food cost 34.5% with no change (0%), table turn 64 min, up 12.7%.
+--- reference
+Four figures sum up the shift.
+```dyui
+{"ui":"stats","items":[{"label":"Average ticket","value":30,"unit":"$","trend":"flat"},{"label":"Waste","value":"16.7 kg","delta":"+11.9%","trend":"up","help":"Target 18.4 kg"},{"label":"Food cost","value":"34.5%","delta":"0%"},{"label":"Table turn","value":"64 min","delta":"+12.7%","trend":"up"}]}
+```
+Waste is rising but remains under its 18.4 kg target, and tables are turning more slowly at 64 min.
+--- derived
+
+=== B-0027
+--- user
+donations this month by source (in thousands): Corporate 152.4, Events 121.4, Individuals 160.4, Grants 71.4. show me the comparison, title it "Donations this month by source"
+--- reference
+Individuals bring in the most, with Corporate close behind.
+```dyui
+{"ui":"chart","kind":"bar","labels":["Corporate","Events","Individuals","Grants"],"series":[{"name":"Donations this month","data":[152.4,121.4,160.4,71.4]}],"title":"Donations this month by source"}
+```
+Grants is the smallest source at 71.4, less than half of Individuals' 160.4.
+--- derived
+
+=== B-0175
+--- user
+Dammi il riepilogo della spedizione TRK-788: parte da Osaka, arriva a Zurich, corriere DHL.
+--- reference
+La spedizione TRK-788 in quattro dati.
+```dyui
+{"ui":"keyvalue","items":[{"key":"Tracking","value":"TRK-788"},{"key":"Origin","value":"Osaka"},{"key":"Destination","value":"Zurich"},{"key":"Carrier","value":"DHL"}]}
+```
+Il collo viaggia da Osaka a Zurich con DHL.
+--- derived
+
+=== B-0069
+--- user
+Tickets resolved today by priority: Normal 51, High 259, Urgent 260, Low 263. Compare them for me, please.
+--- reference
+Low and Urgent are almost level at the top of today's resolutions.
+```dyui
+{"ui":"chart","kind":"bar","labels":["Normal","High","Urgent","Low"],"series":[{"name":"Resolved today","data":[51,259,260,263]}],"title":"Resolved today by priority"}
+```
+Normal trails the field at 51, while Low leads narrowly with 263.
+--- derived

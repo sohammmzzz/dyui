@@ -1,0 +1,145 @@
+=== C-0144
+--- user
+Please give me the rundown on shipment TRK-524, which goes from Dublin to Lyon with UPS and weighs 79 kg. Then lay out its progress as a timeline: "Out for delivery" is done, "Scan at the hub" is in progress, and "Clear customs", "Collect proof of delivery" and "Pick up at the dock" are all still pending.
+--- reference
+Shipment TRK-524 is a UPS consignment on the Dublin to Lyon lane.
+```dyui
+{"ui":"keyvalue","items":[{"key":"Tracking","value":"TRK-524"},{"key":"Origin","value":"Dublin"},{"key":"Destination","value":"Lyon"},{"key":"Carrier","value":"UPS"},{"key":"Weight kg","value":79}]}
+```
+Its progress through the remaining stages is laid out in sequence below.
+```dyui
+{"ui":"timeline","items":[{"title":"Out for delivery","status":"done"},{"title":"Scan at the hub","status":"active"},{"title":"Clear customs","status":"pending"},{"title":"Collect proof of delivery","status":"pending"},{"title":"Pick up at the dock","status":"pending"}]}
+```
+The hub scan is the live step, and everything after it is waiting on that scan.
+--- derived
+
+
+=== C-0079
+--- user
+Kindly lay out the release steps as a timeline: "Master the track", "Schedule the release", "Promote on socials", "Upload the artwork". Please also let them know in the app that "Podcast downloads is recalculated every 4 hours, so today's figure is provisional."
+--- reference
+Four release tasks are queued, and the timeline keeps them in your order.
+```dyui
+{"ui":"timeline","items":[{"title":"Master the track"},{"title":"Schedule the release"},{"title":"Promote on socials"},{"title":"Upload the artwork"}]}
+```
+For the in-app message, a short info note covers the caveat on the numbers.
+```dyui
+{"ui":"callout","text":"Podcast downloads is recalculated every 4 hours, so today's figure is provisional.","level":"info"}
+```
+Listeners reading the dashboard will know the download count can still shift during the day.
+--- derived
+
+
+=== C-0124
+--- user
+Please show today's viewings cleanly: 15:00 at 12 Mill Lane, buyer Dmitri Fischer, agent Elif Weber; 11:00 at 48 Rua Verde, buyer Omar Park, agent Ana Larsen; 13:30 at 12 Mill Lane, buyer Vera Petrov, agent Hana Rahman; 17:15 at 19 Quay Street, buyer Elif Bergstrom, agent Vera Nguyen. What are my options? A reminder for later or the full report, as quiet buttons labelled "Remind me later" and "See full report".
+--- reference
+Today's schedule comes out as a table with one row per viewing.
+```dyui
+{"ui":"table","columns":["Time","Property","Buyer","Agent"],"rows":[["15:00","12 Mill Lane","Dmitri Fischer","Elif Weber"],["11:00","48 Rua Verde","Omar Park","Ana Larsen"],["13:30","12 Mill Lane","Vera Petrov","Hana Rahman"],["17:15","19 Quay Street","Elif Bergstrom","Vera Nguyen"]]}
+```
+From here you can choose between two low-key follow-ups.
+```dyui
+{"ui":"buttons","items":[{"label":"Remind me later","action":"remind_me_later","style":"ghost"},{"label":"See full report","action":"see_full_report","style":"ghost"}]}
+```
+Mill Lane is the only property booked twice, so those two showings are the ones to keep apart.
+--- derived
+
+
+=== C-0066
+--- user
+Résume-moi ça : questions ouvertes en premier, avec acceptation des offres 83% (objectif 91%), postes ouverts 19 (+12.0%, en hausse, objectif 21), attrition 19.0% en hausse. Ensuite, en annexe, la tendance de l'attrition de mars à août : 12.0, 12.7, 13.0, 13.7, 14.0, 14.6.
+--- reference
+Les trois indicateurs clés viennent d'abord, sous la rubrique des questions ouvertes.
+```dyui
+{"ui":"divider","label":"Questions ouvertes"}
+{"ui":"stats","items":[{"label":"Acceptation des offres","value":83,"unit":"%","help":"Objectif 91%"},{"label":"Postes ouverts","value":"19","delta":"+12.0%","trend":"up","help":"Objectif 21"},{"label":"Attrition","value":"19.0%","trend":"up"}]}
+```
+En annexe, la courbe retrace l'attrition de mars à août.
+```dyui
+{"ui":"divider","label":"Annexe"}
+{"ui":"chart","kind":"line","series":[{"name":"Attrition","data":[12.0,12.7,13.0,13.7,14.0,14.6]}],"title":"Attrition, mars–août","unit":"%"}
+```
+L'attrition monte sans interruption d'un mois à l'autre, et l'acceptation des offres reste en dessous de l'objectif.
+--- derived
+
+
+=== C-0040
+--- user
+Mostra como números de destaque: CSAT 83% (+0.5%, meta 91%), escalonamentos 7 (+17.2%, subindo), resolvidos hoje 44 (meta 48). E dá pra ter os tickets abertos num gráfico de área? Foram 424, 466, 486, 500.
+--- reference
+Os três números do dia ficam lado a lado logo abaixo.
+```dyui
+{"ui":"stats","items":[{"label":"CSAT","value":"83%","delta":"+0.5%","help":"Meta 91%"},{"label":"Escalonamentos","value":"7","delta":"+17.2%","trend":"up"},{"label":"Resolvidos hoje","value":"44","help":"Meta 48"}]}
+```
+Já os tickets abertos aparecem como gráfico de área.
+```dyui
+{"ui":"chart","kind":"area","series":[{"name":"Tickets abertos","data":[424,466,486,500]}]}
+```
+A fila de tickets só cresce, e os resolvidos de hoje ainda não chegaram à meta.
+--- derived
+
+
+=== C-0123
+--- user
+rundown on the account: Starter plan, 379 seats, renewal Mar 14, owner Aiden Park, health At risk. what can I do with it? give me two buttons, Book now and Reject request
+--- reference
+The account sits on the Starter plan and is flagged as needing attention.
+```dyui
+{"ui":"keyvalue","items":[{"key":"Plan","value":"Starter"},{"key":"Seats","value":379},{"key":"Renewal","value":"Mar 14"},{"key":"Owner","value":"Aiden Park"},{"key":"Health","value":"At risk"}]}
+```
+Two actions are open to you right now.
+```dyui
+{"ui":"buttons","items":[{"label":"Book now","action":"book_now"},{"label":"Reject request","action":"reject_request"}]}
+```
+With the health marked as At risk, the renewal date is the one to watch.
+--- derived
+
+
+=== C-0063
+--- user
+Ordena estos pasos para los interesados: "Book the service slot", "Return to the pool", "Road test", "Swap the tyres", "Inspect the vehicle". Y avisa claramente en el chat de que el consumo de combustible se recalcula cada 2 horas, así que la cifra de hoy es provisional (título "Conviene saber").
+--- reference
+Los cinco pasos quedan ordenados para compartirlos con los interesados.
+```dyui
+{"ui":"timeline","items":[{"title":"Book the service slot"},{"title":"Return to the pool"},{"title":"Road test"},{"title":"Swap the tyres"},{"title":"Inspect the vehicle"}]}
+```
+El aviso para el chat va destacado justo debajo.
+```dyui
+{"ui":"callout","text":"El consumo de combustible se recalcula cada 2 horas, así que la cifra de hoy es provisional.","level":"info","title":"Conviene saber"}
+```
+Con esta salvedad nadie tomará la cifra de hoy como definitiva.
+--- derived
+
+
+=== C-0134
+--- user
+quick summary of the Legal aid program: goal $133,754, raised $167,947, ends Jul 28. and put the work in order for stakeholders: "Report the impact" (Dec 7, done, Sofia Mendes), "Set the goal" (Jan 9, done, Vera Quispe), "Thank the donors" (Jun 11, in progress, Priya Kim), "Write the appeal" (Jun 13, pending, Gabriel Quispe), "Send to the list" (Jan 15, pending, Liam Moreau)
+--- reference
+Legal aid has already gone past its fundraising goal.
+```dyui
+{"ui":"keyvalue","items":[{"key":"Program","value":"Legal aid"},{"key":"Goal","value":"$133,754"},{"key":"Raised","value":"$167,947"},{"key":"Ends","value":"Jul 28"}]}
+```
+For the stakeholders, the work runs in this order, with a date and owner on every step.
+```dyui
+{"ui":"timeline","items":[{"title":"Report the impact","time":"Dec 7","status":"done","text":"Owner: Sofia Mendes"},{"title":"Set the goal","time":"Jan 9","status":"done","text":"Owner: Vera Quispe"},{"title":"Thank the donors","time":"Jun 11","status":"active","text":"Owner: Priya Kim"},{"title":"Write the appeal","time":"Jun 13","status":"pending","text":"Owner: Gabriel Quispe"},{"title":"Send to the list","time":"Jan 15","status":"pending","text":"Owner: Liam Moreau"}]}
+```
+Thanking the donors is the step in motion, and the appeal waits behind it.
+--- derived
+
+
+=== C-0095
+--- user
+What are the key facts on this account? It's a Credit card, balance $12,263, currency EUR, opened Jul 2. And lay out the to-dos as a timeline: "Link the salary account" (Nov 9, Viktor Singh), "Review subscriptions" (Jul 11, Lena Fischer), "Set the savings goal" (Jan 13, Mia Petrov), "Categorise last month" (May 15, Wen Quispe), "Schedule the transfer" (Aug 17, Wen Larsen).
+--- reference
+This is a credit card account, and its core facts are listed first.
+```dyui
+{"ui":"keyvalue","items":[{"key":"Type","value":"Credit card"},{"key":"Balance","value":"$12,263"},{"key":"Currency","value":"EUR"},{"key":"Opened","value":"Jul 2"}]}
+```
+The to-dos follow as a timeline, each with a date and an owner.
+```dyui
+{"ui":"timeline","items":[{"title":"Link the salary account","time":"Nov 9","text":"Owner: Viktor Singh"},{"title":"Review subscriptions","time":"Jul 11","text":"Owner: Lena Fischer"},{"title":"Set the savings goal","time":"Jan 13","text":"Owner: Mia Petrov"},{"title":"Categorise last month","time":"May 15","text":"Owner: Wen Quispe"},{"title":"Schedule the transfer","time":"Aug 17","text":"Owner: Wen Larsen"}]}
+```
+Every task has exactly one owner, which keeps follow-ups easy to assign.
+--- derived
+

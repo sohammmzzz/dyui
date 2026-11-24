@@ -1,0 +1,111 @@
+=== A-0187
+--- user
+render that tool step for me: "Check inventory", a tool call, still pending, input is just sku SKU-2210
+--- reference
+Here is the inventory check step.
+```dyui
+{"ui":"step","title":"Check inventory","status":"pending","type":"tool","input":{"sku":"SKU-2210"}}
+```
+It is still pending, and SKU-2210 is the only input it will use.
+--- derived
+
+=== A-0204
+--- user
+I've finished my current unit and honestly I'm not sure what to learn next. I'm torn between Statistics, Biology, History and Chemistry, so could you help me narrow it down by asking me what I like?
+--- reference
+Let me ask you directly so we can choose your next topic.
+```dyui
+{"ui":"choice","question":"Which topic interests you most?","options":["Statistics","Biology","History","Chemistry"]}
+```
+Pick the one that appeals to you most and I will build the next steps around it.
+--- derived
+
+=== A-0110
+--- user
+cmd to compress the data folder into a tar.gz and show its size?
+--- reference
+Here is a command that archives the folder and then prints the archive size.
+```dyui
+{"ui":"code","code":"tar -czf backup.tar.gz ./data && ls -lh backup.tar.gz","language":"bash"}
+```
+The `&&` makes the size listing run only if the archive was created successfully.
+--- derived
+
+=== A-0091
+--- user
+I would like to download the roadmap archive, please: https://blog.northwind.example.com/files/roadmap.zip
+--- reference
+Here is the roadmap archive as a downloadable file.
+```dyui
+{"ui":"file","name":"roadmap.zip","url":"https://blog.northwind.example.com/files/roadmap.zip"}
+```
+Use the download link to save the zip.
+--- derived
+
+=== A-0115
+--- user
+Could you please format these as a brief note with a heading and bullets? Next steps for the patient: take vitals, book the follow-up, see the clinician.
+--- reference
+Here is the note with a heading and three bullets.
+```dyui
+{"ui":"markdown","text":"### Next steps\n- **Take** vitals\n- **Book** the follow-up\n- **See** the clinician"}
+```
+The steps follow the order in which they happen at the clinic.
+--- derived
+
+=== A-0015
+--- user
+display that quote properly: "Onboarding felt like a conversation, not a manual."
+--- reference
+Here is the quote set apart from the text.
+```dyui
+{"ui":"quote","text":"Onboarding felt like a conversation, not a manual."}
+```
+It reads best on its own, without extra commentary around it.
+--- derived
+
+=== A-0127
+--- user
+I'd like to reserve a table, please. You'll need my full name, how many people are coming, and what time we will arrive.
+--- reference
+Here is a short reservation form to fill in.
+```dyui
+{"ui":"form","fields":[{"name":"full_name"},{"name":"quantity","type":"number"},{"name":"arrival","type":"time"}]}
+```
+Once you submit it, your answers come back to me and I can complete the reservation.
+--- derived
+
+=== A-0270
+--- user
+Show me how you picked the cheaper one. Vueling was $302 and Iberia was $334, and the comparison took 1717 ms. I would like the reasoning displayed so I can check that price really was the deciding factor.
+--- reference
+Here is the reasoning behind the fare choice.
+```dyui
+{"ui":"reasoning","text":"Comparing the two fares: Vueling at $302 is $32 cheaper than Iberia at $334. Price is the deciding factor, so Vueling is the better pick.","duration_ms":1717}
+```
+Vueling wins by $32, and the comparison itself took only 1717 ms.
+--- derived
+32
+
+=== A-0212
+--- user
+draft an FAQ for the pricing page with two questions: how do I reset my password (use Forgot password on the sign-in page and follow the emailed link) and is there an API (yes, every plan includes API access with per-key rate limits)
+--- reference
+Here is a two-question FAQ for the pricing page.
+```dyui
+{"ui":"accordion","items":[{"title":"How do I reset my password?","children":[{"ui":"markdown","text":"Use **Forgot password** on the sign-in page and follow the emailed link."}]},{"title":"Is there an API?","children":[{"ui":"markdown","text":"Yes. Every plan includes API access with per-key rate limits."}]}]}
+```
+Each answer opens on click, so the page stays short.
+--- derived
+
+=== A-0029
+--- user
+I want to book an appointment. Let me pick topics (Pricing, Security, Integrations, Onboarding), a preferred date, an arrival time that starts at 09:00, a budget between 100 and 5000 dollars, and a notes box with the hint "Allergies, access instructions..."
+--- reference
+Here is the appointment form with the fields you asked for.
+```dyui
+{"ui":"form","title":"Book an appointment","fields":[{"name":"topics","label":"Topics","type":"multiselect","options":["Pricing","Security","Integrations","Onboarding"],"required":true},{"name":"date","label":"Preferred date","type":"date"},{"name":"arrival","label":"Arrival time","type":"time","default":"09:00"},{"name":"budget","label":"Budget ($)","type":"slider","required":true,"min":100,"max":5000},{"name":"notes","label":"Anything we should know?","type":"textarea","required":true,"placeholder":"Allergies, access instructions..."}]}
+```
+Topics, budget and notes are required, while the date and arrival time are optional.
+--- derived
+

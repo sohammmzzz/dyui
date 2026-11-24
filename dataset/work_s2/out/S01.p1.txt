@@ -1,0 +1,119 @@
+=== S-0002
+--- user
+Does the plan component send anything back when clicked? How does the action roundtrip work?
+--- reference
+The plan component has no action prop, so it only displays status; buttons are the usual way to send an action back, shown here next to a plan.
+```dyui
+{"ui":"code","language":"json","code":"{\"ui\":\"plan\",\"title\":\"Claim steps\",\"items\":[{\"title\":\"Photos received\",\"status\":\"done\"},{\"title\":\"Review\",\"status\":\"active\"}]}\n{\"ui\":\"buttons\",\"items\":[{\"label\":\"Next\",\"action\":\"next_step\",\"style\":\"primary\"}]}"}
+```
+Buttons, confirm, form, choice and rating send an action message of the form [action:<name>] {json} back to me, while quick_replies arrive as plain user text.
+--- derived
+
+
+=== S-0020
+--- user
+Could you explain how a confirm component returns the user's decision to you? I am wiring it into our event handler, for example restarting server eu-1.
+--- reference
+A confirm returns the decision as an action message, built from its action name and data.
+```dyui
+{"ui":"code","language":"json","code":"{\"ui\":\"confirm\",\"title\":\"Restart the event server?\",\"text\":\"Players will be disconnected.\",\"confirm_label\":\"Restart\",\"cancel_label\":\"Cancel\",\"action\":\"restart_event\",\"data\":{\"server\":\"eu-1\"},\"danger\":true}"}
+```
+When the user chooses, I receive [action:restart_event] with the data plus the confirmed flag. Buttons, form, choice and rating use the same action pattern, while quick_replies come back as plain text.
+--- derived
+
+
+=== S-0018
+--- user
+I'm building a front end for our concierge bot and need to know everything you can render. Is it only text, or do you also support things like charts, tables and forms? The piece I care about most right now is a 5-star rating widget.
+--- reference
+Here is the rating component, which covers the 5-star widget you describe.
+```dyui
+{"ui":"code","language":"json","code":"{\"ui\":\"rating\",\"label\":\"How was your trip?\",\"max\":5,\"style\":\"stars\",\"action\":\"rate_trip\"}"}
+```
+Beyond rating there are 36 built-in components in total, including chart, table and form, plus markdown, callout, code, stat, timeline, card, tabs and plan. Every rating prop is optional, and style is either stars or thumbs.
+--- derived
+36
+
+=== S-0030
+--- user
+timeline: which props are required?
+--- reference
+Only items is required on a timeline, as in this minimal example.
+```dyui
+{"ui":"code","language":"json","code":"{\"ui\":\"timeline\",\"items\":[{\"title\":\"Pledge received\",\"time\":\"Mon\",\"text\":\"Online donation\",\"status\":\"done\"},{\"title\":\"Receipt sent\",\"status\":\"active\"}]}"}
+```
+Inside each item only title is required, while time, text and status are optional, and status is one of done, active or pending.
+--- derived
+
+
+=== S-0011
+--- user
+How do I get a stacked bar? Two series, workshops and talks: Mon 4 and 3, Tue 6 and 5.
+--- reference
+A stacked bar is a chart with kind bar, one series per part, and stacked set to true.
+```dyui
+{"ui":"code","language":"json","code":"{\"ui\":\"chart\",\"kind\":\"bar\",\"labels\":[\"Mon\",\"Tue\"],\"series\":[{\"name\":\"Workshops\",\"data\":[4,6]},{\"name\":\"Talks\",\"data\":[3,5]}],\"stacked\":true}"}
+```
+Each series becomes one stacked segment per label, so the two series pile up within every day.
+--- derived
+
+
+=== S-0028
+--- user
+Would a rating component be appropriate for showing the shares of total giving, or is there a better choice? Individuals 60, corporate 30, foundations 10.
+--- reference
+No, rating asks the user for a score; shares of a whole belong in a chart with kind donut or pie.
+```dyui
+{"ui":"code","language":"json","code":"{\"ui\":\"chart\",\"kind\":\"donut\",\"labels\":[\"Individuals\",\"Corporate\",\"Foundations\"],\"series\":[{\"name\":\"Giving\",\"data\":[60,30,10]}],\"title\":\"Giving by donor type\"}"}
+```
+Use donut or pie for a handful of slices. Rating itself has only optional props: label, max, style (stars or thumbs) and action.
+--- derived
+
+
+=== S-0024
+--- user
+I'm adding notices to our kiln scheduling screen, and I want to know what a callout absolutely requires versus what I can leave out. Which props are mandatory, and which values can level take?
+--- reference
+Here is a callout using every prop, with the mandatory one being text.
+```dyui
+{"ui":"code","language":"json","code":"{\"ui\":\"callout\",\"level\":\"warning\",\"title\":\"Kiln still cooling\",\"text\":\"Do not open the door yet.\"}"}
+```
+Only text is required; level and title are optional. Level is one of info, success, warning or error.
+--- derived
+
+
+=== S-0025
+--- user
+Which properties of the list component are mandatory and which are optional? We intend to show consignments, for instance consignment CN-1042 in transit.
+--- reference
+Here is a list row built from your consignment example, with the common properties filled in.
+```dyui
+{"ui":"code","language":"json","code":"{\"ui\":\"list\",\"items\":[{\"title\":\"CN-1042\",\"subtitle\":\"In transit\",\"meta\":\"Due Friday\",\"action\":\"open_consignment\",\"data\":{\"id\":\"CN-1042\"}}]}"}
+```
+Only items is required, and within each item only title is required. Subtitle, image, meta, action and data are optional.
+--- derived
+
+
+=== S-0021
+--- user
+Please list the properties of the chart component and indicate which are required. For an example, use tickets per day: Mon 12, Tue 30, Wed 21.
+--- reference
+Here is a chart that uses every prop, based on your tickets-per-day figures.
+```dyui
+{"ui":"code","language":"json","code":"{\"ui\":\"chart\",\"kind\":\"bar\",\"labels\":[\"Mon\",\"Tue\",\"Wed\"],\"series\":[{\"name\":\"Tickets\",\"data\":[12,30,21]}],\"title\":\"Tickets per day\",\"unit\":\"tickets\",\"stacked\":false}"}
+```
+The required props are kind and series; labels, title, unit and stacked are optional. Kind must be one of bar, line, area, pie, donut or scatter.
+--- derived
+
+
+=== S-0007
+--- user
+stacked bar? two series, sold vs active listings: Q1 8 and 12, Q2 10 and 9
+--- reference
+A stacked bar is a chart with kind bar, one series per part, and stacked set to true.
+```dyui
+{"ui":"code","language":"json","code":"{\"ui\":\"chart\",\"kind\":\"bar\",\"labels\":[\"Q1\",\"Q2\"],\"series\":[{\"name\":\"Sold\",\"data\":[8,10]},{\"name\":\"Active\",\"data\":[12,9]}],\"stacked\":true}"}
+```
+Each series stacks as one segment per quarter, so sold and active listings add up within each bar.
+--- derived
+

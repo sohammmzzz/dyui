@@ -1,0 +1,119 @@
+=== D-0025
+--- user
+Short on time: a scrolling row with a divider labelled "Details" and then two citations, Pricing overview (https://docs.acme-cloud.example.com/report) and Roadmap summary (https://help.helpwave.example.com/release-notes).
+--- reference
+The divider and both citations travel together in one scrolling row.
+```dyui
+{"ui":"carousel","children":[{"ui":"divider","label":"Details"},{"ui":"sources","items":[{"title":"Pricing overview","url":"https://docs.acme-cloud.example.com/report"},{"title":"Roadmap summary","url":"https://help.helpwave.example.com/release-notes"}]}]}
+```
+Each citation opens its original page.
+--- derived
+
+
+=== D-0107
+--- user
+Two tabs, please. On the first, a card titled "Orion Dashboard" with the subtitle "Fri – Mon" listing Goal: 10K in under 50 min, Weekly sessions: 4, Coach: Rin Silva, Plan: Peak. On the second, a clickable list of hotels, where each row sends pick_hotel with the hotel name: Mar & Sol $96/night, Praça Suites $187/night, Hotel Avenida $118/night, Casa Alfama $142/night, Quinta Verde $164/night.
+--- reference
+Rin Silva's four-session training plan opens first, and five bookable hotels are on the second tab.
+```dyui
+{"ui":"tabs","tabs":[{"label":"Overview","children":[{"ui":"card","title":"Orion Dashboard","subtitle":"Fri – Mon","children":[{"ui":"keyvalue","items":[{"key":"Goal","value":"10K in under 50 min"},{"key":"Weekly sessions","value":4},{"key":"Coach","value":"Rin Silva"},{"key":"Plan","value":"Peak"}]}]}]},{"label":"More","children":[{"ui":"list","items":[{"title":"Mar & Sol","meta":"$96/night","action":"pick_hotel","data":{"hotel":"Mar & Sol"}},{"title":"Praça Suites","meta":"$187/night","action":"pick_hotel","data":{"hotel":"Praça Suites"}},{"title":"Hotel Avenida","meta":"$118/night","action":"pick_hotel","data":{"hotel":"Hotel Avenida"}},{"title":"Casa Alfama","meta":"$142/night","action":"pick_hotel","data":{"hotel":"Casa Alfama"}},{"title":"Quinta Verde","meta":"$164/night","action":"pick_hotel","data":{"hotel":"Quinta Verde"}}]}]}]}
+```
+Mar & Sol is the cheapest of the five at $96/night, and picking a row sends its name back to me.
+--- derived
+
+
+=== D-0108
+--- user
+Please arrange two tabs, formal tone and no speculation. The first holds a card titled "Overview" containing the tool step "Check inventory", which failed with input sku SKU-2210 and output error timeout. The second holds the contract plan: Draft from the template skipped, Signature done, Final approval skipped, Counterparty redlines error.
+--- reference
+The inventory check failed on a timeout, and the contract plan shows the redlines step in error.
+```dyui
+{"ui":"tabs","tabs":[{"label":"Overview","children":[{"ui":"card","children":[{"ui":"step","title":"Check inventory","status":"error","type":"tool","input":{"sku":"SKU-2210"},"output":{"error":"timeout"}}],"title":"Overview"}]},{"label":"More","children":[{"ui":"plan","items":[{"title":"Draft from the template","status":"skipped"},{"title":"Signature","status":"done"},{"title":"Final approval","status":"skipped"},{"title":"Counterparty redlines","status":"error"}]}]}]}
+```
+Final approval was skipped, so the error on the redlines is the step that blocks progress.
+--- derived
+
+
+=== D-0037
+--- user
+For the balance review, put two things in two columns: a divider labelled "Outlook" and a note headed "Handover notes" with bold lead words, Balance the rewards, Ship the build, Playtest.
+--- reference
+Two columns carry the Outlook divider and a three-item handover note.
+```dyui
+{"ui":"grid","columns":2,"children":[{"ui":"divider","label":"Outlook"},{"ui":"markdown","text":"### Handover notes\n- **Balance** the rewards\n- **Ship** the build\n- **Playtest** "}]}
+```
+Playtesting comes last, after the rewards are balanced and the build ships.
+--- derived
+
+
+=== D-0004
+--- user
+I need a nested card setup for the release: an outer card "Release status" holding an inner card "Details", and in that an incident report form. Fields: "Arrival time" (time, required, default 09:00), "Department" (select with Sales, Support, Billing, Engineering; required), "Anything we should know?" (textarea, required), and "Start date" (date, required). It should submit as report_incident.
+--- reference
+The incident report form is nested two cards deep under Release status.
+```dyui
+{"ui":"card","title":"Release status","children":[{"ui":"card","children":[{"ui":"form","title":"Incident report","fields":[{"name":"arrival","label":"Arrival time","type":"time","required":true,"default":"09:00"},{"name":"department","label":"Department","type":"select","options":["Sales","Support","Billing","Engineering"],"required":true},{"name":"notes","label":"Anything we should know?","type":"textarea","required":true},{"name":"start_date","label":"Start date","type":"date","required":true}],"action":"report_incident"}],"title":"Details"}]}
+```
+Every field is required, and arrival time starts at 09:00 so you only change it when needed.
+--- derived
+
+
+=== D-0082
+--- user
+Two collapsible sections, short. Main section: a star-less rating for this tutorial that sends rate_tutorial. More detail: tappable follow-ups "Show it as a table" and "Which plan is weakest?".
+--- reference
+The tutorial rating sits in the main section, with two follow-ups available below it.
+```dyui
+{"ui":"accordion","items":[{"title":"Main section","children":[{"ui":"rating","action":"rate_tutorial"}]},{"title":"More detail","children":[{"ui":"quick_replies","options":["Show it as a table","Which plan is weakest?"]}]}]}
+```
+Your rating is returned to me as the rate_tutorial action.
+--- derived
+
+
+=== D-0114
+--- user
+Can you tuck the invoice work into two collapsible sections? First, the tool step "Fetch invoice" that is done, input invoice INV-0412. Second, my fare reasoning: easyJet at $181 is $153 cheaper than Iberia at $334, price decides, easyJet is the better pick.
+--- reference
+Invoice INV-0412 has been fetched, and the fare reasoning favouring easyJet follows in the second section.
+```dyui
+{"ui":"accordion","items":[{"title":"Main section","children":[{"ui":"step","title":"Fetch invoice","status":"done","type":"tool","input":{"invoice":"INV-0412"}}]},{"title":"More detail","children":[{"ui":"reasoning","text":"Comparing the two fares: easyJet at $181 is $153 cheaper than Iberia at $334. Price is the deciding factor, so easyJet is the better pick."}]}]}
+```
+The $153 price gap is the only factor behind the recommendation.
+--- derived
+
+
+=== D-0129
+--- user
+Formal request: two columns, the left a picture set (https://cdn.fernhill.example.com/img/changelog-29.webp?v=1 "Day one", https://static.brasa.example.com/img/guide-24.webp?v=2 "Detail", https://files.example.com/img/pricing-37.webp?v=3 "Wide shot", https://assets.lumen.example.io/img/q3-summary-31.png?v=4 "Day one"), the right a file download for invoice-batch.csv at https://cdn.fernhill.example.com/files/invoice-batch.csv, 3448357 bytes, text/csv.
+--- reference
+Four captioned pictures fill the left column and the invoice batch download the right.
+```dyui
+{"ui":"grid","columns":2,"children":[{"ui":"gallery","images":[{"src":"https://cdn.fernhill.example.com/img/changelog-29.webp?v=1","caption":"Day one"},{"src":"https://static.brasa.example.com/img/guide-24.webp?v=2","caption":"Detail"},{"src":"https://files.example.com/img/pricing-37.webp?v=3","caption":"Wide shot"},{"src":"https://assets.lumen.example.io/img/q3-summary-31.png?v=4","caption":"Day one"}]},{"ui":"file","name":"invoice-batch.csv","url":"https://cdn.fernhill.example.com/files/invoice-batch.csv","size":3448357,"type":"text/csv"}]}
+```
+Two of the pictures share the Day one caption, so the version suffix on each link is what tells them apart.
+--- derived
+
+
+=== D-0110
+--- user
+streaming: two collapsible sections. Main: bar chart "Podcast downloads by genre", Indie 91012, Classical 190918, Jazz 16843, Latin 113228, Electronic 208875, Hip hop 50619. More detail: top tracks table with Track, Artist, Streams, Skips: Paper Lanterns, Felix Okafor, 406, 13; Static Bloom, Wen Mendes, 686, 11; Midnight Tram, Wen Ibrahim, 195, 14.
+--- reference
+Electronic tops podcast downloads at 208875, just ahead of Classical, and the top tracks table is tucked into the second section.
+```dyui
+{"ui":"accordion","items":[{"title":"Main section","children":[{"ui":"chart","kind":"bar","labels":["Indie","Classical","Jazz","Latin","Electronic","Hip hop"],"series":[{"name":"Podcast downloads","data":[91012,190918,16843,113228,208875,50619]}],"title":"Podcast downloads by genre"}]},{"title":"More detail","children":[{"ui":"table","columns":["Track","Artist","Streams","Skips"],"rows":[["Paper Lanterns","Felix Okafor",406,13],["Static Bloom","Wen Mendes",686,11],["Midnight Tram","Wen Ibrahim",195,14]],"caption":"Top tracks"}]}]}
+```
+Static Bloom has the most streams of the three tracks at 686.
+--- derived
+
+
+=== D-0119
+--- user
+Study aid: a swipeable row with two lists. Slide 1, with photos and prices: Casa Alfama $142/night (https://media.example.net/img/changelog-34.png), Hotel Avenida $118/night (https://blog.northwind.example.com/img/benchmark-06.png), Praça Suites $187/night (https://files.example.com/img/pricing-23.png), Mar & Sol $96/night (https://assets.lumen.example.io/img/guide-08.png). Slide 2, clickable rows sending pick_hotel with the hotel name, with cities: Quinta Verde in Sintra, Casa Alfama in Lisbon, Mar & Sol in Valencia, Praça Suites in Lisbon.
+--- reference
+Prices come first in the swipeable row, and the clickable city list follows on the second slide.
+```dyui
+{"ui":"carousel","children":[{"ui":"list","items":[{"title":"Casa Alfama","meta":"$142/night","image":"https://media.example.net/img/changelog-34.png"},{"title":"Hotel Avenida","meta":"$118/night","image":"https://blog.northwind.example.com/img/benchmark-06.png"},{"title":"Praça Suites","meta":"$187/night","image":"https://files.example.com/img/pricing-23.png"},{"title":"Mar & Sol","meta":"$96/night","image":"https://assets.lumen.example.io/img/guide-08.png"}]},{"ui":"list","items":[{"title":"Quinta Verde","subtitle":"Sintra","action":"pick_hotel","data":{"hotel":"Quinta Verde"}},{"title":"Casa Alfama","subtitle":"Lisbon","action":"pick_hotel","data":{"hotel":"Casa Alfama"}},{"title":"Mar & Sol","subtitle":"Valencia","action":"pick_hotel","data":{"hotel":"Mar & Sol"}},{"title":"Praça Suites","subtitle":"Lisbon","action":"pick_hotel","data":{"hotel":"Praça Suites"}}]}]}
+```
+Casa Alfama and Praça Suites are both in Lisbon, so the cheaper of the two is Casa Alfama at $142/night.
+--- derived
+

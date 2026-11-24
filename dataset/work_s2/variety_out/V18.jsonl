@@ -1,0 +1,25 @@
+{"id":"L-0035","intro":"Plant operations are tracked below, one step per line.","outro":"Hold full production until the quality sampling failure is fixed."}
+{"id":"L-0036","intro":"Claim progress is broken down per step.","outro":"Documents still need collecting, and filing is the only finished step."}
+{"id":"L-0037","intro":"Query orders is executing right now, so you can watch it here.","outro":"Output and duration appear once the query completes."}
+{"id":"L-0038","intro":"The inventory check failed with a timeout.","outro":"Run it again for SKU-2210 before trusting any stock figures."}
+{"id":"L-0039","intro":"Waiting its turn in the trace: the inventory check for SKU-2210.","outro":"A running status appears as soon as the lookup begins."}
+{"id":"L-0040","intro":"Geocoding Porto finished and is logged in the trace.","outro":"The coordinates came back cleanly, with no errors along the way."}
+{"id":"L-0042","intro":"Your online store work is checked off task by task below.","outro":"Fix the supplier invoice pull before trusting the stock reconciliation."}
+{"id":"N-0002","intro":"Soil moisture reads 19 percent at the moment, with your target noted underneath.","outro":"That puts it a touch over the 18% target."}
+{"id":"N-0003","intro":"Five statuses share the claims orders, and the pie splits them out.","outro":"Filed dominates, and Approved is the thinnest slice."}
+{"id":"N-0004","intro":"Your listing todo is below, with a status per task.","outro":"Three tasks remain, and publishing is the only one done."}
+{"id":"N-0006","intro":"Order ORD-1018 gets a row of three buttons.","outro":"The order id travels back with whichever button is pressed."}
+{"id":"N-0009","intro":"Your pricing FAQ becomes three click-to-open sections.","outro":"Answers stay hidden until a question is clicked."}
+{"id":"N-0010","intro":"Four hotels sit in a scrollable row, each priced per night with a Book button.","outro":"Hotel Avenida in Porto costs least, and pressing Book reports your choice to me."}
+{"id":"N-0011","intro":"Your four docs-page labels turn into small colored tags.","outro":"Beta shows amber and Experimental violet, while the other two stay gray."}
+{"id":"N-0012","intro":"Reading an environment variable in PHP takes a single call.","outro":"A false return means the variable is unset, so test for it before use."}
+{"id":"N-0013","intro":"Four numbered references, each with its link and a short note.","outro":"Release notes and pricing cover the changes, while the other two explain the setup."}
+{"id":"N-0014","intro":"Departure, duration and price for all five flights sit in one table.","outro":"Air France costs least at $182 but is among the longer trips."}
+{"id":"N-0016","intro":"Fuel cost this month, boiled down to one headline figure.","outro":"It is dropping and stays below the $18.5k target."}
+{"id":"N-0017","intro":"Balances across your four accounts, in dollars, are compared as bars.","outro":"The credit card is highest and savings is lowest."}
+{"id":"N-0019","intro":"Resolved tickets today crossed the threshold, so a warning flags it.","outro":"It remains in the conversation for another look before Friday."}
+{"id":"N-0020","intro":"Tonight's covers, reduced to a single number.","outro":"The trend points upward, above the target."}
+{"id":"N-0021","intro":"This month's tickets divide four ways by category.","outro":"Account is the biggest category, with Technical the smallest."}
+{"id":"N-0022","intro":"Incident tasks are tracked below, each with its state.","outro":"Bisecting is underway, while the load test and postmortem failed and need follow-up."}
+{"id":"N-0023","intro":"Tick any of the four integrations you want to enable.","outro":"Your choices return as an action message naming the integrations selected."}
+{"id":"N-0024","intro":"Four actions now sit under the budget summary.","outro":"Open dashboard stands out as the main one, and each click comes back to me."}

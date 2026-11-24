@@ -1,0 +1,119 @@
+=== D-0113
+--- user
+live-ops, 2 collapsibles. main: a card "Riverside Studio", subtitle "Fri – Mon", image https://blog.northwind.example.com/img/getting-started-09.jpg, badge "Sale", with a short checklist (heading Checklist; bold Playtest, Monitor the economy, Ship the build). more detail: a card "Lisbon · 3 nights", subtitle "Free cancellation", showing ARPDAU $0.07, with a ghost Details button (view_details)
+--- reference
+The sale card with its checklist opens first, and the Lisbon card with the ARPDAU figure is one section down.
+```dyui
+{"ui":"accordion","items":[{"title":"Main section","children":[{"ui":"card","title":"Riverside Studio","subtitle":"Fri – Mon","image":"https://blog.northwind.example.com/img/getting-started-09.jpg","badge":"Sale","children":[{"ui":"markdown","text":"### Checklist\n- **Playtest** \n- **Monitor** the economy\n- **Ship** the build"}]}]},{"title":"More detail","children":[{"ui":"card","title":"Lisbon · 3 nights","subtitle":"Free cancellation","children":[{"ui":"stat","label":"ARPDAU","value":"$0.07"}],"actions":[{"label":"Details","action":"view_details","style":"ghost"}]}]}]}
+```
+Playtesting heads the checklist, ahead of monitoring the economy and shipping.
+--- derived
+
+
+=== D-0029
+--- user
+Kindly arrange a scrolling row of two slides. The first lists five properties with pictures: Mar & Sol (https://help.helpwave.example.com/img/changelog-35.jpg), Hotel Avenida (https://blog.northwind.example.com/img/pricing-34.jpg), Praça Suites (https://blog.northwind.example.com/img/benchmark-04.png), Quinta Verde (https://cdn.fernhill.example.com/img/overview-02.jpg), Casa Alfama (https://news.example.com/img/guide-08.webp). The second is a card "Spring Festival" with the facts: address 12 Mill Lane, apartment, 4 beds, 73 m2, $768, status New, and a secondary Save button (save_item).
+--- reference
+Five pictured properties lead the row, followed by a Spring Festival card for 12 Mill Lane with a Save action.
+```dyui
+{"ui":"carousel","children":[{"ui":"list","items":[{"title":"Mar & Sol","image":"https://help.helpwave.example.com/img/changelog-35.jpg"},{"title":"Hotel Avenida","image":"https://blog.northwind.example.com/img/pricing-34.jpg"},{"title":"Praça Suites","image":"https://blog.northwind.example.com/img/benchmark-04.png"},{"title":"Quinta Verde","image":"https://cdn.fernhill.example.com/img/overview-02.jpg"},{"title":"Casa Alfama","image":"https://news.example.com/img/guide-08.webp"}]},{"ui":"card","title":"Spring Festival","children":[{"ui":"keyvalue","items":[{"key":"Address","value":"12 Mill Lane"},{"key":"Type","value":"Apartment"},{"key":"Beds","value":4},{"key":"Area m2","value":73},{"key":"Price","value":"$768"},{"key":"Status","value":"New"}]}],"actions":[{"label":"Save","action":"save_item","style":"secondary"}]}]}
+```
+Save sends save_item back to me when pressed.
+--- derived
+
+
+=== D-0068
+--- user
+Active learners for July were 7,406, down 3.8% vs last month, against a target of 8,360. Could you show that as a figure in a card titled "Summary", set in a two-column layout?
+--- reference
+July's 7,406 active learners fall short of the 8,360 target, and the figure sits in a summary card.
+```dyui
+{"ui":"grid","columns":2,"children":[{"ui":"card","children":[{"ui":"stat","label":"Active learners · July","value":"7,406","delta":"-3.8% vs last month","help":"Target 8,360"}],"title":"Summary"}]}
+```
+The decline of 3.8% widens the distance from the target.
+--- derived
+
+
+=== D-0024
+--- user
+Two collapsible sections, casual. Main section: the release plan: Pitch to editors done, Promote on socials skipped, Master the track skipped, Upload the artwork pending. More detail: fare reasoning, easyJet at $217 is $95 cheaper than TAP at $312, so easyJet is the better pick because price decides.
+--- reference
+Only pitching is finished so far, and the fare comparison backing easyJet is in the second section.
+```dyui
+{"ui":"accordion","items":[{"title":"Main section","children":[{"ui":"plan","items":[{"title":"Pitch to editors","status":"done"},{"title":"Promote on socials","status":"skipped"},{"title":"Master the track","status":"skipped"},{"title":"Upload the artwork","status":"pending"}]}]},{"title":"More detail","children":[{"ui":"reasoning","text":"Comparing the two fares: easyJet at $217 is $95 cheaper than TAP at $312. Price is the deciding factor, so easyJet is the better pick."}]}]}
+```
+Uploading the artwork is the one task still waiting to run.
+--- derived
+
+
+=== D-0014
+--- user
+Machine M-430 on Line A is down, last serviced Oct 21, operator Hana Garcia. Put those facts in the first tab. In the second tab show energy per unit for August: 3.9 kWh, flat at 0% vs last month, target 4.1 kWh.
+--- reference
+M-430 is down on Line A, and the second tab shows August's energy use holding flat.
+```dyui
+{"ui":"tabs","tabs":[{"label":"Overview","children":[{"ui":"keyvalue","items":[{"key":"Machine","value":"M-430"},{"key":"Line","value":"Line A"},{"key":"Status","value":"Down"},{"key":"Last service","value":"Oct 21"},{"key":"Operator","value":"Hana Garcia"}]}]},{"label":"More","children":[{"ui":"stat","label":"Energy per unit · August","value":"3.9 kWh","delta":"0% vs last month","trend":"flat","help":"Target 4.1 kWh"}]}]}
+```
+Energy per unit is below the 4.1 kWh target.
+--- derived
+
+
+=== D-0042
+--- user
+2 columns: my fare reasoning (TAP at $257 is $114 cheaper than easyJet at $371, price decides, TAP is the better pick) next to the ticket plan: Close the ticket skipped, Acknowledge the customer error, Escalate to tier 2 done, Reproduce the issue done, Confirm the fix skipped.
+--- reference
+TAP wins by $114, and the ticket plan beside it stalled at the customer acknowledgement.
+```dyui
+{"ui":"grid","columns":2,"children":[{"ui":"reasoning","text":"Comparing the two fares: TAP at $257 is $114 cheaper than easyJet at $371. Price is the deciding factor, so TAP is the better pick."},{"ui":"plan","items":[{"title":"Close the ticket","status":"skipped"},{"title":"Acknowledge the customer","status":"error"},{"title":"Escalate to tier 2","status":"done"},{"title":"Reproduce the issue","status":"done"},{"title":"Confirm the fix","status":"skipped"}]}]}
+```
+The failed acknowledgement is the item to retry before the ticket can close.
+--- derived
+
+
+=== D-0032
+--- user
+Please list our fundraising order inside a card called "Account overview": send to the list, write the appeal, report the impact, set the goal.
+--- reference
+The four fundraising tasks run in the order you gave, inside the account overview card.
+```dyui
+{"ui":"card","title":"Account overview","children":[{"ui":"timeline","items":[{"title":"Send to the list"},{"title":"Write the appeal"},{"title":"Report the impact"},{"title":"Set the goal"}]}]}
+```
+Setting the goal comes last, so you may want to move it earlier.
+--- derived
+
+
+=== D-0094
+--- user
+Within a card named "Release status", I'd like a destructive confirmation asking "Remove Elena Sato?" with the text "They will lose access to every shared board immediately.", the cancel button "Keep member", and the action remove_member for member Elena Sato.
+--- reference
+Elena Sato's removal needs your approval before anything happens.
+```dyui
+{"ui":"card","title":"Release status","children":[{"ui":"confirm","title":"Remove Elena Sato?","text":"They will lose access to every shared board immediately.","cancel_label":"Keep member","action":"remove_member","data":{"member":"Elena Sato"},"danger":true}]}
+```
+Choosing Keep member leaves her access untouched, while confirming removes it from every shared board at once.
+--- derived
+
+
+=== D-0045
+--- user
+Two tabs. Overview: a link preview for https://news.example.com/roadmap/6 on news.example.com. More: a photo gallery of five shots: https://www.example.org/img/pricing-26.webp?v=1 (Detail), https://cdn.fernhill.example.com/img/pricing-35.jpg?v=2 (After), https://www.example.org/img/security-07.png?v=3 (Detail), https://media.example.net/img/pricing-37.jpg?v=4 (Wide shot), https://blog.northwind.example.com/img/changelog-36.webp?v=5 (Detail).
+--- reference
+The roadmap link card is on the first tab, and five captioned photos fill the second.
+```dyui
+{"ui":"tabs","tabs":[{"label":"Overview","children":[{"ui":"link_preview","url":"https://news.example.com/roadmap/6","site":"news.example.com"}]},{"label":"More","children":[{"ui":"gallery","images":[{"src":"https://www.example.org/img/pricing-26.webp?v=1","caption":"Detail"},{"src":"https://cdn.fernhill.example.com/img/pricing-35.jpg?v=2","caption":"After"},{"src":"https://www.example.org/img/security-07.png?v=3","caption":"Detail"},{"src":"https://media.example.net/img/pricing-37.jpg?v=4","caption":"Wide shot"},{"src":"https://blog.northwind.example.com/img/changelog-36.webp?v=5","caption":"Detail"}]}]}]}
+```
+Three of the five photos are captioned Detail, so the caption alone will not tell them apart.
+--- derived
+
+
+=== D-0077
+--- user
+tabs. first: card "Pro plan", subtitle "Limited seats", image https://assets.lumen.example.io/img/handbook-20.jpg, badge "New", with next steps in bold (Schedule the release, Promote on socials, Pitch to editors, Upload the artwork). second: clickable hotels sending pick_hotel with the name: Mar & Sol, Valencia (https://assets.lumen.example.io/img/faq-31.png), Praça Suites, Lisbon (https://news.example.com/img/getting-started-16.webp), Hotel Avenida, Porto (https://cdn.fernhill.example.com/img/pricing-06.png)
+--- reference
+The new Pro plan card with its release steps leads, and three hotels you can pick are on the second tab.
+```dyui
+{"ui":"tabs","tabs":[{"label":"Overview","children":[{"ui":"card","title":"Pro plan","subtitle":"Limited seats","image":"https://assets.lumen.example.io/img/handbook-20.jpg","badge":"New","children":[{"ui":"markdown","text":"### Next steps\n- **Schedule** the release\n- **Promote** on socials\n- **Pitch** to editors\n- **Upload** the artwork"}]}]},{"label":"More","children":[{"ui":"list","items":[{"title":"Mar & Sol","subtitle":"Valencia","image":"https://assets.lumen.example.io/img/faq-31.png","action":"pick_hotel","data":{"hotel":"Mar & Sol"}},{"title":"Praça Suites","subtitle":"Lisbon","image":"https://news.example.com/img/getting-started-16.webp","action":"pick_hotel","data":{"hotel":"Praça Suites"}},{"title":"Hotel Avenida","subtitle":"Porto","image":"https://cdn.fernhill.example.com/img/pricing-06.png","action":"pick_hotel","data":{"hotel":"Hotel Avenida"}}]}]}]}
+```
+Selecting a hotel row sends its name back to me.
+--- derived
+

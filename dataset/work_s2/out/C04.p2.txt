@@ -1,0 +1,163 @@
+=== C-0055
+--- user
+overview: capacity filled 66% (steady), revenue $136.5k (+11.7%, up), 20 refund requests. revenue by period in $k as an area chart: 151.7, 161.6, 172.1, 193.4, 204.7, 224.2, 240.3, 262.4
+--- reference
+Capacity is steady at two thirds full while revenue keeps growing.
+```dyui
+{"ui":"stats","items":[{"label":"Capacity filled","value":"66%","trend":"flat"},{"label":"Revenue","value":"$136.5k","delta":"+11.7%","trend":"up"},{"label":"Refund requests","value":"20"}]}
+```
+The revenue series as an area chart shows the longer climb.
+```dyui
+{"ui":"chart","kind":"area","series":[{"name":"Revenue","data":[151.7,161.6,172.1,193.4,204.7,224.2,240.3,262.4]}],"unit":"$k"}
+```
+Every period beats the previous one, with no dip along the way.
+--- derived
+
+
+=== C-0003
+--- user
+lay out the fleet: CM-1377 Kona 8212 in service; CM-3881 Golf 22723 out of order; CM-3483 Corolla 25888 rented; CM-4516 Golf 33787 in service; CM-4541 Corolla 129273 rented. compare the maintenance backlog by type: EV 24, compact 8, van 18, pickup 20
+--- reference
+Only one of the five vehicles is out of order, and CM-4541 has by far the highest mileage.
+```dyui
+{"ui":"table","columns":["Plate","Model","Mileage","Status"],"rows":[["CM-1377","Kona",8212,"In service"],["CM-3881","Golf",22723,"Out of order"],["CM-3483","Corolla",25888,"Rented"],["CM-4516","Golf",33787,"In service"],["CM-4541","Corolla",129273,"Rented"]]}
+```
+Backlog by vehicle type compares like this.
+```dyui
+{"ui":"chart","kind":"bar","labels":["EV","Compact","Van","Pickup"],"series":[{"name":"Maintenance backlog","data":[24,8,18,20]}],"title":"Maintenance backlog by vehicle"}
+```
+EVs carry the biggest backlog, three times that of compacts.
+--- derived
+24/8 = 3
+
+=== C-0067
+--- user
+Cost per lead from June to November in dollars: 51, 52, 53, 54, 56, 57. What is the trajectory? Please also notify them in the app that the data export finished and leads is back to 713, within the 626 limit. Finally, suggest what I could ask next: "Show the top 3", "Explain the biggest drop", "Set an alert for this", "Forecast next month".
+--- reference
+Cost per lead has risen every month since June, from 51 to 57 dollars.
+```dyui
+{"ui":"chart","kind":"line","labels":["Jun","Jul","Aug","Sep","Oct","Nov"],"series":[{"name":"Cost per lead","data":[51,52,53,54,56,57]}],"title":"Cost per lead, Jun–Nov","unit":"$"}
+```
+The in-app notice about the export reads as follows.
+```dyui
+{"ui":"callout","text":"The data export finished and Leads is back to 713, within the 626 limit.","level":"success"}
+```
+Possible next questions are below.
+```dyui
+{"ui":"quick_replies","options":["Show the top 3","Explain the biggest drop","Set an alert for this","Forecast next month"]}
+```
+An alert would flag the cost trend before it climbs further.
+--- derived
+
+
+=== C-0053
+--- user
+Appointments list: 10:00 Sofia Kim dental room 2; 16:20 Lena Ferreira check-up room 8; 08:30 Viktor Castillo physio room 7; 09:15 Wen Rahman dental room 3; 15:00 Noor Fischer dental room 7. Show me the comparison of patient satisfaction by clinic too: Harbour 3.9, Old Town 4.3, Riverside 4.2.
+--- reference
+Five appointments are booked, with the first at 08:30.
+```dyui
+{"ui":"table","columns":["Time","Patient","Service","Room"],"rows":[["10:00","Sofia Kim","Dental",2],["16:20","Lena Ferreira","Check-up",8],["08:30","Viktor Castillo","Physio",7],["09:15","Wen Rahman","Dental",3],["15:00","Noor Fischer","Dental",7]]}
+```
+Satisfaction compares across the three clinics as follows.
+```dyui
+{"ui":"chart","kind":"bar","labels":["Harbour","Old Town","Riverside"],"series":[{"name":"Patient satisfaction","data":[3.9,4.3,4.2]}],"title":"Patient satisfaction by clinic"}
+```
+Old Town scores highest, with Riverside close behind and Harbour lagging.
+--- derived
+
+
+=== C-0150
+--- user
+In C#, how do I read an environment variable called API_KEY? Put it in Program.cs. Also, how do we word this for the customer, with the title "Needs attention": latency is at 72 ms, above the 55 ms threshold, review before Friday.
+--- reference
+One call to `Environment.GetEnvironmentVariable` reads the value in C#.
+```dyui
+{"ui":"code","code":"var key = Environment.GetEnvironmentVariable(\"API_KEY\");","language":"csharp","filename":"Program.cs"}
+```
+The customer wording can be this.
+```dyui
+{"ui":"callout","text":"Latency is at 72 ms, above the 55 ms threshold. Review it before Friday.","level":"warning","title":"Needs attention"}
+```
+The call returns null when the variable is not set, so guard for that before using the key.
+--- derived
+
+
+=== C-0031
+--- user
+put this image inline: https://files.example.com/img/report-08.webp - taken last week. and lay out the details of the car: plate CM-3152, Model 3, 114486 miles on it
+--- reference
+The photo was taken last week and sits inline here.
+```dyui
+{"ui":"image","src":"https://files.example.com/img/report-08.webp","caption":"Taken last week"}
+```
+The car's details are listed next.
+```dyui
+{"ui":"keyvalue","items":[{"key":"Plate","value":"CM-3152"},{"key":"Model","value":"Model 3"},{"key":"Mileage","value":114486}]}
+```
+At 114486 miles, CM-3152 is well into its service life.
+--- derived
+
+
+=== C-0062
+--- user
+Headline for September: churn rate 2.3%, up 16.2% vs last month, target 2.5%. Has trial conversion been improving? The last five readings were 19.5, 20.6, 19.1, 18.3 and 17.1 (%).
+--- reference
+Churn is under its 2.5% target even though it jumped from last month.
+```dyui
+{"ui":"stat","label":"Churn rate · September","value":2.3,"unit":"%","delta":"+16.2% vs last month","help":"Target 2.5%"}
+```
+Trial conversion answers the improvement question.
+```dyui
+{"ui":"chart","kind":"line","series":[{"name":"Trial conversion","data":[19.5,20.6,19.1,18.3,17.1]}],"unit":"%"}
+```
+No, it peaked at 20.6 and has slid since.
+--- derived
+
+
+=== C-0091
+--- user
+Wie sieht die Liste aus? EVT-696 Sven Quispe 2 Tickets Student $187; EVT-266 Yusuf Petrov 1 Ticket Allgemein $256; EVT-345 Bruno Kim 7 Frühbucher $789; EVT-881 Gabriel Garcia 7 Frühbucher $692. Und welche Optionen habe ich? Als Spam markieren oder nicht jetzt.
+--- reference
+Vier Bestellungen liegen vor, zwei davon über je sieben Tickets.
+```dyui
+{"ui":"table","columns":["Bestellung","Käufer","Tickets","Tarif","Summe"],"rows":[["EVT-696","Sven Quispe",2,"Student","$187"],["EVT-266","Yusuf Petrov",1,"Allgemein","$256"],["EVT-345","Bruno Kim",7,"Frühbucher","$789"],["EVT-881","Gabriel Garcia",7,"Frühbucher","$692"]]}
+```
+Diese beiden Optionen stehen zur Wahl.
+```dyui
+{"ui":"buttons","items":[{"label":"Als Spam markieren","action":"mark_as_spam"},{"label":"Nicht jetzt","action":"not_now"}]}
+```
+Mit "Nicht jetzt" bleibt die Liste unverändert, bis Sie zurückkehren.
+--- derived
+
+
+=== C-0098
+--- user
+Please write SQL that counts this month's orders by status, highest count first, from a table called orders with columns status and created_at. In addition, advise on the customer wording for this: check-in wait is at 18 min, above the 14 min threshold, review before Friday.
+--- reference
+Grouping by status and sorting on the count gives the monthly breakdown.
+```dyui
+{"ui":"code","code":"SELECT status, COUNT(*) AS n\nFROM orders\nWHERE created_at >= date_trunc('month', now())\nGROUP BY status\nORDER BY n DESC;","language":"sql"}
+```
+For the customer, the wording below fits.
+```dyui
+{"ui":"callout","text":"Check-in wait is at 18 min, above the 14 min threshold. Review it before Friday.","level":"warning"}
+```
+`date_trunc('month', now())` resets the window on the first of each month.
+--- derived
+
+
+=== C-0143
+--- user
+leads per day: wed 2487, sat 2625, mon 4449, tue 5049 - how is it split? plus the workout log cleanly: May 19 swimming 60 min 930 cal; Feb 25 yoga 90, 247; Jul 17 strength 26, 448; Oct 5 swimming 119, 631
+--- reference
+Tuesday and Monday together bring in most of the leads.
+```dyui
+{"ui":"chart","kind":"donut","labels":["Wed","Sat","Mon","Tue"],"series":[{"name":"Leads","data":[2487,2625,4449,5049]}],"title":"Leads per day","unit":"leads"}
+```
+The workout log is tabulated below.
+```dyui
+{"ui":"table","columns":["Date","Activity","Duration","Calories"],"rows":[["May 19","Swimming",60,930],["Feb 25","Yoga",90,247],["Jul 17","Strength",26,448],["Oct 5","Swimming",119,631]],"caption":"Workout log"}
+```
+The longest session, Oct 5 swimming, burned fewer calories than the 60-minute swim on May 19.
+--- derived
+

@@ -1,0 +1,169 @@
+=== C-0140
+--- user
+mortgage rate 3.50% (target 3.85%), median price $524k (+15.3%, up, target $576k), days on market 94 days (target 103 days). how do they stack up by type for days on market: townhouse 72, studio 50, detached 20, apartment 56, loft 91. suggest next questions: Explain the biggest drop, Compare with last month, Show it as a table, Show the top 3
+--- reference
+Three headline numbers frame the market.
+```dyui
+{"ui":"stats","items":[{"label":"Mortgage rate","value":"3.50%","help":"Target 3.85%"},{"label":"Median price","value":"$524k","delta":"+15.3%","trend":"up","help":"Target $576k"},{"label":"Days on market","value":"94 days","help":"Target 103 days"}]}
+```
+Here is how days on market compare across property types.
+```dyui
+{"ui":"chart","kind":"bar","labels":["Townhouse","Studio","Detached","Apartment","Loft"],"series":[{"name":"Days on market","data":[72,50,20,56,91]}],"title":"Days on market by type","unit":"days"}
+```
+You could continue with any of these.
+```dyui
+{"ui":"quick_replies","options":["Explain the biggest drop","Compare with last month","Show it as a table","Show the top 3"]}
+```
+Lofts take the longest to sell, while detached homes move fastest.
+--- derived
+
+
+=== C-0082
+--- user
+Give me the overview of the fleet. Under "Risks": maintenance backlog 1 (0%, flat), idle time 35%, accidents 5 (rising, target 6). Under "Next steps": has availability been improving? It was 82, 84, 85, 85, 87.
+--- reference
+The fleet's risk indicators come first.
+```dyui
+{"ui":"divider","label":"Risks"}
+{"ui":"stats","items":[{"label":"Maintenance backlog","value":"1","delta":"0%","trend":"flat"},{"label":"Idle time","value":35,"unit":"%"},{"label":"Accidents","value":"5","trend":"up","help":"Target 6"}]}
+```
+Availability is shown below under next steps.
+```dyui
+{"ui":"divider","label":"Next steps"}
+{"ui":"chart","kind":"line","series":[{"name":"Fleet availability","data":[82,84,85,85,87]}]}
+```
+Availability has improved overall, from 82 to 87.
+--- derived
+
+
+=== C-0052
+--- user
+Show me the split of visits by cause: reforestation 4010, emergency relief 3191, clean water 3788. And what does the funder list look like? Lakeshore Trust $80,832 due Sep 22 awarded; Sunrise Foundation $9,507 Jul 12 drafting; Meridian Fund $150,055 Apr 24 declined; City Arts Board $175,760 Jan 18 drafting
+--- reference
+Visits split across the three causes as follows.
+```dyui
+{"ui":"chart","kind":"donut","labels":["Reforestation","Emergency relief","Clean water"],"series":[{"name":"Visits","data":[4010,3191,3788]}],"unit":"visits"}
+```
+And here is the funder list.
+```dyui
+{"ui":"table","columns":["Funder","Amount","Deadline","Status"],"rows":[["Lakeshore Trust","$80,832","Sep 22","Awarded"],["Sunrise Foundation","$9,507","Jul 12","Drafting"],["Meridian Fund","$150,055","Apr 24","Declined"],["City Arts Board","$175,760","Jan 18","Drafting"]]}
+```
+Reforestation draws the most visits, and only Lakeshore Trust has been awarded so far.
+--- derived
+
+
+=== C-0092
+--- user
+Policies expiring soon, please: POL-966 Tomas Rossi Home May 12 $473; POL-105 Viktor Quispe Home Nov 8 $2,008; POL-424 Ivan Costa Auto Mar 20 $1,673; POL-192 Greta Costa Travel Jul 6 $338; POL-339 Ivan Haddad Travel Jun 18 $2,347. Also let them know in the app that the report refresh finished and open claims is back to 1,087, within the 827 limit.
+--- reference
+Five policies are due to expire soon.
+```dyui
+{"ui":"table","columns":["Policy","Holder","Type","Expires","Premium"],"rows":[["POL-966","Tomas Rossi","Home","May 12","$473"],["POL-105","Viktor Quispe","Home","Nov 8","$2,008"],["POL-424","Ivan Costa","Auto","Mar 20","$1,673"],["POL-192","Greta Costa","Travel","Jul 6","$338"],["POL-339","Ivan Haddad","Travel","Jun 18","$2,347"]],"caption":"Policies expiring"}
+```
+This is the in-app notice about the refresh.
+```dyui
+{"ui":"callout","text":"The report refresh finished and Open claims is back to 1,087, within the 827 limit.","level":"success"}
+```
+POL-339 carries the highest premium of the five, and the refresh needs no further action.
+--- derived
+
+
+=== C-0034
+--- user
+Please put this photo inline: https://static.brasa.example.com/img/pricing-24.png (credit: "Photo by the site team"). And what are the key facts of claim CLM-761? Pet, filed Jun 7, amount $9,008.
+--- reference
+The photo for the claim opens the reply.
+```dyui
+{"ui":"image","src":"https://static.brasa.example.com/img/pricing-24.png","caption":"Photo by the site team"}
+```
+These are the key facts of the claim.
+```dyui
+{"ui":"keyvalue","items":[{"key":"Claim","value":"CLM-761"},{"key":"Type","value":"Pet"},{"key":"Filed","value":"Jun 7"},{"key":"Amount","value":"$9,008"}]}
+```
+CLM-761 is a pet claim filed on Jun 7 for $9,008.
+--- derived
+
+
+=== C-0065
+--- user
+contracts, easy to scan: Northwind NDA $211,674 expires Jun 27; Soylent MSA $142,035 Oct 28; Hooli MSA $401,955 May 3; Initech NDA $380,424 May 24; Acme DPA $334,563 Apr 7; Globex DPA $298,982 Apr 5. flag in chat: NDAs pending is recalculated every 9 hours so today's figure is provisional
+--- reference
+Six contracts are listed with value and expiry date.
+```dyui
+{"ui":"table","columns":["Counterparty","Type","Value","Expires"],"rows":[["Northwind","NDA","$211,674","Jun 27"],["Soylent","MSA","$142,035","Oct 28"],["Hooli","MSA","$401,955","May 3"],["Initech","NDA","$380,424","May 24"],["Acme","DPA","$334,563","Apr 7"],["Globex","DPA","$298,982","Apr 5"]],"caption":"Contracts"}
+```
+This note flags the caveat on the pending count.
+```dyui
+{"ui":"callout","text":"NDAs pending is recalculated every 9 hours, so today's figure is provisional."}
+```
+Hooli is the largest contract, and Globex and Acme expire first.
+--- derived
+
+
+=== C-0043
+--- user
+Please give me the picture under a "Details" heading: latency 15 ms (-2.3%), subscribers 175,741 (0%, flat), churn 1.9% (+13.2%, target 2.1%). Then under "Risks", how has churn trended from April to October? 2.2, 2.2, 2.3, 2.3, 2.4, 2.5, 2.5.
+--- reference
+The account details come first.
+```dyui
+{"ui":"divider","label":"Details"}
+{"ui":"stats","items":[{"label":"Latency","value":"15 ms","delta":"-2.3%"},{"label":"Subscribers","value":"175,741","delta":"0%","trend":"flat"},{"label":"Churn","value":"1.9%","delta":"+13.2%","help":"Target 2.1%"}]}
+```
+The churn trend follows under risks.
+```dyui
+{"ui":"divider","label":"Risks"}
+{"ui":"chart","kind":"line","labels":["Apr","May","Jun","Jul","Aug","Sep","Oct"],"series":[{"name":"Churn","data":[2.2,2.2,2.3,2.3,2.4,2.5,2.5]}]}
+```
+Churn has crept upward since April and is worth watching.
+--- derived
+
+
+=== C-0084
+--- user
+what's the picture? open redlines 17 (-6.3%), signed this month 61 (target 67), contracts expiring in 90 days 8 (+11.0%, target 9). and show average review time as an area chart, Jul to Nov: 5.9, 6.8, 7.5, 7.9, 8.4
+--- reference
+Three contract numbers set the scene.
+```dyui
+{"ui":"stats","items":[{"label":"Open redlines","value":"17","delta":"-6.3%"},{"label":"Signed this month","value":"61","help":"Target 67"},{"label":"Contracts expiring in 90 days","value":"8","delta":"+11.0%","help":"Target 9"}]}
+```
+Average review time from July to November is shown as an area chart.
+```dyui
+{"ui":"chart","kind":"area","labels":["Jul","Aug","Sep","Oct","Nov"],"series":[{"name":"Average review time","data":[5.9,6.8,7.5,7.9,8.4]}]}
+```
+Review time has lengthened every month, and signings are still short of target.
+--- derived
+
+
+=== C-0074
+--- user
+Please put this image inline: https://media.example.net/img/handbook-29.jpg, it shows the finished kitchen, with the caption "Photo by the site team". And the key facts for the track: artist Yusuf Okafor, genre Indie, length 3:21.
+--- reference
+The image appears first, with its caption.
+```dyui
+{"ui":"image","src":"https://media.example.net/img/handbook-29.jpg","alt":"The finished kitchen","caption":"Photo by the site team"}
+```
+And these are the key facts for the track.
+```dyui
+{"ui":"keyvalue","items":[{"key":"Artist","value":"Yusuf Okafor"},{"key":"Genre","value":"Indie"},{"key":"Length","value":"3:21"}]}
+```
+It is an Indie track by Yusuf Okafor running 3:21.
+--- derived
+
+
+=== C-0048
+--- user
+summarise for me. Risks section: open incidents 13 (-13.0%, down, target 14), error rate 1.55% (0%), MTTR 148 min flat. Next steps section: uptime trend Feb to Aug in %, 98.9, 98.91, 98.88, 98.85, 98.84, 98.82, 98.8
+--- reference
+Risk indicators come first.
+```dyui
+{"ui":"divider","label":"Risks"}
+{"ui":"stats","items":[{"label":"Open incidents","value":"13","delta":"-13.0%","trend":"down","help":"Target 14"},{"label":"Error rate","value":"1.55%","delta":"0%"},{"label":"MTTR","value":148,"unit":"min","trend":"flat"}]}
+```
+The uptime trend follows under next steps.
+```dyui
+{"ui":"divider","label":"Next steps"}
+{"ui":"chart","kind":"line","labels":["Feb","Mar","Apr","May","Jun","Jul","Aug"],"series":[{"name":"Uptime","data":[98.9,98.91,98.88,98.85,98.84,98.82,98.8]}],"title":"Uptime, Feb–Aug","unit":"%"}
+```
+Incidents are under target, but uptime has slipped gradually since February.
+--- derived
+

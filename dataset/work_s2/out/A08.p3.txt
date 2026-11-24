@@ -1,0 +1,77 @@
+=== A-0044
+--- user
+card for the Lisbon · 3 nights listing, subtitle Fri – Mon, image https://help.helpwave.example.com/img/release-notes-05.webp. inside put handover notes: publish the listing, move to contract, hold the open house, book the photographer. and a primary Book button
+--- reference
+The Lisbon listing becomes a card, with the handover notes inside.
+```dyui
+{"ui":"card","title":"Lisbon · 3 nights","subtitle":"Fri – Mon","image":"https://help.helpwave.example.com/img/release-notes-05.webp","children":[{"ui":"markdown","text":"### Handover notes\n- **Publish** the listing\n- **Move** to contract\n- **Hold** the open house\n- **Book** the photographer"}],"actions":[{"label":"Book","action":"book_item","style":"primary"}]}
+```
+The Book button sends its action back to me when pressed.
+--- derived
+
+=== A-0157
+--- user
+Let's start my onboarding. I need to enter my full name (placeholder Ana Silva), my company, and pick the topics I'm interested in: Pricing, Security, Integrations or Onboarding. All three are required and the button should say Continue.
+--- reference
+Three required fields start your onboarding.
+```dyui
+{"ui":"form","title":"Onboarding","fields":[{"name":"full_name","label":"Full name","type":"text","required":true,"placeholder":"Ana Silva"},{"name":"company","label":"Company","type":"text","required":true},{"name":"topics","label":"Topics","type":"multiselect","options":["Pricing","Security","Integrations","Onboarding"],"required":true}],"submit_label":"Continue","action":"start_onboarding"}
+```
+Submitting it sends your answers back to me to begin onboarding.
+--- derived
+
+=== A-0137
+--- user
+Please cancel my Team subscription.
+--- reference
+Cancelling the Team plan needs your go-ahead first.
+```dyui
+{"ui":"confirm","title":"Cancel your Team subscription?","cancel_label":"Keep Team","action":"cancel_subscription","data":{"plan":"team"},"danger":true}
+```
+Nothing changes until you confirm.
+--- derived
+
+=== A-0274
+--- user
+Kindly delete the project q3-campaign.
+--- reference
+Deleting q3-campaign is permanent, so it needs your go-ahead first.
+```dyui
+{"ui":"confirm","title":"Delete project q3-campaign?","action":"delete_project","data":{"project":"q3-campaign"},"danger":true}
+```
+Nothing is deleted until you confirm.
+--- derived
+
+=== A-0066
+--- user
+Please render the raw campaign data so I can expand it. The channel is Social, budget $30,473, starting Dec 28, tags trial and beta, and meta with version 3 and dry_run true. Title it "Campaign payload".
+--- reference
+The campaign data opens as an expandable tree.
+```dyui
+{"ui":"json","data":{"channel":"Social","budget":"$30,473","start":"Dec 28","tags":["trial","beta"],"meta":{"version":3,"dry_run":true}},"title":"Campaign payload"}
+```
+The dry_run flag is set to true in the meta node.
+--- derived
+
+=== A-0167
+--- user
+Please insert a divider labelled "Next steps" between the findings and the follow-up items.
+--- reference
+A labeled divider sits between the findings and the follow-ups.
+```dyui
+{"ui":"divider","label":"Next steps"}
+```
+The follow-up items below it fall under the Next steps heading.
+--- derived
+
+=== A-0064
+--- user
+play it here: https://www.example.org/video/pricing.mp4
+--- reference
+The pricing video plays inline.
+```dyui
+{"ui":"video","src":"https://www.example.org/video/pricing.mp4"}
+```
+It plays inline without leaving the conversation.
+--- derived
+

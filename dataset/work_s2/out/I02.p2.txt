@@ -1,0 +1,128 @@
+=== I-0031
+--- user
+Hi, I've got three fire incidents on the claims desk and would like them laid out. First, Sven Larsen, code EARLYBIRD, Jun 15, published, count 140, 206.6 km, https://docs.example.com/guide/76, balance 6973, id ZN-9359. Second, Kofi Mensah, Apr 12, draft, count 178, 112.0 km, https://docs.example.com/status/5, balance 5068, id AX-4396. Third, Ana Silva, code WELCOME, draft, count 166, 311.0 km, https://docs.example.com/plan/37, balance 6811, id ZN-6903.
+--- reference
+Here are the three fire incidents on your desk.
+```dyui
+{"ui":"fire_incident","name":"Sven Larsen","code":"EARLYBIRD","date":"Jun 15","stage":"published","count":140,"distance_km":206.6,"url":"https://docs.example.com/guide/76","balance":6973,"id":"ZN-9359"}
+{"ui":"fire_incident","name":"Kofi Mensah","date":"Apr 12","stage":"draft","count":178,"distance_km":112.0,"url":"https://docs.example.com/status/5","balance":5068,"id":"AX-4396"}
+{"ui":"fire_incident","name":"Ana Silva","code":"WELCOME","stage":"draft","count":166,"distance_km":311.0,"url":"https://docs.example.com/plan/37","balance":6811,"id":"ZN-6903"}
+```
+Only Sven Larsen's incident is published, and the other two are still drafts.
+--- derived
+
+
+=== I-0005
+--- user
+experiment logs: Mia Novak 4151, Priya Singh 754
+--- reference
+Here are the two experiment logs.
+```dyui
+{"ui":"experiment_log","name":"Mia Novak","balance":4151}
+{"ui":"experiment_log","name":"Priya Singh","balance":754}
+```
+Mia Novak's balance is the larger of the two.
+--- derived
+
+
+=== I-0008
+--- user
+two ad creatives pls: PR-5838 with capacity 214 and KT-2857 with capacity 194
+--- reference
+Here are the two ad creatives.
+```dyui
+{"ui":"ad_creative","id":"PR-5838","capacity":214}
+{"ui":"ad_creative","id":"KT-2857","capacity":194}
+```
+PR-5838 has 20 more capacity.
+--- derived
+20
+
+=== I-0027
+--- user
+Could you show the two tickets I booked at the box office? One is under Sven Larsen with no time set yet, and the other is under Ana Silva for 19:30.
+--- reference
+Here are the two tickets.
+```dyui
+{"ui":"ticket","name":"Sven Larsen"}
+{"ui":"ticket","name":"Ana Silva","time":"19:30"}
+```
+Sven Larsen's ticket will need a time added before the event.
+--- derived
+
+
+=== I-0003
+--- user
+Ok, voici la fiche de peinture: AX-5888, 95 minutes, Priya Singh, 246.1 km, note "Bring ID", draft. Sorry, can you just display that for me in English as usual?
+--- reference
+Here is the paint job record.
+```dyui
+{"ui":"paint_job","id":"AX-5888","duration_min":95,"name":"Priya Singh","distance_km":246.1,"notes":"Bring ID","tier":"draft"}
+```
+The job is still at the draft tier, with a note to bring ID.
+--- derived
+
+
+=== I-0007
+--- user
+I'd like the toll charge MV-6379 shown, please. It is in the Care category, the level is fail, and the date is Jun 21.
+--- reference
+Here is the toll charge.
+```dyui
+{"ui":"toll_charge","id":"MV-6379","category":"Care","level":"fail","date":"Jun 21"}
+```
+The Care charge MV-6379 has failed.
+--- derived
+
+
+=== I-0037
+--- user
+leave requests for Ana Silva: one is verified, the other isn't
+--- reference
+Here are the two leave requests for Ana Silva.
+```dyui
+{"ui":"leave_request","name":"Ana Silva","verified":true}
+{"ui":"leave_request","name":"Ana Silva","verified":false}
+```
+One of them is verified and the other still is not.
+--- derived
+
+
+=== I-0047
+--- user
+Please present the following trip report. Title: Quarterly review. Date: Apr 7. Code: SPRING20. Score: 41. Price: 258. Notes: Call before arrival.
+--- reference
+Here is the trip report for the quarterly review.
+```dyui
+{"ui":"trip_report","title":"Quarterly review","date":"Apr 7","code":"SPRING20","score":41,"price":258,"notes":"Call before arrival"}
+```
+The report notes to call before arrival.
+--- derived
+
+
+=== I-0034
+--- user
+cron jobs: Night shift 07:15 Omar Haddad, Lumen Labs, 48.1 kg. Night shift 21:00 Sven Larsen, Lumen Labs, 64.8 kg.
+--- reference
+Here are the two cron jobs.
+```dyui
+{"ui":"cron_job","title":"Night shift","time":"07:15","name":"Omar Haddad","provider":"Lumen Labs","weight_kg":48.1}
+{"ui":"cron_job","title":"Night shift","time":"21:00","name":"Sven Larsen","provider":"Lumen Labs","weight_kg":64.8}
+```
+Both jobs share the same title and provider, and only the time, owner and weight differ.
+--- derived
+
+
+=== I-0059
+--- user
+need the experiment logs for the farm: Mia Novak has 4295 and Ana Silva has 7926
+--- reference
+Here are the two experiment logs.
+```dyui
+{"ui":"experiment_log","name":"Mia Novak","balance":4295}
+{"ui":"experiment_log","name":"Ana Silva","balance":7926}
+```
+Ana Silva's balance is 3631 higher than Mia Novak's.
+--- derived
+3631
+

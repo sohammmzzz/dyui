@@ -1,0 +1,119 @@
+=== S-0008
+--- user
+Kindly list the props of the stat component, using a "Gold sink" figure of 1200 with a delta of +8% as the example.
+--- reference
+Here is a stat that uses every prop, built from your gold sink figure.
+```dyui
+{"ui":"code","language":"json","code":"{\"ui\":\"stat\",\"label\":\"Gold sink\",\"value\":1200,\"unit\":\"gold\",\"delta\":\"+8%\",\"trend\":\"up\",\"help\":\"Gold removed from the economy\"}"}
+```
+Stat requires label and value; unit, delta, trend and help are optional. Trend is one of up, down or flat.
+--- derived
+
+
+=== S-0001
+--- user
+stacked bar for energy by floor? floor 1: heating 30, lighting 12; floor 2: heating 25, lighting 10
+--- reference
+That is a chart with kind bar, one series per part (heating and lighting), and stacked set to true.
+```dyui
+{"ui":"code","language":"json","code":"{\"ui\":\"chart\",\"kind\":\"bar\",\"labels\":[\"Floor 1\",\"Floor 2\"],\"series\":[{\"name\":\"Heating\",\"data\":[30,25]},{\"name\":\"Lighting\",\"data\":[12,10]}],\"stacked\":true}"}
+```
+Each floor gets one bar, with heating and lighting stacked inside it.
+--- derived
+
+
+=== S-0023
+--- user
+Please describe which props of the buttons component are required and which are optional. A sample would be a "Mark ready" button for table 12.
+--- reference
+Here is a buttons row with a "Mark ready" button for table 12 and a second one using the other style.
+```dyui
+{"ui":"code","language":"json","code":"{\"ui\":\"buttons\",\"items\":[{\"label\":\"Mark ready\",\"action\":\"mark_ready\",\"data\":{\"table\":12},\"style\":\"primary\"},{\"label\":\"Cancel\",\"action\":\"cancel_order\",\"style\":\"danger\"}]}"}
+```
+Only items is required, and each item needs a label and an action. Data and style are optional, with style being primary, secondary, ghost or danger.
+--- derived
+
+
+=== S-0017
+--- user
+When should I use confirm rather than quick replies or buttons? Our example is cancelling the Lisbon trip.
+--- reference
+Use confirm when an action needs explicit approval first, such as cancelling the Lisbon trip.
+```dyui
+{"ui":"code","language":"json","code":"{\"ui\":\"confirm\",\"title\":\"Cancel the Lisbon trip?\",\"text\":\"The booking will be released.\",\"confirm_label\":\"Cancel trip\",\"cancel_label\":\"Keep it\",\"action\":\"cancel_trip\",\"data\":{\"trip\":\"Lisbon\"},\"danger\":true}"}
+```
+Confirm, like buttons, sends [action:<name>] {json} back to me, while quick_replies arrive as plain user text. Only title is required on confirm.
+--- derived
+
+
+=== S-0026
+--- user
+choice vs quick replies, whats the difference? e.g. picking a pickup window, morning or afternoon
+--- reference
+Choice is a question with fixed options that returns an action message, as in this pickup example.
+```dyui
+{"ui":"code","language":"json","code":"{\"ui\":\"choice\",\"question\":\"Which pickup window works?\",\"options\":[\"Morning\",\"Afternoon\"],\"action\":\"pick_window\"}"}
+```
+Choice sends [action:<name>] {json} with the selected options, whereas quick_replies arrive as a plain user message with no action.
+--- derived
+
+
+=== S-0006
+--- user
+Which props does progress accept? I want to show a household reaching its monthly energy goal, say 340 of 500 kWh, and I'd like to know which props are required.
+--- reference
+Here is a progress component for your monthly energy goal.
+```dyui
+{"ui":"code","language":"json","code":"{\"ui\":\"progress\",\"value\":340,\"max\":500,\"label\":\"Monthly energy goal (kWh)\"}"}
+```
+Only value is required on progress; max and label are optional.
+--- derived
+
+
+=== S-0005
+--- user
+Are badges clickable like quick replies or buttons? We want to tag seats in the box office as Sold out and Few left, and I'd like to know what a badge can carry.
+--- reference
+Badges are labels only and carry no action, as in this example for your seat tags.
+```dyui
+{"ui":"code","language":"json","code":"{\"ui\":\"badges\",\"items\":[{\"label\":\"Sold out\",\"color\":\"red\"},{\"label\":\"Few left\",\"color\":\"amber\"}]}"}
+```
+Each badge needs a label, and color is optional: gray, accent, green, amber, red, blue or violet. For something tappable, buttons send an action and quick_replies arrive as plain user text.
+--- derived
+
+
+=== S-0014
+--- user
+what kinds of stuff can you actually render for the training app? charts? tables? forms? show me one
+--- reference
+Here is a list, one of the built-in components, with a tappable row.
+```dyui
+{"ui":"code","language":"json","code":"{\"ui\":\"list\",\"items\":[{\"title\":\"Morning run\",\"subtitle\":\"Easy pace\",\"meta\":\"Tue\",\"action\":\"open_session\",\"data\":{\"session\":\"morning_run\"}}]}"}
+```
+There are 36 built-ins in total, including chart, table and form, as well as markdown, callout, code, stat, timeline, card, tabs and plan. Lists are only the start; any of them can be combined in one reply.
+--- derived
+36
+
+=== S-0004
+--- user
+what can you render in chat? like charts, tables, forms or just text?
+--- reference
+A lot more than text; here is a buttons component as one sample.
+```dyui
+{"ui":"code","language":"json","code":"{\"ui\":\"buttons\",\"items\":[{\"label\":\"Open\",\"action\":\"open_item\",\"style\":\"primary\"},{\"label\":\"Later\",\"action\":\"later\",\"style\":\"ghost\"}]}"}
+```
+There are 36 built-in components, including chart, table and form, plus markdown, callout, code, stat, timeline, card, tabs and plan. Each click on a button comes back to me as an action message.
+--- derived
+36
+
+=== S-0012
+--- user
+Is timeline suitable for presenting the share of bookings per region: Europe 50, Asia 30, Americas 20?
+--- reference
+No, timeline shows events in order; shares of a whole belong in a chart with kind donut or pie.
+```dyui
+{"ui":"code","language":"json","code":"{\"ui\":\"chart\",\"kind\":\"donut\",\"labels\":[\"Europe\",\"Asia\",\"Americas\"],\"series\":[{\"name\":\"Bookings\",\"data\":[50,30,20]}],\"title\":\"Bookings by region\"}"}
+```
+Timeline requires only items, and each item needs a title, with time, text and status (done, active or pending) optional.
+--- derived
+

@@ -1,0 +1,119 @@
+=== D-0089
+--- user
+Could you put these into a swipeable row of two slides? Slide one is the hotel prices, each with its photo: Quinta Verde $164/night (https://static.brasa.example.com/img/case-study-39.webp), Casa Alfama $142/night (https://media.example.net/img/annual-review-13.webp) and Mar & Sol $96/night (https://blog.northwind.example.com/img/getting-started-07.png). Slide two is the same style of list but with the city instead of the price: Hotel Avenida in Porto (https://help.helpwave.example.com/img/q3-summary-22.png), Praça Suites in Lisbon (https://assets.lumen.example.io/img/getting-started-02.jpg), and Quinta Verde in Sintra (https://docs.acme-cloud.example.com/img/roadmap-07.png).
+--- reference
+Swipe through both hotel lists in one row.
+```dyui
+{"ui":"carousel","children":[{"ui":"list","items":[{"title":"Quinta Verde","meta":"$164/night","image":"https://static.brasa.example.com/img/case-study-39.webp"},{"title":"Casa Alfama","meta":"$142/night","image":"https://media.example.net/img/annual-review-13.webp"},{"title":"Mar & Sol","meta":"$96/night","image":"https://blog.northwind.example.com/img/getting-started-07.png"}]},{"ui":"list","items":[{"title":"Hotel Avenida","subtitle":"Porto","image":"https://help.helpwave.example.com/img/q3-summary-22.png"},{"title":"Praça Suites","subtitle":"Lisbon","image":"https://assets.lumen.example.io/img/getting-started-02.jpg"},{"title":"Quinta Verde","subtitle":"Sintra","image":"https://docs.acme-cloud.example.com/img/roadmap-07.png"}]}]}
+```
+The first slide is about price and the second about location, and Quinta Verde appears on both.
+--- derived
+
+
+=== D-0083
+--- user
+Make me two collapsible sections. The first, "Main section", holds a card for the Pro plan, subtitle "Fri – Mon", with the image https://media.example.net/img/overview-20.jpg, listing channel Social, budget $54,597, start Apr 20 and owner Elena Mendes, plus a primary Book button (action book_item). The second, "More detail", has a clickable list of hotels where each row sends pick_hotel with its hotel name: Quinta Verde $164/night, Casa Alfama $142/night, Hotel Avenida $118/night.
+--- reference
+The campaign card and the hotel list each get their own collapsible section.
+```dyui
+{"ui":"accordion","items":[{"title":"Main section","children":[{"ui":"card","title":"Pro plan","subtitle":"Fri – Mon","image":"https://media.example.net/img/overview-20.jpg","children":[{"ui":"keyvalue","items":[{"key":"Channel","value":"Social"},{"key":"Budget","value":"$54,597"},{"key":"Start","value":"Apr 20"},{"key":"Owner","value":"Elena Mendes"}]}],"actions":[{"label":"Book","action":"book_item","style":"primary"}]}]},{"title":"More detail","children":[{"ui":"list","items":[{"title":"Quinta Verde","meta":"$164/night","action":"pick_hotel","data":{"hotel":"Quinta Verde"}},{"title":"Casa Alfama","meta":"$142/night","action":"pick_hotel","data":{"hotel":"Casa Alfama"}},{"title":"Hotel Avenida","meta":"$118/night","action":"pick_hotel","data":{"hotel":"Hotel Avenida"}}]}]}]}
+```
+Pressing Book or choosing a hotel sends the matching action back to me.
+--- derived
+
+
+=== D-0073
+--- user
+How do I install PostgreSQL on macOS, Ubuntu? Show each one separately please.
+--- reference
+Each system gets its own install command, one tab apiece.
+```dyui
+{"ui":"tabs","tabs":[{"label":"macOS","children":[{"ui":"code","code":"brew install postgresql@16","language":"bash"}]},{"label":"Ubuntu","children":[{"ui":"code","code":"sudo apt install postgresql","language":"bash"}]}]}
+```
+On macOS the command pins version 16 through Homebrew, while the Ubuntu command installs whichever version apt provides.
+--- derived
+
+
+=== D-0075
+--- user
+Two tabs please. Overview: a link preview for https://files.example.com/benchmark/88, titled "Release notes: what's new this month", described as "Controls, audits and data handling in one place.", image https://docs.acme-cloud.example.com/img/release-notes-40.png. More: the video https://docs.acme-cloud.example.com/video/handbook.mp4 with poster https://assets.lumen.example.io/img/security-39.webp and caption "The launch teaser".
+--- reference
+The release notes and the launch teaser are split across two tabs.
+```dyui
+{"ui":"tabs","tabs":[{"label":"Overview","children":[{"ui":"link_preview","url":"https://files.example.com/benchmark/88","title":"Release notes: what's new this month","description":"Controls, audits and data handling in one place.","image":"https://docs.acme-cloud.example.com/img/release-notes-40.png"}]},{"label":"More","children":[{"ui":"video","src":"https://docs.acme-cloud.example.com/video/handbook.mp4","poster":"https://assets.lumen.example.io/img/security-39.webp","caption":"The launch teaser"}]}]}
+```
+The release notes sit up front, and the teaser video is one tab away.
+--- derived
+
+
+=== D-0054
+--- user
+Put these in collapsible sections, please. Main section: my reasoning for the fare choice, which took 596 ms: Vueling at $157 is $46 cheaper than TAP at $203, and price is the deciding factor, so Vueling is the better pick. More detail: a pending step "Check inventory" with the input SKU-2210.
+--- reference
+Collapsible sections separate the fare reasoning from the pending step.
+```dyui
+{"ui":"accordion","items":[{"title":"Main section","children":[{"ui":"reasoning","text":"Comparing the two fares: Vueling at $157 is $46 cheaper than TAP at $203. Price is the deciding factor, so Vueling is the better pick.","duration_ms":596}]},{"title":"More detail","children":[{"ui":"step","title":"Check inventory","status":"pending","input":{"sku":"SKU-2210"}}]}]}
+```
+Vueling wins on price, and the inventory check has not run yet.
+--- derived
+
+
+=== D-0021
+--- user
+can you set up two collapsible sections? "Main section" has the download customer-export.xlsx from https://blog.northwind.example.com/files/customer-export.xlsx. "More detail" has a photo grid with four shots: https://media.example.net/img/guide-33.png?v=1 (alt "The warehouse after the reorganisation", caption "Close-up"), https://help.helpwave.example.com/img/pricing-12.jpg?v=2 ("The pilot batch on the line", "Wide shot"), https://help.helpwave.example.com/img/faq-38.jpg?v=3 ("A team offsite on the beach", "After"), https://news.example.com/img/q3-summary-37.webp?v=4 ("The trail marker at the summit", "After")
+--- reference
+The export download and the photo grid live in separate sections.
+```dyui
+{"ui":"accordion","items":[{"title":"Main section","children":[{"ui":"file","name":"customer-export.xlsx","url":"https://blog.northwind.example.com/files/customer-export.xlsx"}]},{"title":"More detail","children":[{"ui":"gallery","images":[{"src":"https://media.example.net/img/guide-33.png?v=1","alt":"The warehouse after the reorganisation","caption":"Close-up"},{"src":"https://help.helpwave.example.com/img/pricing-12.jpg?v=2","alt":"The pilot batch on the line","caption":"Wide shot"},{"src":"https://help.helpwave.example.com/img/faq-38.jpg?v=3","alt":"A team offsite on the beach","caption":"After"},{"src":"https://news.example.com/img/q3-summary-37.webp?v=4","alt":"The trail marker at the summit","caption":"After"}]}]}]}
+```
+The download stays up top while the four photos wait in the second section.
+--- derived
+
+
+=== D-0019
+--- user
+Please give me two collapsible sections. The first, "Main section", cites four sources: Release notes https://assets.lumen.example.io/guide, Pricing overview https://files.example.com/guide, Security whitepaper https://news.example.com/release-notes, and Annual review https://www.example.org/handbook. The second, "More detail", just holds a divider labelled "Next steps".
+--- reference
+Four sources are cited in the first section, with a next-steps divider in the second.
+```dyui
+{"ui":"accordion","items":[{"title":"Main section","children":[{"ui":"sources","items":[{"title":"Release notes","url":"https://assets.lumen.example.io/guide"},{"title":"Pricing overview","url":"https://files.example.com/guide"},{"title":"Security whitepaper","url":"https://news.example.com/release-notes"},{"title":"Annual review","url":"https://www.example.org/handbook"}]}]},{"title":"More detail","children":[{"ui":"divider","label":"Next steps"}]}]}
+```
+Open the second section when you are ready to move on from the citations.
+--- derived
+
+
+=== D-0117
+--- user
+I need an image and an audio clip side by side in a row I can scroll through. The image is https://docs.acme-cloud.example.com/img/changelog-34.png and the audio is https://www.example.org/audio/annual-review-01.mp3, called "Interview with the founder".
+--- reference
+An image and an audio clip share a scrollable row.
+```dyui
+{"ui":"carousel","children":[{"ui":"image","src":"https://docs.acme-cloud.example.com/img/changelog-34.png"},{"ui":"audio","src":"https://www.example.org/audio/annual-review-01.mp3","title":"Interview with the founder"}]}
+```
+Scroll sideways to move from the image to the founder interview.
+--- derived
+
+
+=== D-0058
+--- user
+yo, make a swipeable row with two things. First an incident form: a required time field "Preferred time", a required dropdown "Priority" with Low, Normal, High, Urgent, and a required text area "What happened?", submitting as report_incident. Second, a confirmation asking "Pay the internet bill?" with the text "$154 will be debited from your checking account today.", buttons "Pay now" and "Later", action pay_bill, carrying bill internet.
+--- reference
+The incident form and the payment confirmation sit side by side in one swipeable row.
+```dyui
+{"ui":"carousel","children":[{"ui":"form","fields":[{"name":"time","label":"Preferred time","type":"time","required":true},{"name":"priority","label":"Priority","type":"select","options":["Low","Normal","High","Urgent"],"required":true},{"name":"description","label":"What happened?","type":"textarea","required":true}],"action":"report_incident"},{"ui":"confirm","title":"Pay the internet bill?","text":"$154 will be debited from your checking account today.","confirm_label":"Pay now","cancel_label":"Later","action":"pay_bill","data":{"bill":"internet"}}]}
+```
+Submitting the form or answering the confirmation sends the result back to me, and nothing is paid until you choose Pay now.
+--- derived
+
+
+=== D-0028
+--- user
+Put a confirmation inside a card titled "Details", and that card inside a swipeable row. The confirmation asks "Remove Hugo Tanaka?" with the text "They will lose access to every shared board immediately.", confirm button "Remove member", action remove_member, member Hugo Tanaka, and it's a destructive one.
+--- reference
+Removing Hugo Tanaka needs confirmation, so the prompt sits in a card inside a swipeable row.
+```dyui
+{"ui":"carousel","children":[{"ui":"card","children":[{"ui":"confirm","title":"Remove Hugo Tanaka?","text":"They will lose access to every shared board immediately.","confirm_label":"Remove member","action":"remove_member","data":{"member":"Hugo Tanaka"},"danger":true}],"title":"Details"}]}
+```
+Hugo Tanaka keeps his access until you confirm, and the red styling marks the action as destructive.
+--- derived
+

@@ -1,0 +1,104 @@
+=== G-0004
+--- user
+open feature requests right now?
+--- reference
+Nothing is open at the moment: the feature request lookup returned an empty list.
+A new request will only appear once it has been logged.
+--- derived
+
+=== G-0036
+--- user
+Ey, ¿qué hoteles tenéis disponibles ahora mismo?
+--- reference
+Nada por ahora: la búsqueda de hoteles no devolvió ningún resultado.
+No hay alojamientos en los datos que recibí, así que no puedo proponer ninguno.
+--- derived
+
+=== G-0110
+--- user
+Event ID-182, please. If memory serves it was a Solo event that began on Jun 23 and ran for 17 days. Is that right, and what else is on file?
+--- reference
+Your memory is right on all three points, and the event has since ended.
+```dyui
+{"ui":"keyvalue","items":[{"key":"Mode","value":"Solo"},{"key":"Starts","value":"Jun 23"},{"key":"Duration (days)","value":17},{"key":"Reward","value":"Gems"},{"key":"Status","value":"Ended"}]}
+```
+Gems were the reward, and since the status is Ended there is nothing left to schedule for it.
+--- derived
+
+=== G-0109
+--- user
+equipment list
+--- reference
+The equipment list did not load.
+```dyui
+{"ui":"callout","level":"error","title":"Equipment list unavailable","text":"The service answered with status 429 (service_unavailable): The service is temporarily unavailable."}
+```
+Without that response there is nothing to show yet, so repeat the request in a few minutes.
+--- derived
+
+=== G-0069
+--- user
+who's interviewing this week? need to line up the rooms
+--- reference
+This week's interview list is blocked for now.
+```dyui
+{"ui":"callout","level":"warning","title":"Too many requests","text":"The request was rate limited with status 429 (rate_limited): Too many requests, retry after 30 seconds."}
+```
+Nothing came back to plan rooms from, but asking again after 30 seconds should work.
+--- derived
+
+=== G-0029
+--- user
+Good afternoon. Might I have the current equipment overview for the co-op?
+--- reference
+I was unable to fetch the equipment overview.
+```dyui
+{"ui":"callout","level":"error","title":"Equipment overview unavailable","text":"The request ended with status 429 (permission_denied): The service is temporarily unavailable."}
+```
+No equipment data was returned; a retry is the next step, and if it fails again the permission error is worth raising with whoever manages access.
+--- derived
+
+=== G-0086
+--- user
+Meter for unit ID-127: is it still the MTR-154 on the Flat tariff, reading 67183?
+--- reference
+Yes, unit ID-127 is still on meter MTR-154 and the reading matches.
+```dyui
+{"ui":"keyvalue","items":[{"key":"Meter","value":"MTR-154"},{"key":"Tariff","value":"Flat"},{"key":"Last reading","value":67183},{"key":"Read on","value":"Feb 23"},{"key":"Status","value":"OK"}]}
+```
+The reading dates from Feb 23 and the meter reports OK.
+--- derived
+
+=== G-0038
+--- user
+X-787 details? Email, $2,779, started Jun 19 iirc
+--- reference
+Your recollection holds up for campaign X-787.
+```dyui
+{"ui":"keyvalue","items":[{"key":"Channel","value":"Email"},{"key":"Budget","value":"$2,779"},{"key":"Start","value":"Jun 19"},{"key":"Owner","value":"Hugo Vasquez"},{"key":"Status","value":"Live"}]}
+```
+It is live under Hugo Vasquez, so any budget change goes through him.
+--- derived
+
+=== G-0079
+--- user
+Welche Maschinen sind aktuell offen? Mich interessieren vor allem M-571, M-275 und M-249, jeweils mit Linie, Status und letzter Wartung.
+--- reference
+Fünf Maschinen wurden zurückgemeldet, darunter die drei, nach denen du gefragt hast.
+```dyui
+{"ui":"table","columns":["Maschine","Linie","Status","Letzte Wartung"],"rows":[["M-571","Line C","Maintenance","Sep 4"],["M-275","Line C","Maintenance","Nov 11"],["M-249","Line C","Maintenance","Dec 27"],["M-862","Line A","Running","Dec 5"],["M-409","Line B","Running","Jul 7"]]}
+```
+M-571, M-275 und M-249 stehen alle in Wartung, nur M-862 und M-409 laufen.
+--- derived
+
+=== G-0073
+--- user
+whats dropping soon on the release calendar? Dec 18, Apr 27 and Feb 21 are the dates i care about
+--- reference
+Four releases are on the calendar, and all three of your dates are among them.
+```dyui
+{"ui":"table","columns":["Date","Release","Artist","Format"],"rows":[["Dec 18","Static Bloom","Ana Oliveira","Single"],["Apr 27","Static Bloom","Priya Rossi","Album"],["Feb 21","Paper Lanterns LP","Yara Fischer","Album"],["Sep 25","Paper Lanterns LP","Dev Oliveira","Single"]]}
+```
+Static Bloom appears twice, as a single on Dec 18 and as an album on Apr 27.
+--- derived
+

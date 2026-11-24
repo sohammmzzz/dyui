@@ -1,0 +1,99 @@
+=== F-0088
+--- user
+Please shorten it to just the last 3 points.
+--- reference
+Here is the chart reduced to the last three neighbourhoods.
+```dyui
+{"ui":"chart","kind":"bar","labels":["Northgate","Old Town","Greenfield"],"series":[{"name":"Offers received","data":[11,13,14]}],"title":"Offers received by neighbourhood"}
+```
+Greenfield remains ahead with 14.
+--- derived
+
+=== F-0030
+--- user
+chart the score per candidate as bars instead
+--- reference
+Here are the candidate scores as a bar chart.
+```dyui
+{"ui":"chart","kind":"bar","labels":["Nadia Torres","Ana Hoang","Yusuf Dubois","Gabriel Almeida","Dev Moreau"],"series":[{"name":"Score","data":[2.2,4.7,3.6,2.7,2.8]}],"title":"Score per candidate"}
+```
+Ana Hoang stands out at 4.7.
+--- derived
+
+=== F-0063
+--- user
+please translate the labels and title into Spanish, leave the numbers alone
+--- reference
+Here is the chart with the labels and title in Spanish.
+```dyui
+{"ui":"chart","kind":"area","labels":["abr","may","jun","jul","ago","sep","oct","nov"],"series":[{"name":"Tickets abiertos","data":[308,318,348,356,374,397,408,420]}],"title":"Tickets abiertos, abr–nov"}
+```
+The data is identical, still climbing from 308 to 420.
+--- derived
+
+=== F-0086
+--- user
+Kindly drop the last point, November.
+--- reference
+Here is the chart without November.
+```dyui
+{"ui":"chart","kind":"line","labels":["May","Jun","Jul","Aug","Sep","Oct"],"series":[{"name":"Soil moisture","data":[32,33,35,36,38,38]}],"title":"Soil moisture, May–Oct","unit":"%"}
+```
+The title now ends in October to match, and the series reaches 38.
+--- derived
+
+=== F-0102
+--- user
+Could you show the margin per dish as a bar chart instead?
+--- reference
+Here is the margin for each dish as a bar chart.
+```dyui
+{"ui":"chart","kind":"bar","labels":["Burrata salad","Lamb shoulder","Tonkotsu ramen","Grilled sea bass","Mushroom risotto","Flan"],"series":[{"name":"Margin","data":[51,61,59,63,56,48]}],"title":"Margin per dish"}
+```
+Grilled sea bass is highest at 63 and Flan lowest at 48.
+--- derived
+
+=== F-0016
+--- user
+shorter pls, last 3 points only
+--- reference
+Here is the stacked chart reduced to the last three modes.
+```dyui
+{"ui":"chart","kind":"bar","labels":["Events","Ranked","Practice"],"series":[{"name":"Online","data":[26.6,10.8,9.6]},{"name":"In person","data":[9.0,19.3,7.7]}],"title":"Day-7 retention by mode","unit":"%","stacked":true}
+```
+Solo and Co-op are removed; the rest is as before.
+--- derived
+
+=== F-0029
+--- user
+Please keep only the top 3 outages by Customers, highest first.
+--- reference
+Here are the three outages with the most affected customers.
+```dyui
+{"ui":"table","columns":["ID","Area","Cause","Status","Customers"],"rows":[["OUT-405","Osaka","Power failure","Fixed",7271],["OUT-418","Bangkok","Software update","Investigating",7145],["OUT-437","Prague","Software update","Monitoring",6574]],"caption":"Outages"}
+```
+OUT-405 is the largest at 7271 customers.
+--- derived
+
+=== F-0003
+--- user
+spanish labels and title pls
+--- reference
+Here is the chart with labels and title in Spanish.
+```dyui
+{"ui":"chart","kind":"area","labels":["abr","may","jun","jul","ago"],"series":[{"name":"Despliegues","data":[26,22,19,17,14]}],"title":"Despliegues, abr–ago"}
+```
+The numbers are untouched, falling from 26 to 14.
+--- derived
+
+=== F-0023
+--- user
+Kindly add one more statistic: On-time delivery, 90.3%.
+--- reference
+Here are the headline numbers with On-time delivery added.
+```dyui
+{"ui":"stats","items":[{"label":"Parcels today","value":"3685"},{"label":"Fleet utilisation","value":"62%"},{"label":"Damage rate","value":"1.8%"},{"label":"On-time delivery","value":"90.3%"}]}
+```
+The first three values have not changed.
+--- derived
+

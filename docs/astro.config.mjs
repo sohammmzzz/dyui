@@ -74,6 +74,12 @@ export default defineConfig({
       alias: { "@": here("../web/src") },
     },
     server: { fs: { allow: [here("..")] } },
-    ssr: { noExternal: ["motion", "lucide-react", "react-markdown", "remark-gfm", "highlight.js"] },
+    // Bundled for SSR so their `react` import goes through `dedupe` above. Left external, Node would
+    // load framer-motion (motion's engine) from ../web/node_modules together with web's own React,
+    // and hooks would crash in dev ("Cannot read properties of null (reading 'useState')").
+    ssr: {
+      noExternal: ["motion", "framer-motion", "motion-dom", "motion-utils", "lucide-react", "react-markdown",
+                   "remark-gfm", "highlight.js"],
+    },
   },
 });

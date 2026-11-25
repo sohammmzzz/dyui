@@ -290,10 +290,13 @@ export function initMagnetScroll(root: HTMLElement): () => void {
     window.dispatchEvent(new WheelEvent("wheel", { deltaX: dx, deltaY: dy, deltaMode: 0, cancelable: true }));
   }
 
-  // ── dialogs: Starlight search and the mobile menu own the scroll while open ──
+  // ── dialogs: Starlight search, the mobile menu and the docs assistant own the scroll while open ──
   function syncSuspended() {
     const menu = document.getElementById("starlight__sidebar");
-    const open = document.body.hasAttribute("data-search-modal-open") || !!menu?.matches?.(":popover-open");
+    const open =
+      document.body.hasAttribute("data-search-modal-open") ||
+      !!menu?.matches?.(":popover-open") ||
+      !!document.querySelector("dialog.dy-assist[open]");
     if (open === suspended) return;
     suspended = open;
     gesture = null;
@@ -384,6 +387,8 @@ export function initMagnetScroll(root: HTMLElement): () => void {
     document.fonts?.ready.then(measure);
     const mo = new MutationObserver(syncSuspended);
     mo.observe(document.body, { attributes: true, attributeFilter: ["data-search-modal-open"] });
+    const assist = document.querySelector("dialog.dy-assist");
+    if (assist) mo.observe(assist, { attributes: true, attributeFilter: ["open"] });
     off.push(() => mo.disconnect());
     const menu = document.getElementById("starlight__sidebar");
     if (menu) on(menu, "toggle", syncSuspended);

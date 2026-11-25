@@ -1,0 +1,403 @@
+/* "Ask the docs" — the floating bubble and the assistant dialog (components/AskDocs.astro).
+   Same surfaces, hairlines, radii and single easing as the rest of the site; the mark is used
+   flat, in one colour, exactly as drawn. Loading reuses the splash keyframes (splash.css). */
+
+/* ------------------------------------------------------------ bubble */
+.dy-assist-bubble {
+  position: fixed;
+  z-index: 20;
+  inset-inline-end: max(1.25rem, env(safe-area-inset-right));
+  bottom: max(1.25rem, calc(env(safe-area-inset-bottom) + 0.75rem));
+  display: inline-flex;
+  align-items: center;
+  gap: 0;
+  box-sizing: border-box;
+  height: 3rem;
+  min-width: 3rem;
+  padding: 0 calc(0.75rem - 1px); /* 1px border + this + the 24px mark + … = a 3rem circle */
+  border: 1px solid var(--dy-border);
+  border-radius: var(--dy-radius-pill);
+  background: var(--dy-surface);
+  color: var(--dy-text);
+  box-shadow: var(--dy-shadow);
+  font: 500 0.875rem/1 var(--dy-font);
+  letter-spacing: -0.005em;
+  cursor: pointer;
+  transition:
+    border-color var(--dy-dur-2) var(--dy-ease),
+    box-shadow var(--dy-dur-2) var(--dy-ease),
+    gap var(--dy-dur-3) var(--dy-ease),
+    padding var(--dy-dur-3) var(--dy-ease),
+    opacity var(--dy-dur-3) var(--dy-ease),
+    transform var(--dy-dur-3) var(--dy-ease),
+    visibility 0s linear 0s;
+}
+.dy-assist-bubble[hidden] {
+  display: none;
+}
+.dy-assist-bubble .dy-assist-mark {
+  flex: none;
+  width: 24px;
+  height: 13px;
+  fill: var(--dy-accent);
+}
+.dy-assist-bubble-label {
+  max-width: 0;
+  overflow: hidden;
+  white-space: nowrap;
+  opacity: 0;
+  transition:
+    max-width var(--dy-dur-3) var(--dy-ease),
+    opacity var(--dy-dur-2) var(--dy-ease);
+}
+.dy-assist-bubble:hover,
+.dy-assist-bubble:focus-visible {
+  gap: 0.55rem;
+  padding-inline-end: calc(1rem - 1px);
+  border-color: var(--dy-border-strong);
+  box-shadow: var(--dy-shadow-lg);
+}
+.dy-assist-bubble:hover .dy-assist-bubble-label,
+.dy-assist-bubble:focus-visible .dy-assist-bubble-label {
+  max-width: 8rem;
+  opacity: 1;
+}
+.dy-assist-bubble:focus-visible {
+  outline: 2px solid var(--dy-accent);
+  outline-offset: 3px;
+  border-radius: var(--dy-radius-pill);
+}
+/* tucked away (landing live demo in view): fades and drops a few pixels; not focusable */
+.dy-assist-bubble[data-tucked] {
+  opacity: 0;
+  transform: translateY(0.5rem);
+  pointer-events: none;
+  visibility: hidden;
+  transition:
+    opacity var(--dy-dur-3) var(--dy-ease),
+    transform var(--dy-dur-3) var(--dy-ease),
+    visibility 0s linear var(--dy-dur-3);
+}
+/* Starlight's mobile menu owns the screen while open */
+body:has(#starlight__sidebar:popover-open) .dy-assist-bubble {
+  display: none;
+}
+
+/* the last thing on a page (pagination, footer) can always scroll clear of the bubble */
+body:has(.dy-assist-bubble) .main-frame footer {
+  padding-bottom: 4.5rem;
+}
+
+/* ------------------------------------------------------------ the assistant: a frosted full-screen overlay
+   A non-modal <dialog> (shown with show(), so the chat's own menus and lightbox, portalled to <body>,
+   still stack above it) covers the screen. The overlay itself blurs and tints the page behind it; the
+   DyUI chat (AskDocsApp.tsx, the real web app shell rendered in this page) sits on it with clear
+   backgrounds and glass chrome, so header, conversation and composer float on the frosted page. */
+body[data-assist-open] {
+  overflow: hidden; /* like Starlight's search dialog */
+}
+
+.dy-assist {
+  position: fixed;
+  inset: 0;
+  z-index: 500; /* above Starlight's header and sidebar, below the chat's lightbox (1000) */
+  box-sizing: border-box;
+  width: 100vw;
+  height: 100dvh;
+  max-width: none;
+  max-height: none;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  color: var(--dy-text);
+  overflow: hidden;
+  opacity: 0;
+  transition: opacity var(--dy-dur-3) var(--dy-ease);
+  /* the frost (a denser solid tint where backdrop-filter is unsupported) */
+  background: rgb(11 12 16 / 0.86);
+}
+:root[data-theme="light"] .dy-assist {
+  background: rgb(247 246 243 / 0.9);
+}
+/* only the unprefixed property: the build's CSS minifier adds -webkit- itself */
+@supports (backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px)) {
+  .dy-assist {
+    background: rgb(11 12 16 / 0.46);
+    backdrop-filter: blur(26px) saturate(1.4);
+  }
+  :root[data-theme="light"] .dy-assist {
+    background: rgb(247 246 243 / 0.44);
+  }
+}
+@media (prefers-reduced-transparency: reduce) {
+  .dy-assist {
+    background: rgb(11 12 16 / 0.95);
+    backdrop-filter: none;
+  }
+  :root[data-theme="light"] .dy-assist {
+    background: rgb(247 246 243 / 0.97);
+  }
+}
+.dy-assist.is-open {
+  opacity: 1;
+}
+.dy-assist:not([open]) {
+  display: none;
+}
+
+.dy-assist-panel {
+  position: relative;
+  height: 100%;
+  transform: translateY(12px) scale(0.99);
+  transition: transform var(--dy-dur-3) var(--dy-ease);
+}
+.dy-assist.is-open .dy-assist-panel {
+  transform: none;
+}
+
+/* titles exist for assistive tech (aria-labelledby / describedby), not on screen */
+.dy-assist-sr {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  padding: 0;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+  border: 0;
+}
+.dy-assist .dy-assist-title,
+.dy-assist .dy-assist-note {
+  margin: 0;
+}
+
+/* close: a round frosted button, top-right above the chat (the chat keeps its header clear of it) */
+.dy-assist-close {
+  position: absolute;
+  z-index: 70; /* above the chat's header and toasts */
+  top: max(0.5rem, env(safe-area-inset-top));
+  inset-inline-end: max(0.75rem, env(safe-area-inset-right));
+  display: grid;
+  place-items: center;
+  width: 2.5rem;
+  height: 2.5rem;
+  border: 1px solid color-mix(in oklab, var(--dy-border-strong) 70%, transparent);
+  border-radius: 50%;
+  background: color-mix(in oklab, var(--dy-surface) 62%, transparent);
+  color: var(--dy-text);
+  box-shadow: 0 6px 24px rgb(0 0 0 / 0.14);
+  backdrop-filter: blur(14px) saturate(1.3);
+  cursor: pointer;
+  transition:
+    background-color var(--dy-dur-1) var(--dy-ease),
+    border-color var(--dy-dur-1) var(--dy-ease),
+    transform var(--dy-dur-2) var(--dy-ease);
+}
+.dy-assist-close:hover {
+  background: color-mix(in oklab, var(--dy-surface) 88%, transparent);
+  border-color: var(--dy-border-strong);
+  transform: scale(1.05);
+}
+.dy-assist-close:focus-visible,
+.dy-assist-btn:focus-visible {
+  outline: 2px solid var(--dy-accent);
+  outline-offset: 2px;
+}
+
+.dy-assist-body {
+  position: absolute;
+  inset: 0;
+}
+.dy-assist-app {
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  transition: opacity var(--dy-dur-3) var(--dy-ease);
+}
+.dy-assist-body[data-state="ready"] .dy-assist-app {
+  opacity: 1;
+}
+.dy-assist-body:not([data-state="ready"]) .dy-assist-app {
+  visibility: hidden;
+}
+
+/* ---- the chat on frosted glass: translucent surfaces, clear page backgrounds ---- */
+.dy-assist-app {
+  --dy-bg: rgb(11 12 16 / 0.4);
+  --dy-bg-subtle: rgb(16 17 23 / 0.5);
+  --dy-surface: rgb(22 23 31 / 0.62);
+  --sh-code-bg: rgb(16 17 23 / 0.7);
+}
+:root[data-theme="light"] .dy-assist-app {
+  --dy-bg: rgb(247 246 243 / 0.45);
+  --dy-bg-subtle: rgb(241 239 234 / 0.55);
+  --dy-surface: rgb(255 255 255 / 0.68);
+  --sh-code-bg: rgb(250 249 247 / 0.8);
+}
+/* the shell is position: fixed to the viewport; here it fills the overlay instead */
+.dy-assist-app .sh-app {
+  position: absolute;
+}
+.dy-assist-app .sh-app,
+.dy-assist-app .sh-main,
+.dy-assist-app .sh-scroll,
+.dy-assist-app .sh-welcome-wrap {
+  background: transparent;
+}
+.dy-assist-app .sh-header,
+.dy-assist-app .sh-field {
+  background: var(--dy-bg);
+  backdrop-filter: blur(18px) saturate(1.4);
+}
+.dy-assist-app .sh-dock {
+  background: transparent;
+}
+.dy-assist-app .sh-dock::before {
+  background: none;
+}
+.dy-assist-app .sh-field {
+  border-radius: 18px;
+  box-shadow: 0 8px 32px rgb(0 0 0 / 0.12);
+}
+.dy-assist-app .sh-bubble,
+.dy-assist-app .sh-starter {
+  background: var(--dy-surface);
+  backdrop-filter: blur(12px);
+}
+/* the page's theme drives the chat, so it has no toggle of its own; and the header keeps clear
+   of the overlay's close button */
+.dy-assist-app .sh-header-right .sh-seg {
+  display: none;
+}
+.dy-assist-app .sh-header-right {
+  padding-inline-end: 52px;
+}
+@media (prefers-reduced-transparency: reduce) {
+  .dy-assist-app {
+    --dy-bg: rgb(11 12 16 / 0.95);
+    --dy-surface: #16171f;
+  }
+  :root[data-theme="light"] .dy-assist-app {
+    --dy-bg: rgb(247 246 243 / 0.97);
+    --dy-surface: #fff;
+  }
+}
+
+
+/* loading: the mark assembling (the splash, smaller) */
+.dy-assist-loading,
+.dy-assist-error {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-content: center;
+  justify-items: center;
+  gap: 1rem;
+  padding: 1.5rem;
+  text-align: center;
+}
+.dy-assist-loading[hidden],
+.dy-assist-error[hidden] {
+  display: none;
+}
+.dy-assist-loader {
+  overflow: visible;
+  fill: var(--dy-accent);
+}
+.dy-assist-loader-dot {
+  transform-box: fill-box;
+  transform-origin: center;
+  animation:
+    dyd-splash-pop 0.5s var(--dy-ease) both,
+    dyd-splash-type 1.2s var(--dy-ease-in-out) 1.15s infinite;
+}
+.dy-assist-loader-dot + .dy-assist-loader-dot {
+  animation-delay: 0.12s, 1.31s;
+}
+.dy-assist-loader-card {
+  transform-origin: 52px 75px;
+  animation:
+    dyd-splash-bloom 0.7s var(--dy-ease) 0.3s both,
+    dyd-splash-breathe 2s var(--dy-ease-in-out) 1.15s infinite;
+}
+.dy-assist-status {
+  font-size: 0.8125rem;
+  color: var(--dy-text-faint);
+}
+
+.dy-assist .dy-assist-error-title {
+  margin: 0;
+  font: 400 1.5rem/1.2 var(--dy-font-display);
+  letter-spacing: var(--dy-tracking-display);
+  color: var(--dy-text);
+}
+.dy-assist .dy-assist-error-text {
+  margin: 0;
+  max-width: 26rem;
+  font-size: 0.875rem;
+  line-height: 1.55;
+  color: var(--dy-text-muted);
+}
+.dy-assist-actions {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 0.5rem;
+  margin-top: 0.25rem;
+}
+.dy-assist-btn {
+  height: 2.25rem;
+  padding: 0 1rem;
+  border: 1px solid var(--dy-border-strong);
+  border-radius: var(--dy-radius);
+  background: var(--dy-surface);
+  color: var(--dy-text);
+  font: 500 0.875rem/1 var(--dy-font);
+  cursor: pointer;
+  transition:
+    background-color var(--dy-dur-1) var(--dy-ease),
+    border-color var(--dy-dur-1) var(--dy-ease);
+}
+.dy-assist-btn:hover {
+  background: var(--dy-surface-2);
+}
+.dy-assist-btn--primary {
+  border-color: var(--dy-accent);
+  background: var(--dy-accent);
+  color: var(--dy-accent-text);
+}
+.dy-assist-btn--primary:hover {
+  background: color-mix(in oklab, var(--dy-accent) 88%, var(--dy-text));
+}
+
+/* ------------------------------------------------------------ reduced motion: opacity only */
+@media (prefers-reduced-motion: reduce) {
+  .dy-assist {
+    transition: opacity var(--dy-dur-2) linear;
+  }
+  .dy-assist-panel,
+  .dy-assist.is-open .dy-assist-panel,
+  .dy-assist-close:hover {
+    transform: none;
+    transition: none;
+  }
+  .dy-assist-bubble,
+  .dy-assist-bubble[data-tucked] {
+    transform: none;
+  }
+  .dy-assist-bubble-label {
+    transition: opacity var(--dy-dur-2) linear;
+  }
+  .dy-assist-loader-dot,
+  .dy-assist-loader-card {
+    animation: none;
+  }
+}
+
+@media print {
+  .dy-assist-bubble,
+  .dy-assist {
+    display: none !important;
+  }
+}

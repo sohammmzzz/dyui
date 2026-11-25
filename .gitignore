@@ -41,3 +41,6 @@ playwright-report/
 
 # Playwright e2e output
 web/e2e/.results/
+
+# Docs assistant backend: a local Vercel deploy wrapper, never committed
+documentation_website/

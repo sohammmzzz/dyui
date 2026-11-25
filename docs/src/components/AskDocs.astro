@@ -1,0 +1,29 @@
+---
+/**
+ * "Ask the docs": a floating bubble (the DyUI mark) on every docs page that opens the DyUI Docs
+ * assistant as a frosted full-screen overlay. No iframe: the chat is the real DyUI web app shell
+ * (../web/src, AskDocsApp.tsx) rendered in this page, calling the assistant backend's /api/*
+ * cross-origin (the backend grants CORS to the docs' origin). The page blurs behind the overlay,
+ * the chat floats on it with glass chrome, and a round close button sits top-right.
+ *
+ * URL: src/data/assistant.json { "url": "" }, overridable at build / dev time with
+ * PUBLIC_DYUI_ASSISTANT_URL (e.g. http://localhost:8010). With no URL, nothing is rendered at all.
+ *
+ * The chat's code is loaded on the first open only (nothing is downloaded for readers who never
+ * open it) and stays mounted after closing, so the conversation survives. It follows the page's
+ * theme (both use html[data-theme] and the same tokens).
+ *
+ * Other parts of the page that cooperate:
+ *   - scripts/magnet-scroll.ts suspends the landing scroller while `dialog.dy-assist[open]`;
+ *   - scripts/nav-autohide.ts keeps the top bar still while `body[data-assist-open]`;
+ *   - the bubble tucks away while the landing page's full-screen live demo stop is in view;
+ *   - Ctrl/Cmd+K closes the overlay before Starlight's search opens, so the two never stack.
+ */
+import cfg from "../data/assistant.json";
+import AskDocsDialog from "./AskDocsDialog.astro";
+
+const raw = String(import.meta.env.PUBLIC_DYUI_ASSISTANT_URL || cfg.url || "").trim();
+const url = /^https?:\/\//i.test(raw) ? raw : "";
+---
+
+{url && <AskDocsDialog url={url} />}

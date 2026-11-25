@@ -139,6 +139,31 @@ header.header {
   backdrop-filter: saturate(1.3) blur(16px);
   -webkit-backdrop-filter: saturate(1.3) blur(16px);
   border-bottom: 1px solid var(--dx-hair);
+  transition:
+    transform var(--dy-dur-3, 0.32s) var(--dy-ease, cubic-bezier(0.22, 1, 0.36, 1)),
+    opacity var(--dy-dur-3, 0.32s) var(--dy-ease, cubic-bezier(0.22, 1, 0.36, 1));
+  will-change: transform;
+}
+/* auto-hide (scripts/nav-autohide.ts): slides up while reading, back on scroll-up / pointer at the top */
+html.dy-nav-hidden .page > .header,
+html.dy-nav-hidden header.header {
+  transform: translateY(calc(-100% - 1px));
+  opacity: 0;
+  pointer-events: none;
+}
+/* the mobile "On this page" bar is stuck under the header: it follows it up */
+mobile-starlight-toc nav {
+  transition: transform var(--dy-dur-3, 0.32s) var(--dy-ease, cubic-bezier(0.22, 1, 0.36, 1));
+}
+html.dy-nav-hidden mobile-starlight-toc nav {
+  transform: translateY(calc(-1 * var(--sl-nav-height)));
+}
+@media (prefers-reduced-motion: reduce) {
+  .page > .header,
+  header.header,
+  mobile-starlight-toc nav {
+    transition: none;
+  }
 }
 .site-title {
   transition: opacity var(--dx-t-fast);

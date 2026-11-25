@@ -1,7 +1,12 @@
 ---
-// Starlight <PageFrame> override: the default frame, plus the loading splash (../Splash.astro).
+// Starlight <PageFrame> override: the default frame, plus the loading splash (../Splash.astro)
+// and the "Ask the docs" assistant bubble + dialog (../AskDocs.astro; renders nothing without a URL).
+// AskDocs comes after the frame so the bubble is the last stop in the tab order.
+// NavAutohide: the top bar slides away while reading (../NavAutohide.astro).
 import Default from "@astrojs/starlight/components/PageFrame.astro";
 import Splash from "../Splash.astro";
+import AskDocs from "../AskDocs.astro";
+import NavAutohide from "../NavAutohide.astro";
 ---
 
 <Splash />
@@ -10,3 +15,5 @@ import Splash from "../Splash.astro";
   <slot name="sidebar" slot="sidebar" />
   <slot />
 </Default>
+<AskDocs />
+<NavAutohide />
